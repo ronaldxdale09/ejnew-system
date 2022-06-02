@@ -1,0 +1,203 @@
+
+.form-modal{
+    display:block;
+    width:100%;
+    padding:0.375rem 0.75rem;
+    font-size:0.875rem;
+    font-weight:400;
+    line-height:1.5;
+    color:#84888b;
+    background-color:rgb(255, 255, 255);
+    background-clip:padding-box;
+    border:0px solid #ffffff;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    border-radius:5px;
+    -webkit-transition:border-color 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
+    transition:border-color 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
+    -o-transition:border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+    transition:border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+    transition:border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out
+}
+@media (prefers-reduced-motion:reduce){
+    .form-modal{
+        -webkit-transition:none;
+        -o-transition:none;
+        transition:none
+    }
+}
+.form-modal[type=file]{
+    overflow:hidden
+}
+.form-modal[type=file]:not(:disabled):not([readonly]){
+    cursor:pointer
+}
+.form-modal:focus{
+    color:#3e5569;
+    background-color:#fff;
+    border-color:rgba(0,0,0,0.25);
+    outline:0;
+    -webkit-box-shadow:transparent;
+    box-shadow:transparent
+}
+.form-modal::-webkit-date-and-time-value{
+    height:1.5em
+}
+.form-modal::-webkit-input-placeholder{
+    color:#6c757d;
+    opacity:1
+}
+.form-modal::-moz-placeholder{
+    color:#6c757d;
+    opacity:1
+}
+.form-modal:-ms-input-placeholder{
+    color:#6c757d;
+    opacity:1
+}
+.form-modal::-ms-input-placeholder{
+    color:#6c757d;
+    opacity:1
+}
+.form-modal::placeholder{
+    color:#6c757d;
+    opacity:1
+}
+.form-modal:disabled,.form-modal[readonly]{
+    background-color:#dceaf8;
+    color:rgb(34, 34, 34);
+    opacity:1
+}
+.form-modal::file-selector-button{
+    padding:0.375rem 0.75rem;
+    margin:-0.375rem -0.75rem;
+    -webkit-margin-end:0.75rem;
+    margin-inline-end:0.75rem;
+    color:#222222;
+    background-color:#f8f9fa;
+    pointer-events:none;
+    border-color:inherit;
+    border-style:solid;
+    border-width:0;
+    border-inline-end-width:1px;
+    border-radius:0;
+    -webkit-transition:color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
+    transition:color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
+    -o-transition:color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+    transition:color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+    transition:color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out
+}
+@media (prefers-reduced-motion:reduce){
+    .form-modal::file-selector-button{
+        -webkit-transition:none;
+        -o-transition:none;
+        transition:none
+    }
+}
+.form-modal:hover:not(:disabled):not([readonly])::file-selector-button{
+    background-color:#ecedee
+}
+.form-modal::-webkit-file-upload-button{
+    padding:0.375rem 0.75rem;
+    margin:-0.375rem -0.75rem;
+    -webkit-margin-end:0.75rem;
+    margin-inline-end:0.75rem;
+    color:#3e5569;
+    background-color:#f8f9fa;
+    pointer-events:none;
+    border-color:inherit;
+    border-style:solid;
+    border-width:0;
+    border-inline-end-width:1px;
+    border-radius:0;
+    -webkit-transition:color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
+    transition:color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
+    transition:color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+    transition:color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out
+}
+@media (prefers-reduced-motion:reduce){
+    .form-modal::-webkit-file-upload-button{
+        -webkit-transition:none;
+        transition:none
+    }
+}
+.form-modal:hover:not(:disabled):not([readonly])::-webkit-file-upload-button{
+    background-color:#ecedee
+}
+.form-modal-plaintext{
+    display:block;
+    width:100%;
+    padding:0.375rem 0;
+    margin-bottom:0;
+    line-height:1.5;
+    color:#3e5569;
+    background-color:transparent;
+    border:solid transparent;
+    border-width:1px 0
+}
+.form-modal-plaintext.form-modal-lg,.form-modal-plaintext.form-modal-sm{
+    padding-right:0;
+    padding-left:0
+}
+.form-modal-sm{
+    min-height:calc(1.5em + 0.5rem + 2px);
+    padding:0.25rem 0.5rem;
+    font-size:0.765625rem;
+    border-radius:1px
+}
+.form-modal-sm::file-selector-button{
+    padding:0.25rem 0.5rem;
+    margin:-0.25rem -0.5rem;
+    -webkit-margin-end:0.5rem;
+    margin-inline-end:0.5rem
+}
+.form-modal-sm::-webkit-file-upload-button{
+    padding:0.25rem 0.5rem;
+    margin:-0.25rem -0.5rem;
+    -webkit-margin-end:0.5rem;
+    margin-inline-end:0.5rem
+}
+.form-modal-lg{
+    min-height:calc(1.5em + 1rem + 2px);
+    padding:0.5rem 1rem;
+    font-size:1.09375rem;
+    border-radius:2px
+}
+.form-modal-lg::file-selector-button{
+    padding:0.5rem 1rem;
+    margin:-0.5rem -1rem;
+    -webkit-margin-end:1rem;
+    margin-inline-end:1rem
+}
+.form-modal-lg::-webkit-file-upload-button{
+    padding:0.5rem 1rem;
+    margin:-0.5rem -1rem;
+    -webkit-margin-end:1rem;
+    margin-inline-end:1rem
+}
+textarea.form-modal{
+    min-height:calc(1.5em + 0.75rem + 2px)
+}
+textarea.form-modal-sm{
+    min-height:calc(1.5em + 0.5rem + 2px)
+}
+textarea.form-modal-lg{
+    min-height:calc(1.5em + 1rem + 2px)
+}
+.form-modal-color{
+    max-width:3rem;
+    height:auto;
+    padding:0.375rem
+}
+.form-modal-color:not(:disabled):not([readonly]){
+    cursor:pointer
+}
+.form-modal-color::-moz-color-swatch{
+    height:1.5em;
+    border-radius:2px
+}
+.form-modal-color::-webkit-color-swatch{
+    height:1.5em;
+    border-radius:2px
+}
