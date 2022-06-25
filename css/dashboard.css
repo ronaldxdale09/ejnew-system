@@ -1,0 +1,25 @@
+.dashboard-module{
+    padding-left:20px;
+    padding-top:10px;
+    position:relative;
+}
+
+.dashboard-module .label{
+    margin:0px;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.dashboard-data{
+    padding-left:20px;
+    font-size:2vw;
+    margin:0px;
+    position:absolute;
+    right:30px;
+}
+
+.dashboard-comparison{
+    position:absolute; 
+    bottom:10px; 
+    right:5px;
+}

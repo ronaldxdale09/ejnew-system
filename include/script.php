@@ -43,29 +43,6 @@ function FormatCurrency(ctrl) {
 </script>
 
 
-<!-- DISPLAY ADDRESS -->
-<script type="text/javascript">
-   $(document).ready(function(){
-   // Country dependent ajax
-   $("#name").on("change",function(){
-   var name = $(this).val();
-  
-    $.ajax({
-    	url :"fetch.php",
-	type:"POST",
-	cache:false,
-	data:{name:name},
-  cache: false,
-success: function(address)
-{
-$("#address").html(address);
-} 
-});
- 
-});
-});
-</script>
-
 
 <!-- COMPUTE MOISTURE DISCOUNT -->
 

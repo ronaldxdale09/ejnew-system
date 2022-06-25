@@ -1,56 +1,28 @@
-<?php 
-include('include/header.php');
-include('include/navbar.php');
-?>
-<body>
-    <!-- ============================================================== -->
-    <!-- Preloader - style you can find in spinners.css -->
-    <!-- ============================================================== -->
-    <div class="preloader">
-        <div class="lds-ripple">
-            <div class="lds-pos"></div>
-            <div class="lds-pos"></div>
+<!DOCTYPE html>
+<html>
+    <head>
+        <?php
+            include "include/bootstrap.php";
+            include "include/jquery.php";
+        ?>
+        <link rel='stylesheet' href='css/login.css'>
+    </head>
+    <body style="background-image: url('assets/img/cart-bg.jpg'); background-repeat: no-repeat; background-size: cover;">
+        <div class="banner">
+            Digi-Cart Point of Sale System | Admin Login
         </div>
-    </div>
-
-
-    <div class="page-wrapper">
-            <!-- ============================================================== -->
-            <!-- Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <div class="page-breadcrumb">
-                <div class="row align-items-center">
-                    <div class="col-5">
-                        <h4 class="page-title">Dashboard</h4>
-                        <div class="d-flex align-items-center">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Library</li>
-                                </ol>
-                            </nav>
-                        </div>
+        <div class="login-box">
+            <form method='POST' action='function/login.php'>
+                <div class="user-box">
+                    <input type="text" name="username" required="">
+                    <label>Username</label>
                     </div>
-             
-                </div>
-            </div>
-    <!-- ============================================================== -->
-    <!-- Main wrapper - style you can find in pages.scss -->
-    <!-- ============================================================== -->
-    
-
-            <!-- ============================================================== -->
-            <div class="container-fluid">
-                <!-- ============================================================== -->
-                
-
-                <!-- HERE TO PONE THEI EL DASHBOARD -->
-                <!-- ============================================================== -->
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-
-
-            <?php include('include/footer.php'); ?>
+                    <div class="user-box">
+                    <input type="password" name="password" required="">
+                    <label>Password</label>
+                    </div>
+                    <input type="submit" value="Submit">
+            </form>
+        </div>
+    </body>
+</html>
