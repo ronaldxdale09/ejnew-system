@@ -14,20 +14,18 @@
         <a class='nav-link' href='Transaction.php'>
             <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>Transaction</span>
         </a>
-        <a class='nav-link' href='sales.php'>
-            <i class='fa-solid fa-coins'></i> <span class='nav-text'>Sales</span>
+        <a class='nav-link' href='seller.php'>
+            <i class='fa-solid fa-user'></i> <span class='nav-text'>Seller</span>
         </a>
         <a class='nav-link' href='inventory.php'>
-            <i class='fa-solid fa-boxes-stacked'></i> <span class='nav-text'>Inventory</span>
+            <i class='fa-solid fa-boxes-stacked'></i> <span class='nav-text'>Cash Agreement</span>
         </a>
         ";
     echo "
-        <a class='nav-link' href='reg_prod/index.php'>
-            <i class='fa-solid fa-boxes-packing'></i> <span class='nav-text'>Register Product</span>
+        <a class='nav-link' href='ledger.php'>
+            <i class='fa-solid fa-book'></i> <span class='nav-text'>General Ledger</span>
         </a>
-        <a class='nav-link' href='store.php'>
-            <i class='fa-solid fa-cart-shopping'></i> <span class='nav-text'>Cart Mode</span>
-        </a>
+        
         <div class='logout-container'>
             <span class='nav-text'></span>
             <a class='nav-link logout' href='function/logout.php'>

@@ -484,52 +484,8 @@
 
 
 <?php
+include('modal/modal.php');
 include('modal/modalScript.php');
-include('modal/purchaseModal.php');
 include('include/script.php');
 ?>
 
-<!-- DISPLAY ADDRESS -->
-<script type="text/javascript">
-   $(document).ready(function(){
-   // Country dependent ajax
-   $("#name").on("change",function(){
-   var name = $(this).val();
-  
-    $.ajax({
-    	url :"include/fetch/fetchAddress.php",
-	type:"POST",
-	cache:false,
-	data:{name:name},
-  cache: false,
-success: function(address)
-{
-$("#address").html(address);
-} 
-});
- 
-});
-});
-</script>
-
-<script src="assets/jquery/dist/jquery.min.js"></script>
-<script src="assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript">
-            $(document).ready(function() {
-
-
-
-                $('#print_voucher').click(function() {
-                    var nw = window.open("voucher/print_voucher.php", "_blank", "height=623,width=812")
-                    setTimeout(function() {
-                        nw.print()
-                        setTimeout(function() {
-                            nw.close()
-                        }, 500)
-                    }, 1000)
-                })
-
-
-
-            });
-            </script>

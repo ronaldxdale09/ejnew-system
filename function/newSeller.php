@@ -17,7 +17,7 @@
                                         $_SESSION['seller']= "successful";
                                         exit();
                                     } else {
-                                        echo "ERROR: Could not be able to execute $query. ".msqli_error($con);
+                                        echo "ERROR: Could not be able to execute $query. ".mysqli_error($con);
                                     }
                                 //exit();
                                 }

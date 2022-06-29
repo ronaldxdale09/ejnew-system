@@ -1,11 +1,12 @@
-
-
 <?php 
+
  include('db.php');
+
+ if (isset($_POST['confirmPurchase'])) {
                             $invoice = $_POST['m_invoice'];
                              $date = $_POST['m_date'];
                             // $contract = $_POST['code'];
-                             $seller = $_POST['m_name'];
+                            print($seller = $_POST['m_name']);
                              $noSack = $_POST['m_noSack'];
                               $gross = $_POST['m_gross'];
                               $tare = $_POST['m_tare'];
@@ -34,10 +35,10 @@
                              $words_amount =  $_POST['m_total-words'];
                             
 
-                                $query = "INSERT INTO transaction_record (
+                             $query = "INSERT INTO transaction_record (
                                     invoice,date,seller,noSack,gross,tare,net_weight,dust,new_dust,total_dust,moisture,
                                     total_moisture,net_res,first_res,sec_res,third_res,total_first_res,total_sec_res,total_third_res,total_amount,less,
-                                    amount_paid,discount) 
+                                    amount_paid,discount,amount_words) 
                                         VALUES ('$invoice','$date','$seller','$noSack','$gross','$tare','$net_weight','$dust','$new_dust','$total_dust','$moisture',
                                     '$total_moisture','$net_res','$first_res','$sec_res','$third_res','$total_first_res','$total_sec_res','$total_third_res','$total_amount','$less',
                                     '$amount_paid','$discount','$words_amount')";
@@ -48,5 +49,7 @@
 
                                     }
                    
- 
+    } else {
+                                        echo "ERROR: Could not be able to execute $query. ".mysqli_error($con);
+                                    }
  ?>
