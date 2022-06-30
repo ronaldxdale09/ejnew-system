@@ -14,7 +14,7 @@
                     <div class="form-group">
                         <label class="col-md-12">DATE</label>
                         <div class="col-md-12">
-                            <input type="date" id="date" name="date" required>
+                            <input class='datepicker' type="date" id="date" name="date" required>
                         </div>
                     </div>
                     <br>

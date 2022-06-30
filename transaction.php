@@ -70,8 +70,8 @@
                                             <div class="form-group">
                                                 <label class="col-md-12">Date</label>
                                                 <div class="col-md-12">
-                                                    <input type="date" id="date" value="<?php echo $today; ?>"
-                                                        name="date">
+                                                    <input class='datepicker' type="date" id="date"
+                                                        value="<?php echo $today; ?>" name="date">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -152,9 +152,7 @@
                                                                 (Kilos)</label>
                                                             <!-- new column -->
                                                             <div class="input-group mb-3">
-                                                                <!-- <div class="input-group-prepend">
-                                       <span class="input-group-text">₱</span>
-                                       </div> -->
+                                                              
                                                                 <input type="text" class="form-control" id='gross'
                                                                     name='gross' onkeypress="return CheckNumeric()"
                                                                     onkeyup="FormatCurrency(this)" />
@@ -506,6 +504,6 @@
 
 <?php
 include('modal/modal.php');
-include('modal/modalScript.php');
+include('modal/TransactionModalScript.php');
 include('include/script.php');
 ?>

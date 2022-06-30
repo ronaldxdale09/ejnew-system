@@ -43,7 +43,7 @@
                                         <span class="input-group-text" id="inputGroup-sizing-default"
                                             style='color:black;font-weight: bold;'>Date</span>
                                     </div>
-                                    <input type="text" style='text-align:right' name='m_date' id='m_date'
+                                    <input  class='datepicker' type="text" style='text-align:right' name='m_date' id='m_date'
                                         class="form-control" style='background-color:white;border:0px solid #ffffff;'
                                         readonly>
                                 </div>
@@ -366,7 +366,7 @@ $('#confirmPurchase').click(function() {
                         <div class="form-group">
                             <label class="col-md-12">DATE</label>
                             <div class="col-md-12">
-                                <input type="date" id="date" name="date">
+                                <input class='datepicker' type="date" id="date" name="date">
                             </div>
                         </div>
                         <br>

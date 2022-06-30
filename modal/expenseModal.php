@@ -19,7 +19,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12">DATE</label>
                                             <div class="col-md-12">
-                                                <input type="date" id="date" name="date" required>
+                                                <input class='datepicker' type="date" id="date" name="date" required>
                                             </div>
                                         </div>
                                     </div>
@@ -51,12 +51,10 @@
                                         <div class="form-group">
                                             <label class="col-md-12">Category</label>
                                             <div class="col-md-12">
-                                                <select class='ex_category' name='category' id='category'
-                                                    style="width:350px" required>
-                                                    <option disabled="disabled" selected="selected">Select Seller
-                                                    </option>
+                                            <input class="form-control" list="datalistOptions" name ='category'id="category" placeholder="Search Category">
+                                            <datalist id="datalistOptions">
                                                     <?php echo $exCatList; ?>
-                                                </select>
+                                            </datalist>
                                             </div>
                                         </div>
                                     </div>

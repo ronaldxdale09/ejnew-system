@@ -1,6 +1,16 @@
 <?php 
    include('include/header.php');
    include "include/navbar.php";
+
+   $seller = "SELECT * FROM seller ";
+   $result = mysqli_query($con, $seller);
+   $sellerList='';
+   while($arr = mysqli_fetch_array($result))
+   {
+   $sellerList .= '<option value="'.$arr["name"].'">[ '.$arr["code"].' ]      '.$arr["name"].'</option>';
+   }
+   
+
    ?>
 
 <body>
@@ -22,35 +32,41 @@
                             <div class="card">
                                 <div class="card-body">
                                     <!-- CONTENT -->
-                                    <button type="button" class="btn btn-success text-white" data-bs-toggle="modal"
-                                        data-bs-target="#modal">
+                                    <button type="button" class="btn btn-success text-white" data-toggle="modal"
+                                data-target="#newContract">
                                         <i class="fa fa-add" aria-hidden="true"></i>   NEW CONTRACT
                                     </button>
                                     <br>   <br>
                                     <h6 class="card-title m-t-40"><i
                                             class="m-r-5 font-18 mdi mdi-numeric-1-box-multiple-outline"></i>List of
-                                        Seller</h6>
+                                        Cash Agreement</h6>
                                     <br>
                                     <div class="table-responsive">
                                         <table class="table" id='sellerTable'>
                                             <?php
-                                    $results  = mysqli_query($con, "SELECT * from seller"); 
+                                    $results  = mysqli_query($con, "SELECT * from cash_agreement"); 
                                     
                                     ?>
                                             <thead class="table-dark">
                                                 <tr>
-                                                    <th scope="col">Code</th>
-                                                    <th scope="col">Name</th>
-                                                    <th scope="col">Address</th>
-                                                    <th scope="col">Action</th>
+                                                    <th scope="col">Date</th>
+                                                    <th scope="col">Contact</th>
+                                                    <th scope="col">Seller</th>
+                                                    <th scope="col">Quantity</th>
+                                                    <th scope="col">Delivered</th>
+                                                    <th scope="col">Balance</th>
+                                                    <th scope="col">Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php while ($row = mysqli_fetch_array($results)) { ?>
                                                 <tr>
-                                                    <th scope="row"><?php echo $row['code']?></th>
-                                                    <td><?php echo $row['name']?></td>
-                                                    <td><?php echo $row['address']?></td>
+                                                    <th scope="row"><?php echo $row['date']?></th>
+                                                    <td><?php echo $row['contract_no']?></td>
+                                                    <td><?php echo $row['seller']?></td>
+                                                    <td><?php echo $row['contract_quality']?></td>
+                                                    <td><?php echo $row['delivered']?></td>
+                                                    <td><?php echo $row['balance']?></td>
                                                     <td> <button type="button"
                                                             class="btn btn-success text-white">VIEW</button>
                                                     </td>
@@ -76,7 +92,12 @@
 
 
 <?php
-include('modal/modal.php');
-include('modal/modalScript.php');
-include('include/script.php');
+include('modal/contractModal.php');
 ?>
+
+
+        <script>
+        $('#newContract').on('shown.bs.modal', function() {
+            $('.select_seller', this).chosen();
+        });
+        </script>

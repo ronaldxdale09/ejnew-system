@@ -12,7 +12,7 @@
     <link href="assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">   
     <link rel="stylesheet" href="css/chosen.min.css">
     <link rel='stylesheet' href='css/cashier_list.css'>
-
+    <link rel='stylesheet' href='css/main.css'>
     <title>EJN Copra</title>
     
 </head>
