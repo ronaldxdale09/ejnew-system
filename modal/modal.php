@@ -6,7 +6,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Confrim Transaction</h5>
-                    <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                    <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -117,7 +117,7 @@
                         readonly />
                     <!-- hidden -->
                     <input name="m_noSack" id="m_noSack" hidden>
-                    <input name="m_gross" id="m_gross">
+                    <input name="m_gross" id="m_gross" hidden>
                     <input name="m_tare" id="m_tare" hidden>
                     <input name="m_net" id="m_net" hidden>
                     <input name="m_dust" id="m_dust" hidden>
@@ -136,7 +136,7 @@
                     <!--  -->
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type='submit' id='confirmPurchase' name='confirmPurchase'
                         class="btn btn-success text-white">Submit</button>
                 </div>
@@ -184,7 +184,7 @@ $('#confirmPurchase').click(function() {
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">PRINT VOUCHER</h5>
-                <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -339,7 +339,7 @@ $('#confirmPurchase').click(function() {
                 <!--  -->
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button id='print_voucher' name='print_voucher' class="btn btn-success text-white">Print</button>
             </div>
         </div>
@@ -357,7 +357,7 @@ $('#confirmPurchase').click(function() {
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">EXPENSES</h5>
-                    <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                    <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -414,7 +414,7 @@ $('#confirmPurchase').click(function() {
                     </div>
                     <div class="modal-footer">
                         <button type="submit" name='submit' class="btn btn-primary">Submit</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </form>
             </div>
         </div>

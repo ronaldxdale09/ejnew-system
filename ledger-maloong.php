@@ -36,32 +36,30 @@
 
 <body>
 
-   <link rel='stylesheet' href='css/statistic-card.css'>
-   <link rel='stylesheet' href='css/tab.css'>
+    <link rel='stylesheet' href='css/statistic-card.css'>
+    <link rel='stylesheet' href='css/tab.css'>
 
     <input type='hidden' id='selected-cart' value=''>
     <div class='main-content' style='position:relative; height:90%;'>
         <div class="container home-section h-90" style="max-width:95%;">
-        
+
             <div class="p-5 bg-white rounded shadow mb-5">
                 <!-- Rounded tabs -->
                 <ul id="myTab" role="tablist"
                     class="nav nav-tabs nav-pills flex-column flex-sm-row text-center  border-5 rounded-nav ">
-                    <li class="nav-item flex-sm-fill  " >
-                        <a  href="ledger.php" role="tab" aria-controls="home"
-                            aria-selected="true" class="nav-link border-1" style='color:black; 
+                    <li class="nav-item flex-sm-fill  ">
+                        <a href="ledger.php" role="tab" aria-controls="home" aria-selected="true"
+                            class="nav-link border-1" style='color:black; 
                             font-weight: bold;font-size: 20px;'>EXPENSES</a>
                     </li>
                     <li class="nav-item flex-sm-fill">
-                        <a  href="ledger-purchase.php" role="tab"
-                            aria-controls="profile" aria-selected="false"
+                        <a href="ledger-purchase.php" role="tab" aria-controls="profile" aria-selected="false"
                             class="nav-link border-1" style='color:black; 
                             font-weight: bold;font-size: 20px;'>PURCHASES</a>
                     </li>
                     <li class="nav-item flex-sm-fill active">
                         <a id="contact-tab" href='ledger-maloong.php' data-toggle="tab" role="tab"
-                            aria-controls="contact" aria-selected="false"
-                            class="nav-link border-1 " style='color:white; 
+                            aria-controls="contact" aria-selected="false" class="nav-link border-1 " style='color:white; 
                             font-weight: bold;font-size: 20px;'>EJN MALOONG TOPPERS</a>
                     </li>
                 </ul>
@@ -69,8 +67,8 @@
                 <?php include('ledgerTab/ejn-maloong.php')?>
             </div>
             <!-- ============================================================== -->
-     
-            
+
+
         </div>
     </div>
 </body>

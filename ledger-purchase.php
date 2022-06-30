@@ -2,15 +2,16 @@
    include('include/header.php');
    include "include/navbar.php";
 
-   $Ex_category = "SELECT * FROM category_expenses ";
-   $result = mysqli_query($con, $Ex_category);
-   $exCatList='';
-   while($arr = mysqli_fetch_array($result))
+   // purchase category
+   $pur_category = "SELECT * FROM purchase_category ";
+   $pur_result = mysqli_query($con, $pur_category);
+   $purCatList='';
+   while($array = mysqli_fetch_array($pur_result))
    {
-   $exCatList .= '<option value="'.$arr["category"].'">'.$arr["category"].'</option>';
+   $purCatList .= '<option value="'.$array["category"].'">'.$array["category"].'</option>';
    }
    
-   
+
    
     //    over all expenses for this year
     $overall= mysqli_query($con, "SELECT SUM(amount) as overall 
@@ -30,38 +31,34 @@
         $monthNum  = $sumExp["month"];
         $dateObj   = DateTime::createFromFormat('!m', $monthNum);
         $monthName = $dateObj->format('F');
-
-
    ?>
 
 <body>
 
-   <link rel='stylesheet' href='css/statistic-card.css'>
-   <link rel='stylesheet' href='css/tab.css'>
+    <link rel='stylesheet' href='css/statistic-card.css'>
+    <link rel='stylesheet' href='css/tab.css'>
 
     <input type='hidden' id='selected-cart' value=''>
     <div class='main-content' style='position:relative; height:100%;'>
         <div class="container home-section h-100" style="max-width:95%;">
-        
-      
+
+
             <div class="p-5 bg-white rounded shadow mb-5">
                 <!-- Rounded tabs -->
                 <ul id="myTab" role="tablist"
                     class="nav nav-tabs nav-pills flex-column flex-sm-row text-center  border-5 rounded-nav ">
-                    <li class="nav-item flex-sm-fill  " >
-                        <a  href="ledger-expenses.php" role="tab" aria-controls="home"
-                            aria-selected="true" class="nav-link border-1" style='color:black; 
+                    <li class="nav-item flex-sm-fill  ">
+                        <a href="ledger.php" role="tab" aria-controls="home" aria-selected="true"
+                            class="nav-link border-1" style='color:black; 
                             font-weight: bold;font-size: 20px;'>EXPENSES</a>
                     </li>
                     <li class="nav-item flex-sm-fill active">
                         <a id="profile-tab" data-toggle="tab" href="ledger-purchase.php" role="tab"
-                            aria-controls="profile" aria-selected="false"
-                            class="nav-link border-1" style='color:white; 
+                            aria-controls="profile" aria-selected="false" class="nav-link border-1" style='color:white; 
                             font-weight: bold;font-size: 20px;'>PURCHASES</a>
                     </li>
                     <li class="nav-item flex-sm-fill">
-                        <a href='ledger-maloong.php'
-                            aria-controls="contact" aria-selected="false"
+                        <a href='ledger-maloong.php' aria-controls="contact" aria-selected="false"
                             class="nav-link border-1 " style='color:black; 
                             font-weight: bold;font-size: 20px;'>EJN MALOONG TOPPERS</a>
                     </li>
@@ -70,17 +67,21 @@
                 <?php include('ledgerTab/purchase.php')?>
             </div>
             <!-- ============================================================== -->
-     
-            
+
+
         </div>
     </div>
 </body>
 
 </html>
 
-
 <?php
-include('modal/modal.php');
+include('modal/purchaseModal.php');
 include('modal/modalScript.php');
-include('include/script.php');
 ?>
+
+<script>
+$('#purchase-modal').on('shown.bs.modal', function() {
+    $('.pur_category', this).chosen();
+});
+</script>
