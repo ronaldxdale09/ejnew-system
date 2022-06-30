@@ -19,7 +19,7 @@
         <a class='nav-link' href='seller.php'>
             <i class='fa-solid fa-user'></i> <span class='nav-text'>Seller</span>
         </a>
-        <a class='nav-link' href='inventory.php'>
+        <a class='nav-link' href='cash-agreement.php'>
             <i class='fa-solid fa-boxes-stacked'></i> <span class='nav-text'>Cash Agreement</span>
         </a>
         ";
