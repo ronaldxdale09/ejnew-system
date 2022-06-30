@@ -1,157 +1,78 @@
 <div class="row">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <!-- CONTENT -->
 
-<div class="col-sm-3">
-					<div class="stat-card">
-						<div class="stat-card__content">
-							<h2>EXPENSES SECTION</h2>
-						
-						</div>
-						
-					</div>
-				</div>
-
-                
-				<div class="col-sm-3 offset-sm-0">
-					<div class="stat-card">
-						<div class="stat-card__content">
-							<p class="text-uppercase mb-1 text-muted">This Month</p>
-							<h2 ><i class="text-danger font-weight-bold mr-1"></i>
-                            ₱ <?php echo number_format($sumExp['month_total']); ?></h2>
-							<div>
-								
-								<span class="text-muted"> <?php echo $monthName; ?> <?php echo $sumExp['year']; ?></span>
-							</div>
-						</div>
-						<div class="stat-card__icon stat-card__icon--success">
-							<div class="stat-card__icon-circle">
-								<i class="fa fa-info"  aria-hidden="true"></i>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-3">
-					<div class="stat-card">
-						<div class="stat-card__content">
-							<p class="text-uppercase mb-1 text-muted">This Year </p>
-							<h2>₱ <?php echo number_format($yearExpense['year_total']); ?></h2>
-							<div>
-								<span class="text-muted"> Total Expenses of <?php echo $sumExp['year']; ?></span>
-							</div>
-						</div>
-						<div class="stat-card__icon stat-card__icon--primary">
-							<div class="stat-card__icon-circle">
-								<i class="fa fa-calendar"></i>
-							</div>
-						</div>
-					</div>
-				</div>
-
-                <div class="col-sm-3">
-					<div class="stat-card">
-						<div class="stat-card__content">
-							<p class="text-uppercase mb-1 text-muted">Overall Expenses</p>
-							<h2>₱ <?php echo number_format($allexpenses['overall']); ?></h2>
-							<div>
-								<span class="text-muted">OVERALL EXPENSES</span>
-							</div>
-						</div>
-						<div class="stat-card__icon stat-card__icon--primary">
-							<div class="stat-card__icon-circle">
-								<i class="fa fa-credit-card"></i>
-							</div>
-						</div>
-					</div>
-				</div>
-
-
-			</div>           
-            
-            
-                                
-                     
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                               <!-- CONTENT -->
-                            
-                                <div class="row">
+                    <div class="row">
                         <div class="col-sm">
-                        <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#addExpense">
-                               ADD EXPENSE
-                                </button>
-                                <button type="button" class="btn btn-primary text-white" data-toggle="modal" data-target="#modal">
-                                NEW CATEGORY
-                                </button>
+                            <button type="button" class="btn btn-success text-white" data-toggle="modal"
+                                data-target="#addExpense">
+                                <i class="fa fa-plus" aria-hidden="true"></i>   ADD EXPENSE
+                            </button>
+                            <button type="button" class="btn btn-dark text-white" data-toggle="modal"
+                                data-target="#modal">
+                                <i class="fa fa-book" aria-hidden="true"></i>    CATEGORY
+                            </button>
                         </div>
                         <div class="col-sm">
-                        <div class="row">
-                              <div class="col">
-                                
-                              </div>
-                              <h5> Date Filter </h5>
-                              <div class="col"><b></b><input type="text" id="min" name="min"  class="form-control" placeholder="From Date" /> </div>
-                              <div class="col"><input type="text" id="max" name="max"  class="form-control" placeholder="To Date" />  </div>
-                           </div>
-                        </div>
-                     </div>
-                     <br>
-                     <hr>
-                                
-                               
-                                        
-                                <div class="table-responsive ">
-                                    <table class="table  table-hover" id='expenses_table'>
-                                          <?php
-                                    $results  = mysqli_query($con, "SELECT * from ledger_expenses"); 
-                                    
-                                    ?>
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">INDEX</th>
-                                                <th scope="col">DATE</th>
-                                                <th scope="col">PARTICULARS</th>
-                                                <th scope="col">VOC#</th>
-                                                <th scope="col">CATEGORY</th>
-                                                <th scope="col">AMOUNT</th>
-                                                <th scope="col">ACTION</th>
-                                            </tr>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                        </thead>
-                                        <tbody>
-                                    <?php while ($row = mysqli_fetch_array($results)) { ?>
-                                            <tr>
-                                                <th scope="row"><?php echo $row['id']?></th>
-                                                <td><?php echo $row['date']?></td>
-                                                <td><?php echo $row['particulars']?></td>
-                                                <td><?php echo $row['voucher_no']?></td>
-                                                <td><?php echo $row['category']?></td>
-                                                <td>₱ <?php echo number_format($row['amount'])?></td>
-                                                <td>
-                                                <button type="button" class="btn btn-success text-white"><span class="fa fa-shopping-cart"></span></button> 
-                                                <button type="button" class="btn btn-danger text-white">REMOVE</button> 
-                                                </td>
-                                            </tr>
+                            <div class="row">
+                                <div class="col">
 
-                                            <?php } ?>
-                                        </tbody>
-                                    </table>
                                 </div>
-
-                               <!-- END CONTENT -->
+                                <h5> Date Filter </h5>
+                                <div class="col"><b></b><input type="text" id="min" name="min" class="form-control"
+                                        placeholder="From Date" /> </div>
+                                <div class="col"><input type="text" id="max" name="max" class="form-control"
+                                        placeholder="To Date" /> </div>
                             </div>
                         </div>
                     </div>
+                    <br>
+                    <hr>
+
+
+
+                    <div class="table-responsive ">
+                        <table class="table" id='expenses_table'>
+                            <?php
+                                    $results  = mysqli_query($con, "SELECT * from ledger_expenses"); 
+                                    
+                                    ?>
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">DATE</th>
+                                    <th scope="col">PARTICULARS</th>
+                                    <th scope="col">VOC#</th>
+                                    <th scope="col">CATEGORY</th>
+                                    <th scope="col">AMOUNT</th>
+                                    <th scope="col">ACTION</th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <?php while ($row = mysqli_fetch_array($results)) { ?>
+                                <tr>
+                                    <td><?php echo $row['date']?></td>
+                                    <td><?php echo $row['particulars']?></td>
+                                    <td><?php echo $row['voucher_no']?></td>
+                                    <td><?php echo $row['category']?></td>
+                                    <td>₱ <?php echo number_format($row['amount'])?></td>
+                                    <td>
+                                        <button type="button" class="btn btn-success text-white"><span
+                                                class="fa fa-shopping-cart"></span></button>
+                                        <button type="button" class="btn btn-danger text-white">REMOVE</button>
+                                    </td>
+                                </tr>
+
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- END CONTENT -->
                 </div>
-
-
-
-                
+            </div>
+        </div>
+    </div>

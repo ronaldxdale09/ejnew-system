@@ -51,13 +51,13 @@
                     <li class="nav-item flex-sm-fill  active" >
                         <a id="home-tab" data-toggle="tab" href="ledger-expenses.php" role="tab" aria-controls="home"
                             aria-selected="true" class="nav-link border-1" style='color:white; 
-                            font-weight: bold;font-size: 20px;'>EXPENSES</a>
+                            font-weight: bold;font-size: 20px;'> <i class="fa fa-money" aria-hidden="true"></i>  EXPENSES</a>
                     </li>
                     <li class="nav-item flex-sm-fill">
                         <a href="ledger-purchase.php" role="tab"
                             aria-controls="profile" aria-selected="false"
                             class="nav-link border-1" style='color:black; 
-                            font-weight: bold;font-size: 20px;'>PURCHASES</a>
+                            font-weight: bold;font-size: 20px;'>  <i class="fa fa-comment-dollar" aria-hidden="true"></i>   PURCHASES</a>
                     </li>
                     <li class="nav-item flex-sm-fill">
                         <a id="contact-tab" href='ledger-maloong.php' data-toggle="tab" role="tab"
