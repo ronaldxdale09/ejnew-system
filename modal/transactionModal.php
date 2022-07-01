@@ -43,9 +43,9 @@
                                         <span class="input-group-text" id="inputGroup-sizing-default"
                                             style='color:black;font-weight: bold;'>Date</span>
                                     </div>
-                                    <input  class='datepicker' type="text" style='text-align:right' name='m_date' id='m_date'
-                                        class="form-control" style='background-color:white;border:0px solid #ffffff;'
-                                        readonly>
+                                    <input class='datepicker' type="text" style='text-align:right' name='m_date'
+                                        id='m_date' class="form-control"
+                                        style='background-color:white;border:0px solid #ffffff;' readonly>
                                 </div>
                             </div>
                             <!--  end-->

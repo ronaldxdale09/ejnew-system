@@ -51,10 +51,11 @@
                                         <div class="form-group">
                                             <label class="col-md-12">Category</label>
                                             <div class="col-md-12">
-                                            <input class="form-control" list="datalistOptions" name ='category'id="category" placeholder="Search Category">
-                                            <datalist id="datalistOptions">
+                                                <input class="form-control" list="datalistOptions" name='category'
+                                                    id="category" placeholder="Search Category">
+                                                <datalist id="datalistOptions">
                                                     <?php echo $exCatList; ?>
-                                            </datalist>
+                                                </datalist>
                                             </div>
                                         </div>
                                     </div>

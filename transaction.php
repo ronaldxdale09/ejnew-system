@@ -1,6 +1,9 @@
 <?php 
    include('include/header.php');
    include "include/navbar.php";
+
+
+   //seller list
    $seller = "SELECT * FROM seller ";
    $result = mysqli_query($con, $seller);
    $sellerList='';
@@ -8,17 +11,26 @@
    {
    $sellerList .= '<option value="'.$arr["name"].'">[ '.$arr["code"].' ]      '.$arr["name"].'</option>';
    }
+
+      //seller list
+      $contract = "SELECT * FROM cash_agreement where status='PENDING'";
+      $c_result = mysqli_query($con, $contract);
+      $contractList='';
+      while($arr = mysqli_fetch_array($c_result))
+      {
+      $contractList .= '<option value="'.$arr["contract_no"].'">[ '.$arr["contract_no"].' ]  '.$arr["seller"].'</option>';
+      }
    
 
+   //generate invoice
    $invoice = mysqli_query($con, "SELECT  COUNT(*) from transaction_record  "); 
    $getinvoice = mysqli_fetch_array($invoice);
-
    $invoiceCount= sprintf("%'03d", $getinvoice[0]);
 
-   $month = date('m');
+   //automatic fillup the datepicker with the current date
+    $month = date('m');
     $day = date('d');
     $year = date('Y');
-
     $today = $year . '-' . $month . '-' . $day;
 
 
@@ -51,7 +63,7 @@
                                             class="fa fa-print"></span> Print Voucher</button>
 
                                     <button type="button" class="btn btn-danger text-white confirm"
-                                        id='confirm'>Clear</button>
+                                        onclick='clearall()' id='confirm'>Clear</button>
                                 </div>
                             </div>
                             <div class="row">
@@ -74,13 +86,18 @@
                                                         value="<?php echo $today; ?>" name="date">
                                                 </div>
                                             </div>
+
                                             <div class="form-group">
                                                 <label class="col-md-12">Contract</label>
-                                                <div class="col-md-12">
-                                                    <input type="text" value="SPOT"
-                                                        class="form-control form-control-line" readonly>
+                                                <select class='form-select' name='contract' id='contract'>
+                                                    <option disabled="disabled" >Select
+                                                        Contract
+                                                    </option>
+                                                    <option selected="selected">SPOT
+                                                    </option>
+                                                    <?php echo $contractList; ?>
+                                                </select>
 
-                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-12">Seller </label>
@@ -111,7 +128,26 @@
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text">₱</span>
                                                             </div>
-                                                            <input type="text" style='text-align:right'
+                                                            <input type="text" name='balance' id='balance' style='text-align:right'
+                                                                class="form-control" readonly>
+                                                        </div>
+                                                    </div>
+                                                    <!-- end -->
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="row no-gutters">
+                                                    <label style='font-size:15px;font-weight: bold;'
+                                                        class="col-md-12">Quantity:
+                                                    </label>
+                                                    <div class="col-12 col-sm-5 col-md-7">
+                                                        <!--  -->
+                                                        <div class="input-group mb-4">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">₱</span>
+                                                            </div>
+                                                            <input type="text" name='quantity' id='quantity' style='text-align:right'
                                                                 class="form-control" readonly>
                                                         </div>
                                                     </div>
@@ -152,7 +188,7 @@
                                                                 (Kilos)</label>
                                                             <!-- new column -->
                                                             <div class="input-group mb-3">
-                                                              
+
                                                                 <input type="text" class="form-control" id='gross'
                                                                     name='gross' onkeypress="return CheckNumeric()"
                                                                     onkeyup="FormatCurrency(this)" />
@@ -438,7 +474,7 @@
                                                                     <input type="text" class="form-control"
                                                                         id='total-amount' name='total-amount'
                                                                         onkeypress="return CheckNumeric()"
-                                                                        onkeyup="FormatCurrency(this)" />
+                                                                        onkeyup="FormatCurrency(this)" readonly />
                                                                 </div>
                                                                 <!--  -->
                                                             </div>
@@ -503,7 +539,27 @@
 
 
 <?php
-include('modal/modal.php');
+include('modal/transactionModal.php');
 include('modal/TransactionModalScript.php');
 include('include/script.php');
 ?>
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+
+
+    $('#print_voucher').click(function() {
+        var nw = window.open("voucher/print_voucher.php", "_blank", "height=623,width=812")
+        setTimeout(function() {
+            nw.print()
+            setTimeout(function() {
+                nw.close()
+            }, 500)
+        }, 1000)
+    })
+
+
+
+});
+</script>

@@ -59,9 +59,9 @@
                                 <div class="input-group mb-1">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="inputGroup-sizing-default"
-                                            style='color:black;font-weight: bold;'>Contract Quality</span>
+                                            style='color:black;font-weight: bold;'>Contract Quantity</span>
                                     </div>
-                                    <input type="text" style='text-align:right' name='quantity' id='quantity'
+                                    <input type="number" style='text-align:right' name='quantity' id='quantity'
                                         class="form-control">
                                     <div class="input-group-append">
                                         <span class="input-group-text">Kg</span>
@@ -81,7 +81,7 @@
                                         <span class="input-group-text" id="inputGroup-sizing-default"
                                             style='color:black;font-weight: bold;'>Delivered</span>
                                     </div>
-                                    <input type="text" style='text-align:right' name='delivered' id='delivered'
+                                    <input type="number" style='text-align:right' name='delivered' id='delivered'
                                         class="form-control">
                                     <div class="input-group-append">
                                         <span class="input-group-text">Kg</span>
@@ -101,7 +101,7 @@
                                         <span class="input-group-text" id="inputGroup-sizing-default"
                                             style='color:black;font-weight: bold;'>Balanace</span>
                                     </div>
-                                    <input type="text" style='text-align:right' name='balance' id='balance'
+                                    <input type="number" style='text-align:right' name='balance' id='balance'
                                         class="form-control">
                                   
                                 </div>
@@ -110,6 +110,24 @@
                         </div>
                     </div>
                     <hr>
+
+                    <div class="form-group">
+                        <div class="row no-gutters">
+                            <div class="col-12 col-sm-5 col-md-12">
+                                <!--  -->
+                                <div class="input-group mb-1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-default"
+                                            style='color:black;font-weight: bold;'>Amount of CA</span>
+                                    </div>
+                                    <input type="number" style='text-align:right' name='ca' id='ca'
+                                        class="form-control">
+                                  
+                                </div>
+                                <!--  -->
+                            </div>
+                        </div>
+                    </div>
                     <!-- END -->
             </div>
             <div class="modal-footer">

@@ -66,6 +66,18 @@ $('#confirm').click(function()
 
 $('#vouchBtn').click(function()
 {
+
+      if( !document.getElementById('total-amount').value || 
+          !document.getElementById('date').value
+      ) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Fill all the necessary fields ',
+        })
+                
+      }
+      else{
         $('#print_vouch').modal('show');
               $tr = $(this).closest('tr');
 
@@ -107,6 +119,8 @@ $('#vouchBtn').click(function()
                   $('#v_less').val($("#less").val());
                   $('#v_total-paid').val($("#amount-paid").val());
                   $('#v_total-words').val($("#amount-paid-words").val());
+
+                }
       
 });
 </script>

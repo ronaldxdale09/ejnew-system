@@ -10,8 +10,11 @@
                             $balance = $_POST['balance'];
                             $status ='PENDING';
 
-                                $query = "INSERT INTO cash_agreement (contract_no,date,seller,contract_quality,delivered,balance,status) 
-                                        VALUES ('$contract','$date','$name','$quantity','$delivered','$balance','$status')";
+                            $ca_amount = $_POST['ca'];
+
+
+                                $query = "INSERT INTO cash_agreement (contract_no,date,seller,contract_quality,delivered,balance,status,ca_amount) 
+                                        VALUES ('$contract','$date','$name','$quantity','$delivered','$balance','$status',' $ca_amount')";
                                 $results = mysqli_query($con, $query);
                                    
                                     if ($results) {

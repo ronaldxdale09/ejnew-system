@@ -52,9 +52,10 @@
                                                     <th scope="col">Date</th>
                                                     <th scope="col">Contact</th>
                                                     <th scope="col">Seller</th>
-                                                    <th scope="col">Quantity</th>
-                                                    <th scope="col">Delivered</th>
+                                                    <th hidden scope="col">Quantity</th>
+                                                    <th hidden scope="col">Delivered</th>
                                                     <th scope="col">Balance</th>
+                                                    <th scope="col">Amount of CA</th>
                                                     <th scope="col">Status</th>
                                                 </tr>
                                             </thead>
@@ -64,9 +65,10 @@
                                                     <th scope="row"><?php echo $row['date']?></th>
                                                     <td><?php echo $row['contract_no']?></td>
                                                     <td><?php echo $row['seller']?></td>
-                                                    <td><?php echo $row['contract_quality']?></td>
-                                                    <td><?php echo $row['delivered']?></td>
+                                                    <td hidden><?php echo $row['contract_quantity']?></td>
+                                                    <td hidden> <?php echo $row['delivered']?></td>
                                                     <td><?php echo $row['balance']?></td>
+                                                    <td><?php echo $row['ca_amount']?></td>
                                                     <td> <button type="button"
                                                             class="btn btn-success text-white">VIEW</button>
                                                     </td>
