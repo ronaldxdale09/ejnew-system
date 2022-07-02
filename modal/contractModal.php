@@ -9,7 +9,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">NEW SELLER</h5>
+                <h5 class="modal-title" id="exampleModalLabel">CASH AGREEMENT</h5>
                 <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -71,44 +71,7 @@
                             </div>
                         </div>
                     </div>
-                    <br>
-                    <div class="form-group">
-                        <div class="row no-gutters">
-                            <div class="col-12 col-sm-5 col-md-12">
-                                <!--  -->
-                                <div class="input-group mb-1">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroup-sizing-default"
-                                            style='color:black;font-weight: bold;'>Delivered</span>
-                                    </div>
-                                    <input type="number" style='text-align:right' name='delivered' id='delivered'
-                                        class="form-control">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">Kg</span>
-                                    </div>
-                                </div>
-                                <!--  -->
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <div class="row no-gutters">
-                            <div class="col-12 col-sm-5 col-md-12">
-                                <!--  -->
-                                <div class="input-group mb-1">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroup-sizing-default"
-                                            style='color:black;font-weight: bold;'>Balanace</span>
-                                    </div>
-                                    <input type="number" style='text-align:right' name='balance' id='balance'
-                                        class="form-control">
-                                  
-                                </div>
-                                <!--  -->
-                            </div>
-                        </div>
-                    </div>
+                   
                     <hr>
 
                     <div class="form-group">

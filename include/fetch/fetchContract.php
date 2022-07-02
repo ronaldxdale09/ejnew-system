@@ -13,12 +13,13 @@
   $delivered = $rowList['delivered'];
   $balance = $rowList['balance'];
   $ca = $rowList['ca_amount'];
+  $seller = $rowList['seller'];
   
   
 
   
    // Store it in a array
-   $result = ["$quantity","$delivered","$balance","$ca"];
+   $result = ["$quantity","$delivered","$balance","$ca","$seller"];
   
    // Send in JSON encoded form
    $myJSON = json_encode($result);

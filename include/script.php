@@ -12,14 +12,14 @@ $(function() {
 
 
 <script>
-function clearall(){
-  var inputElements = document.getElementsByTagName('input');
+function clearall() {
+    var inputElements = document.getElementsByTagName('input');
 
-for (var i=0; i < inputElements.length; i++) {
-    if (inputElements[i].type == 'text') {
-        inputElements[i].value = '';
+    for (var i = 0; i < inputElements.length; i++) {
+        if (inputElements[i].type == 'text') {
+            inputElements[i].value = '';
+        }
     }
-}
 }
 </script>
 
@@ -50,16 +50,25 @@ $(document).ready(function() {
                 var delivered = myObj[1];
                 var balance = myObj[2];
                 var ca = myObj[3];
+                var name = myObj[4];
+
+                console.log(name);
 
                 document.getElementById("balance").value = balance;
                 document.getElementById("quantity").value = quantity;
                 document.getElementById("first-rese").value = ca;
+                
+               
+                $('#name'). val(name). trigger('chosen:updated');
+
+
 
             }
         };
 
         // xhttp.open("GET", "filename", true);
-        xmlhttp.open("GET", "include/fetch/fetchContract.php?contract=" + contract.replace(/,/g, ''), true);
+        xmlhttp.open("GET", "include/fetch/fetchContract.php?contract=" + contract.replace(/,/g, ''),
+            true);
 
         // Sends the request to the server
         xmlhttp.send();
