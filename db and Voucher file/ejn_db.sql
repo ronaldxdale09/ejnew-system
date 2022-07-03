@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 30, 2022 at 04:29 PM
+-- Generation Time: Jul 03, 2022 at 12:16 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.29
 
@@ -29,12 +29,24 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `cash_agreement` (
   `id` int(11) NOT NULL,
-  `contract_no` int(11) NOT NULL,
+  `contract_no` varchar(11) NOT NULL,
   `seller` varchar(50) NOT NULL,
-  `contract_quality` varchar(50) NOT NULL,
-  `delivered` varchar(50) NOT NULL,
-  `balance` varchar(50) NOT NULL
+  `contract_quantity` varchar(50) NOT NULL,
+  `delivered` varchar(50) DEFAULT NULL,
+  `balance` varchar(50) DEFAULT NULL,
+  `status` varchar(10) DEFAULT NULL,
+  `date` varchar(10) DEFAULT NULL,
+  `ca_amount` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `cash_agreement`
+--
+
+INSERT INTO `cash_agreement` (`id`, `contract_no`, `seller`, `contract_quantity`, `delivered`, `balance`, `status`, `date`, `ca_amount`) VALUES
+(3, '000', 'Ronald Dale', '2000', '5000', '6000', 'PENDING', '2022-07-01', '9004'),
+(4, '001', 'Kaxandra Lyka', '1234', '5002', '6000', 'PENDING', '2022-07-02', '2323'),
+(5, '002', 'Ronald Dale', '5000', NULL, NULL, 'PENDING', '2022-07-02', ' 50000');
 
 -- --------------------------------------------------------
 
@@ -54,7 +66,8 @@ CREATE TABLE `category_expenses` (
 INSERT INTO `category_expenses` (`id`, `category`) VALUES
 (1, 'SSS ROGER'),
 (2, 'REPAIR & MAIN'),
-(3, 'Medical');
+(3, 'Medical'),
+(4, 'Meryenda');
 
 -- --------------------------------------------------------
 
@@ -412,10 +425,10 @@ CREATE TABLE `seller` (
 --
 
 INSERT INTO `seller` (`id`, `code`, `name`, `address`, `cheque`) VALUES
-(1, '1', 'SPOT', '', ''),
 (2, '2022-001', 'Ronald Dale', 'Veterans Drive', 'Ronald Dale'),
 (3, '2022-002', 'Kaxandra Lyka', 'Zamboanga City', 'Kaxandra Lyka'),
-(25, '2022-003', 'FUENTEBELLA RONALD DALE', 'San Jose Cawa Cawa', 'Ronald Dale');
+(25, '2022-003', 'FUENTEBELLA RONALD DALE', 'San Jose Cawa Cawa', 'Ronald Dale'),
+(26, '', 'Ronald Dale', '', '');
 
 -- --------------------------------------------------------
 
@@ -553,19 +566,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cash_agreement`
 --
 ALTER TABLE `cash_agreement`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `category_expenses`
 --
 ALTER TABLE `category_expenses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `ledger_expenses`
 --
 ALTER TABLE `ledger_expenses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `ledger_maloong`
@@ -595,7 +608,7 @@ ALTER TABLE `purchase_category`
 -- AUTO_INCREMENT for table `seller`
 --
 ALTER TABLE `seller`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `transaction_record`
