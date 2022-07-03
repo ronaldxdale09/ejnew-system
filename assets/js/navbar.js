@@ -1,18 +1,25 @@
-
 var toggle = true;
+const activePage = window.location.pathname;
+const navLinks = document.querySelectorAll('nav a').forEach(link => {
+    if (link.href.includes(`${activePage}`)) {
+        link.classList.add('active');
+    }
+})
+
+
+
 
 $(document).on('click', '#toggle-nav-btn', function() {
-    if(toggle){
+    if (toggle) {
         retractNav();
         toggle = false;
-    }
-    else{
+    } else {
         expandNav();
         toggle = true;
     }
 });
 
-function expandNav(){
+function expandNav() {
     document.getElementsByClassName('main-content')[0].style.marginLeft = '240px';
     document.getElementsByClassName('main-content')[0].style.width = 'calc(100% - 240px)';
     document.getElementById('navbar').style.width = '240px';
@@ -25,15 +32,15 @@ function expandNav(){
     });
 };
 
-function retractNav(){
+function retractNav() {
     document.getElementsByClassName('main-content')[0].style.marginLeft = '65px';
     document.getElementsByClassName('main-content')[0].style.width = 'calc(100% - 65px)';
     document.getElementById('navbar').style.width = '65px';
     var nav_texts = document.getElementsByClassName('nav-text');
     Array.from(nav_texts).forEach(element => {
-    element.style.opacity = '0';
-    setTimeout(function() {
-        element.style.display = 'none';
-    }, 400);
+        element.style.opacity = '0';
+        setTimeout(function() {
+            element.style.display = 'none';
+        }, 400);
     });
 };
