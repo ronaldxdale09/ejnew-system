@@ -2,9 +2,9 @@
 
  include('db.php');
 
- if (isset($_POST['confirmPurchase'])) {
                             $invoice = $_POST['m_invoice'];
                              $date = $_POST['m_date'];
+                             $address = $_POST['m_address'];
                             // $contract = $_POST['code'];
                             print($seller = $_POST['m_name']);
                              $noSack = $_POST['m_noSack'];
@@ -45,11 +45,17 @@
                                    
                                 if(mysqli_query($con, $query)){
                                    
+                                    $_SESSION['print_seller'] = $seller;
+                                    $_SESSION['print_date'] = $date;
+                                    $_SESSION['print_address'] = $address;
+
+                                    $_SESSION['print_less'] = $less;
+                                    $_SESSION['print_total'] = $total_amount;
+                                    $_SESSION['print_paid'] = $amount_paid;
                                     echo 'success';
 
                                     }
                    
-    } else {
-                                        echo "ERROR: Could not be able to execute $query. ".mysqli_error($con);
-                                    }
+
+                        
  ?>

@@ -200,3 +200,7 @@ table tr {
 .active {
     background-color: rgb(11, 19, 54) !important;
 }
+
+.form-group {
+    margin-bottom: 0.5rem;
+}
