@@ -4,7 +4,7 @@
 <style>
 body {
 
-/* background-image: url('voucher.png'); */
+background-image: url('voucher.png');
 background-size: cover;
 background-size: contain;
 background-repeat: no-repeat;
@@ -45,7 +45,10 @@ tr,td,th{
 <br>
 
 <div class='vouch-info'>
-Total Amount   : <?php echo  ' '.$_SESSION['print_total'];  ?> <br>
-Less           : <?php echo  ' '.$_SESSION['print_less'];  ?> <br>
-Amount Paid    : <?php echo  ' '.$_SESSION['print_paid'];  ?> <br>
+Total Amount : <?php echo  ' ₱'.$_SESSION['print_total'];  ?> <br>
+Less     : <?php echo  "    ₱".$_SESSION['print_less'];  ?> <br>
+Amount Paid : <?php echo  '  ₱'.$_SESSION['print_paid'];  ?> <br>
 </div>
+<br>
+<br><br>
+<p style="position:relative; left:210px;">EFREN J. NEW</p> 
