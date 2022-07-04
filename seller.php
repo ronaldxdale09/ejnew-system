@@ -22,7 +22,7 @@
                 <div class="card-body">
                   <!-- CONTENT -->
                   <button type="button" class="btn btn-success text-white" data-bs-toggle="modal" data-bs-target="#modal">
-                    <i class="fa fa-add" aria-hidden="true"></i> NEW SELLER PROFILE </button>
+                    <i class="fa fa-add" aria-hidden="true"></i> NEW SELLER  </button>
                   <br>
                   <br>
                   <h6 class="card-title m-t-40">

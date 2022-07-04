@@ -9,7 +9,7 @@
     </head>
     <body style="background-image: url('assets/img/cart-bg.jpg'); background-repeat: no-repeat; background-size: cover;">
         <div class="banner">
-            Digi-Cart Point of Sale System | Admin Login
+           EJN System
         </div>
         <div class="login-box">
             <form method='POST' action='function/login.php'>
