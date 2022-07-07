@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 03, 2022 at 12:16 AM
+-- Generation Time: Jul 07, 2022 at 12:51 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.29
 
@@ -20,33 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `ejn_db`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `cash_agreement`
---
-
-CREATE TABLE `cash_agreement` (
-  `id` int(11) NOT NULL,
-  `contract_no` varchar(11) NOT NULL,
-  `seller` varchar(50) NOT NULL,
-  `contract_quantity` varchar(50) NOT NULL,
-  `delivered` varchar(50) DEFAULT NULL,
-  `balance` varchar(50) DEFAULT NULL,
-  `status` varchar(10) DEFAULT NULL,
-  `date` varchar(10) DEFAULT NULL,
-  `ca_amount` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `cash_agreement`
---
-
-INSERT INTO `cash_agreement` (`id`, `contract_no`, `seller`, `contract_quantity`, `delivered`, `balance`, `status`, `date`, `ca_amount`) VALUES
-(3, '000', 'Ronald Dale', '2000', '5000', '6000', 'PENDING', '2022-07-01', '9004'),
-(4, '001', 'Kaxandra Lyka', '1234', '5002', '6000', 'PENDING', '2022-07-02', '2323'),
-(5, '002', 'Ronald Dale', '5000', NULL, NULL, 'PENDING', '2022-07-02', ' 50000');
 
 -- --------------------------------------------------------
 
@@ -72,6 +45,31 @@ INSERT INTO `category_expenses` (`id`, `category`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `contract_purchase`
+--
+
+CREATE TABLE `contract_purchase` (
+  `id` int(11) NOT NULL,
+  `contract_no` varchar(11) NOT NULL,
+  `seller` varchar(50) NOT NULL,
+  `contract_quantity` varchar(50) NOT NULL,
+  `delivered` varchar(50) DEFAULT NULL,
+  `balance` varchar(50) DEFAULT NULL,
+  `status` varchar(10) DEFAULT NULL,
+  `date` varchar(10) DEFAULT NULL,
+  `ca_amount` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `contract_purchase`
+--
+
+INSERT INTO `contract_purchase` (`id`, `contract_no`, `seller`, `contract_quantity`, `delivered`, `balance`, `status`, `date`, `ca_amount`) VALUES
+(7, '000', 'Kaxandra Lyka', '20,000', NULL, NULL, 'PENDING', '2022-07-07', '28');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `ledger_expenses`
 --
 
@@ -89,7 +87,8 @@ CREATE TABLE `ledger_expenses` (
 --
 
 INSERT INTO `ledger_expenses` (`id`, `voucher_no`, `particulars`, `date`, `category`, `amount`) VALUES
-(10, '3456', 'Ronald Dale', '2022-02-01', 'COPRA', '3543');
+(10, '3456', 'Ronald Dale', '2022-02-01', 'COPRA', '3543'),
+(14, '123456', 'TEST 4', '2022-07-06', 'Medical', '3333');
 
 -- --------------------------------------------------------
 
@@ -426,9 +425,7 @@ CREATE TABLE `seller` (
 
 INSERT INTO `seller` (`id`, `code`, `name`, `address`, `cheque`) VALUES
 (2, '2022-001', 'Ronald Dale', 'Veterans Drive', 'Ronald Dale'),
-(3, '2022-002', 'Kaxandra Lyka', 'Zamboanga City', 'Kaxandra Lyka'),
-(25, '2022-003', 'FUENTEBELLA RONALD DALE', 'San Jose Cawa Cawa', 'Ronald Dale'),
-(26, '', 'Ronald Dale', '', '');
+(3, '2022-002', 'Kaxandra Lyka', 'Zamboanga City', 'Kaxandra Lyka');
 
 -- --------------------------------------------------------
 
@@ -470,9 +467,9 @@ CREATE TABLE `transaction_record` (
 --
 
 INSERT INTO `transaction_record` (`id`, `invoice`, `date`, `contract`, `seller`, `noSack`, `gross`, `tare`, `net_weight`, `dust`, `new_dust`, `total_dust`, `moisture`, `discount`, `total_moisture`, `net_res`, `first_res`, `sec_res`, `third_res`, `total_first_res`, `total_sec_res`, `total_third_res`, `total_amount`, `less`, `amount_paid`, `amount_words`) VALUES
-(50, '000', '2022-06-28', NULL, 'Ronald Dale', '50', '15,000', '3,500', '', '1', '', '', '16', '', '', '', '52', '', '', '', '', '', '497,276', '', '497,276', ''),
-(51, '000', '2022-06-28', NULL, 'Ronald Dale', '50', '15,000', '3,500', '', '1', '', '', '16', '', '', '', '52', '', '', '', '', '', '497,276', '', '497,276', ''),
-(52, '002', '2022-06-28', NULL, 'Ronald Dale', '50', '15,000', '3,500', '11,500', '1', '115', '11,385', '16', '12.3', '-1822', '9563', '52', '', '', '', '', '', '497,276', '', '497,276', 'Four Hundred Ninety Seven Thousand Two Hundred Seventy Six peso/s');
+(59, '000', '2022-07-07', NULL, 'Ronald Dale', '50', '15,000', '3,500', '11,500', '1', '115', '11,385', '16', '12.3', '-1,400', '9,985', '52', '', '', '519,220', '', '', '519,220', '', '519,220', 'Forty Nine Thousand Nine Hundred Twenty Five peso/s'),
+(60, '001', '2022-07-07', NULL, '', '50', '15,000', '3,500', '11,500', '1', '115', '11,385', '16', '12.3', '-1,400', '9,985', '52', '', '', '519,220', '', '', '519,220', '', '519,220', 'Forty Nine Thousand Nine Hundred Twenty Five peso/s'),
+(61, '002', '2022-07-07', NULL, 'Ronald Dale', '50', '15,000', '3,500', '11,500', '1', '115', '11,385', '16', '12.3', '-1,400', '9,985', '27', '', '', '269,595', '', '', '269,595', '', '269,595', 'Two Hundred Sixty Nine Thousand Five Hundred Ninety Five peso/s');
 
 -- --------------------------------------------------------
 
@@ -499,15 +496,15 @@ INSERT INTO `users` (`id`, `username`, `password`, `type`) VALUES
 --
 
 --
--- Indexes for table `cash_agreement`
---
-ALTER TABLE `cash_agreement`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `category_expenses`
 --
 ALTER TABLE `category_expenses`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `contract_purchase`
+--
+ALTER TABLE `contract_purchase`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -563,22 +560,22 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `cash_agreement`
---
-ALTER TABLE `cash_agreement`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
 -- AUTO_INCREMENT for table `category_expenses`
 --
 ALTER TABLE `category_expenses`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `contract_purchase`
+--
+ALTER TABLE `contract_purchase`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `ledger_expenses`
 --
 ALTER TABLE `ledger_expenses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `ledger_maloong`
@@ -614,7 +611,7 @@ ALTER TABLE `seller`
 -- AUTO_INCREMENT for table `transaction_record`
 --
 ALTER TABLE `transaction_record`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `users`
