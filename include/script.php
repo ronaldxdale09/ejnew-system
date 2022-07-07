@@ -54,14 +54,14 @@ $(document).ready(function() {
 
                 console.log(name);
 
-                if (balance != '' || ca != '' ){
-                    // $("#readonly").prop("readonly", false);
-                    document.getElementById("second-res").readOnly = false;
-                }
-                else{
-                    // $("#readonly").prop("readonly", false);
-                    document.getElementById("second-res").readOnly = true;
-                }
+                // if (balance != '' || ca != '' ){
+                //     // $("#readonly").prop("readonly", false);
+                //     document.getElementById("second-res").readOnly = false;
+                // }
+                // else{
+                //     // $("#readonly").prop("readonly", false);
+                //     document.getElementById("second-res").readOnly = true;
+                // }
 
                 document.getElementById("balance").value = balance;
                 document.getElementById("quantity").value = quantity;
@@ -213,6 +213,26 @@ $(function() {
 });
 </script>
 
+<script>
+$(function() {
+    $("#second-res").keyup(function() {
+
+        document.getElementById("2rese-weight").value = (Math.round(+$("#total-res").val().replace(/,/g,'')
+         - (+$("#quantity").val().replace(/,/g, '')))).toLocaleString("en-US");
+
+
+        document.getElementById("total-2res").value = ((+(Number(+$("#second-res").val().replace(/,/g,
+            ''))) * (Math.abs(+$("#2rese-weight").val().replace(/,/g,''))))).toLocaleString("en-US");
+
+        $("#total-amount").val(((+$("#total-1res").val().replace(/,/g, '') + (+$("#total-2res").val().replace(/,/g, '')))).toLocaleString());
+
+        document.getElementById("amount-paid").value = $("#total-amount").val();
+           
+
+
+    });
+});
+</script>
 
 
 
@@ -255,8 +275,13 @@ function GetDetail(str) {
 
                 document.getElementById("total-res").value = ((+(Number($total_dust)) - (Math.abs($total_moisture)))).toLocaleString("en-US");
 
-                // document.getElementById("rese-total").value = $("#total-res").val();
+                
+                var quantity = $("#quantity").val().replace(/,/g, '');
+                var restotal = $("#total-res").val().replace(/,/g, '');
 
+                if (restotal > quantity) {
+                    document.getElementById("second-res").readOnly = false;
+                }
             }
         };
 

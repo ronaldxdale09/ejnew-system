@@ -3,7 +3,7 @@ include "include/header.php";
 include "include/navbar.php";
 
 //seller list
-$contract = "SELECT * FROM contract_purchase where status='PENDING'";
+$contract = "SELECT * FROM contract_purchase where status='PENDING' OR status='UPDATED' ";
 $c_result = mysqli_query($con, $contract);
 $contractList = "";
 while ($arr = mysqli_fetch_array($c_result)) {

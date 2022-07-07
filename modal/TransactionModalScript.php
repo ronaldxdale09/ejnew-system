@@ -27,6 +27,9 @@ $('#confirm').click(function()
                   $('#m_date').val($("#date").val());
                   $('#m_address').val($("#address").val());
                   $('#m_contract').val($("#contract").val());
+
+                  $('#m_quantity').val($("#quantity").val());
+
                   // purchase info
                   $('#m_noSack').val($("#noSack").val());
                   $('#m_gross').val($("#gross").val());
@@ -45,6 +48,10 @@ $('#confirm').click(function()
                   $('#m_2resecada').val($("#second-rese").val());
                   $('#m_3resecada').val($("#third-rese").val());
                   // total res
+
+                  $('#m_1rese-weight').val($("#1rese-weight").val());
+                  $('#m_2rese-weight').val($("#2rese-weight").val());
+                  
                   $('#m_total_1res').val($("#total-1res").val());
                   $('#m_total_2res').val($("#total-2res").val());
                   $('#m_total_3res').val($("#total-3res").val());

@@ -7,7 +7,7 @@
 	if($count == 0){
 		echo "	<script type='text/javascript'>
 					alert('No Record of Given Username');
-					window.location='/ejnew/index.php';
+					window.location='/ejnew-system/index.php';
 				</script>";
 	}	
 	else{
