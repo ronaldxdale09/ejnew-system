@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/chosen.min.css">
     <link rel='stylesheet' href='css/main.css'>
     <link rel='stylesheet' href='assets/datatables/dataTables.bootstrap4.css'>
+    <script src="assets/js/numberFormat.js"></script>
     <title>EJN Copra</title>
     
 </head>

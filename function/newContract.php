@@ -12,12 +12,12 @@
                             $ca_amount = $_POST['ca'];
 
 
-                                $query = "INSERT INTO cash_agreement (contract_no,date,seller,contract_quantity,status,ca_amount) 
+                                $query = "INSERT INTO contract_purchase (contract_no,date,seller,contract_quantity,status,ca_amount) 
                                         VALUES ('$contract','$date','$name','$quantity','$status',' $ca_amount')";
                                 $results = mysqli_query($con, $query);
                                    
                                     if ($results) {
-                                        header("Location: ../cash-agreement.php");
+                                        header("Location: ../contract-purchase.php");
                                         $_SESSION['seller']= "successful";
                                         exit();
                                     } else {

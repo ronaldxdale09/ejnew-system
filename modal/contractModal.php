@@ -1,5 +1,5 @@
 <?php 
- $contract = mysqli_query($con, "SELECT  COUNT(*) from cash_agreement  "); 
+ $contract = mysqli_query($con, "SELECT  COUNT(*) from contract_purchase  "); 
  $contractNo = mysqli_fetch_array($contract);
 
  $ContractCount= sprintf("%'03d", $contractNo[0]);
@@ -22,8 +22,8 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-default" style='color:black;font-weight: bold;'>Contract</span>
                   </div>
-                  <input type="text" style='text-align:right' name='v_contact' id='v_contact' class="form-control" style='background-color:white;border:0px solid #ffffff;' value='
-										<?php echo  $ContractCount ?>' readonly>
+                  <input type="text" style='text-align:right' name='v_contact' id='v_contact' class="form-control" style='background-color:white;border:0px solid #ffffff;' 
+                  value="<?php echo  $ContractCount ?>" readonly>
                 </div>
               </div>
               <!--end  -->
@@ -53,7 +53,8 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-default" style='color:black;font-weight: bold;'>Contract Quantity</span>
                   </div>
-                  <input type="number" style='text-align:right' name='quantity' id='quantity' class="form-control">
+                  <input type="text" style='text-align:right' name='quantity' id='quantity' class="form-control" 
+                  onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" >
                   <div class="input-group-append">
                     <span class="input-group-text">Kg</span>
                   </div>
@@ -69,9 +70,10 @@
                 <!--  -->
                 <div class="input-group mb-1">
                   <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default" style='color:black;font-weight: bold;'>Amount of CA</span>
+                    <span class="input-group-text" id="inputGroup-sizing-default" style='color:black;font-weight: bold;'>₱/KG</span>
                   </div>
-                  <input type="number" style='text-align:right' name='ca' id='ca' class="form-control">
+                  <input type="text" style='text-align:right' name='ca' id='ca' class="form-control"
+                  onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"  >
                 </div>
                 <!--  -->
               </div>

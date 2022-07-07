@@ -3,7 +3,7 @@ include "include/header.php";
 include "include/navbar.php";
 
 //seller list
-$contract = "SELECT * FROM cash_agreement where status='PENDING'";
+$contract = "SELECT * FROM contract_purchase where status='PENDING'";
 $c_result = mysqli_query($con, $contract);
 $contractList = "";
 while ($arr = mysqli_fetch_array($c_result)) {
@@ -76,7 +76,7 @@ $today = $year . "-" . $month . "-" . $day;
                                             <div class="form-group">
                                                 <label class="col-md-12">Invoice</label>
                                                 <div class="col-md-8">
-                                                    <input type="text" name='invoice' id='invoice'
+                                                    <input type="number" name='invoice' id='invoice'
                                                         value="<?php echo "$invoiceCount"; ?>"
                                                         class="form-control form-control-line" readonly>
                                                 </div>
@@ -92,7 +92,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                 <label class="col-md-12">Contract</label>
                                                 <select class='form-select' name='contract' id='contract'>
                                                     <option disabled="disabled">Select Contract </option>
-                                                    <option selected="selected">SPOT </option>
+                                                    <option selected="selected" value='SPOT'>SPOT </option>
                                                     <?php echo $contractList; ?>
                                                 </select>
                                             </div>
@@ -112,39 +112,44 @@ $today = $year . "-" . $month . "-" . $day;
                                                         disabled></select>
                                                 </div>
                                             </div>
+                                            <br>
                                             <div class="form-group">
                                                 <div class="row no-gutters">
-                                                    <label style='font-size:15px;font-weight: bold;'
-                                                        class="col-md-12">Balance: </label>
-                                                    <div class="col-12 col-sm-5 col-md-7">
+                                                    <div class="col-12 col-sm-9 col-md-9">
                                                         <!--  -->
-                                                        <div class="input-group mb-4">
+                                                        <div class="input-group mb-1">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text">₱</span>
+                                                                <span class="input-group-text"
+                                                                    id="inputGroup-sizing-default"
+                                                                    style='color:black;font-weight: bold;'>Quantity</span>
                                                             </div>
-                                                            <input type="text" name='balance' id='balance'
-                                                                style='text-align:right' class="form-control" readonly>
+                                                            <input type="text" style='text-align:right' name='quantity'
+                                                                id='quantity' class="form-control" readonly>
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text">Kg</span>
+                                                            </div>
                                                         </div>
+                                                        <!--  -->
                                                     </div>
-                                                    <!-- end -->
                                                 </div>
                                             </div>
-
+                                            <br>
                                             <div class="form-group">
                                                 <div class="row no-gutters">
-                                                    <label style='font-size:15px;font-weight: bold;'
-                                                        class="col-md-12">Quantity: </label>
-                                                    <div class="col-12 col-sm-5 col-md-7">
-                                                        <!--  -->
-                                                        <div class="input-group mb-4">
+                                                    <div class="col-12 col-sm-9 col-md-9">
+                                                        <div class="input-group mb-1">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text">₱</span>
+                                                                <span class="input-group-text"
+                                                                    id="inputGroup-sizing-default"
+                                                                    style='color:black;font-weight: bold;'>Balance</span>
                                                             </div>
-                                                            <input type="text" name='quantity' id='quantity'
-                                                                style='text-align:right' class="form-control" readonly>
+                                                            <input type="text" style='text-align:right' name='balance'
+                                                                id='balance' class="form-control" readonly>
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text">Kg</span>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <!-- end -->
                                                 </div>
                                             </div>
                                         </div>
@@ -307,8 +312,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                                 <input type="text" class="form-control"
                                                                     name='discount_reading' id='discount_reading'
                                                                     aria-label="Default"
-                                                                    aria-describedby="inputGroup-sizing-default"
-                                                                    readonly>
+                                                                    aria-describedby="inputGroup-sizing-default">
                                                             </div>
                                                             <!--  -->
                                                         </div>
@@ -331,182 +335,185 @@ $today = $year . "-" . $month . "-" . $day;
                                                     </div>
                                                     <!-- end -->
                                                 </div>
-                                            </div>
-                                            <!--  -->
-                                            <div class="form-group">
-                                                <div class="row no-gutters">
-                                                    <div class="col-12 col-sm-5 col-md-9">
-                                                        <!--  -->
-                                                        <div class="input-group mb-1">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text"
-                                                                    id="inputGroup-sizing-default"
-                                                                    style='color:black;font-weight: bold;'>Net Resecada
-                                                                    Weight (Total)</span>
-                                                            </div>
-                                                            <input type="text" class="form-control" readonly
-                                                                id='total-res' name='total-res'
-                                                                onkeypress="return CheckNumeric()"
-                                                                onkeyup="FormatCurrency(this)" />
-                                                            <div class="input-group-append">
-                                                                <span class="input-group-text">Kg</span>
-                                                            </div>
-                                                        </div>
-                                                        <!--  -->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <!-- RASE-->
-                                            <div class="form-group">
-                                                <div class="row no-gutters">
-                                                    <label style='font-size:15px' class="col-md-12">1st Rese :</label>
-                                                    <div class="col-12 col-sm-5 col-md-6">
-                                                        <!--  -->
-                                                        <div class="input-group mb-3">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text">₱</span>
-                                                            </div>
-                                                            <input type="text" class="form-control" name='first-res'
-                                                                id='first-rese' onkeypress="return CheckNumeric()"
-                                                                onkeyup="FormatCurrency(this)" />
-                                                        </div>
-                                                    </div>
-                                                    <!--  -->
-                                                    <div class="col-6 col-md-6">
-                                                        <!-- new column -->
-                                                        <div class="input-group mb-3">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text">₱</span>
-                                                            </div>
-                                                            <input type="text" style='text-align:right' id='total-1res'
-                                                                class="form-control" readonly>
-                                                        </div>
-                                                        <!--  -->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- RASE 2-->
-                                            <div class="form-group">
-                                                <div class="row no-gutters">
-                                                    <label style='font-size:15px' class="col-md-12">2nd Rese :</label>
-                                                    <div class="col-12 col-sm-5 col-md-6">
-                                                        <!--  -->
-                                                        <div class="input-group mb-3">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text">₱</span>
-                                                            </div>
-                                                            <input type="text" class="form-control" id='second-res'
-                                                                name='second-rese' onkeypress="return CheckNumeric()"
-                                                                onkeyup="FormatCurrency(this)" />
-                                                        </div>
-                                                        <!--  -->
-                                                    </div>
-                                                    <div class="col-6 col-md-6">
-                                                        <!-- new column -->
-                                                        <div class="input-group mb-3">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text">₱</span>
-                                                            </div>
-                                                            <input type="text" style='text-align:right'
-                                                                name='total-2res' id='total-2res' class="form-control"
-                                                                readonly>
-                                                        </div>
-                                                        <!--  -->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- RASE 3-->
-                                            <div class="form-group">
-                                                <div class="row no-gutters">
-                                                    <label style='font-size:15px' class="col-md-12">3rd Rese :</label>
-                                                    <div class="col-12 col-sm-5 col-md-6">
-                                                        <!--  -->
-                                                        <div class="input-group mb-3">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text">₱</span>
-                                                            </div>
-                                                            <input type="text" class="form-control" id='third-res'
-                                                                name='third-res' onkeypress="return CheckNumeric()"
-                                                                onkeyup="FormatCurrency(this)" />
-                                                        </div>
-                                                        <!--  -->
-                                                    </div>
-                                                    <div class="col-6 col-md-6">
-                                                        <!-- new column -->
-                                                        <div class="input-group mb-3">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text">₱</span>
-                                                            </div>
-                                                            <input type="text" style='text-align:right'
-                                                                name='total-3res' id='total-3res' class="form-control"
-                                                                readonly>
-                                                        </div>
-                                                    </div>
-                                                    <!--  end-->
-                                                    <hr>
-                                                    <br>
-                                                    <!-- start-->
-                                                    <!-- RASE 3-->
-                                                    <div class="form-group">
-                                                        <div class="row no-gutters">
-                                                            <div class="col-12 col-sm-5 col-md-6">
-                                                                <!--  -->
-                                                                <label style='font-size:15px;font-weight: bold;'
-                                                                    class="col-md-12">Total Amount:</label>
-                                                                <div class="input-group mb-3">
-                                                                    <div class="input-group-prepend">
-                                                                        <span class="input-group-text">₱</span>
-                                                                    </div>
-                                                                    <input type="text" class="form-control"
-                                                                        id='total-amount' name='total-amount'
-                                                                        onkeypress="return CheckNumeric()"
-                                                                        onkeyup="FormatCurrency(this)" readonly />
+
+                                                <div class="form-group">
+                                                    <div class="row no-gutters">
+                                                        <div class="col-12 col-sm-7 col-md-8">
+                                                            <!--  -->
+                                                            <div class="input-group mb-1">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text"
+                                                                        id="inputGroup-sizing-default"
+                                                                        style='color:black;font-weight: bold;'>Net
+                                                                        Resecada
+                                                                        Weight (Total)</span>
                                                                 </div>
-                                                                <!--  -->
-                                                            </div>
-                                                            <div class="col-6 col-md-6">
-                                                                <!-- new column -->
-                                                                <label style='font-size:15px;font-weight: bold;'
-                                                                    class="col-md-12">Less:</label>
-                                                                <div class="input-group mb-3">
-                                                                    <div class="input-group-prepend">
-                                                                        <span class="input-group-text">₱</span>
-                                                                    </div>
-                                                                    <input type="text" style='text-align:right'
-                                                                        id='less' name='less'
-                                                                        onkeypress="return CheckNumeric()"
-                                                                        onkeyup="FormatCurrency(this)"
-                                                                        class="form-control">
+                                                                <input type="text" class="form-control" readonly
+                                                                    id='total-res' name='total-res'
+                                                                    onkeypress="return CheckNumeric()"
+                                                                    onkeyup="FormatCurrency(this)" />
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text">Kg</span>
                                                                 </div>
                                                             </div>
-                                                            <!--  end-->
-                                                            <hr>
-                                                            <br>
-                                                            <!-- start-->
-                                                            <div class="form-group">
-                                                                <div class="row no-gutters">
-                                                                    <label style='font-size:15px;font-weight: bold;'
-                                                                        class="col-md-12">Amount Paid: </label>
-                                                                    <div class="col-12 col-sm-5 col-md-6">
-                                                                        <!--  -->
-                                                                        <div class="input-group mb-3">
-                                                                            <div class="input-group-prepend">
-                                                                                <span class="input-group-text">₱</span>
-                                                                            </div>
-                                                                            <input type="text" style='text-align:right'
-                                                                                name='amount-paid' id='amount-paid'
-                                                                                onkeypress="return CheckNumeric()"
-                                                                                onkeyup="FormatCurrency(this)"
-                                                                                class="form-control">
+                                                            <!--  -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+
+                                                <!--  -->
+
+                                                <!-- RASE-->
+                                                <div class="form-group">
+                                                    <div class="row no-gutters">
+                                                        <label style='font-size:15px' class="col-md-12">1st Rese
+                                                            :</label>
+                                                        <div class="col-12 col-sm-5 col-md-4">
+                                                            <!--  -->
+                                                            <div class="input-group mb-3">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">₱</span>
+                                                                </div>
+                                                                <input type="text" class="form-control" name='first-res'
+                                                                    id='first-rese' onkeypress="return CheckNumeric()"
+                                                                    onkeyup="FormatCurrency(this)" />
+                                                            </div>
+                                                        </div>
+                                                        <!--  -->
+                                                        <div class="col-6 col-md-4">
+                                                            <!-- new column -->
+                                                            <div class="input-group mb-3">
+
+                                                                <input type="text" style='text-align:right'
+                                                                    id='1rese-weight' class="form-control" readonly>
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text">Kg</span>
+                                                                </div>
+                                                            </div>
+                                                            <!--  -->
+                                                        </div>
+
+                                                        <div class="col-6 col-md-4">
+                                                            <!-- new column -->
+                                                            <div class="input-group mb-3">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">₱</span>
+                                                                </div>
+                                                                <input type="text" style='text-align:right'
+                                                                    id='total-1res' class="form-control" readonly>
+                                                            </div>
+                                                            <!--  -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- RASE 2-->
+                                                <div class="form-group">
+                                                    <div class="row no-gutters">
+                                                        <label style='font-size:15px' class="col-md-12">2nd Rese
+                                                            :</label>
+                                                        <div class="col-12 col-sm-5 col-md-4">
+                                                            <div class="input-group mb-3">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">₱</span>
+                                                                </div>
+                                                                <input type="text" class="form-control" id='second-res'
+                                                                    name='second-rese'
+                                                                    onkeypress="return CheckNumeric()"
+                                                                    onkeyup="FormatCurrency(this)" readonly />
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-6 col-md-4">
+                                                            <!-- new column -->
+                                                            <div class="input-group mb-3">
+
+                                                                <input type="text" style='text-align:right'
+                                                                    id='2rese-weight' class="form-control" readonly>
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text">Kg</span>
+                                                                </div>
+                                                            </div>
+                                                            <!--  -->
+                                                        </div>
+
+                                                        <div class="col-6 col-md-4">
+                                                            <!-- new column -->
+                                                            <div class="input-group mb-3">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">₱</span>
+                                                                </div>
+                                                                <input type="text" style='text-align:right'
+                                                                    name='total-2res' id='total-2res'
+                                                                    class="form-control" readonly>
+                                                            </div>
+                                                            <!--  -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- RASE 3-->
+
+                                                <!--  end-->
+                                                <hr>
+                                                <br>
+                                                <!-- start-->
+                                                <!-- RASE 3-->
+                                                <div class="form-group">
+                                                    <div class="row no-gutters">
+                                                        <div class="col-12 col-sm-5 col-md-6">
+                                                            <!--  -->
+                                                            <label style='font-size:15px;font-weight: bold;'
+                                                                class="col-md-12">Total Amount:</label>
+                                                            <div class="input-group mb-3">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">₱</span>
+                                                                </div>
+                                                                <input type="text" class="form-control"
+                                                                    id='total-amount' name='total-amount'
+                                                                    onkeypress="return CheckNumeric()"
+                                                                    onkeyup="FormatCurrency(this)" readonly />
+                                                            </div>
+                                                            <!--  -->
+                                                        </div>
+                                                        <div class="col-6 col-md-6">
+                                                            <!-- new column -->
+                                                            <label style='font-size:15px;font-weight: bold;'
+                                                                class="col-md-12">Less:</label>
+                                                            <div class="input-group mb-3">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">₱</span>
+                                                                </div>
+                                                                <input type="text" style='text-align:right' id='less'
+                                                                    name='less' onkeypress="return CheckNumeric()"
+                                                                    onkeyup="FormatCurrency(this)" class="form-control" value='0'>
+                                                            </div>
+                                                        </div>
+                                                        <!--  end-->
+                                                        <hr>
+                                                        <br>
+                                                        <!-- start-->
+                                                        <div class="form-group">
+                                                            <div class="row no-gutters">
+                                                                <label style='font-size:15px;font-weight: bold;'
+                                                                    class="col-md-12">Amount Paid: </label>
+                                                                <div class="col-12 col-sm-5 col-md-6">
+                                                                    <!--  -->
+                                                                    <div class="input-group mb-3">
+                                                                        <div class="input-group-prepend">
+                                                                            <span class="input-group-text">₱</span>
                                                                         </div>
+                                                                        <input type="text" style='text-align:right'
+                                                                            name='amount-paid' id='amount-paid'
+                                                                            onkeypress="return CheckNumeric()"
+                                                                            onkeyup="FormatCurrency(this)"
+                                                                            class="form-control">
                                                                     </div>
-                                                                    <br>
-                                                                    <input type="text" style='text-align:center'
-                                                                        name='amount-paid-words' id='amount-paid-words'
-                                                                        class="form-control" readonly>
-                                                                    <!-- end -->
                                                                 </div>
+                                                                <br>
+                                                                <input type="text" style='text-align:center'
+                                                                    name='amount-paid-words' id='amount-paid-words'
+                                                                    class="form-control" readonly>
+                                                                <!-- end -->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -516,10 +523,12 @@ $today = $year . "-" . $month . "-" . $day;
                                     </div>
                                 </div>
                             </div>
-                            <!-- Column -->
                         </div>
                     </div>
+                    <!-- Column -->
                 </div>
+            </div>
+        </div>
 </body>
 
 </html>
@@ -528,4 +537,3 @@ include "modal/transactionModal.php";
 include "modal/TransactionModalScript.php";
 include "include/script.php";
 ?>
-

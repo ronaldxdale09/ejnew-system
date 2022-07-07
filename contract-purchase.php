@@ -42,18 +42,19 @@
                   <br>
                   <div class="table-responsive">
                     <table class="table" id='sellerTable'> <?php
-                                    $results  = mysqli_query($con, "SELECT * from cash_agreement"); 
+                                    $results  = mysqli_query($con, "SELECT * from contract_purchase"); 
                                     
                                     ?> <thead class="table-dark">
                         <tr>
-                          <th scope="col">Date</th>
-                          <th scope="col">Contact</th>
+                          <th width="15%" w>Date</th>
+                          <th width="10%">Contact</th>
                           <th scope="col">Seller</th>
                           <th hidden scope="col">Quantity</th>
                           <th hidden scope="col">Delivered</th>
-                          <th scope="col">Balance</th>
-                          <th scope="col">Amount of CA</th>
+                          <th hidden scope="col">Balance</th>
+                          <th scope="col">₱/KG</th>
                           <th scope="col">Status</th>
+                          <th scope="col">Action</th>
                         </tr>
                       </thead>
                       <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
@@ -62,10 +63,12 @@
                           <td> <?php echo $row['seller']?> </td>
                           <td hidden> <?php echo $row['contract_quantity']?> </td>
                           <td hidden> <?php echo $row['delivered']?> </td>
-                          <td> <?php echo $row['balance']?> </td>
+                          <td hidden> <?php echo $row['balance']?> </td>
                           <td> <?php echo $row['ca_amount']?> </td>
+                          <td><h5><span class="badge bg-success">New</span> </h5></td>
                           <td>
-                            <button type="button" class="btn btn-success text-white">VIEW</button>
+                            <button type="button" class="btn btn-secondary text-white  btn-sm">   <i class='fa-solid fa-edit'></i></button>
+                            <button type="button" class="btn btn-danger text-white  btn-sm">   <i class='fa-solid fa-times'></i></button>
                           </td>
                         </tr> <?php } ?> </tbody>
                     </table>

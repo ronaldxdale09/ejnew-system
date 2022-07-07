@@ -5,7 +5,8 @@
 $('#confirm').click(function()
 {
       if( !document.getElementById('total-amount').value || 
-          !document.getElementById('date').value
+          !document.getElementById('date').value || 
+          !document.getElementById('name').value
       ) {
         Swal.fire({
           icon: 'error',
@@ -25,6 +26,7 @@ $('#confirm').click(function()
                   $('#m_name').val($("#name").val());
                   $('#m_date').val($("#date").val());
                   $('#m_address').val($("#address").val());
+                  $('#m_contract').val($("#contract").val());
                   // purchase info
                   $('#m_noSack').val($("#noSack").val());
                   $('#m_gross').val($("#gross").val());
@@ -33,12 +35,9 @@ $('#confirm').click(function()
                   
                   $('#m_dust').val($("#dust").val());
                   $('#m_new-dust').val($("#new").val());
-
-
                   $('#m_moisture').val($("#moisture").val());
                   $('#m_discount').val($("#discount_reading").val());
                   $('#m_total-dust').val($("#total-dust").val());
-
 
                   $('#m_total-moisture').val($("#total-moisture").val());
                   $('#m_net-resecada').val($("#total-res").val());
@@ -50,7 +49,6 @@ $('#confirm').click(function()
                   $('#m_total_2res').val($("#total-2res").val());
                   $('#m_total_3res').val($("#total-3res").val());
                   // 
-
                   $('#m_total-amount').val($("#total-amount").val());
                   $('#m_less').val($("#less").val());
                   $('#m_total-paid').val($("#amount-paid").val());
@@ -68,7 +66,8 @@ $('#vouchBtn').click(function()
 {
 
       if( !document.getElementById('total-amount').value || 
-          !document.getElementById('date').value
+          !document.getElementById('date').value || 
+          !document.getElementById('name').value
       ) {
         Swal.fire({
           icon: 'error',

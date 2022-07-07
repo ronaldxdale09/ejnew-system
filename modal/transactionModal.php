@@ -31,7 +31,7 @@
                                         <span class="input-group-text" id="inputGroup-sizing-default"
                                             style='color:black;font-weight: bold;'>Contract</span>
                                     </div>
-                                    <input type="text" style='text-align:right' name='m_contact' id='m_contact'
+                                    <input type="text" style='text-align:right' name='m_contract' id='m_contract'
                                         class="form-control" style='background-color:white;border:0px solid #ffffff;'
                                         readonly>
                                 </div>
@@ -155,7 +155,13 @@ $('#confirmPurchase').click(function() {
     $("#confirmModal").modal("hide");
     $.post($('#newPurchase').attr('action'), $('#newPurchase :input').serializeArray(), function(result) {
         $('#result').html(result);
-        Swal.fire('Good job!', 'Transaction Was Successful', 'success')
+        Swal.fire({
+            title: "Good job!",
+            text: "Transaction Was Successful!",
+            type: "success"
+        }).then(function() {
+            document.getElementById("vouchBtn").click();
+        });
     });
 });
 // INPUT BOX VALIDATION
@@ -183,7 +189,7 @@ $('#confirmPurchase').click(function() {
                                     <span class="input-group-text" id="inputGroup-sizing-default"
                                         style='color:black;font-weight: bold;'>Contract</span>
                                 </div>
-                                <input type="text" style='text-align:right' name='v_contact' id='v_contact'
+                                <input type="text" style='text-align:right' name='v_contract' id='v_contract'
                                     class="form-control" style='background-color:white;border:0px solid #ffffff;'
                                     readonly>
                             </div>

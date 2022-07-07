@@ -54,12 +54,21 @@ $(document).ready(function() {
 
                 console.log(name);
 
+                if (balance != '' || ca != '' ){
+                    // $("#readonly").prop("readonly", false);
+                    document.getElementById("second-res").readOnly = false;
+                }
+                else{
+                    // $("#readonly").prop("readonly", false);
+                    document.getElementById("second-res").readOnly = true;
+                }
+
                 document.getElementById("balance").value = balance;
                 document.getElementById("quantity").value = quantity;
                 document.getElementById("first-rese").value = ca;
-                
-               
-                $('#name'). val(name). trigger('chosen:updated');
+
+
+                $('#name').val(name).trigger('chosen:updated');
 
 
 
@@ -105,40 +114,6 @@ $(document).ready(function() {
 
 
 
-<!-- END -->
-
-<!-- Auto add comma (,) in text-box with numbers -->
-<script>
-function FormatCurrency(ctrl) {
-    //Check if arrow keys are pressed - we want to allow navigation around textbox using arrow keys
-    if (event.keyCode == 37 || event.keyCode == 38 || event.keyCode == 39 || event.keyCode == 40) {
-        return;
-    }
-
-    var val = ctrl.value;
-
-    val = val.replace(/,/g, "")
-    ctrl.value = "";
-    val += '';
-    x = val.split('.');
-    x1 = x[0];
-    x2 = x.length > 1 ? '.' + x[1] : '';
-
-    var rgx = /(\d+)(\d{3})/;
-
-    while (rgx.test(x1)) {
-        x1 = x1.replace(rgx, '$1' + ',' + '$2');
-    }
-
-    ctrl.value = x1 + x2;
-}
-
-function CheckNumeric() {
-    return event.keyCode >= 48 && event.keyCode <= 57 || event.keyCode == 46;
-}
-</script>
-
-
 
 <!-- COMPUTE MOISTURE DISCOUNT -->
 
@@ -173,10 +148,36 @@ $(function() {
 $(function() {
     $("#first-rese").keyup(function() {
 
-        $("#total-amount").val(((+$("#first-rese").val().replace(/,/g, '') * +$("#total-res").val()
+        var contract =  document.getElementById("contract").value; 
+
+        if (contract == 'SPOT'){
+
+            $("#total-amount").val(((+$("#first-rese").val().replace(/,/g, '') * +$("#total-res").val()
             .replace(/,/g, ''))).toLocaleString());
-        document.getElementById("amount-paid").value = $("#total-amount").val();
-        getWords($("#amount-paid").val())
+            
+            document.getElementById("amount-paid").value = $("#total-amount").val();
+           
+
+            document.getElementById("1rese-weight").value =  $("#total-res").val(); 
+
+            document.getElementById("total-1res").value =  $("#total-amount").val(); 
+            getWords($("#amount-paid").val());
+            
+        }
+        else {
+            $("#total-amount").val(((+$("#first-rese").val().replace(/,/g, '') * +$("#total-res").val()
+            .replace(/,/g, ''))).toLocaleString());
+            
+            document.getElementById("amount-paid").value = $("#total-amount").val();
+           
+
+            document.getElementById("1rese-weight").value =  $("#total-res").val(); 
+
+            document.getElementById("total-1res").value =  $("#total-amount").val(); 
+            getWords($("#amount-paid").val());
+        }
+
+
 
     });
 });
@@ -193,6 +194,25 @@ $(function() {
     });
 });
 </script>
+
+
+<script>
+$(function() {
+    $("#discount_reading").keyup(function() {
+
+        document.getElementById("total-moisture").value = (Math.round(-(+$("#total-dust").val().replace(
+            /,/g,
+            '') * (+$("#discount_reading").val().replace(/,/g, '')) / 100))).toLocaleString("en-US");
+
+
+        document.getElementById("total-res").value = ((+(Number(+$("#total-dust").val().replace(/,/g,
+            ''))) - (Math.abs(+$("#total-moisture").val().replace(/,/g,''))))).toLocaleString("en-US");
+
+
+    });
+});
+</script>
+
 
 
 
@@ -224,25 +244,18 @@ function GetDetail(str) {
                 // a variable assign the value 
                 // received to first name input field
 
-                document.getElementById("discount_reading").value = myObj[0];
+                percent_dis = document.getElementById("discount_reading").value = myObj[0];
 
-                document.getElementById("total-moisture").value = Math.round(-(+$("#total-dust").val().replace(/,/g,
-                    '') * str) / 100);
+                document.getElementById("total-moisture").value = (Math.round(-(+$("#total-dust").val().replace(/,/g,
+                    '') * percent_dis) / 100)).toLocaleString("en-US");
+
 
                 $total_dust = $("#total-dust").val().replace(/,/g, '');
-                $total_moisture = $("#total-moisture").val()
+                $total_moisture = $("#total-moisture").val().replace(/,/g, '');
 
-                document.getElementById("total-res").value = (+(Number($total_dust)) - (Math.abs($total_moisture)));
+                document.getElementById("total-res").value = ((+(Number($total_dust)) - (Math.abs($total_moisture)))).toLocaleString("en-US");
 
-                document.getElementById("rese-total").value = $("#total-res").val();
-
-
-
-                // 
-
-
-                // var total = document.getElementById('val2').value;
-                // var sum = Number(val1) + Number(val2);
+                // document.getElementById("rese-total").value = $("#total-res").val();
 
             }
         };
@@ -297,3 +310,7 @@ function getWords(str) {
     }
 }
 </script>
+
+
+
+<!-- END -->
