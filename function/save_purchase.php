@@ -25,7 +25,11 @@
                              $moisture = $_POST['m_moisture'];
                              $discount = $_POST['m_discount'];
                              $total_moisture = $_POST['m_total-moisture'];
-                             $net_res = $_POST['m_net-resecada'];
+
+                             $net_res = str_replace( ',', '', $_POST['m_net-resecada']);
+
+
+                             
                              $first_res = $_POST['m_1resecada'];
                              $sec_res = $_POST['m_2resecada'];
                              $third_res = $_POST['m_3resecada'];
@@ -37,61 +41,65 @@
 
                              $total_amount = $_POST['m_total-amount'];
                              $less = $_POST['m_less'];
-                             $amount_paid =	 $_POST['m_total-paid'];
+                             $amount_paid =	 str_replace( ',', '', $_POST['m_total-paid']);
+                             
                              $words_amount =  $_POST['m_total-words'];
 
 
                              //UPDATE CONTRACT
                              if ($contract !='SPOT'){
+                                $getContract = mysqli_query($con, "SELECT  * from contract_purchase WHERE contract_no = '$contract'  ");
+                                $contractInfo = mysqli_fetch_array($getContract);
+
+                                $previous_delivered= $contractInfo['delivered'];
+
                                 $rese_weight_1 = str_replace( ',', '', $_POST['m_1rese-weight']);
 
-                                $total_weight = $rese_weight_1;
+                                $newDelivered = $previous_delivered +$rese_weight_1;
 
 
-                                $quantity = str_replace( ',', '', $_POST['m_quantity']);
+                                $balance = str_replace( ',', '', $_POST['m_balance']);
                                 
+                                $newBalance =   (float)$balance-(float)$rese_weight_1 ;
 
-                                $balance =   (float)$quantity-S(float)$rese_weight_1 ;
-
-                                print($quantity);
-                                print($rese_weight_1);
-                                if ($balance==0){
-                                    $status = 'COMPLETE';
+                                if ($newBalance==0){
+                                    $status = 'PENDING';
                                 }
                                 else {
                                     $status='UPDATED';
                                 }
 
-                                $sql=mysqli_query($con,"UPDATE `contract_purchase` SET `delivered` = '$total_weight' , balance='$balance',status='$status' WHERE `contract_no` ='$contract'");
+                                $sql=mysqli_query($con,"UPDATE `contract_purchase` SET `delivered` = '$newDelivered' , balance='$newBalance',status='$status' WHERE `contract_no` ='$contract'");
+                                echo $balance;
                             }
 
-
+                         
                             
 
-                            //  $query = "INSERT INTO transaction_record (
-                            //         invoice,date,seller,noSack,gross,tare,net_weight,dust,new_dust,total_dust,moisture,
-                            //         total_moisture,net_res,first_res,sec_res,third_res,total_first_res,total_sec_res,total_third_res,total_amount,less,
-                            //         amount_paid,discount,amount_words) 
-                            //             VALUES ('$invoice','$date','$seller','$noSack','$gross','$tare','$net_weight','$dust','$new_dust','$total_dust','$moisture',
-                            //         '$total_moisture','$net_res','$first_res','$sec_res','$third_res','$total_first_res','$total_sec_res','$total_third_res','$total_amount','$less',
-                            //         '$amount_paid','$discount','$words_amount')";
+                             $query = "INSERT INTO transaction_record (
+                                    invoice,date,seller,noSack,gross,tare,net_weight,dust,new_dust,total_dust,moisture,
+                                    total_moisture,net_res,first_res,sec_res,third_res,total_first_res,total_sec_res,total_third_res,total_amount,less,
+                                    amount_paid,discount,amount_words) 
+                                        VALUES ('$invoice','$date','$seller','$noSack','$gross','$tare','$net_weight','$dust','$new_dust','$total_dust','$moisture',
+                                    '$total_moisture','$net_res','$first_res','$sec_res','$third_res','$total_first_res','$total_sec_res','$total_third_res','$total_amount','$less',
+                                    '$amount_paid','$discount','$words_amount')";
                                    
-                            //     if(mysqli_query($con, $query)){
+                                if(mysqli_query($con, $query)){
 
                                     
                                    
-                            //         $_SESSION['print_seller'] = $seller;
-                            //         $_SESSION['print_date'] = $date;
-                            //         $_SESSION['print_address'] = $address;
+                                    $_SESSION['print_seller'] = $seller;
+                                    $_SESSION['print_date'] = $date;
+                                    $_SESSION['print_address'] = $address;
 
-                            //         $_SESSION['print_less'] = $less;
-                            //         $_SESSION['print_total'] = $total_amount;
-                            //         $_SESSION['print_paid'] = $amount_paid;
-                            //         echo 'success';
+                                    $_SESSION['print_less'] = $less;
+                                    $_SESSION['print_total'] = $total_amount;
+                                    $_SESSION['print_paid'] = $amount_paid;
+                                    $_SESSION['print_words'] = $words_amount;
+                                    echo 'success';
 
-                            //         }
+                                    }
                    
 
                         
  ?>
-

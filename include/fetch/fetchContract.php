@@ -12,14 +12,14 @@
   $quantity = $rowList['contract_quantity'];
   $delivered = $rowList['delivered'];
   $balance = $rowList['balance'];
-  $ca = $rowList['ca_amount'];
+  $price_kg = $rowList['price_kg'];
   $seller = $rowList['seller'];
   
   
 
   
    // Store it in a array
-   $result = ["$quantity","$delivered","$balance","$ca","$seller"];
+   $result = ["$quantity","$delivered","$balance","$price_kg","$seller"];
   
    // Send in JSON encoded form
    $myJSON = json_encode($result);

@@ -60,12 +60,12 @@ $today = $year . "-" . $month . "-" . $day;
                             <div class="col-6">
                                 <div class="text-end upgrade-btn">
                                     <!-- CONTENT -->
-                                    <button type="button" class="btn btn-success text-white confirm"
-                                        id='confirm'>Confirm Transaction</button>
-                                    <button type="button" class="btn btn-info vouchBtn" id='vouchBtn'>
-                                        <span class="fa fa-print"></span> Print Voucher </button>
-                                    <button type="button" class="btn btn-danger text-white confirm" onclick='clearall()'
-                                        id='confirm'>Clear</button>
+                                    <button type="button" class="btn btn-secondary text-white"
+                                    data-toggle="modal" data-target=".viewTransaction"  ><span class="fa fa-book text-white"></span> 
+                                       Transaction History</button>
+                                    <button type="button" class="btn btn-info ">
+                                        <span class="fa fa-gear text-white"></span>  </button>
+                               
                                 </div>
                             </div>
                             <div class="row">
@@ -112,8 +112,9 @@ $today = $year . "-" . $month . "-" . $day;
                                                         disabled></select>
                                                 </div>
                                             </div>
-                                            <br>
-                                            <div class="form-group">
+                                            <hr>
+                                            <div class="form-group" id='quantity_textbox' >
+                                            <label class="col-md-12">Contract </label>
                                                 <div class="row no-gutters">
                                                     <div class="col-12 col-sm-9 col-md-9">
                                                         <!--  -->
@@ -134,7 +135,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                 </div>
                                             </div>
                                             <br>
-                                            <div class="form-group">
+                                            <div class="form-group" id='balance_textbox'>
                                                 <div class="row no-gutters">
                                                     <div class="col-12 col-sm-9 col-md-9">
                                                         <div class="input-group mb-1">
@@ -153,6 +154,18 @@ $today = $year . "-" . $month . "-" . $day;
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <button type="button" class="btn btn-success text-white confirm"
+                                                id='confirm'>Confirm Transaction</button>
+                                                <button type="button" class="btn btn-dark text-white vouchBtn" id='vouchBtn'>
+                                                <span class="fa fa-print"></span> Print Voucher </button>
+                                                <button type="button" class="btn btn-danger text-white confirm"
+                                                onclick='clearall()' id='confirm'>Clear</button>
+                                        </div>
+                
                                     </div>
                                 </div>
 
@@ -533,7 +546,9 @@ $today = $year . "-" . $month . "-" . $day;
 
 </html>
 <?php
+include "modal/viewTransactionModal.php";
 include "modal/transactionModal.php";
 include "modal/TransactionModalScript.php";
+
 include "include/script.php";
 ?>

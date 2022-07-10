@@ -135,6 +135,8 @@
                     <input name="m_total_3res" id="m_total_3res" hidden>
                     <input name="m_address" id="m_address" hidden>
                     <input name="m_quantity" id="m_quantity" hidden>
+                    <input name="m_balance" id="m_balance" hidden>
+
                     <input name="m_1rese-weight" id="m_1rese-weight" hidden>
                     <input name="m_2rese-weight" id="m_2rese-weight" hidden>
 
@@ -150,7 +152,7 @@
 </div>
 </div>
 <!--END Confirm Transaction -->
-<!-- <script>
+<script>
 $('#newPurchase').submit(function() {
     return false;
 });
@@ -168,7 +170,7 @@ $('#confirmPurchase').click(function() {
     });
 });
 // INPUT BOX VALIDATION
-</script> -->
+</script>
 
 
 

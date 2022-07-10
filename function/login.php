@@ -27,8 +27,13 @@
 			$_SESSION["user"] = $username;
 			$_SESSION["username"] = $username;
 			$_SESSION["pass"] = $password;
-		
-			header('Location: ../Transaction.php');
+			if ($userType =='copra'){
+				header('Location: ../transaction.php');
+			}
+			elseif  ($userType =='finance'){
+				header('Location: ../ledger-expense.php');
+			}
+			
 		}
 	}
 	//echo "Error: Could not be able to execute $sql. " .mysqli_error($link);

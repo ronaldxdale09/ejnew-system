@@ -13,7 +13,7 @@
           <div class="form-group">
             <label class="col-md-12">DATE</label>
             <div class="col-md-12">
-              <input class='datepicker' type="date" id="date" name="date" required>
+              <input class='datepicker'  value="<?php echo $today; ?>" type="date" id="date" name="date" required>
             </div>
           </div>
           <br>

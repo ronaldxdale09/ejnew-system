@@ -29,6 +29,7 @@ $('#confirm').click(function()
                   $('#m_contract').val($("#contract").val());
 
                   $('#m_quantity').val($("#quantity").val());
+                  $('#m_balance').val($("#balance").val());
 
                   // purchase info
                   $('#m_noSack').val($("#noSack").val());

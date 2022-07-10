@@ -2,18 +2,18 @@
 <?php 
  include('db.php');
                         if (isset($_POST['add'])) {
-                            $contract = $_POST['v_contact'];
+                            
+                            $contract = str_replace( ',', '', $_POST['v_contact']);
                             $date = $_POST['date'];
                             $name = $_POST['name'];
-                            $quantity = $_POST['quantity'];
+                            $quantity =str_replace( ',', '', $_POST['quantity']);
                       
                             $status ='PENDING';
+                            $price_kg =str_replace( ',', '', $_POST['ca']);
 
-                            $ca_amount = $_POST['ca'];
 
-
-                                $query = "INSERT INTO contract_purchase (contract_no,date,seller,contract_quantity,status,ca_amount) 
-                                        VALUES ('$contract','$date','$name','$quantity','$status',' $ca_amount')";
+                                $query = "INSERT INTO contract_purchase (contract_no,date,seller,contract_quantity,balance,status,price_kg) 
+                                        VALUES ('$contract','$date','$name','$quantity','$quantity','$status',' $price_kg')";
                                 $results = mysqli_query($con, $query);
                                    
                                     if ($results) {

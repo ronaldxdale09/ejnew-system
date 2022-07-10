@@ -15,10 +15,10 @@
                 <h5> Date Filter </h5>
                 <div class="col">
                   <b></b>
-                  <input type="text" id="p_min" name="p_min" class="form-control" placeholder="From Date" />
+                  <input type="text" id="min" name="min" class="form-control" placeholder="From Date" />
                 </div>
                 <div class="col">
-                  <input type="text" id="p_max" name="p_max" class="form-control" placeholder="To Date" />
+                  <input type="text" id="max" name="max" class="form-control" placeholder="To Date" />
                 </div>
               </div>
             </div>
@@ -27,9 +27,8 @@
           <hr>
           <div class="table-responsive ">
             <table class="table table-bordered table-responsive-lg" id='purchase_table'> <?php
-                                    $results  = mysqli_query($con, "SELECT * from ledger_purchase ORDER BY id DESC"); 
-                                    
-                                    ?> <thead class="table-dark">
+                                    $results  = mysqli_query($con, "SELECT * from ledger_purchase ORDER BY id DESC"); ?>
+                <thead class="table-dark">
                 <tr>
                   <th>DATE</th>
                   <th>CATEGORY</th>
@@ -73,4 +72,3 @@
       </div>
     </div>
   </div>
-  <script src="purchase.js"></script>

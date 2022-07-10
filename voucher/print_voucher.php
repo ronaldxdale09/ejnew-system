@@ -32,7 +32,20 @@ tr,td,th{
     margin: 0px;
     font-size:20px;
     margin-left: 57px;
-    margin-top:90px;
+    margin-top:-10px;
+}
+
+.words-total{
+    padding: 0px;
+    margin: 0px;
+    margin-left: 330px;
+    margin-top:70px;
+}
+.amount-paid{
+    padding: 0px;
+    margin: 0px;
+    margin-left: 340px;
+    margin-top:8px;
 }
 </style>
 
@@ -44,11 +57,16 @@ tr,td,th{
 <br>
 <br>
 
+<p class='words-total' style="font-size:15px;"><?php echo  $_SESSION['print_words'];  ?></p> 
+<p class='amount-paid' > <?php echo  '  ₱'.number_format($_SESSION['print_paid']);  ?></p> 
+
+
 <div class='vouch-info'>
 Total Amount : <?php echo  ' ₱'.$_SESSION['print_total'];  ?> <br>
 Less     : <?php echo  "    ₱".$_SESSION['print_less'];  ?> <br>
-Amount Paid : <?php echo  '  ₱'.$_SESSION['print_paid'];  ?> <br>
+Amount Paid : <?php echo  '  ₱'.number_format($_SESSION['print_paid']);  ?> <br>
 </div>
 <br>
 <br><br>
 <p style="position:relative; left:210px;">EFREN J. NEW</p> 
+

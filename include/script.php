@@ -52,16 +52,6 @@ $(document).ready(function() {
                 var ca = myObj[3];
                 var name = myObj[4];
 
-                console.log(name);
-
-                // if (balance != '' || ca != '' ){
-                //     // $("#readonly").prop("readonly", false);
-                //     document.getElementById("second-res").readOnly = false;
-                // }
-                // else{
-                //     // $("#readonly").prop("readonly", false);
-                //     document.getElementById("second-res").readOnly = true;
-                // }
 
                 document.getElementById("balance").value = balance;
                 document.getElementById("quantity").value = quantity;
@@ -69,8 +59,6 @@ $(document).ready(function() {
 
 
                 $('#name').val(name).trigger('chosen:updated');
-
-
 
             }
         };
@@ -148,33 +136,57 @@ $(function() {
 $(function() {
     $("#first-rese").keyup(function() {
 
-        var contract =  document.getElementById("contract").value; 
+        restotal = $("#total-res").val().replace(/,/g, '');
+        var contract = document.getElementById("contract").value;
+        var balance = $("#balance").val().replace(/,/g, '');
 
-        if (contract == 'SPOT'){
+        let nf = new Intl.NumberFormat('en-US');
 
-            $("#total-amount").val(((+$("#first-rese").val().replace(/,/g, '') * +$("#total-res").val()
-            .replace(/,/g, ''))).toLocaleString());
-            
+        if (contract == 'SPOT') {
+            $("#total-amount").val(((+$("#total-res").val().replace(/,/g, '') * +$("#first-rese").val()
+                .replace(/,/g, ''))).toLocaleString());
+
             document.getElementById("amount-paid").value = $("#total-amount").val();
-           
+            document.getElementById("1rese-weight").value = $("#total-res").val();
 
-            document.getElementById("1rese-weight").value =  $("#total-res").val(); 
-
-            document.getElementById("total-1res").value =  $("#total-amount").val(); 
+            document.getElementById("total-1res").value = $("#total-amount").val();
             getWords($("#amount-paid").val());
+
+        } else {
+
+            if (restotal > balance) {
+                   
+                document.getElementById("1rese-weight").value = nf.format(balance);
+
+                var rese1_price = $("#first-rese").val().replace(/,/g, '');
+                var rese1_weight = $("#1rese-weight").val().replace(/,/g, '');
+
+                document.getElementById("total-1res").value = nf.format(rese1_price *rese1_weight);
+                document.getElementById("second-res").readOnly = false;
+                document.getElementById("2rese-weight").value = (Math.round(+$("#total-res").val().replace(/,/g,
+                '') - (+$("#balance").val().replace(/,/g, '')))).toLocaleString("en-US");
+
+                //AMOUNT PAID AND TOTAL
+                document.getElementById("amount-paid").value = $("#total-amount").val();
+                $("#total-amount").val(((+$("#first-rese").val().replace(/,/g, '') * +$("#total-res").val().replace(/,/g, ''))).toLocaleString());
+
+            } 
+            else if(restotal < balance) {
+
             
-        }
-        else {
-            $("#total-amount").val(((+$("#first-rese").val().replace(/,/g, '') * +$("#total-res").val()
-            .replace(/,/g, ''))).toLocaleString());
+            document.getElementById("1rese-weight").value = nf.format(restotal);
+
+            var rese1_price = $("#first-rese").val().replace(/,/g, '');
+            var rese1_weight = $("#1rese-weight").val().replace(/,/g, '');
+
+
+            document.getElementById("total-1res").value = nf.format(rese1_price *rese1_weight);
             
+            $("#total-amount").val(((+$("#first-rese").val().replace(/,/g, '') * +$("#total-res").val().replace(/,/g, ''))).toLocaleString());
             document.getElementById("amount-paid").value = $("#total-amount").val();
-           
-
-            document.getElementById("1rese-weight").value =  $("#total-res").val(); 
-
-            document.getElementById("total-1res").value =  $("#total-amount").val(); 
             getWords($("#amount-paid").val());
+            }
+
         }
 
 
@@ -206,7 +218,8 @@ $(function() {
 
 
         document.getElementById("total-res").value = ((+(Number(+$("#total-dust").val().replace(/,/g,
-            ''))) - (Math.abs(+$("#total-moisture").val().replace(/,/g,''))))).toLocaleString("en-US");
+            ''))) - (Math.abs(+$("#total-moisture").val().replace(/,/g, ''))))).toLocaleString(
+            "en-US");
 
 
     });
@@ -217,17 +230,15 @@ $(function() {
 $(function() {
     $("#second-res").keyup(function() {
 
-        document.getElementById("2rese-weight").value = (Math.round(+$("#total-res").val().replace(/,/g,'')
-         - (+$("#quantity").val().replace(/,/g, '')))).toLocaleString("en-US");
-
-
         document.getElementById("total-2res").value = ((+(Number(+$("#second-res").val().replace(/,/g,
-            ''))) * (Math.abs(+$("#2rese-weight").val().replace(/,/g,''))))).toLocaleString("en-US");
+            ''))) * (Math.abs(+$("#2rese-weight").val().replace(/,/g, ''))))).toLocaleString(
+            "en-US");
 
-        $("#total-amount").val(((+$("#total-1res").val().replace(/,/g, '') + (+$("#total-2res").val().replace(/,/g, '')))).toLocaleString());
+        $("#total-amount").val(((+$("#total-1res").val().replace(/,/g, '') + (+$("#total-2res").val()
+            .replace(/,/g, '')))).toLocaleString());
 
         document.getElementById("amount-paid").value = $("#total-amount").val();
-           
+
 
 
     });
@@ -245,15 +256,17 @@ function GetDetail(str) {
         document.getElementById("discount_reading").value = "";
         return;
     } else {
-
         // Creates a new XMLHttpRequest object
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
+
 
             // Defines a function to be called when
             // the readyState property changess
             if (this.readyState == 4 &&
                 this.status == 200) {
+
+
 
                 // Typical action to be performed
                 // when the document is ready
@@ -266,22 +279,31 @@ function GetDetail(str) {
 
                 percent_dis = document.getElementById("discount_reading").value = myObj[0];
 
-                document.getElementById("total-moisture").value = (Math.round(-(+$("#total-dust").val().replace(/,/g,
-                    '') * percent_dis) / 100)).toLocaleString("en-US");
+                document.getElementById("total-moisture").value = (Math.round(-(+$("#total-dust").val().replace(
+                    /,/g, '') * percent_dis) / 100)).toLocaleString("en-US");
 
 
                 $total_dust = $("#total-dust").val().replace(/,/g, '');
                 $total_moisture = $("#total-moisture").val().replace(/,/g, '');
 
-                document.getElementById("total-res").value = ((+(Number($total_dust)) - (Math.abs($total_moisture)))).toLocaleString("en-US");
+                document.getElementById("total-res").value = ((+(Number($total_dust)) - (Math.abs(
+                    $total_moisture)))).toLocaleString("en-US");
 
-                
-                var quantity = $("#quantity").val().replace(/,/g, '');
-                var restotal = $("#total-res").val().replace(/,/g, '');
 
-                if (restotal > quantity) {
+                //ACTIVATE 2ND RESE IF THERE IS EXCESS KG
+                balance = $("#balance").val().replace(/,/g, '');
+                restotal = $("#total-res").val().replace(/,/g, '');
+                var contract = document.getElementById("contract").value;
+                if ($contact !='SPOT')
+                if (restotal > balance) {
+                    console.log(restotal);
                     document.getElementById("second-res").readOnly = false;
                 }
+
+
+
+
+
             }
         };
 
