@@ -43,3 +43,42 @@ $today = $year . "-" . $month . "-" . $day;
 include('modal/expenseModal.php');
 ?>
 <!-- for date filter -->
+
+<div class="modal fade viewExpenseCat" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg  ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Category</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table" id='transaction_record'>
+                        <?php
+                                    $record  = mysqli_query($con, "SELECT * from category_expenses ORDER BY id DESC LIMIT 5 "); ?>
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">id</th>
+                                <th scope="col">Category Name</th>
+        
+                            </tr>
+                        </thead>
+                        <tbody> <?php while ($row = mysqli_fetch_array($record)) { ?> <tr>
+                                <th scope="row"> <?php echo $row['id']?> </th>
+                                <td> <?php echo $row['category']?> </td>
+                               
+                            </tr> <?php } ?> </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

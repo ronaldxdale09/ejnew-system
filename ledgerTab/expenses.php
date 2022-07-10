@@ -10,7 +10,7 @@
                                 data-target="#addExpense">
                                 <i class="fa fa-plus" aria-hidden="true"></i> ADD EXPENSE </button>
                             <button type="button" class="btn btn-dark text-white" data-toggle="modal"
-                                data-target="#modal">
+                                data-target=".viewExpenseCat">
                                 <i class="fa fa-book" aria-hidden="true"></i> CATEGORY </button>
                         </div>
                         <div class="col-sm">
