@@ -84,13 +84,17 @@ $(function() {
 $(function() {
     $("#p_less").keyup(function() {
 
-        $("#p_total_amount").val(((+$("#p_total_amount").val().replace(/,/g, '') - +$("#p_less").val().replace(/,/g, ''))).toLocaleString());
+        $("#p_total_amount").val(((+$("#p_total_amount").val().replace(/,/g, '') - (+$("#p_less").val().replace(/,/g, ''))).toLocaleString()));
     });
 });
 
 $(function() {
     $("#p_partial_payment").keyup(function() {
 
-        $("#p_total_amount").val(Math.round(((+$("#p_total_amount").val().replace(/,/g, '') - +$("#p_partial_payment").val().replace(/,/g, ''))).toLocaleString()));
+        var total_amount = $("#p_total_amount").val().replace(/,/g, '').toLocaleString();
+        var partial = $("#p_partial_payment").val().replace(/,/g, '').toLocaleString();
+
+        $("#p_total_amount").val(total_amount - partial);
+
     });
 });

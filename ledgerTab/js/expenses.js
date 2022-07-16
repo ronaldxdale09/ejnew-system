@@ -52,10 +52,9 @@ $(document).ready(function() {
             },
 
         ],
-        lengthChange: true,
-        orderCellsTop: true,
+
         initComplete: function() {
-            this.api().columns([3]).every(function() {
+            this.api().columns([1]).every(function() {
                 var column = this;
                 var select = $('<select class="form-control"><option value="">All</option></select>')
                     .appendTo($('thead tr:eq(1) th:eq(' + this.index() + ')'))
@@ -81,6 +80,8 @@ $(document).ready(function() {
     $('#min, #max').on('change', function() {
         table.draw();
     });
+
+
 
 
 

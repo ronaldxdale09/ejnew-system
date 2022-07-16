@@ -52,7 +52,8 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-default" style='color:black;font-weight: bold;'>Net Kilos</span>
                   </div>
-                  <input type="text" style='text-align:right' name='p_net-kilos' id='p_net-kilos' class="form-control">
+                  <input type="text" style='text-align:right' name='p_net-kilos' id='p_net-kilos' class="form-control"
+                  onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
                   <div class="input-group-append">
                     <span class="input-group-text">Kg</span>
                   </div>
@@ -98,7 +99,8 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">₱</span>
                   </div>
-                  <input type="text" style='text-align:right' name='p_less' id='p_less' class="form-control">
+                  <input type="text" style='text-align:right' name='p_less' id='p_less' class="form-control"
+                   onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
                 </div>
                 <!--  -->
               </div>
@@ -130,7 +132,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">₱</span>
                   </div>
-                  <input type="text" class="form-control" id='p_net_total' name='p_net_total' onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" />
+                  <input type="text" readonly class="form-control" id='p_net_total' name='p_net_total' onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" />
                 </div>
                 <!--  -->
               </div>
@@ -141,7 +143,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">₱</span>
                   </div>
-                  <input type="text" style='text-align:right' name='p_total_amount' id='p_total_amount' class="form-control">
+                  <input type="text" style='text-align:right' name='p_total_amount' id='p_total_amount' class="form-control" readonly>
                 </div>
                 <!--  -->
               </div>

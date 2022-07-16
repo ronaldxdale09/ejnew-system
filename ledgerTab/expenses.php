@@ -27,8 +27,26 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label class="col-md-12">CATEGORY</label>
+                                    <select class='form-select' onchange="filter_cat()" id="select_id">
+                                        <option>All</option>
+                                        <?php 
+                      $results  = mysqli_query($con, "SELECT * from ledger_expenses"); 
+
+                      while ($row = mysqli_fetch_array($results)) { ?>
+                                        <option value="<?php echo $row['category']?>"><?php echo $row['category'] ?>
+                                        </option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
-                    <br>
                     <hr>
                     <div class="table-responsive ">
                         <table class="table" id='expenses_table'> <?php
