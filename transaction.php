@@ -496,8 +496,8 @@ $today = $year . "-" . $month . "-" . $day;
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text">₱</span>
                                                                 </div>
-                                                                <input type="text" style='text-align:right' id='less'
-                                                                    name='less' onkeypress="return CheckNumeric()"
+                                                                <input type="text" style='text-align:right' id='cash_advance'
+                                                                    name='cash_advance' onkeypress="return CheckNumeric()"
                                                                     onkeyup="FormatCurrency(this)" class="form-control" value='0'>
                                                             </div>
                                                         </div>

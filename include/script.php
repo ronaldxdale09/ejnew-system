@@ -92,10 +92,31 @@ $(document).ready(function() {
             cache: false,
             success: function(address) {
                 $("#address").html(address);
+
+            }
+        });
+
+        //CASH ADVANCE SHOW
+
+        $.ajax({
+            url: "include/fetch/fetchCopraCashAdvance.php",
+            type: "POST",
+            cache: false,
+            data: {
+                name: name
+            },
+            cache: false,
+            success: function(less) {
+                document.getElementById("cash_advance").value = (less).toLocaleString('en-US', {maximumFractionDigits:2});
+                console.log(less);
             }
         });
 
     });
+
+
+
+
 });
 </script>
 
@@ -146,45 +167,48 @@ $(function() {
             $("#total-amount").val(((+$("#total-res").val().replace(/,/g, '') * +$("#first-rese").val()
                 .replace(/,/g, ''))).toLocaleString());
 
-            document.getElementById("amount-paid").value = $("#total-amount").val();
+
             document.getElementById("1rese-weight").value = $("#total-res").val();
 
             document.getElementById("total-1res").value = $("#total-amount").val();
+            document.getElementById("amount-paid").value = $("#total-amount").val();
             getWords($("#amount-paid").val());
 
         } else {
 
             if (restotal > balance) {
-                   
+
                 document.getElementById("1rese-weight").value = nf.format(balance);
 
                 var rese1_price = $("#first-rese").val().replace(/,/g, '');
                 var rese1_weight = $("#1rese-weight").val().replace(/,/g, '');
 
-                document.getElementById("total-1res").value = nf.format(rese1_price *rese1_weight);
+                document.getElementById("total-1res").value = nf.format(rese1_price * rese1_weight);
                 document.getElementById("second-res").readOnly = false;
-                document.getElementById("2rese-weight").value = (Math.round(+$("#total-res").val().replace(/,/g,
-                '') - (+$("#balance").val().replace(/,/g, '')))).toLocaleString("en-US");
+                document.getElementById("2rese-weight").value = (Math.round(+$("#total-res").val()
+                    .replace(/,/g,
+                        '') - (+$("#balance").val().replace(/,/g, '')))).toLocaleString("en-US");
 
                 //AMOUNT PAID AND TOTAL
                 document.getElementById("amount-paid").value = $("#total-amount").val();
-                $("#total-amount").val(((+$("#first-rese").val().replace(/,/g, '') * +$("#total-res").val().replace(/,/g, ''))).toLocaleString());
-
-            } 
-            else if(restotal < balance) {
-
-            
-            document.getElementById("1rese-weight").value = nf.format(restotal);
-
-            var rese1_price = $("#first-rese").val().replace(/,/g, '');
-            var rese1_weight = $("#1rese-weight").val().replace(/,/g, '');
+                $("#total-amount").val(((+$("#first-rese").val().replace(/,/g, '') * +$("#total-res")
+                    .val().replace(/,/g, ''))).toLocaleString());
+                getWords($("#amount-paid").val());
+            } else if (restotal < balance) {
 
 
-            document.getElementById("total-1res").value = nf.format(rese1_price *rese1_weight);
-            
-            $("#total-amount").val(((+$("#first-rese").val().replace(/,/g, '') * +$("#total-res").val().replace(/,/g, ''))).toLocaleString());
-            document.getElementById("amount-paid").value = $("#total-amount").val();
-            getWords($("#amount-paid").val());
+                document.getElementById("1rese-weight").value = nf.format(restotal);
+
+                var rese1_price = $("#first-rese").val().replace(/,/g, '');
+                var rese1_weight = $("#1rese-weight").val().replace(/,/g, '');
+
+
+                document.getElementById("total-1res").value = nf.format(rese1_price * rese1_weight);
+
+                $("#total-amount").val(((+$("#first-rese").val().replace(/,/g, '') * +$("#total-res")
+                    .val().replace(/,/g, ''))).toLocaleString());
+                document.getElementById("amount-paid").value = $("#total-amount").val();
+                getWords($("#amount-paid").val());
             }
 
         }
@@ -294,11 +318,11 @@ function GetDetail(str) {
                 balance = $("#balance").val().replace(/,/g, '');
                 restotal = $("#total-res").val().replace(/,/g, '');
                 var contract = document.getElementById("contract").value;
-                if ($contact !='SPOT')
-                if (restotal > balance) {
-                    console.log(restotal);
-                    document.getElementById("second-res").readOnly = false;
-                }
+                if ($contact != 'SPOT')
+                    if (restotal > balance) {
+                        console.log(restotal);
+                        document.getElementById("second-res").readOnly = false;
+                    }
 
 
 

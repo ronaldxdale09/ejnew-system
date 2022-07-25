@@ -46,7 +46,8 @@
                           <td> <?php echo $row['name']?> </td>
                           <td> <?php echo $row['address']?> </td>
                           <td>
-                            <button type="button" class="btn btn-success text-white">VIEW</button>
+                          <a href="seller_profile.php?view=<?php echo $row['code']; ?>" class="btn btn-primary ">
+                              <i class='fa-solid fa-eye'></i></a>
                           </td>
                         </tr> <?php } ?> </tbody>
                     </table>

@@ -23,10 +23,10 @@
             <i class='fa-solid fa-user'></i> <span class='nav-text'>Seller</span>
         </a>
         <a class='nav-link' href='contract-purchase.php'>
-            <i class='fa-solid fa-boxes-stacked'></i> <span class='nav-text'>Contract Purchase</span>
+            <i class='fa-solid fa-boxes-stacked'></i> <span class='nav-text'>Purchase Contract</span>
         </a>
 
-        <a class='nav-link' href='cash-advance.php'>
+        <a class='nav-link' href='copra-ca.php'>
         <i class='fa-solid fa-money'></i> <span class='nav-text'>Cash Advance</span>
     </a>
         ";
