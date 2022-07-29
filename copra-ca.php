@@ -11,23 +11,20 @@
 <option value="'.$arr["name"].'">[ '.$arr["code"].' ]      '.$arr["name"].'</option>';
    }
 
-   $getMonthTotal  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(delivered) as month_total 
-   from contract_purchase  group by year(date), month(date) ORDER BY ID DESC");
-   $sumPurchaced_Copra = mysqli_fetch_array($getMonthTotal);
-   $monthNum  = $sumPurchaced_Copra["month"];
-   $dateObj   = DateTime::createFromFormat('!m', $monthNum);
-   $monthName = $dateObj->format('F');
-
 
      // TOTAL CASH ADVANCE
      $CA_count = mysqli_query($con,"SELECT * FROM copra_cashadvance where status='PENDING'");
      $ca_no=mysqli_num_rows($CA_count);
 
+     
+    $results = mysqli_query($con, "SELECT SUM(cash_advance) as total from seller"); 
+    $row = mysqli_fetch_array($results);
+   
+
 
    ?>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"
-        integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <body>
     <link rel='stylesheet' href='css/statistic-card.css'>
     <input type='hidden' id='selected-cart' value=''>
@@ -41,15 +38,11 @@
                         <div class="col-sm-3 offset-sm-0">
                             <div class="stat-card">
                                 <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted">No. Cash Advance</p>
+                                    <p class="text-uppercase mb-1 text-muted">Cash Advance</p>
                                     <h2><i class="text-danger font-weight-bold mr-1"></i>
-                                        <?php echo number_format($sumPurchaced_Copra['month_total']); ?> KG
+                                        <?php echo number_format($row['total']); ?> 
                                     </h2>
-                                    <div>
-                                        <span class="text-muted"> <?php echo $monthName; ?>
-                                            <?php echo $sumPurchaced_Copra['year']; ?>
-                                        </span>
-                                    </div>
+                                    
                                 </div>
                                 <div class="stat-card__icon stat-card__icon--success">
                                     <div class="stat-card__icon-circle">
@@ -63,10 +56,8 @@
                             <div class="stat-card">
                                 <div class="stat-card__content">
                                     <p class="text-uppercase mb-1 text-muted">No. Cash Advance</p>
-                                    <h2><?php echo $ca_no; ?> </h2>
-                                    <div>
-                                        <span class="text-muted">OVERALL EXPENSES</span>
-                                    </div>
+                                    <h2>₱ <?php echo $ca_no; ?> </h2>
+                                    
                                 </div>
                                 <div class="stat-card__icon stat-card__icon--primary">
                                     <div class="stat-card__icon-circle">
@@ -113,30 +104,27 @@
 
                                             <div class="table-responsive">
                                                 <table class="table" id='contractTable'> <?php
-                                    $results  = mysqli_query($con, "SELECT * from copra_cashadvance"); 
+                                    $results  = mysqli_query($con, "SELECT * from copra_cashadvance  ORDER BY id ASC"); 
                                     
                                     ?> <thead class="table-dark">
                                                         <tr>
-
+                                                            <th width="10%">ID</th>
                                                             <th width="10%">Date</th>
                                                             <th width="15%">Seller</th>
                                                             <th scope="col">Category</th>
                                                             <th scope="col">Amount</th>
 
-                                                            <th scope="col">Status</th>
+                                                          
                                                             <th scope="col">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
+                                                        <th scope="row"> <?php echo $row['id']?> </th>
                                                             <th scope="row"> <?php echo $row['date']?> </th>
                                                             <td> <?php echo $row['seller']?> </td>
                                                             <td> <?php echo $row['category']?></td> 
                                                             <td>₱  <?php echo number_format($row['amount']) ?> </td>
-                                                            <td>
-                                                                <h5><span
-                                                                        class="badge bg-success"><?php echo $row['status']?></span>
-                                                                </h5>
-                                                            </td>
+                                                            
                                                             <td>
                                                                 <button type="button"
                                                                     class="btn btn-primary text-white  btn-sm"> <i
@@ -157,7 +145,7 @@
                         <div class="col-sm-3">
                             <div class="card">
                                 <div class="card-body">
-                                <canvas id="copra_bar" style="width:100%;max-width:100%; height:100%;"></canvas>
+                                <canvas id="ca_pie" style="width:100%;max-width:100%; height:100%;"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -170,46 +158,54 @@
 </html> <?php
 include('modal/copra/copra_cashadvanceModal.php');
 ?> 
-<script type="text/javascript" src="assets/js/copra-ca.js"></script>
+<script type="text/javascript" src="js/copra-ca.js"></script>
+
 <script>
-copra_bar = document.getElementById("copra_bar");
-contract_pie = document.getElementById("contract_pie");
+pie = document.getElementById("ca_pie");
+
 <?php
-   $currentMonth = date("m");
-   $currentDay = date("d");
-   $currentYear = date("Y");
-   
-   $today = $currentYear . "-" . $currentMonth . "-" . $currentDay;
-   
-                $purchased_count = mysqli_query($con,"SELECT year(date) as year ,MONTHNAME(date) as monthname,sum(net_res) as month_total from transaction_record WHERE year(date)='$currentYear'  group by month(date) ORDER BY date");        
-                if($purchased_count->num_rows > 0) {
-                  foreach($purchased_count as $data) {
-                      $month[] = $data['monthname'];
-                      $amount[] = $data['month_total'];
-                  }
-              }
+            $sql = mysqli_query($con,"SELECT SUM(amount) as total FROM copra_cashadvance WHERE   category='copra'");
+            $copra_row=mysqli_fetch_array($sql);
+
+            $sql = mysqli_query($con,"SELECT SUM(amount) as total  FROM copra_cashadvance WHERE  category='ntc'");
+            $ntc_row=mysqli_fetch_array($sql);
+            $sql = mysqli_query($con,"SELECT SUM(amount) as total  FROM copra_cashadvance WHERE category='trucking'");
+            $truck_row=mysqli_num_rows($sql);
+            $sql = mysqli_query($con,"SELECT SUM(amount) as total  FROM copra_cashadvance WHERE  category='others'");
+            $othr_row=mysqli_num_rows($sql);
         ?>
 
-new Chart(copra_bar, {
-    options: {
-        plugins: {
-            title: {
-                display: true,
-                text: 'Monthly Copra Purchased Expense',
+new Chart(pie, {
+                options: {
+                    plugins:{
+                        title:{
+                            display:true,
+                            text: 'Cash Advance Chart',
+                        },
+                    },
+                },
+                type: 'pie', //Declare the chart type 
+                data: {
+                labels: [
+                    'Copra',
+                    'NTC',
+                    'Trucking',
+                    'Other',
+
+                ],
+                datasets: [{
+                    label:'Carts',
+                    data:[<?php echo $copra_row['total'].",".$ntc_row['total'].",".$truck_row['total'].",".$othr_row['total']?>],
+                    backgroundColor: [
+                        'rgb(0, 153, 51)',
+                        'rgb(102, 153, 153)',
+                        'rgb(255, 204, 0)',
+                        'rgb(153, 0, 0)'
+                    ],
+                    borderColor: 'black',
+                    fill: false, //Fills the curve under the line with the babckground color. It's true by default
+                }]
             },
-        },
-    },
-    type: 'line', //Declare the chart type 
-    data: {
-        labels: <?php echo json_encode($month) ?>, //X-axis data 
-        datasets: [{
-            label: 'Purchased',
-            data: <?php echo json_encode($amount) ?>, //Y-axis data 
-            backgroundColor: '#f26c4f',
-            borderColor: '#f26c4f',
-            tension: 0.3,
-            fill: false, //Fills the curve under the line with the babckground color. It's true by default
-        }]
-    },
-});
+        });
+
 </script>

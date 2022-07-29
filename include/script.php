@@ -12,6 +12,8 @@ $(function() {
 
 
 <script>
+
+
 function clearall() {
     var inputElements = document.getElementsByTagName('input');
 
@@ -23,6 +25,13 @@ function clearall() {
 }
 </script>
 
+<!--hide contract details -->
+<script type="text/javascript">
+$(document).ready(function() {
+    document.getElementById("contract-form").style.display = "none";
+    document.getElementById("cash_advance-form").style.display = "none";
+});
+</script>
 
 
 <!-- CONTRACT DETAILS -->
@@ -45,6 +54,15 @@ $(document).ready(function() {
                 // when the document is ready
                 var myObj = JSON.parse(this.responseText);
 
+                if (contract == 'SPOT') {
+                    document.getElementById("contract-form").style.display = "none";
+                    $('#name').attr('disabled', false);
+                } else {
+                    document.getElementById("contract-form").style.display = "block";
+                    $('#name').attr('disabled', true);
+
+                }
+
 
                 var quantity = myObj[0];
                 var delivered = myObj[1];
@@ -59,6 +77,35 @@ $(document).ready(function() {
 
 
                 $('#name').val(name).trigger('chosen:updated');
+
+                let nf = new Intl.NumberFormat('en-US');
+                $.ajax({
+                    url: "include/fetch/fetchCopraCashAdvance.php",
+                    type: "POST",
+                    cache: false,
+                    data: {
+                        name: name
+                    },
+                    cache: false,
+                    success: function(less) {
+                        if (less !== "") {
+                            document.getElementById("cash_advance-form").style.display =
+                                "block";
+                            document.getElementById("cash_advance").value = nf.format(
+                                less);
+                            document.getElementById("total_ca").value = nf.format(less);
+                        } else {
+                            document.getElementById("cash_advance-form").style.display =
+                                "none";
+                            document.getElementById("cash_advance").value = nf.format(
+                                less);
+                            document.getElementById("total_ca").value = nf.format(less);
+                        }
+                        console.log(less);
+
+
+                    }
+                });
 
             }
         };
@@ -78,6 +125,7 @@ $(document).ready(function() {
 <!-- DISPLAY ADDRESS -->
 <script type="text/javascript">
 $(document).ready(function() {
+    let nf = new Intl.NumberFormat('en-US');
     // Country dependent ajax
     $("#name").on("change", function() {
         var name = $(this).val();
@@ -107,8 +155,23 @@ $(document).ready(function() {
             },
             cache: false,
             success: function(less) {
-                document.getElementById("cash_advance").value = (less).toLocaleString('en-US', {maximumFractionDigits:2});
                 console.log(less);
+                if (less == '' || less == '0') {
+                    document.getElementById("cash_advance-form").style.display = "none";
+                    document.getElementById("cash_advance").value = nf.format(less);
+                    document.getElementById("total_ca").value = nf.format(less);
+                    document.getElementById('cash_advance').readOnly = true;
+                } else {
+
+
+                    document.getElementById("cash_advance-form").style.display = "block";
+                    document.getElementById("cash_advance").value = nf.format(less);
+                    document.getElementById("total_ca").value = nf.format(less);
+                    document.getElementById('cash_advance').readOnly = false;
+                }
+
+
+
             }
         });
 
@@ -171,8 +234,12 @@ $(function() {
             document.getElementById("1rese-weight").value = $("#total-res").val();
 
             document.getElementById("total-1res").value = $("#total-amount").val();
-            document.getElementById("amount-paid").value = $("#total-amount").val();
+
+            $("#amount-paid").val(((+$("#total-amount").val().replace(/,/g, '') - +$("#cash_advance")
+                .val().replace(
+                    /,/g, ''))).toLocaleString());
             getWords($("#amount-paid").val());
+
 
         } else {
 
@@ -190,9 +257,13 @@ $(function() {
                         '') - (+$("#balance").val().replace(/,/g, '')))).toLocaleString("en-US");
 
                 //AMOUNT PAID AND TOTAL
-                document.getElementById("amount-paid").value = $("#total-amount").val();
+
                 $("#total-amount").val(((+$("#first-rese").val().replace(/,/g, '') * +$("#total-res")
                     .val().replace(/,/g, ''))).toLocaleString());
+
+                $("#amount-paid").val(((+$("#total-amount").val().replace(/,/g, '') - +$(
+                    "#cash_advance").val().replace(/,/g, ''))).toLocaleString());
+
                 getWords($("#amount-paid").val());
             } else if (restotal < balance) {
 
@@ -207,7 +278,9 @@ $(function() {
 
                 $("#total-amount").val(((+$("#first-rese").val().replace(/,/g, '') * +$("#total-res")
                     .val().replace(/,/g, ''))).toLocaleString());
-                document.getElementById("amount-paid").value = $("#total-amount").val();
+
+                $("#amount-paid").val(((+$("#total-amount").val().replace(/,/g, '') - +$(
+                    "#cash_advance").val().replace(/,/g, ''))).toLocaleString());
                 getWords($("#amount-paid").val());
             }
 
@@ -221,10 +294,11 @@ $(function() {
 
 <script>
 $(function() {
-    $("#less").keyup(function() {
+    $("#cash_advance").keyup(function() {
 
-        $("#amount-paid").val(((+$("#total-amount").val().replace(/,/g, '') - +$("#less").val().replace(
-            /,/g, ''))).toLocaleString());
+        $("#amount-paid").val(((+$("#total-amount").val().replace(/,/g, '') - +$("#cash_advance").val()
+            .replace(
+                /,/g, ''))).toLocaleString());
         getWords($("#amount-paid").val())
 
     });
@@ -261,7 +335,9 @@ $(function() {
         $("#total-amount").val(((+$("#total-1res").val().replace(/,/g, '') + (+$("#total-2res").val()
             .replace(/,/g, '')))).toLocaleString());
 
-        document.getElementById("amount-paid").value = $("#total-amount").val();
+        $("#amount-paid").val(((+$("#total-amount").val().replace(/,/g, '') - +$("#cash_advance").val()
+            .replace(/,/g, ''))).toLocaleString());
+        getWords($("#amount-paid").val())
 
 
 

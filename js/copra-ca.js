@@ -34,6 +34,9 @@ $(document).ready(function() {
     });
     var table = $('#contractTable').DataTable({
         dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
+        order: [
+            [0, 'desc']
+        ],
         buttons: [{
                 extend: 'excelHtml5',
                 exportOptions: {

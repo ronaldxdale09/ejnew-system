@@ -60,12 +60,12 @@ $today = $year . "-" . $month . "-" . $day;
                             <div class="col-6">
                                 <div class="text-end upgrade-btn">
                                     <!-- CONTENT -->
-                                    <button type="button" class="btn btn-secondary text-white"
-                                    data-toggle="modal" data-target=".viewTransaction"  ><span class="fa fa-book text-white"></span> 
-                                       Transaction History</button>
+                                    <button type="button" class="btn btn-secondary text-white" data-toggle="modal"
+                                        data-target=".viewTransaction"><span class="fa fa-book text-white"></span>
+                                        Transaction History</button>
                                     <button type="button" class="btn btn-info ">
-                                        <span class="fa fa-gear text-white"></span>  </button>
-                               
+                                        <span class="fa fa-gear text-white"></span> </button>
+
                                 </div>
                             </div>
                             <div class="row">
@@ -113,45 +113,72 @@ $today = $year . "-" . $month . "-" . $day;
                                                 </div>
                                             </div>
                                             <hr>
-                                            <div class="form-group" id='quantity_textbox' >
-                                            <label class="col-md-12">Contract </label>
-                                                <div class="row no-gutters">
-                                                    <div class="col-12 col-sm-9 col-md-9">
-                                                        <!--  -->
-                                                        <div class="input-group mb-1">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text"
-                                                                    id="inputGroup-sizing-default"
-                                                                    style='color:black;font-weight: bold;'>Quantity</span>
+                                            <div id='contract-form'>
+                                                <div class="form-group" id='quantity_textbox'>
+                                                    <label class="col-md-12">Contract </label>
+                                                    <div class="row no-gutters">
+                                                        <div class="col-12 col-sm-9 col-md-9">
+                                                            <!--  -->
+                                                            <div class="input-group mb-1">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text"
+                                                                        id="inputGroup-sizing-default"
+                                                                        style='color:black;font-weight: bold;'>Quantity</span>
+                                                                </div>
+                                                                <input type="text" style='text-align:right'
+                                                                    name='quantity' id='quantity' class="form-control"
+                                                                    readonly>
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text">Kg</span>
+                                                                </div>
                                                             </div>
-                                                            <input type="text" style='text-align:right' name='quantity'
-                                                                id='quantity' class="form-control" readonly>
-                                                            <div class="input-group-append">
-                                                                <span class="input-group-text">Kg</span>
+                                                            <!--  -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <br>
+                                                <div class="form-group" id='balance_textbox'>
+                                                    <div class="row no-gutters">
+                                                        <div class="col-12 col-sm-9 col-md-9">
+                                                            <div class="input-group mb-1">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text"
+                                                                        id="inputGroup-sizing-default"
+                                                                        style='color:black;font-weight: bold;'>Balance</span>
+                                                                </div>
+                                                                <input type="text" style='text-align:right'
+                                                                    name='balance' id='balance' class="form-control"
+                                                                    readonly>
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text">Kg</span>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <!--  -->
                                                     </div>
                                                 </div>
                                             </div>
-                                            <br>
-                                            <div class="form-group" id='balance_textbox'>
-                                                <div class="row no-gutters">
-                                                    <div class="col-12 col-sm-9 col-md-9">
-                                                        <div class="input-group mb-1">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text"
-                                                                    id="inputGroup-sizing-default"
-                                                                    style='color:black;font-weight: bold;'>Balance</span>
+                                            <div id='cash_advance-form'>
+                                                <div class="form-group" id='quantity_textbox'>
+                                                    <label class="col-md-12">Cash Advance </label>
+                                                    <div class="row no-gutters">
+                                                        <div class="col-12 col-sm-9 col-md-9">
+                                                            <!--  -->
+                                                            <div class="input-group mb-1">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text"
+                                                                        id="inputGroup-sizing-default"
+                                                                        style='color:black;font-weight: bold;'>₱</span>
+                                                                </div>
+                                                                <input type="text" style='text-align:right'
+                                                                    name='total_ca' id='total_ca' class="form-control"
+                                                                    readonly>
                                                             </div>
-                                                            <input type="text" style='text-align:right' name='balance'
-                                                                id='balance' class="form-control" readonly>
-                                                            <div class="input-group-append">
-                                                                <span class="input-group-text">Kg</span>
-                                                            </div>
+                                                            <!--  -->
                                                         </div>
                                                     </div>
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -160,12 +187,13 @@ $today = $year . "-" . $month . "-" . $day;
                                         <div class="col-12">
                                             <button type="button" class="btn btn-success text-white confirm"
                                                 id='confirm'>Confirm Transaction</button>
-                                                <button type="button" class="btn btn-dark text-white vouchBtn" id='vouchBtn'>
+                                            <button type="button" class="btn btn-dark text-white vouchBtn"
+                                                id='vouchBtn'>
                                                 <span class="fa fa-print"></span> Print Voucher </button>
-                                                <button type="button" class="btn btn-danger text-white confirm"
+                                            <button type="button" class="btn btn-danger text-white confirm"
                                                 onclick='clearall()' id='confirm'>Clear</button>
                                         </div>
-                
+
                                     </div>
                                 </div>
 
@@ -179,7 +207,8 @@ $today = $year . "-" . $month . "-" . $day;
                                                     <div class="row no-gutters">
                                                         <div class="col-12 col-sm-5 col-md-4">
                                                             <!--  -->
-                                                            <label style='font-size:15px' class="col-md-12">No. of Sack
+                                                            <label style='font-size:15px' class="col-md-12">No. of
+                                                                Sack
                                                                 :</label>
                                                             <div class="input-group mb-3">
                                                                 <input type="text" class="form-control" id='noSack'
@@ -192,7 +221,8 @@ $today = $year . "-" . $month . "-" . $day;
                                                             <!--  -->
                                                         </div>
                                                         <div class="col-6 col-md-4">
-                                                            <label style='font-size:15px' class="col-md-12">Gross Weight
+                                                            <label style='font-size:15px' class="col-md-12">Gross
+                                                                Weight
                                                                 (Kilos)</label>
                                                             <!-- new column -->
                                                             <div class="input-group mb-3">
@@ -390,7 +420,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                                 </div>
                                                                 <input type="text" class="form-control" name='first-res'
                                                                     id='first-rese' onkeypress="return CheckNumeric()"
-                                                                    onkeyup="FormatCurrency(this)" />
+                                                                    onkeyup="FormatCurrency(this)" autocomplete="off" />
                                                             </div>
                                                         </div>
                                                         <!--  -->
@@ -433,7 +463,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                                 <input type="text" class="form-control" id='second-res'
                                                                     name='second-rese'
                                                                     onkeypress="return CheckNumeric()"
-                                                                    onkeyup="FormatCurrency(this)" readonly />
+                                                                    onkeyup="FormatCurrency(this)" autocomplete="off" readonly  />
                                                             </div>
                                                         </div>
 
@@ -496,9 +526,10 @@ $today = $year . "-" . $month . "-" . $day;
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text">₱</span>
                                                                 </div>
-                                                                <input type="text" style='text-align:right' id='cash_advance'
-                                                                    name='cash_advance' onkeypress="return CheckNumeric()"
-                                                                    onkeyup="FormatCurrency(this)" class="form-control" value='0'>
+                                                                <input type="text" style='text-align:right'
+                                                                    id='cash_advance' name='cash_advance'
+                                                                    onkeypress="return CheckNumeric()"
+                                                                    onkeyup="FormatCurrency(this)" class="form-control" readonly >
                                                             </div>
                                                         </div>
                                                         <!--  end-->
@@ -519,13 +550,13 @@ $today = $year . "-" . $month . "-" . $day;
                                                                             name='amount-paid' id='amount-paid'
                                                                             onkeypress="return CheckNumeric()"
                                                                             onkeyup="FormatCurrency(this)"
-                                                                            class="form-control">
+                                                                            class="form-control" readonly>
                                                                     </div>
                                                                 </div>
                                                                 <br>
                                                                 <input type="text" style='text-align:center'
                                                                     name='amount-paid-words' id='amount-paid-words'
-                                                                    class="form-control" readonly>
+                                                                    class="form-control" readonly hidden>
                                                                 <!-- end -->
                                                             </div>
                                                         </div>

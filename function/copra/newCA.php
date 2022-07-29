@@ -8,12 +8,24 @@
                             $category = $_POST['ca_category'];
                             $amount = str_replace(',', '', $_POST['ca_amount']);
 
+                            //select seller ca
+                            $sql=mysqli_query($con,"SELECT * FROM seller WHERE name='$seller' ");
+                            $row = mysqli_fetch_array($sql);
+
+                            $seller_ca = $row['cash_advance'];
+
+                            $new_total_ca = $seller_ca + $amount;
+
 
                                 $query = "INSERT INTO copra_cashadvance (date,seller,category,amount,status) 
                                         VALUES ('$date','$seller','$category','$amount','PENDING')";
                                 $results = mysqli_query($con, $query);
+
+                                $query = "UPDATE  seller SET cash_advance = '$new_total_ca' where name='$seller'  ";
+                                $results = mysqli_query($con, $query);
                                    
                                     if ($results) {
+
                                         header("Location: ../..//copra-ca.php");
                                         $_SESSION['copra_ca']= "successful";
 

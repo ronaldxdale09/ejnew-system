@@ -18,7 +18,8 @@
    $pendingContract_count = mysqli_query($con,"SELECT * FROM contract_purchase where status='PENDING' OR status='UPDATED'");
    $contract=mysqli_num_rows($pendingContract_count);
 
-
+   $results = mysqli_query($con, "SELECT SUM(cash_advance) AS total_ca from seller  "); 
+   $total_ca = mysqli_fetch_array($results);
    ?>
 
 <body>
@@ -76,6 +77,23 @@
                                 <div class="stat-card__content">
                                     <p class="text-uppercase mb-1 text-muted">Pending Contracts</p>
                                     <h2><?php echo $contract; ?> </h2>
+                                    <div>
+                                        <span class="text-muted">OVERALL EXPENSES</span>
+                                    </div>
+                                </div>
+                                <div class="stat-card__icon stat-card__icon--primary">
+                                    <div class="stat-card__icon-circle">
+                                        <i class="fa fa-credit-card"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="stat-card">
+                                <div class="stat-card__content">
+                                    <p class="text-uppercase mb-1 text-muted">Total Cash Advance</p>
+                                    <h2>₱ <?php echo number_format($total_ca['total_ca']); ?> </h2>
                                     <div>
                                         <span class="text-muted">OVERALL EXPENSES</span>
                                     </div>

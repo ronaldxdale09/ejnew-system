@@ -73,7 +73,7 @@
                                         </div>
                                         <input type="text" class="form-control" id='m_total-amount'
                                             name='m_total-amount' onkeypress="return CheckNumeric()"
-                                            onkeyup="FormatCurrency(this)" />
+                                            onkeyup="FormatCurrency(this)" readonly />
                                     </div>
 
                                 </div>

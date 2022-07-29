@@ -6,7 +6,7 @@ $('#confirm').click(function()
 {
       if( !document.getElementById('total-amount').value || 
           !document.getElementById('date').value || 
-          !document.getElementById('name').value
+          !$("#name").val()
       ) {
         Swal.fire({
           icon: 'error',
@@ -58,7 +58,7 @@ $('#confirm').click(function()
                   $('#m_total_3res').val($("#total-3res").val());
                   // 
                   $('#m_total-amount').val($("#total-amount").val());
-                  $('#m_less').val($("#less").val());
+                  $('#m_less').val($("#cash_advance").val());
                   $('#m_total-paid').val($("#amount-paid").val());
                   $('#m_total-words').val($("#amount-paid-words").val());
       }
@@ -75,7 +75,7 @@ $('#vouchBtn').click(function()
 
       if( !document.getElementById('total-amount').value || 
           !document.getElementById('date').value || 
-          !document.getElementById('name').value
+          !$("#name").val()
       ) {
         Swal.fire({
           icon: 'error',

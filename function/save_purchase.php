@@ -40,7 +40,7 @@
 
 
                              $total_amount = $_POST['m_total-amount'];
-                             $less = $_POST['m_less'];
+                             $less = str_replace( ',', '',$_POST['m_less']);
                              $amount_paid =	 str_replace( ',', '', $_POST['m_total-paid']);
                              
                              $words_amount =  $_POST['m_total-words'];
@@ -73,7 +73,17 @@
                                 echo $balance;
                             }
 
-                         
+
+
+                            //Update Seller Cash Advance
+                            $sql=mysqli_query($con,"SELECT * FROM seller WHERE name='$seller' ");
+                            $row = mysqli_fetch_array($sql);
+                            $seller_ca = $row['cash_advance'];
+
+                            $total_ca = $seller_ca - $less;
+                            
+                            $query = "UPDATE  seller SET cash_advance = '$total_ca' where name='$seller'  ";
+                            $results = mysqli_query($con, $query);
                             
 
                              $query = "INSERT INTO transaction_record (
@@ -83,6 +93,9 @@
                                         VALUES ('$invoice','$date','$seller','$noSack','$gross','$tare','$net_weight','$dust','$new_dust','$total_dust','$moisture',
                                     '$total_moisture','$net_res','$first_res','$sec_res','$third_res','$total_first_res','$total_sec_res','$total_third_res','$total_amount','$less',
                                     '$amount_paid','$discount','$words_amount')";
+
+
+
                                    
                                 if(mysqli_query($con, $query)){
 
