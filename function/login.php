@@ -16,7 +16,7 @@
 		if($count == 0){
 			echo "	<script type='text/javascript'>
 						alert('Invalid Password!');
-						window.location='/ejnew/index.php';
+						window.location='/ejnew-system/index.php';
 					</script>";
 		}
 		else{
@@ -31,7 +31,7 @@
 				header('Location: ../transaction.php');
 			}
 			elseif  ($userType =='finance'){
-				header('Location: ../ledger-expense.php');
+				header('Location: ../ledger/ledger-expense.php');
 			}
 			
 		}
