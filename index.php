@@ -20,7 +20,7 @@
 			<div class="wrap-login100">
 				<div class="login100-form-title" style="background-image: url(assets/images/banner.jpg);">
 					<span class="login100-form-title-1">
-						EJNEW SYSTEM
+						EJNEW SYSTEM EJN
 					</span>
 				</div>
 
