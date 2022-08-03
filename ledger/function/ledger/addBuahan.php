@@ -11,8 +11,6 @@
 
 
 
-                        
-
                                 $query = "INSERT INTO ledger_buahantoppers (date,voucher,net_kilos,price,total) 
                                         VALUES ('$date','$vouch','$net_kilos','$price','$total')";
                                 $results = mysqli_query($con, $query);

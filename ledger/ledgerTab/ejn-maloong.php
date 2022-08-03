@@ -16,7 +16,7 @@
                             </button>
                             <button type="button" class="btn btn-secondary text-white" data-toggle="modal"
                                 data-target="#modal">
-                                 CATEGORY
+                                CATEGORY
                             </button>
                         </div>
                         <div class="col-sm">
@@ -50,7 +50,7 @@
                                     <th scope="col">Total Amount</th>
                                     <th scope="col"></th>
                                 </tr>
-                         
+
                             </thead>
                             <tbody>
                                 <?php while ($row = mysqli_fetch_array($results)) { ?>

@@ -9,7 +9,7 @@
         </button>
       </div>
       <form action="function/ledger/addExpenses.php" id='myform' method="POST">
-        <div class="modal-body">
+        <div class="modal-body ">
           <div class="container-fluid">
             <div class="row">
               <div class="col-md-12">

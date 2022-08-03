@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="css/chosen.min.css">
     <link rel='stylesheet' href='css/main.css'>
     <script src="assets/js/numberFormat.js"></script>
-    <title>EJN Copra</title>
+    <title>EJN General Ledger</title>
 
 </head>
 <?php 
@@ -23,17 +23,6 @@
 
 ?>
 <style>
-.dataTables_length {
-    margin-top: 10px;
-    margin-left: 20px;
-}
+
 </style>
-
-<?php $month = date("m");
-$day = date("d");
-$year = date("Y");
-
-$today = $year . "-" . $month . "-" . $day;
-?>
-
 

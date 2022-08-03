@@ -47,6 +47,10 @@ $(document).ready(function() {
     // DataTables initialisation
     var table = $('#ledger_buahan').DataTable({
         dom: 'Bfrtip',
+        "ordering": false,
+        order: [
+            [0, 'desc']
+        ],
         buttons: [{
                 extend: 'excelHtml5',
                 exportOptions: {

@@ -10,6 +10,10 @@
 
 <option value="'.$arr["category"].'">'.$arr["category"].'</option>';
    }
+
+   $sql = mysqli_query($con, "SELECT SUM(amount) AS total from ledger_expenses  WHERE DATE(`date`) = CURDATE() ORDER BY id DESC  "); 
+   $expense_today = mysqli_fetch_array($sql);
+   
    ?>
 
 <body>
