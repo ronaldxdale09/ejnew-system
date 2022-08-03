@@ -8,7 +8,7 @@
                     <div class="col-sm">
                         <button type="button" class="btn btn-success text-white" data-toggle="modal"
                             data-target="#addExpense">
-                            <i class="fa fa-plus" aria-hidden="true"></i> ADD EXPENSE </button>
+                            <i class="fa fa-plus" aria-hidden="true"></i> NEW EXPENSE </button>
                         <button type="button" class="btn btn-dark text-white" data-toggle="modal"
                             data-target=".viewExpenseCat">
                             <i class="fa fa-book" aria-hidden="true"></i> CATEGORY </button>
