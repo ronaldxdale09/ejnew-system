@@ -32,6 +32,11 @@ $(document).ready(function() {
     });
     var table = $('#expenses_table').DataTable({
         dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
+        "targets": 'no-sort',
+        "bSort": false,
+        order: [
+            [0, 'desc']
+        ],
         buttons: [{
                 extend: 'excelHtml5',
                 exportOptions: {

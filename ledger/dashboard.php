@@ -26,9 +26,8 @@
    ?>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"
-        integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <link rel='stylesheet' href='css/statistic-card.css'>
     <input type='hidden' id='selected-cart' value=''>
     <div class='main-content' style='position:relative; height:100%;'>
@@ -81,7 +80,7 @@
                                     <p class="text-uppercase mb-1 text-muted">Maloong Toppers</p>
                                     <h2><?php echo number_format($maloong['month_total']) ;  ?> </h2>
                                     <div>
-                                    <span class="text-muted"><?php echo $monthName; ?>
+                                        <span class="text-muted"><?php echo $monthName; ?>
                                             <?php echo $maloong['year']; ?>
                                         </span>
                                     </div>
@@ -100,7 +99,7 @@
                                     <p class="text-uppercase mb-1 text-muted">Buahan Toppers</p>
                                     <h2>₱ <?php echo number_format($buahan['month_total']); ?> </h2>
                                     <div>
-                                    <span class="text-muted"><?php echo $monthName; ?>
+                                        <span class="text-muted"><?php echo $monthName; ?>
                                             <?php echo $buahan['year']; ?>
                                         </span>
                                     </div>
@@ -118,62 +117,121 @@
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-10">
-                                            <h5> LATEST COPRA TRANSACTION </h5>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <button type="button" class="btn btn-success btn-sm "  data-toggle="modal" data-target=".viewTransaction">
-                                                VIEW ALL
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="table-responsive">
-                                        <table class="table" id='sellerTable'>
-                                            <?php
-                                    $record  = mysqli_query($con, "SELECT * from transaction_record ORDER BY id DESC LIMIT 5 "); ?>
-                                            <thead class="table-dark">
-                                                <tr>
-                                                    <th scope="col">Invoice</th>
-                                                    <th scope="col">Date</th>
-                                                    <th scope="col">Contract</th>
-                                                    <th scope="col">Seller</th>
-                                                    <th scope="col">Net Resecada Weight </th>
-                                                    <th scope="col">Amount Paid</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody> <?php while ($row = mysqli_fetch_array($record)) { ?> <tr>
-                                                    <th scope="row"> <?php echo $row['id']?> </th>
-                                                    <td> <?php echo $row['date']?> </td>
-                                                    <td> <?php echo $row['contract']?> </td>
-                                                    <td> <?php echo $row['seller']?> </td>
-                                                    <td> <?php echo number_format($row['net_res']);?> Kg </td>
-                                                    <td>₱ <?php echo number_format($row['amount_paid']); ?> </td>
-                                                </tr> <?php } ?> </tbody>
-                                        </table>
-                                    </div>
+                                    <canvas id="expenses_bar"
+                                        style="position: relative; height:40vh; width:80vw"></canvas>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-body">
-                                    <canvas id="copra_bar" style="width:100%;max-width:100%; height:100%;"></canvas>
+
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <h5>EXPENSES TODAY</h5>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="button" class="btn btn-success btn-sm " data-toggle="modal"
+                                                data-target=".viewTransaction">
+                                                VIEW ALL
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="table-responsive">
+                                        <table class="table" id='expenses_table'> <?php
+                                    $results  = mysqli_query($con, "SELECT * from ledger_expenses WHERE DATE(`date`) = CURDATE() ORDER BY id DESC  "); 
+                                    
+                                    ?> <thead class="table-dark">
+                                                <tr>
+                                                    <th scope="col">DATE</th>
+                                                    <th scope="col">PARTICULARS</th>
+                                                    <th scope="col">VOC#</th>
+                                                    <th scope="col">CATEGORY</th>
+                                                    <th scope="col">AMOUNT</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
+                                                    <td> <?php echo $row['date']?> </td>
+                                                    <td> <?php echo $row['particulars']?> </td>
+                                                    <td> <?php echo $row['voucher_no']?> </td>
+                                                    <td> <?php echo $row['category']?> </td>
+                                                    <td>₱ <?php echo number_format($row['amount'])?> </td>
+
+                                                </tr> <?php }
+                                 ?> </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <canvas id="ca_pie" style="position: relative; height:40vh; width:10vw">></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <h5>CASH ADVANCE TODAY</h5>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="button" class="btn btn-success btn-sm " data-toggle="modal"
+                                                data-target=".viewTransaction">
+                                                VIEW ALL
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-responsive-lg" id='purchase_table'>
+                                            <?php
+                                    $results  = mysqli_query($con, "SELECT * from ledger_cashadvance  WHERE DATE(`date`) = CURDATE() ORDER BY id DESC "); ?>
+                                            <thead class="table-dark">
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Voucher #</th>
+                                                    <th>Date</th>
+                                                    <th>Name</th>
+                                                    <th>Buying Station</th>
+                                                    <th>category</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
+                                                    <td> <?php echo $row['id']?> </td>
+                                                    <td> <?php echo $row['voucher']?> </td>
+                                                    <td> <?php echo $row['date']?> </td>
+                                                    <td> <?php echo $row['customer']?> </td>
+                                                    <td> <?php echo $row['buying_station']?> </td>
+                                                    <td> <?php echo $row['category']?> </td>
+                                                    <td> <?php echo $row['amount']?> </td>
+                                               
+                                                </tr> <?php } ?> </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
+
 </body>
 
 </html>
-<?php 
-   include "modal/viewTransactionModal.php";
-?>
+
 <script>
-copra_bar = document.getElementById("copra_bar");
-contract_pie = document.getElementById("contract_pie");
+expenses_bar = document.getElementById("expenses_bar");
+
 <?php
    $currentMonth = date("m");
    $currentDay = date("d");
@@ -181,33 +239,77 @@ contract_pie = document.getElementById("contract_pie");
    
    $today = $currentYear . "-" . $currentMonth . "-" . $currentDay;
    
-                $purchased_count = mysqli_query($con,"SELECT year(date) as year ,MONTHNAME(date) as monthname,sum(net_res) as month_total from transaction_record WHERE year(date)='$currentYear'  group by month(date) ORDER BY date");        
-                if($purchased_count->num_rows > 0) {
-                  foreach($purchased_count as $data) {
+                $expenses_count = mysqli_query($con,"SELECT year(date) as year ,MONTHNAME(date) as monthname,sum(amount) as month_total from ledger_expenses WHERE year(date)='$currentYear'  group by month(date) ORDER BY date");        
+                if($expenses_count->num_rows > 0) {
+                  foreach($expenses_count as $data) {
                       $month[] = $data['monthname'];
                       $amount[] = $data['month_total'];
                   }
               }
         ?>
 
-new Chart(copra_bar, {
+new Chart(expenses_bar, {
     options: {
         plugins: {
             title: {
                 display: true,
-                text: 'Monthly Copra Purchased Expense',
+                text: 'Monthly Expenses',
             },
         },
     },
-    type: 'line', //Declare the chart type 
+    type: 'bar', //Declare the chart type 
     data: {
         labels: <?php echo json_encode($month) ?>, //X-axis data 
         datasets: [{
-            label: 'Purchased',
+            label: 'Expenses',
             data: <?php echo json_encode($amount) ?>, //Y-axis data 
-            backgroundColor: '#f26c4f',
+            backgroundColor: '#474bff',
             borderColor: '#f26c4f',
             tension: 0.3,
+            fill: false, //Fills the curve under the line with the babckground color. It's true by default
+        }]
+    },
+});
+</script>
+
+
+<script>
+pie = document.getElementById("ca_pie");
+
+<?php
+           $expenses_count = mysqli_query($con,"SELECT year(date) as year ,MONTHNAME(date) as monthname,sum(amount) as month_total , buying_station as station from ledger_cashadvance  group by month(date) ORDER BY date");        
+           if($expenses_count->num_rows > 0) {
+             foreach($expenses_count as $data) {
+                $category[] = $data['station'];
+                 $month[] = $data['monthname'];
+                 $expense[] = $data['month_total'];
+             }
+         }
+        ?>
+
+new Chart(pie, {
+    options: {
+        maintainAspectRatio: false,
+        responsive: true,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Cash Advance Chart',
+            },
+        },
+    },
+    type: 'doughnut', //Declare the chart type 
+    data: {
+        labels: <?php echo json_encode($category) ?>,
+        datasets: [{
+            data: <?php echo json_encode($expense) ?>,
+            backgroundColor: [
+                'rgb(0, 153, 51)',
+                'rgb(102, 153, 153)',
+                'rgb(255, 204, 0)',
+                'rgb(255, 0, 0)',
+            ],
+            borderColor: 'black',
             fill: false, //Fills the curve under the line with the babckground color. It's true by default
         }]
     },

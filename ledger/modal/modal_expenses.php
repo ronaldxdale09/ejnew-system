@@ -8,8 +8,13 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+<<<<<<< HEAD
       <form action="../function/ledger/addExpenses.php" id='myform' method="POST">
         <div class="modal-body">
+=======
+      <form action="function/ledger/addExpenses.php" id='myform' method="POST">
+        <div class="modal-body ">
+>>>>>>> d130b5dd5805efdb697c52242751aa39a4a07103
           <div class="container-fluid">
             <div class="row">
               <div class="col-md-12">

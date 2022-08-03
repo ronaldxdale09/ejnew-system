@@ -25,7 +25,7 @@
                                 $results = mysqli_query($con, $purchase);
                                    
                                     if ($results) {
-                                        header("Location: ../../ledger-purchase.php");
+                                        header("Location: ../../../ledger-purchase.php");
                                         $_SESSION['purchases']= "successful";
                                     } else {
                                         echo "ERROR: Could not be able to execute $purchase. ".mysqli_error($con);
