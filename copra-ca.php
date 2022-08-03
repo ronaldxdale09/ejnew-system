@@ -127,7 +127,7 @@
                                                             
                                                             <td>
                                                                 <button type="button"
-                                                                    class="btn btn-primary text-white  btn-sm"> <i
+                                                                    class="btn btn-secondary text-white  btn-sm"> <i
                                                                         class='fa-solid fa-edit'></i></button>
                                                                 <button type="button"
                                                                     class="btn btn-danger text-white  btn-sm">
