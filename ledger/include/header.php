@@ -15,7 +15,7 @@
     <link rel='stylesheet' href='css/main.css'>
     <script src="assets/js/numberFormat.js"></script>
     <title>EJN General Ledger</title>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <?php 
  include "include/datatables_buttons_css.php";

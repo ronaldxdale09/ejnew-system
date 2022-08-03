@@ -1,7 +1,7 @@
 $('#addExpense').on('shown.bs.modal', function() {
     $('.ex_category', this).chosen();
 });
-$("body").children().first().before($(".modal"));
+
 var minDate, maxDate;
 
 // Custom filtering function which will search data in column four between two values

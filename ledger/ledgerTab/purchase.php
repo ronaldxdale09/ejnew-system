@@ -95,5 +95,59 @@
                 </div>
             </div>
         </div>
+        <div class="card">
+            <div class="card-body">
+                <canvas id="purchase_pie" style="position: relative; height:40vh; width:80vw"></canvas>
+            </div>
+        </div>
     </div>
 </div>
+
+
+<script>
+pie = document.getElementById("purchase_pie");
+
+<?php
+  $currentMonth = date("m");
+  $currentDay = date("d");
+  $currentYear = date("Y");
+
+
+           $purchase_count = mysqli_query($con,"SELECT year(date) as year ,MONTHNAME(date) as monthname,sum(total_amount) as month_total , category as category from ledger_purchase WHERE month(date)='$currentMonth'   group by category ORDER BY date");        
+           if($purchase_count->num_rows > 0) {
+             foreach($purchase_count as $data) {
+                $category[] = $data['category'];
+                 $month[] = $data['monthname'];
+                 $total[] = $data['month_total'];
+             }
+         }
+        ?>
+
+new Chart(pie, {
+    options: {
+        maintainAspectRatio: false,
+        responsive: true,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Purchases This Month :',
+            },
+        },
+    },
+    type: 'doughnut', //Declare the chart type 
+    data: {
+        labels: <?php echo json_encode($category) ?>,
+        datasets: [{
+            data: <?php echo json_encode($total) ?>,
+            backgroundColor: [
+                'rgb(0, 153, 51)',
+                'rgb(102, 153, 153)',
+                'rgb(255, 204, 0)',
+                'rgb(255, 0, 0)',
+            ],
+            borderColor: 'black',
+            fill: false, //Fills the curve under the line with the babckground color. It's true by default
+        }]
+    },
+});
+</script>

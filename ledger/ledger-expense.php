@@ -1,6 +1,10 @@
 <?php 
    include('include/header.php');
    include "include/navbar.php";
+   //current month
+   $currentMonth = date("m");
+   $currentYear = date("Y");
+
    $Ex_category = "SELECT * FROM category_expenses ";
    $result = mysqli_query($con, $Ex_category);
    $exCatList='';
@@ -13,6 +17,21 @@
 
    $sql = mysqli_query($con, "SELECT SUM(amount) AS total from ledger_expenses  WHERE DATE(`date`) = CURDATE() ORDER BY id DESC  "); 
    $expense_today = mysqli_fetch_array($sql);
+   
+   
+   $getMonthTotal  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(amount) as month_total 
+   from ledger_expenses WHERE month(date)='$currentMonth' group by year(date), month(date) ORDER BY ID DESC");
+   $expense_month = mysqli_fetch_array($getMonthTotal);
+
+   $monthNum  = $expense_month["month"];
+   $dateObj   = DateTime::createFromFormat('!m', $monthNum);
+   $monthName = $dateObj->format('F');
+
+
+   $getYearTotal  = mysqli_query($con, "SELECT sum(amount) as year_total 
+   from ledger_expenses WHERE year(date)='$currentYear' ");
+   $expense_year = mysqli_fetch_array($getYearTotal);
+   
    
    ?>
 

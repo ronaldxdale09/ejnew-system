@@ -26,7 +26,7 @@
    ?>
 
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
     <link rel='stylesheet' href='css/statistic-card.css'>
     <input type='hidden' id='selected-cart' value=''>

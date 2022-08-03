@@ -28,7 +28,7 @@
                                             style='color:black;font-weight: bold;'>Voucher</span>
                                     </div>
                                     <input type="text" style='text-align:right' name='p_voucher' id='p_voucher'
-                                        class="form-control" style='background-color:white;border:0px solid #ffffff;'>
+                                        class="form-control" style='background-color:white;border:0px solid #ffffff;'  autocomplete='off'>
                                 </div>
                             </div>
                             <!--end  -->
@@ -46,7 +46,7 @@
                         <label class="col-md-12">Customer Name</label>
                         <div class="col-md-8">
                             <input type="text" name='p_name' id='p_name' class="form-control form-control-line"
-                                required>
+                            autocomplete='off'  required>
                         </div>
                     </div>
                     <!-- net kilos -->
@@ -62,7 +62,7 @@
                                     </div>
                                     <input type="text" style='text-align:right' name='p_net-kilos' id='p_net-kilos'
                                         class="form-control" onkeypress="return CheckNumeric()"
-                                        onkeyup="FormatCurrency(this)">
+                                        onkeyup="FormatCurrency(this)"  autocomplete='off'>
                                     <div class="input-group-append">
                                         <span class="input-group-text">Kg</span>
                                     </div>
@@ -84,7 +84,7 @@
                                     </div>
                                     <input type="text" style='text-align:right' name='p_price' id='p_price'
                                         onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
-                                        class="form-control">
+                                        class="form-control"  autocomplete='off'>
                                 </div>
                             </div>
                         </div>
@@ -100,7 +100,7 @@
                                         <span class="input-group-text">₱</span>
                                     </div>
                                     <input type="text" class="form-control" id='p_adjustprice' name='p_adjustprice'
-                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" />
+                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"   autocomplete='off'/>
                                 </div>
                                 <!--  -->
                             </div>
@@ -113,7 +113,7 @@
                                     </div>
                                     <input type="text" style='text-align:right' name='p_less' id='p_less'
                                         class="form-control" onkeypress="return CheckNumeric()"
-                                        onkeyup="FormatCurrency(this)">
+                                        onkeyup="FormatCurrency(this)"  autocomplete='off'>
                                 </div>
                                 <!--  -->
                             </div>
@@ -132,7 +132,7 @@
                                     </div>
                                     <input type="text" style='text-align:right' name='p_partial_payment'
                                         id='p_partial_payment' onkeypress="return CheckNumeric()"
-                                        onkeyup="FormatCurrency(this)" class="form-control">
+                                        onkeyup="FormatCurrency(this)" class="form-control"  autocomplete='off'>
                                 </div>
                             </div>
                         </div>
@@ -148,7 +148,7 @@
                                         <span class="input-group-text">₱</span>
                                     </div>
                                     <input type="text" readonly class="form-control" id='p_net_total' name='p_net_total'
-                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" />
+                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off' />
                                 </div>
                                 <!--  -->
                             </div>
