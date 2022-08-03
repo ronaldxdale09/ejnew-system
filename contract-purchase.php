@@ -11,7 +11,7 @@
 <option value="'.$arr["name"].'">[ '.$arr["code"].' ]      '.$arr["name"].'</option>';
    }
 
-   $getMonthTotal  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(delivered) as month_total 
+   $getMonthTotal  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(balance) as month_total 
    from contract_purchase  group by year(date), month(date) ORDER BY ID DESC");
    $sumPurchaced_Copra = mysqli_fetch_array($getMonthTotal);
    $monthNum  = $sumPurchaced_Copra["month"];
@@ -37,7 +37,7 @@
                         <div class="col-sm-3 offset-sm-0">
                             <div class="stat-card">
                                 <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted">COPRA PURCHASED</p>
+                                    <p class="text-uppercase mb-1 text-muted">PURCHASED CONTRACT BALANCE</p>
                                     <h2><i class="text-danger font-weight-bold mr-1"></i>
                                         <?php echo number_format($sumPurchaced_Copra['month_total']); ?> KG
                                     </h2>
