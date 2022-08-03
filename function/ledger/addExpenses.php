@@ -18,7 +18,7 @@
                                 $results = mysqli_query($con, $query);
                                    
                                     if ($results) {
-                                        header("Location: ../../ledger.php");
+                                        header("Location: ../../ledger/ledger-expense.php");
                                         $_SESSION['expenses']= "successful";
                                        
                                         //INSERT NEW CATEGORY

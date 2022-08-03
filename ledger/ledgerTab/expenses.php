@@ -52,7 +52,7 @@
                                     <td> <?php echo $row['category']?> </td>
                                     <td>₱ <?php echo number_format($row['amount'])?> </td>
                                     <td>
-                                        <button type="button" class="btn btn-secondary text-white">
+                                        <button type="button" class="btn btn-secondary text-white" data-bs-toggle="modal" data-bs-target="#updateExpense" data-bs-amount="<?php echo number_format($row['amount'])?>" data-bs-category="<?php echo $row['category']?>" data-bs-date="<?php echo $row['date']?>" data-bs-name="<?php echo $row['particulars']?>" data-bs-voucher="<?php echo $row['voucher_no']?>" data-bs-id="<?php echo $row['id']?>">
                                             <span class="fa fa-edit"></span>
                                         </button>
                                         <button type="button" class="btn btn-danger text-white"> <span
