@@ -11,6 +11,14 @@
    $purCatList .= '
 <option value="'.$array["category"].'">'.$array["category"].'</option>';
    }
+
+   $sql = mysqli_query($con, "SELECT SUM(total_amount) AS total_amount from ledger_purchase  WHERE DATE(`date`) = CURDATE()  "); 
+   $purchase_today = mysqli_fetch_array($sql);
+
+   if ($purchase_today['total_amount'] == null || $purchase_today['total_amount'] == ''){
+    $purchase_today['total_amount'] = 0;
+   }
+   
    
 
    ?> 
@@ -31,7 +39,7 @@
 </html>
 <script src="ledgerTab/js/purchase.js"></script>
 <?php
-include('modal/purchaseModal.php');
+include('modal/modal_purchase.php');
 ?> 
 
 <script>

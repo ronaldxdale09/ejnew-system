@@ -69,23 +69,23 @@
     <div class="col-sm-4">
         <div class="card">
             <div class="card-body">
-                    <div class="stat-card">
-                        <div class="stat-card__content">
-                            <p class="text-uppercase mb-1 text-muted">EXPENSES TODAY</p>
-                            <h2><i class="text-danger font-weight-bold mr-1"></i>
-                            ₱  <?php  echo $expense_today['total'] ?> 
-                            </h2>
-                            <div>
-                                <span class="text-muted"><?php echo "Today is " . date("Y-m-d") . "<br>"; ?>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="stat-card__icon stat-card__icon--success">
-                            <div class="stat-card__icon-circle">
-                                <i class="fa fa-money" aria-hidden="true"></i>
-                            </div>
+                <div class="stat-card">
+                    <div class="stat-card__content">
+                        <p class="text-uppercase mb-1 text-muted">EXPENSES TODAY</p>
+                        <h2><i class="text-danger font-weight-bold mr-1"></i>
+                            ₱ <?php  echo $expense_today['total'] ?>
+                        </h2>
+                        <div>
+                            <span class="text-muted"><?php echo "Today is " . date("Y-m-d") . "<br>"; ?>
+                            </span>
                         </div>
                     </div>
+                    <div class="stat-card__icon stat-card__icon--success">
+                        <div class="stat-card__icon-circle">
+                            <i class="fa fa-money" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
