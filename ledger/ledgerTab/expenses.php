@@ -35,31 +35,6 @@
                                     $results  = mysqli_query($con, "SELECT * from ledger_expenses ORDER BY id DESC  "); 
                                     
                                     ?> <thead class="table-dark">
-<<<<<<< HEAD
-                                <tr>
-                                    <th scope="col">DATE</th>
-                                    <th scope="col">PARTICULARS</th>
-                                    <th scope="col">VOC#</th>
-                                    <th scope="col">CATEGORY</th>
-                                    <th scope="col">AMOUNT</th>
-                                    <th scope="col">ACTION</th>
-                                </tr>
-                            </thead>
-                            <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
-                                    <td> <?php echo $row['date']?> </td>
-                                    <td> <?php echo $row['particulars']?> </td>
-                                    <td> <?php echo $row['voucher_no']?> </td>
-                                    <td> <?php echo $row['category']?> </td>
-                                    <td>₱ <?php echo number_format($row['amount'])?> </td>
-                                    <td>
-                                        <button type="button" class="btn btn-secondary text-white" data-bs-toggle="modal" data-bs-target="#updateExpense" data-bs-amount="<?php echo number_format($row['amount'])?>" data-bs-category="<?php echo $row['category']?>" data-bs-date="<?php echo $row['date']?>" data-bs-name="<?php echo $row['particulars']?>" data-bs-voucher="<?php echo $row['voucher_no']?>" data-bs-id="<?php echo $row['id']?>">
-                                            <span class="fa fa-edit"></span>
-                                        </button>
-                                        <button type="button" class="btn btn-danger text-white"> <span
-                                                class="fa fa-times"></span></button>
-                                    </td>
-                                </tr> <?php }
-=======
                             <tr>
                                 <th scope="col">DATE</th>
                                 <th scope="col">PARTICULARS</th>
@@ -83,15 +58,11 @@
                                             class="fa fa-times"></span></button>
                                 </td>
                             </tr> <?php }
->>>>>>> d130b5dd5805efdb697c52242751aa39a4a07103
                                  ?> </tbody>
                     </table>
                 </div>
             </div>
         </div>
-<<<<<<< HEAD
-    </div>
-=======
 
     </div>
 
@@ -119,4 +90,3 @@
         </div>
     </div>
 </div>
->>>>>>> d130b5dd5805efdb697c52242751aa39a4a07103
