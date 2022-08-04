@@ -62,9 +62,12 @@
                                     <td><?php echo $row['WET']?></td>
                                     <td>₱ <?php echo number_format($row['amount'])?></td>
                                     <td>
-                                        <button type="button" class="btn btn-success text-white"><span
-                                                class="fa fa-shopping-cart"></span></button>
-                                        <button type="button" class="btn btn-danger text-white">REMOVE</button>
+                                        <button type="button" class="btn btn-secondary text-white">
+                                            <span class="fa fa-edit"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-danger text-white">
+                                            <span class="fa fa-trash"></span>
+                                        </button>
                                     </td>
                                 </tr>
 

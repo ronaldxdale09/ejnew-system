@@ -50,11 +50,12 @@
                                     <td> <?php echo $row['price']?> </td>
                                     <td>₱ <?php echo number_format($row['total'])?> </td>
                                     <td>
-                                        <button type="button" class="btn btn-secondary text-white">
+                                        <button type="button" class="btn btn-secondary text-white" data-bs-toggle="modal" data-bs-target="#updateBuahan" data-bs-id="<?php echo $row['id']?>" data-bs-date="<?php echo $row['date']?>" data-bs-voucher="<?php echo $row['voucher']?>" data-bs-net_kilos="<?php echo $row['net_kilos']?>" data-bs-price="<?php echo $row['price']?>" data-bs-total="<?php echo $row['total']?>">
                                             <span class="fa fa-edit"></span>
                                         </button>
-                                        <button type="button" class="btn btn-danger text-white"> <span
-                                                class="fa fa-times"></span></button>
+                                        <button type="button" class="btn btn-danger text-white" data-bs-toggle="modal" data-bs-target="#removeBuahan" data-bs-voucher="<?php echo $row['voucher']?>" data-bs-id="<?php echo $row['id']?>">
+                                            <span class="fa fa-trash"></span>
+                                        </button>
                                     </td>
                                 </tr> <?php }
                                  ?> </tbody>

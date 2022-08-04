@@ -43,9 +43,9 @@
                                         <span class="input-group-text" id="inputGroup-sizing-default"
                                             style='color:black;font-weight: bold;'>Date</span>
                                     </div>
-                                    <input  type="text" style='text-align:right' name='m_date'
-                                        id='m_date' class="form-control"
-                                        style='background-color:white;border:0px solid #ffffff;' readonly>
+                                    <input type="text" style='text-align:right' name='m_date' id='m_date'
+                                        class="form-control" style='background-color:white;border:0px solid #ffffff;'
+                                        readonly>
                                 </div>
                             </div>
                             <!--  end-->
@@ -165,7 +165,7 @@ $('#confirmPurchase').click(function() {
             text: "Transaction Was Successful!",
             type: "success"
         }).then(function() {
-            document.getElementById("vouchBtn").click();
+            document.getElementById("receiptBtn").click();
         });
     });
 });
@@ -319,103 +319,202 @@ $('#confirmPurchase').click(function() {
             </div>
         </div>
     </div>
-    <!--END PRINT Transaction -->
+</div>
+<!--END PRINT Transaction -->
 
 
-    <script type="text/javascript">
-    $(document).ready(function() {
-        $('#print_voucher').click(function() {
-            var name = document.getElementById("name").value;
-            var date = document.getElementById("date").value;
-            var address = document.getElementById("address").value;
-            sessionStorage.setItem("name", name, "date", date, "address", address);
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#print_voucher').click(function() {
+        var name = document.getElementById("name").value;
+        var date = document.getElementById("date").value;
+        var address = document.getElementById("address").value;
+        sessionStorage.setItem("name", name, "date", date, "address", address);
 
 
-            var nw = window.open("voucher/print_voucher.php", "_blank", "height=623,width=812")
+        var nw = window.open("voucher/print_voucher.php", "_blank", "height=623,width=812")
 
 
 
 
+        setTimeout(function() {
+            nw.print()
             setTimeout(function() {
-                nw.print()
-                setTimeout(function() {
-                    nw.close()
-                }, 500)
-            }, 1000)
-        })
-    });
-    </script>
+                nw.close()
+            }, 500)
+        }, 1000)
+    })
+});
+</script>
 
 
-
-
-
-
-    <!-- SELECT CONTACT MODAL -->
-    <!-- Modal -->
-    <div class="modal fade" id="select-contract" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">EXPENSES</h5>
-                    <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+<!-- PRINT Transaction -->
+<div class="modal fade" id="modal_receipt" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">PRINT RECEIPT</h5>
+                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="row no-gutters">
+                        <div class="col-6 col-md-4">
+                            <div class="input-group mb-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-default"
+                                        style='color:black;font-weight: bold;'>Contract</span>
+                                </div>
+                                <input type="text" style='text-align:right' name='r_contract' id='r_contract'
+                                    class="form-control" style='background-color:white;border:0px solid #ffffff;'
+                                    readonly>
+                            </div>
+                        </div>
+                        <!--end  -->
+                        <div class="col-6 col-md-4">
+                            <div class="input-group mb-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-default"
+                                        style='color:black;font-weight: bold;'>Date</span>
+                                </div>
+                                <input type="text" style='text-align:right' name='r_date' id='r_date'
+                                    class="form-control" style='background-color:white;border:0px solid #ffffff;'
+                                    readonly>
+                            </div>
+                        </div>
+                        <!--  end-->
+                    </div>
                 </div>
-                <form action="function/ledger/addExpenses.php" id='myform' method="POST">
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label class="col-md-12">DATE</label>
-                            <div class="col-md-12">
-                                <input class='datepicker' type="date" id="date" name="date">
-                            </div>
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <label class="col-md-12">PARTICULARS</label>
-                            <div class="col-md-8">
-                                <input type="text" name='particular' class="form-control form-control-line">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-12">VOUCHER #</label>
-                            <div class="col-md-8">
-                                <input type="text" name='voucher' class="form-control form-control-line">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-12">Category</label>
-                            <div class="col-md-12">
-                                <select class='ex_category' name='category' id='category' style="width:350px">
-                                    <option disabled="disabled" selected="selected">Select Seller</option>
-                                    <?php echo $exCatList; ?>
-                                </select>
-                            </div>
-                        </div>
-                        <!-- BALANCE -->
-                        <div class="form-group">
-                            <div class="row no-gutters">
-                                <label style='font-size:15px;font-weight: bold;' class="col-md-12">Amount: </label>
-                                <div class="col-12 col-sm-5 col-md-7">
+                <div class="form-group">
+                    <label class="col-md-8">Vouch:</label>
+                    <div class="col-md-4">
+                        <textarea name="r_name" id="r_name" class="form-control"
+                            style='font-size:15px;background-color:white;width:700px;height:100px;'></textarea>
+                    </div>
+                </div>
 
-                                    <div class="input-group mb-5">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">₱</span>
-                                        </div>
-                                        <input type="text" style='text-align:right' name='amount' class="form-control"
-                                            onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
+                <hr>
+                <div class="form-group">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-sm-5 col-md-3">
+
+                            <div class="input-group mb-1">
+
+                                <label style='font-size:15px' class="col-md-12">Total Amount :</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">₱</span>
                                     </div>
+                                    <input type="text" class="form-control" id='r_total-amount' name='r_total-amount'
+                                        readonly onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" />
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="col-6 col-md-4">
+
+                            <div class="input-group mb-1">
+
+                                <label style='font-size:15px' class="col-md-12">Less :</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">₱</span>
+                                    </div>
+                                    <input type="text" class="form-control" id='r_less' name='r_less' readonly
+                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" />
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--  total dust-->
+                        <div class="col-6 col-md-4">
+                            <div class="input-group mb-1">
+
+                                <label style='font-size:15px' class="col-md-12">Total Amount Paid :</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">₱</span>
+                                    </div>
+                                    <input type="text" class="form-control" id='r_total-paid' name='r_total-paid'
+                                        readonly onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" />
                                 </div>
                             </div>
                         </div>
-                        <!-- END BALANCE -->
                     </div>
-                    <div class="modal-footer">
-                        <button type="submit" name='submit' class="btn btn-primary">Submit</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </form>
+                </div>
+
+                <div class="form-group">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-sm-5 col-md-3">
+
+                            <div class="input-group mb-1">
+
+                                <label style='font-size:15px' class="col-md-12">Approved By:</label>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" id='approved_by' name='approved_by'
+                                        value='EFREN J. NEW' onkeypress="return CheckNumeric()"
+                                        onkeyup="FormatCurrency(this)" />
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="col-6 col-md-4">
+
+                            <!-- empty -->
+                        </div>
+                        <!--  total dust-->
+                        <div class="col-6 col-md-4">
+                            <div class="input-group mb-1">
+
+                                <label style='font-size:15px' class="col-md-12">Recorded By :</label>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" id='recorded_by' name='recorded_by'
+                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end -->
+                </div>
+                <!-- end table -->
+                <input type="text" class="form-control" id='r_total-words' name='r_total-words' readonly
+                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" />
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id='print_receipt' name='print_receipt' class="btn btn-success text-white">Print</button>
             </div>
         </div>
     </div>
 </div>
+
+
+
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#print_receipt').click(function() {
+
+        var nw = window.open("voucher/print_receipt.php", "_blank",
+        "height=623,width=812")
+
+
+
+
+        setTimeout(function() {
+            nw.print()
+            setTimeout(function() {
+                nw.close()
+            }, 500)
+        }, 1000)
+    })
+});
+</script>

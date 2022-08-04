@@ -51,17 +51,20 @@
                                 <td> <?php echo $row['category']?> </td>
                                 <td>₱ <?php echo number_format($row['amount'])?> </td>
                                 <td>
-                                    <button type="button" class="btn btn-secondary text-white" data-toggle="modal"
-                                        data-target="#updateExpense" data-amount="<?php echo number_format($row['amount'])?>"
-                                        data-category="<?php echo $row['category']?>"
-                                        data-date="<?php echo $row['date']?>"
-                                        data-name="<?php echo $row['particulars']?>"
-                                        data-voucher="<?php echo $row['voucher_no']?>"
-                                        data-id="<?php echo $row['id']?>">
+                      
+                                    <button type="button" class="btn btn-secondary text-white" data-bs-toggle="modal"
+                                        data-bs-target="#updateExpense"
+                                        data-bs-amount="<?php echo number_format($row['amount'])?>"
+                                        data-bs-category="<?php echo $row['category']?>"
+                                        data-bs-date="<?php echo $row['date']?>"
+                                        data-bs-name="<?php echo $row['particulars']?>"
+                                        data-bs-voucher="<?php echo $row['voucher_no']?>"
+                                        data-bs-id="<?php echo $row['id']?>">
                                         <span class="fa fa-edit"></span>
                                     </button>
-                                    <button type="button" class="btn btn-danger text-white"> <span
-                                            class="fa fa-times"></span></button>
+                                    <button type="button" class="btn btn-danger text-white" data-bs-toggle="modal"
+                                        data-bs-target="#removeExpense" data-bs-id="<?php echo $row['id']?>"> <span
+                                            class="fa fa-trash"></span></button>
                                 </td>
                             </tr> <?php }
                                  ?> </tbody>
@@ -73,63 +76,63 @@
     </div>
 
     <div class="col-sm-4">
-    
-                <div class="stat-card">
-                    <div class="stat-card__content">
-                        <p class="text-uppercase mb-1 text-muted">EXPENSES TODAY</p>
-                        <h2><i class="text-danger font-weight-bold mr-1"></i>
-                            ₱ <?php  echo number_format($expense_today['total']) ?>
-                        </h2>
-                        <div>
-                            <span class="text-muted"><?php echo "Today is " . date("Y-m-d") . "<br>"; ?>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="stat-card__icon stat-card__icon--success">
-                        <div class="stat-card__icon-circle">
-                            <i class="fa fa-money" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                </div>
-        
-  
-                <div class="stat-card">
-                    <div class="stat-card__content">
-                        <p class="text-uppercase mb-1 text-muted">EXPENSES THIS MONTH</p>
-                        <h2><i class="text-danger font-weight-bold mr-1"></i>
-                            ₱ <?php  echo number_format($expense_month['month_total']) ?>
-                        </h2>
-                        <div>
-                        <span class="text-muted"> <?php echo $monthName; ?>
-                                            <?php echo $expense_month['year']; ?>
-                                        </span>
-                        </div>
-                    </div>
-                    <div class="stat-card__icon stat-card__icon--danger">
-                        <div class="stat-card__icon-circle">
-                            <i class="fa fa-money" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="stat-card">
-                    <div class="stat-card__content">
-                        <p class="text-uppercase mb-1 text-muted">EXPENSES THIS YEAR</p>
-                        <h2><i class="text-danger font-weight-bold mr-1"></i>
-                            ₱ <?php  echo number_format($expense_year['year_total']) ?>
-                        </h2>
-                        <div>
-                        <span class="text-muted">
-                                            <?php echo $currentYear; ?>
-                                        </span>
-                        </div>
-                    </div>
-                    <div class="stat-card__icon stat-card__icon--warning">
-                        <div class="stat-card__icon-circle">
-                            <i class="fa fa-money" aria-hidden="true"></i>
-                        </div>
-                    </div>
+        <div class="stat-card">
+            <div class="stat-card__content">
+                <p class="text-uppercase mb-1 text-muted">EXPENSES TODAY</p>
+                <h2><i class="text-danger font-weight-bold mr-1"></i>
+                    ₱ <?php  echo number_format($expense_today['total']) ?>
+                </h2>
+                <div>
+                    <span class="text-muted"><?php echo "Today is " . date("Y-m-d") . "<br>"; ?>
+                    </span>
                 </div>
-        
+            </div>
+            <div class="stat-card__icon stat-card__icon--success">
+                <div class="stat-card__icon-circle">
+                    <i class="fa fa-money" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="stat-card">
+            <div class="stat-card__content">
+                <p class="text-uppercase mb-1 text-muted">EXPENSES THIS MONTH</p>
+                <h2><i class="text-danger font-weight-bold mr-1"></i>
+                    ₱ <?php  echo number_format($expense_month['month_total']) ?>
+                </h2>
+                <div>
+                    <span class="text-muted"> <?php echo $monthName; ?>
+                        <?php echo $expense_month['year']; ?>
+                    </span>
+                </div>
+            </div>
+            <div class="stat-card__icon stat-card__icon--danger">
+                <div class="stat-card__icon-circle">
+                    <i class="fa fa-money" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-card__content">
+                <p class="text-uppercase mb-1 text-muted">EXPENSES THIS YEAR</p>
+                <h2><i class="text-danger font-weight-bold mr-1"></i>
+                    ₱ <?php  echo number_format($expense_year['year_total']) ?>
+                </h2>
+                <div>
+                    <span class="text-muted">
+                        <?php echo $currentYear; ?>
+                    </span>
+                </div>
+            </div>
+            <div class="stat-card__icon stat-card__icon--warning">
+                <div class="stat-card__icon-circle">
+                    <i class="fa fa-money" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>

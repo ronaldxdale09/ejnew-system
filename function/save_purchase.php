@@ -100,10 +100,30 @@
                                 if(mysqli_query($con, $query)){
 
                                     
-                                   
+                                    $_SESSION['print_invoice'] = $invoice;
                                     $_SESSION['print_seller'] = $seller;
                                     $_SESSION['print_date'] = $date;
                                     $_SESSION['print_address'] = $address;
+
+
+                                    ///
+                                    $_SESSION['print_sacks']= $noSack;
+                                    $_SESSION['print_gross_weight']= $gross;
+                                    $_SESSION['print_tare']= $tare;
+
+                                    $_SESSION['print_net_weight'] = $net_weight;
+                                    $_SESSION['print_dust'] = $dust;
+                                    $_SESSION['print_new_dust'] = $total_dust;
+                                    $_SESSION['print_moisture'] = $moisture;
+                                    $_SESSION['print_mois_total'] = $total_moisture;
+                                    $_SESSION['print_net_weight_res'] = $net_res;
+                                    
+                                    $_SESSION['print_1rese_price'] = $first_res;
+                                    $_SESSION['print_2rese_price'] = $sec_res;
+                                    //TOTAL
+                                    $_SESSION['print_total_1rese'] = $total_first_res;
+                                    $_SESSION['print_total_2rese'] = $total_sec_res;
+                                    ///
 
                                     $_SESSION['print_less'] = $less;
                                     $_SESSION['print_total'] = $total_amount;

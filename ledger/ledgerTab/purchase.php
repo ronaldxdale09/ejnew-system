@@ -59,11 +59,11 @@
                                 <td hidden> <?php echo  $row['net_total']?> </td>
                                 <td>₱ <?php echo number_format($row['total_amount'])?> </td>
                                 <td>
-                                    <button type="button" class="btn btn-primary text-white">
-                                        <span class="fa fa-eye"></span>
-                                    </button>
-                                    <button type="button" class="btn btn-secondary text-white">
+                                    <button type="button" class="btn btn-secondary text-white" data-bs-toggle="modal" data-bs-target="#updatePurchase" data-bs-id="<?php echo $row['id']?>" data-bs-date="<?php echo $row['date']?>" data-bs-category="<?php echo $row['category']?>" data-bs-voucher="<?php echo $row['voucher']?>" data-bs-customer_name="<?php echo $row['customer_name']?>" data-bs-net_kilos="<?php echo $row['net_kilos']?>" data-bs-price="<?php echo $row['price']?>" data-bs-adjustment_price="<?php echo $row['adjustment_price']?>" data-bs-less="<?php echo $row['less']?>" data-bs-partial_payment="<?php echo $row['partial_payment']?>" data-bs-net_total="<?php echo $row['net_total']?>" data-bs-total_amount="<?php echo $row['total_amount']?>">
                                         <span class="fa fa-edit"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-danger text-white" data-bs-toggle="modal" data-bs-target="#removePurchase"  data-bs-id="<?php echo $row['id']?>">
+                                        <span class="fa fa-trash"></span>
                                     </button>
                                 </td>
                             </tr> <?php } ?> </tbody>
@@ -78,12 +78,29 @@
             <div class="card-body">
                 <div class="stat-card">
                     <div class="stat-card__content">
-                        <p class="text-uppercase mb-1 text-muted">PURCHASES TODAY</p>
+                        <p class="text-uppercase mb-1 text-muted">TOTAL PURCHASES TODAY</p>
                         <h2><i class="text-danger font-weight-bold mr-1"></i>
                             ₱ <?php  echo number_format($purchase_today['total_amount']) ?>
                         </h2>
                         <div>
-                            <span class="text-muted"><?php echo "Today is " . date("Y-m-d") . "<br>"; ?>
+                            <span class="text-muted"><?php echo "Today is ". date('F d, Y'); ?>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="stat-card__icon stat-card__icon--success">
+                        <div class="stat-card__icon-circle">
+                            <i class="fa fa-money" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card__content">
+                        <p class="text-uppercase mb-1 text-muted">TOTAL PURCHASES THIS MONTH</p>
+                        <h2><i class="text-danger font-weight-bold mr-1"></i>
+                            ₱ <?php  echo number_format($purchase_month['total_amount']) ?>
+                        </h2>
+                        <div>
+                            <span class="text-muted"><?php echo date('F  Y'); ?>
                             </span>
                         </div>
                     </div>

@@ -187,7 +187,10 @@ $today = $year . "-" . $month . "-" . $day;
                                         <div class="col-12">
                                             <button type="button" class="btn btn-success text-white confirm"
                                                 id='confirm'>Confirm Transaction</button>
-                                            <button type="button" class="btn btn-dark text-white vouchBtn"
+                                            <button type="button" class="btn btn-dark text-white receiptBtn"
+                                                id='receiptBtn'>
+                                                <span class="fa fa-print"></span> Print Receipt </button>
+                                            <button type="button" class="btn btn-secondary text-white vouchBtn"
                                                 id='vouchBtn'>
                                                 <span class="fa fa-print"></span> Print Voucher </button>
                                             <button type="button" class="btn btn-danger text-white confirm"
@@ -463,7 +466,8 @@ $today = $year . "-" . $month . "-" . $day;
                                                                 <input type="text" class="form-control" id='second-res'
                                                                     name='second-rese'
                                                                     onkeypress="return CheckNumeric()"
-                                                                    onkeyup="FormatCurrency(this)" autocomplete="off" readonly  />
+                                                                    onkeyup="FormatCurrency(this)" autocomplete="off"
+                                                                    readonly />
                                                             </div>
                                                         </div>
 
@@ -529,7 +533,8 @@ $today = $year . "-" . $month . "-" . $day;
                                                                 <input type="text" style='text-align:right'
                                                                     id='cash_advance' name='cash_advance'
                                                                     onkeypress="return CheckNumeric()"
-                                                                    onkeyup="FormatCurrency(this)" class="form-control" readonly >
+                                                                    onkeyup="FormatCurrency(this)" class="form-control"
+                                                                    readonly>
                                                             </div>
                                                         </div>
                                                         <!--  end-->

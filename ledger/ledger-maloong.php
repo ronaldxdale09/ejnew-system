@@ -20,6 +20,9 @@
   <link rel='stylesheet' href='css/tab.css'>
   <input type='hidden' id='selected-cart' value=''>
   <div class='main-content' style='position:relative; height:100%;'>
+        <center>
+            <h2>MALOONG TOPPERS</h2>
+        </center>
     <div class="container home-section h-100" style="max-width:95%;">
       <div class="p-5 bg-white rounded shadow mb-5">
      <?php include('ledgerTab/ejn-maloong.php')?>
