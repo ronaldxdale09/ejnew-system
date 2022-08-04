@@ -131,3 +131,70 @@ $('#vouchBtn').click(function()
       
 });
 </script>
+
+
+
+<script>
+// validation
+
+$('#receiptBtn').click(function()
+{
+
+      if( !document.getElementById('total-amount').value || 
+          !document.getElementById('date').value || 
+          !$("#name").val()
+      ) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Fill all the necessary fields ',
+        })
+                
+      }
+      else{
+        $('#modal_receipt').modal('show');
+              $tr = $(this).closest('tr');
+
+                  var data =$tr.children("td").map(function(){
+                    return $(this).text();
+                  }).get();
+                  $('#r_invoice').val($("#invoice").val());
+                  $('#r_name').val($("#name").val());
+                  $('#r_date').val($("#date").val());
+                  $('#r_contract').val($("#contract").val());
+                  $('#r_address').val($("#address").val());
+                  // purchase info
+                  $('#r_noSack').val($("#noSack").val());
+                  $('#r_gross').val($("#gross").val());
+                  $('#r_tare').val($("#tare").val());
+                  $('#r_net').val($("#net").val());
+                  
+                  $('#r_dust').val($("#dust").val());
+                  $('#r_new-dust').val($("#new").val());
+
+
+                  $('#r_moisture').val($("#moisture").val());
+                  $('#r_discount').val($("#discount_reading").val());
+                  $('#r_total-dust').val($("#total-dust").val());
+
+
+                  $('#r_total-moisture').val($("#total-moisture").val());
+                  $('#r_net-resecada').val($("#total-res").val());
+                  $('#r_1resecada').val($("#first-rese").val());
+                  $('#r_2resecada').val($("#second-rese").val());
+                  $('#r_3resecada').val($("#third-rese").val());
+                  // total res
+                  $('#r_total_1res').val($("#total-1res").val());
+                  $('#r_total_2res').val($("#total-2res").val());
+                  $('#r_total_3res').val($("#total-3res").val());
+                  // 
+
+                  $('#r_total-amount').val($("#total-amount").val());
+                  $('#r_less').val($("#less").val());
+                  $('#r_total-paid').val($("#amount-paid").val());
+                  $('#r_total-words').val($("#amount-paid-words").val());
+
+                }
+      
+});
+</script>
