@@ -19,7 +19,7 @@
                                 $results = mysqli_query($con, $query);
                                    
                                     if ($results) {
-                                        header("Location: ../../ledger/ledger-ca.php");
+                                        header("Location: ../../ledger-ca.php");
                                         $_SESSION['ca']= "successful";
                                        
                                  

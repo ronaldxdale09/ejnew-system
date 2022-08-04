@@ -44,18 +44,18 @@
                             </thead>
                             <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
                                     <td> <?php echo $row['id']?> </td>
-                                    <td> <?php echo $row['voucher']?> </td>
+                                    <td> <?php echo $row['id']?> </td>
                                     <td> <?php echo $row['date']?> </td>
                                     <td> <?php echo $row['customer']?> </td>
                                     <td> <?php echo $row['buying_station']?> </td>
                                     <td> <?php echo $row['category']?> </td>
                                     <td> <?php echo $row['amount']?> </td>
                                     <td>
-                                        <button type="button" class="btn btn-primary text-white">
-                                            <span class="fa fa-eye"></span>
-                                        </button>
-                                        <button type="button" class="btn btn-secondary text-white">
+                                        <button type="button" class="btn btn-secondary text-white" data-bs-toggle="modal" data-bs-target="#updateCashAdvance" data-bs-id="<?php echo $row['id']?>" data-bs-voucher="<?php echo $row['voucher']?>" data-bs-date="<?php echo $row['date']?>" data-bs-customer="<?php echo $row['customer']?>" data-bs-buying_station="<?php echo $row['buying_station']?>" data-bs-category="<?php echo $row['category']?>" data-bs-amount="<?php echo $row['amount']?>">
                                             <span class="fa fa-edit"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-danger text-white" data-bs-toggle="modal" data-bs-target="#removeCashAdvance" data-bs-id="<?php echo $row['id']?>" data-bs-name="<?php echo $row['customer']?>">
+                                            <span class="fa fa-trash"></span>
                                         </button>
                                     </td>
                                 </tr> <?php } ?> </tbody>

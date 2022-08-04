@@ -6,11 +6,11 @@
                             $id = $_POST['my_id'];
 
 
-                                $query = "DELETE FROM `ledger_expenses` WHERE id = '$id'";
+                                $query = "DELETE FROM `ledger_buahantoppers` WHERE id = '$id'";
                              
                                     if(mysqli_query($con, $query))
                                     {  
-                                        header("Location: ../../ledger/ledger-expense.php");
+                                        header("Location: ../../ledger/ledger-buahan.php");
                                         $_SESSION['expenses']= "successful";
                                        
                                         exit();
