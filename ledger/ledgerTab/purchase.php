@@ -78,12 +78,29 @@
             <div class="card-body">
                 <div class="stat-card">
                     <div class="stat-card__content">
-                        <p class="text-uppercase mb-1 text-muted">PURCHASES TODAY</p>
+                        <p class="text-uppercase mb-1 text-muted">TOTAL PURCHASES TODAY</p>
                         <h2><i class="text-danger font-weight-bold mr-1"></i>
                             ₱ <?php  echo number_format($purchase_today['total_amount']) ?>
                         </h2>
                         <div>
-                            <span class="text-muted"><?php echo "Today is " . date("Y-m-d") . "<br>"; ?>
+                            <span class="text-muted"><?php echo "Today is ". date('F d, Y'); ?>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="stat-card__icon stat-card__icon--success">
+                        <div class="stat-card__icon-circle">
+                            <i class="fa fa-money" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card__content">
+                        <p class="text-uppercase mb-1 text-muted">TOTAL PURCHASES THIS MONTH</p>
+                        <h2><i class="text-danger font-weight-bold mr-1"></i>
+                            ₱ <?php  echo number_format($purchase_month['total_amount']) ?>
+                        </h2>
+                        <div>
+                            <span class="text-muted"><?php echo date('F  Y'); ?>
                             </span>
                         </div>
                     </div>

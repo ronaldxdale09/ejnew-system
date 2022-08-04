@@ -3,6 +3,7 @@
    include "include/navbar.php";
 
    // purchase category
+
    $pur_category = "SELECT * FROM purchase_category ";
    $pur_result = mysqli_query($con, $pur_category);
    $purCatList='';
@@ -19,7 +20,9 @@
     $purchase_today['total_amount'] = 0;
    }
    
-   
+   $getMonthTotal  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(total_amount) as month_total 
+   from ledger_purchase WHERE month(date)='$monthNow' group by year(date), month(date) ORDER BY ID DESC");
+   $purchase_month = mysqli_fetch_array($getMonthTotal);
 
    ?> 
    
