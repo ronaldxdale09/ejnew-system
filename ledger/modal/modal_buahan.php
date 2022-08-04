@@ -118,7 +118,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">REMOVE CASH ADVANCE</h5>
+                <h5 class="modal-title" id="exampleModalLabel">REMOVE BUAHAN</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -144,7 +144,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">UPDATE CASH ADVANCE</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">UPDATE BUAHAN</h5>
             </div>
             <form action="../function/ledger/updateBuahan.php" id='submitPurchase' method="POST">
                 <div class="modal-body">
@@ -242,8 +242,8 @@
                     </div>
                     <!-- END BALANCE -->
                     <div class="modal-footer">
-                        <button type="submit" name='submit' class="btn btn-primary">Submit</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" name='submit' class="btn btn-success">Save Changes</button>
                     </div>
                 </div>
             </form>
