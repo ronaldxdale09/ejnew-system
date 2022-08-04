@@ -17,6 +17,9 @@
    $sql  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(total_amount) as month_total 
    from ledger_maloong  group by year(date), month(date) ORDER BY ID DESC");
    $maloong = mysqli_fetch_array($sql);
+   if ($maloong['month_total'] ==''){
+    $maloong['month_total'] = 0;
+   }
 
 
    $sql  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(total_amount) as month_total 
