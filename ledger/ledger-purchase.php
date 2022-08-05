@@ -21,7 +21,7 @@
    }
    
    $getMonthTotal  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(total_amount) as month_total 
-   from ledger_purchase WHERE month(date)='$monthNow' group by year(date), month(date) ORDER BY ID DESC");
+   from ledger_purchase  group by year(date), month(date) ORDER BY ID DESC");
    $purchase_month = mysqli_fetch_array($getMonthTotal);
 
    ?> 

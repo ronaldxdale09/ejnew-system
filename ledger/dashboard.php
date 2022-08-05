@@ -14,12 +14,10 @@
    from ledger_purchase  group by year(date), month(date) ORDER BY ID DESC");
    $sumAmountPurchased = mysqli_fetch_array($amoutPurchased);
 
-   $sql  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(total_amount) as month_total 
+   $sql1  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(total_amount) as month_total 
    from ledger_maloong  group by year(date), month(date) ORDER BY ID DESC");
-   $maloong = mysqli_fetch_array($sql);
-   if ($maloong['month_total'] ==''){
-    $maloong['month_total'] = 0;
-   }
+   $maloong = mysqli_fetch_array($sql1);
+  
 
 
    $sql  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(total_amount) as month_total 
@@ -81,10 +79,10 @@
                             <div class="stat-card">
                                 <div class="stat-card__content">
                                     <p class="text-uppercase mb-1 text-muted">Maloong Toppers</p>
-                                    <h2><?php echo number_format($maloong['month_total']) ;  ?> </h2>
+                                    <h2>₱</h2>
                                     <div>
-                                        <span class="text-muted"><?php echo $monthName; ?>
-                                            <?php echo $maloong['year']; ?>
+                                        <span class="text-muted">
+                                            <?php echo date('F  Y');  ?>
                                         </span>
                                     </div>
                                 </div>
@@ -134,16 +132,13 @@
                                             <h5>EXPENSES TODAY</h5>
                                         </div>
                                         <div class="col-md-2">
-                                            <button type="button" class="btn btn-success btn-sm " data-toggle="modal"
-                                                data-target=".viewTransaction">
-                                                VIEW ALL
-                                            </button>
+
                                         </div>
                                     </div>
                                     <hr>
                                     <div class="table-responsive">
                                         <table class="table" id='expenses_table'> <?php
-                                    $results  = mysqli_query($con, "SELECT * from ledger_expenses WHERE DATE(`date`) = CURDATE() ORDER BY id DESC  "); 
+                                    $results  = mysqli_query($con, "SELECT * from ledger_expenses WHERE DATE(`date`) = CURDATE() ORDER BY id DESC LIMIT 5 "); 
                                     
                                     ?> <thead class="table-dark">
                                                 <tr>
@@ -188,17 +183,14 @@
                                             <h5>CASH ADVANCE TODAY</h5>
                                         </div>
                                         <div class="col-md-2">
-                                            <button type="button" class="btn btn-success btn-sm " data-toggle="modal"
-                                                data-target=".viewTransaction">
-                                                VIEW ALL
-                                            </button>
+                           
                                         </div>
                                     </div>
                                     <hr>
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-responsive-lg" id='purchase_table'>
                                             <?php
-                                    $results  = mysqli_query($con, "SELECT * from ledger_cashadvance  WHERE DATE(`date`) = CURDATE() ORDER BY id DESC "); ?>
+                                    $results  = mysqli_query($con, "SELECT * from ledger_cashadvance  WHERE DATE(`date`) = CURDATE() ORDER BY id DESC LIMIT 5"); ?>
                                             <thead class="table-dark">
                                                 <tr>
                                                     <th>ID</th>
@@ -226,7 +218,7 @@
                             </div>
                         </div>
                     </div>
-
+                    <hr>
 
 </body>
 

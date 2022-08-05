@@ -1,14 +1,13 @@
 <div class="row">
-    <div class="col-sm-9">
+    <div class="col-sm-8">
         <div class="card">
             <div class="card-body">
                 <!-- CONTENT -->
                 <div class="row">
                     <div class="col-sm">
                         <button type="button" class="btn btn-success text-white" data-toggle="modal"
-                            data-target="#purchase-modal"> ADD PURCHASE </button>
-                        <button type="button" class="btn btn-cyan text-white" data-toggle="modal" data-target="#modal">
-                            NEW CATEGORY </button>
+                            data-target="#addExpense">
+                            <i class="fa fa-plus" aria-hidden="true"></i> ADD EXPENSE </button>
                     </div>
                     <div class="col-sm">
                         <div class="row">
@@ -23,11 +22,12 @@
                             </div>
                         </div>
                     </div>
+
+
                 </div>
-                <br>
                 <hr>
                 <div class="table-responsive ">
-                    <table class="table table-bordered table-responsive-lg" id='purchase_table'>
+                <table class="table table-bordered table-responsive-lg" id='purchase_table'>
                         <?php
                                     $results  = mysqli_query($con, "SELECT * from ledger_purchase ORDER BY id DESC"); ?>
                         <thead class="table-dark">
@@ -69,102 +69,69 @@
                             </tr> <?php } ?> </tbody>
                     </table>
                 </div>
-                <!-- END CONTENT -->
             </div>
         </div>
+
     </div>
-    <div class="col-sm-3">
-        <div class="card">
-            <div class="card-body">
-                <div class="stat-card">
-                    <div class="stat-card__content">
-                        <p class="text-uppercase mb-1 text-muted">TOTAL PURCHASES TODAY</p>
-                        <h2><i class="text-danger font-weight-bold mr-1"></i>
-                            ₱ <?php  echo number_format($purchase_today['total_amount']) ?>
-                        </h2>
-                        <div>
-                            <span class="text-muted"><?php echo "Today is ". date('F d, Y'); ?>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="stat-card__icon stat-card__icon--success">
-                        <div class="stat-card__icon-circle">
-                            <i class="fa fa-money" aria-hidden="true"></i>
-                        </div>
-                    </div>
+
+    <div class="col-sm-4">
+
+        <div class="stat-card">
+            <div class="stat-card__content">
+                <p class="text-uppercase mb-1 text-muted">EXPENSES TODAY</p>
+                <h2><i class="text-danger font-weight-bold mr-1"></i>
+                    ₱ <?php  echo number_format($expense_today['total']) ?>
+                </h2>
+                <div>
+                    <span class="text-muted"><?php echo "Today is " . date("Y-m-d") . "<br>"; ?>
+                    </span>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-card__content">
-                        <p class="text-uppercase mb-1 text-muted">TOTAL PURCHASES THIS MONTH</p>
-                        <h2><i class="text-danger font-weight-bold mr-1"></i>
-                            ₱ <?php  echo number_format($purchase_month['total_amount']) ?>
-                        </h2>
-                        <div>
-                            <span class="text-muted"><?php echo date('F  Y'); ?>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="stat-card__icon stat-card__icon--success">
-                        <div class="stat-card__icon-circle">
-                            <i class="fa fa-money" aria-hidden="true"></i>
-                        </div>
-                    </div>
+            </div>
+            <div class="stat-card__icon stat-card__icon--success">
+                <div class="stat-card__icon-circle">
+                    <i class="fa fa-money" aria-hidden="true"></i>
                 </div>
             </div>
         </div>
-        <div class="card">
-            <div class="card-body">
-                <canvas id="purchase_pie" style="position: relative; height:40vh; width:80vw"></canvas>
+
+
+        <div class="stat-card">
+            <div class="stat-card__content">
+                <p class="text-uppercase mb-1 text-muted">EXPENSES THIS MONTH</p>
+                <h2><i class="text-danger font-weight-bold mr-1"></i>
+                    ₱ <?php  echo number_format($expense_month['month_total']) ?>
+                </h2>
+                <div>
+                    <span class="text-muted"> <?php echo $monthName; ?>
+                        <?php echo $expense_month['year']; ?>
+                    </span>
+                </div>
+            </div>
+            <div class="stat-card__icon stat-card__icon--danger">
+                <div class="stat-card__icon-circle">
+                    <i class="fa fa-money" aria-hidden="true"></i>
+                </div>
             </div>
         </div>
+
+        <div class="stat-card">
+            <div class="stat-card__content">
+                <p class="text-uppercase mb-1 text-muted">EXPENSES THIS YEAR</p>
+                <h2><i class="text-danger font-weight-bold mr-1"></i>
+                    ₱ <?php  echo number_format($expense_year['year_total']) ?>
+                </h2>
+                <div>
+                    <span class="text-muted">
+                        <?php echo $currentYear; ?>
+                    </span>
+                </div>
+            </div>
+            <div class="stat-card__icon stat-card__icon--warning">
+                <div class="stat-card__icon-circle">
+                    <i class="fa fa-money" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
-
-
-<script>
-pie = document.getElementById("purchase_pie");
-
-<?php
-  $currentMonth = date("m");
-  $currentDay = date("d");
-  $currentYear = date("Y");
-
-
-           $purchase_count = mysqli_query($con,"SELECT year(date) as year ,MONTHNAME(date) as monthname,sum(total_amount) as month_total , category as category from ledger_purchase WHERE month(date)='$currentMonth'   group by category ORDER BY date");        
-           if($purchase_count->num_rows > 0) {
-             foreach($purchase_count as $data) {
-                $category[] = $data['category'];
-                 $month[] = $data['monthname'];
-                 $total[] = $data['month_total'];
-             }
-         }
-        ?>
-
-new Chart(pie, {
-    options: {
-        maintainAspectRatio: false,
-        responsive: true,
-        plugins: {
-            title: {
-                display: true,
-                text: 'Purchases This Month :',
-            },
-        },
-    },
-    type: 'doughnut', //Declare the chart type 
-    data: {
-        labels: <?php echo json_encode($category) ?>,
-        datasets: [{
-            data: <?php echo json_encode($total) ?>,
-            backgroundColor: [
-                'rgb(0, 153, 51)',
-                'rgb(102, 153, 153)',
-                'rgb(255, 204, 0)',
-                'rgb(255, 0, 0)',
-            ],
-            borderColor: 'black',
-            fill: false, //Fills the curve under the line with the babckground color. It's true by default
-        }]
-    },
-});
-</script>
