@@ -94,12 +94,14 @@ $(document).ready(function() {
                             document.getElementById("cash_advance").value = nf.format(
                                 less);
                             document.getElementById("total_ca").value = nf.format(less);
+                            document.getElementById('cash_advance').readOnly = false;
                         } else {
                             document.getElementById("cash_advance-form").style.display =
                                 "none";
                             document.getElementById("cash_advance").value = nf.format(
                                 less);
                             document.getElementById("total_ca").value = nf.format(less);
+                            document.getElementById('cash_advance').readOnly = true;
                         }
                         console.log(less);
 

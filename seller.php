@@ -1,6 +1,16 @@
 <?php 
    include('include/header.php');
    include "include/navbar.php";
+
+   
+   $get = mysqli_query($con, "SELECT  COUNT(*) from seller  "); 
+   $sellerCount = mysqli_fetch_array($get);
+
+    $generate= sprintf("%'03d", $sellerCount[0]+1);
+    $today = date("Y");
+    $code = $today .'-'. $generate;
+
+    
    ?>
 
 <body>
@@ -23,8 +33,8 @@
                             <div class="card">
                                 <div class="card-body">
                                     <!-- CONTENT -->
-                                    <button type="button" class="btn btn-success text-white" data-bs-toggle="modal"
-                                        data-bs-target="#modal">
+                                    <button type="button" class="btn btn-success text-white" data-toggle="modal"
+                                        data-target="#modal">
                                         <i class="fa fa-add" aria-hidden="true"></i> NEW SELLER </button>
                                     <br>
                                     <br>
@@ -66,8 +76,54 @@
         </div>
 </body>
 
-</html> <?php
-include('modal/modal.php');
-include('modal/modalScript.php');
-include('include/script.php');
-?>
+</html>
+<!-- Modal -->
+<!-- Modal -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">NEW SELLER</h5>
+                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="function/newSeller.php" method="POST">
+                    <!-- ... START -->
+                    <center>
+                        <div class="form-group">
+                            <label class="col-md-12">CODE</label>
+                            <div class="col-md-8">
+                                <input type="text" value="<?php echo $generate; ?>" name='code'
+                                    class="form-control form-control-line" readonly>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label class="col-md-12">Name</label>
+                                <div class="col-md-8">
+                                    <input type="text" name='name' class="form-control form-control-line">
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label class="col-md-12">Address</label>
+                                    <div class="col-md-8">
+                                        <input type="text" name='address' class="form-control form-control-line">
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Cheque</label>
+                                        <div class="col-md-8">
+                                            <input type="text" name='cheque' class="form-control form-control-line">
+                                        </div>
+                    </center>
+                    <!-- END -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" name='add' class="btn btn-success text-white">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

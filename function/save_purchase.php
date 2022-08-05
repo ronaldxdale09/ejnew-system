@@ -63,7 +63,7 @@
                                 $newBalance =   (float)$balance-(float)$rese_weight_1 ;
 
                                 if ($newBalance==0){
-                                    $status = 'PENDING';
+                                    $status = 'COMPLETED';
                                 }
                                 else {
                                     $status='UPDATED';

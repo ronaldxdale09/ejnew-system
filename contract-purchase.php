@@ -105,7 +105,7 @@
 
                                     <div class="table-responsive">
                                         <table class="table" id='contractTable'> <?php
-                                    $results  = mysqli_query($con, "SELECT * from contract_purchase"); 
+                                    $results  = mysqli_query($con, "SELECT * from contract_purchase WHERE status='PENDING' OR status='UPDATED' "); 
                                     
                                     ?> <thead class="table-dark">
                                                 <tr>
