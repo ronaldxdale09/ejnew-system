@@ -19,6 +19,9 @@
         <a class='nav-link' href='Transaction.php'>
             <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>Transaction</span>
         </a>
+        <a class='nav-link' href='transaction_history.php'>
+        <i class='fa-solid fa-book'></i> <span class='nav-text'>Transaction Record</span>
+    </a>
         <a class='nav-link' href='seller.php'>
             <i class='fa-solid fa-user'></i> <span class='nav-text'>Seller</span>
         </a>

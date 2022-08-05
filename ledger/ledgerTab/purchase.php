@@ -1,13 +1,19 @@
+<style>
+th {
+    font-size: 12px;
+
+}
+</style>
 <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-9">
         <div class="card">
             <div class="card-body">
                 <!-- CONTENT -->
                 <div class="row">
                     <div class="col-sm">
                         <button type="button" class="btn btn-success text-white" data-toggle="modal"
-                            data-target="#addExpense">
-                            <i class="fa fa-plus" aria-hidden="true"></i> ADD EXPENSE </button>
+                            data-target="#purchase-modal">
+                            <i class="fa fa-plus" aria-hidden="true"></i> ADD PURCHASE </button>
                     </div>
                     <div class="col-sm">
                         <div class="row">
@@ -27,7 +33,7 @@
                 </div>
                 <hr>
                 <div class="table-responsive ">
-                <table class="table table-bordered table-responsive-lg" id='purchase_table'>
+                    <table class="table table-bordered table-responsive-lg" id='purchase_table'>
                         <?php
                                     $results  = mysqli_query($con, "SELECT * from ledger_purchase ORDER BY id DESC"); ?>
                         <thead class="table-dark">
@@ -59,10 +65,23 @@
                                 <td hidden> <?php echo  $row['net_total']?> </td>
                                 <td>₱ <?php echo number_format($row['total_amount'])?> </td>
                                 <td>
-                                    <button type="button" class="btn btn-secondary text-white" data-bs-toggle="modal" data-bs-target="#updatePurchase" data-bs-id="<?php echo $row['id']?>" data-bs-date="<?php echo $row['date']?>" data-bs-category="<?php echo $row['category']?>" data-bs-voucher="<?php echo $row['voucher']?>" data-bs-customer_name="<?php echo $row['customer_name']?>" data-bs-net_kilos="<?php echo $row['net_kilos']?>" data-bs-price="<?php echo $row['price']?>" data-bs-adjustment_price="<?php echo $row['adjustment_price']?>" data-bs-less="<?php echo $row['less']?>" data-bs-partial_payment="<?php echo $row['partial_payment']?>" data-bs-net_total="<?php echo $row['net_total']?>" data-bs-total_amount="<?php echo $row['total_amount']?>">
+                                    <button type="button" class="btn btn-secondary text-white" data-bs-toggle="modal"
+                                        data-bs-target="#updatePurchase" data-bs-id="<?php echo $row['id']?>"
+                                        data-bs-date="<?php echo $row['date']?>"
+                                        data-bs-category="<?php echo $row['category']?>"
+                                        data-bs-voucher="<?php echo $row['voucher']?>"
+                                        data-bs-customer_name="<?php echo $row['customer_name']?>"
+                                        data-bs-net_kilos="<?php echo $row['net_kilos']?>"
+                                        data-bs-price="<?php echo $row['price']?>"
+                                        data-bs-adjustment_price="<?php echo $row['adjustment_price']?>"
+                                        data-bs-less="<?php echo $row['less']?>"
+                                        data-bs-partial_payment="<?php echo $row['partial_payment']?>"
+                                        data-bs-net_total="<?php echo $row['net_total']?>"
+                                        data-bs-total_amount="<?php echo $row['total_amount']?>">
                                         <span class="fa fa-edit"></span>
                                     </button>
-                                    <button type="button" class="btn btn-danger text-white" data-bs-toggle="modal" data-bs-target="#removePurchase"  data-bs-id="<?php echo $row['id']?>">
+                                    <button type="button" class="btn btn-danger text-white" data-bs-toggle="modal"
+                                        data-bs-target="#removePurchase" data-bs-id="<?php echo $row['id']?>">
                                         <span class="fa fa-trash"></span>
                                     </button>
                                 </td>
@@ -74,13 +93,13 @@
 
     </div>
 
-    <div class="col-sm-4">
+    <div class="col-sm-3">
 
         <div class="stat-card">
             <div class="stat-card__content">
-                <p class="text-uppercase mb-1 text-muted">EXPENSES TODAY</p>
+                <p class="text-uppercase mb-1 text-muted">PURCHASED TODAY</p>
                 <h2><i class="text-danger font-weight-bold mr-1"></i>
-                    ₱ <?php  echo number_format($expense_today['total']) ?>
+                    ₱ <?php  echo number_format($purchase_today['total_amount']) ?>
                 </h2>
                 <div>
                     <span class="text-muted"><?php echo "Today is " . date("Y-m-d") . "<br>"; ?>
@@ -99,11 +118,10 @@
             <div class="stat-card__content">
                 <p class="text-uppercase mb-1 text-muted">EXPENSES THIS MONTH</p>
                 <h2><i class="text-danger font-weight-bold mr-1"></i>
-                    ₱ <?php  echo number_format($expense_month['month_total']) ?>
+                    ₱ <?php  echo number_format($purchase_month['month_total']) ?>
                 </h2>
                 <div>
-                    <span class="text-muted"> <?php echo $monthName; ?>
-                        <?php echo $expense_month['year']; ?>
+                    <span class="text-muted"> <?php echo  date("F Y") . "<br>"; ?>
                     </span>
                 </div>
             </div>
@@ -113,25 +131,12 @@
                 </div>
             </div>
         </div>
-
-        <div class="stat-card">
-            <div class="stat-card__content">
-                <p class="text-uppercase mb-1 text-muted">EXPENSES THIS YEAR</p>
-                <h2><i class="text-danger font-weight-bold mr-1"></i>
-                    ₱ <?php  echo number_format($expense_year['year_total']) ?>
-                </h2>
-                <div>
-                    <span class="text-muted">
-                        <?php echo $currentYear; ?>
-                    </span>
-                </div>
-            </div>
-            <div class="stat-card__icon stat-card__icon--warning">
-                <div class="stat-card__icon-circle">
-                    <i class="fa fa-money" aria-hidden="true"></i>
-                </div>
+        <div class="card">
+            <div class="card-body">
+                <canvas id="ca_pie" style="position: relative; height:20vh; width:10vw">></canvas>
             </div>
         </div>
+
 
     </div>
 </div>

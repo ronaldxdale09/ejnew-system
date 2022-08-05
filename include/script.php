@@ -11,19 +11,7 @@ $(function() {
 
 
 
-<script>
 
-
-function clearall() {
-    var inputElements = document.getElementsByTagName('input');
-
-    for (var i = 0; i < inputElements.length; i++) {
-        if (inputElements[i].type == 'text') {
-            inputElements[i].value = '';
-        }
-    }
-}
-</script>
 
 <!--hide contract details -->
 <script type="text/javascript">
@@ -54,9 +42,12 @@ $(document).ready(function() {
                 // when the document is ready
                 var myObj = JSON.parse(this.responseText);
 
-                if (contract == 'SPOT') {
-                    document.getElementById("contract-form").style.display = "none";
+                if (contract === "SPOT") {
+
+                    
                     $('#name').attr('disabled', false);
+                    document.getElementById("contract-form").style.display = "none";
+                    document.getElementById("contract-form").style.display = "none";
                 } else {
                     document.getElementById("contract-form").style.display = "block";
                     $('#name').attr('disabled', true);

@@ -63,9 +63,8 @@ $today = $year . "-" . $month . "-" . $day;
                                     <button type="button" class="btn btn-secondary text-white" data-toggle="modal"
                                         data-target=".viewTransaction"><span class="fa fa-book text-white"></span>
                                         Transaction History</button>
-                                    <button type="button" class="btn btn-info ">
-                                        <span class="fa fa-gear text-white"></span> </button>
-
+                                        <button type="button" class="btn btn-primary text-white"
+                                            onClick='window.location.reload(true)' >New Transaction</button>
                                 </div>
                             </div>
                             <div class="row">
@@ -193,8 +192,7 @@ $today = $year . "-" . $month . "-" . $day;
                                             <button type="button" class="btn btn-secondary text-white vouchBtn"
                                                 id='vouchBtn'>
                                                 <span class="fa fa-print"></span> Print Voucher </button>
-                                            <button type="button" class="btn btn-danger text-white confirm"
-                                                onclick='clearall()' id='confirm'>Clear</button>
+                                           
                                         </div>
 
                                     </div>

@@ -87,6 +87,9 @@
        // DataTables initialisation
        var table = $('#transaction_record').DataTable(
            {
+            order: [
+            [0, 'desc']
+        ],
            dom: 'Bfrtip',
            buttons: [
             {

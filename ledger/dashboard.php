@@ -170,7 +170,7 @@
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-body">
-                                    <canvas id="ca_pie" style="position: relative; height:40vh; width:10vw">></canvas>
+                                    <canvas id="ca_pie" style="position: relative; height:30vh; width:10vw">></canvas>
                                 </div>
                             </div>
                         </div>

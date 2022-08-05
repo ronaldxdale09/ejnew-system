@@ -214,10 +214,21 @@ $('#confirmPurchase').click(function() {
                         <!--  end-->
                     </div>
                 </div>
+                <div class="col-6 col-md-4">
+                            <div class="input-group mb-1">
+
+                                <label style='font-size:15px' class="col-md-12">Seller :</label>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" id='v_name' name='v_name'
+                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" readonly />
+                                </div>
+
+                            </div>
+                        </div>
                 <div class="form-group">
-                    <label class="col-md-8">Vouch:</label>
+                    <label class="col-md-8">Voucher:</label>
                     <div class="col-md-4">
-                        <textarea name="v_name" id="v_name" class="form-control"
+                        <textarea name="v_voucher" id="v_voucher" class="form-control"
                             style='font-size:15px;background-color:white;width:700px;height:100px;'></textarea>
                     </div>
                 </div>
@@ -282,7 +293,7 @@ $('#confirmPurchase').click(function() {
                                 <label style='font-size:15px' class="col-md-12">Approved By:</label>
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" id='approved_by' name='approved_by'
-                                        value='EFREN J. NEW' onkeypress="return CheckNumeric()"
+                                        value='RICHARD J. NEW' onkeypress="return CheckNumeric()"
                                         onkeyup="FormatCurrency(this)" />
                                 </div>
 
@@ -326,13 +337,15 @@ $('#confirmPurchase').click(function() {
 <script type="text/javascript">
 $(document).ready(function() {
     $('#print_voucher').click(function() {
-        var name = document.getElementById("name").value;
-        var date = document.getElementById("date").value;
-        var address = document.getElementById("address").value;
-        sessionStorage.setItem("name", name, "date", date, "address", address);
+        
+        var voucher = document.getElementById("v_voucher").value;
+        var approved = document.getElementById("approved_by").value;
 
 
-        var nw = window.open("voucher/print_voucher.php", "_blank", "height=623,width=812")
+        sessionStorage.setItem("v_voucher", voucher);
+        sessionStorage.setItem("approved_by", approved);
+
+        var nw = window.open("voucher/print_voucher.php", "_blank", "height=623,width=850 ")
 
 
 
@@ -351,7 +364,7 @@ $(document).ready(function() {
 <!-- PRINT Transaction -->
 <div class="modal fade" id="modal_receipt" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog " role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">PRINT RECEIPT</h5>
@@ -360,132 +373,16 @@ $(document).ready(function() {
                 </button>
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <div class="row no-gutters">
-                        <div class="col-6 col-md-4">
-                            <div class="input-group mb-1">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroup-sizing-default"
-                                        style='color:black;font-weight: bold;'>Contract</span>
-                                </div>
-                                <input type="text" style='text-align:right' name='r_contract' id='r_contract'
-                                    class="form-control" style='background-color:white;border:0px solid #ffffff;'
-                                    readonly>
-                            </div>
-                        </div>
-                        <!--end  -->
-                        <div class="col-6 col-md-4">
-                            <div class="input-group mb-1">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroup-sizing-default"
-                                        style='color:black;font-weight: bold;'>Date</span>
-                                </div>
-                                <input type="text" style='text-align:right' name='r_date' id='r_date'
-                                    class="form-control" style='background-color:white;border:0px solid #ffffff;'
-                                    readonly>
-                            </div>
-                        </div>
-                        <!--  end-->
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-8">Vouch:</label>
-                    <div class="col-md-4">
-                        <textarea name="r_name" id="r_name" class="form-control"
-                            style='font-size:15px;background-color:white;width:700px;height:100px;'></textarea>
-                    </div>
-                </div>
-
-                <hr>
-                <div class="form-group">
-                    <div class="row no-gutters">
-                        <div class="col-12 col-sm-5 col-md-3">
-
+                  <!--  total dust-->
+                  <div class="col-6 col-md-4">
                             <div class="input-group mb-1">
 
-                                <label style='font-size:15px' class="col-md-12">Total Amount :</label>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">₱</span>
-                                    </div>
-                                    <input type="text" class="form-control" id='r_total-amount' name='r_total-amount'
-                                        readonly onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" />
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <div class="col-6 col-md-4">
-
-                            <div class="input-group mb-1">
-
-                                <label style='font-size:15px' class="col-md-12">Less :</label>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">₱</span>
-                                    </div>
-                                    <input type="text" class="form-control" id='r_less' name='r_less' readonly
-                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" />
-                                </div>
-
+                                <label style='font-size:15px' class="col-md-12">Confirm to print the transaction receipt</label>
+                              
                             </div>
                         </div>
-                        <!--  total dust-->
-                        <div class="col-6 col-md-4">
-                            <div class="input-group mb-1">
-
-                                <label style='font-size:15px' class="col-md-12">Total Amount Paid :</label>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">₱</span>
-                                    </div>
-                                    <input type="text" class="form-control" id='r_total-paid' name='r_total-paid'
-                                        readonly onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="row no-gutters">
-                        <div class="col-12 col-sm-5 col-md-3">
-
-                            <div class="input-group mb-1">
-
-                                <label style='font-size:15px' class="col-md-12">Approved By:</label>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" id='approved_by' name='approved_by'
-                                        value='EFREN J. NEW' onkeypress="return CheckNumeric()"
-                                        onkeyup="FormatCurrency(this)" />
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <div class="col-6 col-md-4">
-
-                            <!-- empty -->
-                        </div>
-                        <!--  total dust-->
-                        <div class="col-6 col-md-4">
-                            <div class="input-group mb-1">
-
-                                <label style='font-size:15px' class="col-md-12">Recorded By :</label>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" id='recorded_by' name='recorded_by'
-                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" />
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
                     <!-- end -->
-                </div>
-                <!-- end table -->
-                <input type="text" class="form-control" id='r_total-words' name='r_total-words' readonly
-                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" />
-
+            
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

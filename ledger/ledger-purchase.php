@@ -60,3 +60,47 @@ include('modal/modal_purchase.php');
     $('.pur_category', this).chosen();
   });
 </script>
+
+
+<script>
+pie = document.getElementById("ca_pie");
+
+<?php
+           $expenses_count = mysqli_query($con,"SELECT year(date) as year ,MONTHNAME(date) as monthname,sum(total_amount) as month_total , category as category from ledger_purchase  group by category ORDER BY date");        
+           if($expenses_count->num_rows > 0) {
+             foreach($expenses_count as $data) {
+                $category[] = $data['category'];
+                 $month[] = $data['monthname'];
+                 $expense[] = $data['month_total'];
+             }
+         }
+        ?>
+
+new Chart(pie, {
+    options: {
+        maintainAspectRatio: false,
+        responsive: true,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Purchases',
+            },
+        },
+    },
+    type: 'doughnut', //Declare the chart type 
+    data: {
+        labels: <?php echo json_encode($category) ?>,
+        datasets: [{
+            data: <?php echo json_encode($expense) ?>,
+            backgroundColor: [
+                'rgb(0, 153, 51)',
+                'rgb(102, 153, 153)',
+                'rgb(255, 204, 0)',
+                'rgb(255, 0, 0)',
+            ],
+            borderColor: 'black',
+            fill: false, //Fills the curve under the line with the babckground color. It's true by default
+        }]
+    },
+});
+</script>

@@ -113,6 +113,8 @@
 
                                     $_SESSION['print_net_weight'] = $net_weight;
                                     $_SESSION['print_dust'] = $dust;
+                                    $_SESSION['print_discount'] = $discount;
+                                    
                                     $_SESSION['print_new_dust'] = $total_dust;
                                     $_SESSION['print_moisture'] = $moisture;
                                     $_SESSION['print_mois_total'] = $total_moisture;
