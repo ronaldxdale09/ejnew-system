@@ -133,6 +133,8 @@
                                     $_SESSION['print_words'] = $words_amount;
                                     echo 'success';
 
+                                    $_SESSION['transaction'] = 'COMPLETED';
+
                                     }
                    
 

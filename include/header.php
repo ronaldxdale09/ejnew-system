@@ -9,11 +9,11 @@
 
 <head>
 
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/chosen.min.css">
     <link rel='stylesheet' href='css/main.css'>
     <script src="assets/js/numberFormat.js"></script>
+    <script src="js/sweetalert2@11.js"></script>
     <title>EJN Copra</title>
 
 </head>

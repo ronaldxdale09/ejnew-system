@@ -166,6 +166,7 @@ $('#confirmPurchase').click(function() {
             type: "success"
         }).then(function() {
             document.getElementById("receiptBtn").click();
+            $_SESSION['transaction'] = 'COMPLETED';
         });
     });
 });
@@ -311,7 +312,7 @@ $('#confirmPurchase').click(function() {
                                 <label style='font-size:15px' class="col-md-12">Recorded By :</label>
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" id='recorded_by' name='recorded_by'
-                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" />
+                                        />
                                 </div>
 
                             </div>
@@ -340,10 +341,24 @@ $(document).ready(function() {
         
         var voucher = document.getElementById("v_voucher").value;
         var approved = document.getElementById("approved_by").value;
+        var recorded = document.getElementById("recorded_by").value;
 
+        $.ajax({
+            url: "voucher/fetchVouch.php",
+            type: "POST",
+            cache: false,
+            data: {
+                voucher: voucher,
+                approved : approved,
+                recorded : recorded,
+            },
+            cache: false,
+            success: function(voucher) {
+                
 
-        sessionStorage.setItem("v_voucher", voucher);
-        sessionStorage.setItem("approved_by", approved);
+            }
+        });
+    
 
         var nw = window.open("voucher/print_voucher.php", "_blank", "height=623,width=850 ")
 

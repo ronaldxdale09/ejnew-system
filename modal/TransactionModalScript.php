@@ -2,7 +2,30 @@
 $('#confirm').click(function() {
     var ca = $("#cash_advance").val().replace(/,/g, '');
     var available_ca = $("#total_ca").val().replace(/,/g, '');
-    
+    var status = null;
+
+
+    ////////////// FETCH TRANSACTION STATUS
+    function callback(response) {
+        status = response;
+       
+    }
+    $.ajax({
+        'async': false,
+        url: "modal/fetch/fetch_status.php",
+        type: "POST",
+        data: {
+            ca: ca
+        },
+        cache: false,
+        success: function(state) {
+            console.log(state);
+            callback(state)
+
+        }
+    });
+    ////////////////////////////////////////
+
     if (!document.getElementById('total-amount').value ||
         !document.getElementById('date').value ||
         !$("#name").val()
@@ -13,6 +36,12 @@ $('#confirm').click(function() {
             text: 'Fill all the necessary fields ',
         });
 
+    } else if (status == 'COMPLETED') {
+        Swal.fire({
+            icon: 'info',
+            title: 'PLEASE CREATE NEW TRANSACTION',
+            text: 'This transaction is already completed',
+        });
     } else if (parseInt(ca) > parseInt(available_ca)) {
         Swal.fire({
             icon: 'info',

@@ -8,6 +8,11 @@
 
 
  $ContractCount= sprintf("%'03d", $code[0]);
+
+ $month = date("m");
+$day = date("d");
+$year = date("Y");
+$dateNow = $year . "-" . $month . "-" . $day;
 ?>
 <style>
 select:invalid {
@@ -50,7 +55,7 @@ select:invalid[multiple] {
                             <!--end  -->
                             <div class="col-6 col-md-6">
                                 <div class="input-group mb-1">
-                                    <input type="date" id="date" name="date" class='datepicker' required>
+                                    <input type="date" id="date" name="date" class='datepicker' value='<?php echo $dateNow?>' required>
                                 </div>
                             </div>
                             <!--  end-->
