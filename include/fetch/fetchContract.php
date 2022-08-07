@@ -9,18 +9,22 @@
 
   $rowList = mysqli_fetch_array($result);
 
-  $quantity = $rowList['contract_quantity'];
-  $delivered = $rowList['delivered'];
-  $balance = $rowList['balance'];
-  $price_kg = $rowList['price_kg'];
-  $seller = $rowList['seller'];
-  
+    $quantity = $rowList['contract_quantity'] ?? '';
+    $delivered = $rowList['delivered'] ?? '';
+    $balance = $rowList['balance'] ?? '';
+    $price_kg = $rowList['price_kg'] ?? '';
+    $seller = $rowList['seller'] ?? '';
+    
+   
   
 
-  
+
+
+
    // Store it in a array
    $result = ["$quantity","$delivered","$balance","$price_kg","$seller"];
   
+
    // Send in JSON encoded form
    $myJSON = json_encode($result);
    echo $myJSON;

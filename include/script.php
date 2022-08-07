@@ -42,7 +42,7 @@ $(document).ready(function() {
 
                 // Typical action to be performed
                 // when the document is ready
-                var myObj = JSON.parse(this.responseText);
+                var myObj = JSON.parse((this.responseText));
 
                 if (contract == "SPOT") {
                     $('#name').attr('disabled', false);
@@ -55,11 +55,11 @@ $(document).ready(function() {
                 }
 
 
-                var quantity = myObj[0];
-                var delivered = myObj[1];
-                var balance = myObj[2];
-                var ca = myObj[3];
-                var name = myObj[4];
+                console.log(quantity = myObj[0]);
+                console.log(delivered = myObj[1]);
+                console.log(balance = myObj[2]);
+                console.log(ca = myObj[3]);
+                console.log( name = myObj[4]);
 
                 $.ajax({
                     url: "include/fetch/fetchAddress.php",
