@@ -19,27 +19,28 @@ $name = $row['name'];
 ?>
 
 <!-- Bootstrap -->
-    
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 
 <?php
     include('modal/profileModal.php');
-?>    
+?>
 
 <link rel='stylesheet' href='../css/seller_profile.css'>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"
-        integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
 <div class='main-content' style='position:relative; height:100%;'>
     <div class="container home-section h-100" style="max-width:95%;">
 
-    <script type="text/javascript" src="js/seller_profile.js"></script>
+        <script type="text/javascript" src="js/seller_profile.js"></script>
         <div class="container">
             <div class="main-body">
 
-        <br>
+                <br>
                 <div class="row gutters-sm">
                     <div class="col-md-4 mb-3">
                         <div class="card">
@@ -52,18 +53,22 @@ $name = $row['name'];
                                         <p class="text-secondary mb-1"><?php echo $row['code']?></p>
                                     </div>
                                 </div>
-                                    <div style="display: flex; justify-content: space-between; width: 100%">
-                                        <p class="text-secondary mb-1">Address: </p>
-                                        <span><?php echo $row['address']?></span>
-                                    </div>
-                                    <div style="display: flex; justify-content: space-between; width: 100%">
-                                        <p class="text-secondary mb-1">Contact: </p>
-                                        <span><?php echo $row['contact']?></span>
-                                    </div>
-                                    
+                                <div style="display: flex; justify-content: space-between; width: 100%">
+                                    <p class="text-secondary mb-1">Address: </p>
+                                    <span><?php echo $row['address']?></span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; width: 100%">
+                                    <p class="text-secondary mb-1">Contact: </p>
+                                    <span><?php echo $row['contact']?></span>
+                                </div>
+
                                 <div class="d-flex flex-column align-items-center text-center">
-                                    <button type="button" class="btn btn-success text-white" data-bs-toggle="modal" data-bs-target="#updateProfile" data-bs-id="<?php echo $sellerID ?>" data-bs-full_name="<?php echo $row['name']?>" data-bs-address="<?php echo $row['address']?>" data-bs-contact="<?php echo $row['contact']?>">
-                                            <span class="fa fa-edit"></span> Edit
+                                    <button type="button" class="btn btn-success text-white" data-bs-toggle="modal"
+                                        data-bs-target="#updateProfile" data-bs-id="<?php echo $sellerID ?>"
+                                        data-bs-full_name="<?php echo $row['name']?>"
+                                        data-bs-address="<?php echo $row['address']?>"
+                                        data-bs-contact="<?php echo $row['contact']?>">
+                                        <span class="fa fa-edit"></span> Edit
                                     </button>
                                 </div>
                             </div>
@@ -88,17 +93,60 @@ $name = $row['name'];
                     </div>
                     <div class="col-md-8">
                         <div class="col-md-12">
+
                             <div class="card mb-3">
                                 <div class="card-body">
-                                <h6 class="card-title m-t-40">
+                                    <h6 class="card-title m-t-40">
+                                        <i class="m-r-5 font-18 mdi mdi-numeric-1-box-multiple-outline"></i>List of
+                                        CONTRACT
+                                    </h6>
+                                    <div class="table-responsive">
+                                        <table class="table" id='contractTable'> <?php
+                                    $results  = mysqli_query($con, "SELECT * from contract_purchase WHERE seller='$name' "); 
+                                    
+                                    ?> <thead class="table-dark">
+                                                <tr>
+                                                    <th width="10%">Date</th>
+                                                    <th width="15%">Contact No.</th>
+                                                    <th width="15%">Seller</th>
+                                                    <th scope="col">Quantity</th>
+                                                    <th hidden scope="col">Delivered</th>
+                                                    <th scope="col">Balance</th>
+                                                    <th scope="col">₱/KG</th>
+                                                    <th scope="col">Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
+                                                    <th scope="row"> <?php echo $row['date']?> </th>
+                                                    <td> <?php echo $row['contract_no']?> </td>
+                                                    <td> <?php echo $row['seller']?> </td>
+                                                    <td> <?php echo $row['contract_quantity']?> Kg</td>
+                                                    <td hidden> <?php echo $row['delivered']?> </td>
+                                                    <td> <?php echo $row['balance']?> Kg</td>
+                                                    <td>₱ <?php echo $row['price_kg']?> </td>
+                                                    <td>
+                                                        <h5><span
+                                                                class="badge bg-success"><?php echo $row['status']?></span>
+                                                        </h5>
+                                                    </td>
+
+                                                </tr> <?php } ?> </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h6 class="card-title m-t-40">
                                         <i class="m-r-5 font-18 mdi mdi-numeric-1-box-multiple-outline"></i>List of
                                         Recent Copra Purchase Transaction
                                     </h6>
                                     <div class="table-responsive">
-                                        <table class="table" id='seller_copraTransaction'> <?php
+                                        <table class="table" id='seller_copraTransaction'>
+                                            <?php
                                     $results  = mysqli_query($con, "SELECT * from transaction_record where seller='$name'  ORDER BY id DESC  "); ?>
                                             <thead class="table-dark">
-                                            <tr>
+                                                <tr>
                                                     <th scope="col">Invoice</th>
                                                     <th scope="col">Date</th>
                                                     <th scope="col">Contract</th>
@@ -123,28 +171,30 @@ $name = $row['name'];
 
                         <div class="col-md-12">
                             <div class="card mb-3">
-                            <canvas id="copra_bar" style="width:90%;max-width:90%; height:100%;"></canvas>
-                                </div>
+                                <canvas id="copra_bar" style="width:90%;max-width:90%; height:100%;"></canvas>
                             </div>
                         </div>
-
-
                     </div>
+
+
                 </div>
-
             </div>
+
         </div>
-
-
-
-        <!-- ============================================================== -->
     </div>
+
+
+
+    <!-- ============================================================== -->
+</div>
 </div>
 </body>
 
 
 <!-- Bootstrap script -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous">
+</script>
 
 <script>
 pie = document.getElementById("ca_pie");
@@ -162,37 +212,38 @@ pie = document.getElementById("ca_pie");
         ?>
 
 new Chart(pie, {
-                options: {
-                    plugins:{
-                        title:{
-                            display:true,
-                            text: 'Cash Advance Chart',
-                        },
-                    },
-                },
-                type: 'doughnut', //Declare the chart type 
-                data: {
-                labels: [
-                    'Copra',
-                    'NTC',
-                    'Trucking',
-                    'Others',
-                ],
-                datasets: [{
-                    label:'Carts',
-                    data:[<?php echo $copra_row['total'].",".$ntc_row['total'].",".$truck_row['total'].",".$othr_row['total'] ?>],
-                    backgroundColor: [
-                        'rgb(0, 153, 51)',
-                        'rgb(102, 153, 153)',
-                        'rgb(255, 204, 0)',
-                        'rgb(255, 0, 0)',
-                    ],
-                    borderColor: 'black',
-                    fill: false, //Fills the curve under the line with the babckground color. It's true by default
-                }]
+    options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Cash Advance Chart',
             },
-        });
-
+        },
+    },
+    type: 'doughnut', //Declare the chart type 
+    data: {
+        labels: [
+            'Copra',
+            'NTC',
+            'Trucking',
+            'Others',
+        ],
+        datasets: [{
+            label: 'Carts',
+            data: [
+                <?php echo $copra_row['total'].",".$ntc_row['total'].",".$truck_row['total'].",".$othr_row['total'] ?>
+            ],
+            backgroundColor: [
+                'rgb(0, 153, 51)',
+                'rgb(102, 153, 153)',
+                'rgb(255, 204, 0)',
+                'rgb(255, 0, 0)',
+            ],
+            borderColor: 'black',
+            fill: false, //Fills the curve under the line with the babckground color. It's true by default
+        }]
+    },
+});
 </script>
 
 <script>

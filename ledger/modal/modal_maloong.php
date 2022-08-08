@@ -35,25 +35,6 @@
                                     </div>
                                 </div>
                                 <br>
-                                <div class="form-group">
-                                    <div class="row no-gutters">
-                                        <label style='font-size:15px;font-weight: bold;' class="col-md-12">Price:
-                                        </label>
-                                        <div class="col-12 col-sm-5 col-md-7">
-                                            <!--  -->
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">₱</span>
-                                                </div>
-                                                <input type="text" style='text-align:right' name='p_price' id='p_price'
-                                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
-                                                    class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -72,6 +53,52 @@
                                         </div>
                                     </div>
                                 </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="row no-gutters">
+                                                <label style='font-size:15px;font-weight: bold;'
+                                                    class="col-md-12">Price:
+                                                </label>
+                                                <div class="col-12">
+                                                    <!--  -->
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">₱</span>
+                                                        </div>
+                                                        <input type="text" style='text-align:right' name='p_price'
+                                                            id='p_price' onkeypress="return CheckNumeric()"
+                                                            onkeyup="FormatCurrency(this)" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="row no-gutters">
+                                                <label style='font-size:15px;font-weight: bold;'
+                                                    class="col-md-12">Price:
+                                                </label>
+                                                <div class="col-12">
+                                                    <!--  -->
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">₱</span>
+                                                        </div>
+                                                        <input type="text" style='text-align:right' name='p_price'
+                                                            id='p_price' onkeypress="return CheckNumeric()"
+                                                            onkeyup="FormatCurrency(this)" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
                                 <br>
                                 <div class="row">
                                     <div class="col-md-12">

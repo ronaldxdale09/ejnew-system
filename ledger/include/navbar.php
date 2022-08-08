@@ -10,11 +10,11 @@
         </div>";
      if($_SESSION['type'] == 'finance'){
     echo "
-             <hr style='color:gray'>
+             <hr style='color:white'>
         <a class='nav-link' href='dashboard.php'>
              <i class='fa-solid fa-home'></i> <span class='nav-text'>Dashboard</span>
          </a>
-         <hr style='color:gray'>
+         <hr style='color:white'>
         <a class='nav-link' href='ledger-expense.php'>
             <i class='fa-solid fa-money'></i> <span class='nav-text'>Expenses</span>
         </a>
@@ -33,6 +33,9 @@
     <a class='nav-link' href='ledger-buahan.php'>
     <i class='fa-solid fa-archive'></i> <span class='nav-text'>Buahan Toppers</span>
 </a>
+<hr style='color:white'>
+
+
         
         ";
         }

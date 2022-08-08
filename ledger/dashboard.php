@@ -115,22 +115,16 @@
                     </div>
                     <!-- ============================================================== -->
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <canvas id="expenses_bar"
-                                        style="position: relative; height:40vh; width:80vw"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
+                        <div class="col-sm-6">
+                            <!-- start first column -->
+                            <!-- start expense table -->
                             <div class="card">
                                 <div class="card-body">
 
                                     <div class="row">
-                                        <div class="col-md-10">
-                                            <h5>EXPENSES TODAY</h5>
-                                        </div>
+                                    <center>
+                                            <h4>EXPENSES TODAY</h4>
+                                            </center>
                                         <div class="col-md-2">
 
                                         </div>
@@ -163,28 +157,77 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-6">
+                            <!-- end expense table -->
+                            <!-- cash advance pie -->
                             <div class="card">
                                 <div class="card-body">
                                     <canvas id="ca_pie" style="position: relative; height:30vh; width:10vw">></canvas>
                                 </div>
                             </div>
+                            <!-- end cash advance -->
+
+
+                            <!-- end first column -->
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-sm-6">
+                            <!--  second columnn-->
                             <div class="card">
                                 <div class="card-body">
 
                                     <div class="row">
-                                        <div class="col-md-10">
-                                            <h5>CASH ADVANCE TODAY</h5>
-                                        </div>
+                                       <center>
+                                            <h4>SUBSCRIPTIONS</h4>
+                                            </center>
                                         <div class="col-md-2">
-                           
+
                                         </div>
+                                    </div>
+                                    <hr>
+                                    <div class="table-responsive">
+                                        <table class="table" id='expenses_table'> <?php
+                                    $results  = mysqli_query($con, "SELECT * from ledger_expenses WHERE category='Subscription'
+                                    AND  MONTH(date) = MONTH(CURDATE())
+                                        AND YEAR(date) = YEAR(CURDATE()) ORDER BY id DESC LIMIT 10 "); 
+                                    
+                                    ?> <thead class="table-dark">
+                                                <tr>
+                                                    <th scope="col">VOC#</th>
+                                                    <th scope="col">NAME</th>
+                                                    <th scope="col">Date Last Paid</th>
+                                                    <th scope="col">Next Payment</th>
+                                                    <th scope="col">Amount</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
+                                                    <td> <?php echo $row['voucher_no']?> </td>
+                                                    <td> <?php echo $row['particulars']?> </td>
+                                                    <td><h5><span class="badge bg-success"> <?php echo $row['date']?> </span> </h5></td>
+                                                    <td> 
+                                                    <h5><span class="badge bg-danger"> <?php echo $date = date('Y-m-d', strtotime('+1 month', strtotime($row['date'])));?></span> </h5>    
+                                                     </td>
+                                                    <td>₱ <?php echo number_format($row['amount'])?> </td>
+
+                                                </tr> <?php }
+                                 ?> </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <canvas id="expenses_bar"
+                                        style="position: relative; height:40vh; width:80vw"></canvas>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <div class="row">
+                                    <center>
+                                            <h4>CASH ADVANCE TODAY</h4>
+                                            </center>
+                                 
                                     </div>
                                     <hr>
                                     <div class="table-responsive">
@@ -210,12 +253,13 @@
                                                     <td> <?php echo $row['buying_station']?> </td>
                                                     <td> <?php echo $row['category']?> </td>
                                                     <td> <?php echo $row['amount']?> </td>
-                                               
+
                                                 </tr> <?php } ?> </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
+                            <!-- end second column -->
                         </div>
                     </div>
                     <hr>

@@ -1,0 +1,104 @@
+ <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <canvas id="expenses_bar"
+                                        style="position: relative; height:40vh; width:80vw"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <h5>EXPENSES TODAY</h5>
+                                        </div>
+                                        <div class="col-md-2">
+
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="table-responsive">
+                                        <table class="table" id='expenses_table'> <?php
+                                    $results  = mysqli_query($con, "SELECT * from ledger_expenses WHERE DATE(`date`) = CURDATE() ORDER BY id DESC LIMIT 5 "); 
+                                    
+                                    ?> <thead class="table-dark">
+                                                <tr>
+                                                    <th scope="col">DATE</th>
+                                                    <th scope="col">PARTICULARS</th>
+                                                    <th scope="col">VOC#</th>
+                                                    <th scope="col">CATEGORY</th>
+                                                    <th scope="col">AMOUNT</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
+                                                    <td> <?php echo $row['date']?> </td>
+                                                    <td> <?php echo $row['particulars']?> </td>
+                                                    <td> <?php echo $row['voucher_no']?> </td>
+                                                    <td> <?php echo $row['category']?> </td>
+                                                    <td>₱ <?php echo number_format($row['amount'])?> </td>
+
+                                                </tr> <?php }
+                                 ?> </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <canvas id="ca_pie" style="position: relative; height:30vh; width:10vw">></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <h5>CASH ADVANCE TODAY</h5>
+                                        </div>
+                                        <div class="col-md-2">
+                           
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-responsive-lg" id='purchase_table'>
+                                            <?php
+                                    $results  = mysqli_query($con, "SELECT * from ledger_cashadvance  WHERE DATE(`date`) = CURDATE() ORDER BY id DESC LIMIT 5"); ?>
+                                            <thead class="table-dark">
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Voucher #</th>
+                                                    <th>Date</th>
+                                                    <th>Name</th>
+                                                    <th>Buying Station</th>
+                                                    <th>category</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
+                                                    <td> <?php echo $row['id']?> </td>
+                                                    <td> <?php echo $row['voucher']?> </td>
+                                                    <td> <?php echo $row['date']?> </td>
+                                                    <td> <?php echo $row['customer']?> </td>
+                                                    <td> <?php echo $row['buying_station']?> </td>
+                                                    <td> <?php echo $row['category']?> </td>
+                                                    <td> <?php echo $row['amount']?> </td>
+                                               
+                                                </tr> <?php } ?> </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
