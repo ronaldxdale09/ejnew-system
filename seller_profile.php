@@ -35,8 +35,8 @@ $name = $row['name'];
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex flex-column align-items-center text-center">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
-                                        class="rounded-circle" width="150">
+                                    <img src="assets/img/avatar.png" alt="Admin"
+                                        class="rounded-circle" width="210">
                                     <div class="mt-3">
                                         <h4><?php echo $name?> </h4>
                                         <p class="text-secondary mb-1"><?php echo $row['code']?></p>

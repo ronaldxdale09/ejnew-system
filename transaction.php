@@ -82,7 +82,7 @@ $today = $year . "-" . $month . "-" . $day;
                                     <div class="card">
                                         <div class="card-body">
                                         <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-5">
                                             <div class="form-group">
                                                 <label class="col-md-12">Invoice</label>
                                                 <div class="col-md-12">
@@ -92,12 +92,13 @@ $today = $year . "-" . $month . "-" . $day;
                                                 </div>
                                             </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-7">
                                             <div class="form-group">
                                                 <label class="col-md-12"></label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-12">
                                                 <button type="button" class="btn btn-primary text-white"
-                                        onClick='window.location.reload(true)'>New Transaction</button>
+                                                data-toggle="modal"
+                                                data-target="#modal_new_transact">New Transaction</button>
                                                 </div>
                                             </div>
                                             </div>

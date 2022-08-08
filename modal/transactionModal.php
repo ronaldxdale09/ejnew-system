@@ -409,8 +409,6 @@ $(document).ready(function() {
 
 
 
-
-
 <script type="text/javascript">
 $(document).ready(function() {
     $('#print_receipt').click(function() {
@@ -430,3 +428,37 @@ $(document).ready(function() {
     })
 });
 </script>
+
+
+<!-- PRINT Transaction -->
+<div class="modal fade" id="modal_new_transact" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">NEW TRANSACTION</h5>
+                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                  <!--  total dust-->
+                  <center>
+                  <div class="col-6 col-md-12">
+                            <div class="input-group mb-12">
+                                <label style='font-size:25px' class="col-md-12">Confirm to create new transaction</label>
+                              
+                            </div>
+                        </div>
+                        <center>
+                    <!-- end -->
+            
+            </div>
+            <div class="modal-footer">
+            <button onClick='window.location.reload(true)' class="btn btn-success text-white">Confirm</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                
+            </div>
+        </div>
+    </div>
+</div>

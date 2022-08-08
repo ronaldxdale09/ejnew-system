@@ -43,6 +43,7 @@
                                     $results  = mysqli_query($con, "SELECT * from seller"); ?>
                                             <thead class="table-dark">
                                                 <tr>
+                                                    <th>Image</th>
                                                     <th scope="col">Code</th>
                                                     <th scope="col">Name</th>
                                                     <th scope="col">Address</th>
@@ -50,6 +51,13 @@
                                                 </tr>
                                             </thead>
                                             <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
+                                                    <td>
+                                                        <nobr> <img
+                                                                src="assets/img/avatar.png"
+                                                                alt="..." class="img img-fluid" width="65"
+                                                               >
+                                                        </nobr>
+                                                    </td>
                                                     <th scope="row"> <?php echo $row['code']?> </th>
                                                     <td> <?php echo $row['name']?> </td>
                                                     <td> <?php echo $row['address']?> </td>
@@ -77,3 +85,42 @@
 <?php 
 include "modal/addseller_modal.php";
 ?>
+
+<script>
+
+$(document).ready(function() {
+
+    var table = $('#sellerTable').DataTable({
+        dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
+        order: [
+            [0, 'desc']
+        ],
+        buttons: [{
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                }
+            },
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                }
+            },
+
+        ],
+        lengthChange: false,
+        orderCellsTop: true,
+
+
+
+    });
+
+});
+    </script>
