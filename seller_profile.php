@@ -50,8 +50,21 @@ $name = $row['name'];
                                     <div class="mt-3">
                                         <h4><?php echo $name?> </h4>
                                         <p class="text-secondary mb-1"><?php echo $row['code']?></p>
-
                                     </div>
+                                </div>
+                                    <div style="display: flex; justify-content: space-between; width: 100%">
+                                        <p class="text-secondary mb-1">Address: </p>
+                                        <span><?php echo $row['address']?></span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; width: 100%">
+                                        <p class="text-secondary mb-1">Contact: </p>
+                                        <span><?php echo $row['contact']?></span>
+                                    </div>
+                                    
+                                <div class="d-flex flex-column align-items-center text-center">
+                                    <button type="button" class="btn btn-success text-white" data-bs-toggle="modal" data-bs-target="#updateProfile" data-bs-id="<?php echo $sellerID ?>" data-bs-full_name="<?php echo $row['name']?>" data-bs-address="<?php echo $row['address']?>" data-bs-contact="<?php echo $row['contact']?>">
+                                            <span class="fa fa-edit"></span> Edit
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -74,45 +87,6 @@ $name = $row['name'];
                         </div>
                     </div>
                     <div class="col-md-8">
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <h6 class="mb-0">Full Name</h6>
-                                    </div>
-                                    <div class="col-sm-9 text-secondary">
-                                    <?php echo $name?> 
-                                    </div>
-                                </div>
-                              
-                                <hr>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <h6 class="mb-0">Address</h6>
-                                    </div>
-                                    <div class="col-sm-9 text-secondary">
-                                    <?php echo $row['address']?> 
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <h6 class="mb-0">Contact No.</h6>
-                                    </div>
-                                    <div class="col-sm-9 text-secondary">
-                                    <?php echo $row['contact']?> 
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <button type="button" class="btn btn-success text-white" data-bs-toggle="modal" data-bs-target="#updateProfile" data-bs-id="<?php echo $sellerID ?>" data-bs-full_name="<?php echo $row['name']?>" data-bs-address="<?php echo $row['address']?>" data-bs-contact="<?php echo $row['contact']?>">
-                                            <span class="fa fa-edit"></span> Edit
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="col-md-12">
                             <div class="card mb-3">
                                 <div class="card-body">
