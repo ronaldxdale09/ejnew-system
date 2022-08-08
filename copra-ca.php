@@ -2,14 +2,7 @@
    include('include/header.php');
    include "include/navbar.php";
 
-   $seller = "SELECT * FROM seller ";
-   $result = mysqli_query($con, $seller);
-   $sellerList='';
-   while($arr = mysqli_fetch_array($result))
-   {
-   $sellerList .= '
-<option value="'.$arr["name"].'">[ '.$arr["code"].' ]      '.$arr["name"].'</option>';
-   }
+  
 
 
      // TOTAL CASH ADVANCE

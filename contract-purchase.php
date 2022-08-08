@@ -2,14 +2,7 @@
    include('include/header.php');
    include "include/navbar.php";
 
-   $seller = "SELECT * FROM seller ";
-   $result = mysqli_query($con, $seller);
-   $sellerList='';
-   while($arr = mysqli_fetch_array($result))
-   {
-   $sellerList .= '
-<option value="'.$arr["name"].'">[ '.$arr["code"].' ]      '.$arr["name"].'</option>';
-   }
+ 
 
    $getMonthTotal  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(balance) as month_total 
    from contract_purchase  group by year(date), month(date) ORDER BY ID DESC");
@@ -117,7 +110,7 @@
                                                     <th scope="col">Balance</th>
                                                     <th scope="col">₱/KG</th>
                                                     <th scope="col">Status</th>
-                                                    <th scope="col">Action</th>
+                                       
                                                 </tr>
                                             </thead>
                                             <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
@@ -133,13 +126,7 @@
                                                                 class="badge bg-success"><?php echo $row['status']?></span>
                                                         </h5>
                                                     </td>
-                                                    <td>
-                                                        <button type="button"
-                                                            class="btn btn-primary text-white  btn-sm"> <i
-                                                                class='fa-solid fa-eye'></i></button>
-                                                        <button type="button" class="btn btn-danger text-white  btn-sm">
-                                                            <i class='fa-solid fa-times'></i></button>
-                                                    </td>
+                                                 
                                                 </tr> <?php } ?> </tbody>
                                         </table>
                                     </div>

@@ -54,18 +54,26 @@ $today = $year . "-" . $month . "-" . $day;
 
                     <div class="page-breadcrumb">
                         <div class="row align-items-center">
-                            <div class="col-5">
+                            <div class="col-4">
                                 <br>
                                 <h4 class="page-title">Purchase</h4>
                             </div>
-                            <div class="col-6">
+                            <div class="col-7">
                                 <div class="text-end upgrade-btn">
                                     <!-- CONTENT -->
+                                    <button type="button" class="btn btn-success text-white" data-toggle="modal"
+                                        data-target="#add_seller1"><span class="fa fa-plus text-white"></span>
+                                        Add Seller</button>
+                                        <button type="button" class="btn btn-info text-white" data-toggle="modal"
+                                            data-target="#copraCashAdvance1"><span class="fa fa-plus text-white"></span>
+                                        New Cash Advance</button>
+                                        <button type="button" class="btn btn-dark text-white" data-toggle="modal"
+                                                data-target="#newContract1"><span class="fa fa-plus text-white"></span>
+                                        New Contract</button>
                                     <button type="button" class="btn btn-secondary text-white" data-toggle="modal"
                                         data-target=".viewTransaction"><span class="fa fa-book text-white"></span>
                                         Transaction History</button>
-                                    <button type="button" class="btn btn-primary text-white"
-                                        onClick='window.location.reload(true)'>New Transaction</button>
+                                
                                 </div>
                             </div>
                             <div class="row">
@@ -73,13 +81,26 @@ $today = $year . "-" . $month . "-" . $day;
                                 <div class="col-lg-4 col-xlg-3 col-md-5">
                                     <div class="card">
                                         <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label class="col-md-12">Invoice</label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-12">
                                                     <input type="number" name='invoice' id='invoice'
                                                         value="<?php echo "$invoiceCount"; ?>"
                                                         class="form-control form-control-line" readonly>
                                                 </div>
+                                            </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="col-md-12"></label>
+                                                <div class="col-md-8">
+                                                <button type="button" class="btn btn-primary text-white"
+                                        onClick='window.location.reload(true)'>New Transaction</button>
+                                                </div>
+                                            </div>
+                                            </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-12">Date</label>
@@ -602,6 +623,9 @@ include "modal/viewTransactionModal.php";
 include "modal/transactionModal.php";
 include "modal/TransactionModalScript.php";
 
+include "modal/contractModal.php";
+include "modal/copra/copra_cashadvanceModal.php";
+include "modal/addseller_modal.php";
 include "include/script.php";
 ?>
 

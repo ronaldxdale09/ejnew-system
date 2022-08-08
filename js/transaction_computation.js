@@ -43,10 +43,11 @@ function CopraComputation(gross, tare, dust, discount, rese1, rese2, less) {
 
         total_amount = $("#total-amount").val().replace(/,/g, '')
 
-        $("#amount-paid").val(((+$("#total-amount").val().replace(/,/g, '') - less)).toLocaleString());
+        $("#amount-paid").val(((total_amount - less)).toLocaleString());
 
 
-
+        amount_paid = $("#amount-paid").val().replace(/,/g, '');
+        getWords(amount_paid);
 
     } else {
 
@@ -83,7 +84,8 @@ function CopraComputation(gross, tare, dust, discount, rese1, rese2, less) {
             total_amount = $("#total-amount").val();
             $("#amount-paid").val(nf.format(total_amount - less));
 
-
+            amount_paid = $("#amount-paid").val().replace(/,/g, '');
+            getWords(amount_paid);
 
 
         } else if (restotal < balance) {
@@ -99,21 +101,15 @@ function CopraComputation(gross, tare, dust, discount, rese1, rese2, less) {
 
             $("#amount-paid").val(((+$("#total-amount").val().replace(/,/g, '') - less)).toLocaleString());
 
-
+            amount_paid = $("#amount-paid").val().replace(/,/g, '');
+            getWords(amount_paid);
 
 
         }
 
     }
-    amount_paid = $("#amount-paid").val().replace(/,/g, '');
-    getWords(amount_paid);
-    //SECOND RESECADA PRICE
-
-    // document.getElementById("total-2res").value = ((+(Number(rese2)) * (Math.abs(+$("#2rese-weight").val().replace(/,/g, ''))))).toLocaleString(
-    //     "en-US");
-
-    // $("#total-amount").val(((+$("#total-1res").val().replace(/,/g, '') + (+$("#total-2res").val()
-    //     .replace(/,/g, '')))).toLocaleString());
+    
+ 
 
 
 

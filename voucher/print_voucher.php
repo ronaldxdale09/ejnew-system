@@ -110,8 +110,7 @@ body {
         Amount Paid : <?php echo  '  ₱'.number_format($_SESSION['print_paid']);  ?> <br>
     </div>
     <br>
-    <br>
-    <p style="position:relative; left:210px;"><?php echo  $_SESSION['print_words'];  ?></p>
+
     <br>
     <p style="position:relative; left:210px;"><?php echo  $_SESSION['print_approved'];  ?></p>
     <br>
