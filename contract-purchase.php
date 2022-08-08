@@ -117,7 +117,6 @@
                                                     <th scope="col">Balance</th>
                                                     <th scope="col">₱/KG</th>
                                                     <th scope="col">Status</th>
-                                                    <th scope="col">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
@@ -132,13 +131,6 @@
                                                         <h5><span
                                                                 class="badge bg-success"><?php echo $row['status']?></span>
                                                         </h5>
-                                                    </td>
-                                                    <td>
-                                                        <button type="button"
-                                                            class="btn btn-primary text-white  btn-sm"> <i
-                                                                class='fa-solid fa-eye'></i></button>
-                                                        <button type="button" class="btn btn-danger text-white  btn-sm">
-                                                            <i class='fa-solid fa-times'></i></button>
                                                     </td>
                                                 </tr> <?php } ?> </tbody>
                                         </table>

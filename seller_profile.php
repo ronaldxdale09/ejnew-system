@@ -8,6 +8,7 @@
 
 $results = mysqli_query($con, "SELECT * from seller WHERE code='$id'"); 
 $row = mysqli_fetch_array($results);
+$sellerID = $row['id'];
 $name = $row['name'];
 
    //PENDING CONTRACT
@@ -16,6 +17,15 @@ $name = $row['name'];
 
 
 ?>
+
+<!-- Bootstrap -->
+    
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+<?php
+    include('modal/profileModal.php');
+?>    
+
 <link rel='stylesheet' href='../css/seller_profile.css'>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"
         integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="
@@ -95,18 +105,10 @@ $name = $row['name'];
                                 </div>
                                 <hr>
                                 <div class="row">
-                                    <div class="col-sm-3">
-                                        <h6 class="mb-0">Email</h6>
-                                    </div>
-                                    <div class="col-sm-9 text-secondary">
-                                   test@gmail.com
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
                                     <div class="col-sm-12">
-                                        <a class="btn btn-info " target="__blank"
-                                            href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
+                                        <button type="button" class="btn btn-success text-white" data-bs-toggle="modal" data-bs-target="#updateProfile" data-bs-id="<?php echo $sellerID ?>" data-bs-full_name="<?php echo $row['name']?>" data-bs-address="<?php echo $row['address']?>" data-bs-contact="<?php echo $row['contact']?>">
+                                            <span class="fa fa-edit"></span> Edit
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -165,6 +167,10 @@ $name = $row['name'];
     </div>
 </div>
 </body>
+
+
+<!-- Bootstrap script -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 
 <script>
 pie = document.getElementById("ca_pie");
