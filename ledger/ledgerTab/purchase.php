@@ -29,7 +29,7 @@
                 <div class="table-responsive ">
                     <table class="table table-bordered table-responsive-lg" id='purchase_table'>
                         <?php
-                                    $results  = mysqli_query($con, "SELECT * from ledger_purchase ORDER BY id DESC"); ?>
+                            $results  = mysqli_query($con, "SELECT * from ledger_purchase ORDER BY id DESC"); ?>
                         <thead class="table-dark">
                             <tr>
                                 <th>DATE</th>
