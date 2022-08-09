@@ -396,9 +396,10 @@
                             <div class="stat-card" style="min-height: 180px">
                                 <div class="stat-card__content">
                                     <p class="text-uppercase mb-1 text-muted">Maloong Toppers</p>
-                                    <h2></h2>
+                                    <h2><?php echo number_format($maloong['month_total']) ;  ?> </h2>
                                     <div>
-                                        <span class="text-muted">
+                                        <span class="text-muted"><?php echo $monthName; ?>
+                                            <?php echo $maloong['year']; ?>
                                         </span>
                                     </div>
                                 </div>
