@@ -69,7 +69,7 @@
             <!-- User View Account -->
             <div class="container bg-white rounded p-3 mb-3">
                 <h3><i class='bx bx-user-voice'></i> User account</h3>
-                <small class="form-text text-muted">Click the row to pup-up action menu.</small>
+                <small class="form-text text-muted">Click the row to pop-up action menu.</small>
                 <br>
                 <table class="table table-hover">
                     <thead class="table-success">
@@ -163,7 +163,7 @@
             <!-- Seller View Account -->
             <div class="container bg-white rounded p-3">
                 <h3><i class='bx bx-user-pin'></i> Seller account</h3>
-                <small class="form-text text-muted">Click the row to pup-up action menu.</small>
+                <small class="form-text text-muted">Click the row to pop-up action menu.</small>
                 <br>
                 <table class="table">
                     <thead class="table-success">
