@@ -24,10 +24,10 @@
           <li>
               <a href='./admin_users.php'>
               <i class='bx bx-user' ></i>
-              <span class='link_name'>Account</span>
+              <span class='link_name'>User</span>
               </a>
               <ul class='sub-menu blank'>
-              <li><a class='link_name' href='./admin_users.php'>Account</a></li>
+              <li><a class='link_name' href='./admin_users.php'>User</a></li>
               </ul>
           </li>
           <li>
@@ -40,9 +40,9 @@
               </div>
               <ul class='sub-menu'>
               <li><a class='link_name' href='#'>Copra</a></li>
-              <li><a href='#'>Seller</a></li>
-              <li><a href='#'>Purchase Contract</a></li>
-              <li><a href='#'>Cash Advance</a></li>
+              <li><a href='./admin_seller.php'>Seller</a></li>
+              <li><a href='./admin_purchase.php'>Purchase Contract</a></li>
+              <li><a href='./admin_cashadvance.php'>Cash Advance</a></li>
               </ul>
           </li>
           <li>
@@ -55,11 +55,11 @@
               </div>
               <ul class='sub-menu'>
               <li><a class='link_name' href='#'>Ledger</a></li>
-              <li><a href='#'>Expenses</a></li>
-              <li><a href='#'>Purchases</a></li>
-              <li><a href='#'>Cash Advance</a></li>
-              <li><a href='#'>Maloong Toppers</a></li>
-              <li><a href='#'>Buahan Toppers</a></li>
+              <li><a href='./admin_expenses.php'>Expenses</a></li>
+              <li><a href='./admin_ledger_purchase.php'>Purchases</a></li>
+              <li><a href='./admin_ledger_cashadvance.php'>Cash Advance</a></li>
+              <li><a href='./admin_maloong.php'>Maloong Toppers</a></li>
+              <li><a href='./admin_buahan.php'>Buahan Toppers</a></li>
               </ul>
           </li>
           

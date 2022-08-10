@@ -32,19 +32,17 @@
                                     $results  = mysqli_query($con, "SELECT * from ledger_cashadvance ORDER BY id DESC"); ?>
                             <thead class="table-dark">
                                 <tr>
-                                    <th>ID</th>
                                     <th>Voucher #</th>
                                     <th>Date</th>
                                     <th>Name</th>
                                     <th>Buying Station</th>
                                     <th>category</th>
                                     <th>Total</th>
-                                    <th></th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
-                                    <td> <?php echo $row['id']?> </td>
-                                    <td> <?php echo $row['id']?> </td>
+                                    <td> <?php echo $row['voucher']?> </td>
                                     <td> <?php echo $row['date']?> </td>
                                     <td> <?php echo $row['customer']?> </td>
                                     <td> <?php echo $row['buying_station']?> </td>

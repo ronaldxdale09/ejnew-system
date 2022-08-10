@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrator | Add User Account</title>
+    <title>Administrator | Account</title>
     <!-- PHP Code -->
     <?php
         include 'include/header.php';
@@ -28,7 +28,7 @@
     <section class="home-section">
         <div class="home-content">
             <i class='bx bx-menu' ></i>
-            <span class="text">User Account</span>
+            <span class="text">User</span>
         </div>
         <main>
             <ul class="nav nav-pills mb-3  justify-content-end" id="pills-tab" role="tablist">
@@ -39,7 +39,7 @@
                     <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false"><i class='bx bx-user-pin'></i> Seller Account</button>
                 </li>
             </ul>
-            <div class="tab-content" id="pills-tabContent">
+            <div class="tab-content box-shadow" id="pills-tabContent">
                 <div class="tab-pane fade show active rounded bg-white" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                     <div class="container bg-white rounded p-3">
                         <!-- Modal -->
@@ -88,17 +88,17 @@
 
                     <!-- User View Account -->
                     <div class="container bg-white rounded p-3 mb-3">
-                        <h3><i class='bx bx-user-voice'></i> User account</h3>
+                        <h3><i class='bx bx-user-voice'></i> Accounts</h3>
                         <div class="col-md-12">
-                            <button class="btn  mt-2" style="background: #f3f4f5" data-toggle="modal" data-target="#exampleModalCenter"><b><i class='bx bx-user-plus'></i> Add Account</b></button>
-                            <br>
-                            <small class="form-text text-muted">Add user account (Both: Copra & Ledger)</small>
+                            <small class="form-text text-muted">Add user account (Both: Copra & Ledger). </small>
                             <small class="form-text text-muted">Click the row to pop-up action menu.</small>
+                            <br>
+                            <button class="btn text-light mt-2" style="background: #067bbe;" data-toggle="modal" data-target="#exampleModalCenter"><b><i class='bx bx-user-plus'></i> Add Account</b></button>
                         </div>
                         <br>
                         <table class="table table-hover" id="user_table"><?php
                             $results_users  = mysqli_query($con, "SELECT * from users"); ?>
-                            <thead class="table-success">
+                            <thead class="table-secondary">
                                 <tr>
                                 <th scope="col">Username</th>
                                 <th scope="col">Password</th>
@@ -237,12 +237,12 @@
                     <!-- Seller View Account -->
                     <div class="container bg-white rounded p-3">
                         <h3><i class='bx bx-user-pin'></i> Seller account</h3>
-                        <small class="form-text text-muted">Click the row to pop-up action menu.</small>
+                        <small class="form-text text-muted">List of sellers. </small>
                         <br>
                         <br>
                         <table class="table" id="seller_table"><?php
                             $results_seller  = mysqli_query($con, "SELECT * from seller"); ?>
-                            <thead class="table-success">
+                            <thead class="table-secondary">
                                 <tr>
                                 <th scope="col">Code</th>
                                 <th scope="col">Name</th>
