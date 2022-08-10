@@ -176,7 +176,7 @@
                                     <div class="col">
                                         <div class="collapse multi-collapse" id="multiCollapseExample1">
                                             <div class="card card-body">
-                                                <p>Please confirm to remove this account. This account will remove permanently. Remove? </p>
+                                                <p>Please confirm to remove this account. This account will remove permanently. Continue? </p>
                                                 <form action="./function/admin/del_user.php"  method="POST">
                                                     <input type="text" id="my_iddel" name="my_iddel" style="display: none">
                                                     <button type="button" class="btn btn-light" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">No</button>
