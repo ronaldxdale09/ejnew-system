@@ -16,7 +16,6 @@
     <?php 
                                 
         $ulist = "
-        <option value='Admin'>Admin</option>
         <option value='Copra'>Copra</option>
         <option value='Finance'>Finance</option>
         ";
