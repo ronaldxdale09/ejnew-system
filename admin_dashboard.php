@@ -29,6 +29,30 @@
 
         $results = mysqli_query($con, "SELECT SUM(cash_advance) AS total_ca from seller  "); 
         $total_ca = mysqli_fetch_array($results);
+
+
+        // user count [copra, finance]
+        $sqlcopranumber = "SELECT * from users WHERE type='copra' OR type='Copra'";
+
+        if ($resultcopracount = mysqli_query($con, $sqlcopranumber)) {
+            // Return the number of rows in result set
+            $copracount = mysqli_num_rows( $resultcopracount );
+        }
+        //finance
+        $sqlfinancenumber = "SELECT * from users WHERE type='finance' OR type='Finance'";
+
+        if ($resultfinancecount = mysqli_query($con, $sqlfinancenumber)) {
+            // Return the number of rows in result set
+            $financecount = mysqli_num_rows( $resultfinancecount );
+        }
+
+        //admin
+        $sqladminnumber = "SELECT * from users WHERE type='admin' OR type='Admin'";
+
+        if ($resultadmincount = mysqli_query($con, $sqladminnumber)) {
+            // Return the number of rows in result set
+            $admincount = mysqli_num_rows( $resultadmincount );
+        }
         ?>
 <body>
 
@@ -53,17 +77,17 @@
                                 <div class="stat-card__content">
                                     <p class="text-uppercase mb-1 text-muted">COPRA</p>
                                     <h2><i class="text-danger font-weight-bold mr-1"></i>
-                                        2
+                                        <?php echo $copracount ?>
                                     </h2>
                                     <div>
                                         <small class="text-muted"> 
-                                            Record/s
+                                            <?php echo $copracount > 1 ? 'Records' : 'Record'?>
                                         </small>
                                     </div>
                                 </div>
                                 <div class="stat-card__icon stat-card__icon--success">
                                     <div class="stat-card__icon-circle">
-                                        <i class="bx bx-user" aria-hidden="true"></i>
+                                        <i class="fa fa-users" aria-hidden="true"></i>
                                     </div>
                                 </div>
                             </div>
@@ -73,17 +97,17 @@
                                 <div class="stat-card__content">
                                     <p class="text-uppercase mb-1 text-muted">FINANCE</p>
                                     <h2><i class="text-danger font-weight-bold mr-1"></i>
-                                        2
+                                        <?php echo $financecount ?>
                                     </h2>
                                     <div>
                                         <small class="text-muted"> 
-                                            Record/s
+                                            <?php echo $financecount > 1 ? 'Records' : 'Record'?>
                                         </small>
                                     </div>
                                 </div>
                                 <div class="stat-card__icon stat-card__icon--success">
                                     <div class="stat-card__icon-circle">
-                                        <i class="bx bx-user" aria-hidden="true"></i>
+                                        <i class="fa fa-users" aria-hidden="true"></i>
                                     </div>
                                 </div>
                             </div>
@@ -93,11 +117,11 @@
                                 <div class="stat-card__content">
                                     <p class="text-uppercase mb-1 text-muted">ADMIN</p>
                                     <h2><i class="text-danger font-weight-bold mr-1"></i>
-                                        1
+                                        <?php echo $admincount ?>
                                     </h2>
                                     <div>
                                         <small class="text-muted"> 
-                                            Record/s
+                                            <?php echo $admincount > 1 ? 'Records' : 'Record'?>
                                         </small>
                                     </div>
                                 </div>

@@ -40,7 +40,6 @@
               </div>
               <ul class='sub-menu'>
               <li><a class='link_name' href='#'>Copra</a></li>
-              <li><a href='#'>Transaction</a></li>
               <li><a href='#'>Seller</a></li>
               <li><a href='#'>Purchase Contract</a></li>
               <li><a href='#'>Cash Advance</a></li>

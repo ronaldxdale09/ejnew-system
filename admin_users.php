@@ -40,12 +40,8 @@
                 </li>
             </ul>
             <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active bg-white" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                    <div class="containe bg-white rounded p-3 mb-3">
-                        <div class="col-md-3">
-                        <label for="">Add user account (Both: Copra & Ledger)</label>
-                        <button class="btn btn-primary mt-2" data-toggle="modal" data-target="#exampleModalCenter"><i class='bx bx-user-plus'></i> Add Account</button>
-                        </div>
+                <div class="tab-pane fade show active rounded bg-white" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <div class="container bg-white rounded p-3">
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog" role="document">
@@ -93,30 +89,34 @@
                     <!-- User View Account -->
                     <div class="container bg-white rounded p-3 mb-3">
                         <h3><i class='bx bx-user-voice'></i> User account</h3>
-                        <small class="form-text text-muted">Click the row to pop-up action menu.</small>
+                        <div class="col-md-12">
+                            <button class="btn  mt-2" style="background: #f3f4f5" data-toggle="modal" data-target="#exampleModalCenter"><b><i class='bx bx-user-plus'></i> Add Account</b></button>
+                            <br>
+                            <small class="form-text text-muted">Add user account (Both: Copra & Ledger)</small>
+                            <small class="form-text text-muted">Click the row to pop-up action menu.</small>
+                        </div>
                         <br>
-                        <table class="table table-hover"><?php
+                        <table class="table table-hover" id="user_table"><?php
                             $results_users  = mysqli_query($con, "SELECT * from users"); ?>
                             <thead class="table-success">
                                 <tr>
-                                <th scope="col">#</th>
                                 <th scope="col">Username</th>
                                 <th scope="col">Password</th>
                                 <th scope="col">Type</th>
                                 </tr>
                             </thead>
-                            <?php while ($rowU = mysqli_fetch_array($results_users)) { ?>
                             <tbody>
+                                <?php while ($rowU = mysqli_fetch_array($results_users)) { ?>
                                 <tr data-bs-toggle="modal" data-bs-target="#openActionModal"  data-bs-user_type="<?php echo $rowU['type']?>" data-bs-user_password="<?php echo $rowU['password']?>" data-bs-id="<?php echo $rowU['id']?>" data-bs-username="<?php echo $rowU['username']?>">
-                                <th scope="row"><?php echo $rowU['id']?></th>
-                                <td><?php echo $rowU['username']?> </td>
-                                <td> <?php echo $rowU['password']?> </td>
-                                <td> <?php echo $rowU['type']?> </td>
+                                    <td><?php echo $rowU['username']?> </td>
+                                    <td> <?php echo $rowU['password']?> </td>
+                                    <td> <?php echo $rowU['type']?> </td>
                                 </tr>
+                                <?php } ?>
                             </tbody>
-                            <?php } ?>
                         </table>
                     </div>
+
                     <!-- Modal of user -->
                     <div class="modal fade" id="openActionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -239,7 +239,8 @@
                         <h3><i class='bx bx-user-pin'></i> Seller account</h3>
                         <small class="form-text text-muted">Click the row to pop-up action menu.</small>
                         <br>
-                        <table class="table"><?php
+                        <br>
+                        <table class="table" id="seller_table"><?php
                             $results_seller  = mysqli_query($con, "SELECT * from seller"); ?>
                             <thead class="table-success">
                                 <tr>
@@ -251,8 +252,8 @@
                                 <th scope="col">Cash Advance</th>
                                 </tr>
                             </thead>
-                            <?php while ($row = mysqli_fetch_array($results_seller)) { ?>
                             <tbody>
+                                <?php while ($row = mysqli_fetch_array($results_seller)) { ?>
                                 <tr>
                                 <td scope="row"><?php echo $row['code']?> </td>
                                 <td> <?php echo $row['name']?> </td>
@@ -261,14 +262,14 @@
                                 <td> <?php echo $row['contact']?> </td>
                                 <td> <?php echo $row['cash_advance']?> </td>
                                 </tr>
+                                <?php } ?>
                             </tbody>
-                            <?php } ?>
                         </table>
                     </div>
                 </div>
             </div>
         </main>
-    </section>
+    </section>    
     
     <script src="./js/admin_script.js"></script>
     <!-- JavaScript Bundle with Popper -->
@@ -283,7 +284,26 @@
                 tabTrigger.show()
             })
         })
-            
+
+        // user table
+        $(document).ready(function() {
+                $('#user_table').DataTable( {
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            } );
+        } );
+
+        // seller table
+        $(document).ready(function() {
+                $('#seller_table').DataTable( {
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            } );
+        } );
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>
