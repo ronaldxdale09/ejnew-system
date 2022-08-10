@@ -12,6 +12,7 @@
 body {  
   font-family: 'Exo 2', sans-serif;
   font-size: 18px;
+  background: #f9f9f9;
 }
 
 .sidebar{
@@ -19,7 +20,7 @@ body {
   top: 0;
   left: 0;
   height: 100%;
-  width: 250px;
+  width: 230px;
   background: #121e2c;
   z-index: 100;
   transition: all 0.5s ease;
@@ -176,7 +177,7 @@ body {
 .sidebar .profile-details{
   position: fixed;
   bottom: 0;
-  width: 250px;
+  width: 230px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -224,9 +225,9 @@ body {
 
 .home-section{
   position: relative;
-  background: #E4E9F7;
-  left: 250px;
-  width: calc(100% - 250px);
+  /*background: #E4E9F7;*/
+  left: 230px;
+  width: calc(100% - 230px);
   transition: all 0.5s ease;
   padding: 12px;
 }
