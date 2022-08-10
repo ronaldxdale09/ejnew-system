@@ -223,6 +223,10 @@
                                 document.querySelector('#update_user_type').disabled = true;
                                 document.querySelector('#btn-delete-user').disabled = true;
                                 document.querySelector('#btn-delete-user').innerHTML = "Restricted";
+                            } else {
+                                document.querySelector('#update_user_type').disabled = false;
+                                document.querySelector('#btn-delete-user').disabled = false;
+                                document.querySelector('#btn-delete-user').innerHTML = "Yes";
                             }
                         })
                     </script>
