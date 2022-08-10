@@ -15,6 +15,10 @@ body {
   background: #f9f9f9;
 }
 
+.bg-wh {
+  background: #f9f9f9;
+}
+
 .sidebar{
   position: fixed;
   top: 0;

@@ -43,6 +43,75 @@
       <h5><i class='bx bx-grid-alt' ></i> Administrator's Dashboard</h5>
       <hr>
 
+      <div class="container h-100">
+              <div class="page-wrapper">
+                  <div class="container-fluid">
+                    <!-- ============================================================== -->
+                    <div class="row">
+                        <div class="col-sm-3 offset-sm-0">
+                            <div class="stat-card" style="min-height:170px;">
+                                <div class="stat-card__content">
+                                    <p class="text-uppercase mb-1 text-muted">COPRA</p>
+                                    <h2><i class="text-danger font-weight-bold mr-1"></i>
+                                        2
+                                    </h2>
+                                    <div>
+                                        <small class="text-muted"> 
+                                            Record/s
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="stat-card__icon stat-card__icon--success">
+                                    <div class="stat-card__icon-circle">
+                                        <i class="bx bx-user" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 offset-sm-0">
+                            <div class="stat-card" style="min-height:170px;">
+                                <div class="stat-card__content">
+                                    <p class="text-uppercase mb-1 text-muted">FINANCE</p>
+                                    <h2><i class="text-danger font-weight-bold mr-1"></i>
+                                        2
+                                    </h2>
+                                    <div>
+                                        <small class="text-muted"> 
+                                            Record/s
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="stat-card__icon stat-card__icon--success">
+                                    <div class="stat-card__icon-circle">
+                                        <i class="bx bx-user" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 offset-sm-0">
+                            <div class="stat-card" style="min-height:170px;">
+                                <div class="stat-card__content">
+                                    <p class="text-uppercase mb-1 text-muted">ADMIN</p>
+                                    <h2><i class="text-danger font-weight-bold mr-1"></i>
+                                        1
+                                    </h2>
+                                    <div>
+                                        <small class="text-muted"> 
+                                            Record/s
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="stat-card__icon stat-card__icon--success">
+                                    <div class="stat-card__icon-circle">
+                                        <i class="bx bx-user" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
       <br>
       <h5><i class='bx bx-grid-alt' ></i> Copra's Dashboard</h5>
       <hr>
@@ -138,10 +207,10 @@
                                 <div class="card-body">
 
                                     <div class="row">
-                                        <div class="col-md-10">
+                                        <div class="col-md-9">
                                             <h5> LATEST COPRA TRANSACTION </h5>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-3">
                                             <button type="button" class="btn btn-success btn-sm "  data-toggle="modal" data-target=".viewTransaction">
                                                 VIEW ALL
                                             </button>
@@ -364,10 +433,10 @@
                                 <div class="card-body">
 
                                     <div class="row">
-                                        <div class="col-md-10">
+                                        <div class="col-md-9">
                                             <h5>EXPENSES TODAY</h5>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-3">
                                             <button type="button" class="btn btn-success btn-sm " data-toggle="modal"
                                                 data-target=".viewTransaction">
                                                 VIEW ALL
@@ -418,10 +487,10 @@
                                 <div class="card-body">
 
                                     <div class="row">
-                                        <div class="col-md-10">
+                                        <div class="col-md-9">
                                             <h5>CASH ADVANCE TODAY</h5>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-3">
                                             <button type="button" class="btn btn-success btn-sm " data-toggle="modal"
                                                 data-target=".viewTransaction">
                                                 VIEW ALL

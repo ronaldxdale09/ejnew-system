@@ -13,6 +13,7 @@
     <link href="assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/chosen.min.css">
     <link rel='stylesheet' href='css/main.css'>
+    <link rel='icon' href='assets/img/logo.png' size='10x10' />
     <script src="assets/js/numberFormat.js"></script>
     <title>EJN Copra</title>
 
