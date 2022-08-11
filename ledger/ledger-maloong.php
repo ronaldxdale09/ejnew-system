@@ -32,7 +32,7 @@
   </div>
 </body>
 </html>
-<script src="ledgerTab/js/purchase.js"></script>
+<script src="ledgerTab/js/ejn-maloong.js"></script>
 <?php
 include('modal/modal_maloong.php');
 ?> 

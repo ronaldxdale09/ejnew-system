@@ -1,3 +1,10 @@
+<?php
+ $month = date("m");
+ $day = date("d");
+ $year = date("Y");
+ $dateNow = $year . "-" . $month . "-" . $day;
+ 
+?>
 <!-- Modal -->
 <div class="modal fade" id="purchase-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
@@ -14,7 +21,7 @@
                     <div class="form-group">
                         <label class="col-md-12">DATE</label>
                         <div class="col-md-12">
-                            <input class='datepicker' value="<?php echo $today; ?>" type="date" id="date" name="date"
+                            <input class='datepicker' value="<?php echo $dateNow; ?>" type="date" id="date" name="date"
                                 required>
                         </div>
                     </div>

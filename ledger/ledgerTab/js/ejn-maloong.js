@@ -36,7 +36,7 @@ $(document).ready(function() {
     });
 
     // DataTables initialisation
-    var table = $('#ledger_maloong').DataTable({
+    var table = $('#maloong_toppers').DataTable({
         dom: 'Bfrtip',
         order: [
             [0, 'desc']
@@ -44,19 +44,19 @@ $(document).ready(function() {
         buttons: [{
                 extend: 'excelHtml5',
                 exportOptions: {
-                    columns: [1, 2, 3, 4, 5]
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
                 }
             },
             {
                 extend: 'pdfHtml5',
                 exportOptions: {
-                    columns: [1, 2, 3, 4, 5]
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
                 }
             },
             {
                 extend: 'print',
                 exportOptions: {
-                    columns: [1, 2, 3, 4, 5]
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
                 }
             },
 
@@ -64,26 +64,7 @@ $(document).ready(function() {
 
         ],
         orderCellsTop: true,
-        initComplete: function() {
-            this.api().columns([1]).every(function() {
-                var column = this;
-                var select = $('<select class="form-control"><option value="">All</option></select>')
-                    .appendTo($('thead tr:eq(1) th:eq(' + this.index() + ')'))
-                    .on('change', function() {
-                        var val = $.fn.dataTable.util.escapeRegex(
-                            $(this).val()
-                        );
 
-                        column
-                            .search(val ? '^' + val + '$' : '', true, false)
-                            .draw();
-                    });
-
-                column.data().unique().sort().each(function(d, j) {
-                    select.append('<option value="' + d + '">' + d + '</option>')
-                });
-            });
-        }
 
 
 
@@ -100,30 +81,75 @@ $(document).ready(function() {
 
 
 $(function() {
-    $("#p_price").keyup(function() {
+    $("#net_kilos").keyup(function() {
 
-        $("#p_total_amount").val(((+$("#p_net-kilos").val().replace(/,/g, '') * +$("#p_price").val().replace(/,/g, ''))).toLocaleString());
+        net_kilos = $("#net_kilos").val().replace(/,/g, '');
+        ejn_price = $("#ejn_price").val().replace(/,/g, '');
+        topper_price = $("#topper_price").val().replace(/,/g, '');
+        less = $("#less").val().replace(/,/g, '');
+
+        maloongToppers(net_kilos, ejn_price, topper_price, less);
+
+
     });
 });
 
 $(function() {
-    $("#p_adjustprice").keyup(function() {
+    $("#ejn_price").keyup(function() {
 
-        $("#p_net_total").val(((+$("#p_net-kilos").val().replace(/,/g, '') * +$("#p_adjustprice").val().replace(/,/g, ''))).toLocaleString());
+        net_kilos = $("#net_kilos").val().replace(/,/g, '');
+        ejn_price = $("#ejn_price").val().replace(/,/g, '');
+        topper_price = $("#topper_price").val().replace(/,/g, '');
+        less = $("#less").val().replace(/,/g, '');
+
+        maloongToppers(net_kilos, ejn_price, topper_price, less);
+
+
     });
 });
+$(function() {
+    $("#topper_price").keyup(function() {
 
+        net_kilos = $("#net_kilos").val().replace(/,/g, '');
+        ejn_price = $("#ejn_price").val().replace(/,/g, '');
+        topper_price = $("#topper_price").val().replace(/,/g, '');
+        less = $("#less").val().replace(/,/g, '');
+
+        maloongToppers(net_kilos, ejn_price, topper_price, less);
+
+
+    });
+});
 
 $(function() {
-    $("#p_less").keyup(function() {
+    $("#less").keyup(function() {
 
-        $("#p_total_amount").val(((+$("#p_total_amount").val().replace(/,/g, '') - +$("#p_less").val().replace(/,/g, ''))).toLocaleString());
+        net_kilos = $("#net_kilos").val().replace(/,/g, '');
+        ejn_price = $("#ejn_price").val().replace(/,/g, '');
+        topper_price = $("#topper_price").val().replace(/,/g, '');
+        less = $("#less").val().replace(/,/g, '');
+
+        maloongToppers(net_kilos, ejn_price, topper_price, less);
+
+
     });
 });
 
-$(function() {
-    $("#p_partial_payment").keyup(function() {
 
-        $("#p_total_amount").val(Math.round(((+$("#p_total_amount").val().replace(/,/g, '') - +$("#p_partial_payment").val().replace(/,/g, ''))).toLocaleString()));
-    });
-});
+
+function maloongToppers(net_kilos, ejn_price, topper_price, less) {
+
+    let nf = new Intl.NumberFormat('en-US');
+    ejn_total = net_kilos * ejn_price;
+
+    $("#ejn_total").val(nf.format(ejn_total));
+
+    topper_gross = net_kilos * topper_price;
+    $("#topper_gross").val(nf.format(topper_gross));
+
+    topper_total = topper_gross - less;
+    $("#topper_total").val(nf.format(topper_total));
+
+
+
+}

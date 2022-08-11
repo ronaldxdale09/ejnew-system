@@ -14,7 +14,7 @@
    from ledger_purchase  group by year(date), month(date) ORDER BY ID DESC");
    $sumAmountPurchased = mysqli_fetch_array($amoutPurchased);
 
-   $sql1  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(total_amount) as month_total 
+   $sql1  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(ejn_total) as month_total 
    from ledger_maloong  group by year(date), month(date) ORDER BY ID DESC");
    $maloong = mysqli_fetch_array($sql1);
   
@@ -78,8 +78,8 @@
                         <div class="col-sm-3">
                             <div class="stat-card">
                                 <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted">Maloong Toppers</p>
-                                    <h2>₱</h2>
+                                    <p class="text-uppercase mb-1 text-muted">EJN Maloong</p>
+                                    <h2>₱ <?php echo number_format($maloong['month_total'])?></h2>
                                     <div>
                                         <span class="text-muted">
                                             <?php echo date('F  Y');  ?>
@@ -97,7 +97,7 @@
                         <div class="col-sm-3">
                             <div class="stat-card">
                                 <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted">Buahan Toppers</p>
+                                    <p class="text-uppercase mb-1 text-muted">EJN Buahan </p>
                                     <h2>₱ <?php echo number_format($buahan['month_total']); ?> </h2>
                                     <div>
                                         <span class="text-muted"><?php echo $monthName; ?>

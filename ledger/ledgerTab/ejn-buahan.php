@@ -37,26 +37,29 @@
                     <div class="table-responsive ">
                         <table class="table table-bordered table-responsive-lg" id='maloong_toppers'>
                             <?php
-                                    $results  = mysqli_query($con, "SELECT * from ledger_maloong"); 
+                                    $results  = mysqli_query($con, "SELECT * from ledger_buahantoppers"); 
                                     
                                     ?>
                             <thead class="table-dark">
                                 <tr>
-                                    <th style='text-align:center' colspan="4">DESCRIPTION</th>
+                                    <th style='text-align:center' colspan="6">DESCRIPTION</th>
                                     <th style='text-align:center' colspan="2">EJN</th>
                                     <th style='text-align:center' colspan="3">TOPPERS</th>
-                                    <th style='text-align:center' colspan="2"></th> 
+                                    <th style='text-align:center' colspan="1"></th> 
                                 </tr>
                                 <tr>
-                                    <th style='background-color:rgb(11, 19, 54)'scope="col">Date</th>
+                                    <th style='background-color:rgb(11, 19, 54)' scope="col">Date</th>
                                     <th style='background-color:rgb(11, 19, 54)'scope="col">Voucher #</th>
                                     <th style='background-color:rgb(11, 19, 54)'scope="col">Particulars</th>
                                     <th style='background-color:rgb(11, 19, 54)'scope="col">Net Kilos</th>
-                                    <th style='background-color:rgb(12, 74, 24)'scope="col">Price</th>
-                                    <th style='background-color:rgb(12, 74, 24)'scope="col">Total Amount</th>
-                                    <th style='background-color:rgb(90, 25, 11)'scope="col">Price</th>
-                                    <th style='background-color:rgb(90, 25, 11)'scope="col">Deduction</th>
-                                    <th style='background-color:rgb(90, 25, 11)'scope="col">Total Amount</th>
+                                    <th style='background-color:rgb(11, 19, 54)'scope="col">Price</th>
+                                    <th style='background-color:rgb(11, 19, 54)'scope="col">Total Amount</th>
+                                    <th style='background-color:rgb(30, 44, 104) 'scope="col">EJN (%)</th>
+                                    <th style='background-color:rgb(30, 44, 104) 'scope="col">Total</th>
+                                    <th style='background-color:rgb(30, 44, 104)'scope="col">Toppers (%)</th>
+                                    <th style='background-color:rgb(30, 44, 104)'scope="col">Deductions</th>
+                                    <th style='background-color:rgb(30, 44, 104)'scope="col">Total Amount</th>
+
                                     <th>Actions</th>
                                  
                                 </tr>
@@ -69,11 +72,14 @@
                                     <td><?php echo ($row['voucher'])?></td>
                                     <td><?php echo ($row['name'])?></td>
                                     <td><?php echo number_format($row['net_kilos'])?> Kgs</td>
-                                    <td>₱ <?php echo number_format($row['ejn_price'])?></td>
+                                    <td>₱ <?php echo number_format($row['price'])?></td>
+                                    <td>₱ <?php echo number_format($row['total'])?></td>
+                                    <td><?php echo number_format($row['ejn_percent'])?> %</td>
                                     <td>₱ <?php echo number_format($row['ejn_total'])?></td>
-                                    <td>₱ <?php echo number_format($row['topper_price'])?></td>
-                                    <td><?php echo ($row['less_category'])?> : ₱<?php echo number_format($row['less'])?></td>
-                                    <td>₱ <?php echo number_format($row['topper_total'])?></td>
+                                    <td><?php echo number_format($row['toppers_percent'])?> %</td>
+        
+                                    <td><?php echo ($row['less_category'])?> : ₱<?php echo number_format($row['less_toppers'])?></td>
+                                    <td>₱ <?php echo number_format($row['toppers_total'])?></td>
 
                                     <td>
                                         <button type="button" class="btn btn-secondary text-white">
