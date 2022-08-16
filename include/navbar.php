@@ -50,10 +50,10 @@
         
         <a class='nav-link' href='ledger-maloong.php'>
         <i class='fa-solid fa-book'></i> <span class='nav-text'>Maloong Toppers</span>
-    </a>
-    <a class='nav-link' href='ledger-buahan.php'>
-    <i class='fa-solid fa-archive'></i> <span class='nav-text'>Buahan Toppers</span>
-</a>
+        </a>
+        <a class='nav-link' href='ledger-buahan.php'>
+        <i class='fa-solid fa-archive'></i> <span class='nav-text'>Buahan Toppers</span>
+        </a>
         
         ";
         }
