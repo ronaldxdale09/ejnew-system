@@ -87,10 +87,10 @@
                             
 
                              $query = "INSERT INTO transaction_record (
-                                    invoice,date,seller,noSack,gross,tare,net_weight,dust,new_dust,total_dust,moisture,
+                                    invoice,contract,date,seller,noSack,gross,tare,net_weight,dust,new_dust,total_dust,moisture,
                                     total_moisture,net_res,first_res,sec_res,third_res,total_first_res,total_sec_res,total_third_res,total_amount,less,
                                     amount_paid,discount,amount_words) 
-                                        VALUES ('$invoice','$date','$seller','$noSack','$gross','$tare','$net_weight','$dust','$new_dust','$total_dust','$moisture',
+                                        VALUES ('$invoice','$contract','$date','$seller','$noSack','$gross','$tare','$net_weight','$dust','$new_dust','$total_dust','$moisture',
                                     '$total_moisture','$net_res','$first_res','$sec_res','$third_res','$total_first_res','$total_sec_res','$total_third_res','$total_amount','$less',
                                     '$amount_paid','$discount','$words_amount')";
 

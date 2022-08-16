@@ -15,21 +15,25 @@
                                     $record  = mysqli_query($con, "SELECT * from transaction_record ORDER BY id DESC LIMIT 5 "); ?>
                         <thead class="table-dark">
                             <tr>
-                                <th scope="col">Invoice</th>
+                                <th width='5%' scope="col">Invoice</th>
                                 <th scope="col">Date</th>
                                 <th scope="col">Contract</th>
                                 <th scope="col">Seller</th>
                                 <th scope="col">Net Resecada Weight </th>
                                 <th scope="col">Amount Paid</th>
+                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody> <?php while ($row = mysqli_fetch_array($record)) { ?> <tr>
-                                <th scope="row"> <?php echo $row['id']?> </th>
+                                <th scope="row"> <?php echo $row['invoice']?> </th>
                                 <td> <?php echo $row['date']?> </td>
                                 <td> <?php echo $row['contract']?> </td>
                                 <td> <?php echo $row['seller']?> </td>
                                 <td> <?php echo number_format($row['net_res']);?> Kg </td>
                                 <td>₱ <?php echo number_format($row['amount_paid']); ?> </td>
+                                <td>  <a href="transaction.php?view=<?php echo $row['invoice']; ?>"
+                                                            class="btn btn-dark ">
+                                                            <i class='fa-solid fa-gear'></i></a> </td>
                             </tr> <?php } ?> </tbody>
                     </table>
                 </div>

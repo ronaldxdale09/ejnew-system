@@ -165,8 +165,20 @@ $('#confirmPurchase').click(function() {
             text: "Transaction Was Successful!",
             type: "success"
         }).then(function() {
+            $(document).ready(function() {
+                const span = document.getElementById('trans_status');
+                span.innerHTML = `<span class="badge alert-success">COMPLETED</span>`;
+
+            });
+
+
+            
             document.getElementById("receiptBtn").click();
-            $_SESSION['transaction'] = 'COMPLETED';
+            $_SESSION['transaction'] =
+                'COMPLETED';
+
+
+
         });
     });
 });
@@ -216,16 +228,16 @@ $('#confirmPurchase').click(function() {
                     </div>
                 </div>
                 <div class="col-6 col-md-4">
-                            <div class="input-group mb-1">
+                    <div class="input-group mb-1">
 
-                                <label style='font-size:15px' class="col-md-12">Seller :</label>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" id='v_name' name='v_name'
-                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" readonly />
-                                </div>
-
-                            </div>
+                        <label style='font-size:15px' class="col-md-12">Seller :</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id='v_name' name='v_name'
+                                onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" readonly />
                         </div>
+
+                    </div>
+                </div>
                 <div class="form-group">
                     <label class="col-md-8">Voucher:</label>
                     <div class="col-md-4">
@@ -311,8 +323,7 @@ $('#confirmPurchase').click(function() {
 
                                 <label style='font-size:15px' class="col-md-12">Recorded By :</label>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" id='recorded_by' name='recorded_by'
-                                        />
+                                    <input type="text" class="form-control" id='recorded_by' name='recorded_by' />
                                 </div>
 
                             </div>
@@ -338,7 +349,7 @@ $('#confirmPurchase').click(function() {
 <script type="text/javascript">
 $(document).ready(function() {
     $('#print_voucher').click(function() {
-        
+
         var voucher = document.getElementById("v_voucher").value;
         var approved = document.getElementById("approved_by").value;
         var recorded = document.getElementById("recorded_by").value;
@@ -349,16 +360,16 @@ $(document).ready(function() {
             cache: false,
             data: {
                 voucher: voucher,
-                approved : approved,
-                recorded : recorded,
+                approved: approved,
+                recorded: recorded,
             },
             cache: false,
             success: function(voucher) {
-                
+
 
             }
         });
-    
+
 
         var nw = window.open("voucher/print_voucher.php", "_blank", "height=623,width=850 ")
 
@@ -388,16 +399,16 @@ $(document).ready(function() {
                 </button>
             </div>
             <div class="modal-body">
-                  <!--  total dust-->
-                  <div class="col-6 col-md-4">
-                            <div class="input-group mb-1">
+                <!--  total dust-->
+                <div class="col-6 col-md-4">
+                    <div class="input-group mb-1">
 
-                                <label style='font-size:15px' class="col-md-12">Confirm to print the transaction receipt</label>
-                              
-                            </div>
-                        </div>
-                    <!-- end -->
-            
+                        <label style='font-size:15px' class="col-md-12">Confirm to print the transaction receipt</label>
+
+                    </div>
+                </div>
+                <!-- end -->
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -414,7 +425,7 @@ $(document).ready(function() {
     $('#print_receipt').click(function() {
 
         var nw = window.open("voucher/print_receipt.php", "_blank",
-        "height=623,width=812")
+            "height=623,width=812")
 
 
 
@@ -442,22 +453,22 @@ $(document).ready(function() {
                 </button>
             </div>
             <div class="modal-body">
-                  <!--  total dust-->
-                  <center>
-                  <div class="col-6 col-md-12">
-                            <div class="input-group mb-12">
-                                <label style='font-size:25px' class="col-md-12">Confirm to create new transaction</label>
-                              
-                            </div>
+                <!--  total dust-->
+                <center>
+                    <div class="col-6 col-md-12">
+                        <div class="input-group mb-12">
+                            <label style='font-size:25px' class="col-md-12">Confirm to create new transaction</label>
+
                         </div>
-                        <center>
-                    <!-- end -->
-            
+                    </div>
+                    <center>
+                        <!-- end -->
+
             </div>
             <div class="modal-footer">
-            <button onClick='window.location.reload(true)' class="btn btn-success text-white">Confirm</button>
+                <button onclick="location.href = 'transaction.php';" class="btn btn-success text-white">Confirm</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                
+
             </div>
         </div>
     </div>

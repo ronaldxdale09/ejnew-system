@@ -78,8 +78,8 @@ $('#confirm').click(function() {
 
         $('#m_total-moisture').val($("#total-moisture").val());
         $('#m_net-resecada').val($("#total-res").val());
-        $('#m_1resecada').val($("#first-rese").val());
-        $('#m_2resecada').val($("#second-rese").val());
+        $('#m_1resecada').val($("#first-res").val());
+        $('#m_2resecada').val($("#second-res").val());
         $('#m_3resecada').val($("#third-rese").val());
         // total res
 

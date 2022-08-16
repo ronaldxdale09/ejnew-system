@@ -227,7 +227,7 @@ $('#newContract').on('shown.bs.modal', function() {
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" name='add' class="btn btn-success text-white">Submit</button>
+                <button type="submit" name='new_contract' class="btn btn-success text-white">Submit</button>
                 </form>
             </div>
         </div>

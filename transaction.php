@@ -1,6 +1,21 @@
 <?php
 include "include/header.php";
 include "include/navbar.php";
+
+
+
+if (isset($_GET['view'])) {
+    $_SESSION['transaction'] ='ONGOING';
+    $view = $_GET['view'];
+
+    $sql = mysqli_query($con, "SELECT  * from transaction_record where invoice='$view'  ");
+    $record = mysqli_fetch_array($sql);
+
+    $invoiceCount = $record['invoice'];
+    $today= $record['date'];
+  }
+  
+  else {
 $_SESSION['transaction'] ='ONGOING';
 //seller list
 $contract = "SELECT * FROM contract_purchase where status='PENDING' OR status='UPDATED' ";
@@ -42,6 +57,7 @@ $day = date("d");
 $year = date("Y");
 
 $today = $year . "-" . $month . "-" . $day;
+}
 ?>
 
 <body>
@@ -64,16 +80,16 @@ $today = $year . "-" . $month . "-" . $day;
                                     <button type="button" class="btn btn-success text-white" data-toggle="modal"
                                         data-target="#add_seller1"><span class="fa fa-plus text-white"></span>
                                         Add Seller</button>
-                                        <button type="button" class="btn btn-info text-white" data-toggle="modal"
-                                            data-target="#copraCashAdvance1"><span class="fa fa-plus text-white"></span>
+                                    <button type="button" class="btn btn-info text-white" data-toggle="modal"
+                                        data-target="#copraCashAdvance1"><span class="fa fa-plus text-white"></span>
                                         New Cash Advance</button>
-                                        <button type="button" class="btn btn-dark text-white" data-toggle="modal"
-                                                data-target="#newContract1"><span class="fa fa-plus text-white"></span>
+                                    <button type="button" class="btn btn-dark text-white" data-toggle="modal"
+                                        data-target="#newContract1"><span class="fa fa-plus text-white"></span>
                                         New Contract</button>
                                     <button type="button" class="btn btn-secondary text-white" data-toggle="modal"
                                         data-target=".viewTransaction"><span class="fa fa-book text-white"></span>
                                         Transaction History</button>
-                                
+
                                 </div>
                             </div>
                             <div class="row">
@@ -81,27 +97,41 @@ $today = $year . "-" . $month . "-" . $day;
                                 <div class="col-lg-4 col-xlg-3 col-md-5">
                                     <div class="card">
                                         <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-sm-5">
-                                            <div class="form-group">
-                                                <label class="col-md-12">Invoice</label>
-                                                <div class="col-md-12">
-                                                    <input type="number" name='invoice' id='invoice'
-                                                        value="<?php echo "$invoiceCount"; ?>"
-                                                        class="form-control form-control-line" readonly>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <h3>Status : </h3>
+                                                    </td>
+                                                    <td>
+                                                        <h4> <span id='trans_status' class="badge alert-danger">
+                                                                ONGOING</span></h4>
+
+                                                    </td>
+
+                                                </tr>
+                                            </table>
+                                            <div class="row">
+                                                <div class="col-sm-5">
+                                                    <div class="form-group">
+                                                        <label class="col-md-12">Invoice</label>
+                                                        <div class="col-md-12">
+                                                            <input type="number" name='invoice' id='invoice'
+                                                                value="<?php echo "$invoiceCount"; ?>"
+                                                                class="form-control form-control-line" readonly>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            </div>
-                                            <div class="col-sm-7">
-                                            <div class="form-group">
-                                                <label class="col-md-12"></label>
-                                                <div class="col-md-12">
-                                                <button type="button" class="btn btn-primary text-white"
-                                                data-toggle="modal"
-                                                data-target="#modal_new_transact">New Transaction</button>
+                                                <div class="col-sm-7">
+                                                    <div class="form-group">
+                                                        <label class="col-md-12"></label>
+                                                        <div class="col-md-12">
+                                                            <button type="button" class="btn btn-primary text-white"
+                                                                data-toggle="modal"
+                                                                data-target="#modal_new_transact">New
+                                                                Transaction</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-12">Date</label>
@@ -560,7 +590,8 @@ $today = $year . "-" . $month . "-" . $day;
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text"
                                                                         id="inputGroup-sizing-default"
-                                                                        style='color:black;font-weight: bold;'>Less/CA ₱</span>
+                                                                        style='color:black;font-weight: bold;'>Less/CA
+                                                                        ₱</span>
                                                                 </div>
                                                                 <input type="text" style='text-align:left'
                                                                     id='cash_advance' name='cash_advance'
@@ -583,7 +614,8 @@ $today = $year . "-" . $month . "-" . $day;
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text"
                                                                         id="inputGroup-sizing-default"
-                                                                        style='color:black;font-weight: bold;'>Amount Paid ₱</span>
+                                                                        style='color:black;font-weight: bold;'>Amount
+                                                                        Paid ₱</span>
                                                                 </div>
                                                                 <input type="text" style='text-align:left'
                                                                     name='amount-paid' id='amount-paid'
@@ -594,8 +626,8 @@ $today = $year . "-" . $month . "-" . $day;
                                                             </div>
                                                             <hr>
                                                             <input type="text" style='text-align:center'
-                                                            name='amount-paid-words' id='amount-paid-words'
-                                                            class="form-control" readonly>
+                                                                name='amount-paid-words' id='amount-paid-words'
+                                                                class="form-control" readonly>
                                                             <!--  -->
                                                         </div>
                                                     </div>
@@ -638,3 +670,54 @@ $(function() {
     });
 });
 </script>
+
+<?php 
+
+if (isset($_GET['view'])){
+    $view = $_GET['view'];
+
+$sql = mysqli_query($con, "SELECT  * from transaction_record where invoice='$view'  ");
+$record = mysqli_fetch_array($sql);
+
+?>
+<script>
+$(document).ready(function() {
+    
+let nf = new Intl.NumberFormat('en-US');
+
+
+$("#noSack").val(nf.format(<?php echo parseNum($record['noSack'])?>));
+$("#gross").val(<?php echo parseNum($record['gross'])?>);
+$("#tare").val(nf.format(<?php echo parseNum($record['tare'])?>));
+$("#dust").val(nf.format(<?php echo parseNum($record['dust'])?>));
+
+$("#moisture").val(nf.format(<?php echo parseNum($record['moisture'])?>));
+$("#discount_reading").val(nf.format(<?php echo parseNum($record['discount'])?>));
+$("#first-res").val(nf.format(<?php echo parseNum($record['first_res'])?>));
+$("#second-res").val(nf.format(<?php echo parseNum($record['sec_res'])?>));
+$("#cash_advance").val(nf.format(<?php echo parseNum($record['less'])?>));
+
+//COMPUTATION
+gross = $("#gross").val().replace(/,/g, '');
+tare = $("#tare").val().replace(/,/g, '');
+dust = $("#dust").val().replace(/,/g, '');
+
+discount = $("#discount_reading").val().replace(/,/g, '');
+rese1 = $("#first-res").val().replace(/,/g, '');
+rese2 = $("#second-res").val().replace(/,/g, '');
+less = $("#cash_advance").val().replace(/,/g, '');
+
+
+CopraComputation(gross, tare, dust, discount, rese1, rese2, less);
+
+});
+</script>
+
+<?php 
+}
+function parseNum(string $money) : float
+{
+    $money = preg_replace('/[ ,]+/', '', $money);
+    return number_format((float) $money, 2, '.', '');
+}
+?>

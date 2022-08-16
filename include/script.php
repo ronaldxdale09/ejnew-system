@@ -2,6 +2,8 @@
 <script type="text/javascript">
 $(document).ready(function() {
 
+    
+
     //IF THE USER PRESS ENTER , THE FOCUS TEXT BOX WILL MOVE TO THE NEXT INDEX
     $('input,select').on('keypress', function(e) {
         if (e.which == 13) {

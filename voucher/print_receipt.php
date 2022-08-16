@@ -78,9 +78,8 @@ Less     : <?php echo  "    ₱".$_SESSION['print_less'];  ?> <br>
 Amount Paid : <?php echo  '  ₱'.number_format($_SESSION['print_paid'], 2, '.', ',');  ?> <br>
 </p>
 
-<br> <br>
+<br> 
 <p> Recorded By : _____________ </p>
-<br>
 <p> Checked By : _____________ </p>
 <br> 
 <p>----------------------------------------</p> <br>
@@ -113,9 +112,9 @@ Less     : <?php echo  "    ₱".$_SESSION['print_less'];  ?> <br>
 Amount Paid : <?php echo  '  ₱'.number_format($_SESSION['print_paid'], 2, '.', ',');  ?> <br>
 </p>
 
-<br> <br>
+<br> 
 <p> Recorded By : _____________ </p>
-<br>
+
 <p> Checked By : _____________ </p>
 </body>
 </html>

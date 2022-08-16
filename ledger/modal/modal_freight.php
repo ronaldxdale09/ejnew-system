@@ -10,12 +10,12 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header bg-dark" >
-        <h5 class="modal-title text-light" id="exampleModalLongTitle">EXPENSES</h5>
+        <h5 class="modal-title text-light" id="exampleModalLongTitle">FREIGHT EXPENSE</h5>
         <button type="button" class="btn btn-light" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="function/ledger/addExpenses.php" id='myform' method="POST">
+      <form action="function/ledger/addFreight.php" id='myform' method="POST">
         <div class="modal-body ">
           <div class="container-fluid">
             <div class="row">
@@ -38,7 +38,7 @@
                     </div>
                   </div>
                 </div>
-                <br>
+                <hr>
                 <div class="row">
                   <div class="col-md-12">
                     <div class="form-group">
@@ -49,19 +49,38 @@
                     </div>
                   </div>
                 </div>
-                <br>
-                <div class="row">
+                
+                <div class="form-group">
+                                                <label class="col-md-12">Description</label>
+                                                <select class='form-select' name='description' id='description' required>
+                                                    <option disabled="disabled"  selected="selected" value=''>Select Description </option>
+                                                    <option value="Bales" >Bales </option>
+                                                    <option value="Copra" >Copra</option>
+                                                    <option value="Others">Others </option>
+                                              
+                                                </select>
+                                            </div>
+               
+                <div class="form-group">
+                                                <label class="col-md-12">Destination</label>
+                                                <select class='form-select' name='destination' id='destination' required>
+                                                    <option disabled="disabled" selected="selected" value=''>Select destination </option>
+                                                    <option value="Lamitan" >Lamitan </option>
+                                                    <option value="Zamboanga" >Zamboanga</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="row">
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label class="col-md-12">Category</label>
+                      <label class="col-md-12">Remarks</label>
                       <div class="col-md-12">
-                        <input class="form-control" list="datalistOptions" name='category' id="category" placeholder="Search Category">
-                        <datalist id="datalistOptions"> <?php echo $exCatList; ?> </datalist>
+                        <input type="text" name='remarks' class="form-control form-control-line" required>
                       </div>
                     </div>
                   </div>
                 </div>
-                <br>
+                
                 <div class="row">
                   <div class="col-md-12">
                     <div class="form-group">
