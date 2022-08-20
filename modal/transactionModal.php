@@ -130,9 +130,13 @@
                     <input name="m_1resecada" id="m_1resecada" hidden>
                     <input name="m_2resecada" id="m_2resecada" hidden>
                     <input name="m_3resecada" id="m_3resecada" hidden>
+
+
                     <input name="m_total_1res" id="m_total_1res" hidden>
                     <input name="m_total_2res" id="m_total_2res" hidden>
                     <input name="m_total_3res" id="m_total_3res" hidden>
+
+
                     <input name="m_address" id="m_address" hidden>
                     <input name="m_quantity" id="m_quantity" hidden>
                     <input name="m_balance" id="m_balance" hidden>
@@ -142,9 +146,10 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type='submit' id='confirmPurchase' name='confirmPurchase'
+                <button type='submit' id='confirmPurchase' name='confirmPurchase'
                         class="btn btn-success text-white">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               
                 </div>
 </form>
 </div>

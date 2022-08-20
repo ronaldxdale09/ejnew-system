@@ -33,7 +33,10 @@
 			elseif  ($userType =='finance'){
 				header('Location: ../ledger/ledger-expense.php');
 			}
-			
+
+			elseif  ($userType =='rubber'){
+				header('Location: ../rubber/transaction.php');
+			}
 		}
 	}
 	//echo "Error: Could not be able to execute $sql. " .mysqli_error($link);

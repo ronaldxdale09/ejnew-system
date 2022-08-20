@@ -15,25 +15,29 @@
                                     $record  = mysqli_query($con, "SELECT * from transaction_record ORDER BY id DESC LIMIT 5 "); ?>
                         <thead class="table-dark">
                             <tr>
-                                <th width='5%' scope="col">Invoice</th>
+                                <th width="5%">Invoice</th>
                                 <th scope="col">Date</th>
-                                <th scope="col">Contract</th>
+                                <th width="10%">Contract</th>
                                 <th scope="col">Seller</th>
+                               
+                                <th scope="col">Price</th>
                                 <th scope="col">Net Resecada Weight </th>
                                 <th scope="col">Amount Paid</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody> <?php while ($row = mysqli_fetch_array($record)) { ?> <tr>
-                                <th scope="row"> <?php echo $row['invoice']?> </th>
+                                <th width="5%"> <?php echo $row['invoice']?> </th>
                                 <td> <?php echo $row['date']?> </td>
-                                <td> <?php echo $row['contract']?> </td>
+                                <td width="10%"> <?php echo $row['contract']?> </td>
                                 <td> <?php echo $row['seller']?> </td>
+                             
+                                <td>₱  <?php echo number_format($row['first_res']);?> Kg </td>
                                 <td> <?php echo number_format($row['net_res']);?> Kg </td>
                                 <td>₱ <?php echo number_format($row['amount_paid']); ?> </td>
-                                <td>  <a href="transaction.php?view=<?php echo $row['invoice']; ?>"
-                                                            class="btn btn-dark ">
-                                                            <i class='fa-solid fa-gear'></i></a> </td>
+                                <td> <a href="transaction.php?view=<?php echo $row['invoice']; ?>"
+                                        class="btn btn-dark ">
+                                        <i class='fa-solid fa-add'></i></a> </td>
                             </tr> <?php } ?> </tbody>
                     </table>
                 </div>
@@ -49,90 +53,82 @@
 
 
 <script>
-  
-  
-   // for date
-   
-   var minDate, maxDate;
-    
-   // Custom filtering function which will search data in column four between two values
-   $.fn.dataTable.ext.search.push(
-       function( settings, data, dataIndex ) {
-           var min = minDate.val();
-           var max = maxDate.val();
-           var date = new Date( data[0] );
-   
-    
-           if (
-               ( min === null && max === null ) ||
-               ( min === null && date <= max ) ||
-               ( min <= date   && max === null ) ||
-               ( min <= date   && date <= max )
-           ) {
-               return true;
-           }
-           return false;
-       }
-   );
-   
-   
-   // for date filter
-   
-   
-   $(document).ready(function() {
-       // Create date inputs
-       minDate = new DateTime($('#p_min'), {
-           format: 'YYYY-MM-DD'
-       });
-       maxDate = new DateTime($('#p_max'), {
-           format: 'YYYY-MM-DD'
-       });
-    
-       // DataTables initialisation
-       var table = $('#transaction_record').DataTable(
-           {
-            order: [
+// for date
+
+var minDate, maxDate;
+
+// Custom filtering function which will search data in column four between two values
+$.fn.dataTable.ext.search.push(
+    function(settings, data, dataIndex) {
+        var min = minDate.val();
+        var max = maxDate.val();
+        var date = new Date(data[0]);
+
+
+        if (
+            (min === null && max === null) ||
+            (min === null && date <= max) ||
+            (min <= date && max === null) ||
+            (min <= date && date <= max)
+        ) {
+            return true;
+        }
+        return false;
+    }
+);
+
+
+// for date filter
+
+
+$(document).ready(function() {
+    // Create date inputs
+    minDate = new DateTime($('#p_min'), {
+        format: 'YYYY-MM-DD'
+    });
+    maxDate = new DateTime($('#p_max'), {
+        format: 'YYYY-MM-DD'
+    });
+
+    // DataTables initialisation
+    var table = $('#transaction_record').DataTable({
+        order: [
             [0, 'desc']
         ],
-           dom: 'Bfrtip',
-           buttons: [
-            {
+        "targets": 'no-sort',
+        "bSort": false,
+        dom: 'Bfrtip',
+        buttons: [{
                 extend: 'excelHtml5',
                 exportOptions: {
-                    columns: [ 1, 2, 3,4,5 ]
+                    columns: [1, 2, 3, 4, 5]
                 }
             },
             {
                 extend: 'pdfHtml5',
                 exportOptions: {
-                    columns: [ 1, 2, 3,4,5 ]
+                    columns: [1, 2, 3, 4, 5]
                 }
             },
             {
                 extend: 'print',
                 exportOptions: {
-                    columns: [ 1, 2, 3,4,5 ]
+                    columns: [1, 2, 3, 4, 5]
                 }
             },
 
-               
-               
-           ],
-         orderCellsTop: true,
-       
-       
-       
-       }
-       );
-    
-       // Refilter the table
-       $('#p_min, #p_max').on('change', function () {
+
+
+        ],
+        orderCellsTop: true,
+
+
+
+    });
+
+    // Refilter the table
+    $('#p_min, #p_max').on('change', function() {
         purchase_table.draw();
-       });
-   });
-
-   
-
-
-
+    });
+});
 </script>

@@ -78,11 +78,14 @@ function CopraComputation(gross, tare, dust, discount, rese1, rese2, less) {
 
             var total_rese1 = $("#total-1res").val().replace(/,/g, '');
             var total_rese2 = $("#total-2res").val().replace(/,/g, '');
+
             $("#total-amount").val(nf.format(parseInt(total_rese1) + parseInt(total_rese2)));
 
 
-            total_amount = $("#total-amount").val();
-            $("#amount-paid").val(nf.format(total_amount - less));
+            total_amount = $("#total-amount").val().replace(/,/g, '');
+
+            ca = $("#cash_advance").val().replace(/,/g, '');
+            $("#amount-paid").val(nf.format(total_amount - ca));
 
             amount_paid = $("#amount-paid").val().replace(/,/g, '');
             getWords(amount_paid);
@@ -108,11 +111,10 @@ function CopraComputation(gross, tare, dust, discount, rese1, rese2, less) {
         }
 
     }
-    
- 
 
 
 
 
 
-}
+
+};

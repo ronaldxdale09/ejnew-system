@@ -2,7 +2,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
 
-    
+
 
     //IF THE USER PRESS ENTER , THE FOCUS TEXT BOX WILL MOVE TO THE NEXT INDEX
     $('input,select').on('keypress', function(e) {
@@ -18,8 +18,8 @@ $(document).ready(function() {
     });
 
 
-    
-    
+
+
     document.getElementById("contract-form").style.display = "none";
     document.getElementById("cash_advance-form").style.display = "none";
 });
@@ -33,102 +33,109 @@ $(document).ready(function() {
     $("#contract").on("change", function() {
         var contract = $(this).val();
 
-        // Creates a new XMLHttpRequest object
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-
-            // Defines a function to be called when
-            // the readyState property changess
-            if (this.readyState == 4 &&
-                this.status == 200) {
-
-                // Typical action to be performed
-                // when the document is ready
-                var myObj = JSON.parse((this.responseText));
-
-                if (contract == "SPOT") {
-                    $('#name').attr('disabled', false);
-                    document.getElementById("contract-form").style.display = "none";
-
-                } else {
-                    document.getElementById("contract-form").style.display = "block";
-                    $('#name').attr('disabled', true);
-
-                }
-
-
-                console.log(quantity = myObj[0]);
-                console.log(delivered = myObj[1]);
-                console.log(balance = myObj[2]);
-                console.log(ca = myObj[3]);
-                console.log( name = myObj[4]);
-
-                $.ajax({
-                    url: "include/fetch/fetchAddress.php",
-                    type: "POST",
-                    cache: false,
-                    data: {
-                        name: name
-                    },
-                    cache: false,
-                    success: function(address) {
-                        $("#address").html(address);
-
-                    }
-                });
-
-
-                document.getElementById("balance").value = balance;
-                document.getElementById("quantity").value = quantity;
-                document.getElementById("first-res").value = ca;
-
-
-                $('#name').val(name).trigger('chosen:updated');
-
-                let nf = new Intl.NumberFormat('en-US');
-                $.ajax({
-                    url: "include/fetch/fetchCopraCashAdvance.php",
-                    type: "POST",
-                    cache: false,
-                    data: {
-                        name: name
-                    },
-                    cache: false,
-                    success: function(less) {
-                        if (less !== "") {
-                            document.getElementById("cash_advance-form").style.display =
-                                "block";
-                            document.getElementById("cash_advance").value = nf.format(
-                                less);
-                            document.getElementById("total_ca").value = nf.format(less);
-                            document.getElementById('cash_advance').readOnly = false;
-                        } else {
-                            document.getElementById("cash_advance-form").style.display =
-                                "none";
-                            document.getElementById("cash_advance").value = nf.format(
-                                less);
-                            document.getElementById("total_ca").value = nf.format(less);
-                            document.getElementById('cash_advance').readOnly = true;
-                        }
-                        console.log(less);
-
-
-                    }
-                });
-
-            }
-        };
-
-        // xhttp.open("GET", "filename", true);
-        xmlhttp.open("GET", "include/fetch/fetchContract.php?contract=" + contract.replace(/,/g, ''),
-            true);
-
-        // Sends the request to the server
-        xmlhttp.send();
-
+        contractSet(contract);
     });
 });
+
+
+function contractSet(contractVal) {
+    var contract = contractVal;
+
+    // Creates a new XMLHttpRequest object
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+
+        // Defines a function to be called when
+        // the readyState property changess
+        if (this.readyState == 4 &&
+            this.status == 200) {
+
+            // Typical action to be performed
+            // when the document is ready
+            var myObj = JSON.parse((this.responseText));
+
+            if (contract == "SPOT") {
+                $('#name').attr('disabled', false);
+                document.getElementById("contract-form").style.display = "none";
+
+            } else {
+                document.getElementById("contract-form").style.display = "block";
+                $('#name').attr('disabled', true);
+
+            }
+
+
+            console.log(quantity = myObj[0]);
+            console.log(delivered = myObj[1]);
+            console.log(balance = myObj[2]);
+            console.log(ca = myObj[3]);
+            console.log(name = myObj[4]);
+
+            $.ajax({
+                url: "include/fetch/fetchAddress.php",
+                type: "POST",
+                cache: false,
+                data: {
+                    name: name
+                },
+                cache: false,
+                success: function(address) {
+                    $("#address").html(address);
+
+                }
+            });
+
+
+            document.getElementById("balance").value = balance;
+            document.getElementById("quantity").value = quantity;
+            document.getElementById("first-res").value = ca;
+
+
+            $('#name').val(name).trigger('chosen:updated');
+
+            let nf = new Intl.NumberFormat('en-US');
+            $.ajax({
+                url: "include/fetch/fetchCopraCashAdvance.php",
+                type: "POST",
+                cache: false,
+                data: {
+                    name: name
+                },
+                cache: false,
+                success: function(less) {
+                    if (less !== "") {
+                        document.getElementById("cash_advance-form").style.display =
+                            "block";
+                        document.getElementById("cash_advance").value = nf.format(
+                            less);
+                        document.getElementById("total_ca").value = nf.format(less);
+                        document.getElementById('cash_advance').readOnly = false;
+                    } else {
+                        document.getElementById("cash_advance-form").style.display =
+                            "none";
+                        document.getElementById("cash_advance").value = nf.format(
+                            less);
+                        document.getElementById("total_ca").value = nf.format(less);
+                        document.getElementById('cash_advance').readOnly = true;
+                    }
+                    console.log(less);
+
+
+                }
+            });
+
+        }
+    };
+
+    // xhttp.open("GET", "filename", true);
+    xmlhttp.open("GET", "include/fetch/fetchContract.php?contract=" + contract.replace(/,/g, ''),
+        true);
+
+    // Sends the request to the server
+    xmlhttp.send();
+}
 </script>
+
 
 
 <!-- DISPLAY ADDRESS -->
@@ -138,7 +145,14 @@ $(document).ready(function() {
     // Country dependent ajax
     $("#name").on("change", function() {
         var name = $(this).val();
+        nameChange(name);
 
+
+    });
+
+
+
+    function nameChange(name) {
         $.ajax({
             url: "include/fetch/fetchAddress.php",
             type: "POST",
@@ -168,8 +182,11 @@ $(document).ready(function() {
                 if (less == '' || less == '0') {
                     document.getElementById("cash_advance-form").style.display = "none";
                     document.getElementById("cash_advance").value = nf.format(less);
-                    document.getElementById("total_ca").value = nf.format(less);
+                    document.getElementById("total_ca").value = less;
+
                     document.getElementById('cash_advance').readOnly = true;
+
+                    ComputationCopra();
                 } else {
 
 
@@ -179,27 +196,14 @@ $(document).ready(function() {
                     document.getElementById('cash_advance').readOnly = false;
 
 
-                    gross = $("#gross").val().replace(/,/g, '');
-                    tare = $("#tare").val().replace(/,/g, '');
-                    dust = $("#dust").val().replace(/,/g, '');
-
-                    discount = $("#discount_reading").val().replace(/,/g, '');
-                    rese1 = $("#first-res").val().replace(/,/g, '');
-                    rese2 = $("#second-res").val().replace(/,/g, '');
-                    less = $("#cash_advance").val().replace(/,/g, '');
-
-                    CopraComputation(gross, tare, dust, discount, rese1, rese2, less);
+                    ComputationCopra();
                 }
 
 
 
             }
         });
-
-    });
-
-
-
+    }
 
 });
 </script>
@@ -207,25 +211,29 @@ $(document).ready(function() {
 
 
 
+<script>
+function ComputationCopra() {
 
-<!-- COMPUTE MOISTURE DISCOUNT -->
+    gross = $("#gross").val().replace(/,/g, '');
+    tare = $("#tare").val().replace(/,/g, '');
+    dust = $("#dust").val().replace(/,/g, '');
+
+    discount = $("#discount_reading").val().replace(/,/g, '');
+    rese1 = $("#first-res").val().replace(/,/g, '');
+    rese2 = $("#second-res").val().replace(/,/g, '');
+    less = $("#cash_advance").val().replace(/,/g, '');
+
+
+    CopraComputation(gross, tare, dust, discount, rese1, rese2, less);
+};
+</script>
 
 <!-- add netweight -->
 <script>
 $(function() {
     $("#gross, #tare").keyup(function() {
 
-        gross = $("#gross").val().replace(/,/g, '');
-        tare = $("#tare").val().replace(/,/g, '');
-        dust = $("#dust").val().replace(/,/g, '');
-
-        discount = $("#discount_reading").val().replace(/,/g, '');
-        rese1 = $("#first-res").val().replace(/,/g, '');
-        rese2 = $("#second-res").val().replace(/,/g, '');
-        less = $("#cash_advance").val().replace(/,/g, '');
-
-
-        CopraComputation(gross, tare, dust, discount, rese1, rese2, less);
+        ComputationCopra();
 
     });
 
@@ -242,17 +250,7 @@ $(function() {
 $(function() {
     $("#dust").keyup(function() {
 
-        gross = $("#gross").val().replace(/,/g, '');
-        tare = $("#tare").val().replace(/,/g, '');
-        dust = $("#dust").val().replace(/,/g, '');
-
-        discount = $("#discount_reading").val().replace(/,/g, '');
-        rese1 = $("#first-res").val().replace(/,/g, '');
-        rese2 = $("#second-res").val().replace(/,/g, '');
-        less = $("#cash_advance").val().replace(/,/g, '');
-
-
-        CopraComputation(gross, tare, dust, discount, rese1, rese2, less);
+        ComputationCopra();
     });
 });
 </script>
@@ -262,17 +260,7 @@ $(function() {
 $(function() {
     $("#moisture").keyup(function() {
 
-        gross = $("#gross").val().replace(/,/g, '');
-        tare = $("#tare").val().replace(/,/g, '');
-        dust = $("#dust").val().replace(/,/g, '');
-
-        discount = $("#discount_reading").val().replace(/,/g, '');
-        rese1 = $("#first-res").val().replace(/,/g, '');
-        rese2 = $("#second-res").val().replace(/,/g, '');
-        less = $("#cash_advance").val().replace(/,/g, '');
-
-
-        CopraComputation(gross, tare, dust, discount, rese1, rese2, less);
+        ComputationCopra();
     });
 });
 </script>
@@ -282,18 +270,7 @@ $(function() {
 $(function() {
     $("#first-res").keyup(function() {
 
-        gross = $("#gross").val().replace(/,/g, '');
-        tare = $("#tare").val().replace(/,/g, '');
-        dust = $("#dust").val().replace(/,/g, '');
-
-        discount = $("#discount_reading").val().replace(/,/g, '');
-        rese1 = $("#first-res").val().replace(/,/g, '');
-        rese2 = $("#second-res").val().replace(/,/g, '');
-        less = $("#cash_advance").val().replace(/,/g, '');
-
-
-        CopraComputation(gross, tare, dust, discount, rese1, rese2, less);
-
+        ComputationCopra();
 
 
     });
@@ -303,19 +280,7 @@ $(function() {
 <script>
 $(function() {
     $("#cash_advance").keyup(function() {
-
-        gross = $("#gross").val().replace(/,/g, '');
-        tare = $("#tare").val().replace(/,/g, '');
-        dust = $("#dust").val().replace(/,/g, '');
-
-        discount = $("#discount_reading").val().replace(/,/g, '');
-        rese1 = $("#first-res").val().replace(/,/g, '');
-        rese2 = $("#second-res").val().replace(/,/g, '');
-        less = $("#cash_advance").val().replace(/,/g, '');
-
-
-        CopraComputation(gross, tare, dust, discount, rese1, rese2, less);
-
+        ComputationCopra();
     });
 });
 </script>
@@ -325,18 +290,7 @@ $(function() {
 $(function() {
     $("#discount_reading").keyup(function() {
 
-        gross = $("#gross").val().replace(/,/g, '');
-        tare = $("#tare").val().replace(/,/g, '');
-        dust = $("#dust").val().replace(/,/g, '');
-
-        discount = $("#discount_reading").val().replace(/,/g, '');
-        rese1 = $("#first-res").val().replace(/,/g, '');
-        rese2 = $("#second-res").val().replace(/,/g, '');
-        less = $("#cash_advance").val().replace(/,/g, '');
-
-
-        CopraComputation(gross, tare, dust, discount, rese1, rese2, less);
-
+        ComputationCopra();
     });
 });
 </script>
@@ -345,20 +299,112 @@ $(function() {
 $(function() {
     $("#second-res").keyup(function() {
 
-        gross = $("#gross").val().replace(/,/g, '');
-        tare = $("#tare").val().replace(/,/g, '');
-        dust = $("#dust").val().replace(/,/g, '');
-
-        discount = $("#discount_reading").val().replace(/,/g, '');
-        rese1 = $("#first-res").val().replace(/,/g, '');
-        rese2 = $("#second-res").val().replace(/,/g, '');
-        less = $("#cash_advance").val().replace(/,/g, '');
-
-
-        CopraComputation(gross, tare, dust, discount, rese1, rese2, less);
-
+        ComputationCopra();
 
 
     });
 });
 </script>
+
+
+
+
+
+<?php 
+function parseNum(string $money) : float
+{
+    $money = preg_replace('/[ ,]+/', '', $money);
+    return number_format((float) $money, 2, '.', '');
+}
+
+
+if (isset($_GET['view'])){
+    $view = $_GET['view'];
+
+$sql = mysqli_query($con, "SELECT  * from transaction_record where invoice='$view'  ");
+$record = mysqli_fetch_array($sql);
+
+?>
+<script>
+$(document).ready(function() {
+
+
+    let nf = new Intl.NumberFormat('en-US');
+
+
+
+    $("#noSack").val(nf.format(<?php echo ($record['noSack'])?>));
+    $("#gross").val(nf.format(<?php echo ($record['gross'])?>));
+    $("#tare").val(nf.format(<?php echo ($record['tare'])?>));
+    $("#dust").val(nf.format(<?php echo ($record['dust'])?>));
+
+    $("#moisture").val(nf.format(<?php echo ($record['moisture'])?>));
+    $("#discount_reading").val(nf.format(<?php echo ($record['discount'])?>));
+    $("#first-res").val(nf.format(<?php echo ($record['first_res'])?>));
+    $("#second-res").val(nf.format(<?php echo ($record['sec_res'])?>));
+    $("#cash_advance").val(nf.format(<?php echo ($record['less'])?>));
+   
+
+    
+    contract = "<?php echo $record['contract']?>";
+    name = "<?php echo $record['seller']?>";
+
+    
+    $.ajax({
+                url: "include/fetch/fetchAddress.php",
+                type: "POST",
+                cache: false,
+                data: {
+                    name: name
+                },
+                cache: false,
+                success: function(address) {
+                    $("#address").html(address);
+
+                }
+            });
+
+            ComputationCopra();
+    ComputationCopra();
+   
+    if (contract == "SPOT") {
+        $('#name').attr('disabled', true);
+        $('#name').val(name).trigger('chosen:updated');
+        nameChange(name);
+        
+ 
+    } else {
+        $('#contract').attr('disabled', true);
+        $('#contract').val(contract);
+
+        $("#1rese-weight").val(nf.format(<?php echo ($record['rese_weight_1'])?>));
+        $("#total-1res").val(nf.format(<?php echo ($record['total_first_res'])?>));
+
+
+        $("#2rese-weight").val(nf.format(<?php echo ($record['rese_weight_2'])?>));
+        $("#total-2res").val(nf.format(<?php echo ($record['total_sec_res'])?>));
+
+        $("#total-amount").val(nf.format(<?php echo ($record['total_amount'])?>));
+        $("#amount-paid").val(nf.format(<?php echo ($record['amount_paid'])?>));
+
+    }
+
+
+        
+
+
+
+
+    //UPDATE NAME
+    // $('#name').attr('disabled', true);
+    // $('#name').val().trigger('chosen:updated');
+
+});
+
+       
+</script>
+
+<?php 
+}
+
+?>

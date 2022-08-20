@@ -13,33 +13,37 @@
                             
 
                             $seller = $_POST['m_name'];
-                             $noSack = $_POST['m_noSack'];
-                              $gross = $_POST['m_gross'];
-                              $tare = $_POST['m_tare'];
-                              $net_weight = $_POST['m_net'];
-                              $dust = $_POST['m_dust'];
-                             $new_dust = $_POST['m_new-dust'];
-                             $total_dust = $_POST['m_total-dust'];
+                             $noSack = str_replace( ',', '', $_POST['m_noSack']);
+                              $gross = str_replace( ',', '', $_POST['m_gross']);
+                              $tare = str_replace( ',', '', $_POST['m_tare']);
+                              $net_weight = str_replace( ',', '', $_POST['m_net']);
+                              $dust = str_replace( ',', '', $_POST['m_dust']);
+                             $new_dust = str_replace( ',', '', $_POST['m_new-dust']);
+                             $total_dust = str_replace( ',', '', $_POST['m_total-dust']);
 
 
-                             $moisture = $_POST['m_moisture'];
-                             $discount = $_POST['m_discount'];
-                             $total_moisture = $_POST['m_total-moisture'];
+                             $moisture = str_replace( ',', '', $_POST['m_moisture']);
+                             $discount = str_replace( ',', '', $_POST['m_discount']);
+                             $total_moisture = str_replace( ',', '', $_POST['m_total-moisture']);
 
                              $net_res = str_replace( ',', '', $_POST['m_net-resecada']);
 
 
                              
-                             $first_res = $_POST['m_1resecada'];
-                             $sec_res = $_POST['m_2resecada'];
-                             $third_res = $_POST['m_3resecada'];
+                             $first_res = str_replace( ',', '', $_POST['m_1resecada']);
+                             $sec_res = str_replace( ',', '', $_POST['m_2resecada']);
+                             $third_res = str_replace( ',', '', $_POST['m_3resecada']);
 
-                             $total_first_res = $_POST['m_total_1res'];
-                             $total_sec_res = $_POST['m_total_2res']; 
-                             $total_third_res = $_POST['m_total_3res'];
+                             $total_first_res = str_replace( ',', '', $_POST['m_total_1res']);
+                             $total_sec_res = str_replace( ',', '', $_POST['m_total_2res']); 
+                             $total_third_res = str_replace( ',', '', $_POST['m_total_3res']);
+
+                             
+                             $rese_weight_1 =  str_replace( ',', '', $_POST['m_1rese-weight']);
+                             $rese_weight_2 =  str_replace( ',', '', $_POST['m_2rese-weight']);
 
 
-                             $total_amount = $_POST['m_total-amount'];
+                             $total_amount = str_replace( ',', '', $_POST['m_total-amount']);
                              $less = str_replace( ',', '',$_POST['m_less']);
                              $amount_paid =	 str_replace( ',', '', $_POST['m_total-paid']);
                              
@@ -89,10 +93,10 @@
                              $query = "INSERT INTO transaction_record (
                                     invoice,contract,date,seller,noSack,gross,tare,net_weight,dust,new_dust,total_dust,moisture,
                                     total_moisture,net_res,first_res,sec_res,third_res,total_first_res,total_sec_res,total_third_res,total_amount,less,
-                                    amount_paid,discount,amount_words) 
+                                    amount_paid,discount,amount_words,rese_weight_1,rese_weight_2) 
                                         VALUES ('$invoice','$contract','$date','$seller','$noSack','$gross','$tare','$net_weight','$dust','$new_dust','$total_dust','$moisture',
                                     '$total_moisture','$net_res','$first_res','$sec_res','$third_res','$total_first_res','$total_sec_res','$total_third_res','$total_amount','$less',
-                                    '$amount_paid','$discount','$words_amount')";
+                                    '$amount_paid','$discount','$words_amount','$rese_weight_1','$rese_weight_2')";
 
 
 

@@ -34,7 +34,7 @@
                 <!-- ============================================================== -->
                 <div class="container-fluid">
                     <!-- ============================================================== -->
-                    
+
                     <!-- ============================================================== -->
                     <div class="row">
 
@@ -64,7 +64,8 @@
                                     </div>
                                     <br>
                                     <h6 class="card-title m-t-40">
-                                        <i class="m-r-5 font-18 mdi mdi-numeric-1-box-multiple-outline"></i>Copra Purchased Record
+                                        <i class="m-r-5 font-18 mdi mdi-numeric-1-box-multiple-outline"></i>Copra
+                                        Purchased Record
                                     </h6>
 
 
@@ -78,8 +79,11 @@
                                                     <th scope="col">Date</th>
                                                     <th scope="col">Contract</th>
                                                     <th scope="col">Seller</th>
-                                                    <th scope="col">Net Resecada Weight </th>
+                                                    <th scope="col">First Price</th>
+                                                    <th scope="col">Second Price</th>
+                                                    <th scope="col">Net Weight</th>
                                                     <th scope="col">Amount Paid</th>
+                                                    <th scope="col">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody> <?php while ($row = mysqli_fetch_array($record)) { ?> <tr>
@@ -87,13 +91,26 @@
                                                     <td> <?php echo $row['date']?> </td>
                                                     <td> <?php echo $row['contract']?> </td>
                                                     <td> <?php echo $row['seller']?> </td>
-                                                    <td> <?php echo number_format($row['net_res']);?> Kg </td>
-                                                    <td>₱ <?php echo number_format($row['amount_paid']); ?> </td>
+                                                    <td>₱ <?php echo number_format($row['first_res'])?> </td>
+                                                    <td>₱ <?php echo number_format($row['sec_res'])?> </td>
+
+                                                    <td> <?php 
+                                                    
+                                                    $total_weight = $row['rese_weight_1'] +  $row['rese_weight_2'];
+                                                    
+                                                    echo number_format($total_weight);?> Kg </td>
+
+
+                                                    <td>₱ <?php echo number_format(($row['amount_paid'] )); ?> </td>
+                                                    <td> <a href="transaction.php?view=<?php echo $row['invoice']; ?>"
+                                                            class="btn btn-dark ">
+                                                            <i class='fa-solid fa-eye'></i></a> </td>
                                                 </tr> <?php } ?> </tbody>
                                             <tfoot>
                                                 <tr>
                                                     <th colspan="5" style="text-align:right">Total:</th>
                                                     <th></th>
+
                                                 </tr>
                                             </tfoot>
                                         </table>
@@ -157,7 +174,8 @@ $(document).ready(function() {
 
         {
             footerCallback: function(row, data, start, end, display) {
-                var api =  this.api(), data;
+                var api = this.api(),
+                    data;
 
                 // Remove the formatting to get integer data for summation
                 var intVal = function(i) {
@@ -167,11 +185,11 @@ $(document).ready(function() {
 
                 // Total over all pages
                 var total_paid = api
-                .column( 5 )
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 );
+                    .column(5)
+                    .data()
+                    .reduce(function(a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0);
 
 
 
@@ -206,7 +224,7 @@ $(document).ready(function() {
             ],
             orderCellsTop: true,
 
-           
+
 
 
         }

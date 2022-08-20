@@ -13,6 +13,37 @@ if (isset($_GET['view'])) {
 
     $invoiceCount = $record['invoice'];
     $today= $record['date'];
+
+    $contract = "SELECT * FROM contract_purchase where status='PENDING' OR status='UPDATED' ";
+    $c_result = mysqli_query($con, $contract);
+    $contractList = "";
+    while ($arr = mysqli_fetch_array($c_result)) {
+        $contractList .=
+            '
+            <option value="' .
+            $arr["contract_no"] .
+            '">[ ' .
+            $arr["contract_no"] .
+            " ]  " .
+            $arr["seller"] .
+            "</option>";
+    }
+
+
+    $seller = "SELECT * FROM seller ";
+    $result = mysqli_query($con, $seller);
+    $sellerList = "";
+    while ($arr = mysqli_fetch_array($result)) {
+        $sellerList .=
+            '<option value="' .
+            $arr["name"] .
+            '">[ ' .
+            $arr["code"] .
+            " ]      " .
+            $arr["name"] .
+            "</option>";
+    }
+
   }
   
   else {
@@ -50,7 +81,7 @@ while ($arr = mysqli_fetch_array($result)) {
 $invoice = mysqli_query($con, "SELECT  COUNT(*) from transaction_record  ");
 $getinvoice = mysqli_fetch_array($invoice);
 
-$invoiceCount = sprintf("%'03d", $getinvoice[0]);
+$invoiceCount = sprintf("%'03d", $getinvoice[0]+1);
 
 $month = date("m");
 $day = date("d");
@@ -100,11 +131,10 @@ $today = $year . "-" . $month . "-" . $day;
                                             <table>
                                                 <tr>
                                                     <td>
-                                                        <h3>Status : </h3>
+                                                        <h4>Status : </h4>
                                                     </td>
                                                     <td>
-                                                        <h4> <span id='trans_status' class="badge alert-danger">
-                                                                ONGOING</span></h4>
+                                                        <h5><span id='trans_status' class="badge alert-danger">ONGOING</span></h5>
 
                                                     </td>
 
@@ -651,6 +681,9 @@ $today = $year . "-" . $month . "-" . $day;
 <script type="text/javascript" src="js/transaction_computation.js"></script>
 
 </html>
+
+
+
 <?php
 include "modal/viewTransactionModal.php";
 include "modal/transactionModal.php";
@@ -670,54 +703,3 @@ $(function() {
     });
 });
 </script>
-
-<?php 
-
-if (isset($_GET['view'])){
-    $view = $_GET['view'];
-
-$sql = mysqli_query($con, "SELECT  * from transaction_record where invoice='$view'  ");
-$record = mysqli_fetch_array($sql);
-
-?>
-<script>
-$(document).ready(function() {
-    
-let nf = new Intl.NumberFormat('en-US');
-
-
-$("#noSack").val(nf.format(<?php echo parseNum($record['noSack'])?>));
-$("#gross").val(<?php echo parseNum($record['gross'])?>);
-$("#tare").val(nf.format(<?php echo parseNum($record['tare'])?>));
-$("#dust").val(nf.format(<?php echo parseNum($record['dust'])?>));
-
-$("#moisture").val(nf.format(<?php echo parseNum($record['moisture'])?>));
-$("#discount_reading").val(nf.format(<?php echo parseNum($record['discount'])?>));
-$("#first-res").val(nf.format(<?php echo parseNum($record['first_res'])?>));
-$("#second-res").val(nf.format(<?php echo parseNum($record['sec_res'])?>));
-$("#cash_advance").val(nf.format(<?php echo parseNum($record['less'])?>));
-
-//COMPUTATION
-gross = $("#gross").val().replace(/,/g, '');
-tare = $("#tare").val().replace(/,/g, '');
-dust = $("#dust").val().replace(/,/g, '');
-
-discount = $("#discount_reading").val().replace(/,/g, '');
-rese1 = $("#first-res").val().replace(/,/g, '');
-rese2 = $("#second-res").val().replace(/,/g, '');
-less = $("#cash_advance").val().replace(/,/g, '');
-
-
-CopraComputation(gross, tare, dust, discount, rese1, rese2, less);
-
-});
-</script>
-
-<?php 
-}
-function parseNum(string $money) : float
-{
-    $money = preg_replace('/[ ,]+/', '', $money);
-    return number_format((float) $money, 2, '.', '');
-}
-?>
