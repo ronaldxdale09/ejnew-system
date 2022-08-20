@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 09, 2022 at 04:21 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Generation Time: Aug 20, 2022 at 08:40 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.2.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,7 +41,8 @@ INSERT INTO `category_expenses` (`id`, `category`) VALUES
 (2, 'REPAIR & MAIN'),
 (3, 'Medical'),
 (4, 'Meryenda'),
-(5, '');
+(5, ''),
+(6, 'Subscription');
 
 -- --------------------------------------------------------
 
@@ -66,8 +67,8 @@ CREATE TABLE `contract_purchase` (
 --
 
 INSERT INTO `contract_purchase` (`id`, `contract_no`, `seller`, `contract_quantity`, `delivered`, `balance`, `status`, `date`, `price_kg`) VALUES
-(9, '000', 'Kaxandra Lyka', '50,000', '0', '50000', 'UPDATED', '2022-07-08', ' 29'),
-(10, '001', 'Kaxandra Lyka', '2000', NULL, '2000', 'PENDING', '2022-07-10', ' 29');
+(18, '2022-001', 'dale ronald', '1234', '1234', '0', 'COMPLETED', '2022-08-11', ' 29'),
+(19, '2022-002', 'Kaxandra lyka', '1000', NULL, '1000', 'PENDING', '2022-08-20', ' 29');
 
 -- --------------------------------------------------------
 
@@ -89,12 +90,8 @@ CREATE TABLE `copra_cashadvance` (
 --
 
 INSERT INTO `copra_cashadvance` (`id`, `seller`, `amount`, `category`, `date`, `status`) VALUES
-(1, 'Ronald Dale', '30000', 'copra', '2022-07-24', 'PENDING'),
-(2, 'Ronald Dale', '10000', 'ntc', '2022-07-25', 'PENDING'),
-(3, 'Kaxandra Lyka', '30000', 'ntc', '2022-07-28', 'PENDING'),
-(4, 'Ronald Dale', '1000', 'others', '2022-07-28', 'PENDING'),
-(5, 'Ronald Dale', '1000', 'copra', '2022-07-28', 'PENDING'),
-(6, 'Ronald Dale', '1000', 'ntc', '2022-07-31', 'PENDING');
+(9, 'dale ronald', '1000', 'copra', '2022-08-18', 'PENDING'),
+(10, 'dale ronald', '1000', 'ntc', '2022-08-18', 'PENDING');
 
 -- --------------------------------------------------------
 
@@ -106,17 +103,18 @@ CREATE TABLE `ledger_buahantoppers` (
   `id` int(11) NOT NULL,
   `date` varchar(10) NOT NULL,
   `voucher` varchar(10) NOT NULL,
+  `name` varchar(100) NOT NULL,
   `net_kilos` varchar(100) NOT NULL,
   `price` varchar(100) NOT NULL,
-  `total` varchar(100) NOT NULL
+  `total` varchar(100) NOT NULL,
+  `ejn_percent` varchar(50) NOT NULL,
+  `ejn_total` varchar(50) NOT NULL,
+  `toppers_percent` varchar(50) NOT NULL,
+  `gross_amount` varchar(50) NOT NULL,
+  `less_category` varchar(50) NOT NULL,
+  `less_toppers` varchar(50) NOT NULL,
+  `toppers_total` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `ledger_buahantoppers`
---
-
-INSERT INTO `ledger_buahantoppers` (`id`, `date`, `voucher`, `net_kilos`, `price`, `total`) VALUES
-(1, '2022-07-31', '73982', '2333', '2000', '4666000');
 
 -- --------------------------------------------------------
 
@@ -161,8 +159,8 @@ CREATE TABLE `ledger_cashadvance` (
 
 INSERT INTO `ledger_cashadvance` (`id`, `date`, `voucher`, `customer`, `buying_station`, `category`, `amount`) VALUES
 (1, '2022-07-31', '888', 'ronald', 'Nenet Buying Station', 'Customer', '77777'),
-(2, '2022-07-31', '23232', 'lyka', 'Nenet Buying Station', 'Customer', '4777'),
-(3, '2022-07-31', '78787', 'mark', 'Nenet Buying Station', 'Karpentero', '34343');
+(3, '2022-07-31', '78787', 'mark', 'Nenet Buying Station', 'Karpentero', '34343'),
+(4, '2022-08-03', '3656', 'Mark', 'Sayugan Buying Station', 'Customer', '2000');
 
 -- --------------------------------------------------------
 
@@ -176,19 +174,27 @@ CREATE TABLE `ledger_expenses` (
   `particulars` varchar(100) NOT NULL,
   `date` varchar(100) NOT NULL,
   `category` varchar(100) NOT NULL,
-  `amount` varchar(100) NOT NULL
+  `amount` varchar(100) NOT NULL,
+  `description` varchar(100) DEFAULT NULL,
+  `remarks` varchar(100) DEFAULT NULL,
+  `destination` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `ledger_expenses`
 --
 
-INSERT INTO `ledger_expenses` (`id`, `voucher_no`, `particulars`, `date`, `category`, `amount`) VALUES
-(10, '3456', 'Ronald Dale', '2022-02-01', 'COPRA', '3543'),
-(14, '123456', 'TEST 4', '2022-07-06', 'Medical', '3333'),
-(15, '30739', 'test 2 ', '2022-07-09', 'REPAIR & MAIN', '3333'),
-(16, '37563', 'Ronald Dale', '2022-07-31', '', '76878'),
-(17, '45667', 'mark tubat', '2022-08-03', 'Meryenda', '1000');
+INSERT INTO `ledger_expenses` (`id`, `voucher_no`, `particulars`, `date`, `category`, `amount`, `description`, `remarks`, `destination`) VALUES
+(10, '3456', 'Ronald Dale', '2022-02-01', 'COPRA', '3543', NULL, NULL, NULL),
+(14, '123456', 'TEST 4', '2022-07-06', 'Medical', '3333', NULL, NULL, NULL),
+(15, '30739', 'test 2 ', '2022-07-09', 'REPAIR & MAIN', '3333', NULL, NULL, NULL),
+(16, '37563', 'Ronald Dale', '2022-07-31', '', '76878', NULL, NULL, NULL),
+(17, '45667', 'mark tubat', '2022-08-03', 'Meryenda', '1000', NULL, NULL, NULL),
+(18, '30739', 'PLDT WIFI', '2022-08-09', 'Subscription', '1000', NULL, NULL, NULL),
+(19, '23', 'GLOBE WIFI', '2022-07-09', 'Subscription', '1000', NULL, NULL, NULL),
+(20, '23232', 'GLOBE WIFI', '2022-08-09', 'Subscription', '1000', NULL, NULL, NULL),
+(21, '23232', 'GLOBE PLAN BILL', '2022-08-09', 'Subscription', '2333', NULL, NULL, NULL),
+(23, '2442', 'Prime Mover - Arman', '2022-08-08', 'freight', '9550', 'Bales', 'One Way', 'Zamboanga');
 
 -- --------------------------------------------------------
 
@@ -201,10 +207,22 @@ CREATE TABLE `ledger_maloong` (
   `date` varchar(50) NOT NULL,
   `voucher` varchar(50) NOT NULL,
   `net_kilos` varchar(50) NOT NULL,
-  `price` varchar(50) NOT NULL,
-  `WET` varchar(50) NOT NULL,
-  `total_amount` varchar(50) NOT NULL
+  `name` varchar(100) NOT NULL,
+  `ejn_price` varchar(100) NOT NULL,
+  `ejn_total` varchar(100) NOT NULL,
+  `topper_price` varchar(100) NOT NULL,
+  `topper_gross` varchar(100) NOT NULL,
+  `less_category` varchar(100) NOT NULL,
+  `less` varchar(100) NOT NULL,
+  `topper_total` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ledger_maloong`
+--
+
+INSERT INTO `ledger_maloong` (`id`, `date`, `voucher`, `net_kilos`, `name`, `ejn_price`, `ejn_total`, `topper_price`, `topper_gross`, `less_category`, `less`, `topper_total`) VALUES
+(2, '2022-08-09', '2323', '2333', 'RONALD DALE ', '23', '53659', '54', '125982', 'Rice', '2232', '123750');
 
 -- --------------------------------------------------------
 
@@ -508,6 +526,27 @@ INSERT INTO `purchase_category` (`id`, `category`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `rubber_seller`
+--
+
+CREATE TABLE `rubber_seller` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `contact` varchar(255) DEFAULT NULL,
+  `cash_advance` float DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `rubber_seller`
+--
+
+INSERT INTO `rubber_seller` (`id`, `name`, `address`, `contact`, `cash_advance`) VALUES
+(1, 'Mark Tubat', 'Titay', '09352232051', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `seller`
 --
 
@@ -526,8 +565,8 @@ CREATE TABLE `seller` (
 --
 
 INSERT INTO `seller` (`id`, `code`, `name`, `address`, `cheque`, `contact`, `cash_advance`) VALUES
-(2, '2022-001', 'Ronald Dale', 'Veterans Drive', 'Ronald Dale', '09238910490', '0'),
-(3, '2022-002', 'Kaxandra Lyka', 'Zamboanga City', 'Kaxandra Lyka', NULL, '30000');
+(27, '001', 'dale ronald', 'San Jose Cawa Cawa', '', NULL, '0'),
+(28, '002', 'Kaxandra lyka', 'Viscaa', '', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -541,49 +580,40 @@ CREATE TABLE `transaction_record` (
   `date` varchar(50) DEFAULT NULL,
   `contract` varchar(50) DEFAULT NULL,
   `seller` varchar(50) DEFAULT NULL,
-  `noSack` varchar(50) DEFAULT NULL,
-  `gross` varchar(50) DEFAULT NULL,
-  `tare` varchar(50) DEFAULT NULL,
-  `net_weight` varchar(50) DEFAULT NULL,
-  `dust` varchar(50) DEFAULT NULL,
-  `new_dust` varchar(50) DEFAULT NULL,
-  `total_dust` varchar(50) DEFAULT NULL,
-  `moisture` varchar(50) DEFAULT NULL,
-  `discount` varchar(50) DEFAULT NULL,
-  `total_moisture` varchar(50) DEFAULT NULL,
-  `net_res` varchar(50) DEFAULT NULL,
-  `first_res` varchar(50) DEFAULT NULL,
-  `sec_res` varchar(50) DEFAULT NULL,
-  `third_res` varchar(50) DEFAULT NULL,
-  `total_first_res` varchar(50) DEFAULT NULL,
-  `total_sec_res` varchar(50) DEFAULT NULL,
-  `total_third_res` varchar(50) DEFAULT NULL,
-  `total_amount` varchar(50) DEFAULT NULL,
-  `less` varchar(50) DEFAULT NULL,
+  `noSack` double DEFAULT NULL,
+  `gross` double DEFAULT NULL,
+  `tare` double DEFAULT NULL,
+  `net_weight` double DEFAULT NULL,
+  `dust` double DEFAULT NULL,
+  `new_dust` double DEFAULT NULL,
+  `total_dust` double DEFAULT NULL,
+  `moisture` double DEFAULT NULL,
+  `discount` double DEFAULT NULL,
+  `total_moisture` double DEFAULT NULL,
+  `net_res` double DEFAULT NULL,
+  `first_res` double DEFAULT NULL,
+  `sec_res` double DEFAULT NULL,
+  `third_res` double DEFAULT NULL,
+  `total_first_res` double DEFAULT NULL,
+  `total_sec_res` double DEFAULT NULL,
+  `total_third_res` double DEFAULT NULL,
+  `total_amount` double DEFAULT NULL,
+  `less` double DEFAULT NULL,
   `amount_paid` double DEFAULT NULL,
-  `amount_words` varchar(100) DEFAULT NULL
+  `amount_words` varchar(100) DEFAULT NULL,
+  `rese_weight_1` float DEFAULT NULL,
+  `rese_weight_2` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `transaction_record`
 --
 
-INSERT INTO `transaction_record` (`id`, `invoice`, `date`, `contract`, `seller`, `noSack`, `gross`, `tare`, `net_weight`, `dust`, `new_dust`, `total_dust`, `moisture`, `discount`, `total_moisture`, `net_res`, `first_res`, `sec_res`, `third_res`, `total_first_res`, `total_sec_res`, `total_third_res`, `total_amount`, `less`, `amount_paid`, `amount_words`) VALUES
-(59, '000', '2022-06-07', 'SPOT', 'Ronald Dale', '50', '15,000', '3,500', '11,500', '1', '115', '11,385', '16', '12.3', '-1,400', '9985', '52', '', '', '519,220', '', '', '519220', '', 519220, 'Forty Nine Thousand Nine Hundred Twenty Five peso/s'),
-(60, '001', '2022-06-07', 'SPOT', '', '50', '15,000', '3,500', '11,500', '1', '115', '11,385', '16', '12.3', '-1,400', '9985', '52', '', '', '519,220', '', '', '519220', '', 519220, 'Forty Nine Thousand Nine Hundred Twenty Five peso/s'),
-(61, '002', '2022-07-07', 'SPOT', 'Ronald Dale', '50', '15,000', '3,500', '11,500', '1', '115', '11,385', '16', '12.3', '-1,400', '9985', '27', '', '', '269,595', '', '', '269595', '', 269595, 'Two Hundred Sixty Nine Thousand Five Hundred Ninety Five peso/s'),
-(62, '003', '2022-07-07', NULL, 'Ronald Dale', '50', '50,003', '2,000', '48,003', '1', '480', '47,523', '16.6', '13', '-6,178', '41345', '52', '', '', '2,149,940', '', '', '2,149,940', '0', 345423, 'Two Million One Hundred Forty Nine Thousand Nine Hundred Forty   peso/s'),
-(63, '004', '2022-08-11', NULL, 'Kaxandra Lyka', '50', '50,003', '2,000', '48,003', '1', '480', '47,523', '16.6', '13', '-6,178', '41345', '52', '', '', '2,149,940', '', '', '2,149,940', '0', 2149940, 'Two Million One Hundred Forty Nine Thousand Nine Hundred Forty   peso/s'),
-(64, '005', '2022-09-16', NULL, 'Ronald Dale', '50', '50,003', '2,000', '48,003', '1', '480', '47,523', '16.6', '13', '-6,178', '41345', '52', '', '', '2,149,940', '', '', '2,149,940', '0', 2149940, 'Two Million One Hundred Forty Nine Thousand Nine Hundred Forty   peso/s'),
-(65, '006', '2022-10-15', NULL, 'Ronald Dale', '50', '50,003', '2,000', '48,003', '1', '480', '47,523', '16.6', '13', '-6,178', '41345', '52', '', '', '2,149,940', '', '', '2,149,940', '0', 2149940, 'Two Million One Hundred Forty Nine Thousand Nine Hundred Forty   peso/s'),
-(66, '007', '2022-12-10', NULL, 'Ronald Dale', '50', '50,003', '2,000', '48,003', '1', '480', '47,523', '14', '9.6', '-4,562', '42961', ' 27', '', '', '1,159,947', '', '', '1,159,947', '0', 1159947, 'One Million One Hundred Fifty Nine Thousand Nine Hundred Forty Seven peso/s'),
-(67, '008', '2022-11-11', NULL, 'Ronald Dale', '50', '50,003', '2,000', '48,003', '1', '480', '47,523', '14', '9.6', '-4,562', '42961', '38', '', '', '1,632,518', '', '', '1,632,518', '0', 1632518, 'One Hundred Twenty Eight Thousand Eight Hundred Eighty Three peso/s'),
-(68, '009', '2022-01-10', NULL, 'Ronald Dale', '50', '80,000', '3,500', '76,500', '1', '765', '75,735', '16.6', '13', '-9,846', '65889', '29', '', '', '1,910,781', '', '', '1,910,781', '0', 1910781, 'Nineteen Million Six Hundred Thirty Four Thousand Nine Hundred Twenty Two peso/s'),
-(69, '010', '2023-01-10', NULL, 'Ronald Dale', '50', '10,000', '200', '9,800', '1', '98', '9,702', '16', '12.3', '-1,193', '8509', '20', '', '', '170,180', '', '', '170,180', '0', 170180, 'One Hundred Seventy   Thousand One Hundred Eighty   peso/s'),
-(70, '011', '2022-07-10', NULL, 'Ronald Dale', '50', '15,000', '2,000', '13,000', '1', '130', '12,870', '16.6', '13', '-1,673', '11197', '52', '', '', '582,244', '', '', '582,244', '0', 582244, 'Five Hundred Eighty Two Thousand Two Hundred Forty Four peso/s'),
-(71, '012', '2022-07-29', NULL, 'Ronald Dale', '50', '50,003', '20,000', '30,003', '1', '300', '29,703', '13', '8.1', '-2,406', '27297', '29', '', '', '791,613', '', '', '791,613', '21,000', 770613, 'Thirty Three Thousand Five Hundred Ninety Four peso/s'),
-(72, '013', '2022-07-29', NULL, 'Ronald Dale', '50', '50,003', '2,000', '48,003', '1', '480', '47,523', '16.6', '13', '-6,178', '41345', '29', '', '', '1,199,005', '', '', '1,199,005', '20979', 1178026, 'One Million One Hundred Seventy Eight Thousand  Two peso/s'),
-(73, '014', '2022-08-02', NULL, 'Ronald Dale', '50', '2,000', '100', '1,900', '1', '19', '1,881', '13', '8.1', '-152', '1729', '20', '', '', '34,580', '', '', '34,580', '1000', 33580, 'Thirty Three Thousand Five Hundred Eighty   peso/s');
+INSERT INTO `transaction_record` (`id`, `invoice`, `date`, `contract`, `seller`, `noSack`, `gross`, `tare`, `net_weight`, `dust`, `new_dust`, `total_dust`, `moisture`, `discount`, `total_moisture`, `net_res`, `first_res`, `sec_res`, `third_res`, `total_first_res`, `total_sec_res`, `total_third_res`, `total_amount`, `less`, `amount_paid`, `amount_words`, `rese_weight_1`, `rese_weight_2`) VALUES
+(107, '001', '2022-08-18', 'SPOT', 'dale ronald', 100, 2000, 10, 1990, 1, 20, 1970, 8, 2, -39, 1931, 44, 0, 0, 84964, 0, 0, 84964, 0, 84964, 'Eighty Four Thousand Nine Hundred Sixty Four peso/s', 1931, 0),
+(108, '002', '2022-08-18', 'SPOT', 'dale ronald', 100, 2000, 1, 1999, 1, 20, 1979, 13, 8.1, -160, 1819, 29, 0, 0, 52751, 0, 0, 52751, 0, 52751, 'Fifty Two Thousand Seven Hundred Fifty One peso/s', 1819, 0),
+(109, '003', '2022-08-18', 'SPOT', 'dale ronald', 1000, 233, 12, 221, 1, 2, 219, 13, 8.1, -18, 201, 23, 0, 0, 4623, 0, 0, 4623, 0, 4623, 'Four Thousand Six Hundred Twenty Three peso/s', 201, 0),
+(110, '004', '2022-08-18', '2022-001', 'dale ronald', 23, 10000, 1, 9999, 0, 0, 9999, 0, 0, -0, 9999, 29, 23, 0, 7076, 224365, 0, 231441, 1000, 230441, 'Two Hundred Thirty   Thousand Four Hundred Forty One peso/s', 244, 9755);
 
 -- --------------------------------------------------------
 
@@ -603,9 +633,86 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `type`) VALUES
-(1, 'copra', 'copra', 'copra'),
+(1, 'admin', 'admin', 'copra'),
 (2, 'ledger', 'ledger', 'finance'),
-(3, 'admin', 'admin', 'admin');
+(3, 'rubber', 'rubber', 'rubber');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wet_rubber_cashadvance`
+--
+
+CREATE TABLE `wet_rubber_cashadvance` (
+  `id` int(11) NOT NULL,
+  `seller` varchar(255) NOT NULL,
+  `amount` float NOT NULL,
+  `category` varchar(255) NOT NULL,
+  `date` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wet_rubber_contract`
+--
+
+CREATE TABLE `wet_rubber_contract` (
+  `id` int(11) NOT NULL,
+  `contract_no` varchar(255) NOT NULL,
+  `seller` varchar(255) NOT NULL,
+  `contract_quantity` float NOT NULL,
+  `delivered` float NOT NULL,
+  `balance` float NOT NULL,
+  `date` varchar(255) NOT NULL,
+  `price` float NOT NULL,
+  `status` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `wet_rubber_contract`
+--
+
+INSERT INTO `wet_rubber_contract` (`id`, `contract_no`, `seller`, `contract_quantity`, `delivered`, `balance`, `date`, `price`, `status`) VALUES
+(1, '2022-001', 'Mark Tubat', 1000, 1000, 0, '2022-08-19', 23, 'COMPLETED'),
+(2, '2022-002', 'Mark Tubat', 6888, 0, 6888, '2022-08-20', 28, 'PENDING');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wet_rubber_transaction`
+--
+
+CREATE TABLE `wet_rubber_transaction` (
+  `id` int(11) NOT NULL,
+  `invoice` int(255) NOT NULL,
+  `contract` varchar(200) NOT NULL,
+  `date` varchar(200) NOT NULL,
+  `seller` varchar(255) NOT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `gross` float NOT NULL,
+  `tare` float NOT NULL,
+  `net_weight` float NOT NULL,
+  `price_1` float NOT NULL,
+  `price_2` float DEFAULT NULL,
+  `total_weight_1` float NOT NULL,
+  `total_weight_2` float NOT NULL,
+  `total_amount` float DEFAULT NULL,
+  `less` float DEFAULT NULL,
+  `amount_paid` float NOT NULL,
+  `amount_words` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `wet_rubber_transaction`
+--
+
+INSERT INTO `wet_rubber_transaction` (`id`, `invoice`, `contract`, `date`, `seller`, `address`, `gross`, `tare`, `net_weight`, `price_1`, `price_2`, `total_weight_1`, `total_weight_2`, `total_amount`, `less`, `amount_paid`, `amount_words`) VALUES
+(1, 1, 'SPOT', '2022-08-20', 'Mark Tubat', 'Titay', 232323, 122334, 109989, 23, 0, 109989, 0, 2529750, 0, 2529750, 'Two Million Five Hundred Twenty Nine Thousand Seven Hundred Forty Seven peso/s'),
+(2, 2, 'SPOT', '2022-08-20', 'Mark Tubat', 'Titay', 2971, 0, 2971, 28, 0, 2971, 0, 83188, 0, 83188, 'Eighty Three Thousand One Hundred Eighty Eight peso/s'),
+(3, 3, 'SPOT', '2022-08-20', 'Mark Tubat', 'Titay', 5777, 34, 5743, 23, 0, 543, 0, 12489, 1000, 11489, 'Eleven Thousand Four Hundred Eighty Nine peso/s'),
+(4, 4, '2022-001', '2022-08-20', 'Mark Tubat', 'Titay', 10000, 23, 9977, 23, 1, 1000, 8977, 31977, 1000, 30977, 'Thirty   Thousand Nine Hundred Seventy Seven peso/s'),
+(5, 5, 'SPOT', '2022-08-20', 'Mark Tubat', 'Titay', 10000, 10, 9990, 23, 0, 9990, 0, 229770, 0, 229770, 'Two Hundred Twenty Nine Thousand Seven Hundred Seventy   peso/s');
 
 --
 -- Indexes for dumped tables
@@ -678,6 +785,12 @@ ALTER TABLE `purchase_category`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `rubber_seller`
+--
+ALTER TABLE `rubber_seller`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `seller`
 --
 ALTER TABLE `seller`
@@ -696,6 +809,18 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `wet_rubber_contract`
+--
+ALTER TABLE `wet_rubber_contract`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `wet_rubber_transaction`
+--
+ALTER TABLE `wet_rubber_transaction`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -703,19 +828,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `category_expenses`
 --
 ALTER TABLE `category_expenses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `contract_purchase`
 --
 ALTER TABLE `contract_purchase`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `copra_cashadvance`
 --
 ALTER TABLE `copra_cashadvance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `ledger_buahantoppers`
@@ -733,25 +858,25 @@ ALTER TABLE `ledger_buying_station`
 -- AUTO_INCREMENT for table `ledger_cashadvance`
 --
 ALTER TABLE `ledger_cashadvance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `ledger_expenses`
 --
 ALTER TABLE `ledger_expenses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `ledger_maloong`
 --
 ALTER TABLE `ledger_maloong`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `ledger_purchase`
 --
 ALTER TABLE `ledger_purchase`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `moisture_table`
@@ -766,22 +891,40 @@ ALTER TABLE `purchase_category`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `rubber_seller`
+--
+ALTER TABLE `rubber_seller`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `seller`
 --
 ALTER TABLE `seller`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `transaction_record`
 --
 ALTER TABLE `transaction_record`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `wet_rubber_contract`
+--
+ALTER TABLE `wet_rubber_contract`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `wet_rubber_transaction`
+--
+ALTER TABLE `wet_rubber_transaction`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
