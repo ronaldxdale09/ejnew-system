@@ -4,7 +4,7 @@
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
      <meta name='viewport' content='width=device-width, initial-scale=1.0'>
 
-    <div class='sidebar close'>
+    <div class='sidebar '>
       <div class='logo-details'>
         <div class='logo-img'>
           <img src='./assets/img/logo.png'>
