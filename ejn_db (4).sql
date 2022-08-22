@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 20, 2022 at 08:40 AM
+-- Generation Time: Aug 22, 2022 at 02:10 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.29
 
@@ -542,7 +542,7 @@ CREATE TABLE `rubber_seller` (
 --
 
 INSERT INTO `rubber_seller` (`id`, `name`, `address`, `contact`, `cash_advance`) VALUES
-(1, 'Mark Tubat', 'Titay', '09352232051', 0);
+(1, 'Mark Tubat', 'Titay', '09352232051', 2323);
 
 -- --------------------------------------------------------
 
@@ -633,9 +633,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `type`) VALUES
-(1, 'admin', 'admin', 'copra'),
+(1, 'admin', 'admin', 'admin'),
 (2, 'ledger', 'ledger', 'finance'),
-(3, 'rubber', 'rubber', 'rubber');
+(3, 'rubber', 'rubber', 'rubber'),
+(4, 'copra', 'copra', 'copra');
 
 -- --------------------------------------------------------
 
@@ -912,7 +913,7 @@ ALTER TABLE `transaction_record`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `wet_rubber_contract`
