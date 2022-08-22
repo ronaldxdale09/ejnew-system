@@ -8,8 +8,8 @@
                             $address = $_POST['address'];
                             $contact = $_POST['contact'];
 
-                                $query = "INSERT INTO rubber_seller (code,name,address,contact) 
-                                        VALUES ('$code','$name','$address','$contact')";
+                                $query = "INSERT INTO rubber_seller (name,address,contact) 
+                                        VALUES ('$name','$address','$contact')";
                                 $results = mysqli_query($con, $query);
                                    
                                     if ($results) {
