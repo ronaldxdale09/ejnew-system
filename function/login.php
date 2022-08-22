@@ -38,7 +38,7 @@
 			}
 
 			elseif  ($userType =='rubber'){
-				header('Location: ../rubber/transaction.php');
+				header('Location: ../rubber/dashboard.php');
 			}
 		}
 	}

@@ -16,9 +16,12 @@
             <i class='fa-solid fa-house'></i> <span class='nav-text'>Home</span>
         </a>
         <hr style='color:gray'>
-        <a class='nav-link' href='Transaction.php'>
-            <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>Transaction</span>
+        <a class='nav-link' href='wet_rubber.php'>
+            <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>WET Rubber</span>
         </a>
+        <a class='nav-link' href='bales_rubber.php'>
+        <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>Bales Rubber</span>
+    </a>
         <a class='nav-link' href='transaction_history.php'>
         <i class='fa-solid fa-book'></i> <span class='nav-text'>Transaction Record</span>
     </a>

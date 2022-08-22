@@ -13,7 +13,7 @@
                                 $results = mysqli_query($con, $query);
                                    
                                     if ($results) {
-                                        header("Location: ../transaction.php");
+                                        header("Location: ../wet_rubber.php");
                                         $_SESSION['seller']= "successful";
                                         exit();
                                     } else {
@@ -39,7 +39,7 @@
                                         $results = mysqli_query($con, $query);
                                            
                                             if ($results) {
-                                                header("Location: ../transaction.php");
+                                                header("Location: ../wet_rubber.php");
                                                 $_SESSION['seller']= "successful";
                                                 exit();
                                             } else {
@@ -72,7 +72,7 @@
                                                    
                                                     if ($results) {
                 
-                                                        header("Location: ../transaction.php");
+                                                        header("Location: ../wet_rubber.php");
                                                         $_SESSION['copra_ca']= "successful";
                 
                                                     } else {

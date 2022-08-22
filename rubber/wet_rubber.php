@@ -93,7 +93,7 @@ $today = $year . "-" . $month . "-" . $day;
                         <div class="row align-items-center">
                             <div class="col-4">
                                 <br>
-                                <h4 class="page-title"><B>RUBBER PURCHASING </b></h4>
+                                <h4 class="page-title"><B>WET RUBBER PURCHASING </b></h4>
                             </div>
                             <div class="col-7">
                                 <div class="text-end upgrade-btn">
