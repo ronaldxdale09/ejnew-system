@@ -238,3 +238,146 @@ $('#newContract1').on('shown.bs.modal', function() {
     $('.contact_seller', this).chosen();
 });
 </script>
+
+
+
+<div class="modal fade" id="editContract" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Contract</h5>
+                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="function/copraUpdateContract.php" method="POST">
+                    <!-- ... START -->
+                    <div class="form-group">
+                        <div class="row no-gutters">
+                            <div class="col-6 col-md-6">
+                                <div class="input-group mb-1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-default"
+                                            style='color:black;font-weight: bold;'>Contract</span>
+                                    </div>
+                                    <input type="text" style='text-align:right' name='m_contact' id='m_contact'
+                                        class="form-control" style='background-color:white;border:0px solid #ffffff;'
+                                        readonly>
+                                </div>
+                            </div>
+                            <!--end  -->
+                            <input type="text" id="m_id" name="id"  readonly hidden>
+                            <div class="col-6 col-md-6">
+                                <div class="input-group mb-1">
+                                    <input type="text" id="m_date" name="date" class='datepicker' readonly>
+                                </div>
+                            </div>
+                            <!--  end-->
+                        </div>
+                    </div>
+                    <center>
+                        <div class="form-group">
+                            <label class="col-md-12">Seller</label>
+                            <div class="col-md-8">
+                            <input type="text" style='text-align:right' name='name' id='m_name'
+                                        class="form-control" style='background-color:white;border:0px solid #ffffff;'
+                                        readonly>
+                            </div>
+                            <br>
+                    </center>
+                    <div class="form-group">
+                        <div class="row no-gutters">
+                            <div class="col-12 col-sm-5 col-md-12">
+                                <!--  -->
+                                <div class="input-group mb-1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-default"
+                                            style='color:black;font-weight: bold;'>Contract Quantity</span>
+                                    </div>
+                                    <input type="text" style='text-align:right' name='quantity' id='m_quantity'
+                                        class="form-control" onkeypress="return CheckNumeric()"
+                                        onkeyup="FormatCurrency(this)" required>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">Kg</span>
+                                    </div>
+                                </div>
+                                <!--  -->
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <div class="row no-gutters">
+                            <div class="col-12 col-sm-5 col-md-12">
+                                <!--  -->
+                                <div class="input-group mb-1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-default"
+                                            style='color:black;font-weight: bold;'>₱/KG</span>
+                                    </div>
+                                    <input type="text" style='text-align:right,font-size:16' name='price' id='m_price' class="form-control"
+                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
+                                </div>
+                                <!--  -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END -->
+            </div>
+            <div class="modal-footer">
+            <button type="submit" name='update' class="btn btn-success text-white">Submit</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- DELETE RECORD -->
+
+<div class="modal fade" id="deleteRec" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">DELETE RECORD</h5>
+                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="function/copraDeleteContract.php" method="POST">
+                    <!--  total dust-->
+                    <center>
+                        <div class="col-6 col-md-12">
+                            <div class="input-group mb-12">
+                                <label style='font-size:25px' class="col-md-12">Confirm to delete record</label>
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-default"
+                                        style='color:black;font-weight: bold;'>Contract Code</span>
+                                </div>
+                                <input type="text" style='text-align:left' name='d_contract' id='d_contract'
+                                    class="form-control" readonly />
+                                    <input type="text" style='text-align:left' name='d_id' id='d_id'
+                                    class="form-control" hidden readonly />
+                       
+
+
+                            </div>
+                        </div>
+                        <center>
+                            <!-- end -->
+
+            </div>
+            <div class="modal-footer">
+                <button type='submit' name='remove' class="btn btn-danger text-white">Confirm</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

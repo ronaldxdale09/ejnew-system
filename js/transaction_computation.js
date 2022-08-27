@@ -1,4 +1,4 @@
-function CopraComputation(gross, tare, dust, discount, rese1, rese2, less) {
+function CopraComputation(gross, tare, dust, discount, rese1, rese2, less, new_dust) {
 
 
     let nf = new Intl.NumberFormat('en-US');
@@ -7,8 +7,7 @@ function CopraComputation(gross, tare, dust, discount, rese1, rese2, less) {
     $("#net").val(nf.format(gross - tare));
 
 
-    $("#new").val(Math.round((((dust / 100) * +$("#net").val()
-        .replace(/,/g, ''))).toLocaleString()));
+    $("#new").val(Math.round(((dust / 100) * +new_dust)));
 
     $("#total-dust").val(((+$("#net").val().replace(/,/g, '') - +$("#new").val().replace(/,/g, '')))
         .toLocaleString());

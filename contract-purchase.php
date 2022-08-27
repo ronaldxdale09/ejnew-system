@@ -78,7 +78,7 @@
                                                 <i class="fa fa-add" aria-hidden="true"></i> NEW CONTRACT </button>
                                         </div>
                                         <div class="col">
-                                           <h5> Date Filter</h5>
+                                            <h5> Date Filter</h5>
                                         </div>
                                         <div class="col-3">
                                             <input type="text" id="min" name="min" class="form-control"
@@ -106,27 +106,39 @@
                                                     <th width="10%">Contact No.</th>
                                                     <th width="15%">Seller</th>
                                                     <th scope="col">Quantity</th>
-                                                    <th hidden scope="col">Delivered</th>
+                                                    <th scope="col">Delivered</th>
                                                     <th scope="col">Balance</th>
                                                     <th scope="col">₱/KG</th>
+                                                    <th hidden></th>
                                                     <th scope="col">Status</th>
-                                       
+                                                    <th> Action</th>
+
                                                 </tr>
                                             </thead>
                                             <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
-                                                    <th scope="row"> <?php echo $row['date']?> </th>
+                                                    <td scope="row"> <?php echo $row['date']?> </td>
                                                     <td> <?php echo $row['contract_no']?> </td>
                                                     <td> <?php echo $row['seller']?> </td>
-                                                    <td> <?php echo $row['contract_quantity']?> Kg</td>
-                                                    <td hidden> <?php echo $row['delivered']?> </td>
-                                                    <td> <?php echo $row['balance']?> Kg</td>
+                                                    <td> <?php echo number_format($row['contract_quantity'])?> Kg</td>
+                                                    <td> <?php echo number_format($row['delivered'])?> </td>
+                                                    <td> <?php echo number_format($row['balance'])?> Kg</td>
                                                     <td>₱ <?php echo $row['price_kg']?> </td>
+                                                    <td hidden><?php echo $row['id']?> </td>
                                                     <td>
                                                         <h5><span
                                                                 class="badge bg-success"><?php echo $row['status']?></span>
                                                         </h5>
                                                     </td>
-                                                 
+                                                    <td>
+                                                        <button type="button"
+                                                            class="btn btn-secondary text-white editBtn">
+                                                            <i class='fa-solid fa-edit'></i> </button>
+
+                                                        <button type="button"
+                                                            class="btn btn-danger text-white deleteBtn">
+                                                            <i class='fa-solid fa-remove'></i> </button>
+                                                    </td>
+
                                                 </tr> <?php } ?> </tbody>
                                         </table>
                                     </div>
@@ -182,19 +194,19 @@ $(document).ready(function() {
         buttons: [{
                 extend: 'excelHtml5',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4,5,6,7]
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7]
                 }
             },
             {
                 extend: 'pdfHtml5',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4,5,6,7]
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7]
                 }
             },
             {
                 extend: 'print',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4,5,6,7]
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7]
                 }
             },
 
@@ -209,6 +221,56 @@ $(document).ready(function() {
         table.draw();
     });
 
+
+
+});
+</script>
+
+
+
+<script>
+$(document).ready(function() {
+    $('.editBtn').on('click', function() {
+
+
+        $('#editContract').modal('show');
+        $tr = $(this).closest('tr');
+
+        var data = $tr.children("td").map(function() {
+            return $(this).text();
+        }).get();
+
+        $('#m_date').val(data[0]);
+        $('#m_contact').val(data[1]);
+        $('#m_name').val(data[2]);
+
+        var quantity = data[3].replace(/[^0-9\.]+/g, "");
+        $('#m_quantity').val(quantity);
+
+        var price = data[6].replace(/[^0-9\.]+/g, "");
+        $('#m_price').val(price);
+
+        $('#m_id').val(data[7]);
+
+    });
+    $('.deleteBtn').on('click', function() {
+
+
+        $('#deleteRec').modal('show');
+        $tr = $(this).closest('tr');
+
+        var data = $tr.children("td").map(function() {
+            return $(this).text();
+        }).get();
+
+      
+        $('#d_contract').val(data[1]);
+      
+
+
+        $('#d_id').val(data[7]);
+
+    });
 
 
 });

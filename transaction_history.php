@@ -45,10 +45,7 @@
                                     <!-- CONTENT -->
                                     <div class="row">
                                         <div class="col-5">
-                                            <button type="button" class="btn btn-success text-white" data-toggle="modal"
-                                                data-target="#copraCashAdvance">
-                                                <i class="fa fa-add" aria-hidden="true"></i> NEW TRANSACTION
-                                            </button>
+                                    <h4> Transaction Reocrd </h4>
                                         </div>
                                         <div class="col">
                                             <h5> Date Filter</h5>
@@ -84,6 +81,7 @@
                                                     <th scope="col">Net Weight</th>
                                                     <th scope="col">Amount Paid</th>
                                                     <th scope="col">Action</th>
+                                                    <th scope="col" hidden></th>
                                                     <th scope="col" hidden></th>
                                                     <th scope="col" hidden></th>
                                                     <th scope="col" hidden></th>
@@ -140,14 +138,14 @@
                                                     <td hidden> <?php echo $row['amount_words']?> </td>
                                                     <td hidden> <?php echo $row['rese_weight_1']?> </td>
                                                     <td hidden> <?php echo $row['rese_weight_2']?> </td>
-
+                                                    <td hidden> <?php echo $row['id']?> </td>
                                                     <td>
                                                         <button type="button"
                                                             class="btn btn-secondary text-white viewButton">
                                                             <i class='fa-solid fa-eye'></i> </button>
 
                                                         <button type="button"
-                                                            class="btn btn-danger text-white viewButton">
+                                                            class="btn btn-danger text-white deleteBtn">
                                                             <i class='fa-solid fa-remove'></i> </button>
                                                     </td>
                                                 </tr> <?php } ?> </tbody>
@@ -187,6 +185,7 @@ $(document).ready(function() {
         var data = $tr.children("td").map(function() {
             return $(this).text();
         }).get();
+ 
         $('#invoice').val(data[0]);
         $('#name').val(data[3]);
         $('#date').val(data[1]);
@@ -208,7 +207,7 @@ $(document).ready(function() {
 
 
         $('#total-res').val(data[19]);
-        
+
         $('#1resecada').val(data[4]);
         $('#2resecada').val(data[5]);
 
@@ -225,6 +224,21 @@ $(document).ready(function() {
         $('#total-paid').val(data[7]);
         $('#total-words').val(data[24]);
         $('#amount-paid').val(data[7]);
+    });
+
+    $('.deleteBtn').on('click', function() {
+
+
+        $('#deleteRecord').modal('show');
+        $tr = $(this).closest('tr');
+
+        var data = $tr.children("td").map(function() {
+            return $(this).text();
+        }).get();
+        $('#d_invoice').val(data[0]);
+        $('#d_id').val(data[27]);
+        $('#d_contract').val(data[2]);
+
     });
 
 });

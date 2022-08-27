@@ -1,4 +1,24 @@
 <!--hide contract details -->
+
+
+<script>
+function ComputationCopra() {
+
+    gross = $("#gross").val().replace(/,/g, '');
+    tare = $("#tare").val().replace(/,/g, '');
+    dust = $("#dust").val().replace(/,/g, '');
+
+    discount = $("#discount_reading").val().replace(/,/g, '');
+    rese1 = $("#first-res").val().replace(/,/g, '');
+    rese2 = $("#second-res").val().replace(/,/g, '');
+    less = $("#cash_advance").val().replace(/,/g, '');
+    new_dust = $("#new").val().replace(/,/g, '');
+
+    CopraComputation(gross, tare, dust, discount, rese1, rese2, less,new_dust);
+};
+</script>
+
+
 <script type="text/javascript">
 $(document).ready(function() {
 
@@ -211,27 +231,11 @@ $(document).ready(function() {
 
 
 
-<script>
-function ComputationCopra() {
-
-    gross = $("#gross").val().replace(/,/g, '');
-    tare = $("#tare").val().replace(/,/g, '');
-    dust = $("#dust").val().replace(/,/g, '');
-
-    discount = $("#discount_reading").val().replace(/,/g, '');
-    rese1 = $("#first-res").val().replace(/,/g, '');
-    rese2 = $("#second-res").val().replace(/,/g, '');
-    less = $("#cash_advance").val().replace(/,/g, '');
-
-
-    CopraComputation(gross, tare, dust, discount, rese1, rese2, less);
-};
-</script>
 
 <!-- add netweight -->
 <script>
 $(function() {
-    $("#gross, #tare").keyup(function() {
+    $("#gross, #tare,#new").keyup(function() {
 
         ComputationCopra();
 
@@ -242,6 +246,7 @@ $(function() {
 
 });
 </script>
+
 <!-- end net weight -->
 
 <!-- autput DISCOUNT -->

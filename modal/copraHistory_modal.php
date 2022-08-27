@@ -85,7 +85,7 @@ full width */
                                                         class="form-control form-control-line" readonly>
                                                 </div>
                                             </div>
-                                            
+
                                         </div>
 
                                     </div>
@@ -188,8 +188,8 @@ full width */
                                                                     id="inputGroup-sizing-default"
                                                                     style='color:black;font-weight: bold;'>NEW</span>
                                                             </div>
-                                                            <input type="text" class="form-control" id='new-dust' name='new-dust'
-                                                                readonly>
+                                                            <input type="text" class="form-control" id='new-dust'
+                                                                name='new-dust' readonly>
                                                             <div class="input-group-append">
                                                                 <span class="input-group-text">Kg</span>
                                                             </div>
@@ -329,8 +329,7 @@ full width */
                                                                 <span class="input-group-text">₱</span>
                                                             </div>
                                                             <input type="text" style='text-align:right' id='total_1res'
-                                                            name='total_1res'
-                                                                class="form-control" readonly>
+                                                                name='total_1res' class="form-control" readonly>
                                                         </div>
                                                         <!--  -->
                                                     </div>
@@ -439,13 +438,12 @@ full width */
                                                                 readonly />
 
                                                         </div>
-                                                        <hr>
-                                                     
+                                                 
+
                                                         <!--  -->
                                                     </div>
-                                                    <input type="text" style='text-align:center'
-                                                            name='total-words' id='total-words'
-                                                            class="form-control" readonly>
+                                                    <input type="text" style='text-align:center' name='total-words'
+                                                        id='total-words' class="form-control" hidden readonly>
                                                 </div>
                                             </div>
 
@@ -462,6 +460,52 @@ full width */
                 </div>
             </form>
 
+        </div>
+    </div>
+</div>
+
+
+<!-- PRINT Transaction -->
+<div class="modal fade" id="deleteRecord" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">DELETE RECORD</h5>
+                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="function/copraDeleteRecord.php" method="POST">
+                    <!--  total dust-->
+                    <center>
+                        <div class="col-6 col-md-12">
+                            <div class="input-group mb-12">
+                                <label style='font-size:25px' class="col-md-12">Confirm to delete record</label>
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-default"
+                                        style='color:black;font-weight: bold;'>Invoice</span>
+                                </div>
+                                <input type="text" style='text-align:left' name='d_invoice' id='d_invoice'
+                                    class="form-control" readonly />
+                                    <input type="text" style='text-align:left' name='d_id' id='d_id'
+                                    class="form-control" readonly />
+                                    <input type="text" style='text-align:left' name='d_contract' id='d_contract'
+                                    class="form-control" hidden readonly />
+
+
+                            </div>
+                        </div>
+                        <center>
+                            <!-- end -->
+
+            </div>
+            <div class="modal-footer">
+                <button type='submit' name='remove' class="btn btn-danger text-white">Confirm</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
