@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 22, 2022 at 02:10 AM
+-- Generation Time: Aug 27, 2022 at 05:11 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.29
 
@@ -54,12 +54,12 @@ CREATE TABLE `contract_purchase` (
   `id` int(11) NOT NULL,
   `contract_no` varchar(11) NOT NULL,
   `seller` varchar(50) NOT NULL,
-  `contract_quantity` varchar(50) NOT NULL,
-  `delivered` varchar(50) DEFAULT NULL,
-  `balance` varchar(50) DEFAULT NULL,
+  `contract_quantity` float NOT NULL,
+  `delivered` float DEFAULT NULL,
+  `balance` float DEFAULT NULL,
   `status` varchar(10) DEFAULT NULL,
   `date` varchar(10) DEFAULT NULL,
-  `price_kg` varchar(100) DEFAULT NULL
+  `price_kg` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -67,8 +67,10 @@ CREATE TABLE `contract_purchase` (
 --
 
 INSERT INTO `contract_purchase` (`id`, `contract_no`, `seller`, `contract_quantity`, `delivered`, `balance`, `status`, `date`, `price_kg`) VALUES
-(18, '2022-001', 'dale ronald', '1234', '1234', '0', 'COMPLETED', '2022-08-11', ' 29'),
-(19, '2022-002', 'Kaxandra lyka', '1000', NULL, '1000', 'PENDING', '2022-08-20', ' 29');
+(18, '2022-001', 'dale ronald', 1234, 1234, 0, 'COMPLETED', '2022-08-11', 29),
+(19, '2022-002', 'Kaxandra lyka', 1000, 1000, 0, 'COMPLETED', '2022-08-20', 29),
+(20, '2022-003', 'dale ronald', 1000, 1000, 0, 'COMPLETED', '2022-08-26', 30),
+(21, '2022-004', 'dale ronald', 2000, 2000, 0, 'COMPLETED', '2022-08-26', 29);
 
 -- --------------------------------------------------------
 
@@ -91,7 +93,8 @@ CREATE TABLE `copra_cashadvance` (
 
 INSERT INTO `copra_cashadvance` (`id`, `seller`, `amount`, `category`, `date`, `status`) VALUES
 (9, 'dale ronald', '1000', 'copra', '2022-08-18', 'PENDING'),
-(10, 'dale ronald', '1000', 'ntc', '2022-08-18', 'PENDING');
+(10, 'dale ronald', '1000', 'ntc', '2022-08-18', 'PENDING'),
+(11, 'dale ronald', '1000', 'copra', '2022-08-26', 'PENDING');
 
 -- --------------------------------------------------------
 
@@ -565,8 +568,8 @@ CREATE TABLE `seller` (
 --
 
 INSERT INTO `seller` (`id`, `code`, `name`, `address`, `cheque`, `contact`, `cash_advance`) VALUES
-(27, '001', 'dale ronald', 'San Jose Cawa Cawa', '', NULL, '0'),
-(28, '002', 'Kaxandra lyka', 'Viscaa', '', NULL, NULL);
+(27, '001', 'dale ronald', 'San Jose Cawa Cawa', '', NULL, '1000'),
+(28, '002', 'Kaxandra lyka', 'Viscaa', '', NULL, '0');
 
 -- --------------------------------------------------------
 
@@ -604,16 +607,6 @@ CREATE TABLE `transaction_record` (
   `rese_weight_1` float DEFAULT NULL,
   `rese_weight_2` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `transaction_record`
---
-
-INSERT INTO `transaction_record` (`id`, `invoice`, `date`, `contract`, `seller`, `noSack`, `gross`, `tare`, `net_weight`, `dust`, `new_dust`, `total_dust`, `moisture`, `discount`, `total_moisture`, `net_res`, `first_res`, `sec_res`, `third_res`, `total_first_res`, `total_sec_res`, `total_third_res`, `total_amount`, `less`, `amount_paid`, `amount_words`, `rese_weight_1`, `rese_weight_2`) VALUES
-(107, '001', '2022-08-18', 'SPOT', 'dale ronald', 100, 2000, 10, 1990, 1, 20, 1970, 8, 2, -39, 1931, 44, 0, 0, 84964, 0, 0, 84964, 0, 84964, 'Eighty Four Thousand Nine Hundred Sixty Four peso/s', 1931, 0),
-(108, '002', '2022-08-18', 'SPOT', 'dale ronald', 100, 2000, 1, 1999, 1, 20, 1979, 13, 8.1, -160, 1819, 29, 0, 0, 52751, 0, 0, 52751, 0, 52751, 'Fifty Two Thousand Seven Hundred Fifty One peso/s', 1819, 0),
-(109, '003', '2022-08-18', 'SPOT', 'dale ronald', 1000, 233, 12, 221, 1, 2, 219, 13, 8.1, -18, 201, 23, 0, 0, 4623, 0, 0, 4623, 0, 4623, 'Four Thousand Six Hundred Twenty Three peso/s', 201, 0),
-(110, '004', '2022-08-18', '2022-001', 'dale ronald', 23, 10000, 1, 9999, 0, 0, 9999, 0, 0, -0, 9999, 29, 23, 0, 7076, 224365, 0, 231441, 1000, 230441, 'Two Hundred Thirty   Thousand Four Hundred Forty One peso/s', 244, 9755);
 
 -- --------------------------------------------------------
 
@@ -835,13 +828,13 @@ ALTER TABLE `category_expenses`
 -- AUTO_INCREMENT for table `contract_purchase`
 --
 ALTER TABLE `contract_purchase`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `copra_cashadvance`
 --
 ALTER TABLE `copra_cashadvance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `ledger_buahantoppers`
@@ -907,7 +900,7 @@ ALTER TABLE `seller`
 -- AUTO_INCREMENT for table `transaction_record`
 --
 ALTER TABLE `transaction_record`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
 
 --
 -- AUTO_INCREMENT for table `users`

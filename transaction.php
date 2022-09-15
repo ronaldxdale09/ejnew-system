@@ -387,7 +387,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                                         style='color:black;font-weight: bold;'>NEW</span>
                                                                 </div>
                                                                 <input type="text" class="form-control" id='new'
-                                                                    name='new' readonly>
+                                                                    name='new' >
                                                                 <div class="input-group-append">
                                                                     <span class="input-group-text">Kg</span>
                                                                 </div>
@@ -657,7 +657,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                             <hr>
                                                             <input type="text" style='text-align:center'
                                                                 name='amount-paid-words' id='amount-paid-words'
-                                                                class="form-control" readonly>
+                                                                class="form-control" hidden readonly>
                                                             <!--  -->
                                                         </div>
                                                     </div>
