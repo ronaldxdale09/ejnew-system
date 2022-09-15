@@ -1,9 +1,20 @@
-function bales_compute(entry, net, price1, price2) {
+function bales_compute(entry, net, bales_kilo, price, price2) {
     // let nf = new Intl.NumberFormat('en-US');
 
-    console.log(entry);
-    console.log(net);
 
     $("#drc").val(Math.round((parseInt(net) / parseInt(entry)) * 100));
+
+
+    $("#drc").val(Math.round((parseInt(net) / parseInt(entry)) * 100));
+
+    $("#total_amount").val(((parseInt(price) * parseInt(net))));
+
+    bales = ((parseInt(net) / parseInt(bales_kilo)));
+    $("#bales_qty").val(parseInt(bales));
+
+
+    bales_excess = bales - (parseInt(net) / parseInt(bales_kilo))
+    $("#excess_kg").val(bales_excess);
+
 
 }

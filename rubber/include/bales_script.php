@@ -6,12 +6,12 @@ function BalesRubber() {
 
     var entry = $("#entry").val().replace(/,/g, '');
     var net = $("#net_weight").val().replace(/,/g, '');
-    var price1 = $("#price1").val().replace(/,/g, '');
-    var price2 = $("#price2").val().replace(/,/g, '');
+    var kilo_bales = $("#kilo_bales").val().replace(/,/g, '');
+    var price = $("#price").val().replace(/,/g, '');
     var less = $("#cash_advance").val().replace(/,/g, '');
 
 
-    bales_compute(entry, net, price1, price2, less);
+    bales_compute(entry, net, kilo_bales, price, less);
 
 };
 </script>

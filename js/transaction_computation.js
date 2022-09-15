@@ -7,8 +7,7 @@ function CopraComputation(gross, tare, dust, discount, rese1, rese2, less) {
     $("#net").val(nf.format(gross - tare));
 
 
-    $("#new").val(Math.round((((dust / 100) * +$("#net").val()
-        .replace(/,/g, ''))).toLocaleString()));
+    $("#new").val(((($("#net").val().replace(/,/g, '') * (dust /100))).toLocaleString()));
 
     $("#total-dust").val(((+$("#net").val().replace(/,/g, '') - +$("#new").val().replace(/,/g, '')))
         .toLocaleString());
