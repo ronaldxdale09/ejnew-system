@@ -4,7 +4,7 @@
 
     $contract = $_REQUEST['contract'];
 
-  $query = "SELECT * FROM wet_rubber_contract where contract_no= '$contract'";
+  $query = "SELECT * FROM rubber_contract where contract_no= '$contract'";
   $result = $con->query($query);
 
   $rowList = mysqli_fetch_array($result);

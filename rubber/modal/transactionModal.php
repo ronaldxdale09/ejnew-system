@@ -1,5 +1,5 @@
 <!-- Confirm Transaction -->
-<form action="function/rubber_purchase.php" id='newPurchase' method="POST">
+<form action="function/wet_rubber_purchase.php" id='newPurchase' method="POST">
     <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">

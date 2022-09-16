@@ -1,7 +1,7 @@
 <?php 
 
 
- $contract = mysqli_query($con, "SELECT  COUNT(*) from wet_rubber_contract  "); 
+ $contract = mysqli_query($con, "SELECT  COUNT(*) from rubber_contract  "); 
  $contractNo = mysqli_fetch_array($contract);
 
  $generate= sprintf("%'03d", $contractNo[0]+1);
@@ -45,7 +45,7 @@ select:invalid[multiple] {
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Purchase Contract</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Rubber | Purchase Contract</h5>
                 <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -69,7 +69,8 @@ select:invalid[multiple] {
                             <!--end  -->
                             <div class="col-6 col-md-6">
                                 <div class="input-group mb-1">
-                                    <input type="date" id="date" name="date" class='datepicker' value='<?php echo $dateNow?>' required>
+                                    <input type="date" id="date" name="date" class='datepicker'
+                                        value='<?php echo $dateNow?>' required>
                                 </div>
                             </div>
                             <!--  end-->
@@ -77,14 +78,39 @@ select:invalid[multiple] {
                     </div>
                     <center>
                         <div class="form-group">
-                            <label class="col-md-12">Seller</label>
-                            <div class="col-md-12">
-                                <select required="required" class='select_seller col-md-6' name='name' id='name'  >
-                                    <option disabled="disabled" selected="selected" value="" >Select Seller</option>
-                                    <?php echo $sellerList; ?>
-                                </select>
+                            <div class="row no-gutters">
+                                <div class="col-6 col-md-6">
+                                    <div class="input-group mb-12">
+                                        <label class="col-md-12">Seller</label>
+                                        <div class="col-md-12">
+                                            <select required="required" class='select_seller col-md-12' name='name'
+                                                id='name'>
+                                                <option disabled="disabled" selected="selected" value="">Select Seller
+                                                </option>
+                                                <?php echo $sellerList; ?>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!--end  -->
+                                <div class="col-6 col-md-6">
+                                    <div class="input-group mb-1">
+                                        <label class="col-md-12">Type</label>
+                                        <div class="col-md-12">
+                                            <select required="required" class='select_seller col-md-12' name='type'
+                                                id='type'>
+                                                <option disabled="disabled" selected="selected" value="">Select Type
+                                                 </option>
+                                                 <option  value="WET">WET</option>
+                                                 <option  value="BALES">BALES</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  end-->
                             </div>
-                            <br>
+                        </div>
                     </center>
                     <div class="form-group">
                         <div class="row no-gutters">
@@ -145,7 +171,7 @@ $('#newContract').on('shown.bs.modal', function() {
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Purchase Contract</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Rubber | Purchase Contract</h5>
                 <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -169,7 +195,8 @@ $('#newContract').on('shown.bs.modal', function() {
                             <!--end  -->
                             <div class="col-6 col-md-6">
                                 <div class="input-group mb-1">
-                                    <input type="date" id="date" name="date" class='datepicker' value='<?php echo $dateNow?>' required>
+                                    <input type="date" id="date" name="date" class='datepicker'
+                                        value='<?php echo $dateNow?>' required>
                                 </div>
                             </div>
                             <!--  end-->
@@ -177,15 +204,41 @@ $('#newContract').on('shown.bs.modal', function() {
                     </div>
                     <center>
                         <div class="form-group">
-                            <label class="col-md-12">Seller</label>
-                            <div class="col-md-8">
-                                <select required="required" class='contact_seller col-md-6' name='name' id='name'  >
-                                    <option disabled="disabled" selected="selected" value="" >Select Seller</option>
-                                    <?php echo $sellerList; ?>
-                                </select>
+                            <div class="row no-gutters">
+                                <div class="col-6 col-md-6">
+                                    <div class="input-group mb-12">
+                                        <label class="col-md-12">Seller</label>
+                                        <div class="col-md-12">
+                                            <select required="required" class='contact_seller col-md-12' name='name'
+                                                id='name'>
+                                                <option disabled="disabled" selected="selected" value="">Select Seller
+                                                </option>
+                                                <?php echo $sellerList; ?>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!--end  -->
+                                <div class="col-6 col-md-6">
+                                    <div class="input-group mb-1">
+                                        <label class="col-md-12">Type</label>
+                                        <div class="col-md-12">
+                                            <select required="required" class='contact_seller col-md-12' name='type'
+                                                id='type'>
+                                                <option disabled="disabled" selected="selected" value="">Select Type
+                                                 </option>
+                                                 <option  value="WET">WET</option>
+                                                 <option  value="BALES">BALES</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  end-->
                             </div>
-                            <br>
+                        </div>
                     </center>
+                    <br>
                     <div class="form-group">
                         <div class="row no-gutters">
                             <div class="col-12 col-sm-5 col-md-12">

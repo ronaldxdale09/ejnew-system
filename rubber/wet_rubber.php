@@ -8,13 +8,13 @@ if (isset($_GET['view'])) {
     $_SESSION['transaction'] ='ONGOING';
     $view = $_GET['view'];
 
-    $sql = mysqli_query($con, "SELECT  * from wet_rubber_transaction where invoice='$view'  ");
+    $sql = mysqli_query($con, "SELECT  * from rubber_transaction where invoice='$view'  ");
     $record = mysqli_fetch_array($sql);
 
     $invoiceCount = $record['invoice'];
     $today= $record['date'];
 
-    $contract = "SELECT * FROM wet_rubber_contract where status='PENDING' OR status='UPDATED' ";
+    $contract = "SELECT * FROM rubber_contract where type='WET' AND status='PENDING' OR status='UPDATED' ";
     $c_result = mysqli_query($con, $contract);
     $contractList = "";
     while ($arr = mysqli_fetch_array($c_result)) {
@@ -44,7 +44,7 @@ if (isset($_GET['view'])) {
 $_SESSION['transaction'] ='ONGOING';
 //seller list
 
-$contract = "SELECT * FROM wet_rubber_contract where status='PENDING' OR status='UPDATED' ";
+$contract = "SELECT * FROM rubber_contract where type='WET' AND status='PENDING' OR status='UPDATED' ";
 $c_result = mysqli_query($con, $contract);
 $contractList = "";
 while ($arr = mysqli_fetch_array($c_result)) {
@@ -68,7 +68,7 @@ while ($arr = mysqli_fetch_array($result)) {
         '<option value="' .$arr["name"] .'">'.$arr["name"] ."</option>";
 }
 
-$invoice = mysqli_query($con, "SELECT  COUNT(*) from wet_rubber_transaction  ");
+$invoice = mysqli_query($con, "SELECT  COUNT(*) from rubber_transaction  ");
 $getinvoice = mysqli_fetch_array($invoice);
 
 $invoiceCount = sprintf("%'03d", $getinvoice[0]+1);
@@ -93,7 +93,7 @@ $today = $year . "-" . $month . "-" . $day;
                         <div class="row align-items-center">
                             <div class="col-4">
                                 <br>
-                                <h4 class="page-title"><B>WET RUBBER PURCHASING </b></h4>
+                                <h2 class="page-title"><B>  <font color="#0C0070"> WET RUBBER </font>  <font color="#046D56"> PURCHASING  </font> </b></h2>
                             </div>
                             <div class="col-7">
                                 <div class="text-end upgrade-btn">
@@ -518,8 +518,8 @@ $today = $year . "-" . $month . "-" . $day;
     </div>
     </div>
 </body>
-<script type="text/javascript" src="js/rubber.js"></script>
-<script type="text/javascript" src="js/wet_rubber_computation.js"></script>
+<script type="text/javascript" src="js/getWords.js"></script>
+<script type="text/javascript" src="js/rubber_computation.js"></script>
 
 </html>
 

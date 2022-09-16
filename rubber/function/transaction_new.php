@@ -13,7 +13,7 @@
                                 $results = mysqli_query($con, $query);
                                    
                                     if ($results) {
-                                        header("Location: ../wet_rubber.php");
+                                        header("Location: ../rubber.php");
                                         $_SESSION['seller']= "successful";
                                         exit();
                                     } else {
@@ -34,12 +34,12 @@
                                     $price_kg =str_replace( ',', '', $_POST['ca']);
         
         
-                                        $query = "INSERT INTO wet_rubber_contract (contract_no,date,seller,contract_quantity,balance,status,price) 
-                                                VALUES ('$contract','$date','$name','$quantity','$quantity','$status',' $price_kg')";
+                                        $query = "INSERT INTO rubber_contract (contract_no,date,seller,contract_quantity,balance,status,price,type) 
+                                                VALUES ('$contract','$date','$name','$quantity','$quantity','$status',' $price_kg','WET')";
                                         $results = mysqli_query($con, $query);
                                            
                                             if ($results) {
-                                                header("Location: ../wet_rubber.php");
+                                                header("Location: ../rubber.php");
                                                 $_SESSION['seller']= "successful";
                                                 exit();
                                             } else {
@@ -63,8 +63,8 @@
                                             $new_total_ca = $seller_ca + $amount;
                 
                 
-                                                $query = "INSERT INTO wet_rubber_cashadvance (date,seller,category,amount,status) 
-                                                        VALUES ('$date','$seller','$category','$amount','PENDING')";
+                                                $query = "INSERT INTO rubber_cashadvance (date,seller,category,amount,status,type) 
+                                                        VALUES ('$date','$seller','$category','$amount','PENDING','WET')";
                                                 $results = mysqli_query($con, $query);
                 
                                                 $query = "UPDATE  rubber_seller SET cash_advance = '$new_total_ca' where name='$seller'  ";
@@ -72,7 +72,7 @@
                                                    
                                                     if ($results) {
                 
-                                                        header("Location: ../wet_rubber.php");
+                                                        header("Location: ../rubber.php");
                                                         $_SESSION['copra_ca']= "successful";
                 
                                                     } else {

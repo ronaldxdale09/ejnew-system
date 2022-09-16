@@ -6,7 +6,7 @@
 
 
      // TOTAL CASH ADVANCE
-     $CA_count = mysqli_query($con,"SELECT * FROM wet_rubber_cashadvance ");
+     $CA_count = mysqli_query($con,"SELECT * FROM rubber_cashadvance ");
      $ca_no=mysqli_num_rows($CA_count);
 
      
@@ -104,7 +104,9 @@
                                                     <th width="10%">ID</th>
                                                     <th width="15%">Name</th>
                                                     <th scope="col">Address</th>
-                                                    <th scope="col">Cash Advance</th>
+                                                    <th scope="col">WET CA</th>
+                                                    <th scope="col">Bales CA</th>
+                                                    <th scope="col">Total CA</th>
                                                     <th scope="col">Action</th>
                                                 </tr>
                                             </thead>
@@ -114,7 +116,12 @@
                                                     <td> <?php echo $row['name']?> </td>
                                                     <td> <?php echo $row['address']?></td>
                                                     <td>₱ <?php echo number_format($row['cash_advance']) ?> </td>
-
+                                                    <td>₱ <?php echo number_format($row['bales_cash_advance']) ?> </td>
+                                                    <td>₱ <?php 
+                                                    
+                                                    $total_ca = $row['bales_cash_advance'] + $row['cash_advance'];
+                                                    
+                                                    echo number_format($total_ca) ?> </td>
                                                     <td>
                                                         <a href="seller_profile.php?view=<?php echo $row['id']; ?>"
                                                             class="btn btn-primary ">
@@ -137,6 +144,6 @@
 </body>
 
 </html> <?php
-include('modal/copra/copra_cashadvanceModal.php');
+include('modal/cashadvanceModal.php');
 ?>
 <script type="text/javascript" src="js/copra-ca.js"></script>

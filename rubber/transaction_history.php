@@ -72,7 +72,7 @@
                                     <div class="table-responsive">
                                         <table class="table" id='transaction_record'>
                                             <?php
-                                    $record  = mysqli_query($con, "SELECT * from wet_rubber_transaction ORDER BY id DESC  "); ?>
+                                    $record  = mysqli_query($con, "SELECT * from rubber_transaction ORDER BY id DESC  "); ?>
                                             <thead class="table-dark">
                                                 <tr>
                                                     <th scope="col">Invoice</th>

@@ -5,7 +5,7 @@
  
 
    $getMonthTotal  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(balance) as month_total 
-   from wet_rubber_contract  group by year(date), month(date) ORDER BY ID DESC");
+   from rubber_contract  group by year(date), month(date) ORDER BY ID DESC");
    $sumPurchaced_Copra = mysqli_fetch_array($getMonthTotal);
 
    $month = date("F");
@@ -15,7 +15,7 @@ $year = date("Y");
 //    $dateObj   = DateTime::createFromFormat('!m', $monthNum);
 //    $monthName = $dateObj->format('F');
      //PENDING CONTRACT
-     $pendingContract_count = mysqli_query($con,"SELECT * FROM wet_rubber_contract where status='PENDING' OR status='UPDATED'");
+     $pendingContract_count = mysqli_query($con,"SELECT * FROM rubber_contract where status='PENDING' OR status='UPDATED'");
      $contract=mysqli_num_rows($pendingContract_count);
 
 
@@ -82,7 +82,7 @@ $year = date("Y");
                                                 <i class="fa fa-add" aria-hidden="true"></i> NEW CONTRACT </button>
                                         </div>
                                         <div class="col">
-                                           <h5> Date Filter</h5>
+                                            <h5> Date Filter</h5>
                                         </div>
                                         <div class="col-3">
                                             <input type="text" id="min" name="min" class="form-control"
@@ -102,7 +102,7 @@ $year = date("Y");
 
                                     <div class="table-responsive">
                                         <table class="table" id='contractTable'> <?php
-                                    $results  = mysqli_query($con, "SELECT * from wet_rubber_contract WHERE status='PENDING' OR status='UPDATED' "); 
+                                    $results  = mysqli_query($con, "SELECT * from rubber_contract WHERE status='PENDING' OR status='UPDATED' "); 
                                     
                                     ?> <thead class="table-dark">
                                                 <tr>
@@ -114,7 +114,7 @@ $year = date("Y");
                                                     <th scope="col">Balance</th>
                                                     <th scope="col">₱/KG</th>
                                                     <th scope="col">Status</th>
-                                       
+                                                    <th scope="col">Type</th>
                                                 </tr>
                                             </thead>
                                             <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
@@ -130,7 +130,17 @@ $year = date("Y");
                                                                 class="badge bg-success"><?php echo $row['status']?></span>
                                                         </h5>
                                                     </td>
-                                                 
+                                                    <td><?php if ($row['type']=='BALES') {
+                                                            echo '<span class="badge bg-dark">'.$row['type'].'';
+                                                    }
+                                                    else {
+                                                        echo '<span class="badge bg-secondary">'.$row['type'].'';
+                                                    }
+                                                    
+                                                    
+                                                    ?>
+
+                                                        </span></td>
                                                 </tr> <?php } ?> </tbody>
                                         </table>
                                     </div>
@@ -186,19 +196,19 @@ $(document).ready(function() {
         buttons: [{
                 extend: 'excelHtml5',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4,5,6,7]
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7]
                 }
             },
             {
                 extend: 'pdfHtml5',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4,5,6,7]
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7]
                 }
             },
             {
                 extend: 'print',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4,5,6,7]
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7]
                 }
             },
 

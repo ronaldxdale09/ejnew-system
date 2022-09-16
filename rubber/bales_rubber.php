@@ -8,13 +8,13 @@ if (isset($_GET['view'])) {
     $_SESSION['transaction'] ='ONGOING';
     $view = $_GET['view'];
 
-    $sql = mysqli_query($con, "SELECT  * from wet_rubber_transaction where invoice='$view'  ");
+    $sql = mysqli_query($con, "SELECT  * from rubber_transaction where invoice='$view'  ");
     $record = mysqli_fetch_array($sql);
 
     $invoiceCount = $record['invoice'];
     $today= $record['date'];
 
-    $contract = "SELECT * FROM wet_rubber_contract where status='PENDING' OR status='UPDATED' ";
+    $contract = "SELECT * FROM rubber_contract where type='BALES' AND status='PENDING' OR status='UPDATED' ";
     $c_result = mysqli_query($con, $contract);
     $contractList = "";
     while ($arr = mysqli_fetch_array($c_result)) {
@@ -44,7 +44,7 @@ if (isset($_GET['view'])) {
 $_SESSION['transaction'] ='ONGOING';
 //seller list
 
-$contract = "SELECT * FROM wet_rubber_contract where status='PENDING' OR status='UPDATED' ";
+$contract = "SELECT * FROM rubber_contract where type='BALES' AND  status='PENDING' OR status='UPDATED' ";
 $c_result = mysqli_query($con, $contract);
 $contractList = "";
 while ($arr = mysqli_fetch_array($c_result)) {
@@ -68,7 +68,7 @@ while ($arr = mysqli_fetch_array($result)) {
         '<option value="' .$arr["name"] .'">'.$arr["name"] ."</option>";
 }
 
-$invoice = mysqli_query($con, "SELECT  COUNT(*) from wet_rubber_transaction  ");
+$invoice = mysqli_query($con, "SELECT  COUNT(*) from rubber_transaction  ");
 $getinvoice = mysqli_fetch_array($invoice);
 
 $invoiceCount = sprintf("%'03d", $getinvoice[0]+1);
@@ -93,7 +93,8 @@ $today = $year . "-" . $month . "-" . $day;
                         <div class="row align-items-center">
                             <div class="col-4">
                                 <br>
-                                <h4 class="page-title"><B>BALES RUBBER PURCHASING </b></h4>
+                                <h2 class="page-title"><B>  <font color="#0C0070">  BALES RUBBER </font>  <font color="#046D56"> PURCHASING  </font> </b></h2>
+                         
                             </div>
                             <div class="col-7">
                                 <div class="text-end upgrade-btn">
@@ -340,9 +341,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                             <!-- new column -->
                                                             <div class="input-group mb-3">
                                                                 <input type="text" class="form-control" id='kilo_bales'
-                                                                    name='kilo_bales' onkeypress="return CheckNumeric()"
-                                                                    onkeyup="FormatCurrency(this)" tabindex="1"
-                                                                    autocomplete='off'  value='35'>
+                                                                    name='kilo_bales' readonly value='35' >
                                                                 <div class="input-group-append">
                                                                     <span class="input-group-text">Kg</span>
                                                                 </div>
@@ -359,8 +358,8 @@ $today = $year . "-" . $month . "-" . $day;
                                                                 </div>
                                                                 <input type="text" class="form-control" id='bales_qty'
                                                                     name='bales_qty' onkeypress="return CheckNumeric()"
-                                                                    onkeyup="FormatCurrency(this)" tabindex="2"
-                                                                    autocomplete='off' />
+                                                                    onkeyup="FormatCurrency(this)" tabindex="3"
+                                                                    autocomplete='off' readonly />
                                                                
                                                             </div>
                                                         </div>
@@ -402,7 +401,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                                 <input type="text" class="form-control"
                                                                     name='price' id='price'
                                                                     onkeypress="return CheckNumeric()"
-                                                                    onkeyup="FormatCurrency(this)" tabindex="7"
+                                                                    onkeyup="FormatCurrency(this)" tabindex="4"
                                                                     autocomplete='off' />
                                                             </div>
                                                         </div>
@@ -410,28 +409,17 @@ $today = $year . "-" . $month . "-" . $day;
                                                         <div class="col-6 col-md-4">
                                                             <!-- new column -->
                                                             <div class="input-group mb-3">
-
-                                                                <input type="text" style='text-align:right'
-                                                                    id='first-weight' class="form-control" readonly>
-                                                                <div class="input-group-append">
-                                                                    <span class="input-group-text">Kg</span>
-                                                                </div>
-                                                            </div>
-                                                            <!--  -->
-                                                        </div>
-
-                                                        <div class="col-6 col-md-4">
-                                                            <!-- new column -->
-                                                            <div class="input-group mb-3">
-                                                                <div class="input-group-prepend">
+                                                            <div class="input-group-prepend">
                                                                     <span class="input-group-text">₱</span>
                                                                 </div>
                                                                 <input type="text" style='text-align:right'
-                                                                    id='first_total' name='first_total'
-                                                                    class="form-control" readonly>
+                                                                    id='first_total' class="form-control" readonly>
+                                                                
                                                             </div>
                                                             <!--  -->
                                                         </div>
+
+                                                       
                                                     </div>
                                                 </div>
                                                 <!-- RASE 2-->
@@ -452,7 +440,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                                         Amount ₱</span>
                                                                 </div>
                                                                 <input type="text" class="form-control"
-                                                                    id='total-amount' name='total-amount'
+                                                                    id='total_amount' name='total_amount'
                                                                     onkeypress="return CheckNumeric()"
                                                                     onkeyup="FormatCurrency(this)" readonly />
 
@@ -497,7 +485,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                                         Paid ₱</span>
                                                                 </div>
                                                                 <input type="text" style='text-align:left'
-                                                                    name='amount-paid' id='amount-paid'
+                                                                    name='amount_paid' id='amount_paid'
                                                                     onkeypress="return CheckNumeric()"
                                                                     onkeyup="FormatCurrency(this)" class="form-control"
                                                                     readonly />
@@ -526,12 +514,12 @@ $today = $year . "-" . $month . "-" . $day;
     </div>
     </div>
 </body>
-<script type="text/javascript" src="js/bales_rubber.js"></script>
 
 </html>
 
 
-
+<script type="text/javascript" src="js/bales_rubber.js"></script>
+<script type="text/javascript" src="js/getWords.js"></script>
 <?php
 include "modal/viewTransactionModal.php";
 include "modal/transactionModal.php";
