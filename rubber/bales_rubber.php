@@ -522,8 +522,8 @@ $today = $year . "-" . $month . "-" . $day;
 <script type="text/javascript" src="js/getWords.js"></script>
 <?php
 include "modal/viewTransactionModal.php";
-include "modal/transactionModal.php";
-include "modal/TransactionModalScript.php";
+include "modal/balesModal.php";
+include "modal/balesModalScript.php";
 
 include "modal/contractModal.php";
 include "modal/cashadvanceModal.php";
