@@ -52,10 +52,8 @@
                                             </thead>
                                             <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
                                                     <td>
-                                                        <nobr> <img
-                                                                src="assets/img/avatar.png"
-                                                                alt="..." class="img img-fluid" width="65"
-                                                               >
+                                                        <nobr> <img src="assets/img/avatar.png" alt="..."
+                                                                class="img img-fluid" width="65">
                                                         </nobr>
                                                     </td>
                                                     <th scope="row"> <?php echo $row['code']?> </th>
@@ -77,6 +75,7 @@
                 </div>
             </div>
         </div>
+    </div>
 </body>
 
 </html>
@@ -87,7 +86,6 @@ include "modal/addseller_modal.php";
 ?>
 
 <script>
-
 $(document).ready(function() {
 
     var table = $('#sellerTable').DataTable({
@@ -123,4 +121,4 @@ $(document).ready(function() {
     });
 
 });
-    </script>
+</script>
