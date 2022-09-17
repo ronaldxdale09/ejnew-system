@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 27, 2022 at 05:11 AM
+-- Generation Time: Sep 17, 2022 at 11:04 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.29
 
@@ -529,6 +529,49 @@ INSERT INTO `purchase_category` (`id`, `category`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `rubber_cashadvance`
+--
+
+CREATE TABLE `rubber_cashadvance` (
+  `id` int(11) NOT NULL,
+  `seller` varchar(255) NOT NULL,
+  `amount` float NOT NULL,
+  `category` varchar(255) NOT NULL,
+  `date` varchar(255) NOT NULL,
+  `type` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rubber_contract`
+--
+
+CREATE TABLE `rubber_contract` (
+  `id` int(11) NOT NULL,
+  `contract_no` varchar(255) NOT NULL,
+  `seller` varchar(255) NOT NULL,
+  `contract_quantity` float NOT NULL,
+  `delivered` float NOT NULL,
+  `balance` float NOT NULL,
+  `date` varchar(255) NOT NULL,
+  `price` float NOT NULL,
+  `status` varchar(10) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `rubber_contract`
+--
+
+INSERT INTO `rubber_contract` (`id`, `contract_no`, `seller`, `contract_quantity`, `delivered`, `balance`, `date`, `price`, `status`, `type`) VALUES
+(1, '2022-001', 'Mark Tubat', 1000, 1000, 0, '2022-08-19', 23, 'COMPLETED', NULL),
+(2, '2022-002', 'Mark Tubat', 6888, 0, 6888, '2022-08-20', 28, 'PENDING', 'WET'),
+(4, '2022-003', 'Mark Tubat', 1000, 0, 1000, '2022-09-15', 29, 'PENDING', 'BALES');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `rubber_seller`
 --
 
@@ -537,15 +580,50 @@ CREATE TABLE `rubber_seller` (
   `name` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
   `contact` varchar(255) DEFAULT NULL,
-  `cash_advance` float DEFAULT NULL
+  `cash_advance` float DEFAULT NULL,
+  `bales_cash_advance` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `rubber_seller`
 --
 
-INSERT INTO `rubber_seller` (`id`, `name`, `address`, `contact`, `cash_advance`) VALUES
-(1, 'Mark Tubat', 'Titay', '09352232051', 2323);
+INSERT INTO `rubber_seller` (`id`, `name`, `address`, `contact`, `cash_advance`, `bales_cash_advance`) VALUES
+(1, 'Mark Tubat', 'Titay', '09352232051', 0, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rubber_transaction`
+--
+
+CREATE TABLE `rubber_transaction` (
+  `id` int(11) NOT NULL,
+  `invoice` int(255) NOT NULL,
+  `contract` varchar(200) NOT NULL,
+  `date` varchar(200) NOT NULL,
+  `seller` varchar(255) NOT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `gross` float NOT NULL,
+  `tare` float NOT NULL,
+  `net_weight` float NOT NULL,
+  `price_1` float NOT NULL,
+  `price_2` float DEFAULT NULL,
+  `total_weight_1` float NOT NULL,
+  `total_weight_2` float NOT NULL,
+  `total_amount` float DEFAULT NULL,
+  `less` float DEFAULT NULL,
+  `amount_paid` float NOT NULL,
+  `amount_words` varchar(255) NOT NULL,
+  `type` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `rubber_transaction`
+--
+
+INSERT INTO `rubber_transaction` (`id`, `invoice`, `contract`, `date`, `seller`, `address`, `gross`, `tare`, `net_weight`, `price_1`, `price_2`, `total_weight_1`, `total_weight_2`, `total_amount`, `less`, `amount_paid`, `amount_words`, `type`) VALUES
+(7, 1, 'SPOT', '2022-09-16', 'Mark Tubat', 'Titay', 10000, 2000, 8000, 30, 0, 8000, 0, 240000, 0, 240000, '  peso/s', 'WET');
 
 -- --------------------------------------------------------
 
@@ -568,7 +646,7 @@ CREATE TABLE `seller` (
 --
 
 INSERT INTO `seller` (`id`, `code`, `name`, `address`, `cheque`, `contact`, `cash_advance`) VALUES
-(27, '001', 'dale ronald', 'San Jose Cawa Cawa', '', NULL, '1000'),
+(27, '001', 'dale ronald', 'San Jose Cawa Cawa', '', NULL, '0'),
 (28, '002', 'Kaxandra lyka', 'Viscaa', '', NULL, '0');
 
 -- --------------------------------------------------------
@@ -608,6 +686,13 @@ CREATE TABLE `transaction_record` (
   `rese_weight_2` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `transaction_record`
+--
+
+INSERT INTO `transaction_record` (`id`, `invoice`, `date`, `contract`, `seller`, `noSack`, `gross`, `tare`, `net_weight`, `dust`, `new_dust`, `total_dust`, `moisture`, `discount`, `total_moisture`, `net_res`, `first_res`, `sec_res`, `third_res`, `total_first_res`, `total_sec_res`, `total_third_res`, `total_amount`, `less`, `amount_paid`, `amount_words`, `rese_weight_1`, `rese_weight_2`) VALUES
+(119, '001', '2022-08-29', 'SPOT', 'dale ronald', 1000, 2333, 1, 2332, 1, 0, 2332, 13, 8.1, -189, 2143, 27, 0, 0, 57861, 0, 0, 57861, 1000, 56861, 'Fifty Six Thousand Eight Hundred Sixty One peso/s', 2143, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -630,83 +715,6 @@ INSERT INTO `users` (`id`, `username`, `password`, `type`) VALUES
 (2, 'ledger', 'ledger', 'finance'),
 (3, 'rubber', 'rubber', 'rubber'),
 (4, 'copra', 'copra', 'copra');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `wet_rubber_cashadvance`
---
-
-CREATE TABLE `wet_rubber_cashadvance` (
-  `id` int(11) NOT NULL,
-  `seller` varchar(255) NOT NULL,
-  `amount` float NOT NULL,
-  `category` varchar(255) NOT NULL,
-  `date` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `wet_rubber_contract`
---
-
-CREATE TABLE `wet_rubber_contract` (
-  `id` int(11) NOT NULL,
-  `contract_no` varchar(255) NOT NULL,
-  `seller` varchar(255) NOT NULL,
-  `contract_quantity` float NOT NULL,
-  `delivered` float NOT NULL,
-  `balance` float NOT NULL,
-  `date` varchar(255) NOT NULL,
-  `price` float NOT NULL,
-  `status` varchar(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `wet_rubber_contract`
---
-
-INSERT INTO `wet_rubber_contract` (`id`, `contract_no`, `seller`, `contract_quantity`, `delivered`, `balance`, `date`, `price`, `status`) VALUES
-(1, '2022-001', 'Mark Tubat', 1000, 1000, 0, '2022-08-19', 23, 'COMPLETED'),
-(2, '2022-002', 'Mark Tubat', 6888, 0, 6888, '2022-08-20', 28, 'PENDING');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `wet_rubber_transaction`
---
-
-CREATE TABLE `wet_rubber_transaction` (
-  `id` int(11) NOT NULL,
-  `invoice` int(255) NOT NULL,
-  `contract` varchar(200) NOT NULL,
-  `date` varchar(200) NOT NULL,
-  `seller` varchar(255) NOT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `gross` float NOT NULL,
-  `tare` float NOT NULL,
-  `net_weight` float NOT NULL,
-  `price_1` float NOT NULL,
-  `price_2` float DEFAULT NULL,
-  `total_weight_1` float NOT NULL,
-  `total_weight_2` float NOT NULL,
-  `total_amount` float DEFAULT NULL,
-  `less` float DEFAULT NULL,
-  `amount_paid` float NOT NULL,
-  `amount_words` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `wet_rubber_transaction`
---
-
-INSERT INTO `wet_rubber_transaction` (`id`, `invoice`, `contract`, `date`, `seller`, `address`, `gross`, `tare`, `net_weight`, `price_1`, `price_2`, `total_weight_1`, `total_weight_2`, `total_amount`, `less`, `amount_paid`, `amount_words`) VALUES
-(1, 1, 'SPOT', '2022-08-20', 'Mark Tubat', 'Titay', 232323, 122334, 109989, 23, 0, 109989, 0, 2529750, 0, 2529750, 'Two Million Five Hundred Twenty Nine Thousand Seven Hundred Forty Seven peso/s'),
-(2, 2, 'SPOT', '2022-08-20', 'Mark Tubat', 'Titay', 2971, 0, 2971, 28, 0, 2971, 0, 83188, 0, 83188, 'Eighty Three Thousand One Hundred Eighty Eight peso/s'),
-(3, 3, 'SPOT', '2022-08-20', 'Mark Tubat', 'Titay', 5777, 34, 5743, 23, 0, 543, 0, 12489, 1000, 11489, 'Eleven Thousand Four Hundred Eighty Nine peso/s'),
-(4, 4, '2022-001', '2022-08-20', 'Mark Tubat', 'Titay', 10000, 23, 9977, 23, 1, 1000, 8977, 31977, 1000, 30977, 'Thirty   Thousand Nine Hundred Seventy Seven peso/s'),
-(5, 5, 'SPOT', '2022-08-20', 'Mark Tubat', 'Titay', 10000, 10, 9990, 23, 0, 9990, 0, 229770, 0, 229770, 'Two Hundred Twenty Nine Thousand Seven Hundred Seventy   peso/s');
 
 --
 -- Indexes for dumped tables
@@ -779,9 +787,21 @@ ALTER TABLE `purchase_category`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `rubber_contract`
+--
+ALTER TABLE `rubber_contract`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `rubber_seller`
 --
 ALTER TABLE `rubber_seller`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `rubber_transaction`
+--
+ALTER TABLE `rubber_transaction`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -803,18 +823,6 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `wet_rubber_contract`
---
-ALTER TABLE `wet_rubber_contract`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `wet_rubber_transaction`
---
-ALTER TABLE `wet_rubber_transaction`
-  ADD PRIMARY KEY (`id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -828,7 +836,7 @@ ALTER TABLE `category_expenses`
 -- AUTO_INCREMENT for table `contract_purchase`
 --
 ALTER TABLE `contract_purchase`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `copra_cashadvance`
@@ -885,10 +893,22 @@ ALTER TABLE `purchase_category`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `rubber_contract`
+--
+ALTER TABLE `rubber_contract`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `rubber_seller`
 --
 ALTER TABLE `rubber_seller`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `rubber_transaction`
+--
+ALTER TABLE `rubber_transaction`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `seller`
@@ -900,25 +920,13 @@ ALTER TABLE `seller`
 -- AUTO_INCREMENT for table `transaction_record`
 --
 ALTER TABLE `transaction_record`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `wet_rubber_contract`
---
-ALTER TABLE `wet_rubber_contract`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `wet_rubber_transaction`
---
-ALTER TABLE `wet_rubber_transaction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
