@@ -65,17 +65,25 @@ $('#confirm').click(function() {
         // purchase info
 
         $('#m_entry').val($("#entry").val());
-        $('#m_net').val($("#net_weight").val());
+        $('#m_net_weight_1').val($("#net_weight_1").val());
+        $('#m_net_weight_2').val($("#net_weight_2").val());
 
         
         $('#m_drc').val($("#drc").val());
-        $('#m_kilo_bales').val($("#kilo_bales").val());
-        $('#m_bales_qty').val($("#bales_qty").val());
-
+        $('#m_kilo_bales_1').val($("#kilo_bales_1").val());
+        $('#m_kilo_bales_2').val($("#kilo_bales_2").val());
 
         
+        $('#m_total_bales_1').val($("#total_bales_1").val());
+        $('#m_total_bales_2').val($("#total_bales_2").val());
+
         
-        $('#m_1price').val($("#price").val());
+        $('#m_price_1').val($("#price_1").val());
+        $('#m_price_2').val($("#price_2").val());
+       
+
+
+
 
         $('#m_total_first').val($("#first_total").val());
 
@@ -175,38 +183,38 @@ $('#receiptBtn').click(function() {
         var data = $tr.children("td").map(function() {
             return $(this).text();
         }).get();
-        $('#r_invoice').val($("#invoice").val());
-        $('#r_name').val($("#name").val());
-        $('#r_date').val($("#date").val());
-        $('#r_address').val($("#address").val());
-        $('#r_contract').val($("#contract").val());
+        // $('#r_invoice').val($("#invoice").val());
+        // $('#r_name').val($("#name").val());
+        // $('#r_date').val($("#date").val());
+        // $('#r_address').val($("#address").val());
+        // $('#r_contract').val($("#contract").val());
 
-        $('#r_quantity').val($("#quantity").val());
-        $('#r_balance').val($("#balance").val());
+        // $('#r_quantity').val($("#quantity").val());
+        // $('#r_balance').val($("#balance").val());
 
-        // purchase info
+        // // purchase info
       
-        $('#r_gross').val($("#gross").val());
-        $('#r_tare').val($("#tare").val());
-        $('#r_net').val($("#net").val());
+        // $('#r_gross').val($("#gross").val());
+        // $('#r_tare').val($("#tare").val());
+        // $('#r_net').val($("#net").val());
 
        
-        $('#r_1price').val($("#price").val());
-        $('#r_2price').val($("#sec_price").val());
+        // $('#r_1price').val($("#price").val());
+        // $('#r_2price').val($("#sec_price").val());
       
-        // total res
+        // // total res
 
-        $('#r_weight_1').val($("#first-weight").val());
-        $('#r_weight_2').val($("#second-weight").val());
+        // $('#r_weight_1').val($("#first-weight").val());
+        // $('#r_weight_2').val($("#second-weight").val());
 
-        $('#r_total_first').val($("#first_total").val());
-        $('#r_total_sec').val($("#sec_total").val());
+        // $('#r_total_first').val($("#first_total").val());
+        // $('#r_total_sec').val($("#sec_total").val());
        
-        // 
-        $('#r_tota_amount').val($("#tota_amount").val());
-        $('#r_less').val($("#cash_advance").val());
-        $('#r_total-paid').val($("#amount_paid").val());
-        $('#r_total-words').val($("#amount-paid-words").val());
+        // // 
+        // $('#r_tota_amount').val($("#tota_amount").val());
+        // $('#r_less').val($("#cash_advance").val());
+        // $('#r_total-paid').val($("#amount_paid").val());
+        // $('#r_total-words').val($("#amount-paid-words").val());
 
     }
 

@@ -526,7 +526,7 @@ $today = $year . "-" . $month . "-" . $day;
 
 
 <?php
-include "modal/viewTransactionModal.php";
+
 include "modal/transactionModal.php";
 include "modal/wetModalScript.php";
 

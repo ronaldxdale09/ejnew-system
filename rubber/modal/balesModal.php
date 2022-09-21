@@ -423,7 +423,7 @@ $(document).ready(function() {
 $(document).ready(function() {
     $('#print_receipt').click(function() {
 
-        var nw = window.open("voucher/print_receipt.php", "_blank",
+        var nw = window.open("voucher/bales_receipt.php", "_blank",
             "height=623,width=812")
 
 
