@@ -1,12 +1,13 @@
 
 
 <?php 
- include('../db.php');
+ include('db.php');
                         if (isset($_POST['submit'])) {
-                            $date = $_POST['date'];
-                            $seller = $_POST['seller'];
-                            $category = $_POST['ca_category'];
-                            $amount = str_replace(',', '', $_POST['ca_amount']);
+                           echo  $date = $_POST['date'];
+                           echo $seller = $_POST['name'];
+                           echo $category = $_POST['ca_category'];
+                           echo $type = $_POST['type'];
+                           echo  $amount = str_replace(',', '', $_POST['ca_amount']);
 
                             //select seller ca
                             $sql=mysqli_query($con,"SELECT * FROM seller WHERE name='$seller' ");
@@ -17,16 +18,22 @@
                             $new_total_ca = $seller_ca + $amount;
 
 
-                                $query = "INSERT INTO wet_rubber_cashadvance (date,seller,category,amount) 
-                                        VALUES ('$date','$seller','$category','$amount')";
+                                $query = "INSERT INTO rubber_cashadvance (date,seller,category,amount,type) 
+                                        VALUES ('$date','$seller','$category','$amount',$type)";
                                 $results = mysqli_query($con, $query);
 
-                                $query = "UPDATE  rubber_seller SET cash_advance = '$new_total_ca' where name='$seller'  ";
+                                if ($type == 'WET'){
+                                    $query = "UPDATE  rubber_seller SET cash_advance = '$new_total_ca' where name='$seller' ";
+                                }
+                                else {
+                                    $query = "UPDATE  rubber_seller SET bales_cash_advance = '$new_total_ca' where name='$seller' ";
+                                }
+                            
                                 $results = mysqli_query($con, $query);
                                    
                                     if ($results) {
 
-                                        header("Location: ../..//copra-ca.php");
+                                        header("Location: ../cash-advance.php");
                                         $_SESSION['copra_ca']= "successful";
 
                                     } else {

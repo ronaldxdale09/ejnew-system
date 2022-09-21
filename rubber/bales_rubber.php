@@ -111,9 +111,7 @@ $today = $year . "-" . $month . "-" . $day;
                                     <button type="button" class="btn btn-dark text-white" data-toggle="modal"
                                         data-target="#newContract1"><span class="fa fa-plus text-white"></span>
                                         New Contract</button>
-                                    <button type="button" class="btn btn-secondary text-white" data-toggle="modal"
-                                        data-target=".viewTransaction"><span class="fa fa-book text-white"></span>
-                                        Transaction History</button>
+                                
 
                                 </div>
                             </div>
@@ -331,9 +329,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                         <div class="col-6 col-md-3">
                                                             <label class="col-md-12">Bales</label>
                                                             <input type="text" class="form-control" id='total_bales_1'
-                                                                name='total_bales_1' onkeypress="return CheckNumeric()"
-                                                                onkeyup="FormatCurrency(this)" tabindex="2"
-                                                                autocomplete='off'  readonly/>
+                                                                name='total_bales_1'  readonly/>
                                                         </div>
                                                         <!--  end-->
                                                     </div>
@@ -375,9 +371,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                         <div class="col-6 col-md-3">
                                                             <label class="col-md-12">Bales</label>
                                                             <input type="text" class="form-control" id='total_bales_2'
-                                                                name='total_bales_2' onkeypress="return CheckNumeric()" 
-                                                                onkeyup="FormatCurrency(this)" tabindex="2" disabled
-                                                                autocomplete='off'  readonly/>
+                                                                name='total_bales_2' readonly/>
                                                         </div>
                                                         <!--  end-->
                                                     </div>

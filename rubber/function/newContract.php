@@ -25,6 +25,6 @@
                                     } else {
                                         echo "ERROR: Could not be able to execute $query. ".mysqli_error($con);
                                     }
-                                //exit();
+                                exit();
                                 }
  ?>

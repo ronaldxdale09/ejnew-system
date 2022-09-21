@@ -126,6 +126,7 @@ Address: Test Address</p>
         <th>Entry Weight</th>
         <th>DRC</th>
         <th>Net Weight</th>
+        <th>Bales</th>
         <th>Dry Price</th>
         <th>Amount</th>
     </tr>
@@ -134,6 +135,9 @@ Address: Test Address</p>
         <td style='width:10%'>50%</td>
         <td>1,295 Kg<br>
             4,4766 Kg</td>
+
+            <td>123<br>
+            123</td>
 
         <td style='width:10%'>Php 50.00<br>
             Php 50.00</td>
@@ -147,7 +151,7 @@ Address: Test Address</p>
         <td style='width:15%'></td>
         <td style='width:10%'>Total :</td>
         <td>1,295 Kg<br></td>
-
+        <td ></td>
         <td style='width:10%'>Total :</td>
 
         <td>233232</td>

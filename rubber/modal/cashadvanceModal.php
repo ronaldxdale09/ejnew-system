@@ -26,7 +26,7 @@ $sellerList .= '
                 </button>
             </div>
             <div class="modal-body">
-                <form action="function/copra/newCA.php" method="POST">
+                <form action="function/newCA.php" method="POST">
                     <!-- ... START -->
                     <div class="form-group">
                         <div class="row no-gutters">
@@ -156,10 +156,10 @@ $('#copraCashAdvance').on('shown.bs.modal', function() {
                                         style='width:200px' required>
                                         <option disabled="disabled" selected="selected" value="">Select Category
                                         </option>
-                                        <option value='copra'>Copra</option>
-                                        <option value='ntc'>NTC</option>
-                                        <option value='trucking'>Trucking</option>
-                                        <option value='others'>Others</option>
+                                        <option value='Copra'>Copra</option>
+                                        <option value='NTC'>NTC</option>
+                                        <option value='Trucking'>Trucking</option>
+                                        <option value='Others'>Others</option>
                                         <option value='Rubber'>Rubber</option>
                                     </select>
 

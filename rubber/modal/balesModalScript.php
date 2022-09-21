@@ -63,11 +63,12 @@ $('#confirm').click(function() {
         $('#m_balance').val($("#balance").val());
 
         // purchase info
-
+        
         $('#m_entry').val($("#entry").val());
         $('#m_net_weight_1').val($("#net_weight_1").val());
         $('#m_net_weight_2').val($("#net_weight_2").val());
 
+        $('#m_total_net_weight').val($("#total_net_weight").val());
         
         $('#m_drc').val($("#drc").val());
         $('#m_kilo_bales_1').val($("#kilo_bales_1").val());
@@ -89,7 +90,7 @@ $('#confirm').click(function() {
 
 
         // 
-        $('#m_tota_amount').val($("#total_amount").val());
+        $('#m_total_amount').val($("#total_amount").val());
         $('#m_less').val($("#cash_advance").val());
         $('#m_total-paid').val($("#amount_paid").val());
         $('#m_total-words').val($("#amount-paid-words").val());

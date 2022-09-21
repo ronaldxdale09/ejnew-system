@@ -2,7 +2,14 @@ function currencyFormat(num) {
     return num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "")
 }
 
+function getDecimalPart(num) {
+    if (Number.isInteger(num)) {
+        return 0;
+    }
 
+    const decimalStr = num.toString().split('.')[1];
+    return Number(decimalStr);
+}
 
 function bales_compute(entry, net_1, net_2, kilo_bales_1, kilo_bales_2, price_1, price_2, less) {
     let nf = new Intl.NumberFormat('en-US');
@@ -18,11 +25,33 @@ function bales_compute(entry, net_1, net_2, kilo_bales_1, kilo_bales_2, price_1,
     $("#drc").val(drc.toFixed(2));
 
 
-    bales_1 = (((+net_1) / (+kilo_bales_1)));
-    $("#total_bales_1").val(nf.format(Math.floor(parseInt(bales_1))));
 
-    bales_2 = (((+net_2) / (+kilo_bales_2)));
-    $("#total_bales_2").val(nf.format(Math.floor(parseInt(bales_2))));
+    bales_1 = (Math.floor((+net_1) / (+kilo_bales_1)));
+    bales_1_decimal = (((+net_1) / (+kilo_bales_1)).toFixed(2));
+    excess_kilo_1 = (((+bales_1_decimal - (+bales_1)) * kilo_bales_1)).toFixed(0);
+
+    if (excess_kilo_1 != 0) {
+        total_bales_1 = (bales_1 + " Bales " + "& " + excess_kilo_1 + " Kg");
+    } else {
+        total_bales_1 = (bales_1 + " Bales ");
+    }
+
+    $("#total_bales_1").val(((total_bales_1)));
+
+
+
+    bales_2 = (Math.floor((+net_2) / (+kilo_bales_2)));
+    bales_2_decimal = (((+net_2) / (+kilo_bales_2)).toFixed(2));
+    excess_kilo_2 = (((+bales_2_decimal - (+bales_2)) * kilo_bales_2)).toFixed(0);
+
+    if (excess_kilo_2 != 0) {
+
+        total_bales_2 = (bales_2 + " Bales " + "& " + excess_kilo_2 + " Kg");
+    } else {
+        total_bales_2 = (bales_2 + " Bales ");
+    }
+
+    $("#total_bales_2").val(((total_bales_2)));
 
 
     first_total = (+price_1) * (+net_1);

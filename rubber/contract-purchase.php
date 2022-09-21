@@ -121,10 +121,10 @@ $year = date("Y");
                                                     <th scope="row"> <?php echo $row['date']?> </th>
                                                     <td> <?php echo $row['contract_no']?> </td>
                                                     <td> <?php echo $row['seller']?> </td>
-                                                    <td> <?php echo $row['contract_quantity']?> Kg</td>
-                                                    <td hidden> <?php echo $row['delivered']?> </td>
-                                                    <td> <?php echo $row['balance']?> Kg</td>
-                                                    <td>₱ <?php echo $row['price']?> </td>
+                                                    <td> <?php echo number_format($row['contract_quantity'])?> Kg</td>
+                                                    <td hidden> <?php echo number_format($row['delivered'])?> </td>
+                                                    <td> <?php echo number_format($row['balance'])?> Kg</td>
+                                                    <td>₱ <?php echo number_format($row['price'],2)?> </td>
                                                     <td>
                                                         <h5><span
                                                                 class="badge bg-success"><?php echo $row['status']?></span>
@@ -193,6 +193,9 @@ $(document).ready(function() {
     });
     var table = $('#contractTable').DataTable({
         dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
+        order: [
+            [1, 'desc']
+        ],
         buttons: [{
                 extend: 'excelHtml5',
                 exportOptions: {

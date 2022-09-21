@@ -107,9 +107,7 @@ $today = $year . "-" . $month . "-" . $day;
                                     <button type="button" class="btn btn-dark text-white" data-toggle="modal"
                                         data-target="#newContract1"><span class="fa fa-plus text-white"></span>
                                         New Contract</button>
-                                    <button type="button" class="btn btn-secondary text-white" data-toggle="modal"
-                                        data-target=".viewTransaction"><span class="fa fa-book text-white"></span>
-                                        Transaction History</button>
+                    
 
                                 </div>
                             </div>
@@ -262,7 +260,7 @@ $today = $year . "-" . $month . "-" . $day;
                                             <button type="button" class="btn btn-dark text-white receiptBtn"
                                                 id='receiptBtn'>
                                                 <span class="fa fa-print"></span> Print Receipt </button>
-                                            <button type="button" class="btn btn-secondary text-white vouchBtn"
+                                                <button type="button" class="btn btn-secondary text-white vouchBtn"
                                                 id='vouchBtn'>
                                                 <span class="fa fa-print"></span> Print Voucher </button>
 

@@ -1,5 +1,5 @@
 <!-- Confirm Transaction -->
-<form action="function/rubber_purchase.php" id='newPurchase' method="POST">
+<form action="function/bales_rubber_purchase.php" id='newPurchase' method="POST">
     <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -71,8 +71,8 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">₱</span>
                                         </div>
-                                        <input type="text" class="form-control" id='m_tota_amount'
-                                            name='m_tota_amount' onkeypress="return CheckNumeric()"
+                                        <input type="text" class="form-control" id='m_total_amount'
+                                            name='m_total_amount' onkeypress="return CheckNumeric()"
                                             onkeyup="FormatCurrency(this)" readonly />
                                     </div>
 
@@ -118,20 +118,24 @@
                     <!-- hidden -->
                 
                     <input name="m_entry" id="m_entry" hidden>
-                    <input name="m_net" id="m_net" hidden>
+                    <input name="m_net_weight_1" id="m_net_weight_1" hidden>
+                    <input name="m_net_weight_2" id="m_net_weight_2" hidden>
 
+                    <input name="m_total_net_weight" id="m_total_net_weight" hidden>
 
-                    <input name="m_kilo_bale" id="m_kilo_bale" hidden>        
-                    <input name="m_bales_qty" id="m_bales_qty" hidden>   
-                    <input name="m_excess" id="m_excess" hidden>   
+                    <input name="m_kilo_bales_1" id="m_kilo_bales_1" hidden>
+                    <input name="m_kilo_bales_2" id="m_kilo_bales_2" hidden>
 
-                    <input name="m_1price" id="m_1price" hidden>
-                    <input name="m_2price" id="m_2price" hidden>
+                    <input name="m_total_bales_1" id="m_total_bales_1" hidden>
 
+                    <input name="m_total_bales_2" id="m_total_bales_2" hidden>
 
-                    <input name="m_total_first" id="m_total_first"hidden >
-                    <input name="m_total_sec" id="m_total_sec" hidden>
+                    <input name="m_drc" id="m_drc" hidden>
 
+                    <input name="m_price_1" id="m_price_1" hidden>
+                    <input name="m_price_2" id="m_price_2" hidden>
+
+   
 
                     <input name="m_address" id="m_address" hidden>
                     <input name="m_quantity" id="m_quantity" hidden>
@@ -151,7 +155,7 @@
 </div>
 </div>
 <!--END Confirm Transaction -->
-<script>
+<!-- <script>
 $('#newPurchase').submit(function() {
     return false;
 });
@@ -182,7 +186,7 @@ $('#confirmPurchase').click(function() {
     });
 });
 // INPUT BOX VALIDATION
-</script>
+</script> -->
 
 
 
