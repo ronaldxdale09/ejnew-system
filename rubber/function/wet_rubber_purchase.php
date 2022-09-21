@@ -74,7 +74,7 @@
 
                             $total_ca = $seller_ca - $less;
                             
-                            $query = "UPDATE  rubber_seller SET cash_advance = '$total_ca' where name='$seller' AND type='WET' ";
+                            $query = "UPDATE  rubber_seller SET cash_advance = '$total_ca' where name='$seller'  ";
                             $results = mysqli_query($con, $query);
                             
 

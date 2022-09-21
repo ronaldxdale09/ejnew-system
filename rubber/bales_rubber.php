@@ -136,7 +136,7 @@ $today = $year . "-" . $month . "-" . $day;
                                             <div class="row">
                                                 <div class="col-sm-5">
                                                     <div class="form-group">
-                                                        <label class="col-md-12">Invoice</label>
+                                                        <label class="col-md-12">Reference #</label>
                                                         <div class="col-md-12">
                                                             <input type="number" name='invoice' id='invoice'
                                                                 value="<?php echo "$invoiceCount"; ?>"

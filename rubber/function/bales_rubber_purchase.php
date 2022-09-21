@@ -15,6 +15,7 @@
 
                             $net_weight_1 = str_replace( ',', '', $_POST['m_net_weight_1']);
                             $net_weight_2 = str_replace( ',', '', $_POST['m_net_weight_2']);
+                            $total_net_weight = str_replace( ',', '', $_POST['m_total_net_weight']);
                             
 
                             $kilo_bales_1 = str_replace( ',', '', $_POST['m_kilo_bales_1']);
@@ -23,6 +24,7 @@
                             $total_bales_1 = ($_POST['m_total_bales_1']);
                             $total_bales_2= ($_POST['m_total_bales_2']);
                             
+
                             
                             $drc= str_replace( ',', '', $_POST['m_drc']);
 
@@ -74,15 +76,16 @@
 
                             $total_ca = $seller_ca - $less;
                             
-                            $query = "UPDATE  rubber_seller SET cash_advance = '$total_ca' where name='$seller' AND type='WET' ";
+                            $query = "UPDATE  rubber_seller SET bales_cash_advance = '$total_ca' where name='$seller' ";
                             $results = mysqli_query($con, $query);
                             
 
                             $query = "INSERT INTO bales_transaction (
-                                invoice,contract,date,address,seller,entry,net_weight_1,net_weight_2,kilo_bales_1,kilo_bales_2,total_bales_1,total_bales_2,drc
-                                price_1,price_2,less,amount_paid,words_amount) 
-                                    VALUES ('$invoice','$contract','$date','$address','$seller','$gross','$tare','$net_weight','$first_price','$sec_price','$weight_1','$weight_2',
-                                    '$total_amount','$less','$amount_paid','$words_amount','WET')";
+                                invoice,contract,date,address,seller,entry,net_weight_1,net_weight_2,total_net_weight,kilo_bales_1,kilo_bales_2,total_bales_1,total_bales_2,drc,
+                                price_1,price_2,total_amount,less,amount_paid,words_amount) 
+                                    VALUES ('$invoice','$contract','$date','$address','$seller','$entry','$net_weight_1','$net_weight_2','$total_net_weight',
+                                    '$kilo_bales_1','$kilo_bales_2','$total_bales_1','$total_bales_2','$drc','$price_1','$price_2',
+                                    '$total_amount','$less','$amount_paid','$words_amount')";
 
 
 
@@ -99,11 +102,26 @@
 
                                     ///
                                 
-                                    $_SESSION['print_gross_weight']= $gross;
-                                    $_SESSION['print_tare']= $tare;
+                                    $_SESSION['print_entry']= $entry;
+                                    $_SESSION['print_net_weight_1']= $net_weight_1;
+                                    $_SESSION['print_net_weight_2']= $net_weight_2;
 
-                                    $_SESSION['print_net_weight'] = $net_weight;
-                                  
+                                    $_SESSION['print_total_net_weight']= $total_net_weight;
+
+
+                                    $_SESSION['print_kilo_bales_1']= $kilo_bales_1;
+                                    $_SESSION['print_kilo_bales_2']= $kilo_bales_2;
+
+
+                                    $_SESSION['print_total_bales_1']= $total_bales_1;
+                                    $_SESSION['print_total_bales_2']= $total_bales_2;
+
+                                    
+                                    $_SESSION['print_drc']= $drc;
+
+
+                                    $_SESSION['print_total_bales_2']= $total_bales_2;
+
                                     
                                     $_SESSION['print_price1'] = $first_price;
                                     $_SESSION['print_price2'] = $sec_price;
@@ -120,6 +138,9 @@
 
                                     $_SESSION['transaction'] = 'COMPLETED';
 
+                                    }
+                                    else {
+                                        echo "ERROR: Could not be able to execute $query. ".mysqli_error($con);
                                     }
                    
 
