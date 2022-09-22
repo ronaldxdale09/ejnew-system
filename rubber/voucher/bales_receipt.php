@@ -7,12 +7,13 @@
 <style>
 body {
     font-family: "Helvetica";
+    font-size: 12px;
 }
 
 p {
     padding: 0px;
     margin: 0px;
-    font-size: 13px;
+    font-size: 12px;
     letter-spacing: 3px;
     font-family: "Helvetica";
 
@@ -32,7 +33,7 @@ table.total {
 
 
 table.totalTable {
-    width: 20%;
+    width: 50%;
     background-color: #ffffff;
     border-collapse: collapse;
     border-width: 0.5px;
@@ -45,7 +46,8 @@ table.totalTable {
 
 table.totalTable td,
 table.totalTable th {
-
+    font-family: "Helvetica";
+    font-size: 12px;
     border-width: 0.5px;
     border-color: #1a1a1a;
     border-style: solid;
@@ -53,7 +55,9 @@ table.totalTable th {
 }
 
 table.GeneratedTable {
-    width: 50%;
+    font-family: "Helvetica";
+    font-size: 12px;
+    width: 100%;
     background-color: #ffffff;
     border-collapse: collapse;
     border-width: 0.5px;
@@ -64,6 +68,8 @@ table.GeneratedTable {
 
 table.GeneratedTable td,
 table.GeneratedTable th {
+    font-family: "Helvetica";
+    font-size: 12px;
     border-width: 0.5px;
     border-color: #1a1a1a;
     border-style: solid;
@@ -97,15 +103,15 @@ table.GeneratedTable thead {
 }
 
 .column {
-  float: left;
-  width: 17%;
+    float: left;
+    width: 17%;
 }
 
 /* Clear floats after the columns */
 .row:after {
-  content: "";
-  display: table;
-  clear: both;
+    content: "";
+    display: table;
+    clear: both;
 }
 </style>
 
@@ -120,44 +126,53 @@ Seller : Name</p>
 Address: Test Address</p>
 -------------------------------------</p>
 <br>
+<center>
+    <h2> LIQUIDATED DELIVERIES <h2>
+            <table class="GeneratedTable">
+                <tr>
+                    <th>Entry Weight</th>
+                    <th>DRC</th>
+                    <th>Bales</th>
+                    <th>Net Weight</th>
+                    <th>Dry Price</th>
+                    <th>Amount</th>
+                </tr>
+                <tr style='text-align: center; '>
+                    <td style='width:20%'>
+                        LOT # V. <br>
+                        Date Delivery
+                        <br>
+                        12,030
+                    </td>
+                    <td style='width:10%'> <br> <br> 50%</td>
+                    <td style='width:25%'> <br> <br> 37 Bales @ 35kg<br>
+                        143 Bales @ 33.33kg</td>
 
-<table class="GeneratedTable">
-    <tr>
-        <th>Entry Weight</th>
-        <th>DRC</th>
-        <th>Net Weight</th>
-        <th>Bales</th>
-        <th>Dry Price</th>
-        <th>Amount</th>
-    </tr>
-    <tr style='text-align: center; '>
-        <td style='width:15%'>12,030</td>
-        <td style='width:10%'>50%</td>
-        <td>1,295 Kg<br>
-            4,4766 Kg</td>
+                    <td> <br> <br> 1,295 Kg<br>
+                        4,4766 Kg</td>
 
-            <td>123<br>
-            123</td>
 
-        <td style='width:10%'>Php 50.00<br>
-            Php 50.00</td>
+                    <td style='width:15%'> <br> <br> Php 50.00<br>
+                        Php 50.00</td>
 
-        <td>Php 67,750<br>
-            Php 238,309.50 </td>
+                    <td style='width:20%'> <br> <br> Php 67,750<br>
+                        Php 238,309.50 </td>
 
-    </tr>
+                </tr>
 
-    <tr style='text-align: center; '>
-        <td style='width:15%'></td>
-        <td style='width:10%'>Total :</td>
-        <td>1,295 Kg<br></td>
-        <td ></td>
-        <td style='width:10%'>Total :</td>
+                <tr style='text-align: center; '>
+                    <td style='width:15%'></td>
 
-        <td>233232</td>
+                    <td></td>
+                    <td style='width:10%'>Total :</td>
+                    <td>1,295 Kg<br></td>
+                    <td style='width:10%'>Total :</td>
 
-    </tr>
-</table>
+                    <td>233232</td>
+
+                </tr>
+            </table>
+</center>
 <br>
 <!-- 
 <table class="total">
@@ -196,9 +211,9 @@ Address: Test Address</p>
 
 <br> <br><br>
 <div class="row">
-  <div class="column">PREPARED BY : _____________ </div>
-  <div class="column"> APPROVED BY : _____________</div>
-  <div class="column"> RECEIVED BY : _____________</div>
+    <div class="column">PREPARED BY : _____________ </div>
+    <div class="column"> APPROVED BY : _____________</div>
+    <div class="column"> RECEIVED BY : _____________</div>
 </div>
 <br>
 
