@@ -15,7 +15,7 @@
                                     <label> Date </label>
                                     <br>
                                     <input type="date" name="delivery_date" id="delivery_date" class="form-control"
-                                        style="font-size:18px;border: 2;font-weight:bold"  required>
+                                        style="font-size:18px;border: 2;font-weight:bold" required>
                                 </div>
                                 <div class="col-sm">
                                     <label> LOT #:</label>
@@ -112,9 +112,9 @@
                                         <span class="input-group-text" id="inputGroup-sizing-default"
                                             style='color:black;font-weight: bold;'>Date Delivery</span>
                                     </div>
-                                    <input type="text" style='text-align:right' name='m_delivery_date' id='m_delivery_date'
-                                        class="form-control" style='background-color:white;border:0px solid #ffffff;'
-                                        readonly>
+                                    <input type="text" style='text-align:right' name='m_delivery_date'
+                                        id='m_delivery_date' class="form-control"
+                                        style='background-color:white;border:0px solid #ffffff;' readonly>
                                 </div>
                             </div>
                             <!--end  -->
@@ -185,10 +185,53 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- end -->
                     </div>
                     <!-- end table -->
                     <input type="text" class="form-control" id='m_total-words' name='m_total-words' readonly />
+                    <hr>
+                    <div class="form-group">
+                        <div class="row no-gutters">
+                            <div class="col-12 col-sm-5 col-md-3">
+
+                                <div class="input-group mb-1">
+
+                                    <label style='font-size:15px' class="col-md-12">PREPARED BY :</label>
+                                    <div class="input-group mb-3">
+                                     
+                                        <input type="text" class="form-control" id='prepared_by' value='JANE QUINOL' required
+                                            name='prepared_by' />
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="col-6 col-md-4">
+
+                                <div class="input-group mb-1">
+
+                                    <label style='font-size:15px' class="col-md-12">APPROVED BY :</label>
+                                    <div class="input-group mb-3">
+                                    
+                                        <input type="text" class="form-control" id='approved_by' name='approved_by'  value='RICHARD NEW' required/>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!--  total dust-->
+                            <div class="col-6 col-md-4">
+                                <div class="input-group mb-1">
+
+                                    <label style='font-size:15px' class="col-md-12">RECEIVED BY :</label>
+                                    <div class="input-group mb-3">
+            
+                                        <input type="text" class="form-control" id='received_by' name='received_by' required/>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
                     <!-- hidden -->
 
                     <input name="m_entry" id="m_entry" hidden>
@@ -213,7 +256,7 @@
                     <input name="m_second_total" id="m_second_total" hidden>
 
 
-                    
+
                     <input name="m_address" id="m_address" hidden>
                     <input name="m_quantity" id="m_quantity" hidden>
                     <input name="m_balance" id="m_balance" hidden>
@@ -232,7 +275,7 @@
 </div>
 </div>
 <!--END Confirm Transaction -->
-<!-- <script>
+<script>
 $('#newPurchase').submit(function() {
     return false;
 });
@@ -252,7 +295,7 @@ $('#confirmPurchase').click(function() {
             });
 
 
-            
+
             document.getElementById("receiptBtn").click();
             $_SESSION['transaction'] =
                 'COMPLETED';
@@ -263,7 +306,7 @@ $('#confirmPurchase').click(function() {
     });
 });
 // INPUT BOX VALIDATION
-</script> -->
+</script>
 
 
 

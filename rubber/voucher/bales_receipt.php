@@ -14,7 +14,7 @@ p {
     padding: 0px;
     margin: 0px;
     font-size: 12px;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
     font-family: "Helvetica";
 
 
@@ -56,7 +56,7 @@ table.totalTable th {
 
 table.GeneratedTable {
     font-family: "Helvetica";
-    font-size: 12px;
+    font-size: 11px;
     width: 100%;
     background-color: #ffffff;
     border-collapse: collapse;
@@ -69,7 +69,7 @@ table.GeneratedTable {
 table.GeneratedTable td,
 table.GeneratedTable th {
     font-family: "Helvetica";
-    font-size: 12px;
+    font-size: 11px;
     border-width: 0.5px;
     border-color: #1a1a1a;
     border-style: solid;
@@ -80,11 +80,21 @@ table.GeneratedTable thead {
     background-color: #ffffff;
 }
 
+table.lastTable {
+    font-family: "Helvetica";
+    font-size: 12px;
+    width: 100%;
+    background-color: #ffffff;
+    border-collapse: collapse;
+    border-color: #1a1a1a;
+    color: #000000;
+}
+
 @media print {
     body {
-        font-size: 13pt;
+        font-size: 12pt;
         font-family: "Helvetica";
-        letter-spacing: 3px;
+        letter-spacing: 2px;
         padding-top: 72px;
         padding-bottom: 72px;
     }
@@ -114,16 +124,24 @@ table.GeneratedTable thead {
     clear: both;
 }
 </style>
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 
 Hji. Yusop Rubber Trading
 Quezon Blvd. Lamitan City, Basilan Province<br>
-RUBBER PURCHASE
+RUBBER PURCHASE <br>
 -------------------------------------
-
-Invoice : <?php echo  $_SESSION['print_invoice'] ?>-- -- Date: <?php echo  $_SESSION['print_date'] ?>
-Seller : <?php echo  $_SESSION['print_seller'] ?>
-Address: <?php echo  $_SESSION['print_address'] ?>
+<br>
+<table class="lastTable">
+  <tr>
+    <th>Invoice: <?php echo $_SESSION['print_invoice'] ?></th>
+    <th>Date: <?php echo  $_SESSION['print_date'] ?> </th>
+  
+  </tr>
+  
+</table>
+<br>
+Seller : <?php echo  $_SESSION['print_seller'] ?><br>
+Address: <?php echo  $_SESSION['print_address'] ?> <br>
 -------------------------------------
 <br>
 <center>
@@ -138,27 +156,65 @@ Address: <?php echo  $_SESSION['print_address'] ?>
                     <th>Amount</th>
                 </tr>
                 <tr style='text-align: center; '>
-                    <td style='width:20%'>
-                        <?php echo  $_SESSION['print_lot_number'] ?> <br>
+                    <td>
+                        LOT #<?php echo  $_SESSION['print_lot_number'] ?> <br>
                         <?php echo  $_SESSION['print_delivery'] ?>
-                        <br>
-                        <?php echo  $_SESSION['print_entry'] ?>
+                        <hr>
+                        <?php echo  number_format($_SESSION['print_entry']).' Kg' ?>
                     </td>
-                    <td style='width:10%'> <br> <br> <?php echo  $_SESSION['print_drc'] ?> </td>
-                    <td style='width:25%'> <br> <br> <?php echo  $_SESSION['print_total_bales_1'] ?> @
-                        <?php echo  $_SESSION['print_kilo_bales_1'] ?><br>
-                        <?php echo  $_SESSION['print_total_bales_2'] ?> @ <?php echo  $_SESSION['print_kilo_bales_2'] ?>
+                    <td style='width:10%'> <br> <br> <?php echo  $_SESSION['print_drc'] ?> %</td>
+
+                    <td style='width:25%'> <br> <br>
+
+                        <?php 
+                        if ($_SESSION['print_total_bales_2'] =='0 Bales ') {
+                            echo  $_SESSION['print_total_bales_1'].' @ '.$_SESSION['print_kilo_bales_1']; 
+                        } else {
+                            echo  $_SESSION['print_total_bales_1'].' @ '.$_SESSION['print_kilo_bales_1'].'<br>'; 
+                            echo  $_SESSION['print_total_bales_2'].' @ '.$_SESSION['print_kilo_bales_2']; 
+                        }
+                        
+                        ?>
                     </td>
 
-                    <td> <br> <br> <?php echo  $_SESSION['print_net_weight_1'] ?> Kg<br>
-                        <?php echo  $_SESSION['print_net_weight_2'] ?> Kg</td>
+                    <td> <br> <br>
+                        <?php 
+                          if ($_SESSION['print_net_weight_2'] == '') {
+                            echo  number_format($_SESSION['print_net_weight_1']).' Kg '; 
+                        } else {
+                            echo  number_format($_SESSION['print_net_weight_1']).' Kg <br>'; 
+                            echo  number_format($_SESSION['print_net_weight_2']).' Kg '; 
+                        }
+                    ?>
 
 
-                    <td style='width:15%'> <br> <br> <?php echo  '₱ '.$_SESSION['print_price1'] ?> <br>
-                        <?php echo  '₱ '.$_SESSION['print_price2'] ?></td>
 
-                    <td style='width:20%'> <br> <br> <?php echo  '₱ '.$_SESSION['print_first_total'] ?><br>
-                        <?php echo  '₱ '.$_SESSION['print_second_total'] ?> </td>
+                    </td>
+
+
+                    <td> <br> <br>
+                        <?php 
+                          if ($_SESSION['print_price2'] =='') {
+                            echo  '₱ '.$_SESSION['print_price1']; 
+                        } else {
+                            echo  '₱ '.$_SESSION['print_price1'].'<br>';
+                            echo  '₱ '.$_SESSION['print_price2'].'<br>'; 
+                        }
+                    ?>
+
+
+                    </td>
+
+                    <td> <br> <br> 
+                    <?php 
+                          if ($_SESSION['print_second_total'] ==0) {
+                            echo  '₱ '.number_format($_SESSION['print_first_total']); 
+                        } else {
+                            echo  '₱ '.number_format($_SESSION['print_first_total']).'<br>';
+                            echo  '₱ '.number_format($_SESSION['print_second_total']).'<br>';
+                        }
+                    ?>
+                    </td>
 
                 </tr>
 
@@ -167,10 +223,10 @@ Address: <?php echo  $_SESSION['print_address'] ?>
 
                     <td></td>
                     <td style='width:10%'>Total :</td>
-                    <td> <?php echo  $_SESSION['total_net_weight'] ?> Kg<br></td>
+                    <td> <?php echo  number_format($_SESSION['print_total_net_weight']) ?> Kg<br></td>
                     <td style='width:10%'>Total : </td>
 
-                    <td><?php echo  '₱ '.$_SESSION['print_total'] ?> </td>
+                    <td><?php echo  '₱ '.number_format($_SESSION['print_total']) ?> </td>
 
                 </tr>
             </table>
@@ -196,27 +252,35 @@ Address: <?php echo  $_SESSION['print_address'] ?>
     <tbody style='text-align: center;'>
         <tr>
             <td><b>TOTAL AMOUNT</td>
-            <td> <b> <?php echo  '₱ '.$_SESSION['print_total'] ?></td>
+            <td> <b> <?php echo  '₱ '.number_format($_SESSION['print_total']) ?></td>
         </tr>
         <tr>
             <td> <b>CASH ADVANCE</td>
-            <td> <b> <?php echo  '₱ '.$_SESSION['print_less'] ?></td>
+            <td> <b> <?php echo  '₱ '.number_format($_SESSION['print_less']) ?></td>
         </tr>
 
 
         <tr>
             <td> <b>TOTAL AMOUNT PAYABLE</td>
-            <td> <b> <?php echo  '₱ '.$_SESSION['print_paid'] ?></td>
+            <td> <b> <?php echo  '₱ '.number_format($_SESSION['print_paid']) ?></td>
         </tr>
     </tbody>
 </table>
 
 <br> <br><br>
-<div class="row">
-    <div class="column">PREPARED BY : _____________ </div>
-    <div class="column"> APPROVED BY : _____________</div>
-    <div class="column"> RECEIVED BY : _____________</div>
-</div>
+<table class="lastTable">
+  <tr>
+    <th>PREPARED BY</th>
+    <th>APPROVED BY </th>
+    <th>RECEIVED BY</th>
+  </tr>
+  <tr>
+    <td><br><br><?php echo  $_SESSION['prepared_by']?></td>
+    <td><br><br><?php echo  $_SESSION['approved_by']?></td>
+    <td><br><br><?php echo  $_SESSION['received_by']?></td>  </tr>
+
+</table>
+
 <br>
 
 <br>

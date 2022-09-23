@@ -47,6 +47,12 @@
                              $words_amount =  $_POST['m_total-words'];
 
 
+                             $prepared_by = $_POST['prepared_by'];
+                             $approved_by = $_POST['approved_by'];
+                             $received_by = $_POST['received_by'];
+
+
+
                              //UPDATE CONTRACT
                              if ($contract !='SPOT'){
                                 $getContract = mysqli_query($con, "SELECT  * from rubber_contract WHERE contract_no = '$contract' AND type='WET'  ");
@@ -89,10 +95,10 @@
 
                             $query = "INSERT INTO bales_transaction (
                                 invoice,contract,date,address,seller,entry,net_weight_1,net_weight_2,total_net_weight,kilo_bales_1,kilo_bales_2,total_bales_1,total_bales_2,drc,
-                                price_1,price_2,total_amount,less,amount_paid,words_amount) 
+                                price_1,price_2,total_amount,less,amount_paid,words_amount,delivery_date,lot_code) 
                                     VALUES ('$invoice','$contract','$date','$address','$seller','$entry','$net_weight_1','$net_weight_2','$total_net_weight',
                                     '$kilo_bales_1','$kilo_bales_2','$total_bales_1','$total_bales_2','$drc','$price_1','$price_2',
-                                    '$total_amount','$less','$amount_paid','$words_amount')";
+                                    '$total_amount','$less','$amount_paid','$words_amount','$delivery_date','$lot_number')";
 
 
 
@@ -106,7 +112,7 @@
                                     $_SESSION['print_date'] = $date;
                                     $_SESSION['print_address'] = $address;
 
-                                    $_SESSION['print_deliver'] = $delivery_date;
+                                    $_SESSION['print_delivery'] = $delivery_date;
                                     $_SESSION['print_lot_number'] = $lot_number;
                                     ///
                                 
@@ -142,6 +148,10 @@
                                     $_SESSION['print_total'] = $total_amount;
                                     $_SESSION['print_paid'] = $amount_paid;
                                     $_SESSION['print_words'] = $words_amount;
+
+                                    $_SESSION['prepared_by'] = $prepared_by;
+                                    $_SESSION['approved_by'] = $approved_by;
+                                    $_SESSION['received_by'] = $received_by;
                                     echo 'success';
 
                                     $_SESSION['transaction'] = 'COMPLETED';
