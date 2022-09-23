@@ -38,7 +38,10 @@
                     <!-- ============================================================== -->
                     <div class="row">
 
-                    <h2 class="page-title"><B>  <font color="#0C0070"> BALES TRANSACTION </font>  <font color="#046D56"> RECORD  </font> </b></h2>
+                        <h2 class="page-title"><B>
+                                <font color="#0C0070"> BALES TRANSACTION </font>
+                                <font color="#046D56"> RECORD </font>
+                            </b></h2>
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
@@ -79,9 +82,11 @@
                                                     <th scope="col">Date</th>
                                                     <th scope="col">Contract</th>
                                                     <th scope="col">Seller</th>
+                                                    <th scope="col">Entry Weight</th>
+                                                    <th scope="col">Net Weight</th>
                                                     <th scope="col">First Price</th>
                                                     <th scope="col">Second Price</th>
-                                                    <th scope="col">Net Weight</th>
+                                                    <th scope="col">Cash Advance</th>
                                                     <th scope="col">Amount Paid</th>
                                                     <th scope="col">Action</th>
                                                 </tr>
@@ -91,24 +96,25 @@
                                                     <td> <?php echo $row['date']?> </td>
                                                     <td> <?php echo $row['contract']?> </td>
                                                     <td> <?php echo $row['seller']?> </td>
-                                                    <td>₱ <?php echo number_format($row['price_1'])?> </td>
-                                                    <td>₱ <?php echo number_format($row['price_2'])?> </td>
-
+                                                    <td> <?php echo number_format($row['entry'])?> Kg</td>
                                                     <td> <?php 
-                                                    
-                                                    $total_weight = $row['total_weight_1'] +  $row['total_weight_2'];
-                                                    
+                                                    $total_weight = $row['net_weight_1'] +  $row['net_weight_2'];          
                                                     echo number_format($total_weight);?> Kg </td>
 
+                                                    <td>₱ <?php echo number_format($row['price_1'],2)?> </td>
+                                                    <td>₱ <?php echo number_format($row['price_2'],2)?> </td>
+                                                    <td>₱ <?php echo number_format($row['less'],2)?> </td>
 
-                                                    <td>₱ <?php echo number_format(($row['amount_paid'] )); ?> </td>
+
+
+                                                    <td>₱ <?php echo number_format(($row['amount_paid']),2); ?> </td>
                                                     <td> <button type="button" class="btn btn-dark btnView"><i
                                                                 class="fa fa-eye"></i></button>
                                                         <button type="button" class="btn btn-danger btnDelete"><i
                                                                 class="fa fa-trash"></i></button>
                                                     </td>
                                                 </tr> <?php } ?> </tbody>
-                                         
+
                                         </table>
                                     </div>
                                     <!-- END CONTENT -->
@@ -123,6 +129,7 @@
     </div>
 
 </body>
+<?php    include "modal/m_bales_record.php";?>
 
 </html>
 

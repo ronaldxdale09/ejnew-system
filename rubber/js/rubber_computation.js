@@ -28,7 +28,7 @@ function rubberComputation(gross, tare, price1, price2, less) {
         $("#amount-paid").val(nf.format(total_amount - ca));
 
         amount_paid = $("#amount-paid").val().replace(/,/g, '');
-        getWords(amount_paid);
+
 
 
     } else {
@@ -70,7 +70,7 @@ function rubberComputation(gross, tare, price1, price2, less) {
             $("#amount-paid").val(nf.format(total_amount - ca));
 
             amount_paid = $("#amount-paid").val().replace(/,/g, '');
-            getWords(amount_paid);
+
 
 
         } else if (net_total < balance) {
@@ -87,7 +87,7 @@ function rubberComputation(gross, tare, price1, price2, less) {
             $("#amount-paid").val(((+$("#total-amount").val().replace(/,/g, '') - less)).toLocaleString());
 
             amount_paid = $("#amount-paid").val().replace(/,/g, '');
-            getWords(amount_paid);
+
 
 
         }

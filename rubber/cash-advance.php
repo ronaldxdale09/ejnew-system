@@ -122,10 +122,10 @@
                                                     $total_ca = $row['bales_cash_advance'] + $row['cash_advance'];
                                                     
                                                     echo number_format($total_ca) ?> </td>
-                                                    <td>
-                                                        <a href="seller_profile.php?view=<?php echo $row['id']; ?>"
-                                                            class="btn btn-primary ">
-                                                            <i class='fa-solid fa-eye'></i></a>
+                                                    <td> <button type="button" class="btn btn-dark btnView"><i
+                                                                class="fa fa-edit"></i></button>
+                                                        <button type="button" class="btn btn-danger btnDelete"><i
+                                                                class="fa fa-trash"></i></button>
                                                     </td>
                                                 </tr> <?php } ?> </tbody>
                                         </table>

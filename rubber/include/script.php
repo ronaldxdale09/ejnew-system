@@ -281,6 +281,9 @@ $(function() {
 $(function() {
     $("#cash_advance").keyup(function() {
         ComputationRubber();
+        var amount_paid = $("#amount_paid").val().replace(/,/g, '');
+
+        getWords(amount_paid);
     });
 });
 </script>

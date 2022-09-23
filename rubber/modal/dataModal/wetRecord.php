@@ -85,7 +85,7 @@ $output='';
                   <div class="input-group-prepend">
                     <span class="input-group-text">₱</span>
                   </div>
-                  <input type="text" class="form-control" name="first_price" id="first_price" value="'.number_format($row['price_1']).'" readonly />
+                  <input type="text" class="form-control" name="first_price" id="first_price" value="'.number_format($row['price_1'],2).'" readonly />
                 </div>
               </div>
               <!--  -->
@@ -110,7 +110,7 @@ $output='';
                   <div class="input-group-prepend">
                     <span class="input-group-text">₱</span>
                   </div>
-                  <input type="text" class="form-control" id="second_price" name="second_price" value="'.number_format($row['price_2']).'" readonly />
+                  <input type="text" class="form-control" id="second_price" name="second_price" value="'.number_format($row['price_2'],2).'" readonly />
                 </div>
               </div>
               <div class="col-6 col-md-4">
@@ -135,7 +135,7 @@ $output='';
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="inputGroup-sizing-default" style="color:black;font-weight: bold;">Total Amount ₱</span>
                 </div>
-                <input type="text" class="form-control" value="'.number_format($row['total_amount']).'" readonly />
+                <input type="text" class="form-control" value="'.number_format($row['total_amount'],2).'" readonly />
               </div>
               <!--  -->
             </div>
@@ -149,7 +149,7 @@ $output='';
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="inputGroup-sizing-default" style="color:black;font-weight: bold;">Less/CA ₱</span>
                 </div>
-                <input type="text" style="text-align:left" id="cash_advance" name="cash_advance" class="form-control" value="'.number_format($row['less']).'" readonly />
+                <input type="text" style="text-align:left" id="cash_advance" name="cash_advance" class="form-control" value="'.number_format($row['less'],2).'" readonly />
               </div>
               <!--  -->
             </div>
@@ -165,7 +165,7 @@ $output='';
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="inputGroup-sizing-default" style="color:black;font-weight: bold;">Amount Paid ₱</span>
                 </div>
-                <input type="text" style="text-align:left" name="amount-paid" id="amount-paid" class="form-control" value="'.number_format($row['amount_paid']).'" readonly />
+                <input type="text" style="text-align:left" name="amount-paid" id="amount-paid" class="form-control" value="'.number_format($row['amount_paid'],2).'" readonly />
               </div>
               <hr>
               <input type="text" style="text-align:center" name="amount-paid-words" id="amount-paid-words" class="form-control" value="'.($row['amount_words']).'" readonly>

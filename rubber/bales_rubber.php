@@ -111,7 +111,7 @@ $today = $year . "-" . $month . "-" . $day;
                                     <button type="button" class="btn btn-dark text-white" data-toggle="modal"
                                         data-target="#newContract1"><span class="fa fa-plus text-white"></span>
                                         New Contract</button>
-                                
+
 
                                 </div>
                             </div>
@@ -306,8 +306,9 @@ $today = $year . "-" . $month . "-" . $day;
                                                                         style='color:black'>Net
                                                                     </span>
                                                                 </div>
-                                                                <input type="text" class="form-control" id='net_weight_1'
-                                                                    name='net_weight_1' onkeypress="return CheckNumeric()"
+                                                                <input type="text" class="form-control"
+                                                                    id='net_weight_1' name='net_weight_1'
+                                                                    onkeypress="return CheckNumeric()"
                                                                     onkeyup="FormatCurrency(this)" tabindex="2"
                                                                     autocomplete='off' />
                                                                 <div class="input-group-append">
@@ -329,7 +330,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                         <div class="col-6 col-md-3">
                                                             <label class="col-md-12">Bales</label>
                                                             <input type="text" class="form-control" id='total_bales_1'
-                                                                name='total_bales_1'  readonly/>
+                                                                name='total_bales_1' readonly />
                                                         </div>
                                                         <!--  end-->
                                                     </div>
@@ -349,9 +350,10 @@ $today = $year . "-" . $month . "-" . $day;
                                                                         style='color:black'>Net
                                                                     </span>
                                                                 </div>
-                                                                <input type="text" class="form-control" id='net_weight_2'
-                                                                    name='net_weight_2' onkeypress="return CheckNumeric()"
-                                                                    onkeyup="FormatCurrency(this)" tabindex="2" disabled 
+                                                                <input type="text" class="form-control"
+                                                                    id='net_weight_2' name='net_weight_2'
+                                                                    onkeypress="return CheckNumeric()"
+                                                                    onkeyup="FormatCurrency(this)" tabindex="2" disabled
                                                                     autocomplete='off' />
                                                                 <div class="input-group-append">
                                                                     <span class="input-group-text">Kg</span>
@@ -361,9 +363,11 @@ $today = $year . "-" . $month . "-" . $day;
 
                                                         <div class="col-6 col-md-2">
                                                             <label class="col-md-12">Kilo Per Bale</label>
-                                                            <select  class='form-select' name='kilo_bales_2' id='kilo_bales_2'  disabled>
+                                                            <select class='form-select' name='kilo_bales_2'
+                                                                id='kilo_bales_2' disabled>
                                                                 <option value="35">35 KG </option>
-                                                                <option value="33.33"  selected="selected">33.33 KG </option>
+                                                                <option value="33.33" selected="selected">33.33 KG
+                                                                </option>
 
                                                             </select>
                                                         </div>
@@ -371,7 +375,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                         <div class="col-6 col-md-3">
                                                             <label class="col-md-12">Bales</label>
                                                             <input type="text" class="form-control" id='total_bales_2'
-                                                                name='total_bales_2' readonly/>
+                                                                name='total_bales_2' readonly />
                                                         </div>
                                                         <!--  end-->
                                                     </div>
@@ -379,9 +383,9 @@ $today = $year . "-" . $month . "-" . $day;
                                                 <div class="form-group">
                                                     <div class="row no-gutters">
                                                         <div class="col-12 col-md-3">
-                                                        <label style='font-size:15px' class="col-md-12">DRC</label>
+                                                            <label style='font-size:15px' class="col-md-12">DRC</label>
                                                             <div class="input-group mb-1">
-                                                         
+
                                                                 <input type="text" style='text-align:right' name='drc'
                                                                     id='drc' class="form-control" readonly>
                                                                 <div class="input-group-append">
@@ -394,8 +398,9 @@ $today = $year . "-" . $month . "-" . $day;
                                                                 Weight</label>
                                                             <div class="input-group mb-1">
 
-                                                                <input type="text" style='text-align:right' name='total_net_weight'
-                                                                    id='total_net_weight' class="form-control" readonly>
+                                                                <input type="text" style='text-align:right'
+                                                                    name='total_net_weight' id='total_net_weight'
+                                                                    class="form-control" readonly>
                                                                 <div class="input-group-append">
                                                                     <span class="input-group-text">Kg</span>
                                                                 </div>
@@ -403,7 +408,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                         </div>
 
                                                         <div class="col-6 col-md-2">
-                                                          
+
                                                             <!--  end-->
                                                         </div>
                                                     </div>
@@ -426,8 +431,9 @@ $today = $year . "-" . $month . "-" . $day;
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text">₱</span>
                                                                     </div>
-                                                                    <input type="text" class="form-control" name='price_1'
-                                                                        id='price_1' onkeypress="return CheckNumeric()"
+                                                                    <input type="text" class="form-control"
+                                                                        name='price_1' id='price_1'
+                                                                        onkeypress="return CheckNumeric()"
                                                                         onkeyup="FormatCurrency(this)" tabindex="4"
                                                                         autocomplete='off' />
                                                                 </div>
@@ -452,7 +458,8 @@ $today = $year . "-" . $month . "-" . $day;
                                                     <!-- RASE 2-->
                                                     <div class="form-group">
                                                         <div class="row no-gutters">
-                                                            <label style='font-size:15px' class="col-md-12">Contact Price
+                                                            <label style='font-size:15px' class="col-md-12">Contact
+                                                                Price
                                                                 :</label>
                                                             <div class="col-12 col-sm-5 col-md-3">
                                                                 <!--  -->
@@ -460,8 +467,9 @@ $today = $year . "-" . $month . "-" . $day;
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text">₱</span>
                                                                     </div>
-                                                                    <input type="text" class="form-control" name='price_2'
-                                                                        id='price_2' onkeypress="return CheckNumeric()"
+                                                                    <input type="text" class="form-control"
+                                                                        name='price_2' id='price_2'
+                                                                        onkeypress="return CheckNumeric()"
                                                                         onkeyup="FormatCurrency(this)" tabindex="4"
                                                                         autocomplete='off' disabled />
                                                                 </div>
@@ -485,7 +493,7 @@ $today = $year . "-" . $month . "-" . $day;
 
                                                     <!-- start-->
                                                     <!-- RASE 3-->
-                                                  
+
                                                     <div class="form-group">
                                                         <div class="row no-gutters">
                                                             <div class="col-12 col-sm-7 col-md-8">
@@ -592,7 +600,6 @@ include "include/bales_script.php";
 
 
 <script>
-
 $(function() {
     $(".select_seller").chosen({
         search_threshold: 10

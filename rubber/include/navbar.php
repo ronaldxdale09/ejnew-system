@@ -17,11 +17,11 @@
         </a>
         <hr style='color:gray'>
         <a class='nav-link' href='wet_rubber.php'>
-            <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>WET Rubber</span>
+            <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>WET Purchasing</span>
         </a>
     
         <a class='nav-link' href='bales_rubber.php'>
-        <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>Bales Rubber</span>
+        <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>Bales Purchasing</span>
     </a>
     <hr style='color:gray'>
         <a class='nav-link' href='WET_Record.php'>
