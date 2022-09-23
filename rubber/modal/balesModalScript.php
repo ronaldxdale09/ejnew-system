@@ -51,7 +51,7 @@ $('#confirm').click(function() {
         });
     }
      else {
-        $('#confirmModal').modal('show');
+        $('#myModal').modal('show');
    
         $('#m_invoice').val($("#invoice").val());
         $('#m_name').val($("#name").val());
@@ -81,13 +81,10 @@ $('#confirm').click(function() {
         
         $('#m_price_1').val($("#price_1").val());
         $('#m_price_2').val($("#price_2").val());
-       
 
 
-
-
-        $('#m_total_first').val($("#first_total").val());
-
+        $('#m_first_total').val($("#first_total").val());
+        $('#m_second_total').val($("#second_total").val());
 
         // 
         $('#m_total_amount').val($("#total_amount").val());
@@ -96,6 +93,21 @@ $('#confirm').click(function() {
         $('#m_total-words').val($("#amount-paid-words").val());
     }
 });
+
+
+$(function() {
+    $("#delivery_date,#lot_number").keyup(function() {
+
+   
+        var delivery_date = $("#delivery_date").val();
+        var lot_number = $("#lot_number").val();
+
+        $("#m_delivery_date").val(delivery_date);
+        $("#m_lot_number").val(lot_number);
+
+    });
+});
+
 </script>
 
 <!-- end -->
@@ -167,7 +179,7 @@ $('#vouchBtn').click(function() {
 
 $('#receiptBtn').click(function() {
 
-    if (!document.getElementById('tota_amount').value ||
+    if (!document.getElementById('total_amount').value ||
         !document.getElementById('date').value ||
         !$("#name").val()
     ) {
@@ -184,39 +196,44 @@ $('#receiptBtn').click(function() {
         var data = $tr.children("td").map(function() {
             return $(this).text();
         }).get();
-        // $('#r_invoice').val($("#invoice").val());
-        // $('#r_name').val($("#name").val());
-        // $('#r_date').val($("#date").val());
-        // $('#r_address').val($("#address").val());
-        // $('#r_contract').val($("#contract").val());
+        
+        $('#r_invoice').val($("#invoice").val());
+        $('#r_name').val($("#name").val());
+        $('#r_date').val($("#date").val());
+        $('#r_address').val($("#address").val());
+        $('#r_contract').val($("#contract").val());
 
-        // $('#r_quantity').val($("#quantity").val());
-        // $('#r_balance').val($("#balance").val());
+        $('#r_quantity').val($("#quantity").val());
+        $('#r_balance').val($("#balance").val());
 
-        // // purchase info
-      
-        // $('#r_gross').val($("#gross").val());
-        // $('#r_tare').val($("#tare").val());
-        // $('#r_net').val($("#net").val());
+        // purchase info
+        
+        $('#r_entry').val($("#entry").val());
+        $('#r_net_weight_1').val($("#net_weight_1").val());
+        $('#r_net_weight_2').val($("#net_weight_2").val());
 
-       
-        // $('#r_1price').val($("#price").val());
-        // $('#r_2price').val($("#sec_price").val());
-      
-        // // total res
+        $('#r_total_net_weight').val($("#total_net_weight").val());
+        
+        $('#r_drc').val($("#drc").val());
+        $('#r_kilo_bales_1').val($("#kilo_bales_1").val());
+        $('#r_kilo_bales_2').val($("#kilo_bales_2").val());
 
-        // $('#r_weight_1').val($("#first-weight").val());
-        // $('#r_weight_2').val($("#second-weight").val());
+        
+        $('#r_total_bales_1').val($("#total_bales_1").val());
+        $('#r_total_bales_2').val($("#total_bales_2").val());
 
-        // $('#r_total_first').val($("#first_total").val());
-        // $('#r_total_sec').val($("#sec_total").val());
-       
-        // // 
-        // $('#r_tota_amount').val($("#tota_amount").val());
-        // $('#r_less').val($("#cash_advance").val());
-        // $('#r_total-paid').val($("#amount_paid").val());
-        // $('#r_total-words').val($("#amount-paid-words").val());
+        
+        $('#r_price_1').val($("#price_1").val());
+        $('#r_price_2').val($("#price_2").val());
 
+
+        $('#r_total_first').val($("#first_total").val());
+
+        // 
+        $('#r_total_amount').val($("#total_amount").val());
+        $('#r_less').val($("#cash_advance").val());
+        $('#r_total-paid').val($("#amount_paid").val());
+        $('#r_total-words').val($("#amount-paid-words").val());
     }
 
 });

@@ -1,7 +1,48 @@
+<div class="modal" id="myModal" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">BALES RUBBER PURCHASING</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <form>
+                <div class="container"></div>
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <label> Date </label>
+                                    <br>
+                                    <input type="date" name="delivery_date" id="delivery_date" class="form-control"
+                                        style="font-size:18px;border: 2;font-weight:bold"  required>
+                                </div>
+                                <div class="col-sm">
+                                    <label> LOT #:</label>
+                                    <br>
+                                    <input type='text' id="lot_number" name='lot_number' class="form-control"
+                                        style="font-size:18px;border: 2;font-weight:bold" required>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id='submit' data-toggle="modal" href="#confirmModal" data-dismiss="modal"
+                        class="btn btn-dark">Confirm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
 <!-- Confirm Transaction -->
 <form action="function/bales_rubber_purchase.php" id='newPurchase' method="POST">
-    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" data-backdrop="static"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -52,10 +93,43 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-8">Name:</label>
-                        <div class="col-md-4">
-                            <input type="text" name="m_name" id="m_name" class="form-control"
-                                style='font-size:15px;background-color:white;border:0px solid #ffffff;' readonly>
+                        <div class="row no-gutters">
+                            <div class="col-12 col-sm-5 col-md-4">
+
+                                <div class="input-group mb-1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-default"
+                                            style='color:black;font-weight: bold;'>Name</span>
+                                    </div>
+                                    <input type="text" style='text-align:right' name='m_name' id='m_name'
+                                        class="form-control" style='background-color:white;border:0px solid #ffffff;'
+                                        readonly>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-5">
+                                <div class="input-group mb-1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-default"
+                                            style='color:black;font-weight: bold;'>Date Delivery</span>
+                                    </div>
+                                    <input type="text" style='text-align:right' name='m_delivery_date' id='m_delivery_date'
+                                        class="form-control" style='background-color:white;border:0px solid #ffffff;'
+                                        readonly>
+                                </div>
+                            </div>
+                            <!--end  -->
+                            <div class="col-6 col-md-3">
+                                <div class="input-group mb-1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-default"
+                                            style='color:black;font-weight: bold;'>Lot #</span>
+                                    </div>
+                                    <input type="text" style='text-align:right' name='m_lot_number' id='m_lot_number'
+                                        class="form-control" style='background-color:white;border:0px solid #ffffff;'
+                                        readonly>
+                                </div>
+                            </div>
+                            <!--  end-->
                         </div>
                     </div>
 
@@ -116,7 +190,7 @@
                     <!-- end table -->
                     <input type="text" class="form-control" id='m_total-words' name='m_total-words' readonly />
                     <!-- hidden -->
-                
+
                     <input name="m_entry" id="m_entry" hidden>
                     <input name="m_net_weight_1" id="m_net_weight_1" hidden>
                     <input name="m_net_weight_2" id="m_net_weight_2" hidden>
@@ -135,19 +209,22 @@
                     <input name="m_price_1" id="m_price_1" hidden>
                     <input name="m_price_2" id="m_price_2" hidden>
 
-   
+                    <input name="m_first_total" id="m_first_total" hidden>
+                    <input name="m_second_total" id="m_second_total" hidden>
 
+
+                    
                     <input name="m_address" id="m_address" hidden>
                     <input name="m_quantity" id="m_quantity" hidden>
-                    <input name="m_balance" id="m_balance"  hidden>
+                    <input name="m_balance" id="m_balance" hidden>
 
-          
+
                 </div>
                 <div class="modal-footer">
-                <button type='submit' id='confirmPurchase' name='confirmPurchase'
+                    <button type='submit' id='confirmPurchase' name='confirmPurchase'
                         class="btn btn-success text-white">Submit</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-               
+
                 </div>
 </form>
 </div>
@@ -187,6 +264,7 @@ $('#confirmPurchase').click(function() {
 });
 // INPUT BOX VALIDATION
 </script> -->
+
 
 
 

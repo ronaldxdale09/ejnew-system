@@ -1,6 +1,3 @@
-
-
-
 <script>
 function ComputationRubber() {
 
@@ -260,7 +257,9 @@ $(function() {
     $("#first_price").keyup(function() {
 
         ComputationRubber();
+        var amount_paid = $("#amount_paid").val().replace(/,/g, '');
 
+        getWords(amount_paid);
 
     });
 });
@@ -271,7 +270,9 @@ $(function() {
     $("#second_price").keyup(function() {
 
         ComputationRubber();
+        var amount_paid = $("#amount_paid").val().replace(/,/g, '');
 
+        getWords(amount_paid);
 
     });
 });
@@ -280,18 +281,6 @@ $(function() {
 $(function() {
     $("#cash_advance").keyup(function() {
         ComputationRubber();
-    });
-});
-</script>
-
-
-<script>
-$(function() {
-    $("#second-price").keyup(function() {
-
-        ComputationRubber();
-
-
     });
 });
 </script>

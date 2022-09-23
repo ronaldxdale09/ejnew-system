@@ -116,15 +116,15 @@ table.GeneratedTable thead {
 </style>
 
 
-Hji. Yusop Rubber Trading </p>
-Quezon Blvd. Lamitan City, Basilan Province</p><br>
-RUBBER PURCHASE</p>
--------------------------------------</p>
+Hji. Yusop Rubber Trading
+Quezon Blvd. Lamitan City, Basilan Province<br>
+RUBBER PURCHASE
+-------------------------------------
 
-Invoice : 123 -- Date: 09/19/2022 </p>
-Seller : Name</p>
-Address: Test Address</p>
--------------------------------------</p>
+Invoice : <?php echo  $_SESSION['print_invoice'] ?>-- -- Date: <?php echo  $_SESSION['print_date'] ?>
+Seller : <?php echo  $_SESSION['print_seller'] ?>
+Address: <?php echo  $_SESSION['print_address'] ?>
+-------------------------------------
 <br>
 <center>
     <h2> LIQUIDATED DELIVERIES <h2>
@@ -139,24 +139,26 @@ Address: Test Address</p>
                 </tr>
                 <tr style='text-align: center; '>
                     <td style='width:20%'>
-                        LOT # V. <br>
-                        Date Delivery
+                        <?php echo  $_SESSION['print_lot_number'] ?> <br>
+                        <?php echo  $_SESSION['print_delivery'] ?>
                         <br>
-                        12,030
+                        <?php echo  $_SESSION['print_entry'] ?>
                     </td>
-                    <td style='width:10%'> <br> <br> 50%</td>
-                    <td style='width:25%'> <br> <br> 37 Bales @ 35kg<br>
-                        143 Bales @ 33.33kg</td>
+                    <td style='width:10%'> <br> <br> <?php echo  $_SESSION['print_drc'] ?> </td>
+                    <td style='width:25%'> <br> <br> <?php echo  $_SESSION['print_total_bales_1'] ?> @
+                        <?php echo  $_SESSION['print_kilo_bales_1'] ?><br>
+                        <?php echo  $_SESSION['print_total_bales_2'] ?> @ <?php echo  $_SESSION['print_kilo_bales_2'] ?>
+                    </td>
 
-                    <td> <br> <br> 1,295 Kg<br>
-                        4,4766 Kg</td>
+                    <td> <br> <br> <?php echo  $_SESSION['print_net_weight_1'] ?> Kg<br>
+                        <?php echo  $_SESSION['print_net_weight_2'] ?> Kg</td>
 
 
-                    <td style='width:15%'> <br> <br> Php 50.00<br>
-                        Php 50.00</td>
+                    <td style='width:15%'> <br> <br> <?php echo  '₱ '.$_SESSION['print_price1'] ?> <br>
+                        <?php echo  '₱ '.$_SESSION['print_price2'] ?></td>
 
-                    <td style='width:20%'> <br> <br> Php 67,750<br>
-                        Php 238,309.50 </td>
+                    <td style='width:20%'> <br> <br> <?php echo  '₱ '.$_SESSION['print_first_total'] ?><br>
+                        <?php echo  '₱ '.$_SESSION['print_second_total'] ?> </td>
 
                 </tr>
 
@@ -165,10 +167,10 @@ Address: Test Address</p>
 
                     <td></td>
                     <td style='width:10%'>Total :</td>
-                    <td>1,295 Kg<br></td>
-                    <td style='width:10%'>Total :</td>
+                    <td> <?php echo  $_SESSION['total_net_weight'] ?> Kg<br></td>
+                    <td style='width:10%'>Total : </td>
 
-                    <td>233232</td>
+                    <td><?php echo  '₱ '.$_SESSION['print_total'] ?> </td>
 
                 </tr>
             </table>
@@ -194,17 +196,17 @@ Address: Test Address</p>
     <tbody style='text-align: center;'>
         <tr>
             <td><b>TOTAL AMOUNT</td>
-            <td> <b>₱ 2333</td>
+            <td> <b> <?php echo  '₱ '.$_SESSION['print_total'] ?></td>
         </tr>
         <tr>
             <td> <b>CASH ADVANCE</td>
-            <td> <b>₱ 343</td>
+            <td> <b> <?php echo  '₱ '.$_SESSION['print_less'] ?></td>
         </tr>
 
 
         <tr>
             <td> <b>TOTAL AMOUNT PAYABLE</td>
-            <td> <b> ₱ 343</td>
+            <td> <b> <?php echo  '₱ '.$_SESSION['print_paid'] ?></td>
         </tr>
     </tbody>
 </table>

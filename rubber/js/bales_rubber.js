@@ -16,7 +16,7 @@ function bales_compute(entry, net_1, net_2, kilo_bales_1, kilo_bales_2, price_1,
 
 
     total_net = (+net_1 + +net_2);
-    total_net = $("#total_net_weight").val((total_net.toFixed(2)));
+    total_net = $("#total_net_weight").val(nf.format(total_net.toFixed(2)));
 
 
 
@@ -55,7 +55,7 @@ function bales_compute(entry, net_1, net_2, kilo_bales_1, kilo_bales_2, price_1,
 
 
     first_total = (+price_1) * (+net_1);
-    second_total = (+price_2) * (+net_1);
+    second_total = (+price_2) * (+net_2);
 
     $("#first_total").val(nf.format(first_total.toFixed(2)));
     $("#second_total").val(nf.format(second_total.toFixed(2)));

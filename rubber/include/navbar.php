@@ -19,12 +19,20 @@
         <a class='nav-link' href='wet_rubber.php'>
             <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>WET Rubber</span>
         </a>
+    
         <a class='nav-link' href='bales_rubber.php'>
         <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>Bales Rubber</span>
     </a>
-        <a class='nav-link' href='transaction_history.php'>
-        <i class='fa-solid fa-book'></i> <span class='nav-text'>Transaction Record</span>
+    <hr style='color:gray'>
+        <a class='nav-link' href='WET_Record.php'>
+        <i class='fa-solid fa-book'></i> <span class='nav-text'>WET Record</span>
     </a>
+ 
+    <a class='nav-link' href='Bales_Record.php'>
+    <i class='fa-solid fa-book'></i> <span class='nav-text'>Bales Record</span>
+</a>
+<hr style='color:gray'>
+  
         <a class='nav-link' href='seller.php'>
             <i class='fa-solid fa-user'></i> <span class='nav-text'>Seller</span>
         </a>

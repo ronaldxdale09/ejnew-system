@@ -38,14 +38,14 @@
                     <!-- ============================================================== -->
                     <div class="row">
 
-
+                    <h2 class="page-title"><B>  <font color="#0C0070"> BALES TRANSACTION </font>  <font color="#046D56"> RECORD  </font> </b></h2>
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
                                     <!-- CONTENT -->
                                     <div class="row">
                                         <div class="col-5">
-                                            <button type="button" class="btn btn-success text-white" data-toggle="modal"
+                                            <button type="button" class="btn btn-dark text-white" data-toggle="modal"
                                                 data-target="#copraCashAdvance">
                                                 <i class="fa fa-add" aria-hidden="true"></i> NEW TRANSACTION
                                             </button>
@@ -72,7 +72,7 @@
                                     <div class="table-responsive">
                                         <table class="table" id='transaction_record'>
                                             <?php
-                                    $record  = mysqli_query($con, "SELECT * from rubber_transaction ORDER BY id DESC  "); ?>
+                                    $record  = mysqli_query($con, "SELECT * from bales_transaction ORDER BY id DESC  "); ?>
                                             <thead class="table-dark">
                                                 <tr>
                                                     <th scope="col">Invoice</th>
@@ -102,9 +102,11 @@
 
 
                                                     <td>₱ <?php echo number_format(($row['amount_paid'] )); ?> </td>
-                                                    <td> <a href="transaction.php?view=<?php echo $row['invoice']; ?>"
-                                                            class="btn btn-dark ">
-                                                            <i class='fa-solid fa-eye'></i></a> </td>
+                                                    <td> <button type="button" class="btn btn-dark btnView"><i
+                                                                class="fa fa-eye"></i></button>
+                                                        <button type="button" class="btn btn-danger btnDelete"><i
+                                                                class="fa fa-trash"></i></button>
+                                                    </td>
                                                 </tr> <?php } ?> </tbody>
                                          
                                         </table>
@@ -154,6 +156,8 @@ $.fn.dataTable.ext.search.push(
 
 
 $(document).ready(function() {
+    document.getElementById('date_delivery').validity.valid;
+    document.getElementById('lot_number').validity.valid;
 
     // Create date inputs
     minDate = new DateTime($('#p_min'), {

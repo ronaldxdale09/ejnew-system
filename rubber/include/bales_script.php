@@ -291,3 +291,18 @@ $(function() {
     });
 });
 </script>
+
+
+<script>
+$(function() {
+    $("#cash_advance").keyup(function() {
+
+
+        BalesRubber();     
+        var amount_paid = $("#amount_paid").val().replace(/,/g, '');
+
+        getWords(amount_paid);
+
+    });
+});
+</script>

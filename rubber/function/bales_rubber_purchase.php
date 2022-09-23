@@ -7,6 +7,9 @@
                              $address = $_POST['m_address'];
                             $contract = $_POST['m_contract'];
 
+                            $lot_number = $_POST['m_lot_number'];
+                            $delivery_date = $_POST['m_delivery_date'];
+
                             
 
                              $seller = $_POST['m_name'];
@@ -30,6 +33,10 @@
 
                             $price_1= str_replace( ',', '', $_POST['m_price_1']);
                             $price_2= str_replace( ',', '', $_POST['m_price_2']);
+
+                            $first_total= str_replace( ',', '', $_POST['m_first_total']);
+                            $second_total= str_replace( ',', '', $_POST['m_second_total']);
+
 
 
 
@@ -99,7 +106,8 @@
                                     $_SESSION['print_date'] = $date;
                                     $_SESSION['print_address'] = $address;
 
-
+                                    $_SESSION['print_deliver'] = $delivery_date;
+                                    $_SESSION['print_lot_number'] = $lot_number;
                                     ///
                                 
                                     $_SESSION['print_entry']= $entry;
@@ -120,15 +128,15 @@
                                     $_SESSION['print_drc']= $drc;
 
 
-                                    $_SESSION['print_total_bales_2']= $total_bales_2;
-
+                                
                                     
-                                    $_SESSION['print_price1'] = $first_price;
-                                    $_SESSION['print_price2'] = $sec_price;
-                                    //TOTAL
-                                    $_SESSION['print_total_first'] = $total_first;
-                                    $_SESSION['print_total_sec'] = $total_sec;
-                                    ///
+                                    $_SESSION['print_price1'] = $price_1;
+                                    $_SESSION['print_price2'] = $price_2;
+                                            
+                                    
+                                    $_SESSION['print_first_total'] = $first_total;
+                                    $_SESSION['print_second_total'] = $second_total;
+                              
 
                                     $_SESSION['print_less'] = $less;
                                     $_SESSION['print_total'] = $total_amount;

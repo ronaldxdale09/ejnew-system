@@ -93,7 +93,10 @@ $today = $year . "-" . $month . "-" . $day;
                         <div class="row align-items-center">
                             <div class="col-4">
                                 <br>
-                                <h2 class="page-title"><B>  <font color="#0C0070"> WET RUBBER </font>  <font color="#046D56"> PURCHASING  </font> </b></h2>
+                                <h2 class="page-title"><B>
+                                        <font color="#0C0070"> WET RUBBER </font>
+                                        <font color="#046D56"> PURCHASING </font>
+                                    </b></h2>
                             </div>
                             <div class="col-7">
                                 <div class="text-end upgrade-btn">
@@ -107,7 +110,7 @@ $today = $year . "-" . $month . "-" . $day;
                                     <button type="button" class="btn btn-dark text-white" data-toggle="modal"
                                         data-target="#newContract1"><span class="fa fa-plus text-white"></span>
                                         New Contract</button>
-                    
+
 
                                 </div>
                             </div>
@@ -122,7 +125,8 @@ $today = $year . "-" . $month . "-" . $day;
                                                         <h4>Status : </h4>
                                                     </td>
                                                     <td>
-                                                        <h5><span id='trans_status' class="badge alert-danger">ONGOING</span></h5>
+                                                        <h5><span id='trans_status'
+                                                                class="badge alert-danger">ONGOING</span></h5>
 
                                                     </td>
 
@@ -260,7 +264,7 @@ $today = $year . "-" . $month . "-" . $day;
                                             <button type="button" class="btn btn-dark text-white receiptBtn"
                                                 id='receiptBtn'>
                                                 <span class="fa fa-print"></span> Print Receipt </button>
-                                                <button type="button" class="btn btn-secondary text-white vouchBtn"
+                                            <button type="button" class="btn btn-secondary text-white vouchBtn"
                                                 id='vouchBtn'>
                                                 <span class="fa fa-print"></span> Print Voucher </button>
 
@@ -276,7 +280,7 @@ $today = $year . "-" . $month . "-" . $day;
                                             <div class="container">
                                                 <!-- -->
                                                 <div class="form-group">
-                                                    <div class="row no-gutters">   
+                                                    <div class="row no-gutters">
                                                         <div class="col-6 col-md-4">
                                                             <label style='font-size:15px' class="col-md-12">Gross
                                                                 Weight
@@ -332,7 +336,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                     </div>
                                                 </div>
                                                 <hr>
-                                                
+
 
                                                 <!--  -->
 
@@ -347,8 +351,9 @@ $today = $year . "-" . $month . "-" . $day;
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text">₱</span>
                                                                 </div>
-                                                                <input type="text" class="form-control" name='first_price'
-                                                                    id='first_price' onkeypress="return CheckNumeric()"
+                                                                <input type="text" class="form-control"
+                                                                    name='first_price' id='first_price'
+                                                                    onkeypress="return CheckNumeric()"
                                                                     onkeyup="FormatCurrency(this)" tabindex="7"
                                                                     autocomplete='off' />
                                                             </div>
@@ -374,7 +379,8 @@ $today = $year . "-" . $month . "-" . $day;
                                                                     <span class="input-group-text">₱</span>
                                                                 </div>
                                                                 <input type="text" style='text-align:right'
-                                                                    id='first_total' name='first_total' class="form-control" readonly>
+                                                                    id='first_total' name='first_total'
+                                                                    class="form-control" readonly>
                                                             </div>
                                                             <!--  -->
                                                         </div>
@@ -390,8 +396,8 @@ $today = $year . "-" . $month . "-" . $day;
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text">₱</span>
                                                                 </div>
-                                                                <input type="text" class="form-control" id='second_price'
-                                                                    name='second_price'
+                                                                <input type="text" class="form-control"
+                                                                    id='second_price' name='second_price'
                                                                     onkeypress="return CheckNumeric()"
                                                                     onkeyup="FormatCurrency(this)" tabindex="8"
                                                                     autocomplete='off' readonly />
