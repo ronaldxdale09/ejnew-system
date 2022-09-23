@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 21, 2022 at 09:23 PM
+-- Generation Time: Sep 23, 2022 at 07:02 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.29
 
@@ -34,9 +34,12 @@ CREATE TABLE `bales_transaction` (
   `address` varchar(255) DEFAULT NULL,
   `contract` varchar(255) DEFAULT NULL,
   `seller` varchar(255) DEFAULT NULL,
+  `delivery_date` date DEFAULT NULL,
+  `lot_code` varchar(255) DEFAULT NULL,
   `entry` int(100) DEFAULT NULL,
   `net_weight_1` int(100) DEFAULT NULL,
   `net_weight_2` int(100) DEFAULT NULL,
+  `total_net_weight` int(11) NOT NULL,
   `kilo_bales_1` int(100) DEFAULT NULL,
   `kilo_bales_2` int(100) DEFAULT NULL,
   `total_bales_1` varchar(255) DEFAULT NULL,
@@ -49,6 +52,18 @@ CREATE TABLE `bales_transaction` (
   `amount_paid` int(100) DEFAULT NULL,
   `words_amount` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `bales_transaction`
+--
+
+INSERT INTO `bales_transaction` (`id`, `invoice`, `date`, `address`, `contract`, `seller`, `delivery_date`, `lot_code`, `entry`, `net_weight_1`, `net_weight_2`, `total_net_weight`, `kilo_bales_1`, `kilo_bales_2`, `total_bales_1`, `total_bales_2`, `drc`, `price_1`, `price_2`, `total_amount`, `less`, `amount_paid`, `words_amount`) VALUES
+(1, '002', '2022-09-21', 'Titay', 'SPOT', 'Mark Tubat', NULL, NULL, 5000, 1000, 0, 1000, 35, 33, '28 Bales & 20 Kg', '0 Bales ', 20, 54, 0, 54000, 30000, 24000, ''),
+(3, '002', '2022-09-23', 'Titay', 'SPOT', 'Mark Tubat', NULL, NULL, 344, 34, 0, 34, 35, 33, '0 Bales & 34 Kg', '0 Bales ', 10, 34, 0, 1156, 30000, -28844, ''),
+(4, '002', '2022-09-23', 'Titay', 'SPOT', 'Mark Tubat', '2022-09-23', 'V', 3000, 2000, 0, 2000, 35, 33, '57 Bales & 5 Kg', '0 Bales ', 67, 43, 0, 86000, 30000, 56000, ''),
+(5, '002', '2022-09-23', 'Titay', 'SPOT', 'Mark Tubat', '2022-09-23', 'E', 2000, 5000, 0, 5000, 35, 33, '142 Bales & 30 Kg', '0 Bales ', 250, 39, 0, 195000, 30000, 165000, '  peso/s'),
+(6, '002', '2022-09-23', 'Titay', 'SPOT', 'Mark Tubat', '2022-09-23', 'E', 8777, 788, 0, 788, 35, 33, '22 Bales & 18 Kg', '0 Bales ', 9, 78, 0, 61464, 30000, 31464, 'Thirty One Thousand Four Hundred Sixty Four peso/s'),
+(7, '002', '2022-09-23', 'Titay', 'SPOT', 'Mark Tubat', '0000-00-00', 'V', 6777, 67, 0, 67, 35, 33, '1 Bales & 32 Kg', '0 Bales ', 1, 67, 0, 4489, 30000, -25511, '');
 
 -- --------------------------------------------------------
 
@@ -623,7 +638,7 @@ CREATE TABLE `rubber_seller` (
 --
 
 INSERT INTO `rubber_seller` (`id`, `name`, `address`, `contact`, `cash_advance`, `bales_cash_advance`) VALUES
-(1, 'Mark Tubat', 'Titay', '09352232051', 30000, 10000);
+(1, 'Mark Tubat', 'Titay', '09352232051', 30000, 0);
 
 -- --------------------------------------------------------
 
@@ -870,7 +885,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `bales_transaction`
 --
 ALTER TABLE `bales_transaction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `category_expenses`
