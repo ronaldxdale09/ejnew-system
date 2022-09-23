@@ -13,7 +13,7 @@
                                 $results = mysqli_query($con, $query);
                                    
                                     if ($results) {
-                                        header("Location: ../seller-info.php");
+                                        header("Location: ../seller.php");
                                         $_SESSION['seller']= "successful";
                                         exit();
                                     } else {

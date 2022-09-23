@@ -104,7 +104,7 @@ function contractSet(contractVal) {
 
             let nf = new Intl.NumberFormat('en-US');
             $.ajax({
-                url: "include/fetch/fetchRubberCashAdvance.php",
+                url: "include/fetch/fetchCABales.php",
                 type: "POST",
                 cache: false,
                 data: {

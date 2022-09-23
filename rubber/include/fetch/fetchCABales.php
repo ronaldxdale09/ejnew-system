@@ -8,7 +8,7 @@
     $result = $con->query($cash_advance);
     $row = $result->fetch_assoc();
     
-    $ca = $row['bales_cash_advance']?? '';
+    $ca = $row['cash_advance']?? '';
 
      echo $ca;
 

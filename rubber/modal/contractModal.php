@@ -101,9 +101,9 @@ select:invalid[multiple] {
                                             <select required="required" class='select_seller col-md-12' name='type'
                                                 id='type'>
                                                 <option disabled="disabled" selected="selected" value="">Select Type
-                                                 </option>
-                                                 <option  value="WET">WET</option>
-                                                 <option  value="BALES">BALES</option>
+                                                </option>
+                                                <option value="WET">WET</option>
+                                                <option value="BALES">BALES</option>
                                             </select>
                                         </div>
                                     </div>
@@ -227,9 +227,9 @@ $('#newContract').on('shown.bs.modal', function() {
                                             <select required="required" class='contact_seller col-md-12' name='type'
                                                 id='type'>
                                                 <option disabled="disabled" selected="selected" value="">Select Type
-                                                 </option>
-                                                 <option  value="WET">WET</option>
-                                                 <option  value="BALES">BALES</option>
+                                                </option>
+                                                <option value="WET">WET</option>
+                                                <option value="BALES">BALES</option>
                                             </select>
                                         </div>
                                     </div>

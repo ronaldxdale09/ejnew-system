@@ -50,8 +50,10 @@
 
                                         if (isset($_POST['new_ca'])) {
                                             $date = $_POST['date'];
-                                            $seller = $_POST['seller'];
+                                            $seller = $_POST['name'];
                                             $category = $_POST['ca_category'];
+                                            $type = $_POST['ca_category'];
+
                                             $amount = str_replace(',', '', $_POST['ca_amount']);
                 
                                             //select seller ca
@@ -64,7 +66,7 @@
                 
                 
                                                 $query = "INSERT INTO rubber_cashadvance (date,seller,category,amount,status,type) 
-                                                        VALUES ('$date','$seller','$category','$amount','PENDING','WET')";
+                                                        VALUES ('$date','$seller','$category','$amount','PENDING','$type')";
                                                 $results = mysqli_query($con, $query);
                 
                                                 $query = "UPDATE  rubber_seller SET cash_advance = '$new_total_ca' where name='$seller'  ";

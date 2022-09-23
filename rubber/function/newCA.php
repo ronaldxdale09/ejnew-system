@@ -10,7 +10,7 @@
                            echo  $amount = str_replace(',', '', $_POST['ca_amount']);
 
                             //select seller ca
-                            $sql=mysqli_query($con,"SELECT * FROM seller WHERE name='$seller' ");
+                            $sql=mysqli_query($con,"SELECT * FROM rubber_seller WHERE name='$seller' ");
                             $row = mysqli_fetch_array($sql);
 
                             $seller_ca = $row['cash_advance'];
@@ -19,7 +19,7 @@
 
 
                                 $query = "INSERT INTO rubber_cashadvance (date,seller,category,amount,type) 
-                                        VALUES ('$date','$seller','$category','$amount',$type)";
+                                        VALUES ('$date','$seller','$category','$amount','$type')";
                                 $results = mysqli_query($con, $query);
 
                                 if ($type == 'WET'){
