@@ -13,12 +13,12 @@
         <i class='fa-solid fa-house'></i> <span class='nav-text'>Home</span>
     </a>
     <hr style='color:gray'>
-    <a class='nav-link' href='wet_rubber.php'>
-        <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>WET Purchasing</span>
+    <a class='nav-link' href='receiving.php'>
+        <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>Receiving</span>
     </a>
 
-    <a class='nav-link' href='bales_rubber.php'>
-        <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>Bales Purchasing</span>
+    <a class='nav-link' href='expenses.php'>
+        <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>Expenses</span>
     </a>
     <hr style='color:gray'>
     <a class='nav-link' href='record.php'>

@@ -40,6 +40,9 @@
 			elseif  ($userType =='rubber'){
 				header('Location: ../rubber/dashboard.php');
 			}
+			elseif  ($userType =='planta'){
+				header('Location: ../plantation/dashboard.php');
+			}
 		}
 	}
 	//echo "Error: Could not be able to execute $sql. " .mysqli_error($link);
