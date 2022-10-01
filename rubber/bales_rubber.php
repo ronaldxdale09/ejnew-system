@@ -338,7 +338,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                 <div class="form-group">
                                                     <div class="row no-gutters">
                                                         <div class="col-12 col-md-3">
-
+                                                
                                                         </div>
                                                         <!--end  -->
                                                         <div class="col-6 col-md-4">
@@ -365,8 +365,9 @@ $today = $year . "-" . $month . "-" . $day;
                                                             <label class="col-md-12">Kilo Per Bale</label>
                                                             <select class='form-select' name='kilo_bales_2'
                                                                 id='kilo_bales_2' disabled>
+                                                                <option value='1'selected="selected">Select Kilo</option>
                                                                 <option value="35">35 KG </option>
-                                                                <option value="33.33" selected="selected">33.33 KG
+                                                                <option value="33.33" >33.33 KG
                                                                 </option>
 
                                                             </select>
@@ -408,7 +409,8 @@ $today = $year . "-" . $month . "-" . $day;
                                                         </div>
 
                                                         <div class="col-6 col-md-2">
-
+                                                        <input type="text" class="form-control" id='bales_compute'
+                                                                name='bales_compute' hidden  />
                                                             <!--  end-->
                                                         </div>
                                                     </div>

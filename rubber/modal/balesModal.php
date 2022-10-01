@@ -246,6 +246,9 @@
                     <input name="m_total_bales_1" id="m_total_bales_1" hidden>
 
                     <input name="m_total_bales_2" id="m_total_bales_2" hidden>
+                    <input name="m_bales_compute" id="m_bales_compute" hidden>
+
+
 
                     <input name="m_drc" id="m_drc" hidden>
 
@@ -254,7 +257,6 @@
 
                     <input name="m_first_total" id="m_first_total" hidden>
                     <input name="m_second_total" id="m_second_total" hidden>
-
 
 
                     <input name="m_address" id="m_address" hidden>

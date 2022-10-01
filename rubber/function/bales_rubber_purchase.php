@@ -26,6 +26,9 @@
                             
                             $total_bales_1 = ($_POST['m_total_bales_1']);
                             $total_bales_2= ($_POST['m_total_bales_2']);
+
+                            $bales_compute= ($_POST['m_bales_compute']);
+
                             
 
                             
@@ -95,10 +98,10 @@
 
                             $query = "INSERT INTO bales_transaction (
                                 invoice,contract,date,address,seller,entry,net_weight_1,net_weight_2,total_net_weight,kilo_bales_1,kilo_bales_2,total_bales_1,total_bales_2,drc,
-                                price_1,price_2,total_amount,less,amount_paid,words_amount,delivery_date,lot_code) 
+                                price_1,price_2,total_amount,less,amount_paid,words_amount,delivery_date,lot_code,bales_compute) 
                                     VALUES ('$invoice','$contract','$date','$address','$seller','$entry','$net_weight_1','$net_weight_2','$total_net_weight',
                                     '$kilo_bales_1','$kilo_bales_2','$total_bales_1','$total_bales_2','$drc','$price_1','$price_2',
-                                    '$total_amount','$less','$amount_paid','$words_amount','$delivery_date','$lot_number')";
+                                    '$total_amount','$less','$amount_paid','$words_amount','$delivery_date','$lot_number','$bales_compute')";
 
 
 

@@ -54,6 +54,9 @@ function bales_compute(entry, net_1, net_2, kilo_bales_1, kilo_bales_2, price_1,
     $("#total_bales_2").val(((total_bales_2)));
 
 
+    $("#bales_compute").val((parseFloat(bales_1 + '.' + excess_kilo_1) + parseFloat((bales_2 + '.' + excess_kilo_2))));
+
+
     first_total = (+price_1) * (+net_1);
     second_total = (+price_2) * (+net_2);
 

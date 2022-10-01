@@ -1,6 +1,5 @@
 <?php 
-   include('include/header.php');
-   include "include/navbar.php";
+
 
    $seller = "SELECT * FROM seller ";
    $result = mysqli_query($con, $seller);
@@ -26,116 +25,100 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <body>
-    <link rel='stylesheet' href='css/statistic-card.css'>
-    <input type='hidden' id='selected-cart' value=''>
-    <div class='main-content' style='position:relative; height:100%;'>
-        <div class="container home-section h-100" style="max-width:95%;">
-            <div class="page-wrapper">
-                <!-- ============================================================== -->
-                <div class="container-fluid">
-                    <!-- ============================================================== -->
 
-                    <!-- ============================================================== -->
-                    <div class="row">
+    <div class="row">
+        <div class="col-12">
+            <!-- CONTENT -->
+            <div class="row">
+                <div class="col-4">
 
-                        <h2 class="page-title"><B>
-                                <font color="#0C0070"> BALES TRANSACTION </font>
-                                <font color="#046D56"> RECORD </font>
-                            </b></h2>
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <!-- CONTENT -->
-                                    <div class="row">
-                                        <div class="col-5">
-                                            <button type="button" class="btn btn-dark text-white" data-toggle="modal"
-                                                data-target="#copraCashAdvance">
-                                                <i class="fa fa-add" aria-hidden="true"></i> NEW TRANSACTION
-                                            </button>
-                                        </div>
-                                        <div class="col">
-                                            <h5> Date Filter</h5>
-                                        </div>
-                                        <div class="col-3">
-                                            <input type="text" id="min" name="min" class="form-control"
-                                                placeholder="From Date" />
-                                        </div>
-                                        <div class="col-3">
-                                            <input type="text" id="max" name="max" class="form-control"
-                                                placeholder="To Date" />
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <h6 class="card-title m-t-40">
-                                        <i class="m-r-5 font-18 mdi mdi-numeric-1-box-multiple-outline"></i>Copra
-                                        Purchased Record
-                                    </h6>
+                </div>
+                <div class="col">
+                    <h5> Date Filter</h5>
+                </div>
+                <div class="col-3">
+                    <input type="text" id="min" name="min" class="form-control" placeholder="From Date" />
+                </div>
+                <div class="col-3">
+                    <input type="text" id="max" name="max" class="form-control" placeholder="To Date" />
+                </div>
+            </div>
+            <br>
+            <h6 class="card-title m-t-40">
+                <i class="m-r-5 font-18 mdi mdi-numeric-1-box-multiple-outline"></i>Copra
+                Purchased Record
+            </h6>
 
-
-                                    <div class="table-responsive">
-                                        <table class="table" id='transaction_record'>
-                                            <?php
+            <div class="table-responsive">
+                <table class="table" id='wet_rec_table'>
+                    <?php
                                     $record  = mysqli_query($con, "SELECT * from bales_transaction ORDER BY id DESC  "); ?>
-                                            <thead class="table-dark">
-                                                <tr>
-                                                    <th scope="col">Invoice</th>
-                                                    <th scope="col">Date</th>
-                                                    <th scope="col">Contract</th>
-                                                    <th scope="col">Seller</th>
-                                                    <th scope="col">Entry Weight</th>
-                                                    <th scope="col">Net Weight</th>
-                                                    <th scope="col">First Price</th>
-                                                    <th scope="col">Second Price</th>
-                                                    <th scope="col">Cash Advance</th>
-                                                    <th scope="col">Amount Paid</th>
-                                                    <th scope="col">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody> <?php while ($row = mysqli_fetch_array($record)) { ?> <tr>
-                                                    <th scope="row"> <?php echo $row['id']?> </th>
-                                                    <td> <?php echo $row['date']?> </td>
-                                                    <td> <?php echo $row['contract']?> </td>
-                                                    <td> <?php echo $row['seller']?> </td>
-                                                    <td> <?php echo number_format($row['entry'])?> Kg</td>
-                                                    <td> <?php 
+                    <thead class="table-dark" style='font-size:15px'>
+                        <tr>
+                            <th scope="col">Invoice</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Contract</th>
+                            <th scope="col">Seller</th>
+                            <th scope="col">Entry Weight</th>
+                            <th scope="col">Net Weight</th>
+                            <th scope="col">First Price</th>
+                            <th scope="col">Second Price</th>
+                            <th scope="col">Cash Advance</th>
+                            <th scope="col">Amount Paid</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody style='font-size:17px'> <?php while ($row = mysqli_fetch_array($record)) { ?> <tr>
+                            <th scope="row"> <?php echo $row['id']?> </th>
+                            <td> <?php echo $row['date']?> </td>
+                            <td> <?php echo $row['contract']?> </td>
+                            <td> <?php echo $row['seller']?> </td>
+                            <td> <?php echo number_format($row['entry'])?> Kg</td>
+                            <td> <?php 
                                                     $total_weight = $row['net_weight_1'] +  $row['net_weight_2'];          
                                                     echo number_format($total_weight);?> Kg </td>
 
-                                                    <td>₱ <?php echo number_format($row['price_1'],2)?> </td>
-                                                    <td>₱ <?php echo number_format($row['price_2'],2)?> </td>
-                                                    <td>₱ <?php echo number_format($row['less'],2)?> </td>
+                            <td>₱ <?php echo number_format($row['price_1'],2)?> </td>
+                            <td>₱ <?php echo number_format($row['price_2'],2)?> </td>
+                            <td>₱ <?php echo number_format($row['less'],2)?> </td>
 
 
 
-                                                    <td>₱ <?php echo number_format(($row['amount_paid']),2); ?> </td>
-                                                    <td> <button type="button" class="btn btn-dark btnView"><i
-                                                                class="fa fa-eye"></i></button>
-                                                        <button type="button" class="btn btn-danger btnDelete"><i
-                                                                class="fa fa-trash"></i></button>
-                                                    </td>
-                                                </tr> <?php } ?> </tbody>
+                            <td>₱ <?php echo number_format(($row['amount_paid']),2); ?> </td>
+                            <td> <button type="button" class="btn btn-dark btnView"><i class="fa fa-eye"></i></button>
+                                <button type="button" class="btn btn-danger btnDelete"><i
+                                        class="fa fa-trash"></i></button>
+                            </td>
+                        </tr> <?php } ?>
+                    </tbody>
+                    <tfoot>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tfoot>
 
-                                        </table>
-                                    </div>
-                                    <!-- END CONTENT -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                </table>
             </div>
+            <!-- END CONTENT -->
         </div>
     </div>
 
 </body>
-<?php    include "modal/m_bales_record.php";?>
+
+<?php    include "modal/m_wet_record.php";?>
 
 </html>
 
-<script>
-// for date
-
+<script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.12.1/api/sum().js"></script>
+<script type="text/javascript">
 var minDate, maxDate;
 
 // Custom filtering function which will search data in column four between two values
@@ -143,8 +126,7 @@ $.fn.dataTable.ext.search.push(
     function(settings, data, dataIndex) {
         var min = minDate.val();
         var max = maxDate.val();
-        var date = new Date(data[0]);
-
+        var date = new Date(data[1]);
 
         if (
             (min === null && max === null) ||
@@ -159,88 +141,51 @@ $.fn.dataTable.ext.search.push(
 );
 
 
-// for date filter
+minDate = new DateTime($('#min'), {
+    format: 'MMMM Do YYYY'
+});
+maxDate = new DateTime($('#max'), {
+    format: 'MMMM Do YYYY'
+});
+
+
+
 
 
 $(document).ready(function() {
-    document.getElementById('date_delivery').validity.valid;
-    document.getElementById('lot_number').validity.valid;
-
-    // Create date inputs
-    minDate = new DateTime($('#p_min'), {
-        format: 'YYYY-MM-DD'
-    });
-    maxDate = new DateTime($('#p_max'), {
-        format: 'YYYY-MM-DD'
-    });
-
-    // DataTables initialisation
-    var table = $('#transaction_record').DataTable(
-
-        {
-            footerCallback: function(row, data, start, end, display) {
-                var api = this.api(),
-                    data;
-
-                // Remove the formatting to get integer data for summation
-                var intVal = function(i) {
-                    return typeof i === 'string' ? i.replace(/[\$,]/g, '') * 1 : typeof i ===
-                        'number' ? i : 0;
-                };
-
-                // Total over all pages
-                var total_paid = api
-                    .column(5)
-                    .data()
-                    .reduce(function(a, b) {
-                        return intVal(a) + intVal(b);
-                    }, 0);
 
 
+    table = $('#wet_rec_table').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'excel', 'pdf', 'print',
 
-                // Update footer
-                $(api.column(5).footer()).html('₱ ' + total_paid + ' ( ₱ ' + total_paid + ' total)');
-            },
-            order: [
-                [0, 'desc']
-            ],
-            dom: 'Bfrtip',
-            buttons: [{
-                    extend: 'excelHtml5',
-                    exportOptions: {
-                        columns: [1, 2, 3, 4, 5]
-                    }
-                },
-                {
-                    extend: 'pdfHtml5',
-                    exportOptions: {
-                        columns: [1, 2, 3, 4, 5]
-                    }
-                },
-                {
-                    extend: 'print',
-                    exportOptions: {
-                        columns: [1, 2, 3, 4, 5]
-                    }
-                },
+        ],
+        drawCallback: function() {
+            var api = this.api();
+            var sum = 0;
+            var formated = 0;
+            //to show first th
+            $(api.column(8).footer()).html('Total');
 
 
+            sum = api.column(9, {
+                page: 'current'
+            }).data().sum();
 
-            ],
-            orderCellsTop: true,
-
-
+            //to format this sum
+            formated = parseFloat(sum).toLocaleString(undefined, {
+                minimumFractionDigits: 2
+            });
+            $(api.column(9).footer()).html('P ' + formated);
 
 
         }
-    );
-
-    // Refilter the table
-    $('#p_min, #p_max').on('change', function() {
-        purchase_table.draw();
     });
 
-
+    $('#min, #max').on('change', function() {
+        table.draw();
+    });
 
 });
 </script>

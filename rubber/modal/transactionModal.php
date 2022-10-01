@@ -117,24 +117,24 @@
                     <input type="text" class="form-control" id='m_total-words' name='m_total-words' readonly />
                     <!-- hidden -->
                 
-                    <input name="m_gross" id="m_gross" >
-                    <input name="m_tare" id="m_tare" >
-                    <input name="m_net" id="m_net" >
+                    <input name="m_gross" id="m_gross" hidden>
+                    <input name="m_tare" id="m_tare" hidden>
+                    <input name="m_net" id="m_net" hidden>
                     
-                    <input name="m_1price" id="m_1price" >
-                    <input name="m_2price" id="m_2price" >
+                    <input name="m_1price" id="m_1price" hidden>
+                    <input name="m_2price" id="m_2price" hidden>
 
 
-                    <input name="m_total_first" id="m_total_first" >
-                    <input name="m_total_sec" id="m_total_sec" >
+                    <input name="m_total_first" id="m_total_first" hidden>
+                    <input name="m_total_sec" id="m_total_sec" hidden>
                    
-                    <input name="m_weight_1" id="m_weight_1" >
-                    <input name="m_weight_2" id="m_weight_2" >
+                    <input name="m_weight_1" id="m_weight_1" hidden>
+                    <input name="m_weight_2" id="m_weight_2" hidden>
 
 
-                    <input name="m_address" id="m_address" >
-                    <input name="m_quantity" id="m_quantity" >
-                    <input name="m_balance" id="m_balance" >
+                    <input name="m_address" id="m_address" hidden>
+                    <input name="m_quantity" id="m_quantity" hidden>
+                    <input name="m_balance" id="m_balance" hidden>
 
           
                 </div>

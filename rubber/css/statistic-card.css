@@ -5,14 +5,14 @@ body {
 }
 
 .main-content {
-    padding-top: 70px;
-    padding-bottom: 70px;
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 
 .stat-card {
     background: #fff;
-    padding: 25px;
-    margin-bottom: 25px;
+    padding: 13px;
+    margin-bottom: 20px;
     border-radius: 5px;
     overflow: hidden;
     display: flex;
@@ -37,7 +37,7 @@ body {
 }
 
 .stat-card__icon-circle i {
-    font-size: 24px;
+    font-size: 20px;
     color: #007bff;
 }
 

@@ -63,7 +63,7 @@ function contractSet(contractVal) {
                 document.getElementById('price_2').disabled = true;
                 document.getElementById('kilo_bales_2').disabled = true;
 
-                
+
             } else {
                 document.getElementById("contract-form").style.display = "block";
                 $('#name').attr('disabled', true);
@@ -235,7 +235,7 @@ function BalesRubber() {
     var less = $("#cash_advance").val().replace(/,/g, '');
 
 
-    bales_compute(entry, net_1,net_2, kilo_bales_1,kilo_bales_2, price_1,price_2, less);
+    bales_compute(entry, net_1, net_2, kilo_bales_1, kilo_bales_2, price_1, price_2, less);
 
 };
 </script>
@@ -268,7 +268,7 @@ $(function() {
 
 <script>
 $(function() {
-    $("#kilo_bales_1,#kilo_bales_2").on("change",function() {
+    $("#kilo_bales_1,#kilo_bales_2").on("change", function() {
         BalesRubber();
 
     });
@@ -283,10 +283,11 @@ $(function() {
 
 
         BalesRubber();
-        
+
         var amount_paid = $("#amount_paid").val().replace(/,/g, '');
 
-        getWords(amount_paid);
+        words = numToWords(amount_paid);
+        document.getElementById("amount-paid-words").value = words;
 
     });
 });
@@ -298,11 +299,65 @@ $(function() {
     $("#cash_advance").keyup(function() {
 
 
-        BalesRubber();     
+        BalesRubber();
         var amount_paid = $("#amount_paid").val().replace(/,/g, '');
 
-        getWords(amount_paid);
-
+        words = numToWords(amount_paid);
+        document.getElementById("amount-paid-words").value = words;
     });
 });
+</script>
+
+
+<script>
+function numToWords(s) {
+
+    var th = ['', 'thousand', 'million', 'billion', 'trillion'];
+
+    var dg = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+    var tn = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen',
+        'nineteen'
+    ];
+    var tw = ['twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
+
+    s = s.toString();
+    s = s.replace(/[\, ]/g, '');
+    if (s != parseFloat(s)) return 'not a number';
+    var x = s.indexOf('.');
+    if (x == -1) x = s.length;
+    if (x > 15) return 'too big';
+    var n = s.split('');
+    var str = '';
+    var sk = 0;
+    for (var i = 0; i < x; i++) {
+        if ((x - i) % 3 == 2) {
+            if (n[i] == '1') {
+                str += tn[Number(n[i + 1])] + ' ';
+                i++;
+                sk = 1;
+            } else if (n[i] != 0) {
+                str += tw[n[i] - 2] + ' ';
+                sk = 1;
+            }
+        } else if (n[i] != 0) {
+            str += dg[n[i]] + ' ';
+            if ((x - i) % 3 == 0) str += 'hundred ';
+            sk = 1;
+        }
+        if ((x - i) % 3 == 1) {
+            if (sk) str += th[(x - i - 1) / 3] + ' ';
+            sk = 0;
+        }
+    }
+    str += 'peso/s ';
+    if (x != s.length) {
+        var y = s.length;
+        str += 'and ';
+        for (var i = x + 1; i < y; i++) str += dg[n[i]] + ' ';
+        str = str + 'centavo/s ';
+    }
+
+    str = str.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
+    return str.replace(/\s+/g, ' ');
+}
 </script>

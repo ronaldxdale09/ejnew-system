@@ -55,6 +55,7 @@ $('#confirm').click(function() {
    
         $('#m_invoice').val($("#invoice").val());
         $('#m_name').val($("#name").val());
+        $('#received_by').val($("#name").val());
         $('#m_date').val($("#date").val());
         $('#m_address').val($("#address").val());
         $('#m_contract').val($("#contract").val());
@@ -78,9 +79,12 @@ $('#confirm').click(function() {
         $('#m_total_bales_1').val($("#total_bales_1").val());
         $('#m_total_bales_2').val($("#total_bales_2").val());
 
+        $('#m_bales_compute').val($("#bales_compute").val());
         
         $('#m_price_1').val($("#price_1").val());
         $('#m_price_2').val($("#price_2").val());
+
+        
 
 
         $('#m_first_total').val($("#first_total").val());
@@ -91,6 +95,9 @@ $('#confirm').click(function() {
         $('#m_less').val($("#cash_advance").val());
         $('#m_total-paid').val($("#amount_paid").val());
         $('#m_total-words').val($("#amount-paid-words").val());
+
+   
+        
     }
 });
 

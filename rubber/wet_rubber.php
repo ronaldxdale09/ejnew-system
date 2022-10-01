@@ -522,7 +522,6 @@ $today = $year . "-" . $month . "-" . $day;
     </div>
     </div>
 </body>
-<script type="text/javascript" src="js/getWords.js"></script>
 <script type="text/javascript" src="js/rubber_computation.js"></script>
 
 </html>
