@@ -20,7 +20,7 @@
 
 <body>
     <link rel='stylesheet' href='css/statistic-card.css'>
-    <link rel='stylesheet' href='css/expenses.css'>
+    <link rel='stylesheet' href='css/tab-style.css'>
 
 
     <input type='hidden' id='selected-cart' value=''>
@@ -31,124 +31,66 @@
                 <div class="container-fluid">
 
                     <div class="inventory-table">
-                        <div class="expenses-box">
-
-                            <div class="flex-2">
-                                <div class="inventory-table">
-                                    <div class="flex-2-header-button">
-                                        <div class="button-left">
-                                            <button type="button" class="btn btn-success btn-md" data-bs-toggle="modal"
-                                                data-bs-target="#createNew">Create New</button>
-                                            <button type="button" class="btn btn-warning btn-md">Category</button>
-                                        </div>
-                                        <div class="button-right">
-                                            <select name="" id="">
-                                                <option value="">Category</option>
-                                                <option value="">All</option>
-                                                <option value="">Category</option>
-                                            </select>
-                                            <h5> Date Filter</h5>
-                                            <input type="text" id="min" name="min" placeholder="From Date" />
-                                            <input type="text" id="max" name="max" placeholder="To Date" />
-                                        </div>
+                        <div class="container-fluid">
+                            <div class="wrapper" id="myTab">
+                                <input type="radio" name="slider" id="home" checked>
+                                <input type="radio" name="slider" id="blog">
+                                <input type="radio" name="slider" id="code">
+                                <input type="radio" name="slider" id="help">
+                                <input type="radio" name="slider" id="about">
+                                <nav>
+                                    <label for="home" class="home"><i class="fa fa-add"></i> Receiving</label>
+                                    <label for="blog" class="blog"><i class="fas fa-shelves"></i>Sales Report</label>
+                                    <label for="code" class="code"><i class="fas fa-code"></i> Expenses</label>
+                                    <label for="help" class="help"><i class="far fa-envelope"></i> Cost of Sale</label>
+                                    <label for="about" class="about"><i class="far fa-user"></i>Inventory
+                                        Shrinkage</label>
+                                    <div class="slider"></div>
+                                </nav>
+                                <section>
+                                    <div class="content content-1">
+                                        <div class="title">RECEIVING </div>
+                                        <button type="button" class="btn btn-danger text-white" data-toggle="modal"
+                                            data-target="#newReceiving">
+                                            <i class="fa fa-add" aria-hidden="true"></i> NEW RECEIVING  </button>
+                       
+                                        <hr>
+                                        <?php include('tab/receiving.php') ?>
                                     </div>
-                                    <?php
-                        $results  = mysqli_query($con, "SELECT * from tbl_expenses "); ?>
-                                    <table id="expenses_table" class="table table-hover" style="width:100%">
-                                        <thead class="table-dark">
-                                            <tr style='font-size:14px'>
-                                                <th>Action</th>
-                                                <th>No.</th>
-                                                <th>Particular</th>
-                                                <th>Category</th>
-                                                <th>Voucher No.</th>
-                                                <th>Date of Transaction</th>
-                                                <th>Date of Payment</th>
-                                                <th>Amount</th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php while ($row = mysqli_fetch_array($results)) { ?>
-                                            <tr>
-                                                <td>
-                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                        data-bs-target="#editTableRow"><i
-                                                            class="fa fa-edit"></i></button>
-                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                        data-bs-target="#deleteTableRow"><i
-                                                            class="fa fa-trash"></i></button>
-                                                </td>
-                                                <td><?php echo $row['expense_id']; ?></td>
-                                                <td><?php echo $row['particular']; ?></td>
-                                                <td><?php echo $row['expense_category']; ?></td>
-                                                <td><?php echo $row['voucher_no']; ?></td>
-                                                <td><?php echo $row['date_transaction']; ?></td>
-                                                <td><?php echo $row['date_payment']; ?></td>
-                                                <td><?php echo number_format((float)$row['amount'], 2, '.', ',');  ?>
-                                                </td>
-
-                                            </tr>
-
-                                            <?php } ?>
-                                        </tbody>
-                                        <tfoot>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-
-                                        </tfoot>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="flex-1">
-                                <div class="top">
-                                    <div class="top-bar">
-                                        <h4>Operating Expenses</h4>
-                                        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                            data-bs-target="#viewOperating">View All</button>
+                                    <div class="content content-2">
+                                        <div class="title">Product Shelves </div>
+                                        <?php include('report_pages/ntc_shelves.php') ?>
                                     </div>
-                                    <small>AUGUST 2022</small>
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Category
-                                </div>
-                                </th>
-                                <th scope="col">Amount</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Salaries & allowances</td>
-                                        <td>P 123,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Marketing expenses</td>
-                                        <td>P 123,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Utilities</td>
-                                        <td>P 123,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Office supplies</td>
-                                        <td>P 123,000</td>
-                                    </tr>
-                                </tbody>
+                                    <div class="content content-3">
+                                        <div class="title">Shelves</div>
+                                        <?php include('report_pages/ntc_update_inventory.php') ?>
+                                    </div>
+                                    <div class="content content-4">
+                                        <div class="title">This is a Help content</div>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim reprehenderit
+                                            null itaq,
+                                            odio repellat asperiores vel voluptatem magnam praesentium, eveniet iure ab
+                                            facere
+                                            officiis. Quod sequi vel, rem quam provident soluta nihil, eos.
+                                            Illo oditu omnis cumque praesentium voluptate maxime voluptatibus facilis
+                                            nulla ipsam
+                                            quidem mollitia! Veniam, fuga, possimus. Commodi, fugiat aut ut quorioms stu
+                                            necessitatibus, cumque laborum rem provident tenetur.</p>
+                                    </div>
+                                    <div class="content content-5">
+                                        <div class="title">This is a About content</div>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur officia
+                                            sequi
+                                            aliquam. Voluptatem distinctio nemo culpa veritatis nostrum fugit rem
+                                            adipisci ea ipsam,
+                                            non veniam ut aspernatur aperiam assumenda quis esse soluta vitae,
+                                            placeat quasi. Iste dolorum asperiores hic impedit nesciunt atqu, officia
+                                            magnam commodi
+                                            iusto aliquid eaque, libero.</p>
+                                    </div>
+                                </section>
+                            </div>
 
-                                </table>
-                            </div>
-                            <div class="bottom">
-                                <div class="card-body">
-                                    <canvas id="expense_chart" style="width: 100%; height: 300px"></canvas>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -160,6 +102,6 @@
 </body>
 
 </html> <?php
-include('modal/cashadvanceModal.php');
+include('modal/m_receiving.php');
 ?>
 <script type="text/javascript" src="js/copra-ca.js"></script>

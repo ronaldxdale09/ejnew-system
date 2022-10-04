@@ -36,7 +36,7 @@
                                     <br>
                                     <div class="table-responsive">
                                         <table class="table" id='sellerTable'> <?php
-                                    $results  = mysqli_query($con, "SELECT * from rubber_seller"); ?>
+                                           $results  = mysqli_query($con, "SELECT * from rubber_seller"); ?>
                                             <thead class="table-dark">
                                                 <tr>
                                                     <th>Image</th>
@@ -48,10 +48,8 @@
                                             </thead>
                                             <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
                                                     <td>
-                                                        <nobr> <img
-                                                                src="assets/img/avatar.png"
-                                                                alt="..." class="img img-fluid" width="65"
-                                                               >
+                                                        <nobr> <img src="assets/img/avatar.png" alt="..."
+                                                                class="img img-fluid" width="65">
                                                         </nobr>
                                                     </td>
                                                     <td> <?php echo $row['name']?> </td>
@@ -83,7 +81,6 @@ include "modal/addseller_modal.php";
 ?>
 
 <script>
-
 $(document).ready(function() {
 
     var table = $('#sellerTable').DataTable({
@@ -119,4 +116,4 @@ $(document).ready(function() {
     });
 
 });
-    </script>
+</script>
