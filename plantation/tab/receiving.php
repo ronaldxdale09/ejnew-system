@@ -1,33 +1,43 @@
 <div class="table-responsive">
     <table class="table" id='sellerTable'> <?php
-                                           $results  = mysqli_query($con, "SELECT * from rubber_seller"); ?>
+                                           $results  = mysqli_query($con, "SELECT * from planta_recording"); ?>
         <thead class="table-dark">
             <tr>
-                <th>Image</th>
-                <th scope="col">Name</th>
-                <th scope="col">Address</th>
-                <th scope="col">Contact #</th>
+                <th scope="col">Status</th>
+                <th scope="col">Date</th>
+                <th scope="col">Source</th>
+                <th scope="col">Area (Address) </th>
+                <th scope="col">Driver</th>
+                <th scope="col">Truck Number</th>
+                <th scope="col">Cost</th>
+                <th scope="col">Actual Kilos</th>
+                <th scope="col">Reweight</th>
+                <th scope="col">Total Amount</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
                 <td>
-                    <nobr> <img src="assets/img/avatar.png" alt="..." class="img img-fluid" width="65">
-                    </nobr>
+                    <span class="badge bg-success"> <?php echo $row['status']?> </spa>
                 </td>
-                <td> <?php echo $row['name']?> </td>
+
+                <td> <?php echo $row['date']?> </td>
+                <td> <?php echo $row['seller']?> </td>
                 <td> <?php echo $row['address']?> </td>
-                <td> <?php echo $row['contact']?> </td>
+                <td> <?php echo $row['driver']?> </td>
+                <td> <?php echo $row['truck_number']?> </td>
+                <td> <?php echo $row['cost']?> </td>
+                <td> <?php echo $row['actual_kilo']?> </td>
+                <td> <?php echo $row['reweight']?> </td>
+                <td> <?php echo $row['total_amount']?> </td>
                 <td>
-                    <a href="seller_profile.php?view=<?php echo $row['id']; ?>" class="btn btn-primary ">
-                        <i class='fa-solid fa-eye'></i></a>
+                    <button type="button" class="btn btn-success text-white" data-toggle="modal"
+                        data-target="#add_seller">UPDATE </button>
+                </td>
+
+                <td>
+
                 </td>
             </tr> <?php } ?> </tbody>
     </table>
 </div>
-
-<script>
-$('#newReceiving').on('shown.bs.modal', function() {
-    $('.source', this).chosen();
-});
-</script>

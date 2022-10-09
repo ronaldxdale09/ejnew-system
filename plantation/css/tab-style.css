@@ -75,7 +75,7 @@ nav label i {
 nav .slider {
     position: absolute;
     height: 100%;
-    width: 20%;
+    width: 25%;
     left: 0;
     bottom: 0;
     z-index: 0;
@@ -89,19 +89,15 @@ input[type="radio"] {
 }
 
 #blog:checked~nav .slider {
-    left: 20%;
+    left: 25%;
 }
 
 #code:checked~nav .slider {
-    left: 40%;
+    left: 50%;
 }
 
 #help:checked~nav .slider {
-    left: 60%;
-}
-
-#about:checked~nav .slider {
-    left: 80%;
+    left: 75%;
 }
 
 section .content {
@@ -112,8 +108,7 @@ section .content {
 #home:checked~section .content-1,
 #blog:checked~section .content-2,
 #code:checked~section .content-3,
-#help:checked~section .content-4,
-#about:checked~section .content-5 {
+#help:checked~section .content-4 {
     display: block;
 }
 

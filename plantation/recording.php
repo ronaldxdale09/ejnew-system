@@ -39,21 +39,20 @@
                                 <input type="radio" name="slider" id="help">
                                 <input type="radio" name="slider" id="about">
                                 <nav>
-                                    <label for="home" class="home"><i class="fa fa-add"></i> Receiving</label>
-                                    <label for="blog" class="blog"><i class="fas fa-shelves"></i>Sales Report</label>
-                                    <label for="code" class="code"><i class="fas fa-code"></i> Expenses</label>
-                                    <label for="help" class="help"><i class="far fa-envelope"></i> Cost of Sale</label>
-                                    <label for="about" class="about"><i class="far fa-user"></i>Inventory
-                                        Shrinkage</label>
+                                    <label for="home" class="home"><i class="fa fa-add"></i> Receiving (Field)</label>
+                                    <label for="blog" class="blog"><i class="fas fa-spinner"></i>Processing</label>
+                                    <label for="code" class="code"><i class="fas fa-check"></i> Finished Product</label>
+                                    <label for="help" class="help"><i class="fas fa-book"></i> Report</label>
+
                                     <div class="slider"></div>
                                 </nav>
                                 <section>
                                     <div class="content content-1">
                                         <div class="title">RECEIVING </div>
-                                        <button type="button" class="btn btn-danger text-white" data-toggle="modal"
+                                        <button type="button" class="btn btn-primary text-white" data-toggle="modal"
                                             data-target="#newReceiving">
                                             <i class="fa fa-add" aria-hidden="true"></i> NEW RECEIVING  </button>
-                       
+                                    
                                         <hr>
                                         <?php include('tab/receiving.php') ?>
                                     </div>
@@ -77,17 +76,7 @@
                                             quidem mollitia! Veniam, fuga, possimus. Commodi, fugiat aut ut quorioms stu
                                             necessitatibus, cumque laborum rem provident tenetur.</p>
                                     </div>
-                                    <div class="content content-5">
-                                        <div class="title">This is a About content</div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur officia
-                                            sequi
-                                            aliquam. Voluptatem distinctio nemo culpa veritatis nostrum fugit rem
-                                            adipisci ea ipsam,
-                                            non veniam ut aspernatur aperiam assumenda quis esse soluta vitae,
-                                            placeat quasi. Iste dolorum asperiores hic impedit nesciunt atqu, officia
-                                            magnam commodi
-                                            iusto aliquid eaque, libero.</p>
-                                    </div>
+                             
                                 </section>
                             </div>
 

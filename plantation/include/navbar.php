@@ -15,7 +15,7 @@
     <hr style='color:gray'>
 
 
-    <a class='nav-link' href='expenses.php'>
+    <a class='nav-link' href='recording.php'>
         <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>Recording</span>
     </a>
     <hr style='color:gray'>
