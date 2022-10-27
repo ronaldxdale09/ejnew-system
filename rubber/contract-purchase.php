@@ -58,7 +58,7 @@ $year = date("Y");
                                     <p class="text-uppercase mb-1 text-muted">Pending Contracts</p>
                                     <h2><?php echo $contract; ?> </h2>
                                     <div>
-                                        <span class="text-muted">OVERALL EXPENSES</span>
+                                        <span class="text-muted">ACTIVE CONTRACT</span>
                                     </div>
                                 </div>
                                 <div class="stat-card__icon stat-card__icon--primary">
@@ -102,7 +102,7 @@ $year = date("Y");
 
                                     <div class="table-responsive">
                                         <table class="table" id='contractTable'> <?php
-                                    $results  = mysqli_query($con, "SELECT * from rubber_contract WHERE status='PENDING' OR status='UPDATED' "); 
+                                    $results  = mysqli_query($con, "SELECT * from rubber_contract"); 
                                     
                                     ?> <thead class="table-dark">
                                                 <tr>
@@ -115,10 +115,25 @@ $year = date("Y");
                                                     <th scope="col">₱/KG</th>
                                                     <th scope="col">Status</th>
                                                     <th scope="col">Type</th>
+                                                    <th ></th>
+                                                    <th hidden></th>
                                                 </tr>
                                             </thead>
-                                            <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
-                                                    <th scope="row"> <?php echo $row['date']?> </th>
+                                            <tbody> <?php while ($row = mysqli_fetch_array($results)) {
+                                                $hidden='';
+                                                if ($row['status'] == 'PENDING'){
+                                                    $status='warning';
+                                                }
+                                                else if ($row['status'] == 'UPDATED'){
+                                                    $status='primary';
+                                                }   else if ($row['status'] == 'COMPLETED'){
+                                                    $status='success';
+                                                    $hidden='hidden';
+                                                }
+                                                
+                                                
+                                                ?> <tr>
+                                                    <td scope="row"> <?php echo $row['date']?> </td>
                                                     <td> <?php echo $row['contract_no']?> </td>
                                                     <td> <?php echo $row['seller']?> </td>
                                                     <td> <?php echo number_format($row['contract_quantity'])?> Kg</td>
@@ -126,21 +141,22 @@ $year = date("Y");
                                                     <td> <?php echo number_format($row['balance'])?> Kg</td>
                                                     <td>₱ <?php echo number_format($row['price'],2)?> </td>
                                                     <td>
-                                                        <h5><span
-                                                                class="badge bg-success"><?php echo $row['status']?></span>
+                                                        <h5><span class="badge bg-<?php echo $status ?>"><?php echo $row['status']?></span>
                                                         </h5>
                                                     </td>
-                                                    <td><?php if ($row['type']=='BALES') {
-                                                            echo '<span class="badge bg-dark">'.$row['type'].'';
-                                                    }
-                                                    else {
-                                                        echo '<span class="badge bg-secondary">'.$row['type'].'';
-                                                    }
-                                                    
-                                                    
-                                                    ?>
+                                                    <td style='font-weight:bold;'><?php echo $row['type'] ?></td>
 
-                                                        </span></td>
+                                                    <td>
+                                                        <button type="button"
+                                                            class="btn btn-secondary text-white editBtn" <?php echo $hidden ?>>
+                                                            <i class='fa-solid fa-edit'></i> </button>
+
+                                                        <button type="button"
+                                                            class="btn btn-danger text-white deleteBtn" <?php echo $hidden ?>>
+                                                            <i class='fa-solid fa-remove'></i> </button>
+                                                    </td>
+                                                    <td hidden> <?php echo $row['id']?> </td>
+
                                                 </tr> <?php } ?> </tbody>
                                         </table>
                                     </div>
@@ -230,3 +246,92 @@ $(document).ready(function() {
 
 });
 </script>
+
+
+
+
+<script>
+$(document).ready(function() {
+    $('.editBtn').on('click', function() {
+
+
+        $tr = $(this).closest('tr');
+
+        var data = $tr.children("td").map(function() {
+            return $(this).text();
+        }).get();
+        $('#m_id').val(data[10]);
+        $('#m_date').val(data[0]);
+        $('#m_contact').val(data[1]);
+        $('#m_name').val(data[2]);
+        $('#m_type').val(data[8]);
+        // document.getElementById("m_type").value = data[8];
+        var quantity = data[3].replace(/[^0-9\.]+/g, "");
+        $('#m_quantity').val(quantity);
+
+        var price = data[6].replace(/[^0-9\.]+/g, "");
+        $('#m_price').val(price);
+
+        $('#editContract').modal('show');
+
+    });
+    $('.deleteBtn').on('click', function() {
+
+
+        $('#deleteRec').modal('show');
+        $tr = $(this).closest('tr');
+
+        var data = $tr.children("td").map(function() {
+            return $(this).text();
+        }).get();
+
+
+        $('#d_contract').val(data[1]);
+
+
+        $('#d_id').val(data[10]);
+
+    });
+
+
+});
+</script>
+
+
+
+<?php if (isset($_SESSION['update'])): ?>
+<div class="msg">
+
+    <script>
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Contract has been Updated!',
+        showConfirmButton: false,
+        timer: 1500
+    })
+    </script>
+    <?php 
+			unset($_SESSION['update']);
+		?>
+</div>
+<?php endif ?>
+
+
+<?php if (isset($_SESSION['deleted'])): ?>
+<div class="msg">
+
+    <script>
+    Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Contract has been deleted!',
+        showConfirmButton: false,
+        timer: 1500
+    })
+    </script>
+    <?php 
+			unset($_SESSION['deleted']);
+		?>
+</div>
+<?php endif ?>

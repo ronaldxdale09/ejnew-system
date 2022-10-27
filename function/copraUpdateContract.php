@@ -30,8 +30,8 @@
                              
                                     if(mysqli_query($con, $query))
                                     {  
-                                        header("Location: ../contract-purchase.php");
-                                        $_SESSION['expenses']= "successful";
+                                        header("Location: ../contract-ca.php");
+                                        $_SESSION['contract']= "successful";
                                        
                                         exit();
                                     }

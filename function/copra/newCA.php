@@ -1,5 +1,3 @@
-
-
 <?php 
  include('../db.php');
                         if (isset($_POST['submit'])) {
@@ -26,12 +24,32 @@
                                    
                                     if ($results) {
 
-                                        header("Location: ../..//copra-ca.php");
+                                        header("Location: ../../copra-ca.php");
                                         $_SESSION['copra_ca']= "successful";
 
                                     } else {
                                         echo "ERROR: Could not be able to execute $query. ".mysqli_error($con);
                                     }
-                                //exit();
+                                exit();
                                 }
+
+
+                                if (isset($_POST['update_ca'])) {
+                                     $id = $_POST['id'];
+                                     $name = $_POST['name'];
+                                     $ca = str_replace( ',', '', $_POST['cash_advance']);
+                                    //select seller ca
+                                    $sql = "UPDATE seller SET cash_advance='$ca'  where id='$id' ";
+                                    echo $results = mysqli_query($con, $sql);
+
+                                            if ($results) {
+        
+                                                header("Location: ../../copra-ca.php");
+                                                $_SESSION['update']= "successful";
+        
+                                            } else {
+                                                echo "ERROR: Could not be able to execute $query. ".mysqli_error($con);
+                                            }
+                                        exit();
+                                        }
  ?>

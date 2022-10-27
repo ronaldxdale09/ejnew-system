@@ -7,6 +7,8 @@
     $usertype = $_POST['user_type'];
     $username = $_POST['user_name'];
     $password = $_POST['password'];
+    $password = $_POST['location'];
+
 
     $sqladmin = "INSERT INTO `users`(`username`, `password`, `type`) VALUES ('$username','$password','$usertype')";
     $results = mysqli_query($con, $sqladmin);

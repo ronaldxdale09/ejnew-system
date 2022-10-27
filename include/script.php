@@ -1,6 +1,8 @@
 <!--hide contract details -->
 
 
+
+
 <script>
 function ComputationCopra() {
 

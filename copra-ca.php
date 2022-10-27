@@ -45,20 +45,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-3">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted">No. Cash Advance</p>
-                                    <h2>₱ <?php echo $ca_no; ?> </h2>
-
-                                </div>
-                                <div class="stat-card__icon stat-card__icon--primary">
-                                    <div class="stat-card__icon-circle">
-                                        <i class="fa fa-book"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
                     <!-- ============================================================== -->
                     <div class="row">
@@ -75,17 +62,7 @@
                                                 <i class="fa fa-add" aria-hidden="true"></i> NEW CASH ADVANCE
                                             </button>
                                         </div>
-                                        <div class="col">
-                                            <h5> Date Filter</h5>
-                                        </div>
-                                        <div class="col-3">
-                                            <input type="text" id="min" name="min" class="form-control"
-                                                placeholder="From Date" />
-                                        </div>
-                                        <div class="col-3">
-                                            <input type="text" id="max" name="max" class="form-control"
-                                                placeholder="To Date" />
-                                        </div>
+                                        
                                     </div>
                                     <br>
                                     <h6 class="card-title m-t-40">
@@ -101,7 +78,7 @@
                                     
                                     ?> <thead class="table-dark">
                                                 <tr>
-                                                    <th width="10%">Code</th>
+                                                    <th width="10%">ID</th>
                                                     <th width="15%">Name</th>
                                                     <th scope="col">Address</th>
                                                     <th scope="col">Cash Advance</th>
@@ -110,15 +87,20 @@
                                             </thead>
                                             <tbody>
                                                 <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
-                                                    <th scope="row"> <?php echo $row['code']?> </th>
+                                                    <td hidden> <?php echo $row['id']?> </td>
+                                                    <td> <?php echo $row['code']?> </td>
                                                     <td> <?php echo $row['name']?> </td>
                                                     <td> <?php echo $row['address']?></td>
                                                     <td>₱ <?php echo number_format($row['cash_advance']) ?> </td>
 
                                                     <td>
                                                         <a href="seller_profile.php?view=<?php echo $row['code']; ?>"
-                                                            class="btn btn-primary ">
-                                                            <i class='fa-solid fa-eye'></i></a>
+                                                            class="btn btn-primary btn-sm ">
+                                                            <i class='fa-solid fa-user'></i></a>
+
+                                                        <button type="button"
+                                                            class="btn btn-dark btn-sm text-white editBtn">
+                                                            <i class='fa-solid fa-edit'></i> </button>
                                                     </td>
                                                 </tr> <?php } ?> </tbody>
                                         </table>
@@ -138,5 +120,42 @@
 
 </html> <?php
 include('modal/copra/copra_cashadvanceModal.php');
+
 ?>
 <script type="text/javascript" src="js/copra-ca.js"></script>
+
+<script> 
+
+    $('.editBtn').on('click', function() {
+
+        $tr = $(this).closest('tr');
+        var data = $tr.children("td").map(function() {
+            return $(this).text();
+        }).get();
+        $('#m_id').val(data[0]);
+        $('#m_code').val(data[1]);
+        $('#m_name').val(data[2]);
+        $('#m_cashadv').val(data[4]);
+        
+        $('#editCA').modal('show');
+    });
+
+</script>
+
+<?php if (isset($_SESSION['update'])): ?>
+<div class="msg">
+
+    <script>
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'CA Update!',
+        showConfirmButton: false,
+        timer: 1500
+    })
+    </script>
+    <?php 
+			unset($_SESSION['update']);
+		?>
+</div>
+<?php endif ?>

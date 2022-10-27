@@ -112,7 +112,7 @@
                                             </thead>
                                             <tbody>
                                                 <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
-                                                    <th scope="row"> <?php echo $row['id']?> </th>
+                                                    <td scope="row"> <?php echo $row['id']?> </td>
                                                     <td> <?php echo $row['name']?> </td>
                                                     <td> <?php echo $row['address']?></td>
                                                     <td>₱ <?php echo number_format($row['cash_advance']) ?> </td>
@@ -122,10 +122,8 @@
                                                     $total_ca = $row['bales_cash_advance'] + $row['cash_advance'];
                                                     
                                                     echo number_format($total_ca) ?> </td>
-                                                    <td> <button type="button" class="btn btn-dark btnView"><i
+                                                    <td> <button type="button" class="btn btn-secondary editBtn"><i
                                                                 class="fa fa-edit"></i></button>
-                                                        <button type="button" class="btn btn-danger btnDelete"><i
-                                                                class="fa fa-trash"></i></button>
                                                     </td>
                                                 </tr> <?php } ?> </tbody>
                                         </table>
@@ -147,3 +145,57 @@
 include('modal/cashadvanceModal.php');
 ?>
 <script type="text/javascript" src="js/copra-ca.js"></script>
+
+
+
+<script>
+$('.editBtn').on('click', function() {
+
+    $tr = $(this).closest('tr');
+    var data = $tr.children("td").map(function() {
+        return $(this).text();
+    }).get();
+    $('#e_id').val(data[0]);
+    $('#e_name').val(data[1]);
+    $('#e_address').val(data[2]);
+    $('#e_wet_ca').val(data[3].replace(/[^0-9\.]+/g, ""));
+    $('#e_bales_ca').val(data[4].replace(/[^0-9\.]+/g, ""));
+    $('#editCA').modal('show');
+});
+</script>
+
+<?php if (isset($_SESSION['update'])): ?>
+<div class="msg">
+
+    <script>
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'CA Update!',
+        showConfirmButton: false,
+        timer: 1500
+    })
+    </script>
+    <?php 
+			unset($_SESSION['update']);
+		?>
+</div>
+<?php endif ?>
+
+<?php if (isset($_SESSION['new'])): ?>
+<div class="msg">
+
+    <script>
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Cash Advance Added!',
+        showConfirmButton: false,
+        timer: 1500
+    })
+    </script>
+    <?php 
+			unset($_SESSION['new']);
+		?>
+</div>
+<?php endif ?>

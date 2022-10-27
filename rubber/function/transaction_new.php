@@ -32,10 +32,10 @@
                               
                                     $status ='PENDING';
                                     $price_kg =str_replace( ',', '', $_POST['ca']);
-        
+                                    $type =str_replace( ',', '', $_POST['type']);
         
                                         $query = "INSERT INTO rubber_contract (contract_no,date,seller,contract_quantity,balance,status,price,type) 
-                                                VALUES ('$contract','$date','$name','$quantity','$quantity','$status',' $price_kg','WET')";
+                                                VALUES ('$contract','$date','$name','$quantity','$quantity','$status',' $price_kg','$type')";
                                         $results = mysqli_query($con, $query);
                                            
                                             if ($results) {
