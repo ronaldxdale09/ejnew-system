@@ -68,10 +68,10 @@ while ($arr = mysqli_fetch_array($result)) {
         '<option value="' .$arr["name"] .'">'.$arr["name"] ."</option>";
 }
 
-$invoice = mysqli_query($con, "SELECT  COUNT(*) from rubber_transaction  ");
+$invoice = mysqli_query($con, "SELECT * FROM rubber_transaction ORDER BY id DESC LIMIT 1");
 $getinvoice = mysqli_fetch_array($invoice);
 
-$invoiceCount = sprintf("%'03d", $getinvoice[0]+1);
+$invoiceCount = $getinvoice[0]+1;
 
 $month = date("m");
 $day = date("d");

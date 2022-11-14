@@ -21,7 +21,10 @@
     $row = mysqli_fetch_array($results);
    
 
-
+    $tab= '';
+    if (isset($_GET['tab'])) {
+        $tab = filter_var($_GET['tab']) ;
+      }
    ?>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -44,7 +47,8 @@
                         <div class="container-fluid">
                             <div class="wrapper" id="myTab">
                                 <input type="radio" name="slider" id="home" checked>
-                                <input type="radio" name="slider" id="blog">
+                                <input type="radio" name="slider" id="blog"
+                                <?php if ($tab == '2') { echo 'checked'; } else { echo ''; } ?> >
 
                                 <nav>
                                     <label for="home" class="home"><i class="fas fa-book"></i> BALES RECORD</label>

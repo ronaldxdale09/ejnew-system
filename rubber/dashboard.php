@@ -7,7 +7,7 @@
    $sumPurchaced_wet = mysqli_fetch_array($sql);
    $monthNum  = $sumPurchaced_wet["month"];
    $dateObj   = DateTime::createFromFormat('!m', $monthNum);
-   $monthName = $dateObj->format('F');
+
 
    $sql  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(amount_paid) as amount_purchased 
    from rubber_transaction  group by year(date), month(date) ORDER BY ID DESC");

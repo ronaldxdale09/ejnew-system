@@ -351,10 +351,10 @@ $('#newContract1').on('shown.bs.modal', function() {
                             <div class="form-group">
                                 <label class="col-md-12">Type</label>
                                 <select class="form-select" id='m_type' name='type'>
-                                    <option value='' disabled >Select</option>
+                                    <option value='' disabled>Select</option>
                                     <option value="BALES">Bales</option>
                                     <option value="WET">WET</option>
-                          
+
                                 </select>
                             </div>
                         </div>
@@ -423,7 +423,7 @@ $('#newContract1').on('shown.bs.modal', function() {
                 </button>
             </div>
             <div class="modal-body">
-            <form action="function/UpdateContract.php" method="POST">
+                <form action="function/UpdateContract.php" method="POST">
                     <!--  total dust-->
                     <center>
                         <div class="col-6 col-md-12">

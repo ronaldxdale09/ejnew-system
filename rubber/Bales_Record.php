@@ -69,7 +69,7 @@
                         </tr>
                     </thead>
                     <tbody style='font-size:17px'> <?php while ($row = mysqli_fetch_array($record)) { ?> <tr>
-                            <th scope="row"> <?php echo $row['id']?> </th>
+                            <td scope="row"> <?php echo $row['id']?> </td>
                             <td> <?php echo $row['date']?> </td>
                             <td> <?php echo $row['contract']?> </td>
                             <td> <?php echo $row['seller']?> </td>
@@ -86,7 +86,7 @@
 
                             <td>₱ <?php echo number_format(($row['amount_paid']),2); ?> </td>
                             <td> <button type="button" class="btn btn-dark btnView"><i class="fa fa-eye"></i></button>
-                                <button type="button" class="btn btn-danger btnDelete"><i
+                                <button type="button" class="btn btn-danger btnBalesDelete"><i
                                         class="fa fa-trash"></i></button>
                             </td>
                         </tr> <?php } ?>
@@ -156,6 +156,9 @@ $(document).ready(function() {
 
     table = $('#wet_rec_table').DataTable({
         dom: 'Bfrtip',
+        order: [
+            [0, 'desc']
+        ],
         buttons: [
             'excel', 'pdf', 'print',
 

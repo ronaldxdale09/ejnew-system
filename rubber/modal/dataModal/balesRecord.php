@@ -1,12 +1,11 @@
 <?php  
 include('../../../function/db.php');
 
-    $record  = mysqli_query($con, "SELECT * from bales_transaction WHERE invoice='002' ");
-    $row = mysqli_fetch_array($record);
-$output='';
+    $invoice = $_POST['invoice'];
+    $record  = mysqli_query($con, "SELECT * from bales_transaction WHERE id='12' ");
+    $arr = mysqli_fetch_array($record);
+    $output='';
 
-
-//  $result = mysqli_query($con, $sql);  
  $output .= '  
  <div class="card">
   <div class="card-body">
@@ -14,17 +13,17 @@ $output='';
       <div class="col-sm">
         <label> Date </label>
         <br>
-        <input id="p_voucher" name="p_voucher" class="form-control" style="font-size:18px;border: none;font-weight:bold" value="'.($row['date']).'" readonly>
+        <input name="p_voucher" class="form-control" style="font-size:18px;border: none;font-weight:bold" value="'.($arr['date']).'" readonly>
       </div>
       <div class="col-sm">
       <label> Invoice # :</label>
       <br>
-      <input id="p_remarks" class="form-control" style="font-size:18px;border: none;font-weight:bold" value="'.($row['invoice']).'" readonly>
+      <input class="form-control" style="font-size:18px;border: none;font-weight:bold" value="'.($arr['invoice']).'" readonly>
     </div>
       <div class="col-sm">
         <label> Contract :</label>
         <br>
-        <input id="p_date" class="form-control" style="font-size:18px;border: none;font-weight:bold" value="'.($row['contract']).'" readonly>
+        <input id="p_date" class="form-control" style="font-size:18px;border: none;font-weight:bold" value="'.($arr['contract']).'" readonly>
       </div>
      
     </div>
@@ -42,7 +41,7 @@ $output='';
             <label style="font-size:15px" class="col-md-12">Entry Weight (WET)</label>
             <!-- new column -->
             <div class="input-group mb-3">
-              <input type="text" class="form-control"  value='.number_format($row['entry']).' readonly />
+              <input type="text" class="form-control"  value='.number_format($arr['entry']).' readonly />
               <div class="input-group-append">
                 <span class="input-group-text">Kg</span>
               </div>
@@ -55,7 +54,7 @@ $output='';
               <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroup-sizing-default" style="color:black">Net </span>
               </div>
-              <input type="text" class="form-control" value='.number_format($row['net_weight_1']).' readonly />
+              <input type="text" class="form-control" value='.number_format($arr['net_weight_1']).' readonly />
               <div class="input-group-append">
                 <span class="input-group-text">Kg</span>
               </div>
@@ -63,11 +62,11 @@ $output='';
           </div>
           <div class="col-6 col-md-2">
             <label class="col-md-12">Kilo Per Bale</label>
-            <input type="text" class="form-control" value='.number_format($row['kilo_bales_1']).' readonly />
+            <input type="text" class="form-control" value='.number_format($arr['kilo_bales_1']).' readonly />
           </div>
           <div class="col-6 col-md-3">
             <label class="col-md-12">Bales</label>
-            <input type="text" class="form-control" value="'.($row['total_bales_1']).'" readonly />
+            <input type="text" class="form-control" value="'.($arr['total_bales_1']).'" readonly />
           </div>
           <!--  end-->
         </div>
@@ -82,7 +81,7 @@ $output='';
               <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroup-sizing-default" style="color:black">Net </span>
               </div>
-              <input type="text" class="form-control"  value='.number_format($row['net_weight_2']).'  disabled readonly />
+              <input type="text" class="form-control"  value='.number_format($arr['net_weight_2']).'  disabled readonly />
               <div class="input-group-append">
                 <span class="input-group-text">Kg</span>
               </div>
@@ -90,11 +89,11 @@ $output='';
           </div>
           <div class="col-6 col-md-2">
             <label class="col-md-12">Kilo Per Bale</label>
-            <input type="text" class="form-control"  value='.number_format($row['kilo_bales_2']).'   readonly />
+            <input type="text" class="form-control"  value='.number_format($arr['kilo_bales_2']).'   readonly />
           </div>
           <div class="col-6 col-md-3">
             <label class="col-md-12">Bales</label>
-            <input type="text" class="form-control" value='.($row['total_bales_2']).' readonly />
+            <input type="text" class="form-control" value='.($arr['total_bales_2']).' readonly />
           </div>
           <!--  end-->
         </div>
@@ -104,7 +103,7 @@ $output='';
           <div class="col-12 col-md-3">
             <label style="font-size:15px" class="col-md-12">DRC</label>
             <div class="input-group mb-1">
-              <input type="text" style="text-align:right" value='.$row['drc'].'  class="form-control" readonly>
+              <input type="text" style="text-align:right" value='.$arr['drc'].'  class="form-control" readonly>
               <div class="input-group-append">
                 <span class="input-group-text">%</span>
               </div>
@@ -113,7 +112,7 @@ $output='';
           <div class="col-6 col-md-4">
             <label style="font-size:15px" class="col-md-12">Total Net Weight</label>
             <div class="input-group mb-1">
-              <input type="text" style="text-align:right" value='.number_format($row['total_net_weight']).'  class="form-control" readonly>
+              <input type="text" style="text-align:right" value='.number_format($arr['total_net_weight']).'  class="form-control" readonly>
               <div class="input-group-append">
                 <span class="input-group-text">Kg</span>
               </div>
@@ -135,7 +134,7 @@ $output='';
                 <div class="input-group-prepend">
                   <span class="input-group-text">₱</span>
                 </div>
-                <input type="text" class="form-control" value='.number_format($row['price_1'],2).' readonly />
+                <input type="text" class="form-control" value='.number_format($arr['price_1'],2).' readonly />
               </div>
             </div>
             <!--  -->
@@ -145,7 +144,7 @@ $output='';
                 <div class="input-group-prepend">
                   <span class="input-group-text">₱</span>
                 </div>
-                <input type="text" style="text-align:right" value="'.number_format($row['first_total'],2).'" class="form-control" readonly>
+                <input type="text" style="text-align:right" value="'.number_format($arr['first_total'],2).'" class="form-control" readonly>
               </div>
               <!--  -->
             </div>
@@ -161,7 +160,7 @@ $output='';
                 <div class="input-group-prepend">
                   <span class="input-group-text">₱</span>
                 </div>
-                <input type="text" class="form-control" value="'.number_format($row['price_2'],2).'" tabindex="4" readonly disabled />
+                <input type="text" class="form-control" value="'.number_format($arr['price_2'],2).'" tabindex="4" readonly disabled />
               </div>
             </div>
             <!--  -->
@@ -171,7 +170,7 @@ $output='';
                 <div class="input-group-prepend">
                   <span class="input-group-text">₱</span>
                 </div>
-                <input type="text" style="text-align:right" value="'.number_format($row['second_total'],2).'" class="form-control" readonly>
+                <input type="text" style="text-align:right" value="'.number_format($arr['second_total'],2).'" class="form-control" readonly>
               </div>
               <!--  -->
             </div>
@@ -188,7 +187,7 @@ $output='';
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="inputGroup-sizing-default" style="color:black;font-weight: bold;">Total Amount ₱</span>
                 </div>
-                <input type="text" class="form-control" value="'.number_format($row['total_amount'],2).'" readonly />
+                <input type="text" class="form-control" value="'.number_format($arr['total_amount'],2).'" readonly />
               </div>
               <!--  -->
             </div>
@@ -202,7 +201,7 @@ $output='';
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="inputGroup-sizing-default" style="color:black;font-weight: bold;">Less/CA ₱</span>
                 </div>
-                <input type="text" style="text-align:left" value='.number_format($row['less'],2).' class="form-control" tabindex="9" readonly readonly />
+                <input type="text" style="text-align:left" value='.number_format($arr['less'],2).' class="form-control" tabindex="9" readonly readonly />
               </div>
               <!--  -->
             </div>
@@ -218,10 +217,10 @@ $output='';
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="inputGroup-sizing-default" style="color:black;font-weight: bold;">Amount Paid ₱</span>
                 </div>
-                <input type="text" style="text-align:left" value="'.number_format($row['amount_paid'],2).'" class="form-control" readonly />
+                <input type="text" style="text-align:left" value="'.number_format($arr['amount_paid'],2).'" class="form-control" readonly />
               </div>
               <hr>
-              <input type="text" style="text-align:center" value="'.($row['words_amount']).'" class="form-control" readonly>
+              <input type="text" style="text-align:center" value="'.($arr['words_amount']).'" class="form-control" readonly>
               <!--  -->
             </div>
           </div>

@@ -8,10 +8,10 @@ if (isset($_GET['view'])) {
     $_SESSION['transaction'] ='ONGOING';
     $view = $_GET['view'];
 
-    $sql = mysqli_query($con, "SELECT  * from rubber_transaction where invoice='$view'  ");
-    $record = mysqli_fetch_array($sql);
-
-    $invoiceCount = $record['invoice'];
+    $invoice = mysqli_query($con, "SELECT * FROM bales_transaction ORDER BY id DESC LIMIT 1");
+    $getinvoice = mysqli_fetch_array($invoice);
+    
+    $invoiceCount = $getinvoice[0]+1;
     $today= $record['date'];
 
     $contract = "SELECT * FROM rubber_contract where type='BALES' AND status='PENDING' OR status='UPDATED' ";
@@ -68,10 +68,10 @@ while ($arr = mysqli_fetch_array($result)) {
         '<option value="' .$arr["name"] .'">'.$arr["name"] ."</option>";
 }
 
-$invoice = mysqli_query($con, "SELECT  COUNT(*) from rubber_transaction  ");
+$invoice = mysqli_query($con, "SELECT * FROM bales_transaction ORDER BY id DESC LIMIT 1");
 $getinvoice = mysqli_fetch_array($invoice);
 
-$invoiceCount = sprintf("%'03d", $getinvoice[0]+1);
+$invoiceCount = $getinvoice[0]+1;
 
 $month = date("m");
 $day = date("d");
