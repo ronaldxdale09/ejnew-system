@@ -1,13 +1,13 @@
 <?php 
 
 
-   $seller = "SELECT * FROM seller ";
+   $seller = "SELECT * FROM rubber_seller ";
    $result = mysqli_query($con, $seller);
    $sellerList='';
    while($arr = mysqli_fetch_array($result))
    {
    $sellerList .= '
-<option value="'.$arr["name"].'">[ '.$arr["code"].' ]      '.$arr["name"].'</option>';
+<option value="'.$arr["name"].'">'.$arr["name"].'</option>';
    }
 
 
@@ -31,11 +31,20 @@
             <!-- CONTENT -->
             <div class="row">
                 <div class="col-4">
-
+   <h4><b> WET RECORD </b></h4>
                 </div>
+      
                 <div class="col">
-                    <h5> Date Filter</h5>
+                <div class="form-group">
+                        <select class='form-select' id='wet_seller_filter'>
+                            <option disabled="disabled" selected>Select Seller </option>
+                            <option value=''>All</option>
+                            <?php echo $sellerList?>
+                            <!--PHP echo-->
+                        </select>
+                    </div>
                 </div>
+               
                 <div class="col-3">
                     <input type="text" id="min1" name="min" class="form-control" placeholder="From Date" />
                 </div>
@@ -87,7 +96,17 @@
                                         class="fa fa-trash"></i></button>
                             </td>
                         </tr> <?php } ?> </tbody>
-
+                        <tfoot>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tfoot>
                 </table>
             </div>
             <!-- END CONTENT -->
@@ -131,12 +150,10 @@ maxDate = new DateTime($('#max1'), {
 
 
 
-
-
 $(document).ready(function() {
 
 
-    table_1 = $('#wet_record_table').DataTable({
+    wet_table = $('#wet_record_table').DataTable({
         dom: 'Bfrtip',
         order: [
             [0, 'desc']
@@ -150,10 +167,10 @@ $(document).ready(function() {
             var sum = 0;
             var formated = 0;
             //to show first th
-            $(api.column(8).footer()).html('Total');
+            $(api.column(6).footer()).html('Total');
 
 
-            sum = api.column(9, {
+            sum = api.column(7, {
                 page: 'current'
             }).data().sum();
 
@@ -161,15 +178,18 @@ $(document).ready(function() {
             formated = parseFloat(sum).toLocaleString(undefined, {
                 minimumFractionDigits: 2
             });
-            $(api.column(9).footer()).html('P ' + formated);
+            $(api.column(7).footer()).html('P ' + formated);
 
 
         }
     });
-
     $('#min1, #max1').on('change', function() {
-        table_1.draw();
+        wet_table.draw();
     });
+    $('#wet_seller_filter').on('change', function() {
+        wet_table.search(this.value).draw();
+    });
+
 
 });
 </script>

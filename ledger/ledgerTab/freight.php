@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-9">
 
         <div class="card">
             <div class="card-body">
@@ -64,7 +64,7 @@
 
     </div>
 
-    <div class="col-sm-4">
+    <div class="col-sm-3">
 
         <div class="stat-card">
             <div class="stat-card__content">
@@ -92,7 +92,7 @@
                     ₱ <?php  echo number_format($expense_month['month_total']) ?>
                 </h2>
                 <div>
-                    <span class="text-muted"> <?php echo $monthName; ?>
+               
                         <?php echo $expense_month['year']; ?>
                     </span>
                 </div>

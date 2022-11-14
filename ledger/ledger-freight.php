@@ -25,7 +25,6 @@
 
    $monthNum  = $expense_month["month"];
    $dateObj   = DateTime::createFromFormat('!m', $monthNum);
-   $monthName = $dateObj->format('F');
 
 
    $getYearTotal  = mysqli_query($con, "SELECT sum(amount) as year_total 

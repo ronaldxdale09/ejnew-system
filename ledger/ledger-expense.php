@@ -23,9 +23,9 @@
    from ledger_expenses WHERE month(date)='$currentMonth' group by year(date), month(date) ORDER BY ID DESC");
    $expense_month = mysqli_fetch_array($getMonthTotal);
 
+   $dt_format = "F";
    $monthNum  = $expense_month["month"];
    $dateObj   = DateTime::createFromFormat('!m', $monthNum);
-   $monthName = $dateObj->format('F');
 
 
    $getYearTotal  = mysqli_query($con, "SELECT sum(amount) as year_total 

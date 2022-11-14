@@ -1,13 +1,13 @@
 <?php 
 
 
-   $seller = "SELECT * FROM seller ";
+   $seller = "SELECT * FROM rubber_seller ";
    $result = mysqli_query($con, $seller);
    $sellerList='';
    while($arr = mysqli_fetch_array($result))
    {
    $sellerList .= '
-<option value="'.$arr["name"].'">[ '.$arr["code"].' ]      '.$arr["name"].'</option>';
+        <option value="'.$arr["name"].'">'.$arr["name"].'</option>';
    }
 
 
@@ -31,16 +31,23 @@
             <!-- CONTENT -->
             <div class="row">
                 <div class="col-4">
-
+                    <h4><b> BALES RECORD </b></h4>
                 </div>
                 <div class="col">
-                    <h5> Date Filter</h5>
+                    <div class="form-group">
+                        <select class='form-select' id='seller_filter'>
+                            <option disabled="disabled" selected>Select Seller </option>
+                            <option value=''>All</option>
+                            <?php echo $sellerList?>
+                            <!--PHP echo-->
+                        </select>
+                    </div>
                 </div>
                 <div class="col-3">
-                    <input type="text" id="min" name="min" class="form-control" placeholder="From Date" />
+                    <input type="text" id="min2" name="min" class="form-control" placeholder="From Date" />
                 </div>
                 <div class="col-3">
-                    <input type="text" id="max" name="max" class="form-control" placeholder="To Date" />
+                    <input type="text" id="max2" name="max" class="form-control" placeholder="To Date" />
                 </div>
             </div>
             <br>
@@ -50,7 +57,7 @@
             </h6>
 
             <div class="table-responsive">
-                <table class="table" id='wet_rec_table'>
+                <table class="table" id='bales_table'>
                     <?php
                                     $record  = mysqli_query($con, "SELECT * from bales_transaction ORDER BY id DESC  "); ?>
                     <thead class="table-dark" style='font-size:15px'>
@@ -118,13 +125,13 @@
 
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.12.1/api/sum().js"></script>
 <script type="text/javascript">
-var minDate, maxDate;
+var minDate1, maxDate1;
 
 // Custom filtering function which will search data in column four between two values
 $.fn.dataTable.ext.search.push(
     function(settings, data, dataIndex) {
-        var min = minDate.val();
-        var max = maxDate.val();
+        var min = minDate1.val();
+        var max = maxDate1.val();
         var date = new Date(data[1]);
 
         if (
@@ -140,10 +147,10 @@ $.fn.dataTable.ext.search.push(
 );
 
 
-minDate = new DateTime($('#min'), {
+minDate1 = new DateTime($('#min2'), {
     format: 'MMMM Do YYYY'
 });
-maxDate = new DateTime($('#max'), {
+maxDate1 = new DateTime($('#max2'), {
     format: 'MMMM Do YYYY'
 });
 
@@ -154,7 +161,7 @@ maxDate = new DateTime($('#max'), {
 $(document).ready(function() {
 
 
-    table = $('#wet_rec_table').DataTable({
+    table = $('#bales_table').DataTable({
         dom: 'Bfrtip',
         order: [
             [0, 'desc']
@@ -183,10 +190,15 @@ $(document).ready(function() {
 
 
         }
+
     });
 
-    $('#min, #max').on('change', function() {
+    $('#min2, #max2').on('change', function() {
         table.draw();
+    });
+
+    $('#seller_filter').on('change', function() {
+        table.search(this.value).draw();
     });
 
 });

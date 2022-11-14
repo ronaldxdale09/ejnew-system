@@ -7,7 +7,7 @@
    $sumExpense = mysqli_fetch_array($getExpenseMonthTotal);
    $monthNum  = $sumExpense["month"];
    $dateObj   = DateTime::createFromFormat('!m', $monthNum);
-   $monthName = $dateObj->format('F');
+   
 
    //PENDING CONTRACT
     $amoutPurchased  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(total_amount) as month_total 
@@ -45,7 +45,7 @@
                                         <?php echo number_format($sumExpense['month_total']); ?> KG
                                     </h2>
                                     <div>
-                                        <span class="text-muted"> <?php echo $monthName; ?>
+                                        <span class="text-muted"> <?php echo $today = date("F j, Y");  ; ?>
                                             <?php echo $sumExpense['year']; ?>
                                         </span>
                                     </div>
@@ -63,7 +63,7 @@
                                     <p class="text-uppercase mb-1 text-muted">AMOUNT PURCHASED</p>
                                     <h2>₱ <?php echo number_format($sumAmountPurchased['month_total']) ; ?></h2>
                                     <div>
-                                        <span class="text-muted"><?php echo $monthName; ?>
+                                        <span class="text-muted"><?php echo $today = date("F j, Y");  ; ?>
                                             <?php echo $sumAmountPurchased['year']; ?>
                                         </span>
                                     </div>
@@ -100,7 +100,7 @@
                                     <p class="text-uppercase mb-1 text-muted">EJN Buahan </p>
                                     <h2>₱ <?php echo number_format($buahan['month_total']); ?> </h2>
                                     <div>
-                                        <span class="text-muted"><?php echo $monthName; ?>
+                                        <span class="text-muted"><?php echo $today = date("F j, Y");  ; ?>
                                             <?php echo $buahan['year']; ?>
                                         </span>
                                     </div>
