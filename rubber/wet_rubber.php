@@ -8,13 +8,13 @@ if (isset($_GET['view'])) {
     $_SESSION['transaction'] ='ONGOING';
     $view = $_GET['view'];
 
-    $sql = mysqli_query($con, "SELECT  * from rubber_transaction where invoice='$view'  ");
+    $sql = mysqli_query($con, "SELECT  * from rubber_transaction where invoice='$view'  and  loc='$loc' ");
     $record = mysqli_fetch_array($sql);
 
     $invoiceCount = $record['invoice'];
     $today= $record['date'];
 
-    $contract = "SELECT * FROM rubber_contract where type='WET' AND status='PENDING' OR status='UPDATED' ";
+    $contract = "SELECT * FROM rubber_contract where  loc='$loc' and type='WET' AND status='PENDING' OR status='UPDATED' ";
     $c_result = mysqli_query($con, $contract);
     $contractList = "";
     while ($arr = mysqli_fetch_array($c_result)) {
@@ -30,7 +30,7 @@ if (isset($_GET['view'])) {
     }
 
 
-    $seller = "SELECT * FROM rubber_seller ";
+    $seller = "SELECT * FROM rubber_seller   where loc='$loc' ";
     $result = mysqli_query($con, $seller);
     $sellerList = "";
     while ($arr = mysqli_fetch_array($result)) {
@@ -44,7 +44,7 @@ if (isset($_GET['view'])) {
 $_SESSION['transaction'] ='ONGOING';
 //seller list
 
-$contract = "SELECT * FROM rubber_contract where type='WET' AND status='PENDING' OR status='UPDATED' ";
+$contract = "SELECT * FROM rubber_contract where loc='$loc' and type='WET' AND status='PENDING' OR status='UPDATED' ";
 $c_result = mysqli_query($con, $contract);
 $contractList = "";
 while ($arr = mysqli_fetch_array($c_result)) {
@@ -60,7 +60,7 @@ while ($arr = mysqli_fetch_array($c_result)) {
 }
 
 
-$seller = "SELECT * FROM rubber_seller ";
+$seller = "SELECT * FROM rubber_seller   where loc='$loc'";
 $result = mysqli_query($con, $seller);
 $sellerList = "";
 while ($arr = mysqli_fetch_array($result)) {
@@ -68,7 +68,7 @@ while ($arr = mysqli_fetch_array($result)) {
         '<option value="' .$arr["name"] .'">'.$arr["name"] ."</option>";
 }
 
-$invoice = mysqli_query($con, "SELECT * FROM rubber_transaction ORDER BY id DESC LIMIT 1");
+$invoice = mysqli_query($con, "SELECT * FROM rubber_transaction   where loc='$loc' ORDER BY id DESC LIMIT 1");
 $getinvoice = mysqli_fetch_array($invoice);
 
 $invoiceCount = $getinvoice[0]+1;

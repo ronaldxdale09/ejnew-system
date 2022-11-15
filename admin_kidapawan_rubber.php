@@ -1,57 +1,72 @@
-<?php 
-   include('include/header.php');
-   include "include/navbar.php";
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
 
-   $sql  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(net_weight) as month_total 
-   from rubber_transaction  where loc='$loc'  group by year(date), month(date) ORDER BY ID DESC");
-   $sumPurchaced_wet = mysqli_fetch_array($sql);
-   $monthNum  = $sumPurchaced_wet["month"];
-   $dateObj   = DateTime::createFromFormat('!m', $monthNum);
+<head>
+    <meta charset="UTF-8">
+    <title> Administrator Menu | EJN </title>
+</head>
 
-
-   $sql  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(amount_paid) as amount_purchased 
-   from rubber_transaction  where loc='$loc'   group by year(date), month(date) ORDER BY ID DESC");
-   $sumAmountPurchased = mysqli_fetch_array($sql);
-
-   /////////////////
-
-   $sql  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(total_net_weight) as month_total 
-   from bales_transaction  where loc='$loc'   group by year(date), month(date) ORDER BY ID DESC");
-   $sumPurchaced_bales = mysqli_fetch_array($sql);
-   $monthNum  = $sumPurchaced_bales["month"];
-   $dateObj   = DateTime::createFromFormat('!m', $monthNum);
- 
-
-   $sql  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(amount_paid) as amount_purchased 
-   from bales_transaction   where loc='$loc'  group by year(date), month(date) ORDER BY ID DESC");
-   $sumAmountPurchased_bales = mysqli_fetch_array($sql);
+<!-- PHP Code -->
+<!-- copra dashboard -->
+<?php
+        include 'include/header.php';
+        include 'include/sidenav.php';
 
 
-   //PENDING CONTRACT
-   $sql = mysqli_query($con,"SELECT * FROM rubber_contract where  loc='$loc' AND  status='WET' AND status='PENDING' OR status='UPDATED' ");
-   $contract_wet=mysqli_num_rows($sql);
-
-   $sql = mysqli_query($con,"SELECT * FROM rubber_contract where  loc='$loc' AND  status='BALES' AND  status='PENDING' OR status='UPDATED'");
-   $contract_bales=mysqli_num_rows($sql);
-
-//    cash advance
-
-   $sql = mysqli_query($con, "SELECT SUM(cash_advance) AS total_ca from rubber_seller where loc='$loc'  "); 
-   $ca_wet = mysqli_fetch_array($sql);
-
-   
-   $sql = mysqli_query($con, "SELECT SUM(bales_cash_advance) AS total_ca from rubber_seller  where loc='$loc' "); 
-   $ca_bales = mysqli_fetch_array($sql);
-   ?>
+        $sql  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(net_weight) as month_total 
+        from rubber_transaction  where loc='Kidapawan'  group by year(date), month(date) ORDER BY ID DESC");
+        $sumPurchaced_wet = mysqli_fetch_array($sql);
+        $monthNum  = $sumPurchaced_wet["month"];
+        $dateObj   = DateTime::createFromFormat('!m', $monthNum);
+     
+     
+        $sql  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(amount_paid) as amount_purchased 
+        from rubber_transaction  where loc='Kidapawan'   group by year(date), month(date) ORDER BY ID DESC");
+        $sumAmountPurchased = mysqli_fetch_array($sql);
+     
+        /////////////////
+     
+        $sql  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(total_net_weight) as month_total 
+        from bales_transaction  where loc='Kidapawan'   group by year(date), month(date) ORDER BY ID DESC");
+        $sumPurchaced_bales = mysqli_fetch_array($sql);
+        $monthNum  = $sumPurchaced_bales["month"];
+        $dateObj   = DateTime::createFromFormat('!m', $monthNum);
+      
+     
+        $sql  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(amount_paid) as amount_purchased 
+        from bales_transaction   where loc='Kidapawan'  group by year(date), month(date) ORDER BY ID DESC");
+        $sumAmountPurchased_bales = mysqli_fetch_array($sql);
+     
+     
+        //PENDING CONTRACT
+        $sql = mysqli_query($con,"SELECT * FROM rubber_contract where  loc='Kidapawan' AND  status='WET' AND status='PENDING' OR status='UPDATED' ");
+        $contract_wet=mysqli_num_rows($sql);
+     
+        $sql = mysqli_query($con,"SELECT * FROM rubber_contract where  loc='Kidapawan' AND  status='BALES' AND  status='PENDING' OR status='UPDATED'");
+        $contract_bales=mysqli_num_rows($sql);
+     
+     //    cash advance
+     
+        $sql = mysqli_query($con, "SELECT SUM(cash_advance) AS total_ca from rubber_seller where loc='Kidapawan'  "); 
+        $ca_wet = mysqli_fetch_array($sql);
+     
+        
+        $sql = mysqli_query($con, "SELECT SUM(bales_cash_advance) AS total_ca from rubber_seller  where loc='Kidapawan' "); 
+        $ca_bales = mysqli_fetch_array($sql);
+        ?>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"
-        integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel='stylesheet' href='css/statistic-card.css'>
-    <input type='hidden' id='selected-cart' value=''>
-    <div class='main-content' style='position:relative; height:100%;'>
-        <div class="container home-section h-100" style="max-width:95%;">
+
+    <!--DASHBOARD OF ALL USER -->
+    <section class="home-section">
+        <div class="home-content">
+            <i class='bx bx-menu'></i>
+            <span class="text">Kidapawan Rubber Dashbaord</span>
+        </div>
+
+        <main>
+
+
             <div class="page-wrapper">
                 <div class="container-fluid">
                     <!-- ============================================================== -->
@@ -198,7 +213,7 @@
                                     <div class="table-responsive">
                                         <table class="table" id='sellerTable'>
                                             <?php
-                                    $record  = mysqli_query($con, "SELECT * from rubber_transaction  where loc='$loc'  ORDER BY id DESC LIMIT 5 "); ?>
+                                    $record  = mysqli_query($con, "SELECT * from rubber_transaction  where loc='Kidapawan'  ORDER BY id DESC LIMIT 5 "); ?>
                                             <thead class="table-dark" style='font-size:12px'>
                                                 <tr>
                                                     <th scope="col">Invoice</th>
@@ -251,7 +266,7 @@
                                     <div class="table-responsive">
                                         <table class="table" id='sellerTable'>
                                             <?php
-                                    $record  = mysqli_query($con, "SELECT * from bales_transaction  where loc='$loc' ORDER BY id DESC LIMIT 5 "); ?>
+                                    $record  = mysqli_query($con, "SELECT * from bales_transaction  where loc='Kidapawan' ORDER BY id DESC LIMIT 5 "); ?>
                                             <thead class="table-dark" style='font-size:12px'>
                                                 <tr>
                                                     <th scope="col">LOT #</th>
@@ -300,23 +315,22 @@
                             </div>
                         </div>
                     </div>
-                    <br>
-</body>
+                <?php 
+          include "modal/viewTransactionModal.php";
+        ?>
 
-</html>
+                <script>
+                wet_line = document.getElementById("wet_line");
+                bales_bar = document.getElementById("bales_bar");
 
-<script>
-wet_line = document.getElementById("wet_line");
-bales_bar = document.getElementById("bales_bar");
-
-<?php
+                <?php
    $currentMonth = date("m");
    $currentDay = date("d");
    $currentYear = date("Y");
    
    $today = $currentYear . "-" . $currentMonth . "-" . $currentDay;
    
-                $purchased_count = mysqli_query($con,"SELECT year(date) as year ,MONTHNAME(date) as monthname,sum(net_weight) as month_total from rubber_transaction WHERE year(date)='$currentYear' AND loc='$loc'  group by month(date) ORDER BY date");        
+                $purchased_count = mysqli_query($con,"SELECT year(date) as year ,MONTHNAME(date) as monthname,sum(net_weight) as month_total from rubber_transaction WHERE year(date)='$currentYear' AND loc='Kidapawan'  group by month(date) ORDER BY date");        
                 if($purchased_count->num_rows > 0) {
                   foreach($purchased_count as $data) {
                       $month[] = $data['monthname'];
@@ -325,36 +339,36 @@ bales_bar = document.getElementById("bales_bar");
               }
         ?>
 
-new Chart(wet_line, {
-    options: {
-        plugins: {
-            title: {
-                display: true,
-                text: 'Monthly WET Rubber Purchased',
-            },
-        },
-    },
-    type: 'line', //Declare the chart type 
-    data: {
-        labels: <?php echo json_encode($month) ?>, //X-axis data 
-        datasets: [{
-            label: 'Purchased',
-            data: <?php echo json_encode($amount) ?>, //Y-axis data 
-            backgroundColor: '#f26c4f',
-            borderColor: '#f26c4f',
-            tension: 0.3,
-            fill: false, //Fills the curve under the line with the babckground color. It's true by default
-        }]
-    },
-});
+                new Chart(wet_line, {
+                    options: {
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Monthly WET Rubber Purchased',
+                            },
+                        },
+                    },
+                    type: 'line', //Declare the chart type 
+                    data: {
+                        labels: <?php echo json_encode($month) ?>, //X-axis data 
+                        datasets: [{
+                            label: 'Purchased',
+                            data: <?php echo json_encode($amount) ?>, //Y-axis data 
+                            backgroundColor: '#f26c4f',
+                            borderColor: '#f26c4f',
+                            tension: 0.3,
+                            fill: false, //Fills the curve under the line with the babckground color. It's true by default
+                        }]
+                    },
+                });
 
 
-<?php
+                <?php
    $Bales_currentYear = date("Y");
    $Bales_currentMonth = date("m");
              
             $bales_count = mysqli_query($con,"SELECT year(date) as year ,MONTHNAME(date) as monthname,sum(bales_compute) as month_total from bales_transaction WHERE
-             year(date)='$Bales_currentYear'   and loc='$loc' group by month(date) ORDER BY date");        
+             year(date)='$Bales_currentYear'   and loc='Kidapawan' group by month(date) ORDER BY date");        
             if($bales_count->num_rows > 0) {
                 foreach($bales_count as $b_data) {
                     $month_bales[] = $b_data['monthname'];
@@ -363,26 +377,38 @@ new Chart(wet_line, {
             }
         ?>
 
-new Chart(bales_bar, {
-    options: {
-        plugins: {
-            title: {
-                display: true,
-                text: 'Monthly Total Bales Purchased',
-            },
-        },
-    },
-    type: 'bar', //Declare the chart type 
-    data: {
-        labels: <?php echo json_encode($month_bales) ?>, //X-axis data 
-        datasets: [{
-            label: 'Bales',
-            data: <?php echo json_encode($bales) ?>, //Y-axis data 
-            backgroundColor: '#781710',
-            borderColor: '#781710',
-            tension: 0.3,
-            fill: false, //Fills the curve under the line with the babckground color. It's true by default
-        }]
-    },
-});
-</script>
+                new Chart(bales_bar, {
+                    options: {
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Monthly Total Bales Purchased',
+                            },
+                        },
+                    },
+                    type: 'bar', //Declare the chart type 
+                    data: {
+                        labels: <?php echo json_encode($month_bales) ?>, //X-axis data 
+                        datasets: [{
+                            label: 'Bales',
+                            data: <?php echo json_encode($bales) ?>, //Y-axis data 
+                            backgroundColor: '#781710',
+                            borderColor: '#781710',
+                            tension: 0.3,
+                            fill: false, //Fills the curve under the line with the babckground color. It's true by default
+                        }]
+                    },
+                });
+                </script>
+
+
+                <link rel='stylesheet' href='css/statistic-card.css'>
+                <input type='hidden' id='selected-cart' value=''>
+
+        </main>
+
+    </section>
+
+</body>
+
+</html>

@@ -12,7 +12,7 @@ $sellerID = $row['id'];
 $name = $row['name'];
 
    //PENDING CONTRACT
-   $pendingContract_count = mysqli_query($con,"SELECT * FROM wet_rubber_contract where status='PENDING' OR status='UPDATED' AND seller='$name'");
+   $pendingContract_count = mysqli_query($con,"SELECT * FROM wet_rubber_contract where loc='$loc' and status='PENDING' OR status='UPDATED' AND seller='$name'");
    $contract=mysqli_num_rows($pendingContract_count);
 
 
@@ -102,7 +102,7 @@ $name = $row['name'];
                                     </h6>
                                     <div class="table-responsive">
                                         <table class="table" id='contractTable'> <?php
-                                    $results  = mysqli_query($con, "SELECT * from contract_purchase WHERE seller='$name' "); 
+                                    $results  = mysqli_query($con, "SELECT * from contract_purchase WHERE seller='$name' and loc='$loc' "); 
                                     
                                     ?> <thead class="table-dark">
                                                 <tr>
@@ -144,7 +144,7 @@ $name = $row['name'];
                                     <div class="table-responsive">
                                         <table class="table" id='seller_copraTransaction'>
                                             <?php
-                                    $results  = mysqli_query($con, "SELECT * from transaction_record where seller='$name'  ORDER BY id DESC  "); ?>
+                                    $results  = mysqli_query($con, "SELECT * from transaction_record where seller='$name' and loc='$loc' ORDER BY id DESC  "); ?>
                                             <thead class="table-dark">
                                                 <tr>
                                                     <th scope="col">Invoice</th>

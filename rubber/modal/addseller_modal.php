@@ -1,5 +1,6 @@
 <?php
- $get = mysqli_query($con, "SELECT  COUNT(*) from seller  "); 
+  $loc = $_SESSION['loc'];
+ $get = mysqli_query($con, "SELECT  COUNT(*) from rubber_seller where loc='$loc'  "); 
  $sellerCount = mysqli_fetch_array($get);
 
   $generate= sprintf("%'03d", $sellerCount[0]+1);
@@ -7,7 +8,8 @@
   $code = $today .'-'. $generate;
  ?>
 
-<div class="modal fade" id="add_seller" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="add_seller" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -57,7 +59,8 @@
 </div>
 <!-- transaction -->
 
-<div class="modal fade" id="add_seller1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="add_seller1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

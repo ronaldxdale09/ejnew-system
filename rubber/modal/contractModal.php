@@ -1,7 +1,7 @@
 <?php 
 
-
- $contract = mysqli_query($con, "SELECT  MAX(id) from rubber_contract  "); 
+$loc = $_SESSION['loc'];
+ $contract = mysqli_query($con, "SELECT  MAX(id) from rubber_contract  WHERE loc='$loc'  "); 
  $contractNo = mysqli_fetch_array($contract);
 
  $generate= sprintf("%'03d", $contractNo[0]+1);
@@ -17,7 +17,7 @@ $year = date("Y");
 $dateNow = $year . "-" . $month . "-" . $day;
 
 
-$seller = "SELECT * FROM rubber_seller";
+$seller = "SELECT * FROM rubber_seller   WHERE loc='$loc' ";
 $result = mysqli_query($con, $seller);
 $sellerList='';
 while($arr = mysqli_fetch_array($result))

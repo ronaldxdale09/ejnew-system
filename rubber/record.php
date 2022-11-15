@@ -2,24 +2,7 @@
    include('include/header.php');
    include "include/navbar.php";
 
-   $seller = "SELECT * FROM seller ";
-   $result = mysqli_query($con, $seller);
-   $sellerList='';
-   while($arr = mysqli_fetch_array($result))
-   {
-   $sellerList .= '
-<option value="'.$arr["name"].'">[ '.$arr["code"].' ]      '.$arr["name"].'</option>';
-   }
 
-
-     // TOTAL CASH ADVANCE
-     $CA_count = mysqli_query($con,"SELECT * FROM copra_cashadvance where status='PENDING'");
-     $ca_no=mysqli_num_rows($CA_count);
-
-     
-    $results = mysqli_query($con, "SELECT SUM(cash_advance) as total from seller"); 
-    $row = mysqli_fetch_array($results);
-   
 
     $tab= '';
     if (isset($_GET['tab'])) {

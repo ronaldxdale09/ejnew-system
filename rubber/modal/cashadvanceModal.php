@@ -3,8 +3,10 @@ $day = date("d");
 $year = date("Y");
 $today = $year . "-" . $month . "-" . $day;
 $today = $year . "-" . $month . "-" . $day;
+$loc = $_SESSION['loc'];
 
-$seller = "SELECT * FROM rubber_seller ";
+
+$seller = "SELECT * FROM rubber_seller WHERE loc='$loc' ";
 $result = mysqli_query($con, $seller);
 $sellerList='';
 while($arr = mysqli_fetch_array($result))

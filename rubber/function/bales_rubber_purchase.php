@@ -1,7 +1,7 @@
 <?php 
 
  include('db.php');
-
+                            $loc = $_SESSION["loc"];
                             $invoice = $_POST['m_invoice'];
                              $date = $_POST['m_date'];
                              $address = $_POST['m_address'];
@@ -58,7 +58,7 @@
 
                              //UPDATE CONTRACT
                              if ($contract !='SPOT'){
-                                $getContract = mysqli_query($con, "SELECT  * from rubber_contract WHERE contract_no = '$contract' AND type='WET'  ");
+                                $getContract = mysqli_query($con, "SELECT  * from rubber_contract WHERE contract_no = '$contract' AND type='WET' and loc='$loc' ");
                                 $contractInfo = mysqli_fetch_array($getContract);
 
                                 $previous_delivered= $contractInfo['delivered'];

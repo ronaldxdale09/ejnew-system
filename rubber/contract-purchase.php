@@ -2,10 +2,11 @@
    include('include/header.php');
    include "include/navbar.php";
 
+
  
 
    $getMonthTotal  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(balance) as month_total 
-   from rubber_contract  group by year(date), month(date) ORDER BY ID DESC");
+   from rubber_contract  WHERE loc='$loc'  group by year(date), month(date) ORDER BY ID DESC");
    $sumPurchaced_Copra = mysqli_fetch_array($getMonthTotal);
 
    $month = date("F");
@@ -15,7 +16,7 @@ $year = date("Y");
 //    $dateObj   = DateTime::createFromFormat('!m', $monthNum);
 //    $monthName = $dateObj->format('F');
      //PENDING CONTRACT
-     $pendingContract_count = mysqli_query($con,"SELECT * FROM rubber_contract where status='PENDING' OR status='UPDATED'");
+     $pendingContract_count = mysqli_query($con,"SELECT * FROM rubber_contract where loc='$loc' and status='PENDING' OR status='UPDATED'");
      $contract=mysqli_num_rows($pendingContract_count);
 
 
@@ -102,7 +103,7 @@ $year = date("Y");
 
                                     <div class="table-responsive">
                                         <table class="table" id='contractTable'> <?php
-                                    $results  = mysqli_query($con, "SELECT * from rubber_contract"); 
+                                    $results  = mysqli_query($con, "SELECT * from rubber_contract  where loc='$loc' "); 
                                     
                                     ?> <thead class="table-dark">
                                                 <tr>
@@ -115,7 +116,7 @@ $year = date("Y");
                                                     <th scope="col">₱/KG</th>
                                                     <th scope="col">Status</th>
                                                     <th scope="col">Type</th>
-                                                    <th ></th>
+                                                    <th></th>
                                                     <th hidden></th>
                                                 </tr>
                                             </thead>
@@ -141,18 +142,21 @@ $year = date("Y");
                                                     <td> <?php echo number_format($row['balance'])?> Kg</td>
                                                     <td>₱ <?php echo number_format($row['price'],2)?> </td>
                                                     <td>
-                                                        <h5><span class="badge bg-<?php echo $status ?>"><?php echo $row['status']?></span>
+                                                        <h5><span
+                                                                class="badge bg-<?php echo $status ?>"><?php echo $row['status']?></span>
                                                         </h5>
                                                     </td>
                                                     <td style='font-weight:bold;'><?php echo $row['type'] ?></td>
 
                                                     <td>
                                                         <button type="button"
-                                                            class="btn btn-secondary text-white editBtn" <?php echo $hidden ?>>
+                                                            class="btn btn-secondary text-white editBtn"
+                                                            <?php echo $hidden ?>>
                                                             <i class='fa-solid fa-edit'></i> </button>
 
                                                         <button type="button"
-                                                            class="btn btn-danger text-white deleteBtn" <?php echo $hidden ?>>
+                                                            class="btn btn-danger text-white deleteBtn"
+                                                            <?php echo $hidden ?>>
                                                             <i class='fa-solid fa-remove'></i> </button>
                                                     </td>
                                                     <td hidden> <?php echo $row['id']?> </td>

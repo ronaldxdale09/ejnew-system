@@ -7,9 +7,9 @@
                             $name = $_POST['name'];
                             $address = $_POST['address'];
                             $contact = $_POST['contact'];
-
-                                $query = "INSERT INTO rubber_seller (name,address,contact) 
-                                        VALUES ('$name','$address','$contact')";
+                            $loc = $_SESSION['loc'];
+                                $query = "INSERT INTO rubber_seller (name,address,contact,loc) 
+                                        VALUES ('$name','$address','$contact','$loc')";
                                 $results = mysqli_query($con, $query);
                                    
                                     if ($results) {
@@ -24,7 +24,7 @@
 
 
                                 if (isset($_POST['new_contract'])) {
-                            
+                                    $loc = $_SESSION['loc'];
                                     $contract = str_replace( ',', '', $_POST['v_contact']);
                                     $date = $_POST['date'];
                                     $name = $_POST['name'];
@@ -34,8 +34,8 @@
                                     $price_kg =str_replace( ',', '', $_POST['ca']);
                                     $type =str_replace( ',', '', $_POST['type']);
         
-                                        $query = "INSERT INTO rubber_contract (contract_no,date,seller,contract_quantity,balance,status,price,type) 
-                                                VALUES ('$contract','$date','$name','$quantity','$quantity','$status',' $price_kg','$type')";
+                                        $query = "INSERT INTO rubber_contract (contract_no,date,seller,contract_quantity,balance,status,price,type,loc) 
+                                                VALUES ('$contract','$date','$name','$quantity','$quantity','$status',' $price_kg','$type','$loc')";
                                         $results = mysqli_query($con, $query);
                                            
                                             if ($results) {
@@ -53,11 +53,11 @@
                                             $seller = $_POST['name'];
                                             $category = $_POST['ca_category'];
                                             $type = $_POST['ca_category'];
-
+                                            $loc = $_SESSION['loc'];
                                             $amount = str_replace(',', '', $_POST['ca_amount']);
                 
                                             //select seller ca
-                                            $sql=mysqli_query($con,"SELECT * FROM rubber_seller WHERE name='$seller' ");
+                                            $sql=mysqli_query($con,"SELECT * FROM rubber_seller WHERE name='$seller' and loc='$loc' ");
                                             $row = mysqli_fetch_array($sql);
                 
                                             $seller_ca = $row['cash_advance'];
@@ -65,8 +65,8 @@
                                             $new_total_ca = $seller_ca + $amount;
                 
                 
-                                                $query = "INSERT INTO rubber_cashadvance (date,seller,category,amount,status,type) 
-                                                        VALUES ('$date','$seller','$category','$amount','PENDING','$type')";
+                                                $query = "INSERT INTO rubber_cashadvance (date,seller,category,amount,status,type,loc) 
+                                                        VALUES ('$date','$seller','$category','$amount','PENDING','$type','$loc')";
                                                 $results = mysqli_query($con, $query);
                 
                                                 $query = "UPDATE  rubber_seller SET cash_advance = '$new_total_ca' where name='$seller'  ";

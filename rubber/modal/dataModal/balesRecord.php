@@ -1,8 +1,8 @@
 <?php  
 include('../../../function/db.php');
-
+  
     $invoice = $_POST['invoice'];
-    $record  = mysqli_query($con, "SELECT * from bales_transaction WHERE id='12' ");
+    $record  = mysqli_query($con, "SELECT * from bales_transaction WHERE id='$invoice' ");
     $arr = mysqli_fetch_array($record);
     $output='';
 

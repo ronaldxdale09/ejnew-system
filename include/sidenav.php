@@ -15,12 +15,30 @@
           <li>
               <a href='./admin_dashboard.php'>
               <i class='bx bx-grid-alt' ></i>
-              <span class='link_name'>Dashboard</span>
+              <span class='link_name'>Copra Report</span>
               </a>
               <ul class='sub-menu blank'>
               <li><a class='link_name' href='./admin_dashboard.php'>Dashboard</a></li>
               </ul>
           </li>
+          <li>
+            <a href='./admin_basilan_rubber.php'>
+                <i class='bx bx-book' ></i>
+                <span class='link_name'>Basilan Rubber</span>
+                </a>
+                <ul class='sub-menu blank'>
+                <li><a class='link_name' href='./admin_basilan_rubber.php'>Dashboard</a></li>
+                </ul>
+        </li>
+        <li>
+        <a href='./admin_kidapawan_rubber.php'>
+            <i class='bx bx-book' ></i>
+            <span class='link_name'>Kidapawan Rubber</span>
+            </a>
+            <ul class='sub-menu blank'>
+            <li><a class='link_name' href='./admin_kidapawan_rubber.php'>Dashboard</a></li>
+            </ul>
+    </li>
           <li>
               <a href='./admin_users.php'>
               <i class='bx bx-user' ></i>

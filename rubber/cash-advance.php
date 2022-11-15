@@ -4,13 +4,12 @@
 
   
 
-
      // TOTAL CASH ADVANCE
-     $CA_count = mysqli_query($con,"SELECT * FROM rubber_cashadvance ");
+     $CA_count = mysqli_query($con,"SELECT * FROM rubber_cashadvance WHERE loc='$loc' ");
      $ca_no=mysqli_num_rows($CA_count);
 
      
-    $results = mysqli_query($con, "SELECT SUM(cash_advance) as total from rubber_seller"); 
+    $results = mysqli_query($con, "SELECT SUM(cash_advance) as total from rubber_seller WHERE loc='$loc' "); 
     $row = mysqli_fetch_array($results);
    
 
@@ -97,7 +96,7 @@
 
                                     <div class="table-responsive">
                                         <table class="table" id='contractTable'> <?php
-                                    $results  = mysqli_query($con, "SELECT * from rubber_seller  ORDER BY id ASC"); 
+                                    $results  = mysqli_query($con, "SELECT * from rubber_seller WHERE loc='$loc'   ORDER BY id ASC"); 
                                     
                                     ?> <thead class="table-dark">
                                                 <tr>

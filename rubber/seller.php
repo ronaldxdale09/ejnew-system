@@ -36,7 +36,7 @@
                                     <br>
                                     <div class="table-responsive">
                                         <table class="table" id='sellerTable'> <?php
-                                    $results  = mysqli_query($con, "SELECT * from rubber_seller"); ?>
+                                    $results  = mysqli_query($con, "SELECT * from rubber_seller   where loc='$loc'"); ?>
                                             <thead class="table-dark">
                                                 <tr>
                                                     <th>Image</th>

@@ -4,7 +4,7 @@
 
 
  
-
+ $loc = $_SESSION["loc"];
                             $invoice = $_POST['m_invoice'];
                              $date = $_POST['m_date'];
                              $address = $_POST['m_address'];
@@ -40,7 +40,7 @@
 
                              //UPDATE CONTRACT
                              if ($contract !='SPOT'){
-                                $getContract = mysqli_query($con, "SELECT  * from rubber_contract WHERE contract_no = '$contract' AND type='WET'  ");
+                                $getContract = mysqli_query($con, "SELECT  * from rubber_contract WHERE loc='$loc' contract_no = '$contract' AND type='WET'  ");
                                 $contractInfo = mysqli_fetch_array($getContract);
 
                                 $previous_delivered= $contractInfo['delivered'];
@@ -61,7 +61,7 @@
                                     $status='UPDATED';
                                 }
 
-                                $sql=mysqli_query($con,"UPDATE `rubber_contract` SET `delivered` = '$newDelivered' , balance='$newBalance',status='$status' WHERE `contract_no` ='$contract'");
+                                $sql=mysqli_query($con,"UPDATE `rubber_contract` SET `delivered` = '$newDelivered' , balance='$newBalance',status='$status' WHERE loc='$loc' and `contract_no` ='$contract'");
                                 echo $balance;
                             }
 
@@ -76,13 +76,13 @@
                             
                             $query = "UPDATE  rubber_seller SET cash_advance = '$total_ca' where name='$seller'  ";
                             $results = mysqli_query($con, $query);
-                            
+
 
                             $query = "INSERT INTO rubber_transaction (
                                 invoice,contract,date,address,seller,gross,tare,net_weight,price_1,price_2,total_weight_1,total_weight_2,total_amount,less,
-                                amount_paid,amount_words,type) 
+                                amount_paid,amount_words,type,loc) 
                                     VALUES ('$invoice','$contract','$date','$address','$seller','$gross','$tare','$net_weight','$first_price','$sec_price','$weight_1','$weight_2',
-                                    '$total_amount','$less','$amount_paid','$words_amount','WET')";
+                                    '$total_amount','$less','$amount_paid','$words_amount','WET','$loc')";
 
 
 

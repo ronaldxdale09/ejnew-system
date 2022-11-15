@@ -23,10 +23,10 @@
                                 $results = mysqli_query($con, $query);
 
                                 if ($type == 'WET'){
-                                    $query = "UPDATE  rubber_seller SET cash_advance = '$new_total_ca' where name='$seller' ";
+                                    $query = "UPDATE  rubber_seller SET cash_advance = '$new_total_ca' where name='$seller' and loc='$loc' ";
                                 }
                                 else {
-                                    $query = "UPDATE  rubber_seller SET bales_cash_advance = '$new_total_ca' where name='$seller' ";
+                                    $query = "UPDATE  rubber_seller SET bales_cash_advance = '$new_total_ca' where name='$seller' and loc='$loc'";
                                 }
                             
                                 $results = mysqli_query($con, $query);
@@ -44,11 +44,11 @@
 
                                 if (isset($_POST['update'])) {
                                     $id = $_POST['id'];
-                                   
+                                    $loc = $_SESSION['loc'];
                                     $bales = str_replace( ',', '', $_POST['bales']);
                                     $wet = str_replace( ',', '', $_POST['wet']);
                                    //select seller ca
-                                   $sql = "UPDATE rubber_seller SET cash_advance='$wet',bales_cash_advance='$bales'  where id='$id' ";
+                                   $sql = "UPDATE rubber_seller SET cash_advance='$wet',bales_cash_advance='$bales'  where id='$id' and loc='$loc' ";
                                    echo $results = mysqli_query($con, $sql);
 
                                            if ($results) {

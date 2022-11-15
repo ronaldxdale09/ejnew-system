@@ -1,7 +1,6 @@
 <?php 
-
-
-   $seller = "SELECT * FROM rubber_seller ";
+ 
+   $seller = "SELECT * FROM rubber_seller WHERE loc='$loc' ";
    $result = mysqli_query($con, $seller);
    $sellerList='';
    while($arr = mysqli_fetch_array($result))
@@ -11,15 +10,7 @@
    }
 
 
-     // TOTAL CASH ADVANCE
-     $CA_count = mysqli_query($con,"SELECT * FROM copra_cashadvance where status='PENDING'");
-     $ca_no=mysqli_num_rows($CA_count);
-
-     
-    $results = mysqli_query($con, "SELECT SUM(cash_advance) as total from seller"); 
-    $row = mysqli_fetch_array($results);
    
-
 
    ?>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -59,7 +50,7 @@
             <div class="table-responsive">
                 <table class="table" id='bales_table'>
                     <?php
-                                    $record  = mysqli_query($con, "SELECT * from bales_transaction ORDER BY id DESC  "); ?>
+                                    $record  = mysqli_query($con, "SELECT * from bales_transaction  WHERE loc='$loc' ORDER BY id DESC  "); ?>
                     <thead class="table-dark" style='font-size:15px'>
                         <tr>
                             <th scope="col">Invoice</th>
