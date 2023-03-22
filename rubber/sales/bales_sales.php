@@ -1,4 +1,3 @@
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <body>
 
@@ -561,49 +560,3 @@
             </div>
         </div>
 </div>
-
-
-<!-- CUPLUMPS EXPORT -->
-
-
-
-    <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.12.1/api/sum().js"></script>
-    <script type="text/javascript">
-    $(document).ready(function() {
-
-
-        table = $('#bales_table').DataTable({
-            dom: 'Bfrtip',
-            "pageLength": 50,
-            order: [
-                [1, 'desc']
-            ],
-            buttons: [
-                'excel', 'pdf', 'print',
-
-            ],
-            drawCallback: function() {
-                var api = this.api();
-                var sum = 0;
-                var formated = 0;
-                //to show first th
-                $(api.column(8).footer()).html('Total');
-
-
-                sum = api.column(9, {
-                    page: 'current'
-                }).data().sum();
-
-                //to format this sum
-                formated = parseFloat(sum).toLocaleString(undefined, {
-                    minimumFractionDigits: 2
-                });
-                $(api.column(9).footer()).html('P ' + formated);
-
-
-            }
-
-        });
-
-    });
-    </script>

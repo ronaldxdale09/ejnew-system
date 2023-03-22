@@ -114,6 +114,7 @@
 </body>
 
 
+
 </html>
 
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.12.1/api/sum().js"></script>
@@ -156,9 +157,8 @@ $(document).ready(function() {
 
     table = $('#bales_table').DataTable({
         dom: 'Bfrtip',
-          "pageLength": 50,
         order: [
-            [1, 'desc']
+            [0, 'desc']
         ],
         buttons: [
             'excel', 'pdf', 'print',
