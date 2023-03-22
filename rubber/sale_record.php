@@ -23,7 +23,7 @@
 
                 <div class="row">
                     <h2 class="page-title"><B>
-                            <font color="#0C0070"> PURCHASE </font>
+                            <font color="#0C0070"> SALE </font>
                             <font color="#046D56"> TRANSACTIONS </font>
                         </b></h2>
                     <div class="inventory-table">
@@ -34,8 +34,8 @@
                                 <?php if ($tab == '2') { echo 'checked'; } else { echo ''; } ?> >
 
                                 <nav>
-                                    <label for="home" class="home"><i class="fas fa-book"></i> BALES PURCHASE</label>
-                                    <label for="blog" class="blog"><i class="fas fa-book"></i> WET PURCHASE</label>
+                                    <label for="home" class="home"><i class="fas fa-book"></i> BALES SALE</label>
+                                    <label for="blog" class="blog"><i class="fas fa-book"></i> WET SALE</label>
 
                                     <div class="slider"></div>
                                 </nav>

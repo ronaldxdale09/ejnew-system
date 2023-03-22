@@ -184,7 +184,7 @@ $(document).ready(function() {
         //CASH ADVANCE SHOW
 
         $.ajax({
-            url: "include/fetch/fetchRubberCashAdvance.php",
+            url: "include/fetch/fetchCaWET.php",
             type: "POST",
             cache: false,
             data: {

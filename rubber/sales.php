@@ -23,8 +23,8 @@
 
                 <div class="row">
                     <h2 class="page-title"><B>
-                            <font color="#0C0070"> PURCHASE </font>
-                            <font color="#046D56"> TRANSACTIONS </font>
+                            <font color="#0C0070"> RUBBER </font>
+                            <font color="#046D56">  SALES</font>
                         </b></h2>
                     <div class="inventory-table">
                         <div class="container-fluid">
@@ -34,18 +34,18 @@
                                 <?php if ($tab == '2') { echo 'checked'; } else { echo ''; } ?> >
 
                                 <nav>
-                                    <label for="home" class="home"><i class="fas fa-book"></i> BALES PURCHASE</label>
-                                    <label for="blog" class="blog"><i class="fas fa-book"></i> WET PURCHASE</label>
+                                    <label for="home" class="home"><i class="fas fa-book"></i> BALES SALES</label>
+                                    <label for="blog" class="blog"><i class="fas fa-book"></i> WET SALES</label>
 
                                     <div class="slider"></div>
                                 </nav>
                                 <section>
                                     <div class="content content-1">
-                                        <div class="title"><?php include('record/bales_record.php');?> </div>
+                                        <div class="title"><?php include('sales/bales_sales.php');?> </div>
                                     </div>
                                     <div class="content content-2">
                                         <div class="title">
-                                        <?php include('record/wet_record.php');?> 
+                                        <?php include('sales/wet_sales.php');?> 
                                         </div>
 
                                     </div>

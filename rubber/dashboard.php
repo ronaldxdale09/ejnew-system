@@ -2,47 +2,73 @@
    include('include/header.php');
    include "include/navbar.php";
 
-   $sql  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(net_weight) as month_total 
-   from rubber_transaction  where loc='$loc'  group by year(date), month(date) ORDER BY ID DESC");
-   $sumPurchaced_wet = mysqli_fetch_array($sql);
-   $monthNum  = $sumPurchaced_wet["month"];
+//    ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
+
+error_reporting(0); // Suppress all warnings
+
+   $sql  = mysqli_query($con, "SELECT year(date) as year, month(date) as month, sum(net_weight) as month_total 
+   FROM rubber_transaction  
+   WHERE loc='$loc'  
+   GROUP BY year(date), month(date) 
+   ORDER BY ID DESC");
+$sumPurchased_wet = mysqli_fetch_array($sql);
+if (!empty($sumPurchased_wet) && isset($sumPurchased_wet["month"])) {
+   $monthNum  = $sumPurchased_wet["month"];
    $dateObj   = DateTime::createFromFormat('!m', $monthNum);
+} else {
+   $dateObj = null; // or handle the case when the array is null or doesn't have the "month" element
+}
 
+$sql  = mysqli_query($con, "SELECT year(date) as year, month(date) as month, sum(amount_paid) as amount_purchased 
+   FROM rubber_transaction  
+   WHERE loc='$loc'   
+   GROUP BY year(date), month(date) 
+   ORDER BY ID DESC");
+$sumAmountPurchased = mysqli_fetch_array($sql);
 
-   $sql  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(amount_paid) as amount_purchased 
-   from rubber_transaction  where loc='$loc'   group by year(date), month(date) ORDER BY ID DESC");
-   $sumAmountPurchased = mysqli_fetch_array($sql);
-
-   /////////////////
-
-   $sql  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(total_net_weight) as month_total 
-   from bales_transaction  where loc='$loc'   group by year(date), month(date) ORDER BY ID DESC");
-   $sumPurchaced_bales = mysqli_fetch_array($sql);
-   $monthNum  = $sumPurchaced_bales["month"];
+$sql  = mysqli_query($con, "SELECT year(date) as year, month(date) as month, sum(total_net_weight) as month_total 
+   FROM bales_transaction  
+   WHERE loc='$loc'   
+   GROUP BY year(date), month(date) 
+   ORDER BY ID DESC");
+$sumPurchased_bales = mysqli_fetch_array($sql);
+if (!empty($sumPurchased_bales) && isset($sumPurchased_bales["month"])) {
+   $monthNum  = $sumPurchased_bales["month"];
    $dateObj   = DateTime::createFromFormat('!m', $monthNum);
- 
+} else {
+   $dateObj = null; // or handle the case when the array is null or doesn't have the "month" element
+}
 
-   $sql  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(amount_paid) as amount_purchased 
-   from bales_transaction   where loc='$loc'  group by year(date), month(date) ORDER BY ID DESC");
-   $sumAmountPurchased_bales = mysqli_fetch_array($sql);
+$sql  = mysqli_query($con, "SELECT year(date) as year, month(date) as month, sum(amount_paid) as amount_purchased 
+   FROM bales_transaction   
+   WHERE loc='$loc'  
+   GROUP BY year(date), month(date) 
+   ORDER BY ID DESC");
+$sumAmountPurchased_bales = mysqli_fetch_array($sql);
 
+$sql = mysqli_query($con, "SELECT * FROM rubber_contract 
+   WHERE loc='$loc' AND status='WET' AND (status='PENDING' OR status='UPDATED')");
+$contract_wet = mysqli_num_rows($sql);
 
-   //PENDING CONTRACT
-   $sql = mysqli_query($con,"SELECT * FROM rubber_contract where  loc='$loc' AND  status='WET' AND status='PENDING' OR status='UPDATED' ");
-   $contract_wet=mysqli_num_rows($sql);
+$sql = mysqli_query($con, "SELECT * FROM rubber_contract 
+   WHERE loc='$loc' AND status='BALES' AND (status='PENDING' OR status='UPDATED')");
+$contract_bales = mysqli_num_rows($sql);
 
-   $sql = mysqli_query($con,"SELECT * FROM rubber_contract where  loc='$loc' AND  status='BALES' AND  status='PENDING' OR status='UPDATED'");
-   $contract_bales=mysqli_num_rows($sql);
+$sql = mysqli_query($con, "SELECT SUM(cash_advance) AS total_ca FROM rubber_seller WHERE loc='$loc'"); 
+$ca_wet = mysqli_fetch_array($sql);
+if (empty($ca_wet["total_ca"])) {
+   $ca_wet["total_ca"] = 0; // or handle the case when the "total_ca" element is null or empty
+}
 
-//    cash advance
-
-   $sql = mysqli_query($con, "SELECT SUM(cash_advance) AS total_ca from rubber_seller where loc='$loc'  "); 
-   $ca_wet = mysqli_fetch_array($sql);
-
-   
-   $sql = mysqli_query($con, "SELECT SUM(bales_cash_advance) AS total_ca from rubber_seller  where loc='$loc' "); 
-   $ca_bales = mysqli_fetch_array($sql);
+$sql = mysqli_query($con, "SELECT SUM(bales_cash_advance) AS total_ca FROM rubber_seller WHERE loc='$loc'"); 
+$ca_bales = mysqli_fetch_array($sql);
+if (empty($ca_bales["total_ca"])) {
+   $ca_bales["total_ca"] = 0; // or handle the case when the "total_ca" element is null or empty
+}
    ?>
+
 
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"

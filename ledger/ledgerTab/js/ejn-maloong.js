@@ -42,19 +42,19 @@ $(document).ready(function() {
             [0, 'desc']
         ],
         buttons: [{
-                extend: 'excelHtml5',
+                extend: 'excelHtml5', footer: true,
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
                 }
             },
             {
-                extend: 'pdfHtml5',
+                extend: 'pdfHtml5',footer: true,
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
                 }
             },
             {
-                extend: 'print',
+                extend: 'print',footer: true,
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
                 }

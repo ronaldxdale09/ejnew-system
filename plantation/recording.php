@@ -58,24 +58,15 @@
                                     </div>
                                     <div class="content content-2">
                                         <div class="title">Product Shelves </div>
-                                        <?php include('report_pages/ntc_shelves.php') ?>
+                                       
                                     </div>
                                     <div class="content content-3">
                                         <div class="title">Shelves</div>
-                                        <?php include('report_pages/ntc_update_inventory.php') ?>
+                                       
                                     </div>
                                     <div class="content content-4">
                                         <div class="title">This is a Help content</div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim reprehenderit
-                                            null itaq,
-                                            odio repellat asperiores vel voluptatem magnam praesentium, eveniet iure ab
-                                            facere
-                                            officiis. Quod sequi vel, rem quam provident soluta nihil, eos.
-                                            Illo oditu omnis cumque praesentium voluptate maxime voluptatibus facilis
-                                            nulla ipsam
-                                            quidem mollitia! Veniam, fuga, possimus. Commodi, fugiat aut ut quorioms stu
-                                            necessitatibus, cumque laborum rem provident tenetur.</p>
-                                    </div>
+                                        
                              
                                 </section>
                             </div>

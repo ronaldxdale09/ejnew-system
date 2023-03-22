@@ -74,12 +74,12 @@
                                     <td><?php echo number_format($row['net_kilos'])?> Kgs</td>
                                     <td>₱ <?php echo number_format($row['price'])?></td>
                                     <td>₱ <?php echo number_format($row['total'])?></td>
-                                    <td><?php echo number_format($row['ejn_percent'])?> %</td>
-                                    <td>₱ <?php echo number_format($row['ejn_total'])?></td>
-                                    <td><?php echo number_format($row['toppers_percent'])?> %</td>
+                                    <td><?php echo number_format(floatval($row['ejn_percent']))?> %</td>
+                                    <td>₱ <?php echo number_format(floatval($row['ejn_total']))?></td>
+                                    <td><?php echo number_format(floatval($row['toppers_percent']))?> %</td>
         
-                                    <td><?php echo ($row['less_category'])?> : ₱<?php echo number_format($row['less_toppers'])?></td>
-                                    <td>₱ <?php echo number_format($row['toppers_total'])?></td>
+                                    <td><?php echo ($row['less_category'])?> : ₱<?php echo number_format(floatval($row['less_toppers']))?></td>
+                                    <td>₱ <?php echo number_format(floatval($row['toppers_total']))?></td>
 
                                     <td>
                                         <button type="button" class="btn btn-secondary text-white">

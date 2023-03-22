@@ -2,9 +2,14 @@
 
 <?php 
  include('../db.php');
+ 
+  function removeCharacters($string) {
+  $string = preg_replace('/[^0-9]/', '', $string);
+  return $string;
+}
                         if (isset($_POST['submit'])) {
                             $date = $_POST['date'];
-                            $vouch = $_POST['voucher'];
+                            $vouch = removeCharacters($_POST['voucher']);
                             $particular = $_POST['particular'];
                             $category = $_POST['category'];
                             $amount = str_replace(',', '', $_POST['amount']);

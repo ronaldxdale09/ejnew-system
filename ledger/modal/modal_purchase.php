@@ -35,14 +35,14 @@
                                             style='color:black;font-weight: bold;'>Voucher</span>
                                     </div>
                                     <input type="text" style='text-align:right' name='p_voucher' id='p_voucher'
-                                        class="form-control" style='background-color:white;border:0px solid #ffffff;'  autocomplete='off'>
+                                        class="form-control" style='background-color:white;border:0px solid #ffffff;' required  autocomplete='off'>
                                 </div>
                             </div>
                             <!--end  -->
                             <div class="col-6 col-md-6">
                                 <select class='pur_category' name='pur_category' id='pur_category' style='width:200px'
                                     required>
-                                    <option disabled="disabled" selected="selected">Select Category</option>
+                                    <option disabled="disabled" value='' selected="selected">Select Category</option>
                                     <?php echo $purCatList; ?>
                                 </select>
                             </div>
@@ -154,7 +154,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">₱</span>
                                     </div>
-                                    <input type="text" readonly class="form-control" id='p_net_total' name='p_net_total'
+                                    <input type="text"  class="form-control" id='p_net_total' name='p_net_total'
                                         onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off' />
                                 </div>
                                 <!--  -->
@@ -167,7 +167,7 @@
                                         <span class="input-group-text">₱</span>
                                     </div>
                                     <input type="text" style='text-align:right' name='p_total_amount'
-                                        id='p_total_amount' class="form-control" readonly>
+                                        id='p_total_amount' class="form-control" >
                                 </div>
                                 <!--  -->
                             </div>
@@ -228,8 +228,7 @@
                     <div class="form-group">
                         <label class="col-md-12">DATE</label>
                         <div class="col-md-12">
-                            <input class='datepicker' value="<?php echo $today; ?>" type="date" id="update_date" name="date"
-                                required>
+                            <input class='datepicker' value="<?php echo $dateNow; ?>" type="date" id="update_date" name="date" >
                         </div>
                     </div>
                     <br>

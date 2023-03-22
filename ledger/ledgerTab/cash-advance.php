@@ -27,7 +27,7 @@
                     <br>
                     <hr>
                     <div class="table-responsive ">
-                        <table class="table table-bordered table-responsive-lg" id='purchase_table'>
+                        <table class="table table-bordered table-responsive-lg" id='ca_table'>
                             <?php
                                     $results  = mysqli_query($con, "SELECT * from ledger_cashadvance ORDER BY id DESC"); ?>
                             <thead class="table-dark">
@@ -57,6 +57,18 @@
                                         </button>
                                     </td>
                                 </tr> <?php } ?> </tbody>
+                                  <tfoot>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                               <th></th>
+
+
+                        </tfoot>
+                    </table>
                         </table>
                     </div>
                     <!-- END CONTENT -->

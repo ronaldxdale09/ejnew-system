@@ -1,6 +1,9 @@
 <div class="row">
 
-
+<?php   ini_set('display_errors', 1);
+  ini_set('display_startup_errors', 1);
+  error_reporting(E_ALL);
+?>
     <!-- ============================================================== -->
     <div class="row">
         <div class="col-12">
@@ -68,12 +71,12 @@
                                     <td><?php echo ($row['date'])?></td>
                                     <td><?php echo ($row['voucher'])?></td>
                                     <td><?php echo ($row['name'])?></td>
-                                    <td><?php echo number_format($row['net_kilos'])?> Kgs</td>
-                                    <td>₱ <?php echo number_format($row['ejn_price'])?></td>
-                                    <td>₱ <?php echo number_format($row['ejn_total'])?></td>
-                                    <td>₱ <?php echo number_format($row['topper_price'])?></td>
-                                    <td><?php echo ($row['less_category'])?> : ₱<?php echo number_format($row['less'])?></td>
-                                    <td>₱ <?php echo number_format($row['topper_total'])?></td>
+                                    <td><?php echo number_format(floatval($row['net_kilos']),2)?> Kgs</td>
+                                    <td>₱ <?php echo number_format(floatval($row['ejn_price']),2)?></td>
+                                    <td>₱ <?php echo number_format(floatval($row['ejn_total']),2)?></td>
+                                    <td>₱ <?php echo number_format(floatval($row['topper_price']),2)?></td>
+                                    <td><?php echo ($row['less_category'])?> : ₱<?php echo number_format(floatval($row['less']),2)?></td>
+                                    <td>₱ <?php echo number_format(floatval($row['topper_total']),2)?></td>
 
                                     <td>
                                         <button type="button" class="btn btn-secondary text-white">

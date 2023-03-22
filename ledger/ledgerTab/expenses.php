@@ -1,3 +1,20 @@
+<?php 
+// expense category
+$sql = "SELECT * FROM category_expenses ";
+$result = mysqli_query($con, $sql);
+$categoryList='';
+while($arr = mysqli_fetch_array($result))
+{
+$categoryList .= '
+
+<option value="'.$arr["category"].'">'.$arr["category"].'</option>';
+}
+
+
+
+?>
+
+
 <div class="row">
     <div class="col-sm-9">
 
@@ -15,8 +32,17 @@
                     </div>
                     <div class="col-sm">
                         <div class="row">
-                            <div class="col"></div>
-                            <h5> Date Filter </h5>
+                            <div class="col">
+
+                                <select class='form-select' name='category' id='category_filter'>
+                                    <option disabled="disabled" selected>Select Category </option>
+                                    <option value=''>All</option>
+                                    <?php echo $categoryList?>
+                                    <!--PHP echo-->
+                                </select>
+
+                            </div>
+
                             <div class="col">
                                 <b></b>
                                 <input type="text" id="min" name="min" class="form-control" placeholder="From Date" />
@@ -51,7 +77,7 @@
                                 <td> <?php echo $row['category']?> </td>
                                 <td>₱ <?php echo number_format($row['amount'])?> </td>
                                 <td>
-                      
+
                                     <button type="button" class="btn btn-secondary text-white" data-bs-toggle="modal"
                                         data-bs-target="#updateExpense"
                                         data-bs-amount="<?php echo number_format($row['amount'])?>"
@@ -68,6 +94,16 @@
                                 </td>
                             </tr> <?php }
                                  ?> </tbody>
+                        <tfoot>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+
+
+                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -77,6 +113,45 @@
 
     <div class="col-sm-3">
 
+        <div class="top-bar">
+            <h4>Operating Expenses</h4>
+
+        </div>
+        <small><?php echo date('F Y'); ?></small>
+        <?php 
+                        $month = date('m');
+                        $year = date('Y');
+                        $side = mysqli_query($con, "SELECT category,year(date) as year,month(date) as month,sum(amount) as month_total from ledger_expenses 
+                        where month(date)='$month' and  year(date)='$year' 
+                        group by year(date), month(date), category ORDER BY id ASC");?>
+
+        <table class="table">
+            <thead class="table-dark">
+                <tr>
+                    <th>Category</th>
+                    <th>Total </th>
+                </tr>
+            </thead>
+            <?php  if(mysqli_num_rows($side) > 0)  
+                                        {  
+                            while ($row = mysqli_fetch_array($side)) { ?>
+            <tbody>
+                <tr>
+                    <td><?php echo $row['category']?></td>
+                    <td>P <?php echo number_format((float)$row['month_total'], 2, '.', ','); ?></td>
+                </tr>
+                <?php } }
+                                
+                                else  
+                                    {  
+                                        echo '<tr>  
+                                                            <td colspan="4">No records found </td>  
+                                                        </tr>';  
+                                    }  ?>
+
+            </tbody>
+
+        </table>
         <div class="stat-card">
             <div class="stat-card__content">
                 <p class="text-uppercase mb-1 text-muted">EXPENSES TODAY</p>
@@ -103,8 +178,8 @@
                     ₱ <?php  echo number_format($expense_month['month_total']) ?>
                 </h2>
                 <div>
-   
-                        <?php echo $expense_month['year']; ?>
+
+                    <?php echo $expense_month['year']; ?>
                     </span>
                 </div>
             </div>

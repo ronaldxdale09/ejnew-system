@@ -58,7 +58,7 @@
 
                              //UPDATE CONTRACT
                              if ($contract !='SPOT'){
-                                $getContract = mysqli_query($con, "SELECT  * from rubber_contract WHERE contract_no = '$contract' AND type='WET' and loc='$loc' ");
+                                $getContract = mysqli_query($con, "SELECT  * from rubber_contract WHERE contract_no = '$contract' AND type='WET' and loc='Basilan' ");
                                 $contractInfo = mysqli_fetch_array($getContract);
 
                                 $previous_delivered= $contractInfo['delivered'];

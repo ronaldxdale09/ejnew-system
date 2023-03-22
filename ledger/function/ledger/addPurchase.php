@@ -1,10 +1,14 @@
-
-
 <?php 
  include('../db.php');
+ 
+ 
+ function removeCharacters($string) {
+  $string = preg_replace('/[^0-9]/', '', $string);
+  return $string;
+}
             
                              $date = $_POST['date'];
-                             $vouch = $_POST['p_voucher'];
+                             $vouch = removeCharacters($_POST['p_voucher']);
                              $category  = $_POST['pur_category'];
                              $name = $_POST['p_name'];
                              $net_kilos = str_replace(',', '', $_POST['p_net-kilos']);

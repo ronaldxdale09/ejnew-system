@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-sm-9">
+    <div class="col-sm-10">
 
         <div class="card">
             <div class="card-body">
@@ -9,9 +9,9 @@
                         <button type="button" class="btn btn-success text-white" data-toggle="modal"
                             data-target="#addExpense">
                             <i class="fa fa-plus" aria-hidden="true"></i> ADD EXPENSE </button>
-                        <button type="button" class="btn btn-dark text-white" data-toggle="modal"
+                        <!-- <button type="button" class="btn btn-dark text-white" data-toggle="modal"
                             data-target=".viewExpenseCat">
-                            <i class="fa fa-book" aria-hidden="true"></i> CATEGORY </button>
+                            <i class="fa fa-book" aria-hidden="true"></i> CATEGORY </button> -->
                     </div>
                     <div class="col-sm">
                         <div class="row">
@@ -64,7 +64,7 @@
 
     </div>
 
-    <div class="col-sm-3">
+    <div class="col-sm-2">
 
         <div class="stat-card">
             <div class="stat-card__content">

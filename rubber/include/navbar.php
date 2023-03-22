@@ -12,6 +12,9 @@
     <a class='nav-link' href='dashboard.php'>
         <i class='fa-solid fa-house'></i> <span class='nav-text'>Home</span>
     </a>
+
+    <!-- PURCHASE AND SALE -->
+
     <hr style='color:gray'>
     <a class='nav-link' href='wet_rubber.php'>
         <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>WET Purchasing</span>
@@ -20,11 +23,23 @@
     <a class='nav-link' href='bales_rubber.php'>
         <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>Bales Purchasing</span>
     </a>
-    <hr style='color:gray'>
-    <a class='nav-link' href='record.php'>
-        <i class='fa-solid fa-book'></i> <span class='nav-text'>Transaction Record</span>
+
+    <a class='nav-link' href='sales.php'>
+        <i class='fa-solid fa-chart-line'></i> <span class='nav-text'>Sales</span>
     </a>
 
+    <!-- RECORDS -->
+    <hr style='color:gray'>
+
+    <a class='nav-link' href='record.php'>
+        <i class='fa-solid fa-book'></i> <span class='nav-text'>Purchases Record</span>
+    </a>
+
+    <a class='nav-link' href='sale_record.php'>
+        <i class='fa-solid fa-book'></i> <span class='nav-text'>Sales Record</span>
+    </a>
+
+<!-- OTHER -->
     <hr style='color:gray'>
 
     <a class='nav-link' href='seller.php'>
@@ -38,6 +53,11 @@
         <i class='fa-solid fa-money'></i> <span class='nav-text'>Cash Advance</span>
     </a>
 
+    <hr style='color:gray'>
+    <a class='nav-link' href='reports.php'>
+        <i class='fa-solid fa-file-alt'></i> <span class='nav-text'>Reports</span>
+    </a>
+    <hr style='color:gray'>
   
 
     <div class='logout-container'>

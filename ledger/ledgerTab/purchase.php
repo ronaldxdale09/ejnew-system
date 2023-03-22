@@ -4,6 +4,12 @@ th {
 
 }
 </style>
+
+<?php 
+
+
+
+?>
 <div class="row">
     <div class="col-sm-9">
         <div class="card">
@@ -17,8 +23,15 @@ th {
                     </div>
                     <div class="col-sm">
                         <div class="row">
-                            <div class="col"></div>
-                            <h5> Date Filter </h5>
+                            <div class="col">
+                                <select class='form-select' name='category' id='category_filter'>
+                                    <option disabled="disabled" selected>Select Category </option>
+                                    <option value=''>All</option>
+                                    <?php echo $purCatList?>
+                                    <!--PHP echo-->
+                                </select>
+                            </div>
+
                             <div class="col">
                                 <b></b>
                                 <input type="text" id="min" name="min" class="form-control" placeholder="From Date" />
@@ -33,7 +46,7 @@ th {
                 </div>
                 <hr>
                 <div class="table-responsive ">
-                    <table class="table table-bordered table-responsive-lg" id='purchase_table'>
+                    <table class="table table-responsive-lg" id='purchase_table'>
                         <?php
                             $results  = mysqli_query($con, "SELECT * from ledger_purchase ORDER BY id DESC"); ?>
                         <thead class="table-dark">
@@ -44,10 +57,7 @@ th {
                                 <th>CUSTOMER NAME</th>
                                 <th>NET KILOS</th>
                                 <th>PRICE</th>
-                                <th hidden>ADJUSTMENT PRICE</th>
-                                <th hidden>LESS</th>
-                                <th hidden>PARTIAL PAYMENT</th>
-                                <th hidden>NET TOTAL</th>
+                                
                                 <th>TOTAL AMOUNT</th>
                                 <th>ACTION</th>
                             </tr>
@@ -57,13 +67,11 @@ th {
                                 <td> <?php echo $row['category']?> </td>
                                 <td> <?php echo $row['voucher']?> </td>
                                 <td> <?php echo $row['customer_name']?> </td>
-                                <td> <?php echo number_format($row['net_kilos'])?> KG </td>
-                                <td> <?php echo $row['price']?> </td>
-                                <td hidden> <?php echo $row['adjustment_price']?> </td>
-                                <td hidden> <?php echo number_format($row['less'])?> </td>
-                                <td hidden> <?php echo number_format( $row['partial_payment'])?> </td>
-                                <td hidden> <?php echo  $row['net_total']?> </td>
-                                <td>₱ <?php echo number_format($row['total_amount'])?> </td>
+                                <td> <?php echo empty(floatval($row['net_kilos'])) ? "0" : number_format(floatval($row['net_kilos']));?> KG
+                                </td>
+                                <td> <?php echo empty($row['price']) ? "0" : number_format($row['price']);?> </td>
+                              
+                                <td>₱ <?php echo number_format(floatval($row['total_amount']))?> </td>
                                 <td>
                                     <button type="button" class="btn btn-secondary text-white" data-bs-toggle="modal"
                                         data-bs-target="#updatePurchase" data-bs-id="<?php echo $row['id']?>"
@@ -86,6 +94,21 @@ th {
                                     </button>
                                 </td>
                             </tr> <?php } ?> </tbody>
+
+                        <tfoot>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                           
+                            <th></th>
+                            <th></th>
+
+                        </tfoot>
+
+
                     </table>
                 </div>
             </div>
@@ -94,6 +117,49 @@ th {
     </div>
 
     <div class="col-sm-3">
+
+        <div class="top-bar">
+            <h4>Purchases</h4>
+
+        </div>
+        <small><?php echo date('F Y'); ?></small>
+        <?php 
+                        $month = date('m');
+                        $year = date('Y');
+                        $side = mysqli_query($con, "SELECT category,year(date) as year,month(date) as month,sum(total_amount) as month_total from ledger_purchase 
+                        where month(date)='$month' and  year(date)='$year' 
+                        group by year(date), month(date), category ORDER BY id ASC");?>
+
+        <table class="table">
+            <thead class="table-dark">
+                <tr>
+                    <th>Category</th>
+                    <th>Total </th>
+                </tr>
+            </thead>
+            <?php  if(mysqli_num_rows($side) > 0)  
+                                        {  
+                            while ($row = mysqli_fetch_array($side)) { ?>
+            <tbody>
+                <tr>
+                    <td><?php echo $row['category']?></td>
+                    <td>P <?php echo number_format((float)$row['month_total'], 2, '.', ','); ?></td>
+                </tr>
+                <?php } }
+                                
+                                else  
+                                    {  
+                                        echo '<tr>  
+                                                            <td colspan="4">No records found </td>  
+                                                        </tr>';  
+                                    }  ?>
+
+            </tbody>
+
+        </table>
+
+
+
 
         <div class="stat-card">
             <div class="stat-card__content">
@@ -131,11 +197,7 @@ th {
                 </div>
             </div>
         </div>
-        <div class="card">
-            <div class="card-body">
-                <canvas id="ca_pie" style="position: relative; height:20vh; width:10vw">></canvas>
-            </div>
-        </div>
+
 
 
     </div>

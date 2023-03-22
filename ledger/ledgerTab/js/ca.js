@@ -1,7 +1,3 @@
-$('#addExpense').on('shown.bs.modal', function() {
-    $('.ex_category', this).chosen();
-});
-
 var minDate, maxDate;
 
 // Custom filtering function which will search data in column four between two values
@@ -11,7 +7,7 @@ $.fn.dataTable.ext.search.push(
         var max = maxDate.val();
         var date = new Date(data[0]);
 
-    if (
+       if (
     (min === null && max === null) ||
     (min === null && date < max) ||
     (min < date && max === null) ||
@@ -31,28 +27,28 @@ $(document).ready(function() {
     maxDate = new DateTime($('#max'), {
         format: 'MMMM Do YYYY'
     });
-    var table = $('#expenses_table').DataTable({
+    var table = $('#ca_table').DataTable({
         dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
-         paging: false,
-        "pageLength": 50,
-     
+        "targets": 'no-sort',
+        "pageLength": 30,
+        "bSort": false,
         order: [
             [0, 'desc']
         ],
         buttons: [{
-                extend: 'excelHtml5', footer: true,
+                extend: 'excelHtml5',footer: true,
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4]
                 }
             },
             {
-                extend: 'pdfHtml5', footer: true,
+                extend: 'pdfHtml5',footer: true,
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4]
                 }
             },
             {
-                extend: 'print', footer: true,
+                extend: 'print',footer: true,
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4]
                 }
@@ -64,10 +60,10 @@ $(document).ready(function() {
             var sum = 0;
             var formated = 0;
             //to show first th
-            $(api.column(3).footer()).html('Total');
+            $(api.column(4).footer()).html('Total');
 
 
-            sum = api.column(4, {
+            sum = api.column(5, {
                 page: 'current'
             }).data().sum();
 
@@ -75,12 +71,12 @@ $(document).ready(function() {
             formated = parseFloat(sum).toLocaleString(undefined, {
                 minimumFractionDigits: 2
             });
-            $(api.column(4).footer()).html(formated);
+            $(api.column(5).footer()).html(formated);
 
 
         },
-
-
+        lengthChange: true,
+        orderCellsTop: true,
 
 
 
@@ -89,12 +85,8 @@ $(document).ready(function() {
         table.draw();
     });
 
-    $('#category_filter').on('change', function() {
-        var tosearch = this.value;
-        table.search(tosearch).draw();
-    });
-
-
 
 
 });
+
+
