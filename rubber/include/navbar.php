@@ -36,11 +36,11 @@
 
     <hr style='color:gray'>
     <!-- SALE -->
-    <a class='nav-link' href='bales_sales.php'>
+    <a class='nav-link' href='sales_bales.php'>
         <i class='fa-solid fa-chart-line'></i> <span class='nav-text'>Bales Sales</span>
     </a>
 
-    <a class='nav-link' href='sales/wet_sales.php'>
+    <a class='nav-link' href='sales_wet.php'>
         <i class='fa-solid fa-chart-line'></i> <span class='nav-text'>Wet Export</span>
     </a>
 
