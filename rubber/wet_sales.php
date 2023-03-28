@@ -29,7 +29,7 @@
                     <div class="inventory-table">
                         <div class="container-fluid">
                             <div class="wrapper" id="myTab">
-                        <?php include('sales/wet_sales.php');?>
+                            <div class="title"><?php include('sales/wet_sales.php');?> </div>
                             </div>
 
                         </div>
