@@ -37,18 +37,18 @@
                                 <input type="radio" name="slider" id="blog">
                                 <input type="radio" name="slider" id="code">
                                 <input type="radio" name="slider" id="help">
-                                <input type="radio" name="slider" id="about">
+
                                 <nav>
-                                    <label for="home" class="home"><i class="fa fa-add"></i> Receiving (Field)</label>
-                                    <label for="blog" class="blog"><i class="fas fa-spinner"></i>Processing</label>
-                                    <label for="code" class="code"><i class="fas fa-check"></i> Finished Product</label>
-                                    <label for="help" class="help"><i class="fas fa-book"></i> Report</label>
+                                    <label for="home" class="home"><i class="fa fa-add"></i>Field Cuplumps</label>
+                                    <label for="blog" class="blog"><i class="fas fa-spinner"></i>Blanket Milling</label>
+                                    <label for="code" class="code"><i class="fas fa-check"></i>Bales Production</label>
+                                    <label for="help" class="help"><i class="fas fa-book"></i>Bales Inventory</label>
 
                                     <div class="slider"></div>
                                 </nav>
                                 <section>
                                     <div class="content content-1">
-                                        <div class="title">RECEIVING </div>
+                                        <div class="title">FIELD INVENTORY </div>
                                         <button type="button" class="btn btn-primary text-white" data-toggle="modal"
                                             data-target="#newReceiving">
                                             <i class="fa fa-add" aria-hidden="true"></i> NEW RECEIVING  </button>
