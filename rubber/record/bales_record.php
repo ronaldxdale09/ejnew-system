@@ -27,7 +27,7 @@
                 <div class="col">
                     <div class="form-group">
                         <select class='form-select' id='seller_filter'>
-                            <option disabled="disabled" selected>Select Seller </option>
+                            <option disabled="disabled" selected>Select Supplier </option>
                             <option value=''>All</option>
                             <?php echo $sellerList?>
                             <!--PHP echo-->
@@ -74,17 +74,16 @@
                             <td> <?php echo $row['seller']?> </td>
                               <td> <?php echo $row['lot_code']?> </td>
                             <td> <?php echo number_format($row['entry'])?> Kg</td>
-                            <td> <?php 
-                                                    $total_weight = $row['net_weight_1'] +  $row['net_weight_2'];          
-                                                    echo number_format($total_weight);?> Kg </td>
+                            <td> <?php  
+                                        $total_weight = $row['net_weight_1'] +  $row['net_weight_2'];          
+                                        echo number_format($total_weight);?> Kg </td>
 
                             <td>₱ <?php echo number_format($row['price_1'],2)?> </td>
                             <td>₱ <?php echo number_format($row['price_2'],2)?> </td>
                             <td>₱ <?php echo number_format($row['less'],2)?> </td>
-
-
-
                             <td>₱ <?php echo number_format(($row['amount_paid']),2); ?> </td>
+
+
                             <td> <button type="button" class="btn btn-dark btnView"><i class="fa fa-eye"></i></button>
                                 <button type="button" class="btn btn-danger btnBalesDelete"><i
                                         class="fa fa-trash"></i></button>

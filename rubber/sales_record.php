@@ -34,8 +34,8 @@
                                 <?php if ($tab == '2') { echo 'checked'; } else { echo ''; } ?> >
 
                                 <nav>
-                                    <label for="home" class="home"><i class="fas fa-book"></i> BALES SALE</label>
-                                    <label for="blog" class="blog"><i class="fas fa-book"></i> WET SALE</label>
+                                    <label for="home" class="home"><i class="fas fa-book"></i> BALES</label>
+                                    <label for="blog" class="blog"><i class="fas fa-book"></i> CUPLUMPS</label>
 
                                     <div class="slider"></div>
                                 </nav>
@@ -67,6 +67,6 @@
 
 </body>
 </html>
-<?php    include "modal/m_bales_record.php";?>
+<?php    include "modal/s_bales_record.php";?>
 
-<?php    include "modal/m_wet_record.php";?>
+<?php    include "modal/s_wet_record.php";?>

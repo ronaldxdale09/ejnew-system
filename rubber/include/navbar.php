@@ -22,7 +22,7 @@
         <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>Bales Purchasing</span>
     </a>
 
-    <a class='nav-link' href='record.php'>
+    <a class='nav-link' href='purchase_record.php'>
         <i class='fa-solid fa-book'></i> <span class='nav-text'>Purchases Record</span>
     </a>
 

@@ -22,7 +22,7 @@
             <!-- CONTENT -->
             <div class="row">
                 <div class="col-4">
-                    <h4><b> BALES RECORD </b></h4>
+
                 </div>
                 <div class="col">
                     <div class="form-group">
@@ -42,10 +42,7 @@
                 </div>
             </div>
             <br>
-            <h6 class="card-title m-t-40">
-                <i class="m-r-5 font-18 mdi mdi-numeric-1-box-multiple-outline"></i>Copra
-                Purchased Record
-            </h6>
+
 
             <div class="table-responsive">
                 <table class="table" id='bales_table'>
@@ -53,38 +50,28 @@
                                     $record  = mysqli_query($con, "SELECT * from bales_transaction  WHERE loc='$loc' ORDER BY id DESC  "); ?>
                     <thead class="table-dark" style='font-size:15px'>
                         <tr>
-                            <th scope="col">Invoice</th>
+                            <th scope="col">Ref No.</th>
                             <th scope="col">Date</th>
-                            <th scope="col">Contract</th>
-                            <th scope="col">Seller</th>
-                             <th scope="col">LOT #</th>
-                            <th scope="col">Entry Weight</th>
-                            <th scope="col">Net Weight</th>
-                            <th scope="col">First Price</th>
-                            <th scope="col">Second Price</th>
-                            <th scope="col">Cash Advance</th>
-                            <th scope="col">Amount Paid</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Buyer</th>
+                            <th scope="col">Destination</th>
+                            <th scope="col">Total Weight</th>
+                            <th scope="col">Sales</th>
+                            <th scope="col">Net Gain</th>
+                            <th scope="col">Unpaid Balance</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody style='font-size:17px'> <?php while ($row = mysqli_fetch_array($record)) { ?> <tr>
-                            <td scope="row"> <?php echo $row['id']?> </td>
-                            <td> <?php echo $row['date']?> </td>
-                            <td> <?php echo $row['contract']?> </td>
-                            <td> <?php echo $row['seller']?> </td>
-                              <td> <?php echo $row['lot_code']?> </td>
-                            <td> <?php echo number_format($row['entry'])?> Kg</td>
-                            <td> <?php 
-                                                    $total_weight = $row['net_weight_1'] +  $row['net_weight_2'];          
-                                                    echo number_format($total_weight);?> Kg </td>
-
-                            <td>₱ <?php echo number_format($row['price_1'],2)?> </td>
-                            <td>₱ <?php echo number_format($row['price_2'],2)?> </td>
-                            <td>₱ <?php echo number_format($row['less'],2)?> </td>
-
-
-
-                            <td>₱ <?php echo number_format(($row['amount_paid']),2); ?> </td>
+                            <td scope="row"> <?php echo $row['sale_id']?> </td>
+                            <td> <?php echo $row['ship_date']?> </td>
+                            <td> <?php echo $row['sale_type']?> </td>
+                            <td> <?php echo $row['sale_buyer']?> </td>
+                            <td> <?php echo $row['sale_destination']?> </td>
+                            <td> <?php echo number_format($row['total_weight'])?> Kg</td>
+                            <td>₱ <?php echo number_format($row['sales'],2)?> </td>
+                            <td>₱ <?php echo number_format($row['net_gain'],2)?> </td>
+                            <td>₱ <?php echo number_format($row['amount_unpaid'],2)?> </td>
                             <td> <button type="button" class="btn btn-dark btnView"><i class="fa fa-eye"></i></button>
                                 <button type="button" class="btn btn-danger btnBalesDelete"><i
                                         class="fa fa-trash"></i></button>

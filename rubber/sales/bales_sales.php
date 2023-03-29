@@ -31,8 +31,8 @@
                                         <label style='font-size:15px' class="col-md-12">Reference No.</label>
                                         <div class="input-group mb-3">
 
-                                            <input type="text" class="form-control" name='bales_container'
-                                                id='first_price' onkeypress="return CheckNumeric()"
+                                            <input type="text" class="form-control" name='sale_id'
+                                                id='sale_id' onkeypress="return CheckNumeric()"
                                                 onkeyup="FormatCurrency(this)" tabindex="7" autocomplete='off'
                                                 style="width: 100px;" />
                                         </div>
@@ -41,7 +41,7 @@
                                         <label style='font-size:15px' class="col-md-12">Shipment Date </label>
                                         <div class="col-md-12">
                                             <input type="date" class='form-control' id="ship_date"
-                                                value="<?php echo $today; ?>" name="date">
+                                                value="<?php echo $today; ?>" name="ship_date">
 
                                         </div>
                                     </div>

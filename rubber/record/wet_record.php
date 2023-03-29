@@ -29,7 +29,7 @@
                 <div class="col">
                 <div class="form-group">
                         <select class='form-select' id='wet_seller_filter'>
-                            <option disabled="disabled" selected>Select Seller </option>
+                            <option disabled="disabled" selected>Select Supplier </option>
                             <option value=''>All</option>
                             <?php echo $sellerList?>
                             <!--PHP echo-->
