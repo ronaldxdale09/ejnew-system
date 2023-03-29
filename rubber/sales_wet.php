@@ -23,8 +23,8 @@
 
                 <div class="row">
                     <h2 class="page-title"><B>
-                            <font color="#0C0070"> SALE </font>
-                            <font color="#046D56"> TRANSACTIONS </font>
+                            <font color="#0C0070"> CUPLUMP </font>
+                            <font color="#046D56"> EXPORT SALE </font>
                         </b></h2>
                     <div class="inventory-table">
                         <div class="container-fluid">

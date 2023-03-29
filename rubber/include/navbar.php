@@ -44,7 +44,7 @@
         <i class='fa-solid fa-chart-line'></i> <span class='nav-text'>Wet Export</span>
     </a>
 
-    <a class='nav-link' href='sale_record.php'>
+    <a class='nav-link' href='sales_record.php'>
         <i class='fa-solid fa-book'></i> <span class='nav-text'>Sales Record</span>
     </a>
 

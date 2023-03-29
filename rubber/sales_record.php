@@ -41,11 +41,11 @@
                                 </nav>
                                 <section>
                                     <div class="content content-1">
-                                        <div class="title"><?php include('record/bales_record.php');?> </div>
+                                        <div class="title"><?php include('sales/bsales_record.php');?> </div>
                                     </div>
                                     <div class="content content-2">
                                         <div class="title">
-                                        <?php include('record/wet_record.php');?> 
+                                        <?php include('sales/export_record.php');?> 
                                         </div>
 
                                     </div>

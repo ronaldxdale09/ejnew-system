@@ -4,9 +4,7 @@
     <div class="row">
         <div class="col-12">
             <br>
-            <h4 class="card-title m-t-40">
-                <i class="m-r-5 font-18 mdi mdi-numeric-1-box-multiple-outline"></i>SALE OF BALES
-            </h4>
+
             <div class="row">
                 <div class="col-12">
                     <button type="button" class="btn btn-success text-white confirm" id='confirm'>Confirm
