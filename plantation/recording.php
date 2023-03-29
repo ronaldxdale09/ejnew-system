@@ -40,7 +40,7 @@
 
                                 <nav>
                                     <label for="home" class="home"><i class="fa fa-add"></i>Field Cuplumps</label>
-                                    <label for="blog" class="blog"><i class="fas fa-spinner"></i>Blanket Milling</label>
+                                    <label for="blog" class="blog"><i class="fas fa-spinner"></i>Crumbed Rubber</label>
                                     <label for="code" class="code"><i class="fas fa-check"></i>Bales Production</label>
                                     <label for="help" class="help"><i class="fas fa-book"></i>Bales Inventory</label>
 
@@ -57,7 +57,7 @@
                                         <?php include('tab/receiving.php') ?>
                                     </div>
                                     <div class="content content-2">
-                                        <div class="title">BLANKET PRODUCTION</div>
+                                        <div class="title">BLANKET INVENTORY</div>
                                        
                                     </div>
                                     <div class="content content-3">

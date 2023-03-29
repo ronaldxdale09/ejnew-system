@@ -34,7 +34,7 @@
                 <td> <?php echo $row['total_cost']?> </td>
                 <td>
                     <button type="button" class="btn btn-success text-white" data-toggle="modal"
-                        data-target="#add_seller">UPDATE </button>
+                        data-target="#add_seller">PROCESS</button>
                 </td>
 
                 <td>
