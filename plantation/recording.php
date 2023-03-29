@@ -57,15 +57,15 @@
                                         <?php include('tab/receiving.php') ?>
                                     </div>
                                     <div class="content content-2">
-                                        <div class="title">Product Shelves </div>
+                                        <div class="title">BLANKET PRODUCTION</div>
                                        
                                     </div>
                                     <div class="content content-3">
-                                        <div class="title">Shelves</div>
+                                        <div class="title">BALES PRODUCTION</div>
                                        
                                     </div>
                                     <div class="content content-4">
-                                        <div class="title">This is a Help content</div>
+                                        <div class="title">FINISHED GOODS INVENTORY</div>
                                         
                              
                                 </section>
