@@ -1,5 +1,5 @@
 <?php 
- 
+//  SELECT INVOICE
    $seller = "SELECT * FROM rubber_seller WHERE loc='$loc' ";
    $result = mysqli_query($con, $seller);
    $sellerList='';
@@ -47,7 +47,7 @@
             <div class="table-responsive">
                 <table class="table" id='bales_table'>
                     <?php
-                                    $record  = mysqli_query($con, "SELECT * from bales_transaction  WHERE loc='$loc' ORDER BY id DESC  "); ?>
+                                    $record  = mysqli_query($con, "SELECT * from salerecord_bales  WHERE loc='$loc' ORDER BY id DESC  "); ?>
                     <thead class="table-dark" style='font-size:15px'>
                         <tr>
                             <th scope="col">Ref No.</th>
