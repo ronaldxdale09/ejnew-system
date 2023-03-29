@@ -58,16 +58,15 @@
                                     </div>
                                     <div class="content content-2">
                                         <div class="title">BLANKET INVENTORY</div>
-                                       
+                                        <?php include('tab/milling.php') ?>
                                     </div>
                                     <div class="content content-3">
                                         <div class="title">BALES PRODUCTION</div>
-                                       
+                                        <?php include('tab/production.php') ?>
                                     </div>
                                     <div class="content content-4">
                                         <div class="title">FINISHED GOODS INVENTORY</div>
-                                        
-                             
+                                        <?php include('tab/finished_goods.php') ?>
                                 </section>
                             </div>
 
