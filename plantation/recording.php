@@ -57,17 +57,17 @@
                                         <?php include('tab/receiving.php') ?>
                                     </div>
                                     <div class="content content-2">
-                                        <div class="title">Product Shelves </div>
-                                       
+                                        <div class="title">Processing </div>
+                                        <?php include('tab/processing.php') ?>
                                     </div>
                                     <div class="content content-3">
-                                        <div class="title">Shelves</div>
-                                       
+                                        <div class="title">Finished Product</div>
+                                        <?php include('tab/f_product.php') ?>
                                     </div>
                                     <div class="content content-4">
-                                        <div class="title">This is a Help content</div>
+                                        <div class="title">Report</div>
                                         
-                             
+                                        <?php include('tab/report.php') ?>
                                 </section>
                             </div>
 
