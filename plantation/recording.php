@@ -39,10 +39,10 @@
                                 <input type="radio" name="slider" id="help">
 
                                 <nav>
-                                    <label for="home" class="home"><i class="fa fa-add"></i>Field Cuplumps</label>
-                                    <label for="blog" class="blog"><i class="fas fa-spinner"></i>Crumbed Rubber</label>
-                                    <label for="code" class="code"><i class="fas fa-check"></i>Bales Production</label>
-                                    <label for="help" class="help"><i class="fas fa-book"></i>Bales Inventory</label>
+                                    <label for="home" class="home"><i class="fa fa-add"></i>Cuplumps</label>
+                                    <label for="blog" class="blog"><i class="fas fa-spinner"></i>Milling</label>
+                                    <label for="code" class="code"><i class="fas fa-check"></i>Production</label>
+                                    <label for="help" class="help"><i class="fas fa-book"></i>Finished Goods</label>
 
                                     <div class="slider"></div>
                                 </nav>
