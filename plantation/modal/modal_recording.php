@@ -1,12 +1,12 @@
 <?php
 
-$sql = "SELECT id, invoice, seller FROM bales_transaction";
+$sql = "SELECT id, invoice, seller FROM rubber_transaction";
 $result = mysqli_query($con, $sql);
 $listPurchased = '';
 while ($arr = mysqli_fetch_assoc($result)) {
     $invoice = htmlspecialchars($arr['id'], ENT_QUOTES);
     $seller = htmlspecialchars($arr['seller'], ENT_QUOTES);
-    $listPurchased .= '<option value="' . $arr['id'] . '">' . $invoice . ' - ' . $seller . '</option>';
+    $listPurchased .= '<option value="'.$arr['id'] . '">INVOICE #' . $invoice . ' - ' . $seller . '</option>';
 }
 
 ?>
@@ -27,7 +27,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
 
                     <div class="form-group">
                         <div class="row no-gutters">
-                            <div class="col-6 col-md-6">
+                            <div class="col-8">
                                 <div class="input-group mb-12">
                                     <label class="col-md-12"></label>
                                     <div class="col-md-12">
@@ -42,13 +42,13 @@ while ($arr = mysqli_fetch_assoc($result)) {
 
                                 </div>
                             </div>
-                            <div class="col-6 col-md-6">
+                            <div class="col-4">
                                 <div class="input-group mb-12">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="inputGroup-sizing-default"
                                             style='color:black;font-weight: bold;'>Date</span>
                                     </div>
-                                    <input type="date" style='text-align:left' name='date' id='date'
+                                    <input type="date" style='text-align:left' name='date' id='r_date'
                                         value='<?php echo $dateNow?>' class="form-control"
                                         style='background-color:white;border:0px solid #ffffff;'>
                                 </div>
@@ -64,7 +64,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                         <div class="form-group">
                             <div class="row no-gutters">
 
-                                <div class="col-5">
+                                <div class="col-6">
                                     <div class="input-group mb-12">
                                         <label class="col-md-12">Supplier</label>
                                         <div class="col-md-12">
@@ -74,7 +74,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                     </div>
                                 </div>
 
-                                <div class="col-4">
+                                <div class="col-6">
                                     <div class="input-group mb-12">
                                         <label class="col-md-12">Location</label>
                                         <div class="col-md-12">
@@ -84,15 +84,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                     </div>
                                 </div>
 
-                                <div class="col-3">
-                                    <div class="input-group mb-12">
-                                        <label class="col-md-12">Lot No.</label>
-                                        <div class="col-md-12">
-                                            <input type="text" style='text-align:left' name='lot_num' id='r_lot_num'
-                                                readonly class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
+                               
                             </div>
                         </div>
                     </center>
@@ -105,7 +97,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                         <div class="input-group mb-12">
                                             <label class="col-md-12">Driver</label>
                                             <div class="col-md-12">
-                                                <input type="text" style='text-align:left' name='driver' id='r_driver'
+                                                <input type="text" style='text-align:left' name='driver' required
                                                     class="form-control">
                                             </div>
 
@@ -121,8 +113,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                                     <span class="input-group-text" id="inputGroup-sizing-default"
                                                         style='color:black;'>Truck #</span>
                                                 </div>
-                                                <input type="text" style='text-align:right' name='truck_num'
-                                                    id='truck_num' class="form-control">
+                                                <input type="text" style='text-align:right' name='truck_num'  class="form-control" required>
                                             </div>
                                         </div>
                                     </div>
@@ -174,8 +165,8 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                                 <span class="input-group-text" id="inputGroup-sizing-default"
                                                     style='color:black;font-weight: bold;'>₱</span>
                                             </div>
-                                            <input type="text" style='text-align:right' name='r_total_cost'
-                                                id='total_cost' readonly class="form-control">
+                                            <input type="text" style='text-align:right' name=' total_cost'
+                                                id='r_total_cost' readonly class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -188,9 +179,17 @@ while ($arr = mysqli_fetch_assoc($result)) {
 
                     <div class="row">
 
-                        <div class="col-7">
+                        <div class="col-4">
                         </div>
-
+                        <div class="col-3">
+                                    <div class="input-group mb-12">
+                                        <label class="col-md-12">LOT #</label>
+                                        <div class="col-md-12">
+                                            <input type="text" style='text-align:left' name='lot_num' id='r_lot_num'
+                                                 class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
                         <div class="col-5">
                             <div class="input-group mb-12">
                                 <label class="col-md-12">Reweight</label>
@@ -217,53 +216,8 @@ while ($arr = mysqli_fetch_assoc($result)) {
     </div>
 </div>
 
-<script>
-$(document).ready(function() {
 
-
-    $('#newReceiving').on('shown.bs.modal', function() {
-        $('.source', this).chosen();
-    });
-
-
-
-    // Country dependent ajax
-    $("#r_select_purchase").on("change", function() {
-        var receiving_id = $(this).val();
-
-        purchasedData(receiving_id)
-    });
-
-
-
-    function purchasedData(receiving_id) {
-        var r_id = receiving_id;
-
-        // Creates a new XMLHttpRequest object
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                // Parse the JSON response
-                var myObj = JSON.parse(this.responseText);
-
-                // Log the response values to the console
-                console.log("quantity:", myObj[0]);
-                document.getElementById("balance").value = balance;
-                document.getElementById("quantity").value = quantity;
-                document.getElementById("first-res").value = ca;
-            }
-        };
-
-        xmlhttp.open("GET", "fetch/fetchContract.php?contract=" + contract.replace(/,/g, ''), true);
-
-        // Sends the request to the server
-        xmlhttp.send();
-    }
-
-});
-</script>
-
-<div class="modal fade" id="model_drying" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="modal_drying" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -386,8 +340,7 @@ $(document).ready(function() {
                                         <label class="col-md-12">Supplier</label>
 
                                         <input type="text" style='text-align:center' name='weight' id='supplier'
-                                            readonly class="form-control" onkeypress="return CheckNumeric()"
-                                            onkeyup="FormatCurrency(this)" required>
+                                            readonly class="form-control" >
 
 
                                     </div>

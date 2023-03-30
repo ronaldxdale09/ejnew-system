@@ -140,22 +140,3 @@ $(document).ready(function() {
 
 
 
-<script>
-       $('.btnViewRecord').on('click', function() {
-            $tr = $(this).closest('tr');
-
-            var data = $tr.children("td").map(function() {
-                return $(this).text();
-            }).get();
-
-            $('#process_supplier').val(data[3]);
-            $('#process_weight').val(data[9]);
-            $('#p_recording_id').val(data[0]);
-            
-            $('#model_drying').modal('show');
-
-
-        });
-
-        
-</script>

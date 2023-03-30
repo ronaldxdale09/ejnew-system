@@ -49,8 +49,6 @@
     </table>
 </div>
 
-<?php include('modal/m_receiving.php'); ?>
-
 <script>
        $('.btnDrying').on('click', function() {
             $tr = $(this).closest('tr');

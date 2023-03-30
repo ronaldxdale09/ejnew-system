@@ -14,6 +14,8 @@
    ?>
 
 
+<?php include('modal/modal_recording.php'); ?>
+
 <body>
     <link rel='stylesheet' href='css/statistic-card.css'>
     <link rel='stylesheet' href='css/tab-style.css'>
@@ -75,5 +77,5 @@
     </div>
 
 </body>
-
+<script src="js/recording.js"></script>
 </html> 
