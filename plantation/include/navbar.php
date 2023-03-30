@@ -19,7 +19,7 @@
         <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>Recording</span>
     </a>
     <hr style='color:gray'>
-    <a class='nav-link' href='record.php'>
+    <a class='nav-link' href='record_allrubber.php'>
         <i class='fa-solid fa-book'></i> <span class='nav-text'>Transaction Record</span>
     </a>
 

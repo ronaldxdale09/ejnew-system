@@ -1,22 +1,12 @@
-<?php 
+<?php
 
-
-$month = date("m");
-$day = date("d");
-$year = date("Y");
-$dateNow = $year . "-" . $month . "-" . $day;
-
-
-
-
-
-$seller = "SELECT * FROM planta_seller";
-$result = mysqli_query($con, $seller);
-$sellerList='';
-while($arr = mysqli_fetch_array($result))
-{
-$sellerList .= '
-<option value="'.$arr["name"].'">'.$arr["name"].'</option>';
+$sql = "SELECT id, invoice, seller FROM bales_transaction";
+$result = mysqli_query($con, $sql);
+$listPurchased = '';
+while ($arr = mysqli_fetch_assoc($result)) {
+    $invoice = htmlspecialchars($arr['id'], ENT_QUOTES);
+    $seller = htmlspecialchars($arr['seller'], ENT_QUOTES);
+    $listPurchased .= '<option value="' . $arr['id'] . '">' . $invoice . ' - ' . $seller . '</option>';
 }
 
 ?>
@@ -41,11 +31,12 @@ $sellerList .= '
                                 <div class="input-group mb-12">
                                     <label class="col-md-12"></label>
                                     <div class="col-md-12">
-                                        <select required="required" class='source col-md-12' name='source' id='source'>
+                                        <select required="required" class='source col-md-12 r_select_purchase'
+                                            name='invoice' id='r_select_purchase'>
                                             <option disabled="disabled" selected="selected" value="">Select Invoice
                                             </option>
                                             <!-- INVOICE DITO NOT SELLER -->
-                                            <?php echo $sellerList; ?>
+                                            <?php echo $listPurchased; ?>
                                         </select>
                                     </div>
 
@@ -77,7 +68,7 @@ $sellerList .= '
                                     <div class="input-group mb-12">
                                         <label class="col-md-12">Supplier</label>
                                         <div class="col-md-12">
-                                            <input type="text" style='text-align:left' name='seller' id='seller'
+                                            <input type="text" style='text-align:left' name='seller' id='r_supplier'
                                                 readonly class="form-control">
                                         </div>
                                     </div>
@@ -87,7 +78,7 @@ $sellerList .= '
                                     <div class="input-group mb-12">
                                         <label class="col-md-12">Location</label>
                                         <div class="col-md-12">
-                                            <input type="text" style='text-align:left' name='location' id='location'
+                                            <input type="text" style='text-align:left' name='location' id='r_location'
                                                 readonly class="form-control">
                                         </div>
                                     </div>
@@ -97,8 +88,8 @@ $sellerList .= '
                                     <div class="input-group mb-12">
                                         <label class="col-md-12">Lot No.</label>
                                         <div class="col-md-12">
-                                            <input type="text" style='text-align:left' name='lot_num' id='lot_num' readonly
-                                                class="form-control">
+                                            <input type="text" style='text-align:left' name='lot_num' id='r_lot_num'
+                                                readonly class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -114,7 +105,7 @@ $sellerList .= '
                                         <div class="input-group mb-12">
                                             <label class="col-md-12">Driver</label>
                                             <div class="col-md-12">
-                                                <input type="text" style='text-align:left' name='driver' id='driver'
+                                                <input type="text" style='text-align:left' name='driver' id='r_driver'
                                                     class="form-control">
                                             </div>
 
@@ -146,12 +137,12 @@ $sellerList .= '
                     <div class="form-group">
                         <div class="form-group">
                             <div class="row no-gutters">
-                                
+
                                 <div class="col-4">
                                     <div class="input-group mb-12">
                                         <label class="col-md-12">Weight</label>
 
-                                        <input type="text" style='text-align:right' name='weight' id='weight' readonly
+                                        <input type="text" style='text-align:right' name='weight' id='r_weight' readonly
                                             class="form-control" onkeypress="return CheckNumeric()"
                                             onkeyup="FormatCurrency(this)" required>
                                         <div class="input-group-append">
@@ -169,8 +160,8 @@ $sellerList .= '
                                                 <span class="input-group-text" id="inputGroup-sizing-default"
                                                     style='color:black;font-weight: bold;'>₱</span>
                                             </div>
-                                            <input type="text" style='text-align:right' name='cost' id='cost' readonly
-                                                class="form-control">
+                                            <input type="text" style='text-align:right' name='cost' id='r_kilo_cost'
+                                                readonly class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -183,8 +174,8 @@ $sellerList .= '
                                                 <span class="input-group-text" id="inputGroup-sizing-default"
                                                     style='color:black;font-weight: bold;'>₱</span>
                                             </div>
-                                            <input type="text" style='text-align:right' name='total_cost' id='total_cost' readonly
-                                                class="form-control">
+                                            <input type="text" style='text-align:right' name='r_total_cost'
+                                                id='total_cost' readonly class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -195,23 +186,23 @@ $sellerList .= '
 
                     <hr>
 
-                            <div class="row">
+                    <div class="row">
 
-                                <div class="col-7">
-                                </div>
+                        <div class="col-7">
+                        </div>
 
-                                <div class="col-5">
-                                    <div class="input-group mb-12">
-                                        <label class="col-md-12">Reweight</label>
-                                        <input type="text" style='text-align:right' name='reweight' id='reweight'
-                                            class="form-control" onkeypress="return CheckNumeric()"
-                                            onkeyup="FormatCurrency(this)" required>
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">Kg</span>
-                                        </div>
-                                    </div>
+                        <div class="col-5">
+                            <div class="input-group mb-12">
+                                <label class="col-md-12">Reweight</label>
+                                <input type="text" style='text-align:right' name='reweight' id='reweight'
+                                    class="form-control" onkeypress="return CheckNumeric()"
+                                    onkeyup="FormatCurrency(this)" required>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">Kg</span>
                                 </div>
-                                <!--  end-->
+                            </div>
+                        </div>
+                        <!--  end-->
 
                     </div>
             </div>
@@ -227,116 +218,223 @@ $sellerList .= '
 </div>
 
 <script>
-$('#newReceiving').on('shown.bs.modal', function() {
-    $('.source', this).chosen();
+$(document).ready(function() {
+
+
+    $('#newReceiving').on('shown.bs.modal', function() {
+        $('.source', this).chosen();
+    });
+
+
+
+    // Country dependent ajax
+    $("#r_select_purchase").on("change", function() {
+        var receiving_id = $(this).val();
+
+        purchasedData(receiving_id)
+    });
+
+
+
+    function purchasedData(receiving_id) {
+        var r_id = receiving_id;
+
+        // Creates a new XMLHttpRequest object
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                // Parse the JSON response
+                var myObj = JSON.parse(this.responseText);
+
+                // Log the response values to the console
+                console.log("quantity:", myObj[0]);
+                document.getElementById("balance").value = balance;
+                document.getElementById("quantity").value = quantity;
+                document.getElementById("first-res").value = ca;
+            }
+        };
+
+        xmlhttp.open("GET", "fetch/fetchContract.php?contract=" + contract.replace(/,/g, ''), true);
+
+        // Sends the request to the server
+        xmlhttp.send();
+    }
+
 });
 </script>
 
-
-
-<div class="modal fade" id="modal_process" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="model_drying" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Rubber | Purchase Contract</h5>
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title" id="exampleModalLabel">Rubber | Process</h5>
                 <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true" class="text-white">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="function/transaction_new.php" method="POST">
-                    <!-- ... START -->
+                <form action="function/rubber_process.php" method="POST">
+                    <input type="text" style='text-align:left' name='recording_id' id='p_recording_id' hidden readonly
+                        class="form-control">
+                    <h5 style="text-align:center"> Are you sure to process : </h5>
+                    <hr>
                     <div class="form-group">
-                        <div class="row no-gutters">
-                            <input type="date" id="date" name="date" class='datepicker' value='<?php echo $dateNow?>'
-                                required>
-                        </div>
-                        <!--end  -->
-                        <div class="col-6 col-md-6">
+                        <div class="form-group">
+                            <div class="row no-gutters">
 
-                        </div>
-                        <!--  end-->
-                    </div>
-            </div>
-            <center>
-                <div class="form-group">
-                    <div class="row no-gutters">
-                        <div class="col-6 col-md-6">
-                            <div class="input-group mb-12">
-                                <label class="col-md-12">Seller</label>
-                                <div class="col-md-12">
-                                    <select required="required" class='contact_seller col-md-12' name='name' id='name'>
-                                        <option disabled="disabled" selected="selected" value="">Select Seller
-                                        </option>
-                                        <?php echo $sellerList; ?>
-                                    </select>
+                                <div class="col">
+                                    <div class="input-group mb-12">
+                                        <label class="col-md-12">Supplier</label>
+
+                                        <input type="text" style='text-align:center' name='weight' id='process_supplier'
+                                            readonly class="form-control" onkeypress="return CheckNumeric()"
+                                            onkeyup="FormatCurrency(this)" required>
+
+
+                                    </div>
                                 </div>
 
-                            </div>
-                        </div>
-                        <!--end  -->
-                        <div class="col-6 col-md-6">
-                            <div class="input-group mb-1">
-                                <label class="col-md-12">Type</label>
-                                <div class="col-md-12">
-                                    <select required="required" class='contact_seller col-md-12' name='type' id='type'>
-                                        <option disabled="disabled" selected="selected" value="">Select Type
-                                        </option>
-                                        <option value="WET">WET</option>
-                                        <option value="BALES">BALES</option>
-                                    </select>
+                                <div class="col">
+                                    <label class="col-md-12">Reweight </label>
+                                    <div class="input-group mb-1">
+                                        <div class="input-group mb-1">
+
+                                            <input type="text" style='text-align:right' name='cost' id='process_weight'
+                                                readonly class="form-control">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">Kg</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+
+
+
                             </div>
                         </div>
-                        <!--  end-->
                     </div>
-                </div>
-            </center>
-            <br>
-            <div class="form-group">
-                <div class="row no-gutters">
-                    <div class="col-12 col-sm-5 col-md-12">
-                        <!--  -->
-                        <div class="input-group mb-1">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default"
-                                    style='color:black;font-weight: bold;'>Contract Quantity</span>
-                            </div>
-                            <input type="text" style='text-align:right' name='quantity' id='quantity'
-                                class="form-control" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
-                                required>
-                            <div class="input-group-append">
-                                <span class="input-group-text">Kg</span>
-                            </div>
-                        </div>
-                        <!--  -->
-                    </div>
-                </div>
+
+
             </div>
-            <hr>
-            <div class="form-group">
-                <div class="row no-gutters">
-                    <div class="col-12 col-sm-5 col-md-12">
-                        <!--  -->
-                        <div class="input-group mb-1">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default"
-                                    style='color:black;font-weight: bold;'>₱/KG</span>
-                            </div>
-                            <input type="text" style='text-align:right' name='ca' id='ca' class="form-control"
-                                onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
-                        </div>
-                        <!--  -->
-                    </div>
-                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+                <button type="submit" name="drying" class="btn btn-primary">Process</button>
+                </form>
             </div>
-            <!-- END -->
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" name='new_contract' class="btn btn-success text-white">Submit</button>
-            </form>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal_mil_update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title" id="exampleModalLabel">Rubber | Process</h5>
+                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="text-white">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="function/rubber_process.php" method="POST">
+                    <input type="text" style='text-align:left' name='recording_id' id='p_recording_id' hidden readonly
+                        class="form-control">
+
+
+                    <div class="form-group">
+                        <div class="form-group">
+                            <div class="row no-gutters">
+
+                                <div class="col">
+                                    <div class="input-group mb-12">
+                                        <label class="col-md-12">Date Received</label>
+
+                                        <input type="text" style='text-align:center' name='weight' id='m_received_date'
+                                            readonly class="form-control">
+
+
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <label class="col-md-12">Milling Date </label>
+                                    <div class="input-group mb-1">
+                                        <div class="input-group mb-1">
+
+                                            <input type="text" style='text-align:right' name='cost' id='m_milling_date'
+                                                readonly class="form-control">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">Kg</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group">
+                            <div class="row no-gutters">
+
+                                <div class="col-8">
+                                    <div class="input-group mb-12">
+                                        <label class="col-md-12">Supplier</label>
+
+                                        <input type="text" style='text-align:center' name='weight' id='supplier'
+                                            readonly class="form-control" onkeypress="return CheckNumeric()"
+                                            onkeyup="FormatCurrency(this)" required>
+
+
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <label class="col-md-12">LOT # </label>
+                                    <div class="input-group mb-1">
+                                        <div class="input-group mb-1">
+
+                                            <input type="text" style='text-align:right' name='cost' id='m_lot_no'
+                                                readonly class="form-control">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">Kg</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <center>
+                        <h5 style='text-align:center'>Input total crumbed weight: </h5>
+                    </center>
+
+
+                    <div class="input-group mb-1">
+
+                        <input type="text" style='text-align:right;font-size:23px' name='crumbed_weight'
+                            id='crumbed_weight' class="form-control">
+                        <div class="input-group-append">
+                            <span class="input-group-text" style='font-size:23px'>Kg</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+                <button type="submit" name="drying" class="btn btn-primary">Process</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>

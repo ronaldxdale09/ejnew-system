@@ -5,18 +5,14 @@
   
 
 
-     // TOTAL CASH ADVANCE
-     $CA_count = mysqli_query($con,"SELECT * FROM rubber_cashadvance ");
-     $ca_no=mysqli_num_rows($CA_count);
 
-     
-    $results = mysqli_query($con, "SELECT SUM(cash_advance) as total from rubber_seller"); 
-    $row = mysqli_fetch_array($results);
-   
-
+    $tab= '';
+    if (isset($_GET['tab'])) {
+        $tab = filter_var($_GET['tab']) ;
+      }
 
    ?>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
 <body>
     <link rel='stylesheet' href='css/statistic-card.css'>
@@ -33,10 +29,10 @@
                     <div class="inventory-table">
                         <div class="container-fluid">
                             <div class="wrapper" id="myTab">
-                                <input type="radio" name="slider" id="home" checked>
-                                <input type="radio" name="slider" id="blog">
-                                <input type="radio" name="slider" id="code">
-                                <input type="radio" name="slider" id="help">
+                                <input type="radio" name="slider" id="home" <?php if ($tab == '') { echo 'checked'; } else { echo ''; } ?>>
+                                <input type="radio" name="slider" id="blog"  <?php if ($tab == '2') { echo 'checked'; } else { echo ''; } ?>>
+                                <input type="radio" name="slider" id="code" <?php if ($tab == '3') { echo 'checked'; } else { echo ''; } ?>>
+                                <input type="radio" name="slider" id="help" <?php if ($tab == '4') { echo 'checked'; } else { echo ''; } ?>>
 
                                 <nav>
                                     <label for="home" class="home"><i class="fa fa-add"></i>Cuplumps</label>
@@ -80,7 +76,4 @@
 
 </body>
 
-</html> <?php
-include('modal/m_receiving.php');
-?>
-<script type="text/javascript" src="js/copra-ca.js"></script>
+</html> 
