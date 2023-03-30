@@ -338,8 +338,8 @@ while ($arr = mysqli_fetch_assoc($result)) {
                 <form action="function/rubber_process.php" method="POST">
                     <input type="text" style='text-align:left' name='recording_id' id='p_recording_id' hidden readonly
                         class="form-control">
-                    <h5 style="text-align:center"> Are you sure to process : </h5>
-                    <hr>
+
+                        
                     <div class="form-group">
                         <div class="form-group">
                             <div class="row no-gutters">
