@@ -32,7 +32,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                     <label class="col-md-12"></label>
                                     <div class="col-md-12">
                                         <select required="required" class='source col-md-12 r_select_purchase'
-                                            name='invoice' id='r_select_purchase'>
+                                            name='purchased_id' id='r_select_purchase'>
                                             <option disabled="disabled" selected="selected" value="">Select Invoice
                                             </option>
                                             <!-- INVOICE DITO NOT SELLER -->
@@ -68,7 +68,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                     <div class="input-group mb-12">
                                         <label class="col-md-12">Supplier</label>
                                         <div class="col-md-12">
-                                            <input type="text" style='text-align:left' name='seller' id='r_supplier'
+                                            <input type="text" style='text-align:left' name='supplier' id='r_supplier'
                                                 readonly class="form-control">
                                         </div>
                                     </div>
@@ -79,7 +79,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                         <label class="col-md-12">Location</label>
                                         <div class="col-md-12">
                                             <input type="text" style='text-align:left' name='location' id='r_location'
-                                                readonly class="form-control">
+                                                 class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -286,7 +286,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
     <div class="modal-dialog " role="document">
         <div class="modal-content">
             <div class="modal-header bg-dark text-white">
-                <h5 class="modal-title" id="exampleModalLabel">Rubber | Process</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Rubber | Update</h5>
                 <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true" class="text-white">&times;</span>
                 </button>

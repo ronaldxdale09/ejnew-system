@@ -21,13 +21,14 @@
                 </td>
 
                 <td> <?php echo $row['milling_date']?> </td>
-                <td> <?php echo $row['seller']?> </td>
+                <td> <?php echo $row['supplier']?> </td>
                 <td> <?php echo $row['location']?> </td>
                 <td> <?php echo $row['lot_num']?> </td>
                 <td> <?php echo $row['reweight']?> </td>
-                <td> <?php echo $row['crumbed_weight']?> </td>
+                <td> <?php echo $row['crumbed_weight']?> Kg</td>
                 <td>
                     <button type="button" class="btn btn-success btn-sm text-white btnMilUpdate" >UPDATE </button>
+                    <button type="button" class="btn btn-primary btn-sm text-white btnViewRecordMilling" > <i class="fas fa-book"></i></button>
                 </td>
 
                 <td>

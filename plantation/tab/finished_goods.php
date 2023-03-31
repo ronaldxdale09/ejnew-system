@@ -24,7 +24,7 @@
                 </td>
 
                 <td> <?php echo $row['completion_date']?> </td>
-                <td> <?php echo $row['seller']?> </td>
+                <td> <?php echo $row['supplier']?> </td>
                 <td> <?php echo $row['location']?> </td>
                 <td> <?php echo $row['lot_num']?> </td>
                 <td> <?php echo $row['driver']?> </td>

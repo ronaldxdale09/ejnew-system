@@ -2,28 +2,35 @@
 <?php 
  include('db.php');
                         if (isset($_POST['add'])) {
-                            $date = $_POST['date'];
-                            $name = $_POST['source'];
-                            $address = $_POST['address'];
 
-                            $lot = $_POST['lot'];
+
+
+                            $purchased_id = $_POST['purchased_id'];
+               
+                            $supplier = $_POST['supplier'];
+                            $location = $_POST['location'];
+                            $lot_num = $_POST['lot_num'];
+                            
+
+                    
                             $driver = $_POST['driver'];
                             $truck_num = $_POST['truck_num'];
-                            $actual_kilo = $_POST['actual_kilo'];
-
+                            $weight = $_POST['weight'];
                             $reweight = $_POST['reweight'];
+
+
                             $cost = $_POST['cost'];
+                            $total_cost = $_POST['total_cost'];
 
+                        
 
-                            $total_amount = $_POST['total_amount'];
-
-                                $query = "INSERT INTO planta_recording (date,seller,address,driver,truck_number,actual_kilo,reweight,total_amount,status,cost) 
-                                        VALUES ('$date','$name','$address','$driver','$truck_num','$actual_kilo','$reweight','$total_amount','FIELD','$cost')";
+                                $query = "INSERT INTO planta_recording (lot_num,purchased_id,receiving_date,supplier,location,driver,truck_num,weight,reweight,total_cost,status) 
+                                        VALUES ('$lot_num','$purchased_id',NOW(),'$supplier','$location','$driver','$truck_num','$weight','$reweight','$total_cost','FIELD')";
                                 $results = mysqli_query($con, $query);
                                    
                                     if ($results) {
                                         header("Location: ../recording.php");
-                                        $_SESSION['seller']= "successful";
+                                        $_SESSION['receiving']= "successful";
                                         exit();
                                     } else {
                                         echo "ERROR: Could not be able to execute $query. ".mysqli_error($con);
