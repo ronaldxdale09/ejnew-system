@@ -3,6 +3,7 @@
    include "include/navbar.php";
 
    ?>
+<?php include('modal/modal_rubber_report.php'); ?>
 
 <body>
     <input type='hidden' id='selected-cart' value=''>
@@ -40,7 +41,7 @@
                                             <thead class="table-dark">
                                                 <tr>
                                                     <th scope="col">Status</th>
-                                                    <th scope="col">ID</th>
+                                                    <th scope="col" hidden>ID</th>
                                                     <th scope="col">Supplier</th>
                                                     <th scope="col">Location</th>
                                                     <th scope="col">Lot No.</th>
@@ -62,8 +63,8 @@
                                                     <td> <span class="badge bg-success"> <?php echo $row['status']?>
                                                             </spa>
                                                     </td>
-                                                    <td> <?php echo $row['purchase_id']?> </td>
-                                                    <td> <?php echo $row['seller']?> </td>
+                                                    <td hidden> <?php echo $row['purchased_id']?> </td>
+                                                    <td> <?php echo $row['supplier']?> </td>
                                                     <td> <?php echo $row['location']?> </td>
                                                     <td> <?php echo $row['lot_num']?> </td>
                                                     <td> <?php echo $row['cost']?> </td>
@@ -96,9 +97,6 @@
 </html>
 <!-- Modal -->
 <!-- Modal -->
-<?php 
-include "modal/addseller_modal.php";
-?>
 
 <script>
 $(document).ready(function() {
@@ -140,3 +138,19 @@ $(document).ready(function() {
 
 
 
+<script>
+       $('.btnViewRecord').on('click', function() {
+            $tr = $(this).closest('tr');
+
+            var data = $tr.children("td").map(function() {
+                return $(this).text();
+            }).get();
+
+            
+            $('#newReceiving').modal('show');
+
+
+        });
+
+        
+</script>
