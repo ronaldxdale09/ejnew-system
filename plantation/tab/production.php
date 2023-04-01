@@ -21,7 +21,7 @@
                 </td>
 
                 <td> <?php echo $row['production_date']?> </td>
-                <td> <?php echo $row['seller']?> </td>
+                <td> <?php echo $row['supplier']?> </td>
                 <td> <?php echo $row['lot_num']?> </td>
                 <td> <?php echo $row['crumbed_weight']?> </td>
                 <td> <?php echo $row['bale_no']?> </td>

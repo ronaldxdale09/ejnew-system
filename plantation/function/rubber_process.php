@@ -24,7 +24,7 @@ if (isset($_POST['process'])) {
     $query = "UPDATE `planta_recording` SET `status`='Drying',`milling_date`=NOW() WHERE recording_id='$id'";
                              
     if(mysqli_query($con, $query)) {  
-        header("Location: ../recording.php?view=2");
+        header("Location: ../recording.php?tab=2");
         exit();
     } else {  
         echo "ERROR: Could not be able to execute $query. ".mysqli_error($con); 

@@ -28,7 +28,7 @@
                 </td>
        
                 <td> <?php echo $row['receiving_date']?> </td>
-                <td> <?php echo $row['seller']?> </td>
+                <td> <?php echo $row['supplier']?> </td>
                 <td> <?php echo $row['location']?> </td>
                 <td> <?php echo $row['lot_num']?> </td>
                 <td> <?php echo $row['driver']?> </td>
@@ -38,8 +38,8 @@
                 <td> <?php echo $row['cost']?> </td>
                 <td> <?php echo $row['total_cost']?> </td>
                 <td>
-                    <button type="button" class="btn btn-success text-white btnDrying" data-toggle="modal"
-                        data-target="#add_seller">PROCESS</button>
+                    <button type="button" class="btn-sm btn-success text-white btnDrying" >PROCESS</button>
+                    <button type="button" class="btn-sm btn-danger text-white btnVoidReceiving" >CANCEL</button>
                 </td>
 
                 <td>
@@ -61,10 +61,29 @@
             $('#process_weight').val(data[9]);
             $('#p_recording_id').val(data[0]);
             
-            $('#model_drying').modal('show');
+            $('#modal_drying').modal('show');
 
 
         });
 
         
 </script>
+
+
+<?php if (isset($_SESSION['receiving'])): ?>
+<div class="msg">
+
+    <script>
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Cuplumps Received!',
+        showConfirmButton: false,
+        timer: 1500
+    })
+    </script>
+    <?php 
+			unset($_SESSION['receiving']);
+		?>
+</div>
+<?php endif ?>
