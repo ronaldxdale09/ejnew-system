@@ -5,6 +5,7 @@
         $results  = mysqli_query($con, "SELECT * from planta_recording WHERE status='DRYING'"); ?>
         <thead class="table-dark">
             <tr>
+             <th scope="col" hidden>ID</th>
                 <th scope="col">Status</th>
                 <th scope="col">Milling Date</th>
                 <th scope="col">Supplier</th>
@@ -16,6 +17,8 @@
             </tr>
         </thead>
         <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
+
+            <td hidden> <?php echo $row['recording_id']?> </td>
                 <td>
                     <span class="badge bg-warning text-dark"> <?php echo $row['status']?> </spa>
                 </td>
@@ -27,8 +30,12 @@
                 <td> <?php echo $row['reweight']?> </td>
                 <td> <?php echo $row['crumbed_weight']?> Kg</td>
                 <td>
+                    
+                  
                     <button type="button" class="btn btn-success btn-sm text-white btnMilUpdate" >UPDATE </button>
+                    <button type="button" class="btn btn-warning btn-sm text-dark btnTransfer " >TRANSFER </button>
                     <button type="button" class="btn btn-primary btn-sm text-white btnViewRecordMilling" > <i class="fas fa-book"></i></button>
+
                 </td>
 
                 <td>
@@ -56,5 +63,21 @@
 
         });
 
+
+        $('.btnTransfer').on('click', function() {
+            $tr = $(this).closest('tr');
+
+            var data = $tr.children("td").map(function() {
+                return $(this).text();
+            }).get();
+
+            $('#trans_supplier').val(data[3]);
+            $('#trans_crumbed_weight').val(data[7]);
+            $('#trans_recording_id').val(data[0]);
+            
+            $('#modal_milling_transfer').modal('show');
+
+
+        });
         
 </script>

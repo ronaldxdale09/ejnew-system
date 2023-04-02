@@ -31,4 +31,23 @@ if (isset($_POST['process'])) {
     }  
     //exit();
 }
+
+
+if (isset($_POST['transfer_production'])) {
+    $id = $_POST['recording_id'];
+
+
+    $query = "UPDATE `planta_recording` SET `status`='Processing',`production_date`=NOW() WHERE recording_id='$id'";
+                             
+    if(mysqli_query($con, $query)) {  
+        header("Location: ../recording.php?tab=3");
+        exit();
+    } else {  
+        echo "ERROR: Could not be able to execute $query. ".mysqli_error($con); 
+    }  
+    //exit();
+}
+
+
+
  ?>

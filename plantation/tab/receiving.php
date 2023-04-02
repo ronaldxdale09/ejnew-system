@@ -39,7 +39,6 @@
                 <td> <?php echo $row['total_cost']?> </td>
                 <td>
                     <button type="button" class="btn-sm btn-success text-white btnDrying" >PROCESS</button>
-                    <button type="button" class="btn-sm btn-danger text-white btnVoidReceiving" >CANCEL</button>
                 </td>
 
                 <td>
