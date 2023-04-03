@@ -31,6 +31,10 @@
                 <td>
                     <button type="button" class="btn btn-success text-white" data-toggle="modal"
                         data-target="#add_seller">UPDATE </button>
+                    <!-- EDIT THIS -->
+                    <button type="button" class="btn btn-warning btn-sm text-dark btnTransfer " >COMPLETE </button>
+
+
                 </td>
 
                 <td>

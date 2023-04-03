@@ -38,7 +38,8 @@
                 <td> <?php echo $row['cost']?> </td>
                 <td> <?php echo $row['total_cost']?> </td>
                 <td>
-                    <button type="button" class="btn-sm btn-success text-white btnDrying" >PROCESS</button>
+                    <button type="button" class="btn-sm btn-warning text-dark btnDrying" >PROCESS</button>
+
                 </td>
 
                 <td>

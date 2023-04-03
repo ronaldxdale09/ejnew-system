@@ -16,6 +16,7 @@
 
 <?php include('modal/modal_recording.php'); ?>
 <?php include('modal/modal_milling.php'); ?>
+
 <body>
     <link rel='stylesheet' href='css/statistic-card.css'>
     <link rel='stylesheet' href='css/tab-style.css'>
@@ -73,7 +74,7 @@
                         <div class="col-sm-3 offset-sm-0">
                             <div class="stat-card">
                                 <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>CRUMB</b> INVENTORY</p>
+                                    <p class="text-uppercase mb-1 text-muted"><b>CRUMBS</b> INVENTORY</p>
                                     <h3><i class="text-danger font-weight-bold mr-1"></i>
                                         kg
                                     </h3>
@@ -120,15 +121,18 @@
                                     <?php if ($tab == '') { echo 'checked'; } else { echo ''; } ?>>
                                 <input type="radio" name="slider" id="blog"
                                     <?php if ($tab == '2') { echo 'checked'; } else { echo ''; } ?>>
-                                <input type="radio" name="slider" id="code"
+                                <input type="radio" name="slider" id="drying"
                                     <?php if ($tab == '3') { echo 'checked'; } else { echo ''; } ?>>
-                                <input type="radio" name="slider" id="help"
+                                <input type="radio" name="slider" id="code"
                                     <?php if ($tab == '4') { echo 'checked'; } else { echo ''; } ?>>
+                                <input type="radio" name="slider" id="help"
+                                    <?php if ($tab == '5') { echo 'checked'; } else { echo ''; } ?>>
 
                                 <nav>
                                     <label for="home" class="home"><i class="fa fa-add"></i>Cuplumps</label>
                                     <label for="blog" class="blog"><i class="fas fa-spinner"></i>Milling</label>
-                                    <label for="code" class="code"><i class="fas fa-check"></i>Production</label>
+                                    <label for="drying" class="drying"><i class="fas fa-spinner"></i>Drying</label>
+                                    <label for="code" class="code"><i class="fas fa-check"></i>Pressing</label>
                                     <label for="help" class="help"><i class="fas fa-book"></i>Finished Goods</label>
 
                                     <div class="slider"></div>
@@ -148,10 +152,14 @@
                                         <?php include('tab/milling.php') ?>
                                     </div>
                                     <div class="content content-3">
+                                        <div class="title">Drying INVENTORY</div>
+                       
+                                    </div>
+                                    <div class="content content-4">
                                         <div class="title">BALES PRODUCTION</div>
                                         <?php include('tab/production.php') ?>
                                     </div>
-                                    <div class="content content-4">
+                                    <div class="content content-5">
                                         <div class="title">FINISHED GOODS INVENTORY</div>
                                         <?php include('tab/finished_goods.php') ?>
                                 </section>
