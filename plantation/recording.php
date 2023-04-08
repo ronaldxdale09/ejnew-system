@@ -16,7 +16,8 @@
 
 <?php include('modal/modal_recording.php'); ?>
 <?php include('modal/modal_milling.php'); ?>
-
+<?php include('modal/modal_drying.php'); ?>
+<?php include('modal/modal_pressing.php'); ?>
 <body>
     <link rel='stylesheet' href='css/statistic-card.css'>
     <link rel='stylesheet' href='css/tab-style.css'>
@@ -129,11 +130,11 @@
                                     <?php if ($tab == '5') { echo 'checked'; } else { echo ''; } ?>>
 
                                 <nav>
-                                    <label for="home" class="home"><i class="fa fa-add"></i>Cuplumps</label>
+                                    <label for="home" class="home"><i class="fa fa-add"></i>Receiving</label>
                                     <label for="blog" class="blog"><i class="fas fa-spinner"></i>Milling</label>
                                     <label for="drying" class="drying"><i class="fas fa-spinner"></i>Drying</label>
                                     <label for="code" class="code"><i class="fas fa-check"></i>Pressing</label>
-                                    <label for="help" class="help"><i class="fas fa-book"></i>Finished Goods</label>
+                                    <label for="help" class="help"><i class="fas fa-book"></i>Produced</label>
 
                                     <div class="slider"></div>
                                 </nav>
@@ -153,11 +154,11 @@
                                     </div>
                                     <div class="content content-3">
                                         <div class="title">Drying INVENTORY</div>
-                       
+                                        <?php include('tab/drying.php') ?>
                                     </div>
                                     <div class="content content-4">
-                                        <div class="title">BALES PRODUCTION</div>
-                                        <?php include('tab/production.php') ?>
+                                        <div class="title">PRESSING INVENTORY</div>
+                                        <?php include('tab/pressing.php') ?>
                                     </div>
                                     <div class="content content-5">
                                         <div class="title">FINISHED GOODS INVENTORY</div>

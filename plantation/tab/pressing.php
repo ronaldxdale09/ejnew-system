@@ -29,10 +29,8 @@
                 <td> <?php echo $row['bale_kilo']?> </td>
                 <td> <?php echo $row['bale_total_kilo']?> </td>
                 <td>
-                    <button type="button" class="btn btn-success text-white" data-toggle="modal"
-                        data-target="#add_seller">UPDATE </button>
-                    <!-- EDIT THIS -->
-                    <button type="button" class="btn btn-warning btn-sm text-dark btnTransfer " >COMPLETE </button>
+                    <button type="button" class="btn btn-success text-white btnMilUpdate" >UPDATE </button>
+                    <button type="button" class="btn btn-warning btn-sm text-dark btnCompletePressing " >COMPLETE </button>
 
 
                 </td>
@@ -43,3 +41,42 @@
             </tr> <?php } ?> </tbody>
     </table>
 </div>
+
+
+
+
+<script>
+       $('.btnMilUpdate').on('click', function() {
+            $tr = $(this).closest('tr');
+
+            var data = $tr.children("td").map(function() {
+                return $(this).text();
+            }).get();
+
+            // $('#process_supplier').val(data[3]);
+            // $('#process_weight').val(data[9]);
+            // $('#p_recording_id').val(data[0]);
+            
+            $('#modal_press_update').modal('show');
+
+
+        });
+
+
+        $('.btnCompletePressing').on('click', function() {
+            $tr = $(this).closest('tr');
+
+            var data = $tr.children("td").map(function() {
+                return $(this).text();
+            }).get();
+
+            $('#trans_supplier').val(data[3]);
+            $('#trans_crumbed_weight').val(data[7]);
+            $('#trans_recording_id').val(data[0]);
+            
+            $('#modal_press_transfer').modal('show');
+
+
+        });
+        
+</script>
