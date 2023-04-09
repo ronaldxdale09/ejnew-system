@@ -1,6 +1,6 @@
 <div class="table-responsive">
     <table class="table" id='sellerTable'> <?php
-        $results  = mysqli_query($con, "SELECT * from planta_recording WHERE status='Processing'"); ?>
+        $results  = mysqli_query($con, "SELECT * from planta_recording WHERE status='DRYING'"); ?>
         <thead class="table-dark">
             <tr>
                 <th scope="col">Status</th>

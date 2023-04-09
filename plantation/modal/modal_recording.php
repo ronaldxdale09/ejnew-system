@@ -262,7 +262,6 @@ while ($arr = mysqli_fetch_assoc($result)) {
 
                             </div>
 
-                            <hr>
 
                             <div class="row no-gutters">
 
@@ -290,8 +289,8 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                         readonly class="form-control" onkeypress="return CheckNumeric()"
                                         onkeyup="FormatCurrency(this)" required>
                                 </div>
-
                             </div>
+                            <hr>
 
                             <div class="row no-gutters">
 

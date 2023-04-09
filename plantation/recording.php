@@ -18,6 +18,7 @@
 <?php include('modal/modal_milling.php'); ?>
 <?php include('modal/modal_drying.php'); ?>
 <?php include('modal/modal_pressing.php'); ?>
+<?php include('modal/modal_produced.php'); ?>
 <body>
     <link rel='stylesheet' href='css/statistic-card.css'>
     <link rel='stylesheet' href='css/tab-style.css'>

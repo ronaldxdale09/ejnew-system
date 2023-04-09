@@ -1,6 +1,6 @@
 <div class="table-responsive">
     <table class="table" id='sellerTable'> <?php
-        $results  = mysqli_query($con, "SELECT * from planta_recording WHERE status='COMPLETED'"); ?>
+        $results  = mysqli_query($con, "SELECT * from planta_recording WHERE status='DRYING'"); ?>
         <thead class="table-dark">
             <tr>
                 <th scope="col">Status</th>
@@ -27,7 +27,6 @@
                 <td> <?php echo $row['supplier']?> </td>
                 <td> <?php echo $row['location']?> </td>
                 <td> <?php echo $row['lot_num']?> </td>
-                <td> <?php echo $row['driver']?> </td>
                 <td> <?php echo $row['bale_no']?> </td>
                 <td> <?php echo $row['bale_excess']?> </td>
                 <td> <?php echo $row['bale_kilo']?> </td>
@@ -35,8 +34,7 @@
                 <td> <?php echo $row['total_cost']?> </td>
                 <td> <?php echo $row['cost_ave']?> </td>
                 <td>
-                    <button type="button" class="btn btn-success text-white" data-toggle="modal"
-                        data-target="#add_seller">VIEW </button>
+                    <button type="button" class="btn btn-success text-white producedView">VIEW </button>
                 </td>
 
                 <td>
@@ -45,3 +43,25 @@
             </tr> <?php } ?> </tbody>
     </table>
 </div>
+
+
+<script>
+       $('.producedView').on('click', function() {
+            $tr = $(this).closest('tr');
+
+            var data = $tr.children("td").map(function() {
+                return $(this).text();
+            }).get();
+
+            $('#process_supplier').val(data[3]);
+            $('#process_weight').val(data[9]);
+            $('#p_recording_id').val(data[0]);
+            
+            $('#modal_produced').modal('show');
+
+
+        });
+
+        
+</script>
+

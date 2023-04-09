@@ -21,16 +21,23 @@
                         <div class="form-group">
                             <div class="row no-gutters">
 
-                                <div class="col-8">
+                                <div class="col-5">
                                     <div class="input-group mb-12">
                                         <label class="col-md-12">Supplier</label>
                                         <input type="text" style='text-align:center' name='weight' id='supplier'
                                             readonly class="form-control">
                                     </div>
                                 </div>
-
                                 <div class="col-4">
-                                    <label class="col-md-12">LOT # </label>
+                                    <div class="input-group mb-12">
+                                        <label class="col-md-12">Location</label>
+                                        <input type="text" style='text-align:center' name='weight' id='supplier'
+                                            readonly class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-3">
+                                    <label class="col-md-12">Lot # </label>
                                     <div class="input-group mb-1">
                                         <div class="input-group mb-1">
                                             <input type="text" style='text-align:right' name='cost' id='m_lot_no'
@@ -54,13 +61,12 @@
                                 <div class="row no-gutters">
 
                                     <div class="col">
-                                        <label class="col-md-12">Milling Date </label>
+                                        <label class="col-md-12">Date </label>
                                         <div class="input-group mb-1">
                                             <div class="input-group mb-1">
                                                 <input type="text" style='text-align:right' name='cost'
                                                     id='m_milling_date' readonly class="form-control">
                                                 <div class="input-group-append">
-                                                    <span class="input-group-text">Kg</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -140,7 +146,7 @@
                         </div>
 
                     </div>
-                    <hr>
+
                     <div class="row no-gutters">
 
                         <div class="col">
@@ -173,7 +179,22 @@
 
                     <div class="form-group">
                         <center>
-                            <div class="col-5">
+                            
+                        <div class="row no-gutters">
+                        <div class="col">
+                                    <label class="col-md-12">Reweight</label>
+                                    <div class="input-group mb-1">
+                                        <div class="input-group mb-1">
+                                            <input type="text" style='text-align:right' name='cost' id='process_weight'
+                                                readonly class="form-control">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">Kg</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <div class="col">
                                 <label class="col-md-12">Crumbed Weight </label>
                                 <div class="input-group mb-1">
                                     <div class="input-group mb-1">
@@ -185,6 +206,8 @@
                                     </div>
                                 </div>
                             </div>
+                
+</div>
                         </center>
 
 
