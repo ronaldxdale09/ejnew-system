@@ -10,8 +10,8 @@
             </div>
             <div class="modal-body">
                 <form action="function/rubber_process.php" method="POST">
-                    <input type="text" style='text-align:left' name='recording_id' id='p_recording_id' hidden readonly
-                        class="form-control">
+                    <input type="text" style='text-align:left' name='recording_id' id='dry_u_recording_id' hidden
+                        readonly class="form-control">
 
 
                     <!-- START -->
@@ -21,17 +21,17 @@
                         <div class="form-group">
                             <div class="row no-gutters">
 
-                            <div class="col-5">
+                                <div class="col-5">
                                     <div class="input-group mb-12">
                                         <label class="col-md-12">Supplier</label>
-                                        <input type="text" style='text-align:center' name='weight' id='supplier'
+                                        <input type="text" style='text-align:center' name='weight' id='dry_u_supplier'
                                             readonly class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="input-group mb-12">
                                         <label class="col-md-12">Location</label>
-                                        <input type="text" style='text-align:center' name='weight' id='supplier'
+                                        <input type="text" style='text-align:center' name='weight' id='dry_u_loc'
                                             readonly class="form-control">
                                     </div>
                                 </div>
@@ -40,7 +40,7 @@
                                     <label class="col-md-12">LOT # </label>
                                     <div class="input-group mb-1">
                                         <div class="input-group mb-1">
-                                            <input type="text" style='text-align:right' name='cost' id='m_lot_no'
+                                            <input type="text" style='text-align:right' name='cost' id='dry_u_lot'
                                                 readonly class="form-control">
                                             <div class="input-group-append">
                                                 <span class="input-group-text">Kg</span>
@@ -64,8 +64,8 @@
                                         <label class="col-md-12">Date </label>
                                         <div class="input-group mb-1">
                                             <div class="input-group mb-1">
-                                                <input type="text" style='text-align:right' name='cost'
-                                                    id='m_milling_date' readonly class="form-control">
+                                                <input type="date" style='text-align:center' name='date'
+                                                    class="form-control" value="<?php echo date('Y-m-d'); ?>">
                                                 <div class="input-group-append">
                                                 </div>
                                             </div>
@@ -76,9 +76,8 @@
                                         <label class="col-md-12">Dry Weight </label>
                                         <div class="input-group mb-1">
                                             <div class="input-group mb-1">
-                                                <input type="text" style='text-align:right' name='crumbed_weight'
-                                                    id='crumbed_weight' class="form-control"
-                                                    placeholder="Type weight here...">
+                                                <input type="text" style='text-align:right' name='dry_weight'
+                                                    class="form-control" placeholder="Type weight here...">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">Kg</span>
                                                 </div>
@@ -95,7 +94,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
-                <button type="submit" name="drying" class="btn btn-primary">Process</button>
+                <button type="submit" name="dry_update" class="btn btn-primary">Process</button>
                 </form>
             </div>
         </div>
@@ -109,7 +108,7 @@
 
 <div class="modal fade" id="modal_drying_transfer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header bg-dark text-white">
                 <h5 class="modal-title" id="exampleModalLabel">Drying | Transfer to Pressing</h5>
@@ -119,17 +118,15 @@
             </div>
             <div class="modal-body">
                 <form action="function/rubber_process.php" method="POST">
-                    <input type="text" style='text-align:left' name='recording_id' id='trans_recording_id' hidden
-                        readonly class="form-control">
+
 
                     <div class="row no-gutters">
 
                         <div class="col-3">
                             <div class="input-group mb-12">
                                 <label class="col-md-12">ID</label>
-                                <input type="text" style='text-align:center' name='weight' id='process_supplier'
-                                    readonly class="form-control" onkeypress="return CheckNumeric()"
-                                    onkeyup="FormatCurrency(this)" required>
+                                <input type="text" style='text-align:center' name='recording_id' id='trans_dry_id'
+                                    readonly class="form-control">
                             </div>
                         </div>
 
@@ -140,38 +137,35 @@
                             <div class="input-group mb-12">
                                 <label class="col-md-12">Date</label>
                                 <!-- DATE TODAY/DATE OF TRANSFER, BUT EDITABLE. ALL ELSE IS NOT INPUT -->
-                                <input type="text" style='text-align:center' name='weight' id='process_supplier'
-                                    readonly class="form-control" onkeypress="return CheckNumeric()"
-                                    onkeyup="FormatCurrency(this)" required>
+                                <input type="text" style='text-align:center' id='trans_dry_date' readonly
+                                    class="form-control">
                             </div>
                         </div>
 
                     </div>
+                    <br>
                     <div class="row no-gutters">
 
                         <div class="col">
                             <div class="input-group mb-12">
                                 <label class="col-md-12">Supplier</label>
-                                <input type="text" style='text-align:center' name='weight' id='trans_supplier' readonly
-                                    class="form-control" onkeypress="return CheckNumeric()"
-                                    onkeyup="FormatCurrency(this)" required>
+                                <input type="text" style='text-align:center' id='trans_dry_supplier' readonly
+                                    class="form-control">
                             </div>
                         </div>
 
                         <div class="col-4">
                             <div class="input-group mb-12">
                                 <label class="col-md-12">Location</label>
-                                <input type="text" style='text-align:center' name='weight' id='process_supplier'
-                                    readonly class="form-control" onkeypress="return CheckNumeric()"
-                                    onkeyup="FormatCurrency(this)" required>
+                                <input type="text" style='text-align:center' id='trans_dry_loc' readonly
+                                    class="form-control">
                             </div>
                         </div>
 
                         <div class="col-3">
                             <label class="col-md-12">Lot No.</label>
-                            <input type="text" style='text-align:center' name='lot_no' id='process_lot_no' readonly
-                                class="form-control" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
-                                required>
+                            <input type="text" style='text-align:center' id='trans_dry_lot_no' readonly
+                                class="form-control">
                         </div>
 
                     </div>
@@ -179,42 +173,139 @@
 
                     <div class="form-group">
                         <center>
-                        <div class="row no-gutters">
-                            <div class="col">
-                                <label class="col-md-12">Crumbed Weight </label>
-                                <div class="input-group mb-1">
+                            <div class="row no-gutters">
+                                <div class="col">
+                                    <label class="col-md-12">Crumbed Weight </label>
                                     <div class="input-group mb-1">
-                                        <input type="text" style='text-align:right' name='crumbed_weight'
-                                            id='trans_crumbed_weight' readonly class="form-control">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">Kg</span>
+                                        <div class="input-group mb-1">
+                                            <input type="text" style='text-align:right' name='crumbed_weight'
+                                                id='trans_dry_crumbed_weight' readonly class="form-control">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">Kg</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col">
-                                <label class="col-md-12">Dry Weight </label>
-                                <div class="input-group mb-1">
+                                <div class="col">
+                                    <label class="col-md-12">Dry Weight </label>
                                     <div class="input-group mb-1">
-                                        <input type="text" style='text-align:right' name='crumbed_weight'
-                                            id='trans_crumbed_weight' readonly class="form-control">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">Kg</span>
+                                        <div class="input-group mb-1">
+                                            <input type="text" style='text-align:center; background-color:lightgreen;'
+                                                id='trans_dry_weight' readonly class="form-control">
+
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">Kg</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                             </div>
                         </center>
-
-
                     </div>
+                    <div id='dry_table_record_trans'></div>
+                    <hr>
 
+
+                    <div class="d-flex justify-content-center">
+                        <h5>Select Kilo per Bale and Quality</h5>
+                    </div>
+                    <br>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label class="form-label">Kilo per Bale</label>
+                            <select class="form-select" name="kilo_bale" required
+                                style='text-align:center; background-color:lightblue;'>
+                                <option value='' selected disabled>Select Kilo Bale</option>
+                                <option value='35'>35 Kg</option>
+                                <option value='33.33'>33.33 Kg</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Quality</label>
+                            <select class="form-select" name="quality" required
+                                style='text-align:center; background-color:lightyellow;'>
+                                <option value='' selected disabled>Select Quality</option>
+                                <option value='Manhattan'>Manhattan</option>
+                                <option value='Showa'>Showa</option>
+                                <option value='Dunlop'>Dunlop</option>
+                                <option value='SPR-10'>SPR-10</option>
+                            </select>
+                        </div>
+                    </div>
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
-                <button type="submit" name="transfer_production" class="btn btn-warning text-dark">Confirm</button>
+                <button type="submit" name="dry_transfer" class="btn btn-warning text-dark">Confirm</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="modal_dry_record" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg " role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title" id="exampleModalLabel">Drying | Update Record</h5>
+                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="text-white">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="function/rubber_process.php" method="POST">
+                    <input type="text" style='text-align:left' name='recording_id' id='dry_v_recording_id' hidden
+                        readonly class="form-control">
+
+
+                    <!-- START -->
+
+
+                    <div class="form-group">
+                        <div class="form-group">
+                            <div class="row no-gutters">
+
+                                <div class="col-5">
+                                    <div class="input-group mb-12">
+                                        <label class="col-md-12">Supplier</label>
+                                        <input type="text" style='text-align:center' name='weight' id='dry_v_supplier'
+                                            readonly class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="input-group mb-12">
+                                        <label class="col-md-12">Location</label>
+                                        <input type="text" style='text-align:center' id='dry_v_loc' readonly
+                                            class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-3">
+                                    <label class="col-md-12">Lot # </label>
+                                    <div class="input-group mb-1">
+                                        <div class="input-group mb-1">
+                                            <input type="text" style='text-align:right' id='dry_v_lot' readonly
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div id='dry_table_record'></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+
                 </form>
             </div>
         </div>

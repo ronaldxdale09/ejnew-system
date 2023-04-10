@@ -232,9 +232,6 @@ $(function() {
         ComputationRubber();
     });
 
-
-
-
 });
 </script>
 

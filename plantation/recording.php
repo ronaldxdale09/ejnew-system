@@ -14,7 +14,7 @@
    ?>
 
 
-<?php include('modal/modal_recording.php'); ?>
+<?php include('modal/modal_receiving.php'); ?>
 <?php include('modal/modal_milling.php'); ?>
 <?php include('modal/modal_drying.php'); ?>
 <?php include('modal/modal_pressing.php'); ?>

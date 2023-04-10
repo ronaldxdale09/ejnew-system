@@ -28,7 +28,7 @@
     margin-top: 10px;
     margin-left: 20px;
 }
-#process_supplier[readonly] {
+/* #process_supplier[readonly] {
   background-color: #fff;
 }
 
@@ -38,7 +38,7 @@
 
 #process_lot_no[readonly] {
   background-color: #fff;
-}
+} */
 
 
 </style>
