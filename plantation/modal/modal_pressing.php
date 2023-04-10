@@ -227,8 +227,8 @@ $("#press_u_excess").val(excess_kilo);
                                     <label class="col-md-12">DRC</label>
                                     <div class="input-group mb-1">
                                         <div class="input-group mb-1">
-                                            <input type="text" style='text-align:right' name='crumbed_weight'
-                                                id='trans_crumbed_weight' readonly class="form-control">
+                                            <input type="text" style='text-align:right' name='drc'
+                                                id='drc' readonly class="form-control">
                                             <div class="input-group-append">
                                                 <span class="input-group-text">%</span>
                                             </div>
