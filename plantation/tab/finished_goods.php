@@ -14,7 +14,7 @@
                 <th scope="col">DRC</th>
                 <th scope="col">No. of Bales</th>
                 <th scope="col">Excess</th>
-                <th scope="col">Cost per Bale Kilo</th>
+                <th scope="col">Cost per Kilo</th>
                 
                 <th scope="col">Action</th>
             </tr>
