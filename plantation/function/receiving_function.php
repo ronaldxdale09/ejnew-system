@@ -16,12 +16,10 @@
                             $driver = $_POST['driver'];
                             $truck_num = $_POST['truck_num'];
                             $weight = $_POST['weight'];
-                            $reweight = $_POST['reweight'];
+                            $reweight = str_replace(',', '', $_POST['reweight']);
 
-
-                            $cost = $_POST['cost'];
-                            $total_cost = $_POST['total_cost'];
-
+                            $cost = str_replace(',', '', $_POST['cost']);
+                            $total_cost = str_replace(',', '', $_POST['total_cost']);
                         
 
                                 $query = "INSERT INTO planta_recording (cost,lot_num,purchased_id,receiving_date,supplier,location,driver,truck_num,weight,reweight,total_cost,status) 

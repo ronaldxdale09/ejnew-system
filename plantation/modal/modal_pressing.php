@@ -10,12 +10,12 @@
             </div>
             <div class="modal-body">
                 <form action="function/rubber_process.php" method="POST">
-
-
+                
+                <input type="text" class="form-control" name='reweight' id="press_u_reweight" hidden readonly>
                     <div class="row mb-2">
                         <div class="col-4">
                             <label class="form-label">ID</label>
-                            <input type="text" class="form-control" id="press_u_id" readonly>
+                            <input type="text" class="form-control"  name='recording_id' id="press_u_id" readonly>
                         </div>
                         <div class="col">
                             <label class="form-label">Supplier</label>
@@ -63,14 +63,14 @@
                         <div class="col">
                             <label class="form-label">No. of Bale</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="press_u_numBale"
+                                <input type="text" class="form-control" name='bale_num' id="press_u_numBale"
                                     onkeypress="return CheckNumeric()" readonly onkeyup="FormatCurrency(this)">
                             </div>
                         </div>
                         <div class="col">
                             <label class="form-label">Excess</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="press_u_excess"
+                                <input type="text" class="form-control" name='excess' id="press_u_excess"
                                     onkeypress="return CheckNumeric()" readonly onkeyup="FormatCurrency(this)">
                                 <span class="input-group-text">Kg</span>
                             </div>
@@ -97,15 +97,13 @@ $(function() {
 
 });
 
-$("#press_kilobales").on("change", function() {
-    updateComputeBales()
-});
 
 
 function updateComputeBales() {
 
-    var bales_weight = $("#press_u_bale_weight").val().replace(/,/g, '');
-var kilo_bale = $("#press_u_kilo_per_bale").val().replace(/,/g, '');
+    var bales_weight = parseFloat($("#press_u_bale_weight").val().replace(/,/g, '').match(/[\d]+(\.[\d]+)?/)[0]);
+var kilo_bale = parseFloat($("#press_u_kilo_per_bale").val().replace(/,/g, '').match(/[\d]+(\.[\d]+)?/)[0]);
+
 
 bales = Math.floor((+bales_weight) / (+kilo_bale));
 bales_decimal = ((+bales_weight) / (+kilo_bale)).toFixed(2);
@@ -288,6 +286,75 @@ $("#press_u_excess").val(excess_kilo);
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
                 <button type="submit" name="transfer_production" class="btn btn-warning text-dark">Confirm</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="modal_dry_record" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg " role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title" id="exampleModalLabel">Drying | Update Record</h5>
+                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="text-white">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="function/rubber_process.php" method="POST">
+                    <input type="text" style='text-align:left' name='recording_id' id='dry_v_recording_id' hidden
+                        readonly class="form-control">
+
+
+                    <!-- START -->
+
+
+                    <div class="form-group">
+                        <div class="form-group">
+                            <div class="row no-gutters">
+
+                                <div class="col-5">
+                                    <div class="input-group mb-12">
+                                        <label class="col-md-12">Supplier</label>
+                                        <input type="text" style='text-align:center' name='weight' id='dry_v_supplier'
+                                            readonly class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="input-group mb-12">
+                                        <label class="col-md-12">Location</label>
+                                        <input type="text" style='text-align:center' id='dry_v_loc' readonly
+                                            class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-3">
+                                    <label class="col-md-12">Lot # </label>
+                                    <div class="input-group mb-1">
+                                        <div class="input-group mb-1">
+                                            <input type="text" style='text-align:right' id='dry_v_lot' readonly
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div id='dry_table_record'></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+
                 </form>
             </div>
         </div>

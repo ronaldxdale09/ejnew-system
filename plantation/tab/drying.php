@@ -26,14 +26,20 @@
                 <td> <?php echo $row['supplier']?> </td>
                 <td> <?php echo $row['location']?> </td>
                 <td> <?php echo $row['lot_num']?> </td>
-                <td> <?php echo $row['crumbed_weight']?> Kg </td>
-                <td> <?php echo $row['dry_weight']?> Kg</td>
+                <td> <?php echo $row['crumbed_weight'] ? $row['crumbed_weight'] : '0'?> Kg </td>
+                <td> <?php echo $row['dry_weight'] ? $row['dry_weight'] : '0' ?> Kg</td>
                 <td>
 
 
-                    <button type="button" class="btn btn-success btn-sm text-white btnDryUpdate">UPDATE </button>
-                    <button type="button" class="btn btn-warning btn-sm text-dark btnDryTransfer ">TRANSFER </button>
-                    <button type="button" class="btn btn-primary btn-sm text-white btnViewRecordDrying"> <i class="fas fa-book"></i></button>
+                    <button type="button" class="btn btn-success btn-sm btnDryUpdate">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button type="button" class="btn btn-warning btn-sm btnDryTransfer">
+                    <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <button type="button" class="btn btn-dark btn-sm btnViewRecordDrying">
+                        <i class="fas fa-book"></i>
+                    </button>
 
                 </td>
 
@@ -83,25 +89,44 @@ $('.btnDryTransfer').on('click', function() {
     $('#trans_dry_weight').val(data[7]);
 
 
-    function fetch_table() {
+    dry_weight = parseFloat((data[7]).match(/[\d]+(\.[\d]+)?/)[0]);
+    // Check if crumbed weight is zero
+    if (dry_weight == 0) {
+        Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'Ensure dry weight was updated before drying.',
+            showConfirmButton: false,
+            timer: 2000
+        })
+        return false;
+    } else {
+        $('#modal_drying_transfer').modal('show');
 
-        var recording_id = (data[1]);
-        $.ajax({
-            url: "table/dry_record_table.php",
-            method: "POST",
-            data: {
-                recording_id: recording_id,
 
-            },
-            success: function(data) {
-                $('#dry_table_record_trans').html(data);
-            }
-        });
+        function fetch_table() {
+
+            var recording_id = (data[1]);
+            $.ajax({
+                url: "table/dry_record_table.php",
+                method: "POST",
+                data: {
+                    recording_id: recording_id,
+
+                },
+                success: function(data) {
+                    $('#dry_table_record_trans').html(data);
+                }
+            });
+        }
+        fetch_table();
+
+
     }
-    fetch_table();
 
 
-    $('#modal_drying_transfer').modal('show');
+
+
 
 
 });
@@ -144,9 +169,6 @@ $('.btnViewRecordDrying').on('click', function() {
 
     $('#modal_dry_record').modal('show');
 
- 
+
 });
-
-
-
 </script>

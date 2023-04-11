@@ -45,6 +45,6 @@
 
 </body>
 </html>
-<?php    include "modal/m_bales_record.php";?>
+<?php    include "sales_modal/bales_sales_modal.php";?>
 
-<?php    include "modal/m_wet_record.php";?>
+

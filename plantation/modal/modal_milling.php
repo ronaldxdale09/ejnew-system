@@ -101,9 +101,6 @@
 
 
 
-
-
-
 <div class="modal fade" id="modal_milling_transfer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -122,7 +119,7 @@
                             <div class="input-group mb-12">
                                 <label class="col-md-12">ID</label>
                                 <input type="text" style='text-align:center' name='recording_id' id='trans_mill_id'
-                                    readonly class="form-control" >
+                                    readonly class="form-control">
                             </div>
                         </div>
 
@@ -134,7 +131,7 @@
                                 <label class="col-md-12">Date</label>
                                 <!-- DATE TODAY/DATE OF TRANSFER, BUT EDITABLE. ALL ELSE IS NOT INPUT -->
                                 <input type="text" style='text-align:center' name='weight' id='trans_mill_date' readonly
-                                    class="form-control" >
+                                    class="form-control">
                             </div>
                         </div>
 
@@ -153,8 +150,8 @@
                         <div class="col-4">
                             <div class="input-group mb-12">
                                 <label class="col-md-12">Location</label>
-                                <input type="text" style='text-align:center' name='weight' id='trans_mill_loc'
-                                    readonly class="form-control">
+                                <input type="text" style='text-align:center' name='weight' id='trans_mill_loc' readonly
+                                    class="form-control">
                             </div>
                         </div>
 
@@ -175,8 +172,8 @@
                                     <label class="col-md-12">Reweight</label>
                                     <div class="input-group mb-1">
                                         <div class="input-group mb-1">
-                                            <input type="text" style='text-align:right'
-                                                id='trans_mill_reweight' readonly class="form-control">
+                                            <input type="text" style='text-align:right' id='trans_mill_reweight'
+                                                readonly class="form-control">
                                             <div class="input-group-append">
                                                 <span class="input-group-text">Kg</span>
                                             </div>
@@ -189,7 +186,9 @@
                                     <div class="input-group mb-1">
                                         <div class="input-group mb-1">
                                             <input type="text" style='text-align:right' name='crumbed_weight'
-                                                id='trans_mill_crumbed_weight'   style='text-align:center; background-color:lightgreen;'readonly class="form-control">
+                                                id='trans_mill_crumbed_weight'
+                                                style='text-align:center; background-color:lightgreen;' readonly
+                                                class="form-control">
                                             <div class="input-group-append">
                                                 <span class="input-group-text">Kg</span>
                                             </div>
@@ -280,4 +279,3 @@
         </div>
     </div>
 </div>
-

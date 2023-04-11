@@ -63,14 +63,13 @@ $('.btnMilUpdate').on('click', function() {
 
 
 });
-
-
 $('.btnMilTransfer').on('click', function() {
     $tr = $(this).closest('tr');
 
     var data = $tr.children("td").map(function() {
         return $(this).text();
     }).get();
+
 
     $('#trans_mill_id').val(data[1]);
     $('#trans_mill_date').val(data[2]);
@@ -79,33 +78,40 @@ $('.btnMilTransfer').on('click', function() {
     $('#trans_mill_loc').val(data[4]);
     $('#trans_mill_lot_no').val(data[5]);
 
-
     $('#trans_mill_reweight').val(data[6]);
     $('#trans_mill_crumbed_weight').val(data[7]);
 
+    crumbed_weight = parseFloat((data[7]).match(/[\d]+(\.[\d]+)?/)[0]);
+    // Check if crumbed weight is zero
+    if (crumbed_weight == 0) {
+        Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'Ensure crumbed weight was updated before drying.',
+            showConfirmButton: false,
+            timer: 2000
+        })
+        return false;
+    } else {
+        function fetch_table() {
+            var recording_id = (data[1]);
+            $.ajax({
+                url: "table/milling_record_table.php",
+                method: "POST",
+                data: {
+                    recording_id: recording_id,
+                },
+                success: function(data) {
+                    $('#mill_trans_table_record').html(data);
+                }
+            });
+        }
+        fetch_table();
 
-    function fetch_table() {
-
-        var recording_id = (data[1]);
-        $.ajax({
-            url: "table/milling_record_table.php",
-            method: "POST",
-            data: {
-                recording_id: recording_id,
-
-            },
-            success: function(data) {
-                $('#mill_trans_table_record').html(data);
-            }
-        });
+        $('#modal_milling_transfer').modal('show');
     }
-    fetch_table();
-
-
-    $('#modal_milling_transfer').modal('show');
-
-
 });
+
 
 
 $('.btnViewRecordMilling').on('click', function() {
