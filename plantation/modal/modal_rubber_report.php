@@ -208,7 +208,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
 
                                 <div class="col">
                                     <div class="input-group mb-12">
-                                        <label class="col-md-12">Dry Weight</label>
+                                        <label class="col-md-12">Blanket Weight</label>
                                         <input readonly type="text" style='text-align:right' name='crumbed_weight'
                                             id='crumbed_weight' class="form-control" onkeypress="return CheckNumeric()"
                                             onkeyup="FormatCurrency(this)" required>
@@ -238,7 +238,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
 
                                 <div class="col">
                                     <div class="input-group mb-12">
-                                        <label class="col-md-12">Bale Weight</label>
+                                        <label class="col-md-12">(FINAL) Bale Weight</label>
                                         <input readonly type="text" style='text-align:right' name='crumbed_weight'
                                             id='crumbed_weight' class="form-control" onkeypress="return CheckNumeric()"
                                             onkeyup="FormatCurrency(this)" required>

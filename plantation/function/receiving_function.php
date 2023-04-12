@@ -23,7 +23,7 @@
                         
 
                                 $query = "INSERT INTO planta_recording (cost,lot_num,purchased_id,receiving_date,supplier,location,driver,truck_num,weight,reweight,total_cost,status) 
-                                        VALUES ('$cost','$lot_num','$purchased_id',NOW(),'$supplier','$location','$driver','$truck_num','$weight','$reweight','$total_cost','FIELD')";
+                                        VALUES ('$cost','$lot_num','$purchased_id',NOW(),'$supplier','$location','$driver','$truck_num','$weight','$reweight','$total_cost','Field')";
                                 $results = mysqli_query($con, $query);
                                    
                                     if ($results) {

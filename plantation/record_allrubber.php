@@ -45,42 +45,62 @@
                                                     <th scope="col">Supplier</th>
                                                     <th scope="col">Location</th>
                                                     <th scope="col">Lot No.</th>
-                                                    <!-- <th scope="col">Cost</th> -->
-                                                    <!-- <th scope="col">Total Cost</th> -->
                                                     <th scope="col">Bale Type</th>
                                                     <th scope="col">Cuplump Weight</th>
                                                     <th scope="col">Reweight</th>
                                                     <th scope="col">Crumbed Weight</th>
-                                                    <th scope="col">Dry Weight</th>
+                                                    <th scope="col">Blanket Weight</th>
                                                     <th scope="col">Bale Weight</th>
                                                     <th scope="col">DRC</th>
                                                     <th scope="col">Bale Kilo</th>
-                                                    <th scope="col">No. of Bales</th>
+                                                    <th scope="col">Bales</th>
                                                     <th scope="col">Excess</th>
-                                                    <!-- <th scope="col">Cost</th> -->
                                                     <th scope="col">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
 
-                                                    <td> <span class="badge bg-success"> <?php echo $row['status']?>
+                                                <?php
+                                                        $status_color = '';
+                                                        switch($row['status']){
+                                                            case "Field":
+                                                                $status_color = 'bg-success';
+                                                                break;
+                                                            case "Milling":
+                                                                $status_color = 'bg-secondary';
+                                                                break;
+                                                            case "Drying":
+                                                                $status_color = 'bg-warning';
+                                                                break;
+                                                            case "Pressing":
+                                                                $status_color = 'bg-danger';
+                                                                break;
+                                                            case "Produced":
+                                                                $status_color = 'bg-primary';
+                                                                break;
+                                                            case "Sold":
+                                                                $status_color = 'bg-info';
+                                                                break;
+                                                        }
+                                                    ?>
+                                                   <td> <span class="badge <?php echo $status_color; ?>"> <?php echo $row['status']?>
                                                             </spa>
                                                     </td>
                                                     <td hidden> <?php echo $row['purchased_id']?> </td>
                                                     <td> <?php echo $row['supplier']?> </td>
                                                     <td> <?php echo $row['location']?> </td>
                                                     <td> <?php echo $row['lot_num']?> </td>
-                                                    <td> <?php echo $row['total_cost']?> </td>
-                                                    <td> <?php echo $row['weight']?> </td>
-                                                    <td> <?php echo $row['reweight']?> </td>
-                                                    <td> <?php echo $row['crumbed_weight']?> </td>
-                                                    <td> <?php echo $row['bale_no']?> </td>
-                                                    <td> <?php echo $row['bale_excess']?> </td>
-                                                    <td> </td>
-                                                    <td> </td>
-                                                    <td> </td>
-                                                    <td> <?php echo $row['bale_total_kilo']?> </td>
-                                                    <td>
+                                                    <td> </td> <!-- type -->
+                                                    <td> <?php echo number_format($row['weight'], 0, '.', ','); ?> kg</td>
+                                                    <td> <?php echo number_format($row['reweight'], 0, '.', ','); ?> kg</td>
+                                                    <td> <?php echo number_format($row['crumbed_weight'], 0, '.', ','); ?> kg</td>
+                                                    <td> <?php echo number_format($row['dry_weight'], 0, '.', ','); ?> kg</td>
+                                                    <td> <?php echo number_format($row['bale_total_kilo'], 0, '.', ','); ?> kg</td>
+                                                    <td> <?php echo $row['drc']?>%</td>
+                                                    <td> <?php echo $row['kilo_per_bale']?> kg</td>
+                                                    <td> <?php echo number_format($row['bale_no'], 0, '.', ','); ?></td>
+                                                    <td> <?php echo number_format($row['bale_excess'], 0, '.', ','); ?> kg</td>
+                                                        <td>
                                                         <button type="button" class="btn btn-success text-white btnViewRecord">VIEW
                                                         </button>
                                                     </td>

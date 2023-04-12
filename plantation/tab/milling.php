@@ -12,35 +12,36 @@
                 <th scope="col">Lot No.</th>
                 <th scope="col">Reweight</th>
                 <th scope="col">Crumbed Weight</th>
-                <th scope="col">Action</th>
+                <th scope="col" class="text-center">Action</th>
             </tr>
         </thead>
         <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
 
 
                 <td>
-                    <span class="badge bg-warning text-dark"> <?php echo $row['status']?> </span>
+                    <span class="badge bg-secondary"> <?php echo $row['status']?> </span>
                 </td>
                 <td> <?php echo $row['recording_id']?> </td>
                 <td> <?php echo $row['milling_date']?> </td>
                 <td> <?php echo $row['supplier']?> </td>
                 <td> <?php echo $row['location']?> </td>
                 <td> <?php echo $row['lot_num']?> </td>
-                <td> <?php echo $row['reweight']?> </td>
-                <td> <?php echo $row['crumbed_weight']?> Kg</td>
+                <td><?php echo number_format($row['reweight'], 0, '.', ',') ?> kg</td>
+                <td><?php echo number_format($row['crumbed_weight'], 0, '.', ',') ?> kg</td>
+
+
+                <td class="text-center">
+                    <button type="button" class="btn btn-success btn-sm btnMilUpdate">
+                    <i class="fas fa-edit"></i> </button>
+                    <button type="button" class="btn btn-warning btn-sm btnMilTransfer ">
+                    <i class="fas fa-chevron-right"> </i> </button>
+                    <button type="button" class="btn btn-primary btn-dark btn-sm btnViewRecordMilling"> 
+                        <i class="fas fa-book"></i></button>
+                </td>
+                
                 <td>
-
-
-                    <button type="button" class="btn btn-success btn-sm text-white btnMilUpdate">UPDATE </button>
-                    <button type="button" class="btn btn-warning btn-sm text-dark btnMilTransfer ">TRANSFER </button>
-                    <button type="button" class="btn btn-primary btn-sm text-white btnViewRecordMilling"> <i
-                            class="fas fa-book"></i></button>
-
                 </td>
 
-                <td>
-
-                </td>
             </tr> <?php } ?> </tbody>
     </table>
 </div>

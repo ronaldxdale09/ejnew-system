@@ -6,46 +6,42 @@
 
                 <th scope="col">Status</th>
                 <th scope="col">ID</th>
-                <th scope="col">Milling Date</th>
+                <th scope="col">Drying Date</th>
                 <th scope="col">Supplier</th>
                 <th scope="col">Location</th>
                 <th scope="col">Lot No.</th>
-                <th scope="col">Crumbed Weight</th>
+                <th scope="col">Reweight</th>
                 <th scope="col">Dry Weight</th>
-                <th scope="col">Action</th>
+                <th scope="col">Days Age</th>
+                <th scope="col" class="text-center">Action</th>
             </tr>
         </thead>
         <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
 
 
                 <td>
-                    <span class="badge bg-warning text-dark"> <?php echo $row['status']?> </spa>
-                </td>
+                    <span class="badge bg-warning"> <?php echo $row['status']?> </spa> </td>
                 <td> <?php echo $row['recording_id']?> </td>
                 <td> <?php echo $row['milling_date']?> </td>
                 <td> <?php echo $row['supplier']?> </td>
                 <td> <?php echo $row['location']?> </td>
                 <td> <?php echo $row['lot_num']?> </td>
-                <td> <?php echo $row['crumbed_weight'] ? $row['crumbed_weight'] : '0'?> Kg </td>
+                <td> <?php echo $row['reweight'] ? $row['reweight'] : '0'?> Kg </td>
                 <td> <?php echo $row['dry_weight'] ? $row['dry_weight'] : '0' ?> Kg</td>
-                <td>
-
-
+                <td> day/s </td>
+ <!-- AGE, COUNT DAYS FROM TRANSFERRED TO TODAY -->
+                <td class="text-center">
                     <button type="button" class="btn btn-success btn-sm btnDryUpdate">
-                        <i class="fas fa-edit"></i>
-                    </button>
+                        <i class="fas fa-edit"></i> </button>
                     <button type="button" class="btn btn-warning btn-sm btnDryTransfer">
-                    <i class="fas fa-chevron-right"></i>
-                    </button>
+                        <i class="fas fa-chevron-right"></i> </button>
                     <button type="button" class="btn btn-dark btn-sm btnViewRecordDrying">
-                        <i class="fas fa-book"></i>
-                    </button>
-
+                        <i class="fas fa-book"></i> </button>
                 </td>
 
                 <td>
-
                 </td>
+
             </tr> <?php } ?> </tbody>
     </table>
 </div>

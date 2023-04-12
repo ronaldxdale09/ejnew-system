@@ -56,7 +56,7 @@
                         <div class="col-sm-3">
                             <div class="stat-card">
                                 <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>DRYING</b> INVENTORY</p>
+                                    <p class="text-uppercase mb-1 text-muted"><b>CRUMB</b> INVENTORY</p>
                                     <h3><i class="text-danger font-weight-bold mr-1"></i>
                                         kg
                                     </h3>
@@ -76,7 +76,7 @@
                         <div class="col-sm-3 offset-sm-0">
                             <div class="stat-card">
                                 <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>CRUMBS</b> INVENTORY</p>
+                                    <p class="text-uppercase mb-1 text-muted"><b>BLANKET</b> INVENTORY</p>
                                     <h3><i class="text-danger font-weight-bold mr-1"></i>
                                         kg
                                     </h3>
@@ -96,7 +96,7 @@
                         <div class="col-sm-3">
                             <div class="stat-card">
                                 <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>BALES</b> INVENTORY</p>
+                                    <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY</p>
                                     <h3><i class="text-danger font-weight-bold mr-1"></i>
                                         bales/kg
                                     </h3>
@@ -134,14 +134,14 @@
                                     <label for="home" class="home"><i class="fa fa-add"></i>Receiving</label>
                                     <label for="blog" class="blog"><i class="fas fa-spinner"></i>Milling</label>
                                     <label for="drying" class="drying"><i class="fas fa-spinner"></i>Drying</label>
-                                    <label for="code" class="code"><i class="fas fa-check"></i>Pressing</label>
-                                    <label for="help" class="help"><i class="fas fa-book"></i>Produced</label>
+                                    <label for="code" class="code"><i class="fas fa-spinner"></i>Pressing</label>
+                                    <label for="help" class="help"><i class="fas fa-check"></i>Produced</label>
 
                                     <div class="slider"></div>
                                 </nav>
                                 <section>
                                     <div class="content content-1">
-                                        <div class="title">FIELD INVENTORY </div>
+                                        <div class="title">CUPLUMP INVENTORY </div>
                                         <button type="button" class="btn btn-primary text-white" data-toggle="modal"
                                             data-target="#newReceiving">
                                             <i class="fa fa-add" aria-hidden="true"></i> NEW RECEIVING </button>
@@ -150,19 +150,19 @@
                                         <?php include('tab/receiving.php') ?>
                                     </div>
                                     <div class="content content-2">
-                                        <div class="title">BLANKET INVENTORY</div>
+                                        <div class="title">MILLING CRUMBS</div>
                                         <?php include('tab/milling.php') ?>
                                     </div>
                                     <div class="content content-3">
-                                        <div class="title">Drying INVENTORY</div>
+                                        <div class="title">DRYING BLANKET</div>
                                         <?php include('tab/drying.php') ?>
                                     </div>
                                     <div class="content content-4">
-                                        <div class="title">PRESSING INVENTORY</div>
+                                        <div class="title">BALE PRESSING</div>
                                         <?php include('tab/pressing.php') ?>
                                     </div>
                                     <div class="content content-5">
-                                        <div class="title">FINISHED GOODS INVENTORY</div>
+                                        <div class="title">BALE INVENTORY</div>
                                         <?php include('tab/finished_goods.php') ?>
                                 </section>
                             </div>

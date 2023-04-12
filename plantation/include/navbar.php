@@ -7,8 +7,9 @@
             class='nav-text'>EJN RUBBER</span>
     </div>
 
-
+    <br>
     <hr style='color:gray'>
+    
     <a class='nav-link' href='dashboard.php'>
         <i class='fa-solid fa-house'></i> <span class='nav-text'>Home</span>
     </a>
@@ -18,28 +19,16 @@
     <a class='nav-link' href='recording.php'>
         <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>Recording</span>
     </a>
-    <hr style='color:gray'>
+
     <a class='nav-link' href='record_allrubber.php'>
         <i class='fa-solid fa-book'></i> <span class='nav-text'>Transaction Record</span>
     </a>
 
-    <hr style='color:gray'>
-
-    <a class='nav-link' href='seller.php'>
-        <i class='fa-solid fa-user'></i> <span class='nav-text'>Seller</span>
-    </a>
-    <a class='nav-link' href='contract-purchase.php'>
-        <i class='fa-solid fa-boxes-stacked'></i> <span class='nav-text'>Purchase Contract</span>
-    </a>
-
-    <a class='nav-link' href='cash-advance.php'>
-        <i class='fa-solid fa-money'></i> <span class='nav-text'>Cash Advance</span>
-    </a>
 
   
 
-    <div class='logout-container'>
-        <span class='nav-text'></span>
+    <div class='logout-container'> <i class='fa-solid fa-money'></i>
+        <span class='nav-text' >Logout</span>
         <a class='nav-link logout' href='function/logout.php'>
             <i class='fa-solid fa-arrow-right-to-bracket'></i>
         </a>
