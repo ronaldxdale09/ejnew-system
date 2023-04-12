@@ -13,6 +13,7 @@
     <a class='nav-link' href='dashboard.php'>
         <i class='fa-solid fa-house'></i> <span class='nav-text'>Home</span>
     </a>
+
     <hr style='color:gray'>
 
 

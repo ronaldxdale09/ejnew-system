@@ -54,136 +54,88 @@
         <div class="container home-section h-100" style="max-width:95%;">
             <div class="page-wrapper">
                 <div class="container-fluid">
-                    <!-- ============================================================== -->
-                    <div class="row">
-                        <div class="col-sm-3 offset-sm-0">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>WET</b> PURCHASED</p>
-                                    <h3><i class="text-danger font-weight-bold mr-1"></i>
-                                        <?php echo number_format($sumPurchaced_wet['month_total']); ?> KG
-                                    </h3>
-                                    <div>
-                                        <span class="text-muted"> <?php echo $monthName; ?>
-                                            <?php echo $sumPurchaced_wet['year']; ?>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="stat-card__icon stat-card__icon--danger">
-                                    <div class="stat-card__icon-circle">
-                                        <i class="fa fa-weight" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>WET</b> TOTAL PURCHASED</p>
-                                    <h3>₱ <?php echo number_format($sumAmountPurchased['amount_purchased']) ; ?></h2>
-                                        <div>
-                                            <span class="text-muted"><?php echo $monthName; ?>
-                                                <?php echo $sumPurchaced_wet['year']; ?>
-                                            </span>
-                                        </div>
-                                </div>
-                                <div class="stat-card__icon stat-card__icon--secondary">
-                                    <div class="stat-card__icon-circle">
-                                        <i class="fa fa-money"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3 offset-sm-0">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>BALES</b> PURCHASED</p>
-                                    <h3><i class="text-danger font-weight-bold mr-1"></i>
-                                        <?php echo number_format($sumPurchaced_bales['month_total']); ?> KG
-                                    </h3>
-                                    <div>
-                                        <span class="text-muted"> <?php echo $monthName; ?>
-                                            <?php echo $sumPurchaced_bales['year']; ?>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="stat-card__icon stat-card__icon--warning">
-                                    <div class="stat-card__icon-circle">
-                                        <i class="fa fa-weight" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>BALES</b> TOTAL PURCHASED</p>
-                                    <h3>₱ <?php echo number_format($sumAmountPurchased_bales['amount_purchased']) ; ?>
-                                    </h3>
-                                    <div>
-                                        <span class="text-muted"><?php echo $monthName; ?>
-                                            <?php echo $sumPurchaced_wet['year']; ?>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="stat-card__icon stat-card__icon--success">
-                                    <div class="stat-card__icon-circle">
-                                        <i class="fa fa-money"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- ============================================================== -->
-
-                    <div class="row">
-                        <div class="col-sm-3 offset-sm-0">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <h3><i class="text-danger font-weight-bold mr-1"></i>
-                                        ₱ <?php echo number_format($ca_wet[0],2); ?>
-                                    </h3>
-                                    <div>
-                                        <p class="text-uppercase mb-1 text-muted"><b>WET</b> TOTAL CASH ADVANCE</p>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3" style='text-align:center;'>
-                            <div class="stat-card" style='text-align:center;'>
-                                <div class="stat-card__content" style='text-align:center;'>
-
-                                    <h3> <?php echo ($contract_wet) ; ?></h2>
-                                        <p class="text-uppercase mb-1 text-muted"><b>WET</b> PENDING CONTRACT</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3 offset-sm-0">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <h3><i class="text-danger font-weight-bold mr-1"></i>
-                                        ₱ <?php echo number_format($ca_bales[0],2); ?>
-                                    </h3>
-                                    <p class="text-uppercase mb-1 text-muted"><b>BALES</b> TOTAL CASH ADVANCE</p>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3" style='text-align:center;'>
-                            <div class="stat-card" style='text-align:center;'>
-                                <div class="stat-card__content" style='text-align:center;'>
-
-                                    <h3> <?php echo ($contract_bales) ; ?></h2>
-                                        <p class="text-uppercase mb-1 text-muted"><b>BALES</b> PENDING CONTRACT</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- =============================================================== -->
+                    
+                <!-- ============================================================== -->
+                <div class="row">
+    <div class="col">
+        <div class="stat-card">
+            <div class="stat-card__content">
+                <p class="text-uppercase mb-1 text-muted"><b>CUPLUMP</b> INVENTORY</p>
+                <h3><i class="text-danger font-weight-bold mr-1"></i>
+                    <?php echo number_format($sumPurchaced_wet['month_total']); ?> KG
+                </h3>
+            </div>
+            <div class="stat-card__icon stat-card__icon--success">
+                <div class="stat-card__icon-circle">
+                    <i class="fa fa-tree" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="stat-card">
+            <div class="stat-card__content">
+                <p class="text-uppercase mb-1 text-muted"><b>CRUMB</b> INVENTORY</p>
+                <h3><i class="text-danger font-weight-bold mr-1"></i>
+                    <?php echo number_format($sumPurchaced_bales['month_total']); ?> KG
+                </h3>
+            </div>
+            <div class="stat-card__icon stat-card__icon--danger">
+                <div class="stat-card__icon-circle">
+                    <i class="fa fa-cogs" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="stat-card">
+            <div class="stat-card__content">
+                <p class="text-uppercase mb-1 text-muted"><b>BLANKET</b> INVENTORY</p>
+                <h3><i class="text-danger font-weight-bold mr-1"></i>
+                    <?php echo number_format($sumPurchaced_bales['month_total']); ?> KG
+                </h3>
+            </div>
+            <div class="stat-card__icon stat-card__icon--warning">
+                <div class="stat-card__icon-circle">
+                    <i class="fa fa-sun-o" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="stat-card">
+            <div class="stat-card__content">
+                <p class="text-uppercase mb-1 text-muted"><b>BALES (KG)</b> INVENTORY</p>
+                <h3><i class="text-danger font-weight-bold mr-1"></i>
+                    <?php echo number_format($sumPurchaced_bales['month_total']); ?> KG
+                </h3>
+            </div>
+            <div class="stat-card__icon stat-card__icon--info">
+                <div class="stat-card__icon-circle">
+                    <i class="fa fa-cube" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="stat-card">
+            <div class="stat-card__content">
+                <p class="text-uppercase mb-1 text-muted"><b>BALES</b> INVENTORY</p>
+                <h3><i class="text-danger font-weight-bold mr-1"></i>
+                    <?php echo number_format($sumPurchaced_bales['month_total']); ?> BALES
+                </h3>
+            </div>
+            <div class="stat-card__icon stat-card__icon--primary">
+                <div class="stat-card__icon-circle">
+                    <i class="fa fa-balance-scale" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        
+                <!-- =============================================================== -->
+                    
                     <div class="row">
                         <div class="col-md-6">
                             <div class="card">
@@ -302,6 +254,8 @@
                     </div>
                     <br>
 </body>
+
+
 
 </html>
 
