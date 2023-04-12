@@ -10,13 +10,9 @@
                 <th scope="col">Location</th>
                 <th scope="col">Lot No.</th>
 
-                <th scope="col">Bale Type</th>
                 <!-- <th scope="col" >WET Weight</th> -->
                 <th scope="col"> DRC</th>
-                <th scope="col">Total Weight</th>
-                <th scope="col">Bale Kilo</th>
-                <th scope="col">Bales</th>
-                <th scope="col">Excess</th>
+         
                 <th scope="col" class="text-center">Action</th>
             </tr>
         </thead>
@@ -29,33 +25,16 @@
                 <td> <?php echo $row['supplier']?> </td>
                 <td> <?php echo $row['location']?> </td>
                 <td> <?php echo $row['lot_num']?> </td>
-                <td>
-                    <?php if($row['bale_type'] == 'Manhattan'): ?>
-                    <span class="badge bg-dark"> <?php echo $row['bale_type']?> </span>
-                    <?php elseif($row['bale_type'] == 'Showa'): ?>
-                    <span class="badge bg-success"> <?php echo $row['bale_type']?> </span>
-                    <?php elseif($row['bale_type'] == 'Dunlop'): ?>
-                    <span class="badge bg-primary"> <?php echo $row['bale_type']?> </span>
-                    <?php elseif($row['bale_type'] == 'SPR-10'): ?>
-                    <span class="badge bg-danger"> <?php echo $row['bale_type']?> </span>
-                    <?php endif; ?>
-                </td>
+       
                 <td> <?php echo $row['drc']?> %</b></td>
-
-                <td> <?php echo $row['bale_total_kilo'] ? $row['bale_total_kilo'] : '0' ?> kg</td>
-                <td><?php echo $row['kilo_per_bale'] ? $row['kilo_per_bale'] : '0' ?> kg</td>
-
-                <td> <?php echo $row['bale_no'] ? $row['bale_no'] : '0' ?></td>
-                <td> <?php echo $row['bale_excess'] ? $row['bale_excess'] : '0' ?> kg</td>
-
 
                 <td class="text-center">
                     <button type="button" class="btn btn-success btn-sm btnPressUpdate">
-                        <i class="fas fa-edit"></i></button>
+                        <i class="fas fa-book"></i></button>
                     <button type="button" class="btn btn-warning btn-sm btnCompletePressing ">
                         <i class="fas fa-chevron-right"> </i> </button>
-                    <button type="button" class="btn btn-primary btn-dark btn-sm btnViewRecordPressing">
-                        <i class="fas fa-book"></i></button>
+                    <!-- <button type="button" class="btn btn-primary btn-dark btn-sm btnViewRecordPressing">
+                        <i class="fas fa-book"></i></button> -->
 
 
                 </td>
