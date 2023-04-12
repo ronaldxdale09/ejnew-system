@@ -55,8 +55,8 @@
                                 <select class="form-select" name="kilo_bale_manhattan" id="kilo_bale_manhattan" required
                                     style='text-align:center; background-color:lightgreen;'>
                                     <option value='' selected disabled>Select Kilo Bale</option>
-                                    <option value='35'>35 Kg</option>
-                                    <option value='33.33'>33.33 Kg</option>
+                                    <option value='35'>35 kg</option>
+                                    <option value='33.33'>33.33 kg</option>
                                 </select>
                             </div>
                         </div>
@@ -95,8 +95,8 @@
                                 <select class="form-select" name="kilo_bale_showa" id="kilo_bale_showa" required
                                     style='text-align:center; background-color:lightgreen;'>
                                     <option value='' selected disabled>Select Kilo Bale</option>
-                                    <option value='35'>35 Kg</option>
-                                    <option value='33.33'>33.33 Kg</option>
+                                    <option value='35'>35 kg</option>
+                                    <option value='33.33'>33.33 kg</option>
                                 </select>
                             </div>
                         </div>
@@ -135,8 +135,8 @@
                                 <select class="form-select" name="kilo_bale_dunlop" id="kilo_bale_dunlop" required
                                     style='text-align:center; background-color:lightgreen;'>
                                     <option value='' selected disabled>Select Kilo Bale</option>
-                                    <option value='35'>35 Kg</option>
-                                    <option value='33.33'>33.33 Kg</option>
+                                    <option value='35'>35 kg</option>
+                                    <option value='33.33'>33.33 kg</option>
                                 </select>
                             </div>
                         </div>
@@ -175,8 +175,8 @@
                                 <select class="form-select" name="kilo_bale_crown" id="kilo_bale_crown" required
                                     style='text-align:center; background-color:lightgreen;'>
                                     <option value='' selected disabled>Select Kilo Bale</option>
-                                    <option value='35'>35 Kg</option>
-                                    <option value='33.33'>33.33 Kg</option>
+                                    <option value='35'>35 kg</option>
+                                    <option value='33.33'>33.33 kg</option>
                                 </select>
                             </div>
                         </div>
@@ -215,8 +215,8 @@
                                 <select class="form-select" name="kilo_bale_spr" id="kilo_bale_spr" required
                                     style='text-align:center; background-color:lightgreen;'>
                                     <option value='' selected disabled>Select Kilo Bale</option>
-                                    <option value='35'>35 Kg</option>
-                                    <option value='33.33'>33.33 Kg</option>
+                                    <option value='35'>35 kg</option>
+                                    <option value='33.33'>33.33 kg</option>
                                 </select>
                             </div>
                         </div>
