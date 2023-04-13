@@ -153,7 +153,7 @@
                                     <div class="col" style="display: flex;">
                                         <div class="card" style="width: 100%;">
                                             <div class="card-body">
-                                                <canvas id="inventory_blanket" height="350"></canvas>
+                                                <canvas id="inventory_bales" height="350"></canvas>
                                             </div>
                                         </div>
                                     </div>
@@ -161,7 +161,7 @@
                                     <div class="col" style="display: flex;">
                                         <div class="card" style="width: 100%;">
                                             <div class="card-body">
-                                                <canvas id="inventory_bales" height="350"></canvas>
+                                                <canvas id="inventory_blanket" height="350"></canvas>
                                             </div>
                                         </div>
                                     </div>
@@ -273,8 +273,9 @@ new Chart(inventory_all, {
         datasets: [{
             label: 'Purchased',
             data: <?php echo json_encode($amount) ?>, //Y-axis data 
-            backgroundColor: '#f26c4f',
-            borderColor: '#f26c4f',
+            backgroundColor: ['rgba(0, 192, 15)', 'rgba(150, 150, 150)', 'rgba(255, 206, 56)',
+                'rgba(255, 99, 132)', 'rgba(54, 162, 235)'
+            ],
             tension: 0.3,
             fill: false, //Fills the curve under the line with the babckground color. It's true by default
         }]
@@ -294,36 +295,36 @@ new Chart(inventory_all, {
             }
         ?>
 
-new Chart(inventory_blanket, {
-    options: {
-        plugins: {
-            title: {
-                display: true,
-                text: 'Monthly Total Bales Purchased',
-            },
-        },
-    },
-    type: 'bar', //Declare the chart type 
-    data: {
-        labels: <?php echo json_encode($month_bales) ?>, //X-axis data 
-        datasets: [{
-            label: 'Bales',
-            data: <?php echo json_encode($bales) ?>, //Y-axis data 
-            backgroundColor: '#781710',
-            borderColor: '#781710',
-            tension: 0.3,
-            fill: false, //Fills the curve under the line with the babckground color. It's true by default
-        }]
-    },
-});
-
 
 new Chart(inventory_bales, {
     options: {
         plugins: {
             title: {
                 display: true,
-                text: 'Monthly Total Bales Purchased',
+                text: 'Bales Inventory (Quality Breakdown)',
+            },
+        },
+    },
+    type: 'doughnut', //Declare the chart type 
+    data: {
+        labels: <?php echo json_encode($month_bales) ?>, //X-axis data 
+        datasets: [{
+            label: 'Bales',
+            data: <?php echo json_encode($bales) ?>, //Y-axis data 
+            backgroundColor: ['#0D57A1', '#0B3D91', '#083681', '#062F71', '#042861', '#011B51'],
+            tension: 0.3,
+            fill: false
+        }]
+    },
+});
+
+
+new Chart(inventory_blanket, {
+    options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Blanket Inventory (Days Dry Age)',
             },
         },
     },
@@ -333,13 +334,14 @@ new Chart(inventory_bales, {
         datasets: [{
             label: 'Bales',
             data: <?php echo json_encode($bales) ?>, //Y-axis data 
-            backgroundColor: '#781710',
+            backgroundColor: ['#FFEB3B', '#FFC107', '#FF9800', '#FFA726', '#FBC02D', '#F57F17'],
             borderColor: '#781710',
             tension: 0.3,
             fill: false, //Fills the curve under the line with the babckground color. It's true by default
         }]
     },
 });
+
 
 // CUPLUMP INVENTORY LEVEL ------------------design complete
 
@@ -350,8 +352,7 @@ new Chart(cuplump_inventory, {
         datasets: [{
             label: 'Cuplumps',
             data: <?php echo json_encode($bales) ?>, //Y-axis data 
-            backgroundColor: '#781710',
-            borderColor: '#781710',
+            backgroundColor: '#011B51',
             tension: 0.3,
             fill: false, //Fills the curve under the line with the babckground color. It's true by default
         }]
