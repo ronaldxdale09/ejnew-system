@@ -51,14 +51,15 @@
     <link rel='stylesheet' href='css/statistic-card.css'>
     <input type='hidden' id='selected-cart' value=''>
     <div class='main-content' style='position:relative; height:100%;'>
-        <div class="container home-section h-100" style="max-width:95%;">
+        <div class="container home-section h-100" style="max-width:100%;">
             <div class="page-wrapper">
                 <div class="container-fluid">
 
-                    <!-- ============================================================== -->
-                    <div class="row">
-                        <div class="col">
-                            <div class="stat-card">
+                    <!-- =============================CARDS================================= -->
+
+                    <div class="row" style="display: flex; align-items: stretch;">
+                        <div class="col" style="display: flex;">
+                            <div class="stat-card" style="width: 100%;">
                                 <div class="stat-card__content">
                                     <p class="text-uppercase mb-1 text-muted"><b>CUPLUMP</b> INVENTORY</p>
                                     <h3><i class="text-danger font-weight-bold mr-1"></i>
@@ -72,8 +73,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="stat-card">
+                        <div class="col" style="display: flex;">
+                            <div class="stat-card" style="width: 100%;">
                                 <div class="stat-card__content">
                                     <p class="text-uppercase mb-1 text-muted"><b>CRUMB</b> INVENTORY</p>
                                     <h3><i class="text-danger font-weight-bold mr-1"></i>
@@ -87,8 +88,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="stat-card">
+                        <div class="col" style="display: flex;">
+                            <div class="stat-card" style="width: 100%;">
                                 <div class="stat-card__content">
                                     <p class="text-uppercase mb-1 text-muted"><b>BLANKET</b> INVENTORY</p>
                                     <h3><i class="text-danger font-weight-bold mr-1"></i>
@@ -102,8 +103,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="stat-card">
+                        <div class="col" style="display: flex;">
+                            <div class="stat-card" style="width: 100%;">
                                 <div class="stat-card__content">
                                     <p class="text-uppercase mb-1 text-muted"><b>BALES (KG)</b> INVENTORY</p>
                                     <h3><i class="text-danger font-weight-bold mr-1"></i>
@@ -117,12 +118,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="stat-card">
+                        <div class="col" style="display: flex;">
+                            <div class="stat-card" style="width: 100%;">
                                 <div class="stat-card__content">
                                     <p class="text-uppercase mb-1 text-muted"><b>BALES</b> INVENTORY</p>
                                     <h3><i class="text-danger font-weight-bold mr-1"></i>
-                                        <?php echo number_format($sumPurchaced_bales['month_total']); ?> BALES
+                                        <?php echo number_format($sumPurchaced_bales['month_total']); ?>
                                     </h3>
                                 </div>
                                 <div class="stat-card__icon stat-card__icon--primary">
@@ -137,93 +138,95 @@
                     <!-- ===========================CHARTS==================================== -->
 
                     <div class="row">
-                        <div class="card" style="width:100%;max-width:100%; height:100%;">
-                            <div class="card-body" style="width:100%;max-width:100%; height:100%;">
-
-
-                                <div class="row">
-                                    <div class="col">
-                                        <canvas id="wet_line"></canvas>
-                                    </div>
-                                    <div class="col">
-                                        <canvas id="bales_bar"></canvas>
-                                    </div>
-                                    <div class="col">
-                                        <canvas id="bales_quality"></canvas>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card" style="width:100%;max-width:100%; height:100%;">
-                                <div class="card-body" style="width:100%;max-width:100%; height:100%;">
-                                    <canvas id="cuplump_inventory"
-                                        style="width:100%;max-width:100%; height:100%;"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-
-                    <div class="row">
-                        <div class="card" style="width:100%;max-width:100%; height:100%;">
-                            <div class="card-body" style="width:100%;max-width:100%; height:100%;">
-
-
-                                <div class="row">
-                                    <div class="col">
-                                        <canvas id="wet_line"></canvas>
-                                    </div>
-                                    <div class="col">
-                                        <canvas id="bales_bar"></canvas>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col">
-                                        <canvas id="wet_line"></canvas>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <br>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-10">
-                                            <h5>BALES TRANSACTION </h5>
+                        <div class="card" style="width:100%;max-width:100%;">
+                            <div class="card-body" style="width:100%;max-width:100%;">
+                                <h5>INVENTORY OVERVIEW</h5>
+                                <div class="row" style="display: flex; align-items: stretch;">
+                                    <div class="col" style="display: flex;">
+                                        <div class="card" style="width: 100%;">
+                                            <div class="card-body">
+                                                <canvas id="inventory_all" height="350"></canvas>
+                                            </div>
                                         </div>
-
                                     </div>
-                                    <hr>
-                                    <!-- content -->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card" style="width:100%;max-width:100%; height:100%;">
-                                <div class="card-body" style="width:100%;max-width:100%; height:100%;">
 
+                                    <div class="col" style="display: flex;">
+                                        <div class="card" style="width: 100%;">
+                                            <div class="card-body">
+                                                <canvas id="inventory_blanket" height="350"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col" style="display: flex;">
+                                        <div class="card" style="width: 100%;">
+                                            <div class="card-body">
+                                                <canvas id="inventory_bales" height="350"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <br>
-                </div>
+
+                    <div class="row" style="display: flex; align-items: stretch;">
+                        <div class="card" style="width:100%;max-width:100%;">
+                            <div class="card-body" style="width:100%;max-width:100%;">
+                                <h5>DAILY CUPLUMP INVENTORY LEVEL</h5>
+                                <div class="col" style="display: flex;">
+                                    <div class="card" style="width: 100%">
+                                        <div class="card-body">
+                                            <canvas id="cuplump_inventory" style="width: 100%; max-width: 100%;"
+                                                height="200"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+                    
+                    <div class="row">
+                        <div class="card" style="width:100%;max-width:100%;">
+                            <div class="card-body" style="width:100%;max-width:100%;">
+                                <h5>PRODUCTION VOLUME</h5>
+                                <div class="row" style="display: flex; align-items: stretch;">
+                                    <div class="col" style="display: flex;">
+                                        <div class="card" style="width: 100%;">
+                                            <div class="card-body">
+                                                <canvas id="monthly_milling" height="350"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col" style="display: flex;">
+                                        <div class="card" style="width: 100%;">
+                                            <div class="card-body">
+                                                <canvas id="monthly_drying" height="350"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row" style="display: flex; align-items: stretch;">
+                                    <div class="col" style="display: flex;">
+                                        <div class="card" style="width: 100%;">
+                                            <div class="card-body">
+                                                <canvas id="monthly_production" height="350"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+
 </body>
-
-
 
 </html>
 
@@ -255,17 +258,17 @@ cuplump_inventory = document.getElementById("cuplump_inventory");
               }
         ?>
 
-new Chart(wet_line, {
+new Chart(inventory_all, {
     options: {
         plugins: {
             title: {
                 display: true,
-                text: 'Monthly WET Rubber Purchased',
+                text: 'Inventory (Kilo)',
             },
         },
     },
 
-    type: 'line', //Declare the chart type 
+    type: 'pie', //Declare the chart type 
     data: {
         labels: <?php echo json_encode($month) ?>, //X-axis data 
         datasets: [{
@@ -293,7 +296,7 @@ new Chart(wet_line, {
             }
         ?>
 
-new Chart(bales_bar, {
+new Chart(inventory_blanket, {
     options: {
         plugins: {
             title: {
@@ -317,7 +320,7 @@ new Chart(bales_bar, {
 });
 
 
-new Chart(bales_quality, {
+new Chart(inventory_bales, {
     options: {
         plugins: {
             title: {
@@ -340,9 +343,98 @@ new Chart(bales_quality, {
     },
 });
 
-
+// CUPLUMP INVENTORY LEVEL ------------------design complete
 
 new Chart(cuplump_inventory, {
+    type: 'bar', //Declare the chart type 
+    data: {
+        labels: <?php echo json_encode($month_bales) ?>, //X-axis data 
+        datasets: [{
+            label: 'Cuplumps',
+            data: <?php echo json_encode($bales) ?>, //Y-axis data 
+            backgroundColor: '#781710',
+            borderColor: '#781710',
+            tension: 0.3,
+            fill: false, //Fills the curve under the line with the babckground color. It's true by default
+        }]
+    },
+    options: {
+        plugins: {
+            title: {
+                display: false,
+                text: 'Cuplump Daily Inventory',
+            },
+            legend: {
+                display: false // Hide dataset labels
+            }
+        },
+        scales: {
+            y: {
+                ticks: {
+                    display: false // Hide y-axis labels
+                },
+                grid: {
+                    display: false // Hide y-axis gridlines
+                }
+            },
+            x: {
+                grid: {
+                    display: false // Hide x-axis gridlines
+                }
+            }
+        }
+    }
+});
+
+
+
+new Chart(monthly_milling, {
+    options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Monthly Total Bales Purchased',
+            },
+        },
+    },
+    type: 'bar', //Declare the chart type 
+    data: {
+        labels: <?php echo json_encode($month_bales) ?>, //X-axis data 
+        datasets: [{
+            label: 'Bales',
+            data: <?php echo json_encode($bales) ?>, //Y-axis data 
+            backgroundColor: '#781710',
+            borderColor: '#781710',
+            tension: 0.3,
+            fill: false, //Fills the curve under the line with the babckground color. It's true by default
+        }]
+    },
+});
+
+new Chart(monthly_drying, {
+    options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Monthly Total Bales Purchased',
+            },
+        },
+    },
+    type: 'bar', //Declare the chart type 
+    data: {
+        labels: <?php echo json_encode($month_bales) ?>, //X-axis data 
+        datasets: [{
+            label: 'Bales',
+            data: <?php echo json_encode($bales) ?>, //Y-axis data 
+            backgroundColor: '#781710',
+            borderColor: '#781710',
+            tension: 0.3,
+            fill: false, //Fills the curve under the line with the babckground color. It's true by default
+        }]
+    },
+});
+
+new Chart(monthly_production, {
     options: {
         plugins: {
             title: {

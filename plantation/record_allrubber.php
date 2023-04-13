@@ -82,7 +82,7 @@
                                                                 $status_color = 'bg-info';
                                                                 break;
                                                         }
-                                                    ?>yl
+                                                    ?>
                                                    <td> <span class="badge <?php echo $status_color; ?>"> <?php echo $row['status']?>
                                                             </spa>
                                                     </td>
