@@ -5,84 +5,58 @@
     // UPDATE PRESSING
 
     if (isset($_POST['pressing_update'])) {
-        
-        
         $id = $_POST['recording_id'];
+        $type = $_POST['type'];
+    
+        $entry_weight = $_POST['entry_weight'];
+        $drc = $_POST['drc'];
 
-        $rubberTypes = array(
-            'Manhattan' => array(
-                'kilo_bale' => $_POST['kilo_bale_manhattan'],
-                'weight' => $_POST['weight_manhattan'],
-                'bale_num' => $_POST['bale_num_manhattan'],
-                'excess' => $_POST['excess_manhattan']
-            ),
-            'Showa' => array(
-                'kilo_bale' => isset($_POST['kilo_bale_showa']) ? $_POST['kilo_bale_showa'] : '',
-                'weight' => isset($_POST['weight_showa']) ? $_POST['weight_showa'] : '',
-                'bale_num' => isset($_POST['bale_num_showa']) ? $_POST['bale_num_showa'] : '',
-                'excess' => isset($_POST['excess_showa']) ? $_POST['excess_showa'] : ''
-            ),
-            'Dunlop' => array(
-                'kilo_bale' => isset($_POST['kilo_bale_dunlop']) ? $_POST['kilo_bale_dunlop'] : '',
-                'weight' => isset($_POST['weight_dunlop']) ? $_POST['weight_dunlop'] : '',
-                'bale_num' => isset($_POST['bale_num_dunlop']) ? $_POST['bale_num_dunlop'] : '',
-                'excess' => isset($_POST['excess_dunlop']) ? $_POST['excess_dunlop'] : ''
-            ),
-            'Crown' => array(
-                'kilo_bale' => isset($_POST['kilo_bale_crown']) ? $_POST['kilo_bale_crown'] : '',
-                'weight' => isset($_POST['weight_crown']) ? $_POST['weight_crown'] : '',
-                'bale_num' => isset($_POST['bale_num_crown']) ? $_POST['bale_num_crown'] : '',
-                'excess' => isset($_POST['excess_crown']) ? $_POST['excess_crown'] : ''
-            ),
-            'SPR' => array(
-                'kilo_bale' => isset($_POST['kilo_bale_spr']) ? $_POST['kilo_bale_spr'] : '',
-                'weight' => isset($_POST['weight_spr']) ? $_POST['weight_spr'] : '',
-                'bale_num' => isset($_POST['bale_num_spr']) ? $_POST['bale_num_spr'] : '',
-                'excess' => isset($_POST['excess_spr']) ? $_POST['excess_spr'] : ''
-            )
-        );
 
-    // loop through the rubber types and insert them into the database
+        $total_kilo_bale = 0;
+        $total_weight = 0;
+        $total_bale_num = 0;
+        $total_excess = 0;
 
-    foreach ($rubberTypes as $rubberType => $rubberData) {
-        $kilo_bale = $rubberData['kilo_bale'];
-        $weight = $rubberData['weight'];
-        $bale_num = $rubberData['bale_num'];
-        $excess = $rubberData['excess'];
+        $total_weight = 0;
 
-        // insert the data into the database using the appropriate SQL statement
-        $sql = "INSERT INTO planta_bales_production (recording_id, bales_type, kilo_per_bale, rubber_weight, number_bales, bales_excess, status) 
-                VALUES ('$id', '$rubberType', '$kilo_bale', '$weight', '$bale_num', '$excess', 'Production')";
-        // execute the SQL statement
-        $result = mysqli_query($con, $sql);
-        if (!$result) {
-            die('Error inserting data: ' . mysqli_error($con));
+        foreach ($_POST as $key => $value) {
+            if (strpos($key, 'kilo_bale') !== false) {
+                $bales_type = str_replace('kilo_bale_', '', $key);
+                $kilo_bale = $value;
+                $weight = $_POST['weight_'.$bales_type];
+                $bale_num = $_POST['bale_num_'.$bales_type];
+                $excess = $_POST['excess_'.$bales_type];
+        
+                if ($kilo_bale == 0) {
+                    $kilo_bale = 0;
+                    $weight = 0;
+                    $bale_num = 0;
+                    $excess = 0;
+                }
+        
+                $total_kilo_bale += $kilo_bale;
+                $total_weight += $weight;
+                $total_bale_num += $bale_num;
+                $total_excess += $excess;
+        
+                $sql = "UPDATE planta_bales_production SET kilo_per_bale='$kilo_bale', rubber_weight='$weight', number_bales='$bale_num', bales_excess='$excess' WHERE recording_id='$id' AND bales_type='$bales_type'";
+                $result = mysqli_query($con, $sql);
+                if (!$result) {
+                    die('Error updating data: ' . mysqli_error($con));
+                }
+            }
         }
-    }
+        
+        echo "Total weight: " . $total_weight;
 
 
-    //     // $bale_num_spr = $_POST['bale_num_spr'];
-    //     // $excess_spr = $_POST['excess_spr'];
+        $query = "UPDATE `planta_recording` SET `drc`='$drc', `bale_total_kilo`='$bale_total_kilo'
+        WHERE recording_id='$id'";
 
 
-            
-        // // loop through the array and display the data
-        // foreach ($rubberTypes as $type => $data) {
-        //     echo $type . '<br>';
-        //     echo 'Kilo per bale: ' . $data['kilo_bale'] . '<br>';
-        //     echo 'Weight: ' . $data['weight'] . '<br>';
-        //     echo 'No. of bale: ' . $data['bale_num'] . '<br>';
-        //     echo 'Excess: ' . $data['excess'] . '<br>';
-        //     echo '<br>';
-        // }
 
-                             
-    //     if(mysqli_query($con, $sql)) {  
-    //         header("Location: ../recording.php?tab=4");
-    //         exit();
-    //     } else {  
-    //         echo "ERROR: Could not execute $query. " . mysqli_error($con); 
-    //     }  
+        header("Location: ../recording.php?tab=4");
+    
     }
 
 

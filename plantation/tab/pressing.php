@@ -11,8 +11,9 @@
                 <th scope="col">Lot No.</th>
                 <th scope="col">Entry Weight.</th>
                 <!-- <th scope="col" >WET Weight</th> -->
+                <th scope="col"> Total Weight</th>
                 <th scope="col"> DRC</th>
-         
+               
                 <th scope="col" class="text-center">Action</th>
             </tr>
         </thead>
@@ -26,6 +27,7 @@
                 <td> <?php echo $row['location']?> </td>
                 <td> <?php echo $row['lot_num']?> </td>
                 <td> <?php echo $row['weight']?> </td>
+                <td> <?php echo $row['bale_total_kilo']?> </td>
                 <td> <?php echo $row['drc']?> %</b></td>
 
                 <td class="text-center">
@@ -66,14 +68,36 @@ $('.btnPressUpdate').on('click', function() {
 
     $('#press_u_entry').val(parseFloat(data[6]).toLocaleString());
 
-    $('#press_u_kilo_per_bale').val(data[7]);
+    $('#press_u_drc').val(data[8]);
+    $('#press_u_total_weight').val(data[7]);
 
-    $('#press_u_reweight').val(data[10]);
 
-    $('#modal_press_update').modal('show');
+    function fetch_data() {
 
+        var recording_id = data[1].replace(/\s+/g, '');
+        $.ajax({
+            url: "table/pressing_update.php",
+            method: "POST",
+            data: {
+                recording_id: recording_id,
+
+            },
+            success: function(data) {
+                $('#pressing_modal_update_table').html(data);
+                $('#modal_press_update').modal('show');
+
+            }
+        });
+    }
+    fetch_data();
+    
 
 });
+
+
+
+
+
 
 
 $('.btnCompletePressing').on('click', function() {

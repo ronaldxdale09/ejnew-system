@@ -79,11 +79,38 @@
         $quality = $_POST['quality'];
 
 
-        $query = "UPDATE `planta_recording` SET `status`='Pressing',`pressing_date`=NOW() ,
-        `kilo_per_bale`='$kilo_bale',`bale_type`='$quality'
+        $query = "UPDATE `planta_recording` SET `status`='Pressing',`pressing_date`=NOW()
         WHERE recording_id='$id'";
                              
         if(mysqli_query($con, $query)) {  
+
+
+            // Define an array of rubber types
+        $rubberTypes = ['Manhattan', 'Showa', 'Dunlop', 'Crown', 'SPR10'];
+
+        // Loop over the rubber types and insert the data into the database
+        foreach ($rubberTypes as $type) {
+            // Set the default values to 0
+            $kilo_bale = 0;
+            $weight = 0;
+            $bale_num = 0;
+            $excess = 0;
+
+            // Insert the data into the database using the appropriate SQL statement
+            $sql = "INSERT INTO planta_bales_production (recording_id, bales_type, kilo_per_bale, rubber_weight, number_bales, bales_excess, status) 
+                    VALUES ('$id', '$type', '$kilo_bale', '$weight', '$bale_num', '$excess', 'Production')";
+
+            // Execute the SQL statement
+            $result = mysqli_query($con, $sql);
+            if (!$result) {
+                die('Error inserting data: ' . mysqli_error($con));
+            }
+        }
+
+
+
+
+
             header("Location: ../recording.php?tab=4");
             exit();
         } else {  

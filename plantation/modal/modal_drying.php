@@ -12,11 +12,7 @@
                 <form action="function/rubber_process.php" method="POST">
                     <input type="text" style='text-align:left' name='recording_id' id='dry_u_recording_id' hidden
                         readonly class="form-control">
-
-
                     <!-- START -->
-
-
                     <div class="form-group">
                         <div class="form-group">
                             <div class="row no-gutters">
@@ -204,34 +200,6 @@
                     </div>
                     <div id='dry_table_record_trans'></div>
                     <hr>
-
-
-                    <div class="d-flex justify-content-center">
-                        <h5>Select Kilo per Bale and Quality</h5>
-                    </div>
-                    <br>
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label class="form-label">Kilo per Bale</label>
-                            <select class="form-select" name="kilo_bale" required
-                                style='text-align:center; background-color:lightblue;'>
-                                <option value='' selected disabled>Select Kilo Bale</option>
-                                <option value='35'>35 Kg</option>
-                                <option value='33.33'>33.33 Kg</option>
-                            </select>
-                        </div>
-                        <div class="col">
-                            <label class="form-label">Quality</label>
-                            <select class="form-select" name="quality" required
-                                style='text-align:center; background-color:lightyellow;'>
-                                <option value='' selected disabled>Select Quality</option>
-                                <option value='Manhattan'>Manhattan</option>
-                                <option value='Showa'>Showa</option>
-                                <option value='Dunlop'>Dunlop</option>
-                                <option value='SPR-10'>SPR-10</option>
-                            </select>
-                        </div>
-                    </div>
 
             </div>
             <div class="modal-footer">
