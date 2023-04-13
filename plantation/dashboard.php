@@ -134,7 +134,7 @@
                         </div>
                     </div>
 
-                    <!-- =============================================================== -->
+                    <!-- ===========================CHARTS==================================== -->
 
                     <div class="row">
                         <div class="card" style="width:100%;max-width:100%; height:100%;">
@@ -156,7 +156,7 @@
                             </div>
                         </div>
                     </div>
-                    <br> <br>
+                    <br>
 
                     <div class="row">
                         <div class="col-md-12">
@@ -166,45 +166,71 @@
                                         style="width:100%;max-width:100%; height:100%;"></canvas>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <br>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-10">
-                                            <h5>BALES TRANSACTION </h5>
-                                        </div>
 
+                    <div class="row">
+                        <div class="card" style="width:100%;max-width:100%; height:100%;">
+                            <div class="card-body" style="width:100%;max-width:100%; height:100%;">
+
+
+                                <div class="row">
+                                    <div class="col">
+                                        <canvas id="wet_line"></canvas>
                                     </div>
-                                    <hr>
-                                    <div class="table-responsive">
-                                        <table class="table" id='sellerTable'>
-                                            <?php
+                                    <div class="col">
+                                        <canvas id="bales_bar"></canvas>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <canvas id="wet_line"></canvas>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+
+                        <br>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <h5>BALES TRANSACTION </h5>
+                                            </div>
+
+                                        </div>
+                                        <hr>
+                                        <div class="table-responsive">
+                                            <table class="table" id='sellerTable'>
+                                                <?php
                                     $record  = mysqli_query($con, "SELECT * from bales_transaction ORDER BY id DESC LIMIT 5 "); ?>
-                                            <thead class="table-dark" style='font-size:12px'>
-                                                <tr>
-                                                    <th scope="col">LOT #</th>
-                                                    <th scope="col">Date</th>
-                                                    <th scope="col">Contract</th>
-                                                    <th scope="col">Seller</th>
-                                                    <th scope="col">Bales</th>
-                                                    <th scope="col">Price 1</th>
-                                                    <th scope="col">Price 2</th>
-                                                    <th scope="col">Net Weight </th>
-                                                    <th scope="col">Amount Paid</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody> <?php while ($row = mysqli_fetch_array($record)) { ?> <tr>
-                                                    <th scope="row">LOT #<?php echo $row['lot_code']?> </th>
-                                                    <td> <?php echo $row['date']?> </td>
-                                                    <td> <?php echo $row['contract']?> </td>
-                                                    <td> <?php echo $row['seller']?> </td>
-                                                    <td>
-                                                        <?php 
+                                                <thead class="table-dark" style='font-size:12px'>
+                                                    <tr>
+                                                        <th scope="col">LOT #</th>
+                                                        <th scope="col">Date</th>
+                                                        <th scope="col">Contract</th>
+                                                        <th scope="col">Seller</th>
+                                                        <th scope="col">Bales</th>
+                                                        <th scope="col">Price 1</th>
+                                                        <th scope="col">Price 2</th>
+                                                        <th scope="col">Net Weight </th>
+                                                        <th scope="col">Amount Paid</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody> <?php while ($row = mysqli_fetch_array($record)) { ?> <tr>
+                                                        <th scope="row">LOT #<?php echo $row['lot_code']?> </th>
+                                                        <td> <?php echo $row['date']?> </td>
+                                                        <td> <?php echo $row['contract']?> </td>
+                                                        <td> <?php echo $row['seller']?> </td>
+                                                        <td>
+                                                            <?php 
                                                     if ($row['total_bales_2'] =='0 Bales ') {
                                                         echo  $row['total_bales_1'].' @ '.$row['kilo_bales_1'].' Kg'; 
                                                     } else {
@@ -213,28 +239,28 @@
                                                     }
                                                     
                                                     ?>
-                                                    </td>
-                                                    <td>₱ <?php echo number_format($row['price_1'],2);?></td>
-                                                    <td>₱ <?php echo number_format($row['price_2'],2);?></td>
-                                                    <td> <?php echo number_format($row['total_net_weight']);?> Kg
-                                                    </td>
+                                                        </td>
+                                                        <td>₱ <?php echo number_format($row['price_1'],2);?></td>
+                                                        <td>₱ <?php echo number_format($row['price_2'],2);?></td>
+                                                        <td> <?php echo number_format($row['total_net_weight']);?> Kg
+                                                        </td>
 
-                                                    <td>₱ <?php echo number_format($row['amount_paid'],2); ?> </td>
-                                                </tr> <?php } ?> </tbody>
-                                        </table>
+                                                        <td>₱ <?php echo number_format($row['amount_paid'],2); ?> </td>
+                                                    </tr> <?php } ?> </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card" style="width:100%;max-width:100%; height:100%;">
+                                    <div class="card-body" style="width:100%;max-width:100%; height:100%;">
+
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="card" style="width:100%;max-width:100%; height:100%;">
-                                <div class="card-body" style="width:100%;max-width:100%; height:100%;">
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
+                        <br>
 </body>
 
 
