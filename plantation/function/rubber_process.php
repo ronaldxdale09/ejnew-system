@@ -91,31 +91,6 @@
         }  
     }
 
-    // UPDATE PRESSING
 
-    if (isset($_POST['pressing_update'])) {
-        $id = $_POST['recording_id'];
-        $date = $_POST['date'];
-
-        $bale_num = $_POST['bale_num'];
-        $bales_weight = $_POST['bale_weight'];
-        $bale_excess = $_POST['excess'];
-        $reweight = $_POST['reweight'];
-        
-        $drc = (($bales_weight / $reweight) * 100);
-        $drc =  round($drc, 2);
-
-
-        $query = "UPDATE `planta_recording` SET `status`='Pressing',`pressing_date`='$date',
-        `bale_total_kilo`='$bales_weight',`bale_excess`='$bale_excess',drc='$drc',bale_no='$bale_num'
-        WHERE recording_id='$id'";
-                             
-        if(mysqli_query($con, $query)) {  
-            header("Location: ../recording.php?tab=4");
-            exit();
-        } else {  
-            echo "ERROR: Could not execute $query. " . mysqli_error($con); 
-        }  
-    }
 
 ?>

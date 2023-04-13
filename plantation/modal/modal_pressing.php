@@ -44,209 +44,191 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label class="form-label">Quality</label>
-                            <input type="text" class="form-control" name='quality_manhattan' id="p_quality_manhattan" readonly value="Manhattan">
-                        </div>
-                        <div class="col">
-                            <label class="form-label">Kilo Per Bale</label>
-                            <div class="input-group">
-                                <select class="form-select" name="kilo_bale_manhattan" id="kilo_bale_manhattan" required
-                                    style='text-align:center; background-color:lightgreen;'>
-                                    <option value='' selected disabled>Select Kilo Bale</option>
-                                    <option value='35'>35 kg</option>
-                                    <option value='33.33'>33.33 kg</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <label class="form-label">Weight</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name='weight_manhattan' id="weight_manhattan"
-                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
-                            </div>
-                        </div>
-                        <div class="col">
-                            <label class="form-label">No. of Bale</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name='bale_num_manhattan' id="bale_num_manhattan"
-                                    onkeypress="return CheckNumeric()" readonly onkeyup="FormatCurrency(this)">
-                            </div>
-                        </div>
-                        <div class="col">
-                            <label class="form-label">Excess</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name='excess_manhattan' id="excess_manhattan"
-                                    onkeypress="return CheckNumeric()" readonly onkeyup="FormatCurrency(this)">
-                                <span class="input-group-text">Kg</span>
-                            </div>
-                        </div>
-                    </div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col" width='22%'>Quality</th>
+                                <th scope="col" width='20%'>Kilo Per Bale</th>
+                                <th scope="col">Weight (kg)</th>
+                                <th scope="col">No. of Bale</th>
+                                <th scope="col">Excess</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Manhattan</td>
+                                <td>
+                                    <div class="input-group">
+                                        <select class="form-select" name="kilo_bale_manhattan" id="kilo_bale_manhattan"
+                                            required style='text-align:center;'>
+                                            <option value='' selected disabled>Select</option>
+                                            <option value='35'>35 kg</option>
+                                            <option value='33.33'>33.33 kg</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name='weight_manhattan'
+                                            id="weight_manhattan" onkeypress="return CheckNumeric()"
+                                            onkeyup="FormatCurrency(this)">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name='bale_num_manhattan'
+                                            id="bale_num_manhattan" onkeypress="return CheckNumeric()" readonly
+                                            onkeyup="FormatCurrency(this)">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name='excess_manhattan'
+                                            id="excess_manhattan" onkeypress="return CheckNumeric()" readonly
+                                            onkeyup="FormatCurrency(this)">
+                                        <span class="input-group-text">Kg</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Showa</td>
+                                <td>
+                                    <div class="input-group">
+                                        <select class="form-select" name="kilo_bale_showa" id="kilo_bale_showa" required
+                                            style='text-align:center;'>
+                                            <option value='' selected disabled>Select</option>
+                                            <option value='35'>35 kg</option>
+                                            <option value='33.33'>33.33 kg</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name='weight_showa' id="weight_showa"
+                                            onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name='bale_num_showa'
+                                            id="bale_num_showa" onkeypress="return CheckNumeric()" readonly
+                                            onkeyup="FormatCurrency(this)">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name='excess_showa' id="excess_showa"
+                                            onkeypress="return CheckNumeric()" readonly onkeyup="FormatCurrency(this)">
+                                        <span class="input-group-text">Kg</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Dunlop</td>
+                                <td>
+                                    <div class="input-group">
+                                        <select class="form-select" name="kilo_bale_dunlop" id="kilo_bale_dunlop"
+                                            required style='text-align:center;'>
+                                            <option value='' selected disabled>Select</option>
+                                            <option value='35'>35 kg</option>
+                                            <option value='33.33'>33.33 kg</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name='weight_dunlop' id="weight_dunlop"
+                                            onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name='bale_num_dunlop'
+                                            id="bale_num_dunlop" onkeypress="return CheckNumeric()" readonly
+                                            onkeyup="FormatCurrency(this)">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name='excess_dunlop' id="excess_dunlop"
+                                            onkeypress="return CheckNumeric()" readonly onkeyup="FormatCurrency(this)">
+                                        <span class="input-group-text">Kg</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Crown</td>
+                                <td>
+                                    <div class="input-group">
+                                        <select class="form-select" name="kilo_bale_crown" id="kilo_bale_crown" required
+                                            style='text-align:center;'>
+                                            <option value='' selected disabled>Select</option>
+                                            <option value='35'>35 kg</option>
+                                            <option value='33.33'>33.33 kg</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name='weight_crown' id="weight_crown"
+                                            onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name='bale_num_crown'
+                                            id="bale_num_crown" onkeypress="return CheckNumeric()" readonly
+                                            onkeyup="FormatCurrency(this)">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name='excess_crown' id="excess_crown"
+                                            onkeypress="return CheckNumeric()" readonly onkeyup="FormatCurrency(this)">
+                                        <span class="input-group-text">Kg</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>SPR-10</td>
+                                <td>
+                                    <div class="input-group">
+                                        <select class="form-select" name="kilo_bale_spr" id="kilo_bale_spr" required
+                                            style='text-align:center;'>
+                                            <option value='' selected disabled>Select</option>
+                                            <option value='35'>35 kg</option>
+                                            <option value='33.33'>33.33 kg</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name='weight_spr' id="weight_spr"
+                                            onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
 
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label class="form-label">Quality</label>
-                            <input type="text" class="form-control" name='quality_showa' id="p_quality_showa" readonly value="Showa">
-                        </div>
-                        <div class="col">
-                            <label class="form-label">Kilo Per Bale</label>
-                            <div class="input-group">
-                                <select class="form-select" name="kilo_bale_showa" id="kilo_bale_showa" required
-                                    style='text-align:center; background-color:lightgreen;'>
-                                    <option value='' selected disabled>Select Kilo Bale</option>
-                                    <option value='35'>35 kg</option>
-                                    <option value='33.33'>33.33 kg</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <label class="form-label">Weight</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name='weight_showa' id="weight_showa"
-                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
-                            </div>
-                        </div>
-                        <div class="col">
-                            <label class="form-label">No. of Bale</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name='bale_num_showa' id="bale_num_showa"
-                                    onkeypress="return CheckNumeric()" readonly onkeyup="FormatCurrency(this)">
-                            </div>
-                        </div>
-                        <div class="col">
-                            <label class="form-label">Excess</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name='excess_showa' id="excess_showa"
-                                    onkeypress="return CheckNumeric()" readonly onkeyup="FormatCurrency(this)">
-                                <span class="input-group-text">Kg</span>
-                            </div>
-                        </div>
-                    </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name='bale_num_spr' id="bale_num_spr"
+                                            onkeypress="return CheckNumeric()" readonly onkeyup="FormatCurrency(this)">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name='excess_spr' id="excess_spr"
+                                            onkeypress="return CheckNumeric()" readonly onkeyup="FormatCurrency(this)">
+                                        <span class="input-group-text">Kg</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label class="form-label">Quality</label>
-                            <input type="text" class="form-control" name='quality_dunlop' id="p_quality_dunlop" readonly value="Dunlop">
-                        </div>
-                        <div class="col">
-                            <label class="form-label">Kilo Per Bale</label>
-                            <div class="input-group">
-                                <select class="form-select" name="kilo_bale_dunlop" id="kilo_bale_dunlop" required
-                                    style='text-align:center; background-color:lightgreen;'>
-                                    <option value='' selected disabled>Select Kilo Bale</option>
-                                    <option value='35'>35 kg</option>
-                                    <option value='33.33'>33.33 kg</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <label class="form-label">Weight</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name='weight_dunlop' id="weight_dunlop"
-                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
-                            </div>
-                        </div>
-                        <div class="col">
-                            <label class="form-label">No. of Bale</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name='bale_num_dunlop' id="bale_num_dunlop"
-                                    onkeypress="return CheckNumeric()" readonly onkeyup="FormatCurrency(this)">
-                            </div>
-                        </div>
-                        <div class="col">
-                            <label class="form-label">Excess</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name='excess_dunlop' id="excess_dunlop"
-                                    onkeypress="return CheckNumeric()" readonly onkeyup="FormatCurrency(this)">
-                                <span class="input-group-text">Kg</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label class="form-label">Quality</label>
-                            <input type="text" class="form-control" name='quality_crown' id="p_quality_crown" readonly value="Crown">
-                        </div>
-                        <div class="col">
-                            <label class="form-label">Kilo Per Bale</label>
-                            <div class="input-group">
-                                <select class="form-select" name="kilo_bale_crown" id="kilo_bale_crown" required
-                                    style='text-align:center; background-color:lightgreen;'>
-                                    <option value='' selected disabled>Select Kilo Bale</option>
-                                    <option value='35'>35 kg</option>
-                                    <option value='33.33'>33.33 kg</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <label class="form-label">Weight</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name='weight_crown' id="weight_crown"
-                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
-                            </div>
-                        </div>
-                        <div class="col">
-                            <label class="form-label">No. of Bale</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name='bale_num_crown' id="bale_num_crown"
-                                    onkeypress="return CheckNumeric()" readonly onkeyup="FormatCurrency(this)">
-                            </div>
-                        </div>
-                        <div class="col">
-                            <label class="form-label">Excess</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name='excess_crown' id="excess_crown"
-                                    onkeypress="return CheckNumeric()" readonly onkeyup="FormatCurrency(this)">
-                                <span class="input-group-text">Kg</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label class="form-label">Quality</label>
-                            <input type="text" class="form-control" name='quality_spr' id="p_quality_spr" readonly value="SPR-10">
-                        </div>
-                        <div class="col">
-                            <label class="form-label">Kilo Per Bale</label>
-                            <div class="input-group">
-                                <select class="form-select" name="kilo_bale_spr" id="kilo_bale_spr" required
-                                    style='text-align:center; background-color:lightgreen;'>
-                                    <option value='' selected disabled>Select Kilo Bale</option>
-                                    <option value='35'>35 kg</option>
-                                    <option value='33.33'>33.33 kg</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <label class="form-label">Weight</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name='weight_spr' id="weight_spr"
-                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
-                            </div>
-                        </div>
-                        <div class="col">
-                            <label class="form-label">No. of Bale</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name='bale_num_spr' id="bale_num_spr"
-                                    onkeypress="return CheckNumeric()" readonly onkeyup="FormatCurrency(this)">
-                            </div>
-                        </div>
-                        <div class="col">
-                            <label class="form-label">Excess</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name='excess_spr' id="excess_spr"
-                                    onkeypress="return CheckNumeric()" readonly onkeyup="FormatCurrency(this)">
-                                <span class="input-group-text">Kg</span>
-                            </div>
-                        </div>
-                    </div>
 
             </div>
 
-            <div class="modal-footer">
+            <div class=" modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
                 <button type="submit" name="pressing_update" class="btn btn-primary">Process</button>
                 </form>
@@ -257,6 +239,36 @@
 
 
 <script>
+
+$("#kilo_bale_manhattan").on("change", function() {
+     updateComputeBales()
+});
+
+
+
+$("#kilo_bale_showa").on("change", function() {
+    updateComputeBales()
+});
+
+
+$("#kilo_bale_dunlop").on("change", function() {
+    updateComputeBales()
+});
+
+
+$("#kilo_bale_crown").on("change", function() {
+    updateComputeBales()
+});
+
+
+$("#kilo_bale_spr").on("change", function() {
+    updateComputeBales()
+});
+
+
+
+
+
 $(function() {
     $("#press_u_bale_weight").keyup(function() {
         updateComputeBales()
@@ -265,23 +277,22 @@ $(function() {
 });
 
 
-
 function updateComputeBales() {
 
-    var bales_weight = parseFloat($("#press_u_bale_weight").val().replace(/,/g, '').match(/[\d]+(\.[\d]+)?/)[0]);
-    var kilo_bale = parseFloat($("#press_u_kilo_per_bale").val().replace(/,/g, '').match(/[\d]+(\.[\d]+)?/)[0]);
+    // var bales_weight = parseFloat($("#press_u_bale_weight").val().replace(/,/g, '').match(/[\d]+(\.[\d]+)?/)[0]);
+    // var kilo_bale = parseFloat($("#press_u_kilo_per_bale").val().replace(/,/g, '').match(/[\d]+(\.[\d]+)?/)[0]);
 
 
-    bales = Math.floor((+bales_weight) / (+kilo_bale));
-    bales_decimal = ((+bales_weight) / (+kilo_bale)).toFixed(2);
-    excess_kilo = ((+bales_weight) % (+kilo_bale));
+    // bales = Math.floor((+bales_weight) / (+kilo_bale));
+    // bales_decimal = ((+bales_weight) / (+kilo_bale)).toFixed(2);
+    // excess_kilo = ((+bales_weight) % (+kilo_bale));
 
-    $("#press_u_numBale").val(bales);
-    $("#press_u_excess").val(excess_kilo);
-
-
+    // $("#press_u_numBale").val(bales);
+    // $("#press_u_excess").val(excess_kilo);
 
 
+
+console.log('hhh')
 }
 </script>
 
