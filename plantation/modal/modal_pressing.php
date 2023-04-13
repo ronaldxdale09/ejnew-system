@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="function/rubber_process.php" method="POST">
+                <form action="function/rubber_pressing.php" method="POST">
 
                     <input type="text" class="form-control" name='reweight' id="press_u_reweight" hidden readonly>
                     <div class="row mb-2">
@@ -32,7 +32,7 @@
                             <input type="text" class="form-control" name="lot_no" id="press_u_lot" readonly>
                         </div>
                     </div>
-                    <div class="row mb-3">
+                    <!-- <div class="row mb-3">
                         <div class="col">
                             <label class="form-label">Quality</label>
                             <input type="text" class="form-control" id="press_u_quality" readonly>
@@ -42,9 +42,9 @@
                             <input type="text" class="form-control" name="kilo_per_bale" id="press_u_kilo_per_bale"
                                 readonly>
                         </div>
-                    </div>
+                    </div> -->
                     <hr>
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" id='rubber-table'>
                         <thead>
                             <tr>
                                 <th scope="col" width='22%'>Quality</th>
@@ -60,7 +60,7 @@
                                 <td>
                                     <div class="input-group">
                                         <select class="form-select" name="kilo_bale_manhattan" id="kilo_bale_manhattan"
-                                            required style='text-align:center;'>
+                                             style='text-align:center;'>
                                             <option value='' selected disabled>Select</option>
                                             <option value='35'>35 kg</option>
                                             <option value='33.33'>33.33 kg</option>
@@ -94,7 +94,7 @@
                                 <td>Showa</td>
                                 <td>
                                     <div class="input-group">
-                                        <select class="form-select" name="kilo_bale_showa" id="kilo_bale_showa" required
+                                        <select class="form-select" name="kilo_bale_showa" id="kilo_bale_showa" 
                                             style='text-align:center;'>
                                             <option value='' selected disabled>Select</option>
                                             <option value='35'>35 kg</option>
@@ -119,7 +119,7 @@
                                     <div class="input-group">
                                         <input type="text" class="form-control" name='excess_showa' id="excess_showa"
                                             onkeypress="return CheckNumeric()" readonly onkeyup="FormatCurrency(this)">
-                                        <span class="input-group-text">Kg</span>
+                                        <span class="input-group-text">kg</span>
                                     </div>
                                 </td>
                             </tr>
@@ -128,7 +128,7 @@
                                 <td>
                                     <div class="input-group">
                                         <select class="form-select" name="kilo_bale_dunlop" id="kilo_bale_dunlop"
-                                            required style='text-align:center;'>
+                                             style='text-align:center;'>
                                             <option value='' selected disabled>Select</option>
                                             <option value='35'>35 kg</option>
                                             <option value='33.33'>33.33 kg</option>
@@ -152,7 +152,7 @@
                                     <div class="input-group">
                                         <input type="text" class="form-control" name='excess_dunlop' id="excess_dunlop"
                                             onkeypress="return CheckNumeric()" readonly onkeyup="FormatCurrency(this)">
-                                        <span class="input-group-text">Kg</span>
+                                        <span class="input-group-text">kg</span>
                                     </div>
                                 </td>
                             </tr>
@@ -160,7 +160,7 @@
                                 <td>Crown</td>
                                 <td>
                                     <div class="input-group">
-                                        <select class="form-select" name="kilo_bale_crown" id="kilo_bale_crown" required
+                                        <select class="form-select" name="kilo_bale_crown" id="kilo_bale_crown" 
                                             style='text-align:center;'>
                                             <option value='' selected disabled>Select</option>
                                             <option value='35'>35 kg</option>
@@ -185,7 +185,7 @@
                                     <div class="input-group">
                                         <input type="text" class="form-control" name='excess_crown' id="excess_crown"
                                             onkeypress="return CheckNumeric()" readonly onkeyup="FormatCurrency(this)">
-                                        <span class="input-group-text">Kg</span>
+                                        <span class="input-group-text">kg</span>
                                     </div>
                                 </td>
                             </tr>
@@ -193,7 +193,7 @@
                                 <td>SPR-10</td>
                                 <td>
                                     <div class="input-group">
-                                        <select class="form-select" name="kilo_bale_spr" id="kilo_bale_spr" required
+                                        <select class="form-select" name="kilo_bale_spr" id="kilo_bale_spr" 
                                             style='text-align:center;'>
                                             <option value='' selected disabled>Select</option>
                                             <option value='35'>35 kg</option>
@@ -218,19 +218,45 @@
                                     <div class="input-group">
                                         <input type="text" class="form-control" name='excess_spr' id="excess_spr"
                                             onkeypress="return CheckNumeric()" readonly onkeyup="FormatCurrency(this)">
-                                        <span class="input-group-text">Kg</span>
+                                        <span class="input-group-text">kg</span>
                                     </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+                    <hr>
 
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label class="form-label">Entry Weight</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="press_u_entry" readonly>
+                                <span class="input-group-text">kg</span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Total Weight</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="press_u_total_weight" readonly>
+                                <span class="input-group-text">kg</span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label class="form-label">DRC</label>
 
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="drc" id="press_u_drc"
+                                    style='text-align:right' readonly>
+                                <span class="input-group-text">%</span>
+                            </div>
+                        </div>
+                    </div>
             </div>
+
 
             <div class=" modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
-                <button type="submit" name="pressing_update" class="btn btn-primary">Process</button>
+                <button type="submit" name="pressing_update"  onclick="return validateTable();" class="btn btn-primary">Process</button>
                 </form>
             </div>
         </div>
@@ -240,29 +266,76 @@
 
 <script>
 
-$("#kilo_bale_manhattan").on("change", function() {
-     updateComputeBales()
+function validateTable() {
+  // Get the table element
+  var table = document.getElementById("rubber-table");
+
+  // Loop through the rows and check if any of them has some data
+  for (var i = 1; i < table.rows.length; i++) {
+    var row = table.rows[i];
+    var weight = row.querySelector("input[name^='weight']");
+    var baleNum = row.querySelector("input[name^='bale_num']");
+    var excess = row.querySelector("input[name^='excess']");
+
+    if (weight.value || baleNum.value || excess.value) {
+      return true; // At least one row has data
+    }
+  }
+
+  // If no row has data, show an error message
+  alert("Please enter some data in the table.");
+  return false;
+}
+
+
+
+$(document).ready(function() {
+    // Get all weight input fields
+    const weightFields = $('input[name^="weight_"]');
+
+    // Disable weight input fields by default
+    weightFields.prop('disabled', true);
+
+    // Add change event listener to all select elements
+    $('select[name^="kilo_bale_"]').change(function() {
+        // Get the corresponding weight input field
+        const weightField = $(`input[name="weight_${$(this).attr('id').substring(10)}"]`);
+
+        if ($(this).val() !== '') {
+            // Enable weight input field if a kilo per bale option is selected
+            weightField.prop('disabled', false);
+        } else {
+            // Disable weight input field if no kilo per bale option is selected
+            weightField.prop('disabled', true);
+        }
+    });
 });
 
 
 
+
+$("#kilo_bale_manhattan").on("change", function() {
+    computeBalesData()
+});
+
+
 $("#kilo_bale_showa").on("change", function() {
-    updateComputeBales()
+    computeBalesData()
 });
 
 
 $("#kilo_bale_dunlop").on("change", function() {
-    updateComputeBales()
+    computeBalesData()
 });
 
 
 $("#kilo_bale_crown").on("change", function() {
-    updateComputeBales()
+    computeBalesData()
 });
 
 
 $("#kilo_bale_spr").on("change", function() {
-    updateComputeBales()
+    computeBalesData()
 });
 
 
@@ -270,29 +343,107 @@ $("#kilo_bale_spr").on("change", function() {
 
 
 $(function() {
-    $("#press_u_bale_weight").keyup(function() {
-        updateComputeBales()
+    $("#weight_manhattan,#weight_showa,#weight_dunlop,#weight_crown,#weight_spr").keyup(function() {
+        computeBalesData()
     });
 
 });
 
+function computeBalesData() {
+    // Update computation for Manhattan
+    var kilo_bale_manhattan = $("#kilo_bale_manhattan").val() ? parseFloat($("#kilo_bale_manhattan").val().replace(/,/g,
+        '')) : 0;
+    var weight_manhattan = $("#weight_manhattan").val() ? parseFloat($("#weight_manhattan").val().replace(/,/g, '')) :
+        0;
 
-function updateComputeBales() {
+    // Update computation for Showa
+    var kilo_bale_showa = $("#kilo_bale_showa").val() ? parseFloat($("#kilo_bale_showa").val().replace(/,/g, '')) : 0;
+    var weight_showa = $("#weight_showa").val() ? parseFloat($("#weight_showa").val().replace(/,/g, '')) : 0;
 
-    // var bales_weight = parseFloat($("#press_u_bale_weight").val().replace(/,/g, '').match(/[\d]+(\.[\d]+)?/)[0]);
-    // var kilo_bale = parseFloat($("#press_u_kilo_per_bale").val().replace(/,/g, '').match(/[\d]+(\.[\d]+)?/)[0]);
+    // Update computation for Dunlop
+    var kilo_bale_dunlop = $("#kilo_bale_dunlop").val() ? parseFloat($("#kilo_bale_dunlop").val().replace(/,/g, '')) :
+        0;
+    var weight_dunlop = $("#weight_dunlop").val() ? parseFloat($("#weight_dunlop").val().replace(/,/g, '')) : 0;
+
+    // Update computation for Crown
+    var kilo_bale_crown = $("#kilo_bale_crown").val() ? parseFloat($("#kilo_bale_crown").val().replace(/,/g, '')) : 0;
+    var weight_crown = $("#weight_crown").val() ? parseFloat($("#weight_crown").val().replace(/,/g, '')) : 0;
+
+    // Update computation for SPR
+    var kilo_bale_spr = $("#kilo_bale_spr").val() ? parseFloat($("#kilo_bale_spr").val().replace(/,/g, '')) : 0;
+    var weight_spr = $("#weight_spr").val() ? parseFloat($("#weight_spr").val().replace(/,/g, '')) : 0;
 
 
-    // bales = Math.floor((+bales_weight) / (+kilo_bale));
-    // bales_decimal = ((+bales_weight) / (+kilo_bale)).toFixed(2);
-    // excess_kilo = ((+bales_weight) % (+kilo_bale));
 
-    // $("#press_u_numBale").val(bales);
-    // $("#press_u_excess").val(excess_kilo);
+    var entry_weight = $("#press_u_entry").val() ? parseFloat($("#press_u_entry").val().replace(/,/g, '')) : 0;
+
+    updateComputeBales(kilo_bale_manhattan, weight_manhattan, kilo_bale_showa, weight_showa, kilo_bale_dunlop,
+        weight_dunlop, kilo_bale_crown, weight_crown, kilo_bale_spr, weight_spr, entry_weight);
+}
+
+
+function updateComputeBales(kiloBaleManhattan, weightManhattan, kiloBaleShowa, weightShowa, kiloBaleDunlop,
+    weightDunlop, kiloBaleCrown, weightCrown, kiloBaleSpr, weightSpr, entry_weight) {
+    const getBalesAndExcessKilo = (kiloBale, weight) => {
+        if (kiloBale && weight) {
+            const bales = Math.floor(weight / kiloBale);
+            const excessKilo = (weight % kiloBale).toFixed(2);
+            return [bales, excessKilo];
+        }
+        return [0, 0];
+    };
+
+    const [mBales, excessManhattan] = getBalesAndExcessKilo(kiloBaleManhattan, weightManhattan);
+    $("#bale_num_manhattan").val(mBales.toLocaleString());
+    $("#excess_manhattan").val(excessManhattan.toLocaleString());
+
+    const [sBales, excessShowa] = getBalesAndExcessKilo(kiloBaleShowa, weightShowa);
+    $("#bale_num_showa").val(sBales.toLocaleString());
+    $("#excess_showa").val(excessShowa).toLocaleString();
+
+    const [dBales, excessDunlop] = getBalesAndExcessKilo(kiloBaleDunlop, weightDunlop);
+    $("#bale_num_dunlop").val(dBales.toLocaleString());
+    $("#excess_dunlop").val(excessDunlop.toLocaleString());
+
+    const [cBales, excessCrown] = getBalesAndExcessKilo(kiloBaleCrown, weightCrown);
+    $("#bale_num_crown").val(cBales.toLocaleString());
+    $("#excess_crown").val(excessCrown.toLocaleString());
+
+    const [sprBales, excessSpr] = getBalesAndExcessKilo(kiloBaleSpr, weightSpr);
+    $("#bale_num_spr").val(sprBales.toLocaleString());
+    $("#excess_spr").val(excessSpr.toLocaleString());
+
+
+    var totalWeight = weightManhattan + weightShowa + weightDunlop + weightCrown + weightSpr;
+
+    rubber_drc = (totalWeight / entry_weight) * 100
+
+
+    $("#press_u_total_weight").val(totalWeight.toLocaleString());
+
+    $("#press_u_drc").val(rubber_drc.toFixed(2));
 
 
 
-console.log('hhh')
+
+}
+/**
+ * Get number of bales and excess kilo for a given weight and kilo per bale.
+ *
+ * @param {number} kiloBale - The weight of a single bale in kilograms.
+ * @param {number} weight - The total weight in kilograms.
+ * @returns {[number, number]} - An array containing the number of bales and the excess kilo, respectively.
+ */
+function getBalesAndExcessKilo(kiloBale, weight) {
+    let numBales, excessKilo;
+    if (kiloBale && weight) {
+        numBales = Math.floor(weight / kiloBale);
+        excessKilo = (weight % kiloBale);
+    } else {
+        numBales = 0;
+        excessKilo = 0;
+    }
+    return [numBales, excessKilo];
 }
 </script>
 

@@ -9,7 +9,7 @@
                 <th scope="col">Supplier</th>
                 <th scope="col">Location</th>
                 <th scope="col">Lot No.</th>
-
+                <th scope="col">Entry Weight.</th>
                 <!-- <th scope="col" >WET Weight</th> -->
                 <th scope="col"> DRC</th>
          
@@ -25,7 +25,7 @@
                 <td> <?php echo $row['supplier']?> </td>
                 <td> <?php echo $row['location']?> </td>
                 <td> <?php echo $row['lot_num']?> </td>
-       
+                <td> <?php echo $row['weight']?> </td>
                 <td> <?php echo $row['drc']?> %</b></td>
 
                 <td class="text-center">
@@ -63,6 +63,8 @@ $('.btnPressUpdate').on('click', function() {
     $('#press_u_lot').val(data[4]);
 
     $('#press_u_quality').val(data[5]);
+
+    $('#press_u_entry').val(parseFloat(data[6]).toLocaleString());
 
     $('#press_u_kilo_per_bale').val(data[7]);
 

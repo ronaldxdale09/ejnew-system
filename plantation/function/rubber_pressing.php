@@ -9,48 +9,80 @@
         
         $id = $_POST['recording_id'];
 
-        $kilo_bale_manhattan = $_POST['kilo_bale_manhattan'];
-        $quality_manhattan = $_POST['quality_manhattan'];
-        $weight_manhattan = $_POST['weight_manhattan'];
-        $bale_num_manhattan = $_POST['bale_num_manhattan'];
-        $excess_manhattan = $_POST['excess_manhattan'];
-    
-        $kilo_bale_showa = $_POST['kilo_bale_showa'];
-        $quality_showa = $_POST['quality_showa'];
-        $weight_showa = $_POST['weight_showa'];
-        $bale_num_showa = $_POST['bale_num_showa'];
-        $excess_showa = $_POST['excess_showa'];
-    
-        $kilo_bale_dunlop = $_POST['kilo_bale_dunlop'];
-        $quality_dunlop = $_POST['quality_dunlop'];
-        $weight_dunlop = $_POST['weight_dunlop'];
-        $bale_num_dunlop = $_POST['bale_num_dunlop'];
-        $excess_dunlop = $_POST['excess_dunlop'];
-    
-        $kilo_bale_crown = $_POST['kilo_bale_crown'];
-        $quality_crown = $_POST['quality_crown'];
-        $weight_crown = $_POST['weight_crown'];
-        $bale_num_crown = $_POST['bale_num_crown'];
-        $excess_crown = $_POST['excess_crown'];
-    
-        $kilo_bale_spr = $_POST['kilo_bale_spr'];
-        $quality_spr = $_POST['quality_spr'];
-        $weight_spr = $_POST['weight_spr'];
-        $bale_num_spr = $_POST['bale_num_spr'];
-        $excess_spr = $_POST['excess_spr'];
-    
+        $rubberTypes = array(
+            'Manhattan' => array(
+                'kilo_bale' => $_POST['kilo_bale_manhattan'],
+                'weight' => $_POST['weight_manhattan'],
+                'bale_num' => $_POST['bale_num_manhattan'],
+                'excess' => $_POST['excess_manhattan']
+            ),
+            'Showa' => array(
+                'kilo_bale' => isset($_POST['kilo_bale_showa']) ? $_POST['kilo_bale_showa'] : '',
+                'weight' => isset($_POST['weight_showa']) ? $_POST['weight_showa'] : '',
+                'bale_num' => isset($_POST['bale_num_showa']) ? $_POST['bale_num_showa'] : '',
+                'excess' => isset($_POST['excess_showa']) ? $_POST['excess_showa'] : ''
+            ),
+            'Dunlop' => array(
+                'kilo_bale' => isset($_POST['kilo_bale_dunlop']) ? $_POST['kilo_bale_dunlop'] : '',
+                'weight' => isset($_POST['weight_dunlop']) ? $_POST['weight_dunlop'] : '',
+                'bale_num' => isset($_POST['bale_num_dunlop']) ? $_POST['bale_num_dunlop'] : '',
+                'excess' => isset($_POST['excess_dunlop']) ? $_POST['excess_dunlop'] : ''
+            ),
+            'Crown' => array(
+                'kilo_bale' => isset($_POST['kilo_bale_crown']) ? $_POST['kilo_bale_crown'] : '',
+                'weight' => isset($_POST['weight_crown']) ? $_POST['weight_crown'] : '',
+                'bale_num' => isset($_POST['bale_num_crown']) ? $_POST['bale_num_crown'] : '',
+                'excess' => isset($_POST['excess_crown']) ? $_POST['excess_crown'] : ''
+            ),
+            'SPR' => array(
+                'kilo_bale' => isset($_POST['kilo_bale_spr']) ? $_POST['kilo_bale_spr'] : '',
+                'weight' => isset($_POST['weight_spr']) ? $_POST['weight_spr'] : '',
+                'bale_num' => isset($_POST['bale_num_spr']) ? $_POST['bale_num_spr'] : '',
+                'excess' => isset($_POST['excess_spr']) ? $_POST['excess_spr'] : ''
+            )
+        );
+
+    // loop through the rubber types and insert them into the database
+
+    foreach ($rubberTypes as $rubberType => $rubberData) {
+        $kilo_bale = $rubberData['kilo_bale'];
+        $weight = $rubberData['weight'];
+        $bale_num = $rubberData['bale_num'];
+        $excess = $rubberData['excess'];
+
+        // insert the data into the database using the appropriate SQL statement
+        $sql = "INSERT INTO planta_bales_production (recording_id, bales_type, kilo_per_bale, rubber_weight, number_bales, bales_excess, status) 
+                VALUES ('$id', '$rubberType', '$kilo_bale', '$weight', '$bale_num', '$excess', 'Production')";
+        // execute the SQL statement
+        $result = mysqli_query($con, $sql);
+        if (!$result) {
+            die('Error inserting data: ' . mysqli_error($con));
+        }
+    }
 
 
-        $query = "UPDATE `planta_recording` SET `status`='Pressing',`pressing_date`='$date',
-        `bale_total_kilo`='$bales_weight',`bale_excess`='$bale_excess',drc='$drc',bale_no='$bale_num'
-        WHERE recording_id='$id'";
+    //     // $bale_num_spr = $_POST['bale_num_spr'];
+    //     // $excess_spr = $_POST['excess_spr'];
+
+
+            
+        // // loop through the array and display the data
+        // foreach ($rubberTypes as $type => $data) {
+        //     echo $type . '<br>';
+        //     echo 'Kilo per bale: ' . $data['kilo_bale'] . '<br>';
+        //     echo 'Weight: ' . $data['weight'] . '<br>';
+        //     echo 'No. of bale: ' . $data['bale_num'] . '<br>';
+        //     echo 'Excess: ' . $data['excess'] . '<br>';
+        //     echo '<br>';
+        // }
+
                              
-        if(mysqli_query($con, $query)) {  
-            header("Location: ../recording.php?tab=4");
-            exit();
-        } else {  
-            echo "ERROR: Could not execute $query. " . mysqli_error($con); 
-        }  
+    //     if(mysqli_query($con, $sql)) {  
+    //         header("Location: ../recording.php?tab=4");
+    //         exit();
+    //     } else {  
+    //         echo "ERROR: Could not execute $query. " . mysqli_error($con); 
+    //     }  
     }
 
 

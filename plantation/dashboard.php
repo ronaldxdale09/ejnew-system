@@ -189,7 +189,7 @@
                     </div>
 
                     <br>
-                    
+
                     <div class="row">
                         <div class="card" style="width:100%;max-width:100%;">
                             <div class="card-body" style="width:100%;max-width:100%;">
@@ -209,9 +209,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <br>
-                                <div class="row" style="display: flex; align-items: stretch;">
+
+                                    <br>
                                     <div class="col" style="display: flex;">
                                         <div class="card" style="width: 100%;">
                                             <div class="card-body">
@@ -268,7 +267,7 @@ new Chart(inventory_all, {
         },
     },
 
-    type: 'pie', //Declare the chart type 
+    type: 'pie',
     data: {
         labels: <?php echo json_encode($month) ?>, //X-axis data 
         datasets: [{
@@ -281,7 +280,6 @@ new Chart(inventory_all, {
         }]
     },
 });
-
 
 <?php
     $Bales_currentYear = date("Y");
