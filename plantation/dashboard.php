@@ -62,9 +62,9 @@
                             <div class="stat-card" style="width: 100%;">
                                 <div class="stat-card__content">
                                     <p class="text-uppercase mb-1 text-muted"><b>CUPLUMP</b> INVENTORY</p>
-                                    <h3><i class="text-danger font-weight-bold mr-1"></i>
+                                    <h4><i class="text-danger font-weight-bold mr-1"></i>
                                         <?php echo number_format($sumPurchaced_wet['month_total']); ?> KG
-                                    </h3>
+                                    </h4>
                                 </div>
                                 <div class="stat-card__icon stat-card__icon--success">
                                     <div class="stat-card__icon-circle">
@@ -77,9 +77,9 @@
                             <div class="stat-card" style="width: 100%;">
                                 <div class="stat-card__content">
                                     <p class="text-uppercase mb-1 text-muted"><b>CRUMB</b> INVENTORY</p>
-                                    <h3><i class="text-danger font-weight-bold mr-1"></i>
+                                    <h4><i class="text-danger font-weight-bold mr-1"></i>
                                         <?php echo number_format($sumPurchaced_bales['month_total']); ?> KG
-                                    </h3>
+                                    </h4>
                                 </div>
                                 <div class="stat-card__icon stat-card__icon--danger">
                                     <div class="stat-card__icon-circle">
@@ -92,9 +92,9 @@
                             <div class="stat-card" style="width: 100%;">
                                 <div class="stat-card__content">
                                     <p class="text-uppercase mb-1 text-muted"><b>BLANKET</b> INVENTORY</p>
-                                    <h3><i class="text-danger font-weight-bold mr-1"></i>
+                                    <h4><i class="text-danger font-weight-bold mr-1"></i>
                                         <?php echo number_format($sumPurchaced_bales['month_total']); ?> KG
-                                    </h3>
+                                    </h4>
                                 </div>
                                 <div class="stat-card__icon stat-card__icon--warning">
                                     <div class="stat-card__icon-circle">
@@ -107,9 +107,9 @@
                             <div class="stat-card" style="width: 100%;">
                                 <div class="stat-card__content">
                                     <p class="text-uppercase mb-1 text-muted"><b>BALES (KG)</b> INVENTORY</p>
-                                    <h3><i class="text-danger font-weight-bold mr-1"></i>
+                                    <h4><i class="text-danger font-weight-bold mr-1"></i>
                                         <?php echo number_format($sumPurchaced_bales['month_total']); ?> KG
-                                    </h3>
+                                    </h4>
                                 </div>
                                 <div class="stat-card__icon stat-card__icon--info">
                                     <div class="stat-card__icon-circle">
@@ -122,9 +122,9 @@
                             <div class="stat-card" style="width: 100%;">
                                 <div class="stat-card__content">
                                     <p class="text-uppercase mb-1 text-muted"><b>BALES</b> INVENTORY</p>
-                                    <h3><i class="text-danger font-weight-bold mr-1"></i>
+                                    <h4><i class="text-danger font-weight-bold mr-1"></i>
                                         <?php echo number_format($sumPurchaced_bales['month_total']); ?>
-                                    </h3>
+                                    </h4>
                                 </div>
                                 <div class="stat-card__icon stat-card__icon--primary">
                                     <div class="stat-card__icon-circle">
@@ -145,7 +145,7 @@
                                     <div class="col" style="display: flex;">
                                         <div class="card" style="width: 100%;">
                                             <div class="card-body">
-                                                <canvas id="inventory_all" height="350"></canvas>
+                                                <canvas id="inventory_all" height="300"></canvas>
                                             </div>
                                         </div>
                                     </div>
@@ -153,7 +153,7 @@
                                     <div class="col" style="display: flex;">
                                         <div class="card" style="width: 100%;">
                                             <div class="card-body">
-                                                <canvas id="inventory_bales" height="350"></canvas>
+                                                <canvas id="inventory_bales" height="300"></canvas>
                                             </div>
                                         </div>
                                     </div>
@@ -161,7 +161,7 @@
                                     <div class="col" style="display: flex;">
                                         <div class="card" style="width: 100%;">
                                             <div class="card-body">
-                                                <canvas id="inventory_blanket" height="350"></canvas>
+                                                <canvas id="inventory_blanket" height="300"></canvas>
                                             </div>
                                         </div>
                                     </div>
@@ -175,12 +175,24 @@
                     <div class="row" style="display: flex; align-items: stretch;">
                         <div class="card" style="width:100%;max-width:100%;">
                             <div class="card-body" style="width:100%;max-width:100%;">
-                                <h5>DAILY CUPLUMP INVENTORY LEVEL</h5>
-                                <div class="col" style="display: flex;">
-                                    <div class="card" style="width: 100%">
-                                        <div class="card-body">
-                                            <canvas id="cuplump_inventory" style="width: 100%; max-width: 100%;"
-                                                height="200"></canvas>
+                                <h5>DAILY INVENTORY LEVEL</h5>
+                                <div class="row">
+                                    <div class="col" style="display: flex;">
+                                        <div class="card" style="width: 100%;">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <canvas id="cuplump_inventory" height="200"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col" style="display: flex;">
+                                        <div class="card" style="width: 100%;">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <canvas id="bales_inventory" height="200"></canvas>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -194,28 +206,45 @@
                         <div class="card" style="width:100%;max-width:100%;">
                             <div class="card-body" style="width:100%;max-width:100%;">
                                 <h5>PRODUCTION VOLUME</h5>
-                                <div class="row" style="display: flex; align-items: stretch;">
+                                <div class="row">
                                     <div class="col" style="display: flex;">
                                         <div class="card" style="width: 100%;">
                                             <div class="card-body">
-                                                <canvas id="monthly_milling" height="350"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col" style="display: flex;">
-                                        <div class="card" style="width: 100%;">
-                                            <div class="card-body">
-                                                <canvas id="monthly_drying" height="350"></canvas>
+                                                <div class="row">
+                                                    <canvas id="monthly_milling" height="200"></canvas>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
 
                                     <br>
+
                                     <div class="col" style="display: flex;">
                                         <div class="card" style="width: 100%;">
                                             <div class="card-body">
-                                                <canvas id="monthly_production" height="350"></canvas>
+                                                <div class="row">
+                                                    <canvas id="monthly_drying" height="200"></canvas>
+                                                </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+
+                                <div class="card" style="width: 100%;">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <canvas id="monthly_production" height="200"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+
+                                <div class="card" style="width: 100%;">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <canvas id="all_production" height="200"></canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -260,12 +289,18 @@ cuplump_inventory = document.getElementById("cuplump_inventory");
               }
         ?>
 
+
+
+// CHARTS START HERE======================================================================
 new Chart(inventory_all, {
     options: {
         plugins: {
             title: {
                 display: true,
                 text: 'Inventory (Kilo)',
+            },
+            legend: {
+                position: 'bottom',
             },
         },
     },
@@ -276,14 +311,13 @@ new Chart(inventory_all, {
         datasets: [{
             label: 'Purchased',
             data: <?php echo json_encode($amount) ?>, //Y-axis data 
-            backgroundColor: ['rgba(0, 192, 15)', 'rgba(150, 150, 150)', 'rgba(255, 206, 56)',
-                'rgba(255, 99, 132)', 'rgba(54, 162, 235)'
-            ],
+            backgroundColor: ['#C42F1A', '#567417', '#90C226', '#E6B91E'],
             tension: 0.3,
             fill: false, //Fills the curve under the line with the babckground color. It's true by default
         }]
     },
 });
+
 
 <?php
     $Bales_currentYear = date("Y");
@@ -306,6 +340,10 @@ new Chart(inventory_bales, {
                 display: true,
                 text: 'Bales Inventory (Quality Breakdown)',
             },
+            
+            legend: {
+                position: 'bottom',
+            },
         },
     },
     type: 'doughnut', //Declare the chart type 
@@ -314,7 +352,7 @@ new Chart(inventory_bales, {
         datasets: [{
             label: 'Bales',
             data: <?php echo json_encode($bales) ?>, //Y-axis data 
-            backgroundColor: ['#0D57A1', '#0B3D91', '#083681', '#062F71', '#042861', '#011B51'],
+            backgroundColor: ['#2e83c3', '#2e946b', '#96d141', '#0002B5', '#1c4f75', '#1c5940'],
             tension: 0.3,
             fill: false
         }]
@@ -329,7 +367,25 @@ new Chart(inventory_blanket, {
                 display: true,
                 text: 'Blanket Inventory (Days Dry Age)',
             },
+            legend: {
+                display: false // dataset labels
+            }
         },
+        scales: {
+            y: {
+                ticks: {
+                    display: true // Y-Axis Label (#)
+                },
+                grid: {
+                    display: true // y-axis gridlines
+                }
+            },
+            x: {
+                grid: {
+                    display: false // x-axis gridlines
+                }
+            }
+        }
     },
     type: 'bar', //Declare the chart type 
     data: {
@@ -347,41 +403,121 @@ new Chart(inventory_blanket, {
 
 
 // CUPLUMP INVENTORY LEVEL ------------------design complete
-
 new Chart(cuplump_inventory, {
     type: 'bar', //Declare the chart type 
     data: {
         labels: <?php echo json_encode($month_bales) ?>, //X-axis data 
-        datasets: [{
-            label: 'Cuplumps',
-            data: <?php echo json_encode($bales) ?>, //Y-axis data 
-            backgroundColor: '#011B51',
-            tension: 0.3,
-            fill: false, //Fills the curve under the line with the babckground color. It's true by default
-        }]
+        datasets: [
+            {
+                label: 'Cuplumps',
+                data: <?php echo json_encode($bales) ?>, //Y-axis data 
+                backgroundColor: '#B84404',
+                tension: 0.3,
+                fill: false, //Fills the curve under the line with the babckground color. It's true by default
+            },
+            {
+                label: 'Received',
+                data: <?php echo json_encode($bales) ?>, //Y-axis data for incoming cuplumps
+                type: 'line', // Line chart
+                backgroundColor: 'rgba(255, 140, 0, 0.5)',
+                borderColor: 'rgb(255, 140, 0)',
+                tension: 0.3,
+                fill: false,
+            },
+            {
+                label: 'Processed',
+                data: <?php echo json_encode($bales) ?>, //Y-axis data for outgoing cuplumps
+                type: 'line', // Line chart
+                backgroundColor: 'rgba(255, 105, 0, 0.5)',
+                borderColor: 'rgb(255, 105, 0)',
+                tension: 0.3,
+                fill: false,
+            }
+        ]
     },
     options: {
         plugins: {
             title: {
-                display: false,
-                text: 'Cuplump Daily Inventory',
+                display: true,
+                text: 'Daily Cuplump Inventory',
             },
             legend: {
-                display: false // Hide dataset labels
+                display: true // dataset labels
             }
         },
         scales: {
             y: {
                 ticks: {
-                    display: false // Hide y-axis labels
+                    display: true // Y-Axis Label (#)
                 },
                 grid: {
-                    display: false // Hide y-axis gridlines
+                    display: false // y-axis gridlines
                 }
             },
             x: {
                 grid: {
-                    display: false // Hide x-axis gridlines
+                    display: false // x-axis gridlines
+                }
+            }
+        }
+    }
+});
+
+// BALES INVENTORY LEVEL ------------------design complete
+new Chart(bales_inventory, {
+    type: 'bar', //Declare the chart type 
+    data: {
+        labels: <?php echo json_encode($month_bales) ?>, //X-axis data 
+        datasets: [
+            {
+                label: 'Bales',
+                data: <?php echo json_encode($bales) ?>, //Y-axis data 
+                backgroundColor: '#B84404',
+                tension: 0.3,
+                fill: false, //Fills the curve under the line with the babckground color. It's true by default
+            },
+            {
+                label: 'Production',
+                data: <?php echo json_encode($bales) ?>, //Y-axis data for incoming cuplumps
+                type: 'line', // Line chart
+                backgroundColor: 'rgba(255, 140, 0, 0.5)',
+                borderColor: 'rgb(255, 140, 0)',
+                tension: 0.3,
+                fill: false,
+            },
+            {
+                label: 'Delivery',
+                data: <?php echo json_encode($bales) ?>, //Y-axis data for outgoing cuplumps
+                type: 'line', // Line chart
+                backgroundColor: 'rgba(255, 105, 0, 0.5)',
+                borderColor: 'rgb(255, 105, 0)',
+                tension: 0.3,
+                fill: false,
+            }
+        ]
+    },
+    options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Daily Bales Inventory',
+            },
+            legend: {
+                display: true // dataset labels
+            }
+        },
+        scales: {
+            y: {
+                ticks: {
+                    display: true // Y-Axis Label (#)
+                },
+                grid: {
+                    display: false // y-axis gridlines
+                }
+            },
+            x: {
+                grid: {
+                    display: false // x-axis gridlines
                 }
             }
         }
@@ -390,60 +526,117 @@ new Chart(cuplump_inventory, {
 
 
 
+// CRUMB PRODUCTION=========================================================
 new Chart(monthly_milling, {
     options: {
         plugins: {
             title: {
                 display: true,
-                text: 'Monthly Total Bales Purchased',
+                text: 'Monthly Crumb Production (Milling)',
             },
+            legend: {
+                display: false // dataset labels
+            }
         },
+        scales: {
+            y: {
+                ticks: {
+                    display: true // Y-Axis Label (#)
+                },
+                grid: {
+                    display: false // y-axis gridlines
+                }
+            },
+            x: {
+                grid: {
+                    display: false // x-axis gridlines
+                }
+            }
+        }
     },
-    type: 'bar', //Declare the chart type 
+    type: 'line', //Declare the chart type 
     data: {
         labels: <?php echo json_encode($month_bales) ?>, //X-axis data 
         datasets: [{
-            label: 'Bales',
+            label: 'Crumbs',
             data: <?php echo json_encode($bales) ?>, //Y-axis data 
-            backgroundColor: '#781710',
-            borderColor: '#781710',
+            backgroundColor: '#617391',
             tension: 0.3,
             fill: false, //Fills the curve under the line with the babckground color. It's true by default
         }]
     },
 });
 
+// BLANKET PRODUCTION=========================================================
 new Chart(monthly_drying, {
     options: {
         plugins: {
             title: {
                 display: true,
-                text: 'Monthly Total Bales Purchased',
+                text: 'Monthly Blanket Production (Drying)',
             },
+            legend: {
+                display: false // dataset labels
+            }
         },
+        scales: {
+            y: {
+                ticks: {
+                    display: false // Y-Axis Label (#)
+                },
+                grid: {
+                    display: false // y-axis gridlines
+                }
+            },
+            x: {
+                grid: {
+                    display: false // x-axis gridlines
+                }
+            }
+        }
     },
-    type: 'bar', //Declare the chart type 
+    type: 'line', //Declare the chart type 
     data: {
         labels: <?php echo json_encode($month_bales) ?>, //X-axis data 
         datasets: [{
-            label: 'Bales',
+            label: 'Blankets',
             data: <?php echo json_encode($bales) ?>, //Y-axis data 
-            backgroundColor: '#781710',
-            borderColor: '#781710',
+            backgroundColor: '#3892BA',
             tension: 0.3,
             fill: false, //Fills the curve under the line with the babckground color. It's true by default
         }]
     },
 });
+
+
+// BALES PRODUCTION=========================================================
 
 new Chart(monthly_production, {
     options: {
         plugins: {
             title: {
                 display: true,
-                text: 'Monthly Total Bales Purchased',
+                text: 'Monthly Bale Production (Pressing)',
             },
+            legend: {
+                display: false // dataset labels
+            }
         },
+        scales: {
+            y: {
+                ticks: {
+                    display: true // Y-Axis Label (#)
+                },
+                grid: {
+                    display: false // y-axis gridlines
+                }
+            },
+            x: {
+                grid: {
+                    display: false // x-axis gridlines
+                }
+            }
+        }
     },
     type: 'bar', //Declare the chart type 
     data: {
@@ -451,11 +644,70 @@ new Chart(monthly_production, {
         datasets: [{
             label: 'Bales',
             data: <?php echo json_encode($bales) ?>, //Y-axis data 
-            backgroundColor: '#781710',
-            borderColor: '#781710',
+            backgroundColor: '#10599C',
             tension: 0.3,
             fill: false, //Fills the curve under the line with the babckground color. It's true by default
         }]
     },
 });
+
+new Chart(all_production, {
+    options: {
+        plugins: {
+            title: {
+                display: true, // title
+                text: 'Production Comparison',
+            },
+            legend: {
+                display: true, // Show dataset labels
+            }
+        },
+        scales: {
+            y: {
+                ticks: {
+                    display: true // Y-Axis Label (#)
+                },
+                grid: {
+                    display: false // y-axis gridlines
+                }
+            },
+            x: {
+                grid: {
+                    display: false // x-axis gridlines
+                }
+            }
+        }
+    },
+    type: 'line', //Declare the chart type 
+    data: {
+        labels: <?php echo json_encode($month_bales) ?>, //X-axis data 
+        datasets: [
+            {
+                label: 'Milling',
+                data: <?php echo json_encode($bales) ?>, //Y-axis data for milling
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                borderColor: 'rgb(255, 99, 132)',
+                tension: 0.3,
+                fill: true, // Area fill
+            },
+            {
+                label: 'Drying',
+                data: <?php echo json_encode($bales) ?>, //Y-axis data for drying
+                backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.3,
+                fill: true, // Area fill
+            },
+            {
+                label: 'Bales',
+                data: <?php echo json_encode($bales) ?>, //Y-axis data for bales
+                backgroundColor: 'rgba(255, 205, 86, 0.5)',
+                borderColor: 'rgb(255, 205, 86)',
+                tension: 0.3,
+                fill: true, // Area fill
+            }
+        ]
+    },
+});
+
 </script>

@@ -138,7 +138,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                             class="form-control" onkeypress="return CheckNumeric()"
                                             onkeyup="FormatCurrency(this)" required>
                                         <div class="input-group-append">
-                                            <span class="input-group-text">Kg</span>
+                                            <span class="input-group-text">kg</span>
                                         </div>
 
                                     </div>
@@ -184,7 +184,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                         </div>
                         <div class="col-3">
                             <div class="input-group mb-12">
-                                <label class="col-md-12">LOT #</label>
+                                <label class="col-md-12">Lot No.</label>
                                 <div class="col-md-12">
                                     <input type="text" style='text-align:left' name='lot_num' id='r_lot_num'
                                         class="form-control" required>
@@ -198,7 +198,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                     class="form-control" onkeypress="return CheckNumeric()"
                                     onkeyup="FormatCurrency(this)" required>
                                 <div class="input-group-append">
-                                    <span class="input-group-text">Kg</span>
+                                    <span class="input-group-text">kg</span>
                                 </div>
                             </div>
                         </div>
@@ -280,7 +280,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                         <input type="text" style="text-align:right" id="rt_weight" readonly
                                             class="form-control">
                                         <div class="input-group-append">
-                                            <span class="input-group-text">Kg</span>
+                                            <span class="input-group-text">kg</span>
                                         </div>
                                     </div>
                                 </div>
@@ -292,7 +292,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                         <input type="text" style="text-align:right" name="reweight" id="rt_reweight"
                                             readonly class="form-control">
                                         <div class="input-group-append">
-                                            <span class="input-group-text">Kg</span>
+                                            <span class="input-group-text">kg</span>
                                         </div>
                                     </div>
                                 </div>

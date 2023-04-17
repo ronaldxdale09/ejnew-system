@@ -13,7 +13,7 @@
                 <!-- <th scope="col" >WET Weight</th> -->
                 <th scope="col"> Total Weight</th>
                 <th scope="col"> DRC</th>
-               
+
                 <th scope="col" class="text-center">Action</th>
             </tr>
         </thead>
@@ -90,7 +90,7 @@ $('.btnPressUpdate').on('click', function() {
         });
     }
     fetch_data();
-    
+
 
 });
 
@@ -107,11 +107,38 @@ $('.btnCompletePressing').on('click', function() {
         return $(this).text();
     }).get();
 
-    $('#trans_supplier').val(data[3]);
-    $('#trans_crumbed_weight').val(data[7]);
-    $('#trans_recording_id').val(data[0]);
 
-    $('#modal_press_transfer').modal('show');
+    $('#press_trans_id').val(data[1]);
+    $('#press_trans_date').val(data[2]);
+    $('#press_trans_supplier').val(data[3]);
+    $('#press_trans_loc').val(data[4]);
+    $('#press_trans_lot').val(data[5]);
+
+    
+    $('#press_trans_entry').val(parseFloat(data[6]).toLocaleString());
+
+    $('#press_trans_drc').val(data[8]);
+    $('#press_trans_total_weight').val(data[7]);
+
+    function fetch_data() {
+
+        var recording_id = data[1].replace(/\s+/g, '');
+        $.ajax({
+            url: "table/pressing_data.php",
+            method: "POST",
+            data: {
+                recording_id: recording_id,
+
+            },
+            success: function(data) {
+                $('#pressing_modal_trans_table').html(data);
+                $('#modal_press_transfer').modal('show');
+
+            }
+        });
+    }
+    fetch_data();
+
 
 
 });

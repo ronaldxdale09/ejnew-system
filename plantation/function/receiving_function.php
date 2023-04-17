@@ -15,7 +15,8 @@
                     
                             $driver = $_POST['driver'];
                             $truck_num = $_POST['truck_num'];
-                            $weight = $_POST['weight'];
+    
+                            $weight = str_replace(',', '', $_POST['weight']);
                             $reweight = str_replace(',', '', $_POST['reweight']);
 
                             $cost = str_replace(',', '', $_POST['cost']);

@@ -60,8 +60,8 @@
             $('#rt_supplier').val(data[4]);
             $('#rt_location').val(data[5]);
             $('#rt_lot_no').val(data[6]);
-            $('#rt_weight').val(data[9]);
-            $('#rt_reweight').val(data[10]);
+            $('#rt_weight').val(data[8]);
+            $('#rt_reweight').val(data[9]);
             
             $('#modal_transMil').modal('show');
 

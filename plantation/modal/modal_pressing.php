@@ -44,7 +44,7 @@
                         </div>
                     </div> -->
                     <hr>
-                   <div id='pressing_modal_update_table'></div>
+                    <div id='pressing_modal_update_table'></div>
                     <hr>
 
                     <div class="row mb-3">
@@ -77,7 +77,8 @@
 
             <div class=" modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
-                <button type="submit" name="pressing_update"  onclick="return validateTable();" class="btn btn-primary">Process</button>
+                <button type="submit" name="pressing_update" onclick="return validateTable();"
+                    class="btn btn-primary">Process</button>
                 </form>
             </div>
         </div>
@@ -97,15 +98,13 @@
             </div>
             <div class="modal-body">
                 <form action="function/rubber_process.php" method="POST">
-                    <input type="text" style='text-align:left' name='recording_id' id='trans_recording_id' hidden
-                        readonly class="form-control">
 
                     <div class="row no-gutters">
 
                         <div class="col-3">
                             <div class="input-group mb-12">
                                 <label class="col-md-12">ID</label>
-                                <input type="text" style='text-align:center' name='weight' id='process_supplier'
+                                <input type="text" style='text-align:center' name='recording_id' id='press_trans_id'
                                     readonly class="form-control" onkeypress="return CheckNumeric()"
                                     onkeyup="FormatCurrency(this)" required>
                             </div>
@@ -118,8 +117,8 @@
                             <div class="input-group mb-12">
                                 <label class="col-md-12">Date</label>
                                 <!-- DATE TODAY/DATE OF TRANSFER, BUT EDITABLE. ALL ELSE IS NOT INPUT -->
-                                <input type="text" style='text-align:center' name='weight' id='process_supplier'
-                                    readonly class="form-control" onkeypress="return CheckNumeric()"
+                                <input type="text" style='text-align:center' name='date' id='press_trans_date' readonly
+                                    class="form-control" onkeypress="return CheckNumeric()"
                                     onkeyup="FormatCurrency(this)" required>
                             </div>
                         </div>
@@ -132,24 +131,24 @@
                         <div class="col">
                             <div class="input-group mb-12">
                                 <label class="col-md-12">Supplier</label>
-                                <input type="text" style='text-align:center' name='weight' id='trans_supplier' readonly
-                                    class="form-control" onkeypress="return CheckNumeric()"
+                                <input type="text" style='text-align:center' name='supplier' id='press_trans_supplier'
+                                    readonly class="form-control" onkeypress="return CheckNumeric()"
                                     onkeyup="FormatCurrency(this)" required>
                             </div>
                         </div>
 
-                        <div class="col-4">
+                        <div class="col">
                             <div class="input-group mb-12">
                                 <label class="col-md-12">Location</label>
-                                <input type="text" style='text-align:center' name='weight' id='process_supplier'
-                                    readonly class="form-control" onkeypress="return CheckNumeric()"
+                                <input type="text" style='text-align:center' name='loc' id='press_trans_loc' readonly
+                                    class="form-control" onkeypress="return CheckNumeric()"
                                     onkeyup="FormatCurrency(this)" required>
                             </div>
                         </div>
 
                         <div class="col-3">
                             <label class="col-md-12">Lot No.</label>
-                            <input type="text" style='text-align:center' name='lot_no' id='process_lot_no' readonly
+                            <input type="text" style='text-align:center' name='lot_no' id='press_trans_lot' readonly
                                 class="form-control" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
                                 required>
                         </div>
@@ -157,95 +156,35 @@
                     </div>
                     <hr>
 
-                    <div class="form-group">
-                        <center>
 
-                            <div class="row no-gutters">
+                    <hr>
+                    <div id='pressing_modal_trans_table'></div>
+                    <hr>
 
-                                <div class="col">
-                                    <label class="col-md-12">Dry Weight </label>
-                                    <div class="input-group mb-1">
-                                        <div class="input-group mb-1">
-                                            <input type="text" style='text-align:right' name='crumbed_weight'
-                                                id='trans_crumbed_weight' readonly class="form-control">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">Kg</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col">
-                                    <label class="col-md-12">Bale Weight </label>
-                                    <div class="input-group mb-1">
-                                        <div class="input-group mb-1">
-                                            <input type="text" style='text-align:right' name='crumbed_weight'
-                                                id='trans_crumbed_weight' readonly class="form-control">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">Kg</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-2">
-                                    <label class="col-md-12">DRC</label>
-                                    <div class="input-group mb-1">
-                                        <div class="input-group mb-1">
-                                            <input type="text" style='text-align:right' name='drc' id='drc' readonly
-                                                class="form-control">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label class="form-label">Entry Weight</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name='entry_weight' id="press_trans_entry" readonly>
+                                <span class="input-group-text">kg</span>
                             </div>
-
-                            <div class="row no-gutters">
-
-                                <div class="col">
-                                    <label class="col-md-12">Quality </label>
-                                    <div class="input-group mb-1">
-                                        <div class="input-group mb-1">
-                                            <input type="text" style='text-align:right' name='crumbed_weight'
-                                                id='trans_crumbed_weight' readonly class="form-control">
-                                            <div class="input-group-append">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col">
-                                    <label class="col-md-12">Kilo per Bale</label>
-                                    <div class="input-group mb-1">
-                                        <div class="input-group mb-1">
-                                            <input type="text" style='text-align:right' name='crumbed_weight'
-                                                id='trans_crumbed_weight' readonly class="form-control">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">Kg</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col">
-                                    <label class="col-md-12">No. of Bale</label>
-                                    <div class="input-group mb-1">
-                                        <div class="input-group mb-1">
-                                            <input type="text" style='text-align:right' name='crumbed_weight'
-                                                id='trans_crumbed_weight' readonly class="form-control">
-                                            <div class="input-group-append">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Total Weight</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="press_trans_total_weight" readonly>
+                                <span class="input-group-text">kg</span>
                             </div>
+                        </div>
+                        <div class="col">
+                            <label class="form-label">DRC</label>
 
-                        </center>
-
-
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="drc" id="press_trans_drc"
+                                    style='text-align:right' readonly>
+                                <span class="input-group-text">%</span>
+                            </div>
+                        </div>
                     </div>
 
 
@@ -286,14 +225,14 @@
                         <div class="form-group">
                             <div class="row no-gutters">
 
-                                <div class="col-5">
+                                <div class="col">
                                     <div class="input-group mb-12">
                                         <label class="col-md-12">Supplier</label>
                                         <input type="text" style='text-align:center' name='weight' id='dry_v_supplier'
                                             readonly class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-4">
+                                <div class="col">
                                     <div class="input-group mb-12">
                                         <label class="col-md-12">Location</label>
                                         <input type="text" style='text-align:center' id='dry_v_loc' readonly
@@ -302,7 +241,7 @@
                                 </div>
 
                                 <div class="col-3">
-                                    <label class="col-md-12">Lot # </label>
+                                    <label class="col-md-12">Lot No. </label>
                                     <div class="input-group mb-1">
                                         <div class="input-group mb-1">
                                             <input type="text" style='text-align:right' id='dry_v_lot' readonly
