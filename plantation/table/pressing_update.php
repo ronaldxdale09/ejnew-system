@@ -31,42 +31,42 @@ $output = '
 
 
 
-    $output .= '
-        <tr>
-        <td ><input type="text" class="form-control" name="type[]" autocomplete="off" step="any"
-        value="'.$arr["bales_type"].'" style="border:none;"readonly /> </td>
-            <td>
-                <div class="input-group">
-                <select class="form-select" name="kilo_bale_'.$arr['bales_type'].'" id="kilo_bale_'.$arr['bales_type'].'" style="text-align:center;">
-                    <option value="" selected disabled>Select</option>
-                    <option value="0" >Empty</option>
-                    <option value="35" '.($arr["kilo_per_bale"] == "35" ? "selected" : "").'>35 kg</option>
-                    <option value="33.33" '.($arr["kilo_per_bale"] == "33.33" ? "selected" : "").'>33.33 kg</option>
-                </select>
-                </div>
-            </td>
-            <td>
-                <div class="input-group">
-                    <input type="text" class="form-control" name="weight_'.$arr['bales_type'].'" id="weight_'.$arr['bales_type'].'" value="'.$arr["rubber_weight"].'"
-                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
-                </div>
-            </td>
-            <td>
-                <div class="input-group">
-                    <input type="text" class="form-control" name="bale_num_'.$arr['bales_type'].'" id="bale_num_'.$arr['bales_type'].'" value="'.$arr["number_bales"].'"
-                        onkeypress="return CheckNumeric()" readonly onkeyup="FormatCurrency(this)">
-                </div>
-            </td>
-            <td>
-                <div class="input-group">
-                    <input type="text" class="form-control" name="excess_'.$arr['bales_type'].'" id="excess_'.$arr['bales_type'].'" value="'.$arr["bales_excess"].'"
-                        onkeypress="return CheckNumeric()" readonly onkeyup="FormatCurrency(this)">
-                    <span class="input-group-text">kg</span>
-                </div>
-            </td>
-        </tr>';
-}
-}
+            $output .= '
+            <tr>
+            <td ><input type="text" class="form-control" name="type[]" autocomplete="off" step="any"
+            value="'.$arr["bales_type"].'" style="border:none;"readonly /> </td>
+                <td>
+                    <div class="input-group">
+                    <select class="form-select" name="kilo_bale_'.$arr['bales_type'].'" id="kilo_bale_'.$arr['bales_type'].'" style="text-align:center;">
+                        <option value="" selected disabled>Select</option>
+                        <option value="0" >Empty</option>
+                        <option value="35" '.($arr["kilo_per_bale"] == "35" ? "selected" : "").'>35 kg</option>
+                        <option value="33.33" '.($arr["kilo_per_bale"] == "33.33" ? "selected" : "").'>33.33 kg</option>
+                    </select>
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="weight_'.$arr['bales_type'].'" id="weight_'.$arr['bales_type'].'" value="'.$arr["rubber_weight"].'"
+                            onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="bale_num_'.$arr['bales_type'].'" id="bale_num_'.$arr['bales_type'].'" value="'.$arr["number_bales"].'"
+                            onkeypress="return CheckNumeric()" readonly onkeyup="FormatCurrency(this)">
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="excess_'.$arr['bales_type'].'" id="excess_'.$arr['bales_type'].'" value="'.$arr["bales_excess"].'"
+                            onkeypress="return CheckNumeric()" readonly onkeyup="FormatCurrency(this)">
+                        <span class="input-group-text">kg</span>
+                    </div>
+                </td>
+            </tr>';
+        }
+    }
 
 $output .= '
     </tbody>
@@ -81,7 +81,7 @@ echo $output;
 $(document).ready(function() {
     $('select[name^="kilo_bale_"]').change(function() {
         var bales_type = $(this).attr("id").replace('kilo_bale_', '');
-        var weight_input = $('input[name="weight_'+bales_type+'"]');
+        var weight_input = $('input[name="weight_' + bales_type + '"]');
         if ($(this).val() == 0) {
             weight_input.attr('readonly', true);
             weight_input.val('');

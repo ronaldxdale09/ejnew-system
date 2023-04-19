@@ -35,22 +35,9 @@
     </a>
 
     <hr style='color:gray'>
-    <!-- SALE -->
-    <a class='nav-link' href='sales_bales.php'>
-        <i class='fa-solid fa-chart-line'></i> <span class='nav-text'>Bales Sales</span>
-    </a>
-
-    <a class='nav-link' href='sales_wet.php'>
-        <i class='fa-solid fa-chart-line'></i> <span class='nav-text'>Wet Export</span>
-    </a>
-
-    <a class='nav-link' href='sales_record.php'>
-        <i class='fa-solid fa-book'></i> <span class='nav-text'>Sales Record</span>
-    </a>
-
+  
 <!-- OTHER -->
 
-    <hr style='color:gray'>
 
     <a class='nav-link' href='seller.php'>
         <i class='fa-solid fa-user'></i> <span class='nav-text'>Suppliers</span>

@@ -113,6 +113,8 @@
             </div>
             <div class="modal-body">
                 <form action="function/rubber_process.php" method="POST">
+                <input type="text" style='text-align:center' name='recording_id' id='trans_mill_id'
+                                    readonly class="form-control" hidden>
 <!-- 
                     <div class="row no-gutters">
                         <div class="col-5">
@@ -130,8 +132,7 @@
                         <div class="col-3">
                             <div class="input-group mb-12">
                                 <label class="col-md-12">ID</label>
-                                <input type="text" style='text-align:center' name='recording_id' id='trans_mill_id'
-                                    readonly class="form-control">
+                             
                             </div>
                         </div>
 

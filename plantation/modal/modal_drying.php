@@ -114,7 +114,8 @@
             </div>
             <div class="modal-body">
                 <form action="function/rubber_process.php" method="POST">
-
+                <input type="text" style='text-align:center' name='recording_id' id='trans_dry_id'
+                                    readonly class="form-control" hidden>
 <!-- 
                     <div class="row no-gutters">
 

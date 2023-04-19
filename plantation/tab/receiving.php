@@ -10,7 +10,6 @@
                 <th scope="col">Status</th>
                 <th scope="col"> ID</th>
                 <th scope="col">Date Received</th>
-                <th scope="col">Time</th>
                 <th scope="col">Supplier</th>
                 <th scope="col">Location</th>
                 <th scope="col">Lot No.</th>
@@ -30,7 +29,6 @@
                 </td>
                 <td > <?php echo $row['recording_id']?> </td>
                 <td> <?php echo $row['receiving_date']?> </td>
-                <td> </td>
                 <td> <?php echo $row['supplier']?> </td>
                 <td> <?php echo $row['location']?> </td>
                 <td> <?php echo $row['lot_num']?> </td>

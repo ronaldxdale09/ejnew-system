@@ -31,14 +31,14 @@
 
 
                 <td class="text-center">
-                    <button type="button" class="btn btn-success btn-sm btnMilUpdate">
-                    <i class="fas fa-edit"></i> </button>
+                    <button type="button" class="btn btn-success btn-sm btnMilUpdate" id='btnMilUpdate'>
+                        <i class="fas fa-edit"></i> </button>
                     <button type="button" class="btn btn-warning btn-sm btnMilTransfer ">
-                    <i class="fas fa-chevron-right"> </i> </button>
-                    <button type="button" class="btn btn-primary btn-dark btn-sm btnViewRecordMilling"> 
+                        <i class="fas fa-chevron-right"> </i> </button>
+                    <button type="button" class="btn btn-primary btn-dark btn-sm btnViewRecordMilling">
                         <i class="fas fa-book"></i></button>
                 </td>
-                
+
                 <td>
                 </td>
 
@@ -83,17 +83,25 @@ $('.btnMilTransfer').on('click', function() {
     $('#trans_mill_crumbed_weight').val(data[7]);
 
     crumbed_weight = parseFloat((data[7]).match(/[\d]+(\.[\d]+)?/)[0]);
-    // Check if crumbed weight is zero
-    if (crumbed_weight == 0) {
-        Swal.fire({
-            position: 'center',
-            icon: 'warning',
-            title: 'Ensure crumbed weight was updated before drying.',
-            showConfirmButton: false,
-            timer: 2000
-        })
-        return false;
-    } else {
+
+    Swal.fire({
+        title: 'Proceed with zero crumb weight?',
+        confirmButtonText: 'Update',
+        confirmButtonColor: '#3085d6',
+        showConfirmButton: false,
+        html: ` <br> <br>
+        <div class="text-center">
+           
+            <button id="updateButton" class="btn btn-success mr-2">Update</button>
+            <button id="proceedButton" class="btn btn-warning mr-2">Proceed</button>
+            <button id="closeButton" class="btn btn-secondary">Close</button>
+        </div>
+    `
+    });
+
+    // Add a click event listener to the "Proceed" button
+    document.getElementById('proceedButton').addEventListener('click', function() {
+        Swal.close();
         function fetch_table() {
             var recording_id = (data[1]);
             $.ajax({
@@ -110,7 +118,34 @@ $('.btnMilTransfer').on('click', function() {
         fetch_table();
 
         $('#modal_milling_transfer').modal('show');
+    });
+
+    // Example function
+    function functionToProceed() {
+        console.log('Proceed button clicked');
     }
+
+    // Add a click event listener to the "Update" button
+    document.getElementById('updateButton').addEventListener('click', function() {
+        // Your function to execute when "Update" button is clicked
+        functionToUpdate();
+    });
+
+    // Example function
+    function functionToUpdate() {
+        Swal.close();
+        document.getElementById('btnMilUpdate').click();
+    }
+
+    // Add a click event listener to the "Close" button
+    document.getElementById('closeButton').addEventListener('click', function() {
+        // Your function to execute when "Close" button is clicked
+        Swal.close();
+    });
+
+
+
+
 });
 
 

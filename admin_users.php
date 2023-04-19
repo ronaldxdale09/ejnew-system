@@ -101,6 +101,7 @@
                                                             <option value='admin'>Admin</option>
                                                             <option value='copra'>Copra</option>
                                                             <option value='finance'>Finance</option>
+                                                            <option value='sales'>Sales</option>
                                                             <option value='planta'>Planta</option>
                                                             <option value='rubber'>Rubber</option>
 

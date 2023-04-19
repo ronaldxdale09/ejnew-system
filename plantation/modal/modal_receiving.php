@@ -192,6 +192,8 @@ while ($arr = mysqli_fetch_assoc($result)) {
             <div class="modal-body">
                 <form action="function/rubber_process.php" method="POST">
                     <div class="form-group">
+                    <input type="text" style="text-align:center" name="recording_id" id="rt_receving_id"
+                                        readonly class="form-control" hidden>
                         <!-- <div class="row">
                             <div class="col-5">
                                 <div class="form-group">
@@ -208,8 +210,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                             <div class="col-3">
                                 <div class="form-group">
                                     <label>ID</label>
-                                    <input type="text" style="text-align:center" name="recording_id" id="rt_receving_id"
-                                        readonly class="form-control">
+                                   
                                 </div>
                             </div>
                         </div>

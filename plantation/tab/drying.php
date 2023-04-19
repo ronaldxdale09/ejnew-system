@@ -20,7 +20,8 @@
 
 
                 <td>
-                    <span class="badge bg-warning"> <?php echo $row['status']?> </spa> </td>
+                    <span class="badge bg-warning"> <?php echo $row['status']?> </spa>
+                </td>
                 <td> <?php echo $row['recording_id']?> </td>
                 <td> <?php echo $row['milling_date']?> </td>
                 <td> <?php echo $row['supplier']?> </td>
@@ -29,9 +30,9 @@
                 <td> <?php echo $row['reweight'] ? $row['reweight'] : '0'?> Kg </td>
                 <td> <?php echo $row['dry_weight'] ? $row['dry_weight'] : '0' ?> Kg</td>
                 <td> day/s </td>
- <!-- AGE, COUNT DAYS FROM TRANSFERRED TO TODAY -->
+                <!-- AGE, COUNT DAYS FROM TRANSFERRED TO TODAY -->
                 <td class="text-center">
-                    <button type="button" class="btn btn-success btn-sm btnDryUpdate">
+                    <button type="button" class="btn btn-success btn-sm btnDryUpdate" id='btnDryUpdate'>
                         <i class="fas fa-edit"></i> </button>
                     <button type="button" class="btn btn-warning btn-sm btnDryTransfer">
                         <i class="fas fa-chevron-right"></i> </button>
@@ -85,18 +86,27 @@ $('.btnDryTransfer').on('click', function() {
     $('#trans_dry_weight').val(data[7]);
 
 
-    dry_weight = parseFloat((data[7]).match(/[\d]+(\.[\d]+)?/)[0]);
-    // Check if crumbed weight is zero
-    if (dry_weight == 0) {
-        Swal.fire({
-            position: 'center',
-            icon: 'warning',
-            title: 'Ensure dry weight was updated before drying.',
-            showConfirmButton: false,
-            timer: 2000
-        })
-        return false;
-    } else {
+
+
+
+    Swal.fire({
+        title: 'Proceed with zero crumb weight?',
+        confirmButtonText: 'Update',
+        confirmButtonColor: '#3085d6',
+        showConfirmButton: false,
+        html: ` <br> <br>
+        <div class="text-center">
+           
+            <button id="updateButtonDry" class="btn btn-success mr-2">Update</button>
+            <button id="proceedButtonDry" class="btn btn-warning mr-2">Proceed</button>
+            <button id="closeButtonDry" class="btn btn-secondary">Close</button>
+        </div>
+    `
+    });
+
+    // Add a click event listener to the "Proceed" button
+    document.getElementById('proceedButtonDry').addEventListener('click', function() {
+        Swal.close();
         $('#modal_drying_transfer').modal('show');
 
 
@@ -116,9 +126,20 @@ $('.btnDryTransfer').on('click', function() {
             });
         }
         fetch_table();
+    });
 
+    // Add a click event listener to the "Update" button
+    document.getElementById('updateButtonDry').addEventListener('click', function() {
+        document.getElementById('btnDryUpdate').click();
+        Swal.close();
 
-    }
+    });
+
+    // Add a click event listener to the "Close" button
+    document.getElementById('closeButtonDry').addEventListener('click', function() {
+        // Your function to execute when "Close" button is clicked
+        Swal.close();
+    });
 
 
 
