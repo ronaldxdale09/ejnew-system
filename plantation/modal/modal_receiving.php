@@ -27,7 +27,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
 
                     <div class="form-group">
                         <div class="row no-gutters">
-                            <div class="col-5">
+                            <center>
                                 <div class="input-group mb-12">
                                     <label class="col-md-12"></label>
                                     <div class="col-md-12">
@@ -35,35 +35,15 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                             name='purchased_id' id='r_select_purchase'>
                                             <option disabled="disabled" selected="selected" value="">Select Invoice
                                             </option>
-                                            <!-- INVOICE DITO NOT SELLER -->
                                             <?php echo $listPurchased; ?>
                                         </select>
                                     </div>
-
                                 </div>
-                            </div>
-
-                            <div class="col">
-                                <div class="input-group mb-12">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroup-sizing-default"
-                                            style='color:black;'>Date</span>
-                                    </div>
-                                    <input type="datetime-local" style='text-align:left' name='date' id='r_date'
-                                        value='<?php echo $dateNow?>' class="form-control"
-                                        style='background-color:white;border:0px solid #ffffff;'>
-                                </div>
-                            </div>
-
-                          
-                            <!--end  -->
-                            <div class="col-6 col-md-6">
-
-                            </div>
+                            </center>
                         </div>
-                    </div>
-                    <hr>
-                    <center>
+
+                        <br>
+
                         <div class="form-group">
                             <div class="row no-gutters">
 
@@ -96,66 +76,52 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
-                    </center>
 
-                    <div class="form-group">
-                        <center>
-                            <div class="form-group">
-                                <div class="row no-gutters">
-                                    <div class="col">
-                                        <div class="input-group mb-12">
-                                            <label class="col-md-12">Driver</label>
-                                            <div class="col-md-12">
-                                                <input type="text" style='text-align:left' name='driver' required
-                                                    class="form-control">
-                                            </div>
+                        <hr>
 
-                                        </div>
-                                    </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="r_date">Date and Time</label>
+                                    <input type="datetime-local" style='text-align:left' name='date' id='r_date'
+                                        value='<?php echo $dateNow?>' class="form-control"
+                                        style='background-color:white;border:0px solid #ffffff;'>
+                                </div>
 
-                                    <!--end  -->
-                                    <div class="col">
-                                        <label class="col-md-12"> </label>
-                                        <div class="input-group mb-1">
-                                            <div class="input-group mb-1">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="inputGroup-sizing-default"
-                                                        style='color:black;'>Truck #</span>
-                                                </div>
-                                                <input type="text" style='text-align:right' name='truck_num'
-                                                    class="form-control" required>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="col">
+                                    <label for="driver">Driver</label>
+                                    <input type="text" style='text-align:left' name='driver' required
+                                        class="form-control">
+                                </div>
+
+                                <div class="col-3">
+                                    <label for="truck_num">Truck No.</label>
+                                    <input type="text" style='text-align:right' name='truck_num' class="form-control"
+                                        required>
                                 </div>
                             </div>
-                        </center>
-                    </div>
-                    <!--  end-->
+                        </div>
 
-
-                    <hr>
-                    <div class="form-group">
                         <div class="form-group">
-                            <center style="margin: 0px 60px;">
-                                <div class="row no-gutters">
-                                    <div class="col">
-                                        <div class="input-group mb-12">
-                                            <label class="col-md-12">Weight</label>
+                            <div class="form-group">
+                                <center style="margin: 0px 60px;">
+                                    <div class="row no-gutters">
+                                        <div class="col">
+                                            <div class="input-group mb-12">
+                                                <label class="col-md-12">Weight</label>
 
-                                            <input type="text" style='text-align:right' name='weight' id='r_weight'
-                                                readonly class="form-control" onkeypress="return CheckNumeric()"
-                                                onkeyup="FormatCurrency(this)" required>
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">kg</span>
+                                                <input type="text" style='text-align:right' name='weight' id='r_weight'
+                                                    readonly class="form-control" onkeypress="return CheckNumeric()"
+                                                    onkeyup="FormatCurrency(this)" required>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">kg</span>
+                                                </div>
+
                                             </div>
-
                                         </div>
-                                    </div>
-                                    <!-- 
+                                        <!-- 
                                 <div class="col-3">
                                     <label class="col-md-12">Kilo Cost</label>
                                     <div class="input-group mb-1">
@@ -184,32 +150,33 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                     </div>
                                 </div> -->
 
-                                    <div class="col">
-                                        <div class="input-group mb-12">
-                                            <label class="col-md-12">Reweight</label>
-                                            <input type="text" style='text-align:right' name='reweight' id='reweight'
-                                                class="form-control" onkeypress="return CheckNumeric()"
-                                                onkeyup="FormatCurrency(this)" required>
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">kg</span>
+                                        <div class="col">
+                                            <div class="input-group mb-12">
+                                                <label class="col-md-12">Reweight</label>
+                                                <input type="text" style='text-align:right' name='reweight'
+                                                    id='reweight' class="form-control"
+                                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
+                                                    required>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">kg</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </center>
+                                </center>
+                            </div>
                         </div>
                     </div>
             </div>
-        </div>
 
 
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" name='add' class="btn btn-success text-white">Submit</button>
-            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" name='add' class="btn btn-success text-white">Submit</button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 </div>
 
 <div class="modal fade" id="modal_transMil" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -225,7 +192,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
             <div class="modal-body">
                 <form action="function/rubber_process.php" method="POST">
                     <div class="form-group">
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-5">
                                 <div class="form-group">
                                     <label>Date Received</label>
@@ -247,7 +214,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                             </div>
                         </div>
 
-                        <br>
+                        <br> -->
                         <div class="row">
                             <div class="col-5">
                                 <div class="form-group">

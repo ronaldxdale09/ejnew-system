@@ -115,13 +115,12 @@
             <div class="modal-body">
                 <form action="function/rubber_process.php" method="POST">
 
-
+<!-- 
                     <div class="row no-gutters">
 
                         <div class="col-5">
                             <div class="input-group mb-12">
                                 <label class="col-md-12">Date Received</label>
-                                <!-- DATE TODAY/DATE OF TRANSFER, BUT EDITABLE. ALL ELSE IS NOT INPUT -->
                                 <input type="text" style='text-align:center' id='trans_dry_date' readonly
                                     class="form-control">
                             </div>
@@ -139,7 +138,7 @@
                         </div>
 
                     </div>
-                    <br>
+                    <br> -->
                     <div class="row no-gutters">
 
                         <div class="col">

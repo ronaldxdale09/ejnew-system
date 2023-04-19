@@ -367,7 +367,7 @@ new Chart(inventory_blanket, {
             },
             legend: {
                 display: false // dataset labels
-            }
+            },
         },
         scales: {
             y: {
@@ -676,21 +676,21 @@ new Chart(all_production, {
         datasets: [{
                 label: 'Milling',
                 data: <?php echo json_encode($bales) ?>, //Y-axis data for milling
-                backgroundColor: '#10599C',
+                borderColor: '#96d141',
                 tension: 0.3,
-                fill: true, // Area fill
+                fill: false, // Area fill
             },
             {
                 label: 'Drying',
                 data: <?php echo json_encode($bales) ?>, //Y-axis data for drying
                 borderColor: '#2e946b',
                 tension: 0.3,
-                fill: true, // Area fill
+                fill: false, // Area fill
             },
             {
                 label: 'Bales',
                 data: <?php echo json_encode($bales) ?>, //Y-axis data for bales
-                borderColor: '#96d141',
+                backgroundColor: '#10599C',
                 tension: 0.3,
                 fill: true, // Area fill
             }

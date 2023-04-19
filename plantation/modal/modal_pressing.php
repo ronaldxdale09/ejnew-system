@@ -92,13 +92,13 @@
             </div>
             <div class="modal-body">
                 <form action="function/rubber_process.php" method="POST">
-
+<!-- 
                     <div class="row no-gutters">
 
                     <div class="col-5">
                             <div class="input-group mb-12">
                                 <label class="col-md-12">Date Received</label>
-                                <!-- DATE TODAY/DATE OF TRANSFER, BUT EDITABLE. ALL ELSE IS NOT INPUT -->
+                            
                                 <input type="text" style='text-align:center' name='date' id='press_trans_date' readonly
                                     class="form-control" onkeypress="return CheckNumeric()"
                                     onkeyup="FormatCurrency(this)" required>
@@ -119,7 +119,7 @@
 
                     </div>
 
-                    <br>
+                    <br> -->
                     <div class="row no-gutters">
 
                         <div class="col">
