@@ -1,6 +1,6 @@
 <div class="modal fade" id="modal_drying_update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog " role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header bg-dark text-white">
                 <h5 class="modal-title" id="exampleModalLabel">Drying | Update</h5>
@@ -90,7 +90,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
-                <button type="submit" name="dry_update" class="btn btn-primary">Process</button>
+                <button type="submit" name="dry_update" class="btn btn-success">Update</button>
                 </form>
             </div>
         </div>
@@ -118,23 +118,23 @@
 
                     <div class="row no-gutters">
 
-                        <div class="col-3">
+                        <div class="col-5">
                             <div class="input-group mb-12">
-                                <label class="col-md-12">ID</label>
-                                <input type="text" style='text-align:center' name='recording_id' id='trans_dry_id'
-                                    readonly class="form-control">
+                                <label class="col-md-12">Date Received</label>
+                                <!-- DATE TODAY/DATE OF TRANSFER, BUT EDITABLE. ALL ELSE IS NOT INPUT -->
+                                <input type="text" style='text-align:center' id='trans_dry_date' readonly
+                                    class="form-control">
                             </div>
                         </div>
 
                         <div class="col">
                         </div>
 
-                        <div class="col-5">
+                        <div class="col-3">
                             <div class="input-group mb-12">
-                                <label class="col-md-12">Date</label>
-                                <!-- DATE TODAY/DATE OF TRANSFER, BUT EDITABLE. ALL ELSE IS NOT INPUT -->
-                                <input type="text" style='text-align:center' id='trans_dry_date' readonly
-                                    class="form-control">
+                                <label class="col-md-12">ID</label>
+                                <input type="text" style='text-align:center' name='recording_id' id='trans_dry_id'
+                                    readonly class="form-control">
                             </div>
                         </div>
 

@@ -118,6 +118,21 @@
         }  
     }
 
+      // UPDATE DRY WEIGHT IN MILLING
+      if (isset($_POST['press_transfer'])) {
+        $id = $_POST['recording_id'];
+  
+
+        $query = "UPDATE `planta_recording` SET `status`='Produced' WHERE recording_id='$id'";
+                             
+        if(mysqli_query($con, $query)) {  
+            header("Location: ../recording.php?tab=5");
+            exit();
+        } else {  
+            echo "ERROR: Could not execute $query. " . mysqli_error($con); 
+        }  
+    }
+
 
 
 ?>

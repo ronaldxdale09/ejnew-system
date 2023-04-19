@@ -9,13 +9,8 @@
                 <th scope="col">Supplier</th>
                 <th scope="col">Location</th>
                 <th scope="col">Lot No.</th>
-
-                <th scope="col">Bale Type</th>
                 <th scope="col">DRC</th>
                 <th scope="col">Total Weight</th>
-                <th scope="col">Bale Kilo</th>
-                <th scope="col">Bales</th>
-                <th scope="col">Excess</th>
 
 
                 <th scope="col" class="text-center">Action</th>
@@ -26,16 +21,17 @@
                     <span class="badge bg-primary"> <?php echo $row['status']?> </spa>
                 </td>
 
+                <td> <?php echo $row['recording_id']?> </td>
+                <td> <?php echo $row['pressing_date']?> </td>
                 <td> <?php echo $row['supplier']?> </td>
                 <td> <?php echo $row['location']?> </td>
                 <td> <?php echo $row['lot_num']?> </td>
-                <td> <?php echo $row['bale_no']?> </td>
-                <td> <?php echo $row['bale_excess']?> </td>
-                <td> <?php echo $row['bale_kilo']?> </td>
+             
+                <td> <?php echo $row['drc']?> </td>
                 <td> <?php echo $row['bale_total_kilo']?> </td>
 
 
-                <td class="text-center"> <button type="button" class="btn btn-success btn-dark btn-sm producedView">
+                <td class="text-center"> <button type="button" class="btn btn-success btn-dark btn-sm btnProducedView">
                     <i class="fas fa-book"></i> </button> </td>
 
             </tr> <?php } ?> </tbody>
@@ -61,5 +57,52 @@
         });
 
         
+        
+
+
+
+$('.btnProducedView').on('click', function() {
+    $tr = $(this).closest('tr');
+
+    var data = $tr.children("td").map(function() {
+        return $(this).text();
+    }).get();
+
+
+    $('#prod_trans_id').val(data[1]);
+    $('#prod_trans_date').val(data[2]);
+    $('#prod_trans_supplier').val(data[3]);
+    $('#prod_trans_loc').val(data[4]);
+    $('#prod_trans_lot').val(data[5]);
+
+    
+    $('#prod_trans_entry').val(parseFloat(data[6]).toLocaleString());
+
+    $('#prod_trans_drc').val(data[8]);
+    $('#prod_trans_total_weight').val(data[7]);
+
+    function fetch_data() {
+
+        var recording_id = data[1].replace(/\s+/g, '');
+        $.ajax({
+            url: "table/pressing_data.php",
+            method: "POST",
+            data: {
+                recording_id: recording_id,
+
+            },
+            success: function(data) {
+                $('#produced_modal_table').html(data);
+                $('#modal_produced_record').modal('show');
+
+            }
+        });
+    }
+    fetch_data();
+
+
+
+});
+
 </script>
 

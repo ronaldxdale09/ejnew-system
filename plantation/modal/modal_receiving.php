@@ -27,7 +27,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
 
                     <div class="form-group">
                         <div class="row no-gutters">
-                            <div class="col-8">
+                            <div class="col-5">
                                 <div class="input-group mb-12">
                                     <label class="col-md-12"></label>
                                     <div class="col-md-12">
@@ -42,17 +42,20 @@ while ($arr = mysqli_fetch_assoc($result)) {
 
                                 </div>
                             </div>
-                            <div class="col-4">
+
+                            <div class="col">
                                 <div class="input-group mb-12">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="inputGroup-sizing-default"
-                                            style='color:black;font-weight: bold;'>Date</span>
+                                            style='color:black;'>Date</span>
                                     </div>
-                                    <input type="date" style='text-align:left' name='date' id='r_date'
+                                    <input type="datetime-local" style='text-align:left' name='date' id='r_date'
                                         value='<?php echo $dateNow?>' class="form-control"
                                         style='background-color:white;border:0px solid #ffffff;'>
                                 </div>
                             </div>
+
+                          
                             <!--end  -->
                             <div class="col-6 col-md-6">
 
@@ -64,7 +67,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                         <div class="form-group">
                             <div class="row no-gutters">
 
-                                <div class="col-6">
+                                <div class="col-5">
                                     <div class="input-group mb-12">
                                         <label class="col-md-12">Supplier</label>
                                         <div class="col-md-12">
@@ -74,7 +77,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                     </div>
                                 </div>
 
-                                <div class="col-6">
+                                <div class="col-4">
                                     <div class="input-group mb-12">
                                         <label class="col-md-12">Location</label>
                                         <div class="col-md-12">
@@ -84,6 +87,15 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                     </div>
                                 </div>
 
+                                <div class="col-3">
+                                    <div class="input-group mb-12">
+                                        <label class="col-md-12">Lot No.</label>
+                                        <div class="col-md-12">
+                                            <input type="text" style='text-align:left' name='lot_num' id='r_lot_num'
+                                                class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
                         </div>
@@ -128,22 +140,22 @@ while ($arr = mysqli_fetch_assoc($result)) {
                     <hr>
                     <div class="form-group">
                         <div class="form-group">
-                            <div class="row no-gutters">
+                            <center style="margin: 0px 60px;">
+                                <div class="row no-gutters">
+                                    <div class="col">
+                                        <div class="input-group mb-12">
+                                            <label class="col-md-12">Weight</label>
 
-                                <div class="col-4">
-                                    <div class="input-group mb-12">
-                                        <label class="col-md-12">Weight</label>
+                                            <input type="text" style='text-align:right' name='weight' id='r_weight'
+                                                readonly class="form-control" onkeypress="return CheckNumeric()"
+                                                onkeyup="FormatCurrency(this)" required>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">kg</span>
+                                            </div>
 
-                                        <input type="text" style='text-align:right' name='weight' id='r_weight' readonly
-                                            class="form-control" onkeypress="return CheckNumeric()"
-                                            onkeyup="FormatCurrency(this)" required>
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">kg</span>
                                         </div>
-
                                     </div>
-                                </div>
-
+                                    <!-- 
                                 <div class="col-3">
                                     <label class="col-md-12">Kilo Cost</label>
                                     <div class="input-group mb-1">
@@ -170,56 +182,39 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                                 id='r_total_cost' readonly class="form-control">
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
 
-                            </div>
+                                    <div class="col">
+                                        <div class="input-group mb-12">
+                                            <label class="col-md-12">Reweight</label>
+                                            <input type="text" style='text-align:right' name='reweight' id='reweight'
+                                                class="form-control" onkeypress="return CheckNumeric()"
+                                                onkeyup="FormatCurrency(this)" required>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">kg</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </center>
                         </div>
                     </div>
-
-                    <hr>
-
-                    <div class="row">
-
-                        <div class="col-4">
-                        </div>
-                        <div class="col-3">
-                            <div class="input-group mb-12">
-                                <label class="col-md-12">Lot No.</label>
-                                <div class="col-md-12">
-                                    <input type="text" style='text-align:left' name='lot_num' id='r_lot_num'
-                                        class="form-control" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-5">
-                            <div class="input-group mb-12">
-                                <label class="col-md-12">Reweight</label>
-                                <input type="text" style='text-align:right' name='reweight' id='reweight'
-                                    class="form-control" onkeypress="return CheckNumeric()"
-                                    onkeyup="FormatCurrency(this)" required>
-                                <div class="input-group-append">
-                                    <span class="input-group-text">kg</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!--  end-->
-
-                    </div>
-            </div>
-
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" name='add' class="btn btn-success text-white">Submit</button>
-                </form>
             </div>
         </div>
+
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" name='add' class="btn btn-success text-white">Submit</button>
+            </form>
+        </div>
     </div>
+</div>
 </div>
 
 <div class="modal fade" id="modal_transMil" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header bg-dark text-white">
                 <h5 class="modal-title" id="exampleModalLabel">Rubber | Transfer to Milling</h5>
@@ -231,6 +226,18 @@ while ($arr = mysqli_fetch_assoc($result)) {
                 <form action="function/rubber_process.php" method="POST">
                     <div class="form-group">
                         <div class="row">
+                            <div class="col-5">
+                                <div class="form-group">
+                                    <label>Date Received</label>
+                                    <input type="text" style="text-align:center" id="rt_receiving_date" readonly
+                                        class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col">
+                            </div>
+
+
                             <div class="col-3">
                                 <div class="form-group">
                                     <label>ID</label>
@@ -238,15 +245,8 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                         readonly class="form-control">
                                 </div>
                             </div>
-                            <div class="col-3"></div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label>Date Received</label>
-                                    <input type="text" style="text-align:center" id="rt_receiving_date" readonly
-                                        class="form-control">
-                                </div>
-                            </div>
                         </div>
+
                         <br>
                         <div class="row">
                             <div class="col-5">

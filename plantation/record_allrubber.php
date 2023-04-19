@@ -45,16 +45,12 @@
                                                     <th scope="col">Supplier</th>
                                                     <th scope="col">Location</th>
                                                     <th scope="col">Lot No.</th>
-                                                    <th scope="col">Bale Type</th>
                                                     <th scope="col">Cuplump Weight</th>
                                                     <th scope="col">Reweight</th>
                                                     <th scope="col">Crumbed Weight</th>
                                                     <th scope="col">Blanket Weight</th>
                                                     <th scope="col">Bale Weight</th>
                                                     <th scope="col">DRC</th>
-                                                    <th scope="col">Bale Kilo</th>
-                                                    <th scope="col">Bales</th>
-                                                    <th scope="col">Excess</th>
                                                     <th scope="col">Action</th>
                                                 </tr>
                                             </thead>
@@ -90,16 +86,12 @@
                                                     <td> <?php echo $row['supplier']?> </td>
                                                     <td> <?php echo $row['location']?> </td>
                                                     <td> <?php echo $row['lot_num']?> </td>
-                                                    <td> </td> <!-- type -->
                                                     <td> <?php echo number_format($row['weight'], 0, '.', ','); ?> kg</td>
                                                     <td> <?php echo number_format($row['reweight'], 0, '.', ','); ?> kg</td>
                                                     <td> <?php echo number_format($row['crumbed_weight'], 0, '.', ','); ?> kg</td>
                                                     <td> <?php echo number_format($row['dry_weight'], 0, '.', ','); ?> kg</td>
                                                     <td> <?php echo number_format($row['bale_total_kilo'], 0, '.', ','); ?> kg</td>
                                                     <td> <?php echo $row['drc']?>%</td>
-                                                    <td> <?php echo $row['kilo_per_bale']?> kg</td>
-                                                    <td> <?php echo number_format($row['bale_no'], 0, '.', ','); ?></td>
-                                                    <td> <?php echo number_format($row['bale_excess'], 0, '.', ','); ?> kg</td>
                                                         <td>
                                                         <button type="button" class="btn btn-success text-white btnViewRecord">VIEW
                                                         </button>

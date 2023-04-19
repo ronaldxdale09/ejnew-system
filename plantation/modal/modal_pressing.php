@@ -12,22 +12,16 @@
                 <form action="function/rubber_pressing.php" method="POST">
 
                     <input type="text" class="form-control" name='reweight' id="press_u_reweight" hidden readonly>
-                    <div class="row mb-2">
-                        <div class="col-4">
-                            <label class="form-label">ID</label>
-                            <input type="text" class="form-control" name='recording_id' id="press_u_id" readonly>
-                        </div>
-                        <div class="col">
+                    <div class="row mb">
+                        <div class="col-5">
                             <label class="form-label">Supplier</label>
                             <input type="text" class="form-control" id="press_u_supplier" readonly>
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col">
+                        <div class="col-4">
                             <label class="form-label">Location</label>
                             <input type="text" class="form-control" id="press_u_loc" readonly>
                         </div>
-                        <div class="col">
+                        <div class="col-3">
                             <label class="form-label">Lot No.</label>
                             <input type="text" class="form-control" name="lot_no" id="press_u_lot" readonly>
                         </div>
@@ -78,7 +72,7 @@
             <div class=" modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
                 <button type="submit" name="pressing_update" onclick="return validateTable();"
-                    class="btn btn-primary">Process</button>
+                    class="btn btn-success">Update</button>
                 </form>
             </div>
         </div>
@@ -101,11 +95,12 @@
 
                     <div class="row no-gutters">
 
-                        <div class="col-3">
+                    <div class="col-5">
                             <div class="input-group mb-12">
-                                <label class="col-md-12">ID</label>
-                                <input type="text" style='text-align:center' name='recording_id' id='press_trans_id'
-                                    readonly class="form-control" onkeypress="return CheckNumeric()"
+                                <label class="col-md-12">Date Received</label>
+                                <!-- DATE TODAY/DATE OF TRANSFER, BUT EDITABLE. ALL ELSE IS NOT INPUT -->
+                                <input type="text" style='text-align:center' name='date' id='press_trans_date' readonly
+                                    class="form-control" onkeypress="return CheckNumeric()"
                                     onkeyup="FormatCurrency(this)" required>
                             </div>
                         </div>
@@ -113,12 +108,11 @@
                         <div class="col">
                         </div>
 
-                        <div class="col-5">
+                        <div class="col-3">
                             <div class="input-group mb-12">
-                                <label class="col-md-12">Date</label>
-                                <!-- DATE TODAY/DATE OF TRANSFER, BUT EDITABLE. ALL ELSE IS NOT INPUT -->
-                                <input type="text" style='text-align:center' name='date' id='press_trans_date' readonly
-                                    class="form-control" onkeypress="return CheckNumeric()"
+                                <label class="col-md-12">ID</label>
+                                <input type="text" style='text-align:center' name='recording_id' id='press_trans_id'
+                                    readonly class="form-control" onkeypress="return CheckNumeric()"
                                     onkeyup="FormatCurrency(this)" required>
                             </div>
                         </div>
@@ -191,7 +185,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
-                <button type="submit" name="transfer_production" class="btn btn-warning text-dark">Confirm</button>
+                <button type="submit" name="press_transfer" class="btn btn-warning text-dark">Confirm</button>
                 </form>
             </div>
         </div>

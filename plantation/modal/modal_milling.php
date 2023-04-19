@@ -115,23 +115,24 @@
                 <form action="function/rubber_process.php" method="POST">
                     <div class="row no-gutters">
 
-                        <div class="col-3">
+
+                        <div class="col-5">
                             <div class="input-group mb-12">
-                                <label class="col-md-12">ID</label>
-                                <input type="text" style='text-align:center' name='recording_id' id='trans_mill_id'
-                                    readonly class="form-control">
+                                <label class="col-md-12">Date Received</label>
+                                <!-- DATE TODAY/DATE OF TRANSFER, BUT EDITABLE. ALL ELSE IS NOT INPUT -->
+                                <input type="text" style='text-align:center' name='weight' id='trans_mill_date' readonly
+                                    class="form-control">
                             </div>
                         </div>
 
                         <div class="col">
                         </div>
 
-                        <div class="col-6">
+                        <div class="col-3">
                             <div class="input-group mb-12">
-                                <label class="col-md-12">Date</label>
-                                <!-- DATE TODAY/DATE OF TRANSFER, BUT EDITABLE. ALL ELSE IS NOT INPUT -->
-                                <input type="text" style='text-align:center' name='weight' id='trans_mill_date' readonly
-                                    class="form-control">
+                                <label class="col-md-12">ID</label>
+                                <input type="text" style='text-align:center' name='recording_id' id='trans_mill_id'
+                                    readonly class="form-control">
                             </div>
                         </div>
 
@@ -206,7 +207,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
-                <button type="submit" name="mil_trans" class="btn btn-warning text-dark">Transfer</button>
+                <button type="submit" name="mil_trans" class="btn btn-warning text-dark">Confirm</button>
                 </form>
             </div>
         </div>
