@@ -2,7 +2,7 @@
 
 
 <div class="table-responsive">
-    <table class="table" id='sellerTable'> <?php
+    <table class="table table-bordered table-hover table-striped" id='recording_table-receiving'> <?php
         $results  = mysqli_query($con, "SELECT * from planta_recording WHERE status='Field'"); ?>
         <thead class="table-dark">
             <tr>
@@ -17,8 +17,7 @@
                 <th scope="col">Truck No.</th>
                 <th scope="col">Weight</th>
                 <th scope="col">Reweight</th>
-                <!-- <th scope="col">Cost</th>
-                <th scope="col">Total Cost</th> -->
+
                 <th scope="col" class="text-center">Action</th>
             </tr>
         </thead>
@@ -41,8 +40,7 @@
                     <i class="fas fa-chevron-right"> </i> </button>
                 </td>
 
-                <td>
-                </td>
+               
 
             </tr> <?php } ?> </tbody>
     </table>
@@ -68,8 +66,11 @@
 
         });
 
-        
+
+
+
 </script>
+
 
 
 <?php if (isset($_SESSION['receiving'])): ?>
@@ -89,3 +90,39 @@
 		?>
 </div>
 <?php endif ?>
+
+
+<script>
+      var table = $('#recording_table-receiving').DataTable({
+        dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
+        order: [
+            [0, 'desc']
+        ],
+        buttons: [{
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                }
+            },
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                }
+            },
+
+        ],
+        lengthChange: false,
+        orderCellsTop: true,
+
+
+
+    });
+
+</script>

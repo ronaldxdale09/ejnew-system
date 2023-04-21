@@ -11,6 +11,22 @@
         $tab = filter_var($_GET['tab']) ;
       }
 
+
+
+    $sql = mysqli_query($con, "SELECT SUM(reweight) as inventory from  planta_recording where status='Field'   "); 
+    $cuplumps = mysqli_fetch_array($sql);
+
+    $sql = mysqli_query($con, "SELECT SUM(crumbed_weight) as inventory from  planta_recording where status='Milling'   "); 
+    $milling = mysqli_fetch_array($sql);
+
+    
+    $sql = mysqli_query($con, "SELECT SUM(dry_weight) as inventory from  planta_recording where status='Drying'   "); 
+    $drying = mysqli_fetch_array($sql);
+
+
+    $sql = mysqli_query($con, "SELECT SUM(produce_total_weight) as inventory from  planta_recording where status='Produced'   "); 
+    $bales = mysqli_fetch_array($sql);
+
    ?>
 
 
@@ -38,8 +54,9 @@
                             <div class="stat-card">
                                 <div class="stat-card__content">
                                     <p class="text-uppercase mb-1 text-muted"><b>CUPLUMP</b> INVENTORY</p>
-                                    <h3><i class="text-danger font-weight-bold mr-1"></i>
-                                        kg
+                                    <h3>
+                                        <i class="text-danger font-weight-bold mr-1"></i>
+                                        <?php echo number_format($cuplumps['inventory'] ?? 0, 0) ?> kg
                                     </h3>
                                     <div>
                                         <span class="text-muted">
@@ -58,9 +75,12 @@
                             <div class="stat-card">
                                 <div class="stat-card__content">
                                     <p class="text-uppercase mb-1 text-muted"><b>CRUMB</b> INVENTORY</p>
-                                    <h3><i class="text-danger font-weight-bold mr-1"></i>
-                                        kg
+
+                                    <h3>
+                                        <i class="text-danger font-weight-bold mr-1"></i>
+                                        <?php echo number_format($milling['inventory'] ?? 0, 0) ?> kg
                                     </h3>
+
                                     <div>
                                         <span class="text-muted">
                                         </span>
@@ -78,9 +98,12 @@
                             <div class="stat-card">
                                 <div class="stat-card__content">
                                     <p class="text-uppercase mb-1 text-muted"><b>BLANKET</b> INVENTORY</p>
-                                    <h3><i class="text-danger font-weight-bold mr-1"></i>
-                                        kg
+                                   
+                                    <h3>
+                                        <i class="text-danger font-weight-bold mr-1"></i>
+                                        <?php echo number_format($drying['inventory'] ?? 0, 0) ?> kg
                                     </h3>
+                                 
                                     <div>
                                         <span class="text-muted">
                                         </span>
@@ -98,9 +121,10 @@
                             <div class="stat-card">
                                 <div class="stat-card__content">
                                     <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY</p>
-                                    <h3><i class="text-danger font-weight-bold mr-1"></i>
-                                        bales/kg
-                                    </h3>
+                                    <h3>
+                                        <i class="text-danger font-weight-bold mr-1"></i>
+                                        <?php echo number_format($bales['inventory'] ?? 0, 0) ?> kg
+                                    </h3> 
                                     <div>
                                         <span class="text-muted">
                                         </span>
@@ -132,11 +156,11 @@
                                     <?php if ($tab == '5') { echo 'checked'; } else { echo ''; } ?>>
 
                                 <nav>
-                                    <label for="home" class="home"><i class="fa fa-add"></i>Receiving</label>
-                                    <label for="blog" class="blog"><i class="fas fa-spinner"></i>Milling</label>
-                                    <label for="drying" class="drying"><i class="fas fa-spinner"></i>Drying</label>
-                                    <label for="code" class="code"><i class="fas fa-spinner"></i>Pressing</label>
-                                    <label for="help" class="help"><i class="fas fa-check"></i>Produced</label>
+                                    <label for="home" class="home"><i class="fas fa-truck"></i> Receiving</label>
+                                    <label for="blog" class="blog"><i class="fas fa-cogs"></i> Milling</label>
+                                    <label for="drying" class="drying"><i class="fas fa-sun"></i> Drying</label>
+                                    <label for="code" class="code"><i class="fas fa-toolbox"></i> Pressing</label>
+                                    <label for="help" class="help"><i class="fas fa-check"></i> Produced</label>
 
                                     <div class="slider"></div>
                                 </nav>

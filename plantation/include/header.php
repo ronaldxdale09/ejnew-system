@@ -16,6 +16,7 @@
     <script src="assets/js/numberFormat.js"></script>
     <script src="js/sweetalert2@11.js"></script>
     <title>EJN RUBBER</title>
+ 
 
 </head>
 <?php 

@@ -1,6 +1,15 @@
 <?php  
 include('../function/db.php');
 
+// Report all PHP errors
+error_reporting(E_ALL);
+
+// Display errors
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+
+
+
 $recording_id = $_POST['recording_id'];
  
 
@@ -34,7 +43,7 @@ $output = '
             $output .= '
             <tr>
             <td ><input type="text" class="form-control" name="type[]" autocomplete="off" step="any"
-            value="'.$arr["bales_type"].'" style="border:none;"readonly /> </td>
+                    value="'.$arr["bales_type"].'" style="border:none;"readonly /> </td>
                 <td>
                     <div class="input-group">
                     <select class="form-select" name="kilo_bale_'.$arr['bales_type'].'" id="kilo_bale_'.$arr['bales_type'].'" style="text-align:center;">
@@ -78,64 +87,66 @@ echo $output;
 
 
 <script>
-$(document).ready(function() {
-    $('select[name^="kilo_bale_"]').change(function() {
-        var bales_type = $(this).attr("id").replace('kilo_bale_', '');
-        var weight_input = $('input[name="weight_' + bales_type + '"]');
-        if ($(this).val() == 0) {
-            weight_input.attr('readonly', true);
-            weight_input.val('');
-        } else {
-            weight_input.attr('readonly', false);
-        }
-    });
-});
-
-function validateTable() {
-    // Get the table element
-    var table = document.getElementById("rubber-table");
-
-    // Loop through the rows and check if any of them has some data
-    for (var i = 1; i < table.rows.length; i++) {
-        var row = table.rows[i];
-        var weight = row.querySelector("input[name^='weight']");
-        var baleNum = row.querySelector("input[name^='bale_num']");
-        var excess = row.querySelector("input[name^='excess']");
-
-        if (weight.value || baleNum.value || excess.value) {
-            return true; // At least one row has data
-        }
-    }
-
-    // If no row has data, show an error message
-    alert("Please enter some data in the table.");
-    return false;
-}
 
 
+// $(document).ready(function() {
+//     $('select[name^="kilo_bale_"]').change(function() {
+//         var bales_type = $(this).attr("id").replace('kilo_bale_', '');
+//         var weight_input = $('input[name="weight_' + bales_type + '"]');
+//         if ($(this).val() == 0) {
+//             weight_input.attr('readonly', true);
+//             weight_input.val('');
+//         } else {
+//             weight_input.attr('readonly', false);
+//         }
+//     });
+// });
+
+// function validateTable() {
+//     // Get the table element
+//     var table = document.getElementById("rubber-table");
+
+//     // Loop through the rows and check if any of them has some data
+//     for (var i = 1; i < table.rows.length; i++) {
+//         var row = table.rows[i];
+//         var weight = row.querySelector("input[name^='weight']");
+//         var baleNum = row.querySelector("input[name^='bale_num']");
+//         var excess = row.querySelector("input[name^='excess']");
+
+//         if (weight.value || baleNum.value || excess.value) {
+//             return true; // At least one row has data
+//         }
+//     }
+
+//     // If no row has data, show an error message
+//     alert("Please enter some data in the table.");
+//     return false;
+// }
 
 
-$("#kilo_bale_manhattan").on("change", function() {
+
+
+$("#kilo_bale_Manhattan").on("change", function() {
     computeBalesData()
 });
 
 
-$("#kilo_bale_showa").on("change", function() {
+$("#kilo_bale_Showa").on("change", function() {
     computeBalesData()
 });
 
 
-$("#kilo_bale_dunlop").on("change", function() {
+$("#kilo_bale_Dunlop").on("change", function() {
     computeBalesData()
 });
 
 
-$("#kilo_bale_crown").on("change", function() {
+$("#kilo_bale_Crown").on("change", function() {
     computeBalesData()
 });
 
 
-$("#kilo_bale_spr").on("change", function() {
+$("#kilo_bale_SPR10").on("change", function() {
     computeBalesData()
 });
 
@@ -144,42 +155,43 @@ $("#kilo_bale_spr").on("change", function() {
 
 
 $(function() {
-    $("#weight_manhattan,#weight_showa,#weight_dunlop,#weight_crown,#weight_spr").keyup(function() {
+    $("#weight_Manhattan,#weight_Showa,#weight_Dunlop,#weight_Crown,#weight_SPR10").keyup(function() {
         computeBalesData()
     });
 
 });
 
 function computeBalesData() {
+    console.log('hello')
     // Update computation for Manhattan
-    var kilo_bale_manhattan = $("#kilo_bale_manhattan").val() ? parseFloat($("#kilo_bale_manhattan").val().replace(/,/g,
+    var kilo_bale_Manhattan = $("#kilo_bale_Manhattan").val() ? parseFloat($("#kilo_bale_Manhattan").val().replace(/,/g,
         '')) : 0;
-    var weight_manhattan = $("#weight_manhattan").val() ? parseFloat($("#weight_manhattan").val().replace(/,/g, '')) :
+    var weight_manhattan = $("#weight_Manhattan").val() ? parseFloat($("#weight_Manhattan").val().replace(/,/g, '')) :
         0;
 
     // Update computation for Showa
-    var kilo_bale_showa = $("#kilo_bale_showa").val() ? parseFloat($("#kilo_bale_showa").val().replace(/,/g, '')) : 0;
-    var weight_showa = $("#weight_showa").val() ? parseFloat($("#weight_showa").val().replace(/,/g, '')) : 0;
+    var kilo_bale_Showa = $("#kilo_bale_Showa").val() ? parseFloat($("#kilo_bale_Showa").val().replace(/,/g, '')) : 0;
+    var weight_showa = $("#weight_Showa").val() ? parseFloat($("#weight_Showa").val().replace(/,/g, '')) : 0;
 
     // Update computation for Dunlop
-    var kilo_bale_dunlop = $("#kilo_bale_dunlop").val() ? parseFloat($("#kilo_bale_dunlop").val().replace(/,/g, '')) :
+    var kilo_bale_Dunlop = $("#kilo_bale_Dunlop").val() ? parseFloat($("#kilo_bale_Dunlop").val().replace(/,/g, '')) :
         0;
-    var weight_dunlop = $("#weight_dunlop").val() ? parseFloat($("#weight_dunlop").val().replace(/,/g, '')) : 0;
+    var weight_dunlop = $("#weight_Dunlop").val() ? parseFloat($("#weight_Dunlop").val().replace(/,/g, '')) : 0;
 
     // Update computation for Crown
-    var kilo_bale_crown = $("#kilo_bale_crown").val() ? parseFloat($("#kilo_bale_crown").val().replace(/,/g, '')) : 0;
-    var weight_crown = $("#weight_crown").val() ? parseFloat($("#weight_crown").val().replace(/,/g, '')) : 0;
+    var kilo_bale_Crown = $("#kilo_bale_Crown").val() ? parseFloat($("#kilo_bale_Crown").val().replace(/,/g, '')) : 0;
+    var weight_crown = $("#weight_Crown").val() ? parseFloat($("#weight_Crown").val().replace(/,/g, '')) : 0;
 
     // Update computation for SPR
-    var kilo_bale_spr = $("#kilo_bale_spr").val() ? parseFloat($("#kilo_bale_spr").val().replace(/,/g, '')) : 0;
-    var weight_spr = $("#weight_spr").val() ? parseFloat($("#weight_spr").val().replace(/,/g, '')) : 0;
+    var kilo_bale_SPR10 = $("#kilo_bale_SPR10").val() ? parseFloat($("#kilo_bale_SPR10").val().replace(/,/g, '')) : 0;
+    var weight_spr = $("#weight_SPR10").val() ? parseFloat($("#weight_SPR10").val().replace(/,/g, '')) : 0;
 
 
 
     var entry_weight = $("#press_u_entry").val() ? parseFloat($("#press_u_entry").val().replace(/,/g, '')) : 0;
 
-    updateComputeBales(kilo_bale_manhattan, weight_manhattan, kilo_bale_showa, weight_showa, kilo_bale_dunlop,
-        weight_dunlop, kilo_bale_crown, weight_crown, kilo_bale_spr, weight_spr, entry_weight);
+    updateComputeBales(kilo_bale_Manhattan, weight_manhattan, kilo_bale_Showa, weight_showa, kilo_bale_Dunlop,
+        weight_dunlop, kilo_bale_Crown, weight_crown, kilo_bale_SPR10, weight_spr, entry_weight);
 }
 
 
@@ -195,24 +207,24 @@ function updateComputeBales(kiloBaleManhattan, weightManhattan, kiloBaleShowa, w
     };
 
     const [mBales, excessManhattan] = getBalesAndExcessKilo(kiloBaleManhattan, weightManhattan);
-    $("#bale_num_manhattan").val(mBales.toLocaleString());
-    $("#excess_manhattan").val(excessManhattan.toLocaleString());
+    $("#bale_num_Manhattan").val(mBales.toLocaleString());
+    $("#excess_Manhattan").val(excessManhattan.toLocaleString());
 
     const [sBales, excessShowa] = getBalesAndExcessKilo(kiloBaleShowa, weightShowa);
-    $("#bale_num_showa").val(sBales.toLocaleString());
-    $("#excess_showa").val(excessShowa).toLocaleString();
+    $("#bale_num_Showa").val(sBales.toLocaleString());
+    $("#excess_Showa").val(excessShowa).toLocaleString();
 
     const [dBales, excessDunlop] = getBalesAndExcessKilo(kiloBaleDunlop, weightDunlop);
-    $("#bale_num_dunlop").val(dBales.toLocaleString());
-    $("#excess_dunlop").val(excessDunlop.toLocaleString());
+    $("#bale_num_Dunlop").val(dBales.toLocaleString());
+    $("#excess_Dunlop").val(excessDunlop.toLocaleString());
 
     const [cBales, excessCrown] = getBalesAndExcessKilo(kiloBaleCrown, weightCrown);
-    $("#bale_num_crown").val(cBales.toLocaleString());
-    $("#excess_crown").val(excessCrown.toLocaleString());
+    $("#bale_num_Crown").val(cBales.toLocaleString());
+    $("#excess_Crown").val(excessCrown.toLocaleString());
 
     const [sprBales, excessSpr] = getBalesAndExcessKilo(kiloBaleSpr, weightSpr);
-    $("#bale_num_spr").val(sprBales.toLocaleString());
-    $("#excess_spr").val(excessSpr.toLocaleString());
+    $("#bale_num_SPR10").val(sprBales.toLocaleString());
+    $("#excess_SPR10").val(excessSpr.toLocaleString());
 
 
     var totalWeight = weightManhattan + weightShowa + weightDunlop + weightCrown + weightSpr;

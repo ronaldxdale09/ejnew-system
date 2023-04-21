@@ -46,10 +46,12 @@
         }
     
         echo "Total weight: " . $total_weight;
-    
-        $query = "UPDATE `planta_recording` SET `drc`='$drc', `bale_total_kilo`='$bale_total_kilo'
+        echo "Total DRC: " . $drc;
+
+
+        $query = "UPDATE `planta_recording` SET `drc`='$drc', `produce_total_weight`='$total_weight'
         WHERE recording_id='$id'";
-    
+        $result = mysqli_query($con, $query);
         header("Location: ../recording.php?tab=4");
     }
     

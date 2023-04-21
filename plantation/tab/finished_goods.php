@@ -1,63 +1,70 @@
 <div class="table-responsive">
-    <table class="table" id='sellerTable'> <?php
-        $results  = mysqli_query($con, "SELECT * from planta_recording WHERE status='PRODUCED'"); ?>
+    <table class="table table-bordered table-hover table-striped" id="recording_table-produced">
+        <?php
+        $results = mysqli_query($con, "SELECT * FROM planta_bales_production 
+            LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
+            WHERE planta_bales_production.status='Production'");
+    ?>
         <thead class="table-dark">
             <tr>
-                <th scope="col">Status</th>
-                <th scope="col">ID</th>
-                <th scope="col">Date Produced</th>
-                <th scope="col">Supplier</th>
-                <th scope="col">Location</th>
-                <th scope="col">Lot No.</th>
-                <th scope="col">DRC</th>
-                <th scope="col">Total Weight</th>
-
-
-                <th scope="col" class="text-center">Action</th>
+                <th>Status</th>
+                <th>Produced ID</th>
+                <th>Supplier</th>
+                <th>Quality</th>
+                <th>Kilo per Bale</th>
+                <th>Weight</th>
+                <th>Number of Bales</th>
+                <th>Excess</th>
+                <th class="text-center">Action</th>
             </tr>
         </thead>
-        <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
+        <tbody>
+            <?php while ($row = mysqli_fetch_array($results)) { ?>
+            <tr>
                 <td>
-                    <span class="badge bg-primary"> <?php echo $row['status']?> </spa>
+                    <span class="badge bg-primary"><?php echo $row['status']?></span>
                 </td>
-
-                <td> <?php echo $row['recording_id']?> </td>
-                <td> <?php echo $row['pressing_date']?> </td>
-                <td> <?php echo $row['supplier']?> </td>
-                <td> <?php echo $row['location']?> </td>
-                <td> <?php echo $row['lot_num']?> </td>
-             
-                <td> <?php echo $row['drc']?> </td>
-                <td> <?php echo $row['bale_total_kilo']?> </td>
-
-
-                <td class="text-center"> <button type="button" class="btn btn-success btn-dark btn-sm btnProducedView">
-                    <i class="fas fa-book"></i> </button> </td>
-
-            </tr> <?php } ?> </tbody>
+                <td>
+                    <span
+                        class="badge bg-dark"><?php echo substr($row['bales_type'], 0, 1).$row['bales_prod_id']?></span>
+                </td>
+                <td><?php echo $row['supplier']?></td>
+                <td><?php echo $row['bales_type']?></td>
+                <td><?php echo $row['kilo_per_bale']?></td>
+                <td><?php echo $row['rubber_weight']?></td>
+                <td><?php echo $row['number_bales']?></td>
+                <td><?php echo $row['bales_excess']?></td>
+                <td class="text-center">
+                    <button type="button" class="btn btn-success btn-sm btnProducedView">
+                        <i class="fas fa-book"></i> View
+                    </button>
+                </td>
+            </tr>
+            <?php } ?>
+        </tbody>
     </table>
 </div>
 
 
 <script>
-       $('.producedView').on('click', function() {
-            $tr = $(this).closest('tr');
+$('.producedView').on('click', function() {
+    $tr = $(this).closest('tr');
 
-            var data = $tr.children("td").map(function() {
-                return $(this).text();
-            }).get();
+    var data = $tr.children("td").map(function() {
+        return $(this).text();
+    }).get();
 
-            $('#process_supplier').val(data[3]);
-            $('#process_weight').val(data[9]);
-            $('#p_recording_id').val(data[0]);
-            
-            $('#modal_produced').modal('show');
+    $('#process_supplier').val(data[3]);
+    $('#process_weight').val(data[9]);
+    $('#p_recording_id').val(data[0]);
+
+    $('#modal_produced').modal('show');
 
 
-        });
+});
 
-        
-        
+
+
 
 
 
@@ -75,7 +82,7 @@ $('.btnProducedView').on('click', function() {
     $('#prod_trans_loc').val(data[4]);
     $('#prod_trans_lot').val(data[5]);
 
-    
+
     $('#prod_trans_entry').val(parseFloat(data[6]).toLocaleString());
 
     $('#prod_trans_drc').val(data[8]);
@@ -103,6 +110,4 @@ $('.btnProducedView').on('click', function() {
 
 
 });
-
 </script>
-

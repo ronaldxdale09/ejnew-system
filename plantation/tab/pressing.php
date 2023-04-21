@@ -1,5 +1,5 @@
 <div class="table-responsive">
-    <table class="table" id='sellerTable'>
+    <table class="table table-bordered table-hover table-striped" id='recording_table-pressing'>
         <?php $results  = mysqli_query($con, "SELECT * from planta_recording WHERE status='Pressing'"); ?>
         <thead class="table-dark">
             <tr>
@@ -27,7 +27,7 @@
                 <td> <?php echo $row['location']?> </td>
                 <td> <?php echo $row['lot_num']?> </td>
                 <td> <?php echo $row['weight']?> </td>
-                <td> <?php echo $row['bale_total_kilo']?> </td>
+                <td> <?php echo $row['produce_total_weight']?> </td>
                 <td> <?php echo $row['drc']?> %</b></td>
 
                 <td class="text-center">
@@ -39,9 +39,6 @@
                         <i class="fas fa-book"></i></button> -->
 
 
-                </td>
-
-                <td>
 
                 </td>
             </tr> <?php } ?> </tbody>

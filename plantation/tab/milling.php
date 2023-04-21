@@ -1,5 +1,5 @@
 <div class="table-responsive">
-    <table class="table" id='sellerTable'> <?php
+    <table class="table table-bordered table-hover table-striped" id='recording_table-milling'> <?php
         $results  = mysqli_query($con, "SELECT * from planta_recording WHERE status='Milling'"); ?>
         <thead class="table-dark">
             <tr>
@@ -39,8 +39,6 @@
                         <i class="fas fa-book"></i></button>
                 </td>
 
-                <td>
-                </td>
 
             </tr> <?php } ?> </tbody>
     </table>
