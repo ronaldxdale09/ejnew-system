@@ -12,7 +12,7 @@
                 <th scope="col">Lot No.</th>
                 <th scope="col">Reweight</th>
                 <th scope="col">Dry Weight</th>
-                <th scope="col">Days Age</th>
+
                 <th scope="col" class="text-center">Action</th>
             </tr>
         </thead>
@@ -29,7 +29,7 @@
                 <td> <?php echo $row['lot_num']?> </td>
                 <td> <?php echo $row['reweight'] ? $row['reweight'] : '0'?> Kg </td>
                 <td> <?php echo $row['dry_weight'] ? $row['dry_weight'] : '0' ?> Kg</td>
-                <td> day/s </td>
+              
                 <!-- AGE, COUNT DAYS FROM TRANSFERRED TO TODAY -->
                 <td class="text-center">
                     <button type="button" class="btn btn-success btn-sm btnDryUpdate" id='btnDryUpdate'>

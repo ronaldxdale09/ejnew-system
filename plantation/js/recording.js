@@ -32,9 +32,10 @@ $(document).ready(function() {
                 document.getElementById("r_supplier").value = myObj[1];
                 document.getElementById("r_location").value = myObj[2];
 
-                document.getElementById("r_weight").value = myObj[3];
-                document.getElementById("r_kilo_cost").value = myObj[5];
-                document.getElementById("r_total_cost").value = myObj[7];
+                document.getElementById("r_weight").value = Number(myObj[3]).toLocaleString();
+                document.getElementById("r_kilo_cost").value = Number(myObj[5]).toLocaleString();
+                document.getElementById("r_total_cost").value = Number(myObj[7]).toLocaleString();
+
             }
         };
 

@@ -90,7 +90,7 @@
                                                     <td> <?php echo number_format($row['reweight'], 0, '.', ','); ?> kg</td>
                                                     <td> <?php echo number_format($row['crumbed_weight'], 0, '.', ','); ?> kg</td>
                                                     <td> <?php echo number_format($row['dry_weight'], 0, '.', ','); ?> kg</td>
-                                                    <td> <?php echo number_format($row['bale_total_kilo'], 0, '.', ','); ?> kg</td>
+                                                    <td> <?php echo number_format($row['produce_total_weight'], 0, '.', ','); ?> kg</td>
                                                     <td> <?php echo $row['drc']?>%</td>
                                                         <td>
                                                         <button type="button" class="btn btn-success text-white btnViewRecord">VIEW

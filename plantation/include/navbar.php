@@ -18,7 +18,7 @@
 
 
     <a class='nav-link' href='recording.php'>
-        <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>Recording</span>
+        <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>Rubber Processing</span>
     </a>
 
     <a class='nav-link' href='record_allrubber.php'>

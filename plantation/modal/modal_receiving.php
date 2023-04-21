@@ -113,8 +113,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                                 <label class="col-md-12">Weight</label>
 
                                                 <input type="text" style='text-align:right' name='weight' id='r_weight'
-                                                    readonly class="form-control" onkeypress="return CheckNumeric()"
-                                                    onkeyup="FormatCurrency(this)" required>
+                                                    readonly class="form-control" >
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">kg</span>
                                                 </div>
