@@ -125,7 +125,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                         <input readonly type="text" style='text-align:right' name='weight' id='r_weight'
                                             class="form-control">
                                         <div class="input-group-append">
-                                            <span class="input-group-text">Kg</span>
+                                            <span class="input-group-text">kg</span>
                                         </div>
                                     </div>
                                 </div>
@@ -153,7 +153,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                         <input readonly type="text" style='text-align:right' name='reweight'
                                             id='reweight' class="form-control">
                                         <div class="input-group-append">
-                                            <span class="input-group-text">Kg</span>
+                                            <span class="input-group-text">kg</span>
                                         </div>
                                     </div>
                                 </div>
@@ -183,7 +183,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                             id='crumbed_weight' class="form-control" onkeypress="return CheckNumeric()"
                                             onkeyup="FormatCurrency(this)" required>
                                         <div class="input-group-append">
-                                            <span class="input-group-text">Kg</span>
+                                            <span class="input-group-text">kg</span>
                                         </div>
                                     </div>
                                 </div>
@@ -213,7 +213,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                             id='crumbed_weight' class="form-control" onkeypress="return CheckNumeric()"
                                             onkeyup="FormatCurrency(this)" required>
                                         <div class="input-group-append">
-                                            <span class="input-group-text">Kg</span>
+                                            <span class="input-group-text">kg</span>
                                         </div>
                                     </div>
                                 </div>
@@ -221,7 +221,11 @@ while ($arr = mysqli_fetch_assoc($result)) {
                             </div>
                         </div>
 
-                        <br>
+                    </center>
+
+                    <hr>
+
+                    <center>
 
                         <div class="form-group">
                             <div class="row no-gutters">
@@ -238,12 +242,24 @@ while ($arr = mysqli_fetch_assoc($result)) {
 
                                 <div class="col">
                                     <div class="input-group mb-12">
-                                        <label class="col-md-12">(FINAL) Bale Weight</label>
+                                        <label class="col-md-12">Bale Weight</label>
                                         <input readonly type="text" style='text-align:right' name='crumbed_weight'
                                             id='crumbed_weight' class="form-control" onkeypress="return CheckNumeric()"
                                             onkeyup="FormatCurrency(this)" required>
                                         <div class="input-group-append">
-                                            <span class="input-group-text">Kg</span>
+                                            <span class="input-group-text">kg</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <div class="input-group mb-12">
+                                        <label class="col-md-12">DRC</label>
+                                        <input readonly type="text" style='text-align:right' name='bale_excess'
+                                            id='bale_excess' class="form-control" onkeypress="return CheckNumeric()"
+                                            onkeyup="FormatCurrency(this)" required>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">%</span>
                                         </div>
                                     </div>
                                 </div>
@@ -251,47 +267,12 @@ while ($arr = mysqli_fetch_assoc($result)) {
                             </div>
                         </div>
 
-                    </center>
-
-                    <!-- NEW -->
-
-                    <hr>
-
-                    <center>
+                        <!-- <hr>
+                    <div id='pressing_modal_update_table'></div>
+                    <hr> -->
+                        <br>
 
                         <div class="row no-gutters">
-
-                            <div class="col">
-                                <div class="input-group mb-12">
-                                    <label style='font-size:15px' class="col-md-12">Date Delivered</label>
-                                    <div class="col-md-12">
-                                        <input readonly type="text" class='form-control' id="milling_date"
-                                            name="milling_date">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- <div class="col">
-                                <div class="input-group mb-12">
-                                    <label class="col-md-12">Total Cost</label>
-                                    <input readonly type="text" style='text-align:right' name='bale_excess'
-                                        id='bale_excess' class="form-control" onkeypress="return CheckNumeric()"
-                                        onkeyup="FormatCurrency(this)" required>
-                                    <div class="input-group-append">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col">
-                                <div class="input-group mb-12">
-                                    <label class="col-md-12">Cost per Kilo</label>
-                                    <input readonly type="text" style='text-align:right' name='bale_excess'
-                                        id='bale_excess' class="form-control" onkeypress="return CheckNumeric()"
-                                        onkeyup="FormatCurrency(this)" required>
-                                    <div class="input-group-append">
-                                    </div>
-                                </div>
-                            </div> -->
 
                             <div class="col">
                                 <div class="input-group mb-12">
@@ -306,29 +287,12 @@ while ($arr = mysqli_fetch_assoc($result)) {
 
                             <div class="col">
                                 <div class="input-group mb-12">
-                                    <label class="col-md-12">DRC</label>
-                                    <input readonly type="text" style='text-align:right' name='bale_excess'
-                                        id='bale_excess' class="form-control" onkeypress="return CheckNumeric()"
-                                        onkeyup="FormatCurrency(this)" required>
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <br>
-
-                        <div class="row no-gutters">
-
-                            <div class="col">
-                                <div class="input-group mb-12">
                                     <label class="col-md-12">Kilo per Bale</label>
                                     <input readonly type="text" style='text-align:right' name='bale_kilo' id='bale_kilo'
                                         class="form-control" onkeypress="return CheckNumeric()"
                                         onkeyup="FormatCurrency(this)" required>
                                     <div class="input-group-append">
-                                        <span class="input-group-text">Kg</span>
+                                        <span class="input-group-text">kg</span>
                                     </div>
                                 </div>
                             </div>
@@ -350,13 +314,12 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                         id='bale_total_kilo' class="form-control" onkeypress="return CheckNumeric()"
                                         onkeyup="FormatCurrency(this)" required>
                                     <div class="input-group-append">
-                                        <span class="input-group-text">Kg</span>
+                                        <span class="input-group-text">kg</span>
                                     </div>
                                 </div>
                             </div>
 
                         </div>
-
 
             </div>
 

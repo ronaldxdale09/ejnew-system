@@ -5,6 +5,12 @@
    ?>
 <?php include('modal/modal_rubber_report.php'); ?>
 
+<style>
+.number-cell {
+    text-align: right;
+}
+</style>
+
 <body>
     <input type='hidden' id='selected-cart' value=''>
     <div class='main-content' style='position:relative; height:100%;'>
@@ -45,10 +51,10 @@
                                                     <th scope="col">Supplier</th>
                                                     <th scope="col">Location</th>
                                                     <th scope="col">Lot No.</th>
-                                                    <th scope="col">Cuplump Weight</th>
+                                                    <th scope="col">Cuplump</th>
                                                     <th scope="col">Reweight</th>
-                                                    <th scope="col">Crumbed Weight</th>
-                                                    <th scope="col">Blanket Weight</th>
+                                                    <th scope="col">Crumbs</th>
+                                                    <th scope="col">Blanket</th>
                                                     <th scope="col">Bale Weight</th>
                                                     <th scope="col">DRC</th>
                                                     <th scope="col">Action</th>
@@ -56,7 +62,7 @@
                                             </thead>
                                             <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
 
-                                                <?php
+                                                    <?php
                                                         $status_color = '';
                                                         switch($row['status']){
                                                             case "Field":
@@ -79,21 +85,35 @@
                                                                 break;
                                                         }
                                                     ?>
-                                                   <td> <span class="badge <?php echo $status_color; ?>"> <?php echo $row['status']?>
+                                                    <td> <span class="badge <?php echo $status_color; ?>">
+                                                            <?php echo $row['status']?>
                                                             </spa>
                                                     </td>
                                                     <td hidden> <?php echo $row['purchased_id']?> </td>
                                                     <td> <?php echo $row['supplier']?> </td>
                                                     <td> <?php echo $row['location']?> </td>
                                                     <td> <?php echo $row['lot_num']?> </td>
-                                                    <td> <?php echo number_format($row['weight'], 0, '.', ','); ?> kg</td>
-                                                    <td> <?php echo number_format($row['reweight'], 0, '.', ','); ?> kg</td>
-                                                    <td> <?php echo number_format($row['crumbed_weight'], 0, '.', ','); ?> kg</td>
-                                                    <td> <?php echo number_format($row['dry_weight'], 0, '.', ','); ?> kg</td>
-                                                    <td> <?php echo number_format($row['produce_total_weight'], 0, '.', ','); ?> kg</td>
-                                                    <td> <?php echo $row['drc']?>%</td>
-                                                        <td>
-                                                        <button type="button" class="btn btn-success text-white btnViewRecord">VIEW
+                                                    <td class="number-cell">
+                                                        <?php echo number_format($row['weight'], 0, '.', ','); ?> kg
+                                                    </td>
+                                                    <td class="number-cell">
+                                                        <?php echo number_format($row['reweight'], 0, '.', ','); ?> kg
+                                                    </td>
+                                                    <td class="number-cell">
+                                                        <?php echo number_format($row['crumbed_weight'], 0, '.', ','); ?>
+                                                        kg</td>
+                                                    <td class="number-cell">
+                                                        <?php echo number_format($row['dry_weight'], 0, '.', ','); ?> kg
+                                                    </td>
+                                                    <td class="number-cell">
+                                                        <?php echo number_format($row['produce_total_weight'], 0, '.', ','); ?>
+                                                        kg</td>
+                                                    <td class="number-cell"> <?php echo $row['drc']?>%</td>
+
+
+                                                    <td>
+                                                        <button type="button"
+                                                            class="btn btn-success text-white btnViewRecord">VIEW
                                                         </button>
                                                     </td>
                                                 </tr> <?php } ?> </tbody>
@@ -154,18 +174,16 @@ $(document).ready(function() {
 
 
 <script>
-       $('.btnViewRecord').on('click', function() {
-            $tr = $(this).closest('tr');
+$('.btnViewRecord').on('click', function() {
+    $tr = $(this).closest('tr');
 
-            var data = $tr.children("td").map(function() {
-                return $(this).text();
-            }).get();
-
-            
-            $('#newReceiving').modal('show');
+    var data = $tr.children("td").map(function() {
+        return $(this).text();
+    }).get();
 
 
-        });
+    $('#newReceiving').modal('show');
 
-        
+
+});
 </script>

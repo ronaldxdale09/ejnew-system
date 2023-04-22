@@ -24,7 +24,7 @@
                                 <div class="col-8">
                                     <div class="input-group mb-12">
                                         <label class="col-md-12">Supplier</label>
-                                        <input type="text" style='text-align:center' name='weight' id='supplier'
+                                        <input type="text" style='text-align:center' name='supplier' id='supplier'
                                             readonly class="form-control">
                                     </div>
                                 </div>
@@ -33,7 +33,7 @@
                                     <label class="col-md-12">LOT # </label>
                                     <div class="input-group mb-1">
                                         <div class="input-group mb-1">
-                                            <input type="text" style='text-align:right' name='cost' id='m_lot_no'
+                                            <input type="text" style='text-align:right' name='m_lot_no' id='m_lot_no'
                                                 readonly class="form-control">
                                             <div class="input-group-append">
                                                 <span class="input-group-text">Kg</span>
