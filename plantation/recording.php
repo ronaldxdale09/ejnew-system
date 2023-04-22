@@ -36,6 +36,12 @@
 <?php include('modal/modal_pressing.php'); ?>
 <?php include('modal/modal_produced.php'); ?>
 
+<style>
+.number-cell {
+    text-align: right;
+}
+</style>
+
 <body>
     <link rel='stylesheet' href='css/statistic-card.css'>
     <link rel='stylesheet' href='css/tab-style.css'>
@@ -98,12 +104,12 @@
                             <div class="stat-card">
                                 <div class="stat-card__content">
                                     <p class="text-uppercase mb-1 text-muted"><b>BLANKET</b> INVENTORY</p>
-                                   
+
                                     <h3>
                                         <i class="text-danger font-weight-bold mr-1"></i>
                                         <?php echo number_format($drying['inventory'] ?? 0, 0) ?> kg
                                     </h3>
-                                 
+
                                     <div>
                                         <span class="text-muted">
                                         </span>
@@ -124,7 +130,7 @@
                                     <h3>
                                         <i class="text-danger font-weight-bold mr-1"></i>
                                         <?php echo number_format($bales['inventory'] ?? 0, 0) ?> kg
-                                    </h3> 
+                                    </h3>
                                     <div>
                                         <span class="text-muted">
                                         </span>

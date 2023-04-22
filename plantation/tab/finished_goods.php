@@ -6,11 +6,6 @@
             WHERE planta_bales_production.status='Production' and (rubber_weight !='0' or rubber_weight !=null)  ");
     ?>
 
-        <style>
-        .number-cell {
-            text-align: right;
-        }
-        </style>
 
         <thead class="table-dark">
             <tr>
@@ -18,9 +13,10 @@
                 <th>Bale ID</th>
                 <th>Date Produced</th>
                 <th>Supplier</th>
+                <th>Location</th>
                 <th>Quality</th>
                 <th>Kilo per Bale</th>
-                <th>Weight</th>
+                <th>Bale Weight</th>
                 <th>Bales</th>
                 <th>Excess</th>
                 <th>DRC</th>
@@ -46,6 +42,7 @@
                 </td>
                 <td><?php echo $row['production_date']?></td>
                 <td><?php echo $row['supplier']?></td>
+                <td> <?php echo $row['location']?> </td>
                 <td><?php echo $row['bales_type']?></td>
                 <td class="number-cell"> <?php echo $row['kilo_per_bale']?> kg</td>
                 <td class="number-cell"> <?php echo number_format($row['rubber_weight'], 0, '.', ',')?> kg</td>

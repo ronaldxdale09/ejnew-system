@@ -10,7 +10,7 @@
                 <th scope="col">Supplier</th>
                 <th scope="col">Location</th>
                 <th scope="col">Lot No.</th>
-                <th scope="col">Reweight</th>
+                <th scope="col">Cuplump Reweight</th>
                 <th scope="col">Crumbed Weight</th>
                 <th scope="col" class="text-center">Action</th>
             </tr>
@@ -26,8 +26,8 @@
                 <td> <?php echo $row['supplier']?> </td>
                 <td> <?php echo $row['location']?> </td>
                 <td> <?php echo $row['lot_num']?> </td>
-                <td><?php echo number_format($row['reweight'], 0, '.', ',') ?> kg</td>
-                <td><?php echo number_format($row['crumbed_weight'], 0, '.', ',') ?> kg</td>
+                <td class="number-cell"> <?php echo number_format($row['reweight'], 0, '.', ',')?> kg</td>
+                <td class="number-cell"> <?php echo number_format($row['crumbed_weight'], 0, '.', ',')?> kg</td>
 
 
                 <td class="text-center">

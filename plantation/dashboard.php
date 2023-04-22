@@ -367,7 +367,7 @@ new Chart(monthly_milling, {
             data: <?php echo json_encode($bales) ?>, //Y-axis data 
             backgroundColor: '#617391',
             tension: 0.3,
-            fill: false,
+            fill: true,
         }]
     },
 });
@@ -408,7 +408,7 @@ new Chart(monthly_drying, {
             data: <?php echo json_encode($bales) ?>, //Y-axis data 
             backgroundColor: '#3892BA',
             tension: 0.3,
-            fill: false,
+            fill: true,
         }]
     },
 });
@@ -449,7 +449,7 @@ new Chart(monthly_production, {
             data: <?php echo json_encode($bales) ?>, //Y-axis data 
             backgroundColor: '#2e83c3',
             tension: 0.3,
-            fill: false,
+            fill: true,
         }]
     },
 });

@@ -30,8 +30,8 @@
                 <td> <?php echo $row['lot_num']?> </td>
                 <td> <?php echo $row['driver']?> </td>
                 <td> <?php echo $row['truck_num']?> </td>
-                <td> <?php echo number_format($row['weight'], 0, '.', ','); ?> kg</td>
-                <td><?php echo number_format($row['reweight'], 0, '.', ',') ?> kg</td>
+                <td class="number-cell"> <?php echo number_format($row['weight'], 0, '.', ',')?> kg</td>
+                <td class="number-cell"> <?php echo number_format($row['reweight'], 0, '.', ',')?> kg</td>
                 <td class="text-center">
                     <button type="button" class="btn-sm btn-warning btn-sm btnTransferReceiving">
                         <i class="fas fa-chevron-right"> </i> </button>

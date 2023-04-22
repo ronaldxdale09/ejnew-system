@@ -2,6 +2,8 @@
     <table class="table table-bordered table-hover table-striped" id='recording_table-pressing'>
         <?php $results  = mysqli_query($con, "SELECT * from planta_recording WHERE status='Pressing'"); ?>
         <thead class="table-dark">
+
+
             <tr>
                 <th scope="col">Status</th>
                 <th scope="col">ID</th>
@@ -9,7 +11,7 @@
                 <th scope="col">Supplier</th>
                 <th scope="col">Location</th>
                 <th scope="col">Lot No.</th>
-                <th scope="col">Entry Weight.</th>
+                <th scope="col">Entry Weight</th>
                 <!-- <th scope="col" >WET Weight</th> -->
                 <th scope="col"> Total Weight</th>
                 <th scope="col"> DRC</th>
@@ -26,9 +28,9 @@
                 <td> <?php echo $row['supplier']?> </td>
                 <td> <?php echo $row['location']?> </td>
                 <td> <?php echo $row['lot_num']?> </td>
-                <td> <?php echo number_format($row['weight'], 0, '.', ',')?> kg</td>
-                <td> <?php echo number_format($row['produce_total_weight'], 0, '.', ',')?> kg</td>
-                <td> <?php echo $row['drc']?> %</b></td>
+                <td class="number-cell"> <?php echo number_format($row['weight'], 0, '.', ',')?> kg</td>
+                <td class="number-cell"> <?php echo number_format($row['produce_total_weight'], 0, '.', ',')?> kg</td>
+                <td class="number-cell"><?php echo $row['drc']?>%</td>
 
                 <td class="text-center">
                     <button type="button" class="btn btn-success btn-sm btnPressUpdate">
