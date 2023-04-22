@@ -152,11 +152,7 @@
                         </div>
                     </div>
 
-
-
-                    <!-------------------------------- CHARTS -------------------------------->
-
-
+                    <!-- CHARTS -->
 
                     <div class="row">
                         <div class="card" style="width:100%;max-width:100%;">
@@ -165,27 +161,16 @@
                                 <div class="row" style="display: flex; align-items: stretch;">
                                     <div class="col" style="display: flex;">
                                         <div class="card" style="width: 100%;">
-                                            <div class="card-body" style="height: 400px; position: relative;">
-                                                <canvas id="inventory_all"
-                                                    style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                            <div class="card-body">
+                                                <canvas id="inventory_all" height="300"></canvas>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col" style="display: flex;">
                                         <div class="card" style="width: 100%;">
-                                            <div class="card-body" style="height: 400px; position: relative;">
-                                                <canvas id="inventory_bales"
-                                                    style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-5" style="display: flex;">
-                                        <div class="card" style="width: 100%;">
-                                            <div class="card-body" style="height: 400px; position: relative;">
-                                                <canvas id="inventory_baleskilo"
-                                                    style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                            <div class="card-body">
+                                                <canvas id="inventory_bales" height="300"></canvas>
                                             </div>
                                         </div>
                                     </div>
@@ -193,7 +178,6 @@
                             </div>
                         </div>
                     </div>
-
 
                     <br>
 
@@ -207,31 +191,35 @@
                                         <div class="card" style="width: 100%;">
                                             <div class="card-body">
                                                 <div class="row">
-                                                    <canvas id="monthly_milling" height="300"></canvas>
+                                                    <canvas id="monthly_milling" height="200"></canvas>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="col" style="display: flex;">
-                                        <div class="card" style="width: 100%;">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <canvas id="monthly_drying" height="300"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <!-- </div> -->
 
                                 <br>
 
-                                <div class="row">
+                                <!-- <div class="row"> -->
                                     <div class="col" style="display: flex;">
                                         <div class="card" style="width: 100%;">
                                             <div class="card-body">
                                                 <div class="row">
-                                                    <canvas id="monthly_production" height="350"></canvas>
+                                                    <canvas id="monthly_drying" height="200"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <!-- </div> -->
+
+                                <br>
+
+                                <!-- <div class="row"> -->
+                                    <div class="col" style="display: flex;">
+                                        <div class="card" style="width: 100%;">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <canvas id="monthly_production" height="200"></canvas>
                                                 </div>
                                             </div>
                                         </div>
@@ -257,188 +245,54 @@ bales_bar = document.getElementById("bales_bar");
 bales_quality = document.getElementById("bales_quality");
 cuplump_inventory = document.getElementById("cuplump_inventory");
 
-inventory_bales = document.getElementById("inventory_bales");
 
 
-
-
+bales_quality = document.getElementById("bales_quality");
+cuplump_inventory = document.getElementById("cuplump_inventory");
 
 inventory_all = document.getElementById("inventory_all");
 
 <?php
-
-
-              $inventory = mysqli_query($con, "SELECT 
-              SUM(CASE WHEN status = 'Field' THEN reweight ELSE 0 END) as cumplumps,
-              SUM(CASE WHEN status = 'Milling' THEN crumbed_weight ELSE 0 END) as crumbed,
-              SUM(CASE WHEN status = 'Drying' THEN dry_weight ELSE 0 END) as dry,
-              SUM(CASE WHEN status = 'Produced' THEN produce_total_weight ELSE 0 END) as produced
-          FROM planta_recording");
-          
-              if ($inventory->num_rows > 0) {
-                $inventory_data = $inventory->fetch_assoc();
-                $inventory_values = [
-                    number_format($inventory_data['cumplumps'], 0, '.', ''),
-                    number_format($inventory_data['crumbed'], 0, '.', ''),
-                    number_format($inventory_data['dry'], 0, '.', ''),
-                    number_format($inventory_data['produced'], 0, '.', '')
-                ];
-            }
-
-
-
-            
-            $bales_inventory = mysqli_query($con, "SELECT bales_type, SUM(number_bales) as total FROM planta_bales_production GROUP BY bales_type;");
-
-            if ($bales_inventory->num_rows > 0) {
-                $bales_values = [];
-                $bales_labels = [];
-                while ($bales_data = $bales_inventory->fetch_assoc()) {
-                    $bales_labels[] = $bales_data['bales_type'];
-                    $bales_values[] = number_format($bales_data['total'], 0, '.', '');
-                }
-            }
-
-
-                    
-            $bales_type = mysqli_query($con, "SELECT bales_type,
-            SUM(CASE WHEN kilo_per_bale BETWEEN 33.32 AND 33.34 THEN number_bales ELSE 0 END) as total_33_33,
-            SUM(CASE WHEN kilo_per_bale BETWEEN 34.99 AND 35.01 THEN number_bales ELSE 0 END) as total_35
-     FROM planta_bales_production
-     GROUP BY bales_type;");
-    
-    if ($bales_type->num_rows > 0) {
-        $bales_labels = [];
-        $bales_values_3333 = [];
-        $bales_values_35 = [];
-        while ($bales_data = $bales_type->fetch_assoc()) {
-            $bales_labels[] = $bales_data['bales_type'];
-            $bales_values_3333[] = number_format($bales_data['total_33_33'], 0, '.', '');
-            $bales_values_35[] = number_format($bales_data['total_35'], 0, '.', '');
-        }
-    }
+   $currentMonth = date("m");
+   $currentDay = date("d");
+   $currentYear = date("Y");
+   
+   $today = $currentYear . "-" . $currentMonth . "-" . $currentDay;
+   
+                $purchased_count = mysqli_query($con,"SELECT year(date) as year ,MONTHNAME(date) as monthname,sum(net_weight) as month_total from rubber_transaction WHERE year(date)='$currentYear'  group by month(date) ORDER BY date");        
+                if($purchased_count->num_rows > 0) {
+                  foreach($purchased_count as $data) {
+                      $month[] = $data['monthname'];
+                      $amount[] = $data['month_total'];
+                  }
+              }
         ?>
 
-new Chart(inventory_all, {
-    options: {
-        plugins: {
-            title: {
-                display: true,
-                text: 'Inventory (Kilo)',
-            },
-            legend: {
-                position: 'bottom',
-            },
-        },
-        maintainAspectRatio: false,
-        aspectRatio: 1.5,
-    },
+// new Chart(inventory_all, {
+//     options: {
+//         plugins: {
+//             title: {
+//                 display: true,
+//                 text: 'Inventory (Kilo)',
+//             },
+//             legend: {
+//                 position: 'bottom',
+//             },
+//         },
+//     },
 
-    type: 'doughnut',
-    data: {
-        labels: ['Cuplumps', 'Crumbed', 'Blanket', 'Bales'], //X-axis data 
-        datasets: [{
-            label: 'Purchased',
-            data: <?php echo json_encode($inventory_values) ?>, //Y-axis data 
-            backgroundColor: ['#C42F1A', '#567417', '#90C226', '#E6B91E'],
-            tension: 0.3,
-            fill: false,
-        }]
-    },
-});
-
-
-new Chart(inventory_bales, {
-    options: {
-        plugins: {
-            title: {
-                display: true,
-                text: 'Bale Inventory (Quality Comparison)',
-            },
-            legend: {
-                position: 'bottom',
-            },
-        },
-        maintainAspectRatio: false,
-        aspectRatio: 1.5,
-    },
-
-    type: 'pie',
-    data: {
-        labels: <?php echo json_encode($bales_labels) ?>, //X-axis data 
-        datasets: [{
-            label: 'Purchased',
-            data: <?php echo json_encode($bales_values) ?>, //Y-axis data 
-            backgroundColor: ['#C42F1A', '#567417', '#90C226', '#E6B91E', '#CE5504'],
-            tension: 0.3,
-            fill: false,
-        }]
-    },
-});
-
-new Chart(inventory_baleskilo, {
-    options: {
-        plugins: {
-            title: {
-                display: true,
-                text: 'Bale Inventory (Kilo and Quality Comparison)',
-            },
-            legend: {
-                position: 'bottom',
-            },
-        },
-        maintainAspectRatio: false,
-        aspectRatio: 1.5,
-        scales: {
-            x: {
-                grid: {
-                    display: false,
-                },
-            },
-            y: {
-                grid: {
-                    display: false,
-                },
-                stacked: true, // Enable stacked bars
-            },
-        },
-    },
-
-    type: 'bar',
-    data: {
-        labels: <?php echo json_encode($bales_labels) ?>, // X-axis data
-        datasets: [
-            {
-                label: '35 kg', // Add a label for 35kg bales
-                data: <?php echo json_encode($bales_values_35) ?>, // Y-axis data for 35kg bales
-                backgroundColor: [
-                    'rgba(196, 47, 26, 1)',
-                    'rgba(86, 116, 23, 1)',
-                    'rgba(144, 194, 38, 1)',
-                    'rgba(230, 185, 30, 1)',
-                    'rgba(210, 95, 30, 1)',
-                ],
-                tension: 0.3,
-                fill: false,
-            },
-            {
-                label: '33.33 kg', // Add a label for 33.33kg bales
-                data: <?php echo json_encode($bales_values_3333) ?>, // Y-axis data for 33.33kg bales
-                backgroundColor: [
-                    'rgba(196, 47, 26, 0.6)',
-                    'rgba(86, 116, 23, 0.6)',
-                    'rgba(144, 194, 38, 0.6)',
-                    'rgba(230, 185, 30, 0.6)',
-                    'rgba(210, 95, 30, 0.6)',
-                ],
-                tension: 0.3,
-                fill: false,
-            },
-
-        ],
-    },
-});
-
+//     type: 'pie',
+//     data: {
+//         labels: ['Cuplumps', 'Crumbed', 'Blanket', 'Bales'], //X-axis data 
+//         datasets: [{
+//             label: 'Purchased',
+//             data: , //Y-axis data 
+//             backgroundColor: ['#C42F1A', '#567417', '#90C226', '#E6B91E'],
+//             tension: 0.3,
+//             fill: false,
+//         }]
+//     },
+// });
 
 <?php
    $Bales_currentYear = date("Y");
@@ -451,14 +305,7 @@ new Chart(inventory_baleskilo, {
                     $bales[] = $b_data['month_total'];
                 }
             }
-
-
-
-            
         ?>
-
-
-
 new Chart(monthly_milling, {
     options: {
         plugins: {

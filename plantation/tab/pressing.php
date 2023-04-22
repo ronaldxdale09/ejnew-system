@@ -65,7 +65,7 @@ $('.btnPressUpdate').on('click', function() {
 
     $('#press_u_quality').val(data[5]);
 
-    $('#press_u_entry').val(parseFloat(data[6]).toLocaleString());
+    $('#press_u_entry').val((data[6]));
 
     $('#press_u_drc').val(data[8]);
     $('#press_u_total_weight').val(data[7]);
