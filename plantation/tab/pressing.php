@@ -26,8 +26,8 @@
                 <td> <?php echo $row['supplier']?> </td>
                 <td> <?php echo $row['location']?> </td>
                 <td> <?php echo $row['lot_num']?> </td>
-                <td> <?php echo $row['weight']?> </td>
-                <td> <?php echo $row['produce_total_weight']?> </td>
+                <td> <?php echo number_format($row['weight'], 0, '.', ',')?> kg</td>
+                <td> <?php echo number_format($row['produce_total_weight'], 0, '.', ',')?> kg</td>
                 <td> <?php echo $row['drc']?> %</b></td>
 
                 <td class="text-center">
@@ -111,7 +111,7 @@ $('.btnCompletePressing').on('click', function() {
     $('#press_trans_loc').val(data[4]);
     $('#press_trans_lot').val(data[5]);
 
-    
+
     $('#press_trans_entry').val(parseFloat(data[6]).toLocaleString());
 
     $('#press_trans_drc').val(data[8]);

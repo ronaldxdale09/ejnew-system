@@ -5,6 +5,13 @@
             LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
             WHERE planta_bales_production.status='Production' and (rubber_weight !='0' or rubber_weight !=null)  ");
     ?>
+
+        <style>
+        .number-cell {
+            text-align: right;
+        }
+        </style>
+
         <thead class="table-dark">
             <tr>
                 <th>Status</th>
@@ -14,7 +21,7 @@
                 <th>Quality</th>
                 <th>Kilo per Bale</th>
                 <th>Weight</th>
-                <th>Number of Bales</th>
+                <th>Bales</th>
                 <th>Excess</th>
                 <th>DRC</th>
                 <th class="text-center">Action</th>
@@ -32,20 +39,19 @@
                     <span class="badge"><?php echo $row['status']?></span>
                     <?php endif; ?>
                 </td>
+
                 <td>
                     <span
                         class="badge bg-dark"><?php echo substr($row['bales_type'], 0, 3).'-'.$row['recording_id']?></span>
                 </td>
-     
                 <td><?php echo $row['production_date']?></td>
-          
                 <td><?php echo $row['supplier']?></td>
                 <td><?php echo $row['bales_type']?></td>
-                <td><?php echo $row['kilo_per_bale']?> kg</td>
-                <td><?php echo $row['rubber_weight']?> kg</td>
-                <td><?php echo $row['number_bales']?></td>
-                <td><?php echo $row['bales_excess']?> kg</td>
-                <td><?php echo $row['drc']?>%</td>
+                <td class="number-cell"> <?php echo $row['kilo_per_bale']?> kg</td>
+                <td class="number-cell"> <?php echo number_format($row['rubber_weight'], 0, '.', ',')?> kg</td>
+                <td class="number-cell"> <?php echo number_format($row['number_bales'], 0, '.', ',')?></td>
+                <td class="number-cell"><?php echo $row['bales_excess']?> kg</td>
+                <td class="number-cell"><?php echo $row['drc']?>%</td>
                 <td class="text-center">
                     <button type="button" class="btn btn-success btn-sm btnProducedView">
                         <i class="fas fa-book"></i> View
@@ -118,8 +124,6 @@ $('.btnProducedView').on('click', function() {
         });
     }
     fetch_data();
-
-
 
 });
 </script>

@@ -27,9 +27,10 @@
                 <td> <?php echo $row['supplier']?> </td>
                 <td> <?php echo $row['location']?> </td>
                 <td> <?php echo $row['lot_num']?> </td>
-                <td> <?php echo $row['reweight'] ? $row['reweight'] : '0'?> Kg </td>
-                <td> <?php echo $row['dry_weight'] ? $row['dry_weight'] : '0' ?> Kg</td>
-              
+                <td> <?php echo number_format($row['reweight'], 0, '.', ',')?> kg</td>
+                <td> <?php echo number_format($row['dry_weight'], 0, '.', ',')?> kg</td>
+
+
                 <!-- AGE, COUNT DAYS FROM TRANSFERRED TO TODAY -->
                 <td class="text-center">
                     <button type="button" class="btn btn-success btn-sm btnDryUpdate" id='btnDryUpdate'>
@@ -40,7 +41,7 @@
                         <i class="fas fa-book"></i> </button>
                 </td>
 
-            
+
 
             </tr> <?php } ?> </tbody>
     </table>
