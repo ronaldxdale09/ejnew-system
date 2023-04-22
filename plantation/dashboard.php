@@ -194,9 +194,11 @@
                                             </div>
                                         </div>
                                     </div>
+                                <!-- </div> -->
 
-                                    <br>
+                                <br>
 
+                                <!-- <div class="row"> -->
                                     <div class="col" style="display: flex;">
                                         <div class="card" style="width: 100%;">
                                             <div class="card-body">
@@ -206,9 +208,11 @@
                                             </div>
                                         </div>
                                     </div>
+                                <!-- </div> -->
 
-                                    <br>
+                                <br>
 
+                                <!-- <div class="row"> -->
                                     <div class="col" style="display: flex;">
                                         <div class="card" style="width: 100%;">
                                             <div class="card-body">
