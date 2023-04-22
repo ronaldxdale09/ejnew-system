@@ -207,7 +207,7 @@
                                         <div class="card" style="width: 100%;">
                                             <div class="card-body">
                                                 <div class="row">
-                                                    <canvas id="monthly_milling" height="300"></canvas>
+                                                    <canvas id="monthly_milling" height="250"></canvas>
                                                 </div>
                                             </div>
                                         </div>
@@ -217,7 +217,7 @@
                                         <div class="card" style="width: 100%;">
                                             <div class="card-body">
                                                 <div class="row">
-                                                    <canvas id="monthly_drying" height="300"></canvas>
+                                                    <canvas id="monthly_drying" height="250"></canvas>
                                                 </div>
                                             </div>
                                         </div>
@@ -231,7 +231,7 @@
                                         <div class="card" style="width: 100%;">
                                             <div class="card-body">
                                                 <div class="row">
-                                                    <canvas id="monthly_production" height="350"></canvas>
+                                                    <canvas id="monthly_production" height="300"></canvas>
                                                 </div>
                                             </div>
                                         </div>
@@ -241,6 +241,201 @@
                             </div>
                         </div>
                     </div>
+
+
+                    <!-- CARDS -->
+                    <style>
+                    .smaller-card .stat-card__content h3 {
+                        font-size: 1.25rem;
+                    }
+                    </style>
+                    <div class="row">
+
+                        <div class="col">
+                            <div class="stat-card">
+                                <div class="stat-card__content">
+                                    <p class="text-uppercase mb-1 text-muted"><b>TOTAL</b> SALES</p>
+                                    <h3>
+                                        <i class="text-success font-weight-bold mr-1"></i>
+                                        ₱ <?php echo number_format(250000, 0) ?>
+                                    </h3>
+                                </div>
+                                <div class="stat-card__icon stat-card__icon--success">
+                                    <div class="stat-card__icon-circle">
+                                        <i class="fa fa-shopping-cart"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="stat-card">
+                                <div class="stat-card__content">
+                                    <p class="text-uppercase mb-1 text-muted"><b>TOTAL</b> EXPENSES</p>
+                                    <h3>
+                                        <i class="text-danger font-weight-bold mr-1"></i>
+                                        ₱ <?php echo number_format(180000, 0) ?>
+                                    </h3>
+                                </div>
+                                <div class="stat-card__icon stat-card__icon--danger">
+                                    <div class="stat-card__icon-circle">
+                                        <i class="fa fa-credit-card"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="stat-card">
+                                <div class="stat-card__content">
+                                    <p class="text-uppercase mb-1 text-muted"><b>COST OF </b>SALE</p>
+                                    <h3>
+                                        <i class="text-primary font-weight-bold mr-1"></i>
+                                        ₱ <?php echo number_format(75000, 0) ?>
+                                    </h3>
+                                </div>
+                                <div class="stat-card__icon stat-card__icon--primary">
+                                    <div class="stat-card__icon-circle">
+                                        <i class="fa fa-boxes"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+
+                        <div class="row">
+    <!-- Inventory Cards -->
+                        <div class="col">
+                            <div class="stat-card smaller-card">
+                                <div class="stat-card__content">
+                                    <p class="text-uppercase mb-1 text-muted"><b>CUPLUMP</b> INVENTORY</p>
+                                    <h3>
+                                        <i class="text-danger font-weight-bold mr-1"></i>
+                                        <?php echo number_format($cuplumps['inventory'] ?? 0, 0) ?> kg
+                                    </h3>
+                                    <div>
+                                        <span class="text-muted">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="stat-card__icon stat-card__icon--danger">
+                                    <div class="stat-card__icon-circle">
+                                        <i class="fa fa-weight" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="stat-card smaller-card">
+                                <div class="stat-card__content">
+                                    <p class="text-uppercase mb-1 text-muted"><b>CRUMB</b> INVENTORY</p>
+
+                                    <h3>
+                                        <i class="text-danger font-weight-bold mr-1"></i>
+                                        <?php echo number_format($milling['inventory'] ?? 0, 0) ?> kg
+                                    </h3>
+
+                                    <div>
+                                        <span class="text-muted">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="stat-card__icon stat-card__icon--secondary">
+                                    <div class="stat-card__icon-circle">
+                                        <i class="fas fa-tint"></i><i class="fas fa-wind"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="stat-card smaller-card">
+                                <div class="stat-card__content">
+                                    <p class="text-uppercase mb-1 text-muted"><b>BLANKET</b> INVENTORY</p>
+
+                                    <h3>
+                                        <i class="text-danger font-weight-bold mr-1"></i>
+                                        <?php echo number_format($drying['inventory'] ?? 0, 0) ?> kg
+                                    </h3>
+
+                                    <div>
+                                        <span class="text-muted">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="stat-card__icon stat-card__icon--warning">
+                                    <div class="stat-card__icon-circle">
+                                        <i class="fa fa-weight" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="stat-card smaller-card">
+                                <div class="stat-card__content">
+                                    <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY (KG)</p>
+                                    <h3>
+                                        <i class="text-danger font-weight-bold mr-1"></i>
+                                        <?php echo number_format($bales['inventory'] ?? 0, 0) ?> kg
+                                    </h3>
+                                    <div>
+                                        <span class="text-muted">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="stat-card__icon stat-card__icon--success">
+                                    <div class="stat-card__icon-circle">
+                                        <i class="fa fa-money"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="stat-card smaller-card">
+                                <div class="stat-card__content">
+                                    <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY </p>
+                                    <h3>
+                                        <i class="text-danger font-weight-bold mr-1"></i>
+                                        <?php echo number_format($balesCount['inventory'] ?? 0, 0) ?> bales
+                                    </h3>
+                                    <div>
+                                        <span class="text-muted">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="stat-card__icon stat-card__icon--success">
+                                    <div class="stat-card__icon-circle">
+                                        <i class="fa fa-money"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="card" style="width:100%;max-width:100%;">
+                            <div class="card-body" style="width:100%;max-width:100%;">
+                                <h5>INVENTORY OVERVIEW</h5>
+                                <div class="row" style="display: flex; align-items: stretch;">
+                                    <div class="col" style="display: flex;">
+                                        <div class="card" style="width: 100%;">
+                                            <div class="card-body" style="height: 400px; position: relative;">
+                                                <canvas id="chartgpm"
+                                                    style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+<!-- ADD PRODUCTION HERE -->
+
+                    
+
                 </div>
             </div>
         </div>
@@ -407,8 +602,7 @@ new Chart(inventory_baleskilo, {
     type: 'bar',
     data: {
         labels: <?php echo json_encode($bales_labels) ?>, // X-axis data
-        datasets: [
-            {
+        datasets: [{
                 label: '35 kg', // Add a label for 35kg bales
                 data: <?php echo json_encode($bales_values_35) ?>, // Y-axis data for 35kg bales
                 backgroundColor: [
@@ -580,4 +774,168 @@ new Chart(monthly_production, {
         }]
     },
 });
+
+
+
+// THIS IS SAMPLE CHART AND DATA, DELETE////////////////
+
+
+const labels = ['January', 'February', 'March', 'April', 'May'];
+const gpmData = [120, 80, 125, 128, 140];
+const salesData = [1000, 1200, 1300, 1100, 1500];
+const expensesData = [900, 1000, 1100, 950, 1300];
+const adCostData = [200, 250, 300, 350, 400];
+
+const chartgpm = document.getElementById('chartgpm').getContext('2d');
+
+new Chart(chartgpm, {
+    options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Gross Profit Margin per Month',
+            },
+            legend: {
+                position: 'bottom',
+            },
+        },
+        maintainAspectRatio: false,
+        aspectRatio: 1.5,
+        scales: {
+            y: {
+                type: 'linear',
+                display: true,
+                position: 'left',
+                title: {
+                    display: true,
+                    text: 'Amount / GPM (%)'
+                },
+                beginAtZero: true,
+
+            },
+            x: {
+                display: true,
+                title: {
+                    display: true,
+                    text: 'Months'
+                },
+                grid: {
+                    display: false
+                }
+            }
+        },
+        elements: {
+            line: {
+                tension: 0.3
+            }
+        },
+        plugins: {
+            legend: {
+                position: 'bottom'
+            }
+        }
+    },
+    type: 'bar',
+    data: {
+        labels: labels, // X-axis data
+        datasets: [{
+                type: 'bar',
+                label: 'GPM',
+                data: gpmData, // Y-axis data for GPM
+                borderColor: 'rgba(204, 0, 0, 1)',
+                backgroundColor: 'rgba(204, 0, 0, 0.5)',
+                borderWidth: 1
+            },
+            {
+                type: 'line',
+                label: 'Sales',
+                data: salesData, // Y-axis data for Sales
+                borderColor: 'rgba(0, 102, 255, 1)',
+                borderWidth: 1,
+                fill: false
+            },
+            {
+                type: 'line',
+                label: 'Expenses',
+                data: expensesData, // Y-axis data for Expenses
+                borderColor: 'rgba(0, 153, 0, 1)',
+                borderWidth: 1,
+                fill: false
+            },
+            {
+                type: 'line',
+                label: 'AD Cost',
+                data: adCostData, // Y-axis data for AD Cost
+                borderColor: 'rgba(255, 255, 0, 1)',
+                borderWidth: 1,
+                fill: false
+            }
+        ]
+    },
+});
+
+
+// Sample data
+const sampleLabels = ['January', 'February', 'March', 'April', 'May'];
+const sampleDataCrumbs = [50, 100, 75, 150, 120];
+const sampleDataBlankets = [40, 80, 100, 130, 90];
+const sampleDataBales = [30, 70, 60, 110, 80];
+
+new Chart(document.getElementById('monthly_production'), {
+    options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Monthly Production',
+            },
+            legend: {
+                display: true,
+                position: 'bottom'
+            }
+        },
+        scales: {
+            y: {
+                ticks: {
+                    display: true
+                },
+                grid: {
+                    display: false
+                }
+            },
+            x: {
+                grid: {
+                    display: false
+                }
+            }
+        }
+    },
+    type: 'line',
+    data: {
+        labels: sampleLabels,
+        datasets: [
+            {
+                label: 'Crumbs',
+                data: sampleDataCrumbs,
+                backgroundColor: '#617391',
+                tension: 0.3,
+                fill: true,
+            },
+            {
+                label: 'Blankets',
+                data: sampleDataBlankets,
+                backgroundColor: '#3892BA',
+                tension: 0.3,
+                fill: true,
+            },
+            {
+                label: 'Bales',
+                data: sampleDataBales,
+                backgroundColor: '#2e83c3',
+                tension: 0.3,
+                fill: true,
+            }
+        ]
+    },
+});
+
 </script>
