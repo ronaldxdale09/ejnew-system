@@ -7,7 +7,7 @@ include('../function/db.php');
 
  $sql  = "SELECT * FROM planta_recording_logs 
  WHERE recording_id='$recording_id' and status='Drying'
- ORDER BY drying_date DESC";
+ ORDER BY planta_logs_id DESC";
 
 $output='';
 
@@ -42,7 +42,7 @@ $output='';
  else  
  {  
       $output .= '<tr>  
-                          <td colspan="4">Nothings in the cart</td>  
+      <td colspan="4">Nothing added yet</td>
                      </tr>';  
  }  
  $output .= '

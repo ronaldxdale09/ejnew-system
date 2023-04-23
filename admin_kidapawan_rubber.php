@@ -34,9 +34,6 @@ error_reporting(0); // Suppress all warnings
             <div class="page-wrapper">
                 <div class="container-fluid">
 
-
-
-
                     <!-- CARDS -->
 
                     <div class="row">
