@@ -1,414 +1,1006 @@
+<?php 
+   include('include/header.php');
+   include "include/sidenav.php";
+
+error_reporting(0); // Suppress all warnings
+
+   $loc = ''; // Please replace with your location value
+
+   // Add your database connection code here
+   // ...
+
+   // Your SQL queries and data processing here
+   // ...
+
+?>
+
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title> Administrator Menu | EJN </title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="css/statistic-card.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"
+        integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
-<!-- PHP Code -->
-<!-- copra dashboard -->
-<?php
-        include 'include/header.php';
-        include 'include/sidenav.php';
-
-
-        $sql  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(net_weight) as month_total 
-        from rubber_transaction  where loc='Kidapawan'  group by year(date), month(date) ORDER BY ID DESC");
-        $sumPurchaced_wet = mysqli_fetch_array($sql);
-        $monthNum  = $sumPurchaced_wet["month"];
-        $dateObj   = DateTime::createFromFormat('!m', $monthNum);
-     
-     
-        $sql  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(amount_paid) as amount_purchased 
-        from rubber_transaction  where loc='Kidapawan'   group by year(date), month(date) ORDER BY ID DESC");
-        $sumAmountPurchased = mysqli_fetch_array($sql);
-     
-        /////////////////
-     
-        $sql  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(total_net_weight) as month_total 
-        from bales_transaction  where loc='Kidapawan'   group by year(date), month(date) ORDER BY ID DESC");
-        $sumPurchaced_bales = mysqli_fetch_array($sql);
-        $monthNum  = $sumPurchaced_bales["month"];
-        $dateObj   = DateTime::createFromFormat('!m', $monthNum);
-      
-     
-        $sql  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(amount_paid) as amount_purchased 
-        from bales_transaction   where loc='Kidapawan'  group by year(date), month(date) ORDER BY ID DESC");
-        $sumAmountPurchased_bales = mysqli_fetch_array($sql);
-     
-     
-        //PENDING CONTRACT
-        $sql = mysqli_query($con,"SELECT * FROM rubber_contract where  loc='Kidapawan' AND  status='WET' AND status='PENDING' OR status='UPDATED' ");
-        $contract_wet=mysqli_num_rows($sql);
-     
-        $sql = mysqli_query($con,"SELECT * FROM rubber_contract where  loc='Kidapawan' AND  status='BALES' AND  status='PENDING' OR status='UPDATED'");
-        $contract_bales=mysqli_num_rows($sql);
-     
-     //    cash advance
-     
-        $sql = mysqli_query($con, "SELECT SUM(cash_advance) AS total_ca from rubber_seller where loc='Kidapawan'  "); 
-        $ca_wet = mysqli_fetch_array($sql);
-     
-        
-        $sql = mysqli_query($con, "SELECT SUM(bales_cash_advance) AS total_ca from rubber_seller  where loc='Kidapawan' "); 
-        $ca_bales = mysqli_fetch_array($sql);
-        ?>
-
 <body>
-
-    <!--DASHBOARD OF ALL USER -->
-    <section class="home-section">
-        <div class="home-content">
-            <i class='bx bx-menu'></i>
-            <span class="text">Kidapawan Rubber Dashbaord</span>
-        </div>
-
-        <main>
-
-
+    <div class="main-content" style="position:relative; height:100%;">
+        <div class="container home-section h-100" style="max-width:95%;">
             <div class="page-wrapper">
                 <div class="container-fluid">
-                    <!-- ============================================================== -->
-                    <div class="row">
-                        <div class="col-sm-3 offset-sm-0">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>WET</b> PURCHASED</p>
-                                    <h3><i class="text-danger font-weight-bold mr-1"></i>
-                                        <?php echo number_format($sumPurchaced_wet['month_total']); ?> KG
-                                    </h3>
-                                    <div>
-                                        <span class="text-muted"> <?php echo $today = date("F, Y"); ?>
-                                            <?php echo $sumPurchaced_wet['year']; ?>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="stat-card__icon stat-card__icon--danger">
-                                    <div class="stat-card__icon-circle">
-                                        <i class="fa fa-weight" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>WET</b> TOTAL PURCHASED</p>
-                                    <h3>₱ <?php echo number_format($sumAmountPurchased['amount_purchased']) ; ?></h2>
-                                        <div>
-                                            <span class="text-muted"> <?php echo $today = date("F, Y"); ?>
-                                                <?php echo $sumPurchaced_wet['year']; ?>
-                                            </span>
-                                        </div>
-                                </div>
-                                <div class="stat-card__icon stat-card__icon--secondary">
-                                    <div class="stat-card__icon-circle">
-                                        <i class="fa fa-money"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="col-sm-3 offset-sm-0">
+
+
+
+                    <!-- CARDS -->
+
+                    <div class="row">
+
+                        <div class="col">
                             <div class="stat-card">
                                 <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>BALES</b> PURCHASED</p>
-                                    <h3><i class="text-danger font-weight-bold mr-1"></i>
-                                        <?php echo number_format($sumPurchaced_bales['month_total']); ?> KG
+                                    <p class="text-uppercase mb-1 text-muted"><b>BALES</b> SALES</p>
+                                    <h3>
+                                        <i class="text-success font-weight-bold mr-1"></i>
+                                        ₱ <?php echo number_format(250000, 0) ?>
                                     </h3>
-                                    <div>
-                                        <span class="text-muted"> <?php echo $today = date("F, Y"); ?>
-                                            <?php echo $sumPurchaced_bales['year']; ?>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="stat-card__icon stat-card__icon--warning">
-                                    <div class="stat-card__icon-circle">
-                                        <i class="fa fa-weight" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>BALES</b> TOTAL PURCHASED</p>
-                                    <h3>₱ <?php echo number_format($sumAmountPurchased_bales['amount_purchased']) ; ?>
-                                    </h3>
-                                    <div>
-                                        <span class="text-muted"> <?php echo $today = date("F, Y"); ?>
-                                            <?php echo $sumPurchaced_wet['year']; ?>
-                                        </span>
-                                    </div>
                                 </div>
                                 <div class="stat-card__icon stat-card__icon--success">
                                     <div class="stat-card__icon-circle">
-                                        <i class="fa fa-money"></i>
+                                        <i class="fa fa-shopping-cart"></i>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- ============================================================== -->
 
-                    <div class="row">
-                        <div class="col-sm-3 offset-sm-0">
+                        <div class="col">
                             <div class="stat-card">
                                 <div class="stat-card__content">
-                                    <h3><i class="text-danger font-weight-bold mr-1"></i>
-                                        ₱ <?php echo number_format($ca_wet[0],2); ?>
+                                    <p class="text-uppercase mb-1 text-muted"><b>CUPLUMP</b> EXPORT</p>
+                                    <h3>
+                                        <i class="text-success font-weight-bold mr-1"></i>
+                                        ₱ <?php echo number_format(250000, 0) ?>
                                     </h3>
+                                </div>
+                                <div class="stat-card__icon stat-card__icon--success">
+                                    <div class="stat-card__icon-circle">
+                                        <i class="fa fa-shopping-cart"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="stat-card">
+                                <div class="stat-card__content">
+                                    <p class="text-uppercase mb-1 text-muted"><b>OPERATING</b> EXPENSES</p>
+                                    <h3>
+                                        <i class="text-success font-weight-bold mr-1"></i>
+                                        ₱ <?php echo number_format(180000, 0) ?>
+                                    </h3>
+                                </div>
+                                <div class="stat-card__icon stat-card__icon--success">
+                                    <div class="stat-card__icon-circle">
+                                        <i class="fa fa-shopping-cart"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="stat-card">
+                                <div class="stat-card__content">
+                                    <p class="text-uppercase mb-1 text-muted"><b>SALES</b> GROWTH</p>
+                                    <h3>
+                                        <i class="text-danger font-weight-bold mr-1"></i>
+                                        <?php echo number_format(18, 0) ?> %
+                                    </h3>
+                                </div>
+                                <div class="stat-card__icon stat-card__icon--danger">
+                                    <div class="stat-card__icon-circle">
+                                        <i class="fa fa-credit-card"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="stat-card">
+                                <div class="stat-card__content">
+                                    <p class="text-uppercase mb-1 text-muted"><b>OUTSTANDING </b>BALANCE</p>
+                                    <h3>
+                                        <i class="text-primary font-weight-bold mr-1"></i>
+                                        ₱ <?php echo number_format(75000, 0) ?>
+                                    </h3>
+                                </div>
+                                <div class="stat-card__icon stat-card__icon--primary">
+                                    <div class="stat-card__icon-circle">
+                                        <i class="fa fa-boxes"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- CARDS -->
+
+                    <div class="row">
+
+
+                        <div class="col">
+                            <div class="stat-card">
+                                <div class="stat-card__content">
+                                    <p class="text-uppercase mb-1 text-muted"><b>CUPLUMP</b> INVENTORY</p>
+                                    <h3>
+                                        <i class="text-danger font-weight-bold mr-1"></i>
+                                        <?php echo number_format($cuplumps['inventory'] ?? 0, 0) ?> kg
+                                        </h4>
+                                        <div>
+                                            <span class="text-muted">
+                                            </span>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="stat-card">
+                                <div class="stat-card__content">
+                                    <p class="text-uppercase mb-1 text-muted"><b>CRUMB</b> INVENTORY</p>
+
+                                    <h4>
+                                        <i class="text-danger font-weight-bold mr-1"></i>
+                                        <?php echo number_format($milling['inventory'] ?? 0, 0) ?> kg
+                                    </h4>
+
                                     <div>
-                                        <p class="text-uppercase mb-1 text-muted"><b>WET</b> TOTAL CASH ADVANCE</p>
-
-
+                                        <span class="text-muted">
+                                        </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3" style='text-align:center;'>
-                            <div class="stat-card" style='text-align:center;'>
-                                <div class="stat-card__content" style='text-align:center;'>
 
-                                    <h3> <?php echo ($contract_wet) ; ?></h2>
-                                        <p class="text-uppercase mb-1 text-muted"><b>WET</b> PENDING CONTRACT</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3 offset-sm-0">
+                        <div class="col">
                             <div class="stat-card">
                                 <div class="stat-card__content">
-                                    <h3><i class="text-danger font-weight-bold mr-1"></i>
-                                        ₱ <?php echo number_format($ca_bales[0],2); ?>
-                                    </h3>
-                                    <p class="text-uppercase mb-1 text-muted"><b>BALES</b> TOTAL CASH ADVANCE</p>
+                                    <p class="text-uppercase mb-1 text-muted"><b>BLANKET</b> INVENTORY</p>
 
+                                    <h4>
+                                        <i class="text-danger font-weight-bold mr-1"></i>
+                                        <?php echo number_format($drying['inventory'] ?? 0, 0) ?> kg
+                                    </h4>
+
+                                    <div>
+                                        <span class="text-muted">
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3" style='text-align:center;'>
-                            <div class="stat-card" style='text-align:center;'>
-                                <div class="stat-card__content" style='text-align:center;'>
 
-                                    <h3> <?php echo ($contract_bales) ; ?></h2>
-                                        <p class="text-uppercase mb-1 text-muted"><b>BALES</b> PENDING CONTRACT</p>
+                        <div class="col">
+                            <div class="stat-card">
+                                <div class="stat-card__content">
+                                    <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY (KG)</p>
+                                    <h4>
+                                        <i class="text-danger font-weight-bold mr-1"></i>
+                                        <?php echo number_format($bales['inventory'] ?? 0, 0) ?> kg
+                                    </h4>
+                                    <div>
+                                        <span class="text-muted">
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="stat-card">
+                                <div class="stat-card__content">
+                                    <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY </p>
+                                    <h4>
+                                        <i class="text-danger font-weight-bold mr-1"></i>
+                                        <?php echo number_format($balesCount['inventory'] ?? 0, 0) ?> bales
+                                    </h4>
+                                    <div>
+                                        <span class="text-muted">
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- =============================================================== -->
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-10">
-                                            <h5>RUBBER WET TRANSACTION </h5>
+                </div>
+
+                <div class="row">
+                    <div class="card" style="width:100%;max-width:100%;">
+                        <div class="card-body" style="width:100%;max-width:100%;">
+                            <h5>NET INCOME TREND</h5>
+                            <div class="row" style="display: flex; align-items: stretch;">
+                                <div class="col" style="display: flex;">
+                                    <div class="card" style="width: 100%;">
+                                        <div class="card-body" style="height: 400px; position: relative;">
+                                            <canvas id="trend_income"
+                                                style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
                                         </div>
-
                                     </div>
-                                    <hr>
-                                    <div class="table-responsive">
-                                        <table class="table" id='sellerTable'>
-                                            <?php
-                                    $record  = mysqli_query($con, "SELECT * from rubber_transaction  where loc='Kidapawan'  ORDER BY id DESC LIMIT 5 "); ?>
-                                            <thead class="table-dark" style='font-size:12px'>
-                                                <tr>
-                                                    <th scope="col">Invoice</th>
-                                                    <th scope="col">Date</th>
-                                                    <th scope="col">Contract</th>
-                                                    <th scope="col">Seller</th>
-                                                    <th scope="col">Price 1</th>
-                                                    <th scope="col">Price 2</th>
-                                                    <th scope="col">Net Weight </th>
-                                                    <th scope="col">Amount Paid</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody style='font-size:15px'>
-                                                <?php while ($row = mysqli_fetch_array($record)) { ?> <tr>
-                                                    <th scope="row"> <?php echo $row['id']?> </th>
-                                                    <td> <?php echo $row['date']?> </td>
-                                                    <td> <?php echo $row['contract']?> </td>
-                                                    <td> <?php echo $row['seller']?> </td>
-                                                    <td>₱ <?php echo number_format($row['price_1'],2);?></td>
-                                                    <td>₱ <?php echo number_format($row['price_2'],2);?></td>
-                                                    <td> <?php echo number_format($row['net_weight']);?> Kg </td>
-
-                                                    <td>₱ <?php echo number_format($row['amount_paid'],2); ?> </td>
-                                                </tr> <?php } ?> </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card" style="width:100%;max-width:100%; height:100%;">
-                                <div class="card-body" style="width:100%;max-width:100%; height:100%;">
-                                    <canvas id="wet_line" style="width:100%;max-width:100%; height:100%;"></canvas>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-10">
-                                            <h5>BALES TRANSACTION </h5>
+                </div>
+
+                <div class="row">
+                    <div class="card" style="width:100%;max-width:100%;">
+                        <div class="card-body" style="width:100%;max-width:100%;">
+                            <h5>GROSS PROFIT TREND</h5>
+                            <div class="row" style="display: flex; align-items: stretch;">
+                                <div class="col" style="display: flex;">
+                                    <div class="card" style="width: 100%;">
+                                        <div class="card-body" style="height: 400px; position: relative;">
+                                            <canvas id="trend_grossprofit"
+                                                style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
                                         </div>
-
                                     </div>
-                                    <hr>
-                                    <div class="table-responsive">
-                                        <table class="table" id='sellerTable'>
-                                            <?php
-                                    $record  = mysqli_query($con, "SELECT * from bales_transaction  where loc='Kidapawan' ORDER BY id DESC LIMIT 5 "); ?>
-                                            <thead class="table-dark" style='font-size:12px'>
-                                                <tr>
-                                                    <th scope="col">LOT #</th>
-                                                    <th scope="col">Date</th>
-                                                    <th scope="col">Contract</th>
-                                                    <th scope="col">Seller</th>
-                                                    <th scope="col">Bales</th>
-                                                    <th scope="col">Price 1</th>
-                                                    <th scope="col">Price 2</th>
-                                                    <th scope="col">Net Weight </th>
-                                                    <th scope="col">Amount Paid</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody> <?php while ($row = mysqli_fetch_array($record)) { ?> <tr>
-                                                    <th scope="row">LOT #<?php echo $row['lot_code']?> </th>
-                                                    <td> <?php echo $row['date']?> </td>
-                                                    <td> <?php echo $row['contract']?> </td>
-                                                    <td> <?php echo $row['seller']?> </td>
-                                                    <td>
-                                                        <?php 
-                                                    if ($row['total_bales_2'] =='0 Bales ') {
-                                                        echo  $row['total_bales_1'].' @ '.$row['kilo_bales_1'].' Kg'; 
-                                                    } else {
-                                                        echo  $row['total_bales_1'].' @ '.$row['kilo_bales_1'].' Kg<br>'; 
-                                                        echo  $row['total_bales_2'].' @ '.$row['kilo_bales_2'].' Kg'; 
-                                                    }
-                                                    
-                                                    ?>
-                                                    </td>
-                                                    <td>₱ <?php echo number_format($row['price_1'],2);?></td>
-                                                    <td>₱ <?php echo number_format($row['price_2'],2);?></td>
-                                                    <td> <?php echo number_format($row['total_net_weight']);?> Kg </td>
-
-                                                    <td>₱ <?php echo number_format($row['amount_paid'],2); ?> </td>
-                                                </tr> <?php } ?> </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card" style="width:100%;max-width:100%; height:100%;">
-                                <div class="card-body" style="width:100%;max-width:100%; height:100%;">
-                                    <canvas id="bales_bar" style="width:100%;max-width:100%; height:100%;"></canvas>
                                 </div>
                             </div>
                         </div>
                     </div>
-                <?php 
-          include "modal/viewTransactionModal.php";
-        ?>
+                </div>
 
-                <script>
-                wet_line = document.getElementById("wet_line");
-                bales_bar = document.getElementById("bales_bar");
+                <br>
 
-                <?php
-   $currentMonth = date("m");
-   $currentDay = date("d");
-   $currentYear = date("Y");
-   
-   $today = $currentYear . "-" . $currentMonth . "-" . $currentDay;
-   
-                $purchased_count = mysqli_query($con,"SELECT year(date) as year ,MONTHNAME(date) as monthname,sum(net_weight) as month_total from rubber_transaction WHERE year(date)='$currentYear' AND loc='Kidapawan'  group by month(date) ORDER BY date");        
-                if($purchased_count->num_rows > 0) {
-                  foreach($purchased_count as $data) {
-                      $month[] = $data['monthname'];
-                      $amount[] = $data['month_total'];
-                  }
-              }
-        ?>
+                <div class="row">
+                    <div class="card" style="width:100%;max-width:100%;">
+                        <div class="card-body" style="width:100%;max-width:100%;">
+                            <h5>SALE TREND</h5>
+                            <div class="row" style="display: flex; align-items: stretch;">
+                                <div class="col" style="display: flex;">
+                                    <div class="card" style="width: 100%;">
+                                        <div class="card-body" style="height: 400px; position: relative;">
+                                            <canvas id="trend_sales"
+                                                style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                new Chart(wet_line, {
-                    options: {
-                        plugins: {
-                            title: {
-                                display: true,
-                                text: 'Monthly WET Rubber Purchased',
-                            },
-                        },
+
+                <br>
+
+                <div class="row">
+                    <div class="card" style="width:100%;max-width:100%;">
+                        <div class="card-body" style="width:100%;max-width:100%;">
+                            <h5>OPERATING EXPENSES</h5>
+                            <div class="row" style="display: flex; align-items: stretch;">
+                                <div class="col-5" style="display: flex;">
+                                    <div class="card" style="width: 100%;">
+                                        <div class="card-body" style="height: 400px; position: relative;">
+                                            <canvas id="pie_opex"
+                                                style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col" style="display: flex;">
+                                    <div class="card" style="width: 100%;">
+                                        <div class="card-body" style="height: 400px; position: relative;">
+                                            <canvas id="trend_shipexp"
+                                                style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="row">
+                    <div class="card" style="width:100%;max-width:100%;">
+                        <div class="card-body" style="width:100%;max-width:100%;">
+                            <h5>INVENTORY OVERVIEW</h5>
+                            <div class="row" style="display: flex; align-items: stretch;">
+                                <div class="col" style="display: flex;">
+                                    <div class="card" style="width: 100%;">
+                                        <div class="card-body" style="height: 400px; position: relative;">
+                                            <canvas id="inventory_all"
+                                                style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col" style="display: flex;">
+                                    <div class="card" style="width: 100%;">
+                                        <div class="card-body" style="height: 400px; position: relative;">
+                                            <canvas id="inventory_bales"
+                                                style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-5" style="display: flex;">
+                                    <div class="card" style="width: 100%;">
+                                        <div class="card-body" style="height: 400px; position: relative;">
+                                            <canvas id="inventory_baleskilo"
+                                                style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <br>
+
+
+                <div class="row">
+                    <div class="card" style="width:100%;max-width:100%;">
+                        <div class="card-body" style="width:100%;max-width:100%;">
+                            <h5>PRODUCTION VOLUME</h5>
+                            <div class="row">
+                                <div class="col" style="display: flex;">
+                                    <div class="card" style="width: 100%;">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <canvas id="monthly_milling" height="250"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col" style="display: flex;">
+                                    <div class="card" style="width: 100%;">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <canvas id="monthly_drying" height="250"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+
+                            <div class="row">
+                                <div class="col" style="display: flex;">
+                                    <div class="card" style="width: 100%;">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <canvas id="monthly_production" height="300"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script>
+    const labels0 = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August'];
+    const incomeData = [1500, 2000, 2300, 2100, 2500, 2300, 1850, 2000];
+
+    const trend_income = document.getElementById('trend_income').getContext('2d');
+    new Chart(trend_income, {
+        type: 'bar',
+        data: {
+            labels: labels0,
+            datasets: [{
+                label: 'Shipping Expenses',
+                data: incomeData,
+                borderColor: '#000000',
+                backgroundColor: '#28a745',
+                borderWidth: .5,
+                fill: true,
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: false,
+                    text: 'Monthly Net Income'
+                },
+                legend: {
+                    display: false
+                }
+            },
+            maintainAspectRatio: false,
+            aspectRatio: 1.5,
+            scales: {
+                y: {
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    title: {
+                        display: false,
+                        text: 'Amount'
                     },
-                    type: 'line', //Declare the chart type 
-                    data: {
-                        labels: <?php echo json_encode($month) ?>, //X-axis data 
-                        datasets: [{
-                            label: 'Purchased',
-                            data: <?php echo json_encode($amount) ?>, //Y-axis data 
-                            backgroundColor: '#f26c4f',
-                            borderColor: '#f26c4f',
-                            tension: 0.3,
-                            fill: false, //Fills the curve under the line with the babckground color. It's true by default
-                        }]
+                    beginAtZero: true
+                },
+                x: {
+                    display: true,
+                    title: {
+                        display: false,
+                        text: 'Months'
                     },
-                });
+                    grid: {
+                        display: false
+                    }
+                }
+            },
+            elements: {
+                line: {
+                    tension: 0.3
+                }
+            },
+            legend: {
+                display: false
+            }
+        }
+    });
 
+    const labels2 = ['January', 'February', 'March', 'April', 'May'];
+    const gpData = [880, 1200, 1200, 1500, 1800];
+    const salesData = [2000, 2200, 2300, 2100, 2500];
+    const cogsData = [900, 1000, 1100, 950, 1300];
+    const shippingExpData = [200, 250, 300, 350, 400];
+    const millExpData = [100, 150, 200, 250, 300];
 
-                <?php
-   $Bales_currentYear = date("Y");
-   $Bales_currentMonth = date("m");
-             
-            $bales_count = mysqli_query($con,"SELECT year(date) as year ,MONTHNAME(date) as monthname,sum(bales_compute) as month_total from bales_transaction WHERE
-             year(date)='$Bales_currentYear'   and loc='Kidapawan' group by month(date) ORDER BY date");        
-            if($bales_count->num_rows > 0) {
-                foreach($bales_count as $b_data) {
-                    $month_bales[] = $b_data['monthname'];
-                    $bales[] = $b_data['month_total'];
+    const trend_grossprofit = document.getElementById('trend_grossprofit').getContext('2d');
+
+    new Chart(trend_grossprofit, {
+        type: 'bar',
+        data: {
+            labels: labels2, // X-axis data
+            datasets: [{
+                    label: 'Gross Profit',
+                    data: gpData, // Y-axis data for Gross Profit
+                    borderColor: '#28a745',
+                    borderWidth: 3,
+                    fill: false,
+                    type: 'line'
+                },
+                {
+                    label: 'Sales',
+                    data: salesData, // Y-axis data for Sales
+                    backgroundColor: '#174f77',
+                    borderWidth: 1,
+                    fill: true,
+                    stack: 'stack0'
+                },
+                {
+                    label: 'COGS',
+                    data: cogsData, // Y-axis data for COGS
+                    backgroundColor: '#d34817',
+                    borderWidth: 1,
+                    fill: true,
+                    stack: 'stack1'
+                },
+                {
+                    label: 'Shipping Expenses',
+                    data: shippingExpData, // Y-axis data for Shipping Expenses
+                    backgroundColor: '#a28e6a',
+                    borderWidth: 1,
+                    fill: true,
+                    stack: 'stack1'
+                },
+                {
+                    label: 'Milling Fee',
+                    data: millExpData, // Y-axis data for Other Expenses
+                    backgroundColor: '#ff9900',
+                    borderWidth: 1,
+                    fill: true,
+                    stack: 'stack1'
+                }
+            ]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Gross Profit per Month',
+                },
+                legend: {
+                    position: 'bottom',
+                },
+            },
+            maintainAspectRatio: false,
+            aspectRatio: 1.5,
+            scales: {
+                y: {
+                    stacked: true,
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    title: {
+                        display: false,
+                        text: 'Amount'
+                    },
+                    beginAtZero: true
+                },
+                x: {
+                    stacked: true,
+                    display: true,
+                    title: {
+                        display: false,
+                        text: 'Months'
+                    },
+                    grid: {
+                        display: false
+                    }
+                }
+            },
+            elements: {
+                line: {
+                    tension: 0.3
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'bottom'
                 }
             }
-        ?>
+        },
+    });
 
-                new Chart(bales_bar, {
-                    options: {
-                        plugins: {
-                            title: {
-                                display: true,
-                                text: 'Monthly Total Bales Purchased',
-                            },
-                        },
+
+
+
+    const labels = ['January', 'February', 'March', 'April', 'May'];
+    const totalSalesData = [300, 450, 600, 500, 700];
+    const baleLocalSalesData = [300, 450, 600, 500, 700];
+    const baleExportData = [200, 250, 400, 350, 500];
+    const cuplumpExportData = [100, 150, 200, 300, 200];
+
+    const trend_sales = document.getElementById('trend_sales').getContext('2d');
+
+    new Chart(trend_sales, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                    label: 'Total Sales',
+                    type: 'line',
+                    data: totalSalesData,
+                    borderColor: '#000000',
+                    backgroundColor: '#415588',
+                },
+                {
+                    label: 'Bale Local Sales',
+                    data: baleLocalSalesData,
+                    borderColor: '#000000',
+                    backgroundColor: '#415588',
+                },
+                {
+                    label: 'Bale Export',
+                    data: baleExportData,
+                    borderColor: '#000000',
+                    backgroundColor: '#4294b6',
+                },
+                {
+                    label: 'Cuplump Export',
+                    data: cuplumpExportData,
+                    borderColor: '#000000',
+                    backgroundColor: '#087d7c',
+                }
+            ]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Monthly Sales (Bale Local, Bale Export, Cuplump Export)',
+                },
+                legend: {
+                    position: 'bottom',
+                },
+            },
+            maintainAspectRatio: false,
+            aspectRatio: 1.5,
+            scales: {
+                y: {
+                    stacked: true,
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    title: {
+                        display: false,
+                        text: 'Amount'
                     },
-                    type: 'bar', //Declare the chart type 
-                    data: {
-                        labels: <?php echo json_encode($month_bales) ?>, //X-axis data 
-                        datasets: [{
-                            label: 'Bales',
-                            data: <?php echo json_encode($bales) ?>, //Y-axis data 
-                            backgroundColor: '#781710',
-                            borderColor: '#781710',
-                            tension: 0.3,
-                            fill: false, //Fills the curve under the line with the babckground color. It's true by default
-                        }]
+                    beginAtZero: true,
+                },
+                x: {
+                    stacked: true,
+                    display: true,
+                    title: {
+                        display: false,
+                        text: 'Months'
                     },
-                });
-                </script>
+                    grid: {
+                        display: false
+                    }
+                }
+            },
+            elements: {
+                line: {
+                    tension: 0.3
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
 
 
-                <link rel='stylesheet' href='css/statistic-card.css'>
-                <input type='hidden' id='selected-cart' value=''>
+    const labels3 = ['Labor', 'Salary', 'Truck', 'Utilities', 'Maintenance', 'Selling', 'Miscellaneous'];
+    const data = [880, 1200, 1200, 1500, 1800, 2100, 1600];
 
-        </main>
+    const pie_pie_opex = document.getElementById('pie_opex').getContext('2d');
 
-    </section>
+    new Chart(pie_opex, {
+        type: 'pie',
+        data: {
+            labels: labels3,
+            datasets: [{
+                data: data,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(54, 162, 235, 1)'
+                ]
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: false,
+                    text: 'Annual Shipping Expenses',
+                },
+                legend: {
+                    position: 'bottom',
+                },
+            },
+            maintainAspectRatio: false,
+            aspectRatio: 1.5
+        }
+    });
 
+    const labels4 = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August'];
+    const shippingData = [1500, 2000, 2300, 2100, 2500, 2300, 1850, 2000];
+
+    const trend_shipexp = document.getElementById('trend_shipexp').getContext('2d');
+    new Chart(trend_shipexp, {
+        type: 'bar',
+        data: {
+            labels: labels4,
+            datasets: [{
+                label: 'Shipping Expenses',
+                data: shippingData,
+                borderColor: 'rgba(255, 153, 0, 1)',
+                backgroundColor: 'rgba(255, 153, 0, 1)',
+                borderWidth: 2,
+                fill: true,
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: false,
+                    text: 'Monthly Shipping Expenses'
+                },
+                legend: {
+                    display: false
+                }
+            },
+            maintainAspectRatio: false,
+            aspectRatio: 1.5,
+            scales: {
+                y: {
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    title: {
+                        display: false,
+                        text: 'Amount'
+                    },
+                    beginAtZero: true
+                },
+                x: {
+                    display: true,
+                    title: {
+                        display: false,
+                        text: 'Months'
+                    },
+                    grid: {
+                        display: false
+                    }
+                }
+            },
+            elements: {
+                line: {
+                    tension: 0.3
+                }
+            },
+            legend: {
+                display: false
+            }
+        }
+    });
+
+
+    new Chart(inventory_all, {
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Inventory (Kilo)',
+                },
+                legend: {
+                    position: 'bottom',
+                },
+            },
+            maintainAspectRatio: false,
+            aspectRatio: 1.5,
+        },
+
+        type: 'doughnut',
+        data: {
+            labels: ['Cuplumps', 'Crumbed', 'Blanket', 'Bales'], //X-axis data 
+            datasets: [{
+                label: 'Purchased',
+                data: <?php echo json_encode($inventory_values) ?>, //Y-axis data 
+                backgroundColor: ['#C42F1A', '#567417', '#90C226', '#E6B91E'],
+                tension: 0.3,
+                fill: false,
+            }]
+        },
+    });
+
+
+    new Chart(inventory_bales, {
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Bale Inventory (Quality Comparison)',
+                },
+                legend: {
+                    position: 'bottom',
+                },
+            },
+            maintainAspectRatio: false,
+            aspectRatio: 1.5,
+        },
+
+        type: 'pie',
+        data: {
+            labels: <?php echo json_encode($bales_labels) ?>, //X-axis data 
+            datasets: [{
+                label: 'Purchased',
+                data: <?php echo json_encode($bales_values) ?>, //Y-axis data 
+                backgroundColor: ['#C42F1A', '#567417', '#90C226', '#E6B91E', '#CE5504'],
+                tension: 0.3,
+                fill: false,
+            }]
+        },
+    });
+
+    new Chart(inventory_baleskilo, {
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Bale Inventory (Kilo and Quality Comparison)',
+                },
+                legend: {
+                    position: 'bottom',
+                },
+            },
+            maintainAspectRatio: false,
+            aspectRatio: 1.5,
+            scales: {
+                x: {
+                    grid: {
+                        display: false,
+                    },
+                },
+                y: {
+                    grid: {
+                        display: false,
+                    },
+                    stacked: true, // Enable stacked bars
+                },
+            },
+        },
+
+        type: 'bar',
+        data: {
+            labels: <?php echo json_encode($bales_labels) ?>, // X-axis data
+            datasets: [{
+                    label: '35 kg', // Add a label for 35kg bales
+                    data: <?php echo json_encode($bales_values_35) ?>, // Y-axis data for 35kg bales
+                    backgroundColor: [
+                        'rgba(196, 47, 26, 1)',
+                        'rgba(86, 116, 23, 1)',
+                        'rgba(144, 194, 38, 1)',
+                        'rgba(230, 185, 30, 1)',
+                        'rgba(210, 95, 30, 1)',
+                    ],
+                    tension: 0.3,
+                    fill: false,
+                },
+                {
+                    label: '33.33 kg', // Add a label for 33.33kg bales
+                    data: <?php echo json_encode($bales_values_3333) ?>, // Y-axis data for 33.33kg bales
+                    backgroundColor: [
+                        'rgba(196, 47, 26, 0.6)',
+                        'rgba(86, 116, 23, 0.6)',
+                        'rgba(144, 194, 38, 0.6)',
+                        'rgba(230, 185, 30, 0.6)',
+                        'rgba(210, 95, 30, 0.6)',
+                    ],
+                    tension: 0.3,
+                    fill: false,
+                },
+
+            ],
+        },
+    });
+
+
+
+
+    new Chart(monthly_milling, {
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Monthly Crumb Production (Milling)',
+                },
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    ticks: {
+                        display: true // Y-Axis Label (#)
+                    },
+                    grid: {
+                        display: false // y-axis gridlines
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false // x-axis gridlines
+                    }
+                }
+            }
+        },
+        type: 'line',
+        data: {
+            labels: <?php echo json_encode($month_bales) ?>, //X-axis data 
+            datasets: [{
+                label: 'Crumbs',
+                data: <?php echo json_encode($bales) ?>, //Y-axis data 
+                backgroundColor: '#617391',
+                tension: 0.3,
+                fill: true,
+            }]
+        },
+    });
+
+
+    new Chart(monthly_drying, {
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Monthly Blanket Production (Drying)',
+                },
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    ticks: {
+                        display: false // Y-Axis Label (#)
+                    },
+                    grid: {
+                        display: false // y-axis gridlines
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false // x-axis gridlines
+                    }
+                }
+            }
+        },
+        type: 'line',
+        data: {
+            labels: <?php echo json_encode($month_bales) ?>, //X-axis data 
+            datasets: [{
+                label: 'Blankets',
+                data: <?php echo json_encode($bales) ?>, //Y-axis data 
+                backgroundColor: '#3892BA',
+                tension: 0.3,
+                fill: true,
+            }]
+        },
+    });
+
+
+    new Chart(monthly_production, {
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Monthly Bale Production (Pressing)',
+                },
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    ticks: {
+                        display: true // Y-Axis Label (#)
+                    },
+                    grid: {
+                        display: false // y-axis gridlines
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false // x-axis gridlines
+                    }
+                }
+            }
+        },
+        type: 'line',
+        data: {
+            labels: <?php echo json_encode($month_bales) ?>, //X-axis data 
+            datasets: [{
+                label: 'Bales',
+                data: <?php echo json_encode($bales) ?>, //Y-axis data 
+                backgroundColor: '#2e83c3',
+                tension: 0.3,
+                fill: true,
+            }]
+        },
+    });
+    </script>
 </body>
 
 </html>

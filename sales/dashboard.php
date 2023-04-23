@@ -221,23 +221,20 @@ error_reporting(0); // Suppress all warnings
             datasets: [{
                     label: 'Bale Local Sales',
                     data: baleLocalSalesData,
-                    borderColor: 'rgba(204, 0, 0, 1)',
-                    backgroundColor: '#c42f1a',
-                    borderWidth: 1
+                    borderColor: '#000000',
+                    backgroundColor: '#415588',
                 },
                 {
                     label: 'Bale Export',
                     data: baleExportData,
-                    borderColor: 'rgba(0, 102, 255, 1)',
-                    backgroundColor: 'rgba(0, 102, 255, 0.8)',
-                    borderWidth: 1,
+                    borderColor: '#000000',
+                    backgroundColor: '#4294b6',
                 },
                 {
                     label: 'Cuplump Export',
                     data: cuplumpExportData,
-                    borderColor: 'rgba(0, 153, 0, 1)',
-                    backgroundColor: 'rgba(0, 153, 0, 0.8)',
-                    borderWidth: 1,
+                    borderColor: '#000000',
+                    backgroundColor: '#087d7c',
                 }
             ]
         },
@@ -306,15 +303,15 @@ error_reporting(0); // Suppress all warnings
             datasets: [{
                     label: 'Gross Profit',
                     data: gpData, // Y-axis data for Gross Profit
-                    borderColor: '#2e80fa',
-                    borderWidth: 2,
+                    borderColor: '#28a745',
+                    borderWidth: 3,
                     fill: false,
                     type: 'line'
                 },
                 {
                     label: 'Sales',
                     data: salesData, // Y-axis data for Sales
-                    backgroundColor: '#c42f1a',
+                    backgroundColor: '#174f77',
                     borderWidth: 1,
                     fill: true,
                     stack: 'stack0'
@@ -322,7 +319,7 @@ error_reporting(0); // Suppress all warnings
                 {
                     label: 'COGS',
                     data: cogsData, // Y-axis data for COGS
-                    backgroundColor: '#dbb01d',
+                    backgroundColor: '#d34817',
                     borderWidth: 1,
                     fill: true,
                     stack: 'stack1'
@@ -330,7 +327,7 @@ error_reporting(0); // Suppress all warnings
                 {
                     label: 'Shipping Expenses',
                     data: shippingExpData, // Y-axis data for Shipping Expenses
-                    backgroundColor: '#90c226',
+                    backgroundColor: '#a28e6a',
                     borderWidth: 1,
                     fill: true,
                     stack: 'stack1'
@@ -338,7 +335,7 @@ error_reporting(0); // Suppress all warnings
                 {
                     label: 'Milling Fee',
                     data: millExpData, // Y-axis data for Other Expenses
-                    backgroundColor: '#918655',
+                    backgroundColor: '#ff9900',
                     borderWidth: 1,
                     fill: true,
                     stack: 'stack1'
@@ -394,7 +391,7 @@ error_reporting(0); // Suppress all warnings
         },
     });
 
-    const labels3 = ['Labor', 'Trucking', 'Z-M Freight', 'Manila Trucking', 'Processing', 'Arrastre', 'Miscellaneous'];
+    const labels3 = ['Labor', 'Trucking', 'Manila Freight', 'Manila Trucking', 'Processing', 'Arrastre', 'Miscellaneous'];
     const data = [880, 1200, 1200, 1500, 1800, 2100, 1600];
 
     const pie_shipexp = document.getElementById('pie_shipexp').getContext('2d');
@@ -419,7 +416,7 @@ error_reporting(0); // Suppress all warnings
         options: {
             plugins: {
                 title: {
-                    display: true,
+                    display: false,
                     text: 'Annual Shipping Expenses',
                 },
                 legend: {
