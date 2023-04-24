@@ -426,21 +426,20 @@ new Chart(inventory_baleskilo, {
 
 
 <?php
-    $milling_data = mysqli_query($con, "SELECT 
-            SUM(crumbed_weight) AS total_weight,
-            MONTH(milling_date) AS month
-        FROM planta_recording 
-        WHERE status = 'Milling'
-        GROUP BY MONTH(milling_date)");
+$milling_data = mysqli_query($con, "SELECT SUM(crumbed_weight) AS total_weight, MONTH(milling_date) AS month FROM planta_recording_logs
+WHERE (recording_id, planta_logs_id) IN ( SELECT recording_id, MAX(planta_logs_id) AS max_planta_logs_id FROM planta_recording_logs 
+WHERE status = 'Milling' GROUP BY recording_id ) GROUP BY MONTH(milling_date);");
 
-    if ($milling_data->num_rows > 0) {
-        $month_bales = [];
-        $bales = [];
-        while ($row = $milling_data->fetch_assoc()) {
+    if ($milling_data && $milling_data->num_rows > 0) {
+    $month_bales = [];
+    $bales = [];
+        while ($row = mysqli_fetch_assoc($milling_data)) {
             $month_bales[] = date('M Y', mktime(0, 0, 0, $row['month'], 1));
             $bales[] = number_format($row['total_weight'], 0, '.', '');
         }
     }
+
+    
 ?>
 
 
@@ -487,21 +486,20 @@ new Chart(monthly_milling, {
 
 
 <?php
-$drying_data = mysqli_query($con, "SELECT 
-                      MONTH(drying_date) as month, 
-                      SUM(dry_weight) as total_dry_weight
-                  FROM planta_recording
-                  WHERE status='Drying'
-                  GROUP BY MONTH(drying_date)");
 
-if ($drying_data->num_rows > 0) {
-    $month_bales_drying = [];
-    $bales_drying = [];
-    while ($drying_row = $drying_data->fetch_assoc()) {
-        $month_bales_drying[] = date('M', mktime(0, 0, 0, $drying_row['month'], 1));
-        $bales_drying[] = number_format($drying_row['total_dry_weight'], 2, '.', '');
+$Drying_data = mysqli_query($con, "SELECT SUM(dry_weight) AS total_weight, MONTH(drying_date) AS month FROM planta_recording_logs
+    WHERE (recording_id, planta_logs_id) IN ( SELECT recording_id, MAX(planta_logs_id) AS max_planta_logs_id FROM planta_recording_logs 
+    WHERE status = 'Drying' GROUP BY recording_id ) GROUP BY MONTH(drying_date);");
+
+if ($Drying_data && $Drying_data->num_rows > 0) {
+    $month_Dry = [];
+    $dry_weight = [];
+    while ($row = mysqli_fetch_assoc($Drying_data)) {
+        $month_Dry[] = date('M Y', mktime(0, 0, 0, $row['month'], 1));
+        $dry_weight[] = number_format($row['total_weight'], 0, '.', '');
     }
 }
+
 ?>
 
 new Chart(monthly_drying, {
@@ -533,16 +531,33 @@ new Chart(monthly_drying, {
     },
     type: 'line',
     data: {
-        labels: <?php echo json_encode($month_bales) ?>, //X-axis data 
+        labels: <?php echo json_encode($month_Dry) ?>, //X-axis data 
         datasets: [{
             label: 'Blankets',
-            data: <?php echo json_encode($bales) ?>, //Y-axis data 
+            data: <?php echo json_encode($dry_weight) ?>, //Y-axis data 
             backgroundColor: '#3892BA',
             tension: 0.3,
             fill: true,
         }]
     },
 });
+
+<?php
+
+$bale_prod = mysqli_query($con, "SELECT SUM(produce_total_weight) AS total_weight, MONTH(production_date) AS month FROM planta_recording_logs
+    WHERE (recording_id, planta_logs_id) IN ( SELECT recording_id, MAX(planta_logs_id) AS max_planta_logs_id FROM planta_recording_logs 
+    WHERE status = 'Pressing' GROUP BY recording_id ) GROUP BY MONTH(production_date);");
+
+if ($bale_prod && $bale_prod->num_rows > 0) {
+    $month_produced = [];
+    $produced_weight = [];
+    while ($row = mysqli_fetch_assoc($bale_prod)) {
+        $month_produced[] = date('M Y', mktime(0, 0, 0, $row['month'], 1));
+        $produced_weight[] = number_format($row['total_weight'], 0, '.', '');
+    }
+}
+
+?>
 
 
 new Chart(monthly_production, {
@@ -574,15 +589,14 @@ new Chart(monthly_production, {
     },
     type: 'line',
     data: {
-        labels: <?php echo json_encode($month_bales) ?>, //X-axis data 
+        labels: <?php echo json_encode($month_produced) ?>, //X-axis data 
         datasets: [{
             label: 'Bales',
-            data: <?php echo json_encode($bales) ?>, //Y-axis data 
+            data: <?php echo json_encode($produced_weight) ?>, //Y-axis data 
             backgroundColor: '#2e83c3',
             tension: 0.3,
             fill: true,
         }]
     },
 });
-
 </script>
