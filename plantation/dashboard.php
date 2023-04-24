@@ -136,7 +136,7 @@
                                     <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY </p>
                                     <h3>
                                         <i class="text-danger font-weight-bold mr-1"></i>
-                                        <?php echo number_format($balesCount['inventory'] ?? 0, 0) ?> bales
+                                        <?php echo number_format($balesCount['inventory'] ?? 0, 0) ?> pcs
                                     </h3>
                                     <div>
                                         <span class="text-muted">
