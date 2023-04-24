@@ -408,8 +408,7 @@ error_reporting(0); // Suppress all warnings
                 label: 'Shipping Expenses',
                 data: incomeData,
                 borderColor: '#000000',
-                backgroundColor: '#28a745',
-                borderWidth: .5,
+                backgroundColor: '#174f77',
                 fill: true,
             }]
         },
@@ -466,6 +465,7 @@ error_reporting(0); // Suppress all warnings
     const millExpData = [100, 150, 200, 250, 300];
 
     const trend_grossprofit = document.getElementById('trend_grossprofit').getContext('2d');
+
 
     new Chart(trend_grossprofit, {
         type: 'bar',
@@ -754,6 +754,31 @@ error_reporting(0); // Suppress all warnings
     });
 
 
+
+    // ALL INVENTORY PIE CHART------------------------------
+
+
+    inventory_all = document.getElementById("inventory_all");
+
+    <?php
+              $inventory = mysqli_query($con, "SELECT 
+              SUM(CASE WHEN status = 'Field' THEN reweight ELSE 0 END) as cumplumps,
+              SUM(CASE WHEN status = 'Milling' THEN crumbed_weight ELSE 0 END) as crumbed,
+              SUM(CASE WHEN status = 'Drying' THEN dry_weight ELSE 0 END) as dry,
+              SUM(CASE WHEN status = 'Produced' THEN produce_total_weight ELSE 0 END) as produced
+          FROM planta_recording");
+          
+              if ($inventory->num_rows > 0) {
+                $inventory_data = $inventory->fetch_assoc();
+                $inventory_values = [
+                    number_format($inventory_data['cumplumps'], 0, '.', ''),
+                    number_format($inventory_data['crumbed'], 0, '.', ''),
+                    number_format($inventory_data['dry'], 0, '.', ''),
+                    number_format($inventory_data['produced'], 0, '.', '')
+                ];
+            }
+            ?>
+
     new Chart(inventory_all, {
         options: {
             plugins: {
@@ -783,6 +808,18 @@ error_reporting(0); // Suppress all warnings
     });
 
 
+    // BALE INVENTORY DOUGHNUT CHART------------------------------
+
+    <?php $bales_inventory = mysqli_query($con, "SELECT bales_type, SUM(number_bales) as total FROM planta_bales_production GROUP BY bales_type;");
+
+            if ($bales_inventory->num_rows > 0) {
+                $bales_values = [];
+                $bales_labels = [];
+                while ($bales_data = $bales_inventory->fetch_assoc()) {
+                    $bales_labels[] = $bales_data['bales_type'];
+                    $bales_values[] = number_format($bales_data['total'], 0, '.', '');
+                } } ?>
+
     new Chart(inventory_bales, {
         options: {
             plugins: {
@@ -811,68 +848,80 @@ error_reporting(0); // Suppress all warnings
         },
     });
 
-    new Chart(inventory_baleskilo, {
-        options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Bale Inventory (Kilo and Quality Comparison)',
-                },
-                legend: {
-                    position: 'bottom',
-                },
+
+    // BALE KILO INVENTORY BAR CHART------------------------------
+
+    inventory_bales = document.getElementById("inventory_bales");
+
+    <?php              
+    $bales_type = mysqli_query($con, "SELECT bales_type,
+            SUM(CASE WHEN kilo_per_bale BETWEEN 33.32 AND 33.34 THEN number_bales ELSE 0 END) as total_33_33,
+            SUM(CASE WHEN kilo_per_bale BETWEEN 34.99 AND 35.01 THEN number_bales ELSE 0 END) as total_35
+     FROM planta_bales_production
+     GROUP BY bales_type;");
+    
+    if ($bales_type->num_rows > 0) {
+        $bales_labels = [];
+        $bales_values_3333 = [];
+        $bales_values_35 = [];
+        while ($bales_data = $bales_type->fetch_assoc()) {
+            $bales_labels[] = $bales_data['bales_type'];
+            $bales_values_3333[] = number_format($bales_data['total_33_33'], 0, '.', '');
+            $bales_values_35[] = number_format($bales_data['total_35'], 0, '.', '');
+        }
+    }
+        ?>
+
+new Chart(inventory_baleskilo, {
+    options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Bale Inventory (Kilo and Quality Comparison)',
             },
-            maintainAspectRatio: false,
-            aspectRatio: 1.5,
-            scales: {
-                x: {
-                    grid: {
-                        display: false,
-                    },
-                },
-                y: {
-                    grid: {
-                        display: false,
-                    },
-                    stacked: true, // Enable stacked bars
-                },
+            legend: {
+                position: 'top',
             },
         },
-
-        type: 'bar',
-        data: {
-            labels: <?php echo json_encode($bales_labels) ?>, // X-axis data
-            datasets: [{
-                    label: '35 kg', // Add a label for 35kg bales
-                    data: <?php echo json_encode($bales_values_35) ?>, // Y-axis data for 35kg bales
-                    backgroundColor: [
-                        'rgba(196, 47, 26, 1)',
-                        'rgba(86, 116, 23, 1)',
-                        'rgba(144, 194, 38, 1)',
-                        'rgba(230, 185, 30, 1)',
-                        'rgba(210, 95, 30, 1)',
-                    ],
-                    tension: 0.3,
-                    fill: false,
+        maintainAspectRatio: false,
+        aspectRatio: 1.5,
+        scales: {
+            x: {
+                grid: {
+                    display: false,
                 },
-                {
-                    label: '33.33 kg', // Add a label for 33.33kg bales
-                    data: <?php echo json_encode($bales_values_3333) ?>, // Y-axis data for 33.33kg bales
-                    backgroundColor: [
-                        'rgba(196, 47, 26, 0.6)',
-                        'rgba(86, 116, 23, 0.6)',
-                        'rgba(144, 194, 38, 0.6)',
-                        'rgba(230, 185, 30, 0.6)',
-                        'rgba(210, 95, 30, 0.6)',
-                    ],
-                    tension: 0.3,
-                    fill: false,
+            },
+            y: {
+                grid: {
+                    display: false,
                 },
-
-            ],
+                stacked: true, // Enable stacked bars
+            },
         },
-    });
+    },
 
+    type: 'bar',
+    data: {
+        labels: <?php echo json_encode($bales_labels) ?>, // X-axis data
+        datasets: [{
+                label: '35 kg', // Add a label for 35kg bales
+                data: <?php echo json_encode($bales_values_35) ?>, // Y-axis data for 35kg bales
+                backgroundColor: 'rgba(196, 47, 26, 1)',
+                tension: 0.3,
+                fill: false,
+                stack: 'stack1',
+            },
+            {
+                label: '33.33 kg', // Add a label for 33.33kg bales
+                data: <?php echo json_encode($bales_values_3333) ?>, // Y-axis data for 33.33kg bales
+                backgroundColor: 'rgba(196, 47, 26, 0.6)',
+                tension: 0.3,
+                fill: false,
+                stack: 'stack1',
+            },
+        ],
+    },
+});
 
 
 

@@ -259,13 +259,7 @@ wet_line = document.getElementById("wet_line");
 bales_bar = document.getElementById("bales_bar");
 bales_quality = document.getElementById("bales_quality");
 cuplump_inventory = document.getElementById("cuplump_inventory");
-
 inventory_bales = document.getElementById("inventory_bales");
-
-
-
-
-
 inventory_all = document.getElementById("inventory_all");
 
 <?php
@@ -387,7 +381,7 @@ new Chart(inventory_baleskilo, {
                 text: 'Bale Inventory (Kilo and Quality Comparison)',
             },
             legend: {
-                position: 'bottom',
+                position: 'top',
             },
         },
         maintainAspectRatio: false,
@@ -413,52 +407,41 @@ new Chart(inventory_baleskilo, {
         datasets: [{
                 label: '35 kg', // Add a label for 35kg bales
                 data: <?php echo json_encode($bales_values_35) ?>, // Y-axis data for 35kg bales
-                backgroundColor: [
-                    'rgba(196, 47, 26, 1)',
-                    'rgba(86, 116, 23, 1)',
-                    'rgba(144, 194, 38, 1)',
-                    'rgba(230, 185, 30, 1)',
-                    'rgba(210, 95, 30, 1)',
-                ],
+                backgroundColor: 'rgba(196, 47, 26, 1)',
                 tension: 0.3,
                 fill: false,
+                stack: 'stack1',
             },
             {
                 label: '33.33 kg', // Add a label for 33.33kg bales
                 data: <?php echo json_encode($bales_values_3333) ?>, // Y-axis data for 33.33kg bales
-                backgroundColor: [
-                    'rgba(196, 47, 26, 0.6)',
-                    'rgba(86, 116, 23, 0.6)',
-                    'rgba(144, 194, 38, 0.6)',
-                    'rgba(230, 185, 30, 0.6)',
-                    'rgba(210, 95, 30, 0.6)',
-                ],
+                backgroundColor: 'rgba(196, 47, 26, 0.6)',
                 tension: 0.3,
                 fill: false,
+                stack: 'stack1',
             },
-
         ],
     },
 });
 
 
 <?php
-   $Bales_currentYear = date("Y");
-   $Bales_currentMonth = date("m");
-             
-            $bales_count = mysqli_query($con,"SELECT year(date) as year ,MONTHNAME(date) as monthname,sum(bales_compute) as month_total from bales_transaction WHERE year(date)='$Bales_currentYear'  group by month(date) ORDER BY date");        
-            if($bales_count->num_rows > 0) {
-                foreach($bales_count as $b_data) {
-                    $month_bales[] = $b_data['monthname'];
-                    $bales[] = $b_data['month_total'];
-                }
-            }
+    $milling_data = mysqli_query($con, "SELECT 
+            SUM(crumbed_weight) AS total_weight,
+            MONTH(milling_date) AS month
+        FROM planta_recording 
+        WHERE status = 'Milling'
+        GROUP BY MONTH(milling_date)");
 
-
-
-            
-        ?>
-
+    if ($milling_data->num_rows > 0) {
+        $month_bales = [];
+        $bales = [];
+        while ($row = $milling_data->fetch_assoc()) {
+            $month_bales[] = date('M Y', mktime(0, 0, 0, $row['month'], 1));
+            $bales[] = number_format($row['total_weight'], 0, '.', '');
+        }
+    }
+?>
 
 
 new Chart(monthly_milling, {
@@ -502,6 +485,25 @@ new Chart(monthly_milling, {
 });
 
 
+
+<?php
+$drying_data = mysqli_query($con, "SELECT 
+                      MONTH(drying_date) as month, 
+                      SUM(dry_weight) as total_dry_weight
+                  FROM planta_recording
+                  WHERE status='Drying'
+                  GROUP BY MONTH(drying_date)");
+
+if ($drying_data->num_rows > 0) {
+    $month_bales_drying = [];
+    $bales_drying = [];
+    while ($drying_row = $drying_data->fetch_assoc()) {
+        $month_bales_drying[] = date('M', mktime(0, 0, 0, $drying_row['month'], 1));
+        $bales_drying[] = number_format($drying_row['total_dry_weight'], 2, '.', '');
+    }
+}
+?>
+
 new Chart(monthly_drying, {
     options: {
         plugins: {
@@ -516,7 +518,7 @@ new Chart(monthly_drying, {
         scales: {
             y: {
                 ticks: {
-                    display: false // Y-Axis Label (#)
+                    display: true // Y-Axis Label (#)
                 },
                 grid: {
                     display: false // y-axis gridlines

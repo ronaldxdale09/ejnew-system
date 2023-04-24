@@ -16,8 +16,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Rubber | Transaction
-                    <!-- INSERT ID NO. --> Report
+                <h5 class="modal-title" id="exampleModalLabel">Rubber | Transaction Report
                 </h5>
                 <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
