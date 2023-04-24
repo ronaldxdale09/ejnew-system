@@ -91,10 +91,13 @@
         // Loop over the rubber types and insert the data into the database
         foreach ($rubberTypes as $type) {
             // Set the default values to 0
-            $kilo_bale = 0;
+       
             $weight = 0;
             $bale_num = 0;
             $excess = 0;
+
+            // Set the kilo_per_bale value based on the rubber type
+            $kilo_bale = ($type === 'Showa') ? 33.33 : 35;
 
             // Insert the data into the database using the appropriate SQL statement
             $sql = "INSERT INTO planta_bales_production (recording_id, bales_type, kilo_per_bale, rubber_weight, number_bales, bales_excess, status) 

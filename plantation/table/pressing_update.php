@@ -46,30 +46,26 @@ $output = '
                     value="'.$arr["bales_type"].'" style="border:none;"readonly /> </td>
                 <td>
                     <div class="input-group">
-                    <select class="form-select" name="kilo_bale_'.$arr['bales_type'].'" id="kilo_bale_'.$arr['bales_type'].'" style="text-align:center;">
-                        <option value="" selected disabled>Select</option>
-                        <option value="0" >Empty</option>
-                        <option value="35" '.($arr["kilo_per_bale"] == "35" ? "selected" : "").'>35 kg</option>
-                        <option value="33.33" '.($arr["kilo_per_bale"] == "33.33" ? "selected" : "").'>33.33 kg</option>
-                    </select>
+              
+                    <input type="text" readonly class="form-control" name="kilo_bale_'.$arr['bales_type'].'" id="kilo_bale_'.$arr['bales_type'].'"  value="'.$arr["kilo_per_bale"].' kg" ">
                     </div>
                 </td>
                 <td>
                     <div class="input-group">
                         <input type="text" class="form-control" name="weight_'.$arr['bales_type'].'" id="weight_'.$arr['bales_type'].'" value="'.$arr["rubber_weight"].'"
-                            onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
+                            onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" readonly>
                     </div>
                 </td>
                 <td>
                     <div class="input-group">
                         <input type="text" class="form-control" name="bale_num_'.$arr['bales_type'].'" id="bale_num_'.$arr['bales_type'].'" value="'.$arr["number_bales"].'"
-                            onkeypress="return CheckNumeric()" readonly onkeyup="FormatCurrency(this)">
+                            onkeypress="return CheckNumeric()"  onkeyup="FormatCurrency(this)">
                     </div>
                 </td>
                 <td>
                     <div class="input-group">
                         <input type="text" class="form-control" name="excess_'.$arr['bales_type'].'" id="excess_'.$arr['bales_type'].'" value="'.$arr["bales_excess"].'"
-                            onkeypress="return CheckNumeric()" readonly onkeyup="FormatCurrency(this)">
+                            onkeypress="return CheckNumeric()"  onkeyup="FormatCurrency(this)">
                         <span class="input-group-text">kg</span>
                     </div>
                 </td>
@@ -87,175 +83,60 @@ echo $output;
 
 
 <script>
-
-
-// $(document).ready(function() {
-//     $('select[name^="kilo_bale_"]').change(function() {
-//         var bales_type = $(this).attr("id").replace('kilo_bale_', '');
-//         var weight_input = $('input[name="weight_' + bales_type + '"]');
-//         if ($(this).val() == 0) {
-//             weight_input.attr('readonly', true);
-//             weight_input.val('');
-//         } else {
-//             weight_input.attr('readonly', false);
-//         }
-//     });
-// });
-
-// function validateTable() {
-//     // Get the table element
-//     var table = document.getElementById("rubber-table");
-
-//     // Loop through the rows and check if any of them has some data
-//     for (var i = 1; i < table.rows.length; i++) {
-//         var row = table.rows[i];
-//         var weight = row.querySelector("input[name^='weight']");
-//         var baleNum = row.querySelector("input[name^='bale_num']");
-//         var excess = row.querySelector("input[name^='excess']");
-
-//         if (weight.value || baleNum.value || excess.value) {
-//             return true; // At least one row has data
-//         }
-//     }
-
-//     // If no row has data, show an error message
-//     alert("Please enter some data in the table.");
-//     return false;
-// }
-
-
-
-
-$("#kilo_bale_Manhattan").on("change", function() {
-    computeBalesData()
+// Event listeners for bale number input fields
+$("#bale_num_Manhattan, #bale_num_Showa, #bale_num_Dunlop, #bale_num_Crown, #bale_num_SPR10").on("input", function() {
+    updateComputeBales();
 });
 
-
-$("#kilo_bale_Showa").on("change", function() {
-    computeBalesData()
-});
-
-
-$("#kilo_bale_Dunlop").on("change", function() {
-    computeBalesData()
-});
-
-
-$("#kilo_bale_Crown").on("change", function() {
-    computeBalesData()
-});
-
-
-$("#kilo_bale_SPR10").on("change", function() {
-    computeBalesData()
-});
-
-
-
-
-
-$(function() {
-    $("#weight_Manhattan,#weight_Showa,#weight_Dunlop,#weight_Crown,#weight_SPR10").keyup(function() {
-        computeBalesData()
-    });
-
+// Event listeners for excess input fields
+$("#excess_Manhattan, #excess_Showa, #excess_Dunlop, #excess_Crown, #excess_SPR10").on("input", function() {
+    updateComputeBales();
 });
 
 function computeBalesData() {
-    console.log('hello')
-    // Update computation for Manhattan
-    var kilo_bale_Manhattan = $("#kilo_bale_Manhattan").val() ? parseFloat($("#kilo_bale_Manhattan").val().replace(/,/g,
-        '')) : 0;
-    var weight_manhattan = $("#weight_Manhattan").val() ? parseFloat($("#weight_Manhattan").val().replace(/,/g, '')) :
-        0;
+    // Get kilo_per_bale values
+    var kiloBaleManhattan = parseFloat($("#kilo_bale_Manhattan").val()) || 0;
+    var kiloBaleShowa = parseFloat($("#kilo_bale_Showa").val()) || 0;
+    var kiloBaleDunlop = parseFloat($("#kilo_bale_Dunlop").val()) || 0;
+    var kiloBaleCrown = parseFloat($("#kilo_bale_Crown").val()) || 0;
+    var kiloBaleSpr = parseFloat($("#kilo_bale_SPR10").val()) || 0;
 
-    // Update computation for Showa
-    var kilo_bale_Showa = $("#kilo_bale_Showa").val() ? parseFloat($("#kilo_bale_Showa").val().replace(/,/g, '')) : 0;
-    var weight_showa = $("#weight_Showa").val() ? parseFloat($("#weight_Showa").val().replace(/,/g, '')) : 0;
+    // Get bale_num values
+    var baleNumManhattan = parseFloat($("#bale_num_Manhattan").val()) || 0;
+    var baleNumShowa = parseFloat($("#bale_num_Showa").val()) || 0;
+    var baleNumDunlop = parseFloat($("#bale_num_Dunlop").val()) || 0;
+    var baleNumCrown = parseFloat($("#bale_num_Crown").val()) || 0;
+    var baleNumSpr = parseFloat($("#bale_num_SPR10").val()) || 0;
 
-    // Update computation for Dunlop
-    var kilo_bale_Dunlop = $("#kilo_bale_Dunlop").val() ? parseFloat($("#kilo_bale_Dunlop").val().replace(/,/g, '')) :
-        0;
-    var weight_dunlop = $("#weight_Dunlop").val() ? parseFloat($("#weight_Dunlop").val().replace(/,/g, '')) : 0;
+    // Get excess values
+    var excessManhattan = parseFloat($("#excess_Manhattan").val()) || 0;
+    var excessShowa = parseFloat($("#excess_Showa").val()) || 0;
+    var excessDunlop = parseFloat($("#excess_Dunlop").val()) || 0;
+    var excessCrown = parseFloat($("#excess_Crown").val()) || 0;
+    var excessSpr = parseFloat($("#excess_SPR10").val()) || 0;
 
-    // Update computation for Crown
-    var kilo_bale_Crown = $("#kilo_bale_Crown").val() ? parseFloat($("#kilo_bale_Crown").val().replace(/,/g, '')) : 0;
-    var weight_crown = $("#weight_Crown").val() ? parseFloat($("#weight_Crown").val().replace(/,/g, '')) : 0;
+    // Compute and update the weight values
+    var weightManhattan = baleNumManhattan * kiloBaleManhattan + excessManhattan;
+    $("#weight_Manhattan").val(weightManhattan.toFixed(2));
 
-    // Update computation for SPR
-    var kilo_bale_SPR10 = $("#kilo_bale_SPR10").val() ? parseFloat($("#kilo_bale_SPR10").val().replace(/,/g, '')) : 0;
-    var weight_spr = $("#weight_SPR10").val() ? parseFloat($("#weight_SPR10").val().replace(/,/g, '')) : 0;
+    var weightShowa = baleNumShowa * kiloBaleShowa + excessShowa;
+    $("#weight_Showa").val(weightShowa.toFixed(2));
 
+    var weightDunlop = baleNumDunlop * kiloBaleDunlop + excessDunlop;
+    $("#weight_Dunlop").val(weightDunlop.toFixed(2));
 
+    var weightCrown = baleNumCrown * kiloBaleCrown + excessCrown;
+    $("#weight_Crown").val(weightCrown.toFixed(2));
 
-    var entry_weight = $("#press_u_entry").val() ? parseFloat($("#press_u_entry").val().replace(/,/g, '')) : 0;
-
-    updateComputeBales(kilo_bale_Manhattan, weight_manhattan, kilo_bale_Showa, weight_showa, kilo_bale_Dunlop,
-        weight_dunlop, kilo_bale_Crown, weight_crown, kilo_bale_SPR10, weight_spr, entry_weight);
-}
-
-
-function updateComputeBales(kiloBaleManhattan, weightManhattan, kiloBaleShowa, weightShowa, kiloBaleDunlop,
-    weightDunlop, kiloBaleCrown, weightCrown, kiloBaleSpr, weightSpr, entry_weight) {
-    const getBalesAndExcessKilo = (kiloBale, weight) => {
-        if (kiloBale && weight) {
-            const bales = Math.floor(weight / kiloBale);
-            const excessKilo = (weight % kiloBale).toFixed(2);
-            return [bales, excessKilo];
-        }
-        return [0, 0];
-    };
-
-    const [mBales, excessManhattan] = getBalesAndExcessKilo(kiloBaleManhattan, weightManhattan);
-    $("#bale_num_Manhattan").val(mBales.toLocaleString());
-    $("#excess_Manhattan").val(excessManhattan.toLocaleString());
-
-    const [sBales, excessShowa] = getBalesAndExcessKilo(kiloBaleShowa, weightShowa);
-    $("#bale_num_Showa").val(sBales.toLocaleString());
-    $("#excess_Showa").val(excessShowa).toLocaleString();
-
-    const [dBales, excessDunlop] = getBalesAndExcessKilo(kiloBaleDunlop, weightDunlop);
-    $("#bale_num_Dunlop").val(dBales.toLocaleString());
-    $("#excess_Dunlop").val(excessDunlop.toLocaleString());
-
-    const [cBales, excessCrown] = getBalesAndExcessKilo(kiloBaleCrown, weightCrown);
-    $("#bale_num_Crown").val(cBales.toLocaleString());
-    $("#excess_Crown").val(excessCrown.toLocaleString());
-
-    const [sprBales, excessSpr] = getBalesAndExcessKilo(kiloBaleSpr, weightSpr);
-    $("#bale_num_SPR10").val(sprBales.toLocaleString());
-    $("#excess_SPR10").val(excessSpr.toLocaleString());
-
+    var weightSpr = baleNumSpr * kiloBaleSpr + excessSpr;
+    $("#weight_SPR10").val(weightSpr.toFixed(2));
 
     var totalWeight = weightManhattan + weightShowa + weightDunlop + weightCrown + weightSpr;
-
-    rubber_drc = (totalWeight / entry_weight) * 100
-
+    rubber_drc = (totalWeight / entry_weight) * 100;
 
     $("#press_u_total_weight").val(totalWeight.toLocaleString());
-
     $("#press_u_drc").val(rubber_drc.toFixed(2));
-
-
-
-
 }
-/**
- * Get number of bales and excess kilo for a given weight and kilo per bale.
- *
- * @param {number} kiloBale - The weight of a single bale in kilograms.
- * @param {number} weight - The total weight in kilograms.
- * @returns {[number, number]} - An array containing the number of bales and the excess kilo, respectively.
- */
-function getBalesAndExcessKilo(kiloBale, weight) {
-    let numBales, excessKilo;
-    if (kiloBale && weight) {
-        numBales = Math.floor(weight / kiloBale);
-        excessKilo = (weight % kiloBale);
-    } else {
-        numBales = 0;
-        excessKilo = 0;
-    }
-    return [numBales, excessKilo];
-}
+
+
 </script>
