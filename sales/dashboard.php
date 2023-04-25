@@ -200,6 +200,34 @@ error_reporting(0); // Suppress all warnings
                         </div>
                     </div>
 
+                    <br>
+
+                    <div class="row">
+                        <div class="card" style="width:100%;max-width:100%;">
+                            <div class="card-body" style="width:100%;max-width:100%;">
+                                <h5>INVENTORY LEVEL</h5>
+                                <div class="row" style="display: flex; align-items: stretch;">
+                                    <div class="col-5" style="display: flex;">
+                                        <div class="card" style="width: 100%;">
+                                            <div class="card-body" style="height: 400px; position: relative;">
+                                                <canvas id="pie_inv"
+                                                    style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col" style="display: flex;">
+                                        <div class="card" style="width: 100%;">
+                                            <div class="card-body" style="height: 400px; position: relative;">
+                                                <canvas id="bar_inv"
+                                                    style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
             </div>

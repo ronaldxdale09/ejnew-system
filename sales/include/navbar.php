@@ -10,6 +10,17 @@
     <a class='nav-link' href='dashboard.php'>
         <i class='fa-solid fa-house'></i> <span class='nav-text'>Home</span>
     </a>
+    <a class='nav-link'>
+        <i class='fa-solid fa-truck'></i> <span class='nav-text'>Inventory</span>
+    </a>
+    <a class='nav-link' href='inv_bale.php' style='margin-left: 40px; font-size: 18px;'>
+    <span class='nav-text'>Bales</span>
+</a>
+<a class='nav-link' href='inv_cuplump.php' style='margin-left: 40px; font-size: 18px;'>
+    <span class='nav-text'>Cuplumps</span>
+</a>
+
+    
 
     <!-- PURCHASE -->
 

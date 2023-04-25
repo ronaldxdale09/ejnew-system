@@ -437,12 +437,8 @@ WHERE status = 'Milling' GROUP BY recording_id ) GROUP BY MONTH(milling_date);")
             $month_bales[] = date('M Y', mktime(0, 0, 0, $row['month'], 1));
             $bales[] = number_format($row['total_weight'], 0, '.', '');
         }
-    }
-
-    
+    }   
 ?>
-
-
 new Chart(monthly_milling, {
     options: {
         plugins: {
@@ -486,7 +482,6 @@ new Chart(monthly_milling, {
 
 
 <?php
-
 $Drying_data = mysqli_query($con, "SELECT SUM(dry_weight) AS total_weight, MONTH(drying_date) AS month FROM planta_recording_logs
     WHERE (recording_id, planta_logs_id) IN ( SELECT recording_id, MAX(planta_logs_id) AS max_planta_logs_id FROM planta_recording_logs 
     WHERE status = 'Drying' GROUP BY recording_id ) GROUP BY MONTH(drying_date);");
@@ -499,9 +494,7 @@ if ($Drying_data && $Drying_data->num_rows > 0) {
         $dry_weight[] = number_format($row['total_weight'], 0, '.', '');
     }
 }
-
 ?>
-
 new Chart(monthly_drying, {
     options: {
         plugins: {
@@ -542,8 +535,9 @@ new Chart(monthly_drying, {
     },
 });
 
-<?php
 
+
+<?php
 $bale_prod = mysqli_query($con, "SELECT SUM(produce_total_weight) AS total_weight, MONTH(production_date) AS month FROM planta_recording_logs
     WHERE (recording_id, planta_logs_id) IN ( SELECT recording_id, MAX(planta_logs_id) AS max_planta_logs_id FROM planta_recording_logs 
     WHERE status = 'Pressing' GROUP BY recording_id ) GROUP BY MONTH(production_date);");
@@ -556,10 +550,7 @@ if ($bale_prod && $bale_prod->num_rows > 0) {
         $produced_weight[] = number_format($row['total_weight'], 0, '.', '');
     }
 }
-
 ?>
-
-
 new Chart(monthly_production, {
     options: {
         plugins: {
