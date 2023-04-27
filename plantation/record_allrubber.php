@@ -44,8 +44,8 @@
                                     <div class="table-responsive">
                                         <table class="table" id='sellerTable'>
                                             <?php
-                                           $results  = mysqli_query($con, "SELECT * from planta_recording
-                                           LEFT JOIN rubber_transaction on  planta_recording.purchased_id = rubber_transaction.id "); ?>
+                                         $results  = mysqli_query($con, "SELECT DISTINCT planta_recording.* from planta_recording
+                                    LEFT JOIN rubber_transaction on  planta_recording.purchased_id = rubber_transaction.id "); ?>
                                             <thead class="table-dark">
                                                 <tr>
                                                     <th scope="col">Status</th>
@@ -112,7 +112,6 @@
                                                         kg</td>
                                                     <td class="number-cell"> <?php echo $row['drc']?>%</td>
 
-
                                                     <td>
                                                         <button type="button" data-driver='<?php echo $row['driver'];?>'
                                                             data-truck='<?php echo $row['truck_num'];?>'
@@ -153,19 +152,19 @@ $(document).ready(function() {
         buttons: [{
                 extend: 'excelHtml5',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7,8,9,10]
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
                 }
             },
             {
                 extend: 'pdfHtml5',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7,8,9,10]
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
                 }
             },
             {
                 extend: 'print',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7,8,9,10]
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
                 }
             },
 
