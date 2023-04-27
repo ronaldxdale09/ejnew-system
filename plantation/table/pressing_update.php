@@ -85,12 +85,12 @@ echo $output;
 <script>
 // Event listeners for bale number input fields
 $("#bale_num_Manhattan, #bale_num_Showa, #bale_num_Dunlop, #bale_num_Crown, #bale_num_SPR10").on("input", function() {
-    updateComputeBales();
+    computeBalesData();
 });
 
 // Event listeners for excess input fields
 $("#excess_Manhattan, #excess_Showa, #excess_Dunlop, #excess_Crown, #excess_SPR10").on("input", function() {
-    updateComputeBales();
+    computeBalesData();
 });
 
 function computeBalesData() {
@@ -131,12 +131,20 @@ function computeBalesData() {
     var weightSpr = baleNumSpr * kiloBaleSpr + excessSpr;
     $("#weight_SPR10").val(weightSpr.toFixed(2));
 
-    var totalWeight = weightManhattan + weightShowa + weightDunlop + weightCrown + weightSpr;
-    rubber_drc = (totalWeight / entry_weight) * 100;
+    // Get entry_weight value
+    var entry_weight = parseFloat($("#entry_weight").val()) || 0;
 
-    $("#press_u_total_weight").val(totalWeight.toLocaleString());
+    // Check if entry_weight is non-zero
+    if (entry_weight === 0) {
+        return;
+    }
+
+    // (Existing code for getting kilo_per_bale, bale_num, and excess values, and updating weight values)
+
+    var totalWeight = weightManhattan + weightShowa + weightDunlop + weightCrown + weightSpr;
+    var rubber_drc = (totalWeight / entry_weight) * 100;
+
+    $("#press_u_total_weight").val('2');
     $("#press_u_drc").val(rubber_drc.toFixed(2));
 }
-
-
 </script>
