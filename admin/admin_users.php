@@ -9,7 +9,7 @@
     <!-- PHP Code -->
     <?php
         include 'include/header.php';
-        include 'include/sidenav.php';
+        include 'include/navbar.php';
     ?>
     <!-- CSS only -->
 

@@ -1,6 +1,6 @@
 <?php 
    include('include/header.php');
-   include "include/sidenav.php";
+   include "include/navbar.php";
 
 error_reporting(0); // Suppress all warnings
 

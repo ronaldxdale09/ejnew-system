@@ -9,7 +9,7 @@
       <!-- copra dashboard -->
       <?php
         include 'include/header.php';
-        include 'include/sidenav.php';
+        include 'include/navbar.php';
 
         $getMonthTotal  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(net_res) as month_total 
         from transaction_record  group by year(date), month(date) ORDER BY ID DESC");

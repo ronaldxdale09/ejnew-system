@@ -10,7 +10,7 @@
 <!-- copra dashboard -->
 <?php
         include 'include/header.php';
-        include 'include/sidenav.php';
+        include 'include/navbar.php';
 
 
         $sql  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(net_weight) as month_total 
