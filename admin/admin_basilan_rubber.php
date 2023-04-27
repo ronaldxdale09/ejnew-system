@@ -316,7 +316,7 @@
                         </div>
                     </div>
                 <?php 
-          include "modal/viewTransactionModal.php";
+          include "../modal/viewTransactionModal.php";
         ?>
 
                 <script>
