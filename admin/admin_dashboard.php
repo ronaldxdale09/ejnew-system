@@ -208,7 +208,7 @@
             </div>
           </div>
         <?php 
-          include "modal/viewTransactionModal.php";
+          include "../modal/viewTransactionModal.php";
         ?>
         <script>
         copra_bar = document.getElementById("copra_bar");
