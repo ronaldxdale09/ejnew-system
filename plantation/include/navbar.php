@@ -9,7 +9,7 @@
 
     <br>
     <hr style='color:gray'>
-    
+
     <a class='nav-link' href='dashboard.php'>
         <i class='fa-solid fa-house'></i> <span class='nav-text'>Home</span>
     </a>
@@ -25,14 +25,12 @@
         <i class='fa-solid fa-book'></i> <span class='nav-text'>Transaction Record</span>
     </a>
 
-
-  
-
-    <div class='logout-container'> <i class='fa-solid fa-money'></i>
-        <span class='nav-text' >Logout</span>
-        <a class='nav-link logout' href='function/logout.php'>
+    <div class='logout-container'>
+        <a class='nav-link' href='function/logout.php'>
             <i class='fa-solid fa-arrow-right-to-bracket'></i>
+            <span class='nav-text'>Logout</span>
         </a>
     </div>
+
 </nav>
 <script src='assets/js/navbar.js'></script>
