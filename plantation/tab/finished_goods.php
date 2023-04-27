@@ -38,7 +38,7 @@
 
                 <td>
                     <span
-                        class="badge bg-dark"><?php echo substr($row['bales_type'], 0, 3).'-'.$row['recording_id']?></span>
+                        class="badge bg-secondary"><?php echo substr($row['bales_type'], 0, 3).'-'.$row['recording_id']?></span>
                 </td>
                 <td><?php echo $row['production_date']?></td>
                 <td><?php echo $row['supplier']?></td>

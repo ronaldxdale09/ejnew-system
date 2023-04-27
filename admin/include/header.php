@@ -15,7 +15,8 @@
     <link rel='icon' href='assets/img/logo.png' size='10x10' />
     <script src="assets/js/numberFormat.js"></script>
     <script src="js/sweetalert2@11.js"></script>
-    <title>EJN Copra</title>
+    <title>EJN RUBBER</title>
+ 
 
 </head>
 <?php 
@@ -28,4 +29,17 @@
     margin-top: 10px;
     margin-left: 20px;
 }
+/* #process_supplier[readonly] {
+  background-color: #fff;
+}
+
+#process_weight[readonly] {
+  background-color: #fff;
+}
+
+#process_lot_no[readonly] {
+  background-color: #fff;
+} */
+
+
 </style>
