@@ -26,9 +26,9 @@
 
 
     <hr style='color:gray'>
-    <!-- SALE -->
+
     <a class='nav-link' href='sales_bales.php'>
-        <i class='fa-solid fa-chart-line'></i> <span class='nav-text'>Bales Sales</span>
+        <i class='fa-solid fa-chart-line'></i> <span class='nav-text'>Bale Sales</span>
     </a>
 
     <a class='nav-link' href='cuplumps_export.php'>
@@ -42,8 +42,6 @@
     <!-- OTHER -->
 
     <hr style='color:gray'>
-
-
 
     <a class='nav-link' href='reports.php'>
         <i class='fa-solid fa-file-alt'></i> <span class='nav-text'>Reports</span>
