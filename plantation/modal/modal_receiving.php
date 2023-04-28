@@ -86,7 +86,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                 <div class="col">
                                     <label for="r_date">Date and Time</label>
                                     <input type="datetime-local" style='text-align:left' name='date' id='r_date'
-                                        value='<?php echo $dateNow?>' class="form-control"
+                                        value='' class="form-control"
                                         style='background-color:white;border:0px solid #ffffff;'>
                                 </div>
 

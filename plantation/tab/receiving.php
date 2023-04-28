@@ -18,7 +18,8 @@
                 <th scope="col" class="text-center">Action</th>
             </tr>
         </thead>
-        <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
+        <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> 
+            <tr>
 
                 <td>
                     <span class="badge bg-success"> <?php echo $row['status']?> </spa>
@@ -39,7 +40,9 @@
 
 
 
-            </tr> <?php } ?> </tbody>
+            </tr>
+            
+            <?php } ?> </tbody>
     </table>
 </div>
 

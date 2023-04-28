@@ -10,9 +10,9 @@
             </div>
             <div class="modal-body">
                 <form action="function/rubber_pressing.php" method="POST">
-                
 
-                <input type="text" class="form-control" name='recording_id' id="press_u_id" hidden readonly>
+
+                    <input type="text" class="form-control" name='recording_id' id="press_u_id" hidden readonly>
                     <input type="text" class="form-control" name='reweight' id="press_u_reweight" hidden readonly>
                     <div class="row mb">
                         <div class="col-5">
@@ -28,23 +28,23 @@
                             <input type="text" class="form-control" name="lot_no" id="press_u_lot" readonly>
                         </div>
                     </div>
-                   
+
                     <hr>
                     <div id='pressing_modal_update_table'></div>
                     <hr>
 
                     <div class="row mb-3">
-                        <div class="col">
+                        <div class="col" hidden>
                             <label class="form-label">Entry Weight</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" name='entry_weight' id="press_u_entry" readonly>
                                 <span class="input-group-text">kg</span>
                             </div>
                         </div>
-                        <div class="col">
+                        <!-- <div class="col">
                             <label class="form-label">Total Weight</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="press_u_total_weight" readonly>
+                                <input type="text" class="form-control" id="press_a_total_weight" readonly>
                                 <span class="input-group-text">kg</span>
                             </div>
                         </div>
@@ -54,20 +54,21 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" name="drc" id="press_u_drc"
                                     style='text-align:right' readonly>
-                                <span class="input-group-text">%</span>
+                                <span class="input-group-text"></span>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
             </div>
             <div class=" modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
-                <button type="submit" name="pressing_update" onclick="return validateTable();"
+                <button type="submit" name="pressing_update"
                     class="btn btn-success">Update</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
 
 
 <div class="modal fade" id="modal_press_transfer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -84,32 +85,7 @@
                 <form action="function/rubber_process.php" method="POST">
                     <input type="text" style='text-align:center' name='recording_id' id='press_trans_id' readonly
                         class="form-control" hidden>
-                    <!-- 
-                    <div class="row no-gutters">
 
-                    <div class="col-5">
-                            <div class="input-group mb-12">
-                                <label class="col-md-12">Date Received</label>
-                            
-                                <input type="text" style='text-align:center' name='date' id='press_trans_date' readonly
-                                    class="form-control" onkeypress="return CheckNumeric()"
-                                    onkeyup="FormatCurrency(this)" required>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                        </div>
-
-                        <div class="col-3">
-                            <div class="input-group mb-12">
-                                <label class="col-md-12">ID</label>
-                     
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <br> -->
                     <div class="row no-gutters">
 
                         <div class="col">

@@ -9,7 +9,7 @@
         $type = $_POST['type'];
     
         $entry_weight = str_replace(',', '', $_POST['entry_weight']);
-        $drc = $_POST['drc'];
+      
     
         $total_kilo_bale = 0;
         $total_weight = 0;
@@ -46,10 +46,13 @@
         }
     
         echo "Total weight: " . $total_weight;
-        echo "Total DRC: " . $drc;
+
+        $rubber_drc = ($total_weight / $entry_weight) * 100;
+
+        
 
 
-        $query = "UPDATE `planta_recording` SET `drc`='$drc', `produce_total_weight`='$total_weight'
+        $query = "UPDATE `planta_recording` SET `drc`='$rubber_drc', `produce_total_weight`='$total_weight'
         WHERE recording_id='$id'";
         $result = mysqli_query($con, $query);
         header("Location: ../recording.php?tab=4");

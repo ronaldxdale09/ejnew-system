@@ -26,8 +26,11 @@
 
                         <br>
 
+                        
                         <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
+                        <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#newWetExport">NEW EXPORT </button>  <hr>
                             <div class="table-responsive">
+                              
                                 <table class="table table-bordered table-hover table-striped"
                                     id='recording_table-receiving'>
                                     <?php
@@ -87,48 +90,7 @@
                                     </tbody>
                                 </table>
                             </div>
-
-                            <script>
-                            $('.btnTransferReceiving').on('click', function() {
-                                $tr = $(this).closest('tr');
-
-                                var data = $tr.children("td").map(function() {
-                                    return $(this).text();
-                                }).get();
-                                $('#rt_receving_id').val(data[1]);
-                                $('#rt_receiving_date').val(data[2]);
-                                $('#rt_supplier').val(data[3]);
-                                $('#rt_location').val(data[4]);
-                                $('#rt_lot_no').val(data[5]);
-                                $('#rt_weight').val(data[8].toLocaleString());
-                                $('#rt_reweight').val(data[9]);
-
-                                $('#modal_transMil').modal('show');
-
-
-                            });
-                            </script>
-
-
-
-                            <?php if (isset($_SESSION['receiving'])): ?>
-                            <div class="msg">
-
-                                <script>
-                                Swal.fire({
-                                    position: 'top-end',
-                                    icon: 'success',
-                                    title: 'Cuplumps Received!',
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                })
-                                </script>
-                                <?php 
-			unset($_SESSION['receiving']);
-		?>
-                            </div>
-                            <?php endif ?>
-
+                            <?php    include "sales_modal/wet_modal_sales.php";?>
 
                             <script>
                             var table = $('#recording_table-receiving').DataTable({

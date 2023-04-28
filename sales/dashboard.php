@@ -29,6 +29,7 @@ error_reporting(0); // Suppress all warnings
 </head>
 
 <body>
+
     <div class="main-content" style="position:relative; height:100%;">
         <div class="container home-section h-100" style="max-width:95%;">
             <div class="page-wrapper">

@@ -28,19 +28,23 @@
 
                         <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-hover table-striped"
-                                    id="recording_table-produced">
+
+                                <table class="table table-bordered table-hover table-striped table-responsive"
+                                    style='width:100%' id="recording_table-produced">
+
                                     <?php
-                                                    $results = mysqli_query($con, "SELECT * FROM planta_bales_production 
-                                                        LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
-                                                        WHERE planta_bales_production.status='Production' and (rubber_weight !='0' or rubber_weight !=null)  ");
-                                                    ?>
+                             $results = mysqli_query($con, "SELECT planta_bales_production.*, planta_recording.*, rubber_transaction.total_amount as total_amount FROM planta_bales_production
+                             LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
+                             LEFT JOIN rubber_transaction on planta_recording.purchased_id = rubber_transaction.id
+                             WHERE (planta_bales_production.status='Production' AND planta_recording.status='Produced') and (rubber_weight !='0' or rubber_weight !=null)
+                             ORDER BY planta_bales_production.recording_id ASC ");
+                                ?>
 
 
                                     <thead class="table-dark">
                                         <tr>
                                             <th>Status</th>
-                                            <th>Bale ID</th>
+                                            <th> ID</th>
                                             <th>Date Produced</th>
                                             <th>Supplier</th>
                                             <th>Location</th>
@@ -49,7 +53,8 @@
                                             <th>Bale Weight</th>
                                             <th>Bales</th>
                                             <th>Excess</th>
-                                            <th>DRC</th>
+                                            <th>Kilo Cost</th>
+
                                             <th class="text-center">Action</th>
                                         </tr>
                                     </thead>
@@ -68,59 +73,108 @@
 
                                             <td>
                                                 <span
-                                                    class="badge bg-dark"><?php echo substr($row['bales_type'], 0, 3).'-'.$row['recording_id']?></span>
+                                                    class="badge bg-secondary"><?php echo $row['recording_id']?></span>
                                             </td>
+                                       
                                             <td><?php echo $row['production_date']?></td>
                                             <td><?php echo $row['supplier']?></td>
                                             <td> <?php echo $row['location']?> </td>
                                             <td><?php echo $row['bales_type']?></td>
-                                            <td class="number-cell"> <?php echo $row['kilo_per_bale']?>
-                                                kg</td>
+                                            <td class="number-cell"> <?php echo $row['kilo_per_bale']?> kg</td>
                                             <td class="number-cell">
-                                                <?php echo number_format($row['rubber_weight'], 0, '.', ',')?>
-                                                kg</td>
+                                                <?php echo number_format($row['rubber_weight'], 0, '.', ',')?> kg</td>
                                             <td class="number-cell">
-                                                <?php echo number_format($row['number_bales'], 0, '.', ',')?>
-                                            </td>
-                                            <td class="number-cell"><?php echo $row['bales_excess']?> kg
-                                            </td>
-                                            <td class="number-cell"><?php echo $row['drc']?>%
-                                            </td>
+                                                <?php echo number_format($row['number_bales'], 0, '.', ',')?> pcs</td>
+                                            <td class="number-cell"><?php echo $row['bales_excess']?> kg</td>
+                                            <td class="number-cell">₱  <?php echo number_format(($row['total_amount']/   $row['produce_total_weight']), 2, '.', ',')?></td>
+
                                             <td class="text-center">
-                                                <?php if ($row['status'] == 'Produced'): ?>
                                                 <button type="button" class="btn btn-success btn-sm btnProducedView">
                                                     <i class="fas fa-book"></i> View
                                                 </button>
-                                                <?php endif; ?>
                                             </td>
                                         </tr>
                                         <?php } ?>
                                     </tbody>
                                 </table>
-
-                                <script>
-                                var table = $('#recording_table-receiving').DataTable({
-                                    dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
-                                    order: [
-                                        [0, 'desc']
-                                    ],
-                                    buttons: [
-                                        'excelHtml5',
-                                        'pdfHtml5',
-                                        'print'
-                                    ],
-                                    columnDefs: [{
-                                        orderable: false,
-                                        targets: -1
-                                    }],
-                                    lengthChange: false,
-                                    orderCellsTop: true,
-                                    paging: false,
-                                    info: false,
-                                });
-                                </script>
-
                             </div>
+                            <script>
+                            $(document).ready(function() {
+                                var table = $('#recording_table-produced').DataTable({
+                                    "order": [
+                                        [1, 'asc']
+                                    ],
+                                    "pageLength": 50,
+                                    "dom": "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+                                        "<'row'<'col-sm-12'tr>>" +
+                                        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+                                    "responsive": true
+                                });
+                            });
+                            </script>
+                            <script>
+                            $('.producedView').on('click', function() {
+                                $tr = $(this).closest('tr');
+
+                                var data = $tr.children("td").map(function() {
+                                    return $(this).text();
+                                }).get();
+
+                                $('#process_supplier').val(data[3]);
+                                $('#process_weight').val(data[9]);
+                                $('#p_recording_id').val(data[0]);
+
+                                $('#modal_produced').modal('show');
+
+
+                            });
+
+
+
+
+
+
+                            $('.btnProducedView').on('click', function() {
+                                $tr = $(this).closest('tr');
+
+                                var data = $tr.children("td").map(function() {
+                                    return $(this).text();
+                                }).get();
+
+
+                                $('#prod_trans_id').val(data[1]);
+                                $('#prod_trans_date').val(data[2]);
+                                $('#prod_trans_supplier').val(data[3]);
+                                $('#prod_trans_loc').val(data[4]);
+                                $('#prod_trans_lot').val(data[5]);
+
+
+                                $('#prod_trans_entry').val(parseFloat(data[6]).toLocaleString());
+
+                                $('#prod_trans_drc').val(data[8]);
+                                $('#prod_trans_total_weight').val(data[7]);
+
+                                function fetch_data() {
+
+                                    var recording_id = data[1].replace(/\s+/g, '');
+                                    $.ajax({
+                                        url: "table/pressing_data.php",
+                                        method: "POST",
+                                        data: {
+                                            recording_id: recording_id,
+
+                                        },
+                                        success: function(data) {
+                                            $('#produced_modal_table').html(data);
+                                            $('#modal_produced_record').modal('show');
+
+                                        }
+                                    });
+                                }
+                                fetch_data();
+
+                            });
+                            </script>
                         </div>
                     </div>
                 </div>

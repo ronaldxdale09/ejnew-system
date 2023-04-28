@@ -30,7 +30,8 @@
                 <td> <?php echo $row['lot_num']?> </td>
                 <td class="number-cell"> <?php echo number_format($row['weight'], 0, '.', ',')?> kg</td>
                 <td class="number-cell"> <?php echo number_format($row['produce_total_weight'], 0, '.', ',')?> kg</td>
-                <td class="number-cell"><?php echo $row['drc']?>%</td>
+                <td class="number-cell"><?php echo $row['drc']? number_format($row['drc'], 2)  : '-' ?> %</td>
+
 
                 <td class="text-center">
                     <button type="button" class="btn btn-success btn-sm btnPressUpdate">
@@ -82,14 +83,14 @@ $('.btnPressUpdate').on('click', function() {
 
             },
             success: function(data) {
-                $('#pressing_modal_update_table').html(data);
-                $('#modal_press_update').modal('show');
-
+         
+            $('#pressing_modal_update_table').html(data);
+                    
             }
         });
     }
     fetch_data();
-
+    $('#modal_press_update').modal('show');
 
 });
 

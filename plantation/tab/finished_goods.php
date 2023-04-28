@@ -1,9 +1,13 @@
 <div class="table-responsive">
-    <table class="table table-bordered table-hover table-striped" id="recording_table-produced">
+
+    <table class="table table-bordered table-hover table-striped table-responsive" style='width:100%'
+        id="recording_table-produced">
+
         <?php
-        $results = mysqli_query($con, "SELECT * FROM planta_bales_production 
-            LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
-            WHERE planta_bales_production.status='Production' and (rubber_weight !='0' or rubber_weight !=null)  ");
+       $results = mysqli_query($con, "SELECT * FROM planta_bales_production 
+       LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
+       WHERE planta_bales_production.status='Production' and (rubber_weight !='0' or rubber_weight !=null)
+       ORDER BY planta_bales_production.recording_id ASC ");
     ?>
 
 
@@ -11,6 +15,7 @@
             <tr>
                 <th>Status</th>
                 <th>Bale ID</th>
+                <th>Quality</th>
                 <th>Date Produced</th>
                 <th>Supplier</th>
                 <th>Location</th>
@@ -19,7 +24,7 @@
                 <th>Bale Weight</th>
                 <th>Bales</th>
                 <th>Excess</th>
-                <th>DRC</th>
+
                 <th class="text-center">Action</th>
             </tr>
         </thead>
@@ -37,9 +42,9 @@
                 </td>
 
                 <td>
-                    <span
-                        class="badge bg-secondary"><?php echo substr($row['bales_type'], 0, 3).'-'.$row['recording_id']?></span>
+                    <span class="badge bg-secondary"><?php echo $row['recording_id']?></span>
                 </td>
+                <td><?php echo $row['bales_type']?></td>
                 <td><?php echo $row['production_date']?></td>
                 <td><?php echo $row['supplier']?></td>
                 <td> <?php echo $row['location']?> </td>
@@ -48,7 +53,7 @@
                 <td class="number-cell"> <?php echo number_format($row['rubber_weight'], 0, '.', ',')?> kg</td>
                 <td class="number-cell"> <?php echo number_format($row['number_bales'], 0, '.', ',')?></td>
                 <td class="number-cell"><?php echo $row['bales_excess']?> kg</td>
-                <td class="number-cell"><?php echo $row['drc']?>%</td>
+             
                 <td class="text-center">
                     <button type="button" class="btn btn-success btn-sm btnProducedView">
                         <i class="fas fa-book"></i> View
@@ -59,24 +64,36 @@
         </tbody>
     </table>
 </div>
-
-
 <script>
-$('.producedView').on('click', function() {
-    $tr = $(this).closest('tr');
-
-    var data = $tr.children("td").map(function() {
-        return $(this).text();
-    }).get();
-
-    $('#process_supplier').val(data[3]);
-    $('#process_weight').val(data[9]);
-    $('#p_recording_id').val(data[0]);
-
-    $('#modal_produced').modal('show');
-
-
+$(document).ready(function() {
+    var table = $('#recording_table-produced').DataTable({
+        "order": [
+            [1, 'asc']
+        ],
+        "pageLength": 50,
+        "dom": "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+               "<'row'<'col-sm-12'tr>>" +
+               "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+        "responsive": true
+    });
 });
+</script>
+<script >
+    $('.producedView').on('click', function() {
+        $tr = $(this).closest('tr');
+
+        var data = $tr.children("td").map(function() {
+            return $(this).text();
+        }).get();
+
+        $('#process_supplier').val(data[3]);
+        $('#process_weight').val(data[9]);
+        $('#p_recording_id').val(data[0]);
+
+        $('#modal_produced').modal('show');
+
+
+    });
 
 
 

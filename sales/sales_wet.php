@@ -29,7 +29,7 @@
                     <div class="inventory-table">
                         <div class="container-fluid">
                             <div class="wrapper" id="myTab">
-                            <div class="title"><?php include('sales/wet_sales.php');?> </div>
+                                <div class="title"><?php include('sales/wet_sales.php');?> </div>
                             </div>
 
                         </div>
@@ -44,7 +44,49 @@
     </div>
 
 </body>
-</html>
-<?php    include "modal/m_bales_record.php";?>
 
-<?php    include "modal/m_wet_record.php";?>
+</html>
+
+
+
+<script>
+$('.btnInventory').on('click', function() {
+    $tr = $(this).closest('tr');
+
+    var data = $tr.children("td").map(function() {
+        return $(this).text();
+    }).get();
+
+
+    // $('#prod_trans_id').val(data[1]);
+    // $('#prod_trans_date').val(data[2]);
+    // $('#prod_trans_supplier').val(data[3]);
+    // $('#prod_trans_loc').val(data[4]);
+    // $('#prod_trans_lot').val(data[5]);
+
+
+    // $('#prod_trans_entry').val(parseFloat(data[6]).toLocaleString());
+
+    // $('#prod_trans_drc').val(data[8]);
+    // $('#prod_trans_total_weight').val(data[7]);
+
+    function fetch_data() {
+
+        $.ajax({
+            url: "table/field-inventory.php",
+            method: "POST",
+            success: function(data) {
+                $('#inventory_table').html(data);
+               
+
+            }
+        });
+    }
+    fetch_data();
+
+    $('#inventoryModal').modal('show');
+
+});
+</script>
+
+<?php    include "sales_modal/wet_modal_sales.php";?>

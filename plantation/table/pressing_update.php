@@ -83,37 +83,42 @@ echo $output;
 
 
 <script>
-// Event listeners for bale number input fields
-$("#bale_num_Manhattan, #bale_num_Showa, #bale_num_Dunlop, #bale_num_Crown, #bale_num_SPR10").on("input", function() {
+$("#bale_num_Manhattan, #bale_num_Showa, #bale_num_Dunlop, #bale_num_Crown, #bale_num_SPR10").keyup(function() {
     computeBalesData();
 });
 
-// Event listeners for excess input fields
-$("#excess_Manhattan, #excess_Showa, #excess_Dunlop, #excess_Crown, #excess_SPR10").on("input", function() {
+
+$("#excess_Manhattan, #excess_Showa, #excess_Dunlop, #excess_Crown, #excess_SPR10").keyup(function() {
     computeBalesData();
 });
+
 
 function computeBalesData() {
+    // Helper function to remove commas from a string
+    function removeCommas(str) {
+        return str.replace(/,/g, '');
+    }
+
     // Get kilo_per_bale values
-    var kiloBaleManhattan = parseFloat($("#kilo_bale_Manhattan").val()) || 0;
-    var kiloBaleShowa = parseFloat($("#kilo_bale_Showa").val()) || 0;
-    var kiloBaleDunlop = parseFloat($("#kilo_bale_Dunlop").val()) || 0;
-    var kiloBaleCrown = parseFloat($("#kilo_bale_Crown").val()) || 0;
-    var kiloBaleSpr = parseFloat($("#kilo_bale_SPR10").val()) || 0;
+    var kiloBaleManhattan = parseFloat(removeCommas($("#kilo_bale_Manhattan").val())) || 0;
+    var kiloBaleShowa = parseFloat(removeCommas($("#kilo_bale_Showa").val())) || 0;
+    var kiloBaleDunlop = parseFloat(removeCommas($("#kilo_bale_Dunlop").val())) || 0;
+    var kiloBaleCrown = parseFloat(removeCommas($("#kilo_bale_Crown").val())) || 0;
+    var kiloBaleSpr = parseFloat(removeCommas($("#kilo_bale_SPR10").val())) || 0;
 
     // Get bale_num values
-    var baleNumManhattan = parseFloat($("#bale_num_Manhattan").val()) || 0;
-    var baleNumShowa = parseFloat($("#bale_num_Showa").val()) || 0;
-    var baleNumDunlop = parseFloat($("#bale_num_Dunlop").val()) || 0;
-    var baleNumCrown = parseFloat($("#bale_num_Crown").val()) || 0;
-    var baleNumSpr = parseFloat($("#bale_num_SPR10").val()) || 0;
+    var baleNumManhattan = parseFloat(removeCommas($("#bale_num_Manhattan").val())) || 0;
+    var baleNumShowa = parseFloat(removeCommas($("#bale_num_Showa").val())) || 0;
+    var baleNumDunlop = parseFloat(removeCommas($("#bale_num_Dunlop").val())) || 0;
+    var baleNumCrown = parseFloat(removeCommas($("#bale_num_Crown").val())) || 0;
+    var baleNumSpr = parseFloat(removeCommas($("#bale_num_SPR10").val())) || 0;
 
     // Get excess values
-    var excessManhattan = parseFloat($("#excess_Manhattan").val()) || 0;
-    var excessShowa = parseFloat($("#excess_Showa").val()) || 0;
-    var excessDunlop = parseFloat($("#excess_Dunlop").val()) || 0;
-    var excessCrown = parseFloat($("#excess_Crown").val()) || 0;
-    var excessSpr = parseFloat($("#excess_SPR10").val()) || 0;
+    var excessManhattan = parseFloat(removeCommas($("#excess_Manhattan").val())) || 0;
+    var excessShowa = parseFloat(removeCommas($("#excess_Showa").val())) || 0;
+    var excessDunlop = parseFloat(removeCommas($("#excess_Dunlop").val())) || 0;
+    var excessCrown = parseFloat(removeCommas($("#excess_Crown").val())) || 0;
+    var excessSpr = parseFloat(removeCommas($("#excess_SPR10").val())) || 0;
 
     // Compute and update the weight values
     var weightManhattan = baleNumManhattan * kiloBaleManhattan + excessManhattan;
@@ -131,6 +136,7 @@ function computeBalesData() {
     var weightSpr = baleNumSpr * kiloBaleSpr + excessSpr;
     $("#weight_SPR10").val(weightSpr.toFixed(2));
 
+
     // Get entry_weight value
     var entry_weight = parseFloat($("#entry_weight").val()) || 0;
 
@@ -144,7 +150,10 @@ function computeBalesData() {
     var totalWeight = weightManhattan + weightShowa + weightDunlop + weightCrown + weightSpr;
     var rubber_drc = (totalWeight / entry_weight) * 100;
 
-    $("#press_u_total_weight").val('2');
-    $("#press_u_drc").val(rubber_drc.toFixed(2));
+    $("#press_a_total_weight").val('2');
+    $("#press_u_drc").val();
+
+    console.log(rubber_drc)
+    console.log(totalWeight)
 }
 </script>

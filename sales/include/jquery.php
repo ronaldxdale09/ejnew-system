@@ -5,3 +5,9 @@
  <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
  <script src="assets/js/chosen.jquery.js"></script>
 <script src="assets/js/chosen.jquery.min.js"></script>
+
+<script>
+    function refreshPage() {
+    location.reload();
+}
+</script>
