@@ -124,8 +124,8 @@
                                 })
                                 </script>
                                 <?php 
-			unset($_SESSION['receiving']);
-		?>
+                            unset($_SESSION['receiving']);
+                        ?>
                             </div>
                             <?php endif ?>
 
