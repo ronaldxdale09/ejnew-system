@@ -86,6 +86,7 @@
   include "../function/db.php";
  $output = '';  
 
+$sales_id = $_POST['sales_id'];
 
  $result  = mysqli_query($con, "SELECT DISTINCT planta_recording.*, rubber_transaction.total_amount as total_amount, rubber_transaction.net_weight as net_weight 
  FROM planta_recording
@@ -129,8 +130,8 @@
                      <td>'.$row['location'].' </td>
                      <td>'.$row['lot_num'].' </td>
                      <td>₱ '.number_format(($row['total_amount']/ $row['net_weight']), 2, '.', ',').' </td>
-                     <td>'.$row['total_amount'].' </td>
-                     <td> <input  class="form-control" id="weight_'.$recording_id.'" name="weight[]" value="'.$row["reweight"].'"/>
+                     <td>₱ '.number_format(($row['total_amount']), 2, '.', ',').' </td>
+                     <td> <input  class="form-control" id="weight_'.$recording_id.'" name="weight[]" value="'.number_format($row["reweight"]).' kg" readonly/>
                      </td>
                      <td><button type="button" id="addProduct" class="btn btn-warning btn-sm addProduct"><i
                      class="fa fa-plus-circle"></i></button> </td>
@@ -152,3 +153,56 @@
  echo $output;
  ?>
 
+
+
+<script>
+$('.addProduct').on('click', function() {
+
+
+    $tr = $(this).closest('tr');
+    var data = $tr.children("td").map(function() {
+        return $(this).text();
+    }).get();
+
+    $tr.each(function() {
+        var quantity = $(this).find(".keyvalue input").val();
+
+        console.log(quantity);
+
+
+
+        var recording_id = data[1];
+
+        var sales_id = <?php echo $sales_id ?>;
+
+
+        console.log(sales_id)
+        
+        console.log(recording_id)
+        $.ajax({
+            method: "POST",
+            url: "table/button/cuplump_add_inventory.php",
+            data: {
+                recording_id: recording_id,
+                sales_id: sales_id,
+
+            },
+            success: function(data) {
+                console.log('success');
+                console.log(data);
+                fetch_cost_weight();
+
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Inventory Added!',
+                    showConfirmButton: false,
+                    timer: 600
+                })
+            }
+        });
+    });
+
+
+});
+</script>

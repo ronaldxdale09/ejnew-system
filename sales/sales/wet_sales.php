@@ -1,3 +1,15 @@
+<?php 
+
+
+
+$id= '';
+if (isset($_GET['id'])) {
+    $id = filter_var($_GET['id']) ;
+  }
+
+
+?>
+
 <div class="row">
     <div class="col-12">
         <br>
@@ -24,12 +36,12 @@
 
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <label style='font-size:15px' class="col-md-12">Reference No.</label>
+                                    <label style='font-size:15px' class="col-md-12">Sales ID.</label>
                                     <div class="input-group mb-3">
 
                                         <input type="text" class="form-control" name='sale_id' id='sale_id'
-                                            onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
-                                            tabindex="7" autocomplete='off' style="width: 100px;" />
+                                            value='<?php echo $id?>' readonly autocomplete='off'
+                                            style="width: 100px;" />
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -148,52 +160,41 @@
                         </div>
                         <hr>
 
+                        <div id='cost_weight_table'></div>
+
                         <div class="row">
+
                             <div class="col">
-                                <label style='font-size:15px' class="col-md-12"></label>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">ID</span>
-                                    </div>
-                                    <input type="text" class="form-control" name='wet_kilo_cost' id='wet_kilo_cost'
-                                        style="width: 100px;" />
-                                </div>
-                            </div>
-                            <div class="col">
-                                <label style='font-size:15px' class="col-md-12">Cost per Kilo</label>
+                                <label style='font-size:15px' class="col-md-12">Total Cost</label>
+
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">₱</span>
                                     </div>
-                                    <input type="text" class="form-control" name='wet_kilo_cost' id='wet_kilo_cost'
-                                        style="width: 100px;" readonly />
+                                    <input type="text" class="form-control" name='forex' id='forex'
+                                        style="width: 100px;" />
                                 </div>
                             </div>
 
                             <div class="col">
-                                <label style='font-size:15px' class="col-md-12">Buying Weight</label>
+                                <label style='font-size:15px' class="col-md-12">Total Weight</label>
                                 <div class="input-group mb-3">
-
-                                    <input type="text" style='text-align:right' id='wet_kilo_weight'
-                                        class="form-control">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">kg</span>
-                                    </div>
+                                    <input type="text" class="form-control" name='forex' id='forex'
+                                        style="width: 100px;" />
                                 </div>
                             </div>
 
                             <div class="col">
-                                <label style='font-size:15px' class="col-md-12">Reweight</label>
+                                <label style='font-size:15px' class="col-md-12">Average Cost per Kilo</label>
                                 <div class="input-group mb-3">
-                                    <input type="text" style='text-align:right' id='total_weight' class="form-control">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">kg</span>
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">₱</span>
                                     </div>
+                                    <input type="text" class="form-control" name='wet_kilo_price' id='wet_kilo_price'
+                                        style="width: 100px;" />
                                 </div>
                             </div>
                         </div>
-
-
                         <br>
                         <h5 class="card-title">Pricing</h5>
                         <hr>
@@ -478,3 +479,43 @@
         </div>
     </div>
 </div>
+
+<?php    include "sales_modal/wet_modal_sales.php";?>
+<?php    include "js/fetch_cost_weight.php";?>
+<script>
+$(document).ready(function() {
+   
+
+    $('.btnInventory').on('click', function() {
+        $tr = $(this).closest('tr');
+
+        var data = $tr.children("td").map(function() {
+            return $(this).text();
+        }).get();
+
+
+        var sales_id = <?php echo $id ?>
+
+        function fetch_data() {
+
+            $.ajax({
+                url: "table/field-inventory.php",
+                method: "POST",
+                data: {
+                    sales_id: sales_id,
+
+                },
+                success: function(data) {
+                    $('#inventoryModal').modal('show');
+                    $('#inventory_table').html(data);
+
+
+                }
+            });
+        }
+        fetch_data();
+    });
+
+});
+</script>
+
