@@ -20,17 +20,19 @@
                         <h2 class="page-title">
                             <b>
                                 <font color="#0C0070">CUPLUMP </font>
-                                <font color="#046D56"> INVENTORY </font>
+                                <font color="#046D56"> SALE </font>
                             </b>
                         </h2>
 
                         <br>
 
-                        
+
                         <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
-                        <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#newWetExport">NEW EXPORT </button>  <hr>
+                            <button type="button" class="btn btn-success text-white" data-toggle="modal"
+                                data-target="#newWetExport">NEW EXPORT </button>
+                            <hr>
                             <div class="table-responsive">
-                              
+
                                 <table class="table table-bordered table-hover table-striped"
                                     id='recording_table-receiving'>
                                     <?php
@@ -38,30 +40,29 @@
                                     FROM planta_recording
                                     LEFT JOIN rubber_transaction ON planta_recording.purchased_id = rubber_transaction.id
                                     WHERE planta_recording.status = 'Field'");?>
-                                    <thead class="table-dark">
+                                    <thead class="table-dark text-center">
                                         <tr>
 
-                                            <th scope="col">Status</th>
-                                            <th scope="col"> ID</th>
-                                            <th scope="col">Date Received</th>
-                                            <th scope="col">Supplier</th>
-                                            <th scope="col">Location</th>
-                                            <th scope="col">Lot No.</th>
-                                            <th scope="col">Weight</th>
-                                            <th scope="col">Reweight</th>
-                                            <th scope="col">Kilo Cost</th>
-                                            <th scope="col">Total Cost</th>
+                                            <th scope="col">Reference</th>
+                                            <th scope="col">Sale Type</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Buyer</th>
+                                            <th scope="col">Destination</th>
+                                            <th scope="col">Source</th>
+                                            <th scope="col">Total Weight</th>
+                                            <th scope="col">Price per Kilo</th>
+                                            <th scope="col">Ave. Kilo Cost</th>
+                                            <th scope="col">Shipping Expenses</th>
+                                            <th scope="col">GPM</th>
+                                            <th scope="col">Unpaid Balance</th>
 
-                                            <th scope="col" class="text-center">Action</th>
+                                            <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?>
                                         <tr>
 
-                                            <td>
-                                                <span class="badge bg-success">
-                                                    <?php echo $row['status']?> </spa>
-                                            </td>
+                                            <td> <?php echo $row['status']?> </td>
                                             <td> <?php echo $row['recording_id']?> </td>
                                             <td> <?php echo $row['receiving_date']?> </td>
                                             <td> <?php echo $row['supplier']?> </td>
@@ -76,11 +77,16 @@
                                             <td class="number-cell">₱
                                                 <?php echo number_format(($row['total_amount']/ $row['net_weight']), 2, '.', ',')?>
                                             </td>
+                                            <td> <?php echo $row['lot_num']?> </td>
+                                            <td> <?php echo $row['lot_num']?> %</td>
                                             <td class="number-cell">₱
                                                 <?php echo number_format(($row['total_amount']), 2, '.', ',')?></td>
                                             <td class="text-center">
+                                                <button type="button" class="btn btn-warning btn-sm btnReceivingView">
+                                                    <i class="fas fa-pen"></i>
+                                                </button>
                                                 <button type="button" class="btn btn-success btn-sm btnReceivingView">
-                                                    <i class="fas fa-book"></i> View
+                                                    <i class="fas fa-book"></i>
                                                 </button>
                                             </td>
 

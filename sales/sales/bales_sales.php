@@ -19,8 +19,8 @@
 
             <div class="card">
                 <div class="card-body">
-                <h4>Sales Information</h4>
-                <hr>
+                    <h4>Sales Information</h4>
+                    <hr>
                     <div class="row">
                         <div class="col">
                             <label style='font-size:15px' class="col-md-12">Reference No.</label>
@@ -434,8 +434,18 @@
                     <div class="row">
                         <div class="col">
                         </div>
+                        <div class="col-2">
+                            <label style='font-size:15px;font-weight:bold' class="col-md-12">GPM</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" name='net_gain' id='net_gain' readonly
+                                    style="width: 100px;" />
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> %</span>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-4">
-                            <label style='font-size:15px;font-weight:bold' class="col-md-12">NET GAIN</label>
+                            <label style='font-size:15px;font-weight:bold' class="col-md-12">GROSS PROFIT</label>
                             <div class="input-group mb-3">
 
                                 <div class="input-group-prepend">
