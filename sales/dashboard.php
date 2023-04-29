@@ -113,6 +113,27 @@ error_reporting(0); // Suppress all warnings
                         <div class="col">
                             <div class="stat-card">
                                 <div class="stat-card__content">
+                                    <p class="text-uppercase mb-1 text-muted"><b>CUPLUMP</b> INVENTORY</p>
+                                    <h3>
+                                        <i class="text-danger font-weight-bold mr-1"></i>
+                                        <?php echo number_format($cuplumps['inventory'] ?? 0, 0) ?> kg
+                                    </h3>
+                                    <div>
+                                        <span class="text-muted">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="stat-card__icon stat-card__icon--danger">
+                                    <div class="stat-card__icon-circle">
+                                        <i class="fa fa-weight" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col">
+                            <div class="stat-card">
+                                <div class="stat-card__content">
                                     <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY </p>
                                     <h3>
                                         <i class="text-danger font-weight-bold mr-1"></i>
@@ -211,16 +232,7 @@ error_reporting(0); // Suppress all warnings
                                     <div class="col-5" style="display: flex;">
                                         <div class="card" style="width: 100%;">
                                             <div class="card-body" style="height: 400px; position: relative;">
-                                                <canvas id="pie_inv"
-                                                    style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col" style="display: flex;">
-                                        <div class="card" style="width: 100%;">
-                                            <div class="card-body" style="height: 400px; position: relative;">
-                                                <canvas id="bar_inv"
+                                                <canvas id="inventory_bales"
                                                     style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
                                             </div>
                                         </div>
@@ -420,7 +432,8 @@ error_reporting(0); // Suppress all warnings
         },
     });
 
-    const labels3 = ['Labor', 'Trucking', 'Manila Freight', 'Manila Trucking', 'Processing', 'Arrastre', 'Miscellaneous'];
+    const labels3 = ['Labor', 'Trucking', 'Manila Freight', 'Manila Trucking', 'Processing', 'Arrastre',
+        'Miscellaneous'];
     const data = [880, 1200, 1200, 1500, 1800, 2100, 1600];
 
     const pie_shipexp = document.getElementById('pie_shipexp').getContext('2d');
@@ -517,6 +530,57 @@ error_reporting(0); // Suppress all warnings
                 display: false
             }
         }
+    });
+
+
+    <?php           
+$bales_inventory = mysqli_query($con, "SELECT bales_type, SUM(number_bales) as total FROM planta_bales_production GROUP BY bales_type;");
+
+if ($bales_inventory->num_rows > 0) {
+    $bales_values = [];
+    $bales_labels = [];
+    while ($bales_data = $bales_inventory->fetch_assoc()) {
+        $bales_labels[] = $bales_data['bales_type'];
+        $bales_values[] = number_format($bales_data['total'], 0, '.', '');
+    }
+}
+?>
+
+    new Chart(inventory_bales, {
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Bale Inventory (Pieces)',
+                    font: {
+                        size: 20,
+                        weight: 'bold'
+                    }
+                },
+                legend: {
+                    position: 'left',
+                    labels: {
+                        font: {
+                            size: 14
+                        }
+                    }
+                }
+            },
+            maintainAspectRatio: false,
+            aspectRatio: 1.5
+        },
+
+        type: 'doughnut',
+        data: {
+            labels: <?php echo json_encode($bales_labels) ?>,
+            datasets: [{
+                label: 'Purchased',
+                data: <?php echo json_encode($bales_values) ?>,
+                backgroundColor: ['#C42F1A', '#567417', '#90C226', '#E6B91E', '#CE5504'],
+                tension: 0.3,
+                fill: false
+            }]
+        },
     });
     </script>
 </body>

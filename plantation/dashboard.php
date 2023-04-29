@@ -256,40 +256,10 @@ inventory_all = document.getElementById("inventory_all");
                     number_format($inventory_data['produced'], 0, '.', '')
                 ];
             }
-
-
-
             
-            $bales_inventory = mysqli_query($con, "SELECT bales_type, SUM(number_bales) as total FROM planta_bales_production GROUP BY bales_type;");
-
-            if ($bales_inventory->num_rows > 0) {
-                $bales_values = [];
-                $bales_labels = [];
-                while ($bales_data = $bales_inventory->fetch_assoc()) {
-                    $bales_labels[] = $bales_data['bales_type'];
-                    $bales_values[] = number_format($bales_data['total'], 0, '.', '');
-                }
-            }
+            ?>
 
 
-                    
-            $bales_type = mysqli_query($con, "SELECT bales_type,
-            SUM(CASE WHEN kilo_per_bale BETWEEN 33.32 AND 33.34 THEN number_bales ELSE 0 END) as total_33_33,
-            SUM(CASE WHEN kilo_per_bale BETWEEN 34.99 AND 35.01 THEN number_bales ELSE 0 END) as total_35
-     FROM planta_bales_production
-     GROUP BY bales_type;");
-    
-    if ($bales_type->num_rows > 0) {
-        $bales_labels = [];
-        $bales_values_3333 = [];
-        $bales_values_35 = [];
-        while ($bales_data = $bales_type->fetch_assoc()) {
-            $bales_labels[] = $bales_data['bales_type'];
-            $bales_values_3333[] = number_format($bales_data['total_33_33'], 0, '.', '');
-            $bales_values_35[] = number_format($bales_data['total_35'], 0, '.', '');
-        }
-    }
-        ?>
 new Chart(inventory_all, {
     options: {
         plugins: {
@@ -344,6 +314,19 @@ new Chart(inventory_all, {
     },
 });
 
+
+ <?php           
+$bales_inventory = mysqli_query($con, "SELECT bales_type, SUM(number_bales) as total FROM planta_bales_production GROUP BY bales_type;");
+
+if ($bales_inventory->num_rows > 0) {
+    $bales_values = [];
+    $bales_labels = [];
+    while ($bales_data = $bales_inventory->fetch_assoc()) {
+        $bales_labels[] = $bales_data['bales_type'];
+        $bales_values[] = number_format($bales_data['total'], 0, '.', '');
+    }
+}
+?>
 
 new Chart(inventory_bales, {
     options: {
