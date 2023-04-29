@@ -128,10 +128,168 @@
         </div>
     </div>
 
+    <br>
 
+    <!-- RUBBER QUALITY -->
+
+    <!-- SAMPLE STRUCTURE NG TABLE -->
+<h2>SAMPLE TABLE TEMPLATE</h2>
+    <div class="row">
+        <div class="col" hidden>
+            <!-- HIDE ID LANG -->
+            <label for="bales_quality" class="form-label">ID</label>
+            <input type="text" class="form-control" id="bales_quality">
+        </div>
+
+        <div class="col-2">
+            <!-- COMBINATION NG SELLER AT LOT NO. -->
+            <label for="bales_quality" class="form-label">Source</label>
+            <input type="text" class="form-control" id="bales_quality" readonly>
+        </div>
+        <div class="col">
+            <!-- no decimal but with comma #,###-->
+            <label for="bales_num" class="form-label">No. of Bales</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="bales_num" readonly>
+                <span class="input-group-text">pcs</span>
+            </div>
+        </div>
+        <div class="col">
+            <!-- #,###.## -->
+            <!-- 35 OR 33.33 TO DITO -->
+            <label for="bales_weight" class="form-label">Bale Weight</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="bales_weight" readonly>
+                <span class="input-group-text">kg</span>
+            </div>
+        </div>
+        <div class="col">
+            <!-- #,###.## -->
+            <!-- = NO. OF BALES * BALE WEIGHT -->
+            <label for="bales_weight" class="form-label">Weight</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="bales_weight" readonly>
+                <span class="input-group-text">kg</span>
+            </div>
+        </div>
+        <div class="col">
+            <!-- #,###.## -->
+            <label for="bales_kilo" class="form-label">Cost per Kilo</label>
+            <div class="input-group">
+                <span class="input-group-text">₱</span>
+                <input type="text" class="form-control" id="bales_kilo" readonly>
+            </div>
+        </div>
+        <div class="col">
+            <!-- #,###.## -->
+            <!-- - WEIGHT * COST PER KILO -->
+            <label for="bales_kilo" class="form-label">Total Cost</label>
+            <div class="input-group">
+                <span class="input-group-text">₱</span>
+                <input type="text" class="form-control" id="bales_kilo" readonly>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" hidden>
+            <label for="bales_quality" class="form-label">ID</label>
+            <input type="text" class="form-control" id="bales_quality">
+        </div>
+        <div class="col-2">
+            <label for="bales_quality" class="form-label">Source</label>
+            <input type="text" class="form-control" id="bales_quality" readonly>
+        </div>
+        <!-- <div class="col">
+            <label for="bales_quality" class="form-label">Quality</label>
+            <input type="text" class="form-control" id="bales_quality" readonly>
+        </div> -->
+        <div class="col">
+            <label for="bales_num" class="form-label">No. of Bales</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="bales_num" readonly>
+                <span class="input-group-text">pcs</span>
+            </div>
+        </div>
+        <div class="col">
+            <label for="bales_weight" class="form-label">Bale Weight</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="bales_weight" readonly>
+                <span class="input-group-text">kg</span>
+            </div>
+        </div>
+        <div class="col">
+            <label for="bales_weight" class="form-label">Weight</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="bales_weight" readonly>
+                <span class="input-group-text">kg</span>
+            </div>
+        </div>
+        <div class="col">
+            <label for="bales_kilo" class="form-label">Cost per Kilo</label>
+            <div class="input-group">
+                <span class="input-group-text">₱</span>
+                <input type="text" class="form-control" id="bales_kilo" readonly>
+            </div>
+        </div>
+        <div class="col">
+            <label for="bales_kilo" class="form-label">Cost</label>
+            <div class="input-group">
+                <span class="input-group-text">₱</span>
+                <input type="text" class="form-control" id="bales_kilo" readonly>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- ACTUAL NA ROW TO, SUMMARY -->
+    <div class="row">
+        <div class="col">
+            <!-- BASED SA EXCEL KO DITO, ISANG TYPE LANG DAPAT LAHAT-->
+            <label for="bales_num" class="form-label">Quality</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="bales_num" readonly>
+            </div>
+        </div>
+        <div class="col">
+            <!-- #,### NO DECIMAL -->
+            <!-- ADD LAHAT NG BALE PCS -->
+            <label for="bales_num" class="form-label">Total Bales</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="bales_num" readonly>
+                <span class="input-group-text">pcs</span>
+            </div>
+        </div>
+        <div class="col">
+            <!-- #,###.## -->
+            <!-- ADD LAHAT NG WEIGHT -->
+            <label for="bales_weight" class="form-label">Total Weight</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="bales_weight" readonly>
+                <span class="input-group-text">kg</span>
+            </div>
+        </div>
+        <div class="col">
+            <!-- #,###.## -->
+            <!-- = TOTAL COST / TOTAL WEIGHT -->
+            <label for="bales_kilo" class="form-label">Ave. Cost per Kilo</label>
+            <div class="input-group">
+                <span class="input-group-text">₱</span>
+                <input type="text" class="form-control" id="bales_kilo" readonly>
+            </div>
+        </div>
+        <div class="col">
+            <!-- #,###.## -->
+            <!-- ADD LAHAT NG COST -->
+            <label for="bales_kilo" class="form-label">Total Cost</label>
+            <div class="input-group">
+                <span class="input-group-text">₱</span>
+                <input type="text" class="form-control" id="bales_kilo" readonly>
+            </div>
+        </div>
+    </div>
 
     <br>
-    <!-- RUBBER QUALITY -->
 
     <div class="card">
         <div class="card-body">
@@ -149,8 +307,8 @@
                 </div>
 
             </div>
-            <hr>
 
+            <hr>
 
             <div class="row " id="bales-row">
                 <div class="col-md-6 mb-3">
@@ -186,6 +344,7 @@
         </div>
     </div>
 
+
     <br>
 
 
@@ -195,136 +354,125 @@
             <h4>Financial Metrics</h4>
 
             <hr>
+
             <div class="row">
-
-                <div class="col-2">
-                    <label style='font-size:15px' class="col-md-12">Currency</label>
-
-                    <div class="input-group mb-3">
-                        <select class="form-select" id="sale_currency" name="sale_currency" style="width: 100px;">
-                            <option selected>Choose...</option>
-                            <option value="bales_local">PHP ₱</option>
-                            <option value="bales_export">USD $</option>
-                            <option value="bales_local">RUB ₽</option>
-                            <option value="bales_local">CNY ¥</option>
-                        </select>
-                    </div>
-                </div>
-
                 <div class="col">
-                    <label style='font-size:15px' class="col-md-12">Price per Kilo </label>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" name='kilo_price' id='kilo_price'
-                            style="width: 100px;" />
-                    </div>
-                </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Bale Pricing</h5>
 
-                <div class="col">
-                    <label style='font-size:15px' class="col-md-12">Exchange Rate</label>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" name='forex' id='forex' style="width: 100px;" />
-                    </div>
-                </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label style='font-size:15px' class="col-md-12">Currency</label>
+                                    <div class="input-group mb-3">
+                                        <select class="form-select" id="sale_currency" name="sale_currency"
+                                            style="width: 100px;">
+                                            <option selected>Choose...</option>
+                                            <option value="bales_local">PHP ₱</option>
+                                            <option value="bales_export">USD $</option>
+                                            <option value="bales_local">RUB ₽</option>
+                                            <option value="bales_local">CNY ¥</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label style='font-size:15px' class="col-md-12">Price per Kilo </label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" name='kilo_price' id='kilo_price'
+                                            style="width: 100px;" />
+                                    </div>
+                                </div>
+                            </div>
 
-                <div class="col-4">
-                    <label style='font-size:15px;font-weight:bold' class="col-md-12">TOTAL SALES</label>
-                    <div class="input-group mb-3">
+                            <div class="row">
+                                <div class="col">
+                                    <label style='font-size:15px' class="col-md-12">Exchange Rate</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" name='forex' id='forex'
+                                            style="width: 100px;" />
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label style='font-size:15px' class="col-md-12">Peso Price</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">₱</span>
+                                        </div>
+                                        <input type="text" class="form-control" name='kilo_milling_fee'
+                                            id='kilo_milling_fee' style="width: 100px;" />
+                                    </div>
+                                </div>
+                            </div>
 
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">₱</span>
+                            <div class="row">
+                                <div class="col">
+                                    <label style='font-size:15px;font-weight:bold' class="col-md-12">TOTAL SALES</label>
+                                    <div class="input-group mb-3">
+
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">₱</span>
+                                        </div>
+                                        <input type="text" class="form-control" name='sales' id='sales' readonly
+                                            style="width: 100px;" />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <input type="text" class="form-control" name='sales' id='sales' readonly
-                            style="width: 100px;" />
+                    </div>
+                </div>
+
+                <div class="col">
+
+                    <div class="card-body">
+                        <h5>Bale Costing</h5>
+
+                        <div class="row">
+                            <div class="col">
+                                <label style='font-size:15px' class="col-md-12">Milling Fee per Kilo </label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">₱</span>
+                                    </div>
+                                    <input type="text" class="form-control" name='kilo_milling_fee'
+                                        id='kilo_milling_fee' style="width: 100px;" />
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label style='font-size:15px;' class="col-md-12">Total Weight</label>
+                                <div class="input-group mb-3">
+
+                                    <input type="text" style='text-align:right' id='total_weight' class="form-control">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">kg</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label style='font-size:15px;font-weight:bold' class="col-md-12">Total Milling
+                                    Fee</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">₱</span>
+                                    </div>
+                                    <input type="text" class="form-control" name='total_milling_fee'
+                                        id='total_milling_fee' readonly style="width: 100px;" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label style='font-size:15px' class="col-md-12"><b>Total Bale Cost</b> (See Above)</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">₱</span>
+                                </div>
+                                <input type="text" class="form-control" name='total_bale_cost' id='total_bale_cost'
+                                    readonly style="width: 100px;" />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <br>
-
-            <div class="row">
-
-                <div class="col-2">
-                </div>
-
-                <div class="col">
-                    <label style='font-size:15px' class="col-md-12">Average Kilo Cost</label>
-                    <div class="input-group mb-3">
-
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">₱</span>
-                        </div>
-                        <input type="text" readonly class="form-control" name='bale_kilo_cost' id='bale_kilo_cost'
-                            style="width: 100px;" />
-                    </div>
-                </div>
-
-                <div class="col">
-                    <label style='font-size:15px;' class="col-md-12">Total
-                        Weight</label>
-                    <div class="input-group mb-3">
-
-                        <input type="text" style='text-align:right' id='total_weight' readonly class="form-control">
-                        <div class="input-group-append">
-                            <span class="input-group-text">kg</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-4">
-                    <label style='font-size:15px;font-weight:bold' class="col-md-12">Total Bale Cost</label>
-                    <div class="input-group mb-3">
-
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">₱</span>
-                        </div>
-                        <input type="text" class="form-control" name='total_bale_cost' id='total_bale_cost' readonly
-                            style="width: 100px;" />
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="row">
-
-                <div class="col-2">
-                </div>
-
-                <div class="col">
-                    <label style='font-size:15px' class="col-md-12">Milling Fee per Kilo </label>
-                    <div class="input-group mb-3">
-
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">₱</span>
-                        </div>
-                        <input type="text" class="form-control" name='kilo_milling_fee' id='kilo_milling_fee'
-                            style="width: 100px;" />
-                    </div>
-                </div>
-
-                <div class="col">
-                    <label style='font-size:15px;' class="col-md-12">Total Weight</label>
-                    <div class="input-group mb-3">
-
-                        <input type="text" style='text-align:right' id='total_weight' class="form-control">
-                        <div class="input-group-append">
-                            <span class="input-group-text">kg</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-4">
-                    <label style='font-size:15px;font-weight:bold' class="col-md-12">Total Milling Fee</label>
-                    <div class="input-group mb-3">
-
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">₱</span>
-                        </div>
-                        <input type="text" class="form-control" name='total_milling_fee' id='total_milling_fee' readonly
-                            style="width: 100px;" />
-                    </div>
-                </div>
-            </div>
-
 
             <br>
 
@@ -368,12 +516,6 @@
                     </div>
                 </div>
 
-                <div class="col-4">
-                </div>
-
-            </div>
-
-            <div class="row">
                 <div class="col">
                     <label style='font-size:15px' class="col-md-12">Manila Trucking</label>
                     <div class="input-group mb-3">
@@ -386,6 +528,9 @@
                     </div>
                 </div>
 
+            </div>
+
+            <div class="row">
                 <div class="col">
                     <label style='font-size:15px' class="col-md-12">Cranage Fee (Arrastre)</label>
                     <div class="input-group mb-3">
@@ -397,7 +542,7 @@
                             autocomplete='off' style="width: 100px;" />
                     </div>
                 </div>
-
+                
                 <div class="col">
                     <label style='font-size:15px' class="col-md-12">Miscellaneous Expenses : </label>
                     <div class="input-group mb-3">
@@ -410,7 +555,7 @@
                     </div>
                 </div>
 
-                <div class="col-4">
+                <div class="col-6">
                     <label style='font-size:15px;font-weight:bold' class="col-md-12">Total Shipping
                         Expenses</label>
                     <div class="input-group mb-3">
@@ -427,17 +572,7 @@
             <div class="row">
                 <div class="col">
                 </div>
-                <div class="col-2">
-                    <label style='font-size:15px;font-weight:bold' class="col-md-12">GPM</label>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" name='net_gain' id='net_gain' readonly
-                            style="width: 100px;" />
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"> %</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4">
+                <div class="col-6">
                     <label style='font-size:15px;font-weight:bold' class="col-md-12">GROSS PROFIT</label>
                     <div class="input-group mb-3">
 
@@ -457,12 +592,12 @@
 
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Payment Details</h4>
+            <h5 class="card-title">Payment Details</h5>
 
             <hr>
 
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-2">
                     <label style='font-size:15px' class="col-md-12">Date of Payment </label>
                     <div class="col-md-12">
                         <input type="date" class='form-control' id="pay_date" value="<?php echo $today; ?>"
@@ -480,7 +615,7 @@
                     </div>
                 </div>
 
-                <div class="col-4">
+                <div class="col">
                     <label style='font-size:15px' class="col-md-12">Amount</label>
                     <div class="input-group mb-3">
 
@@ -491,11 +626,7 @@
                             style="width: 100px;" />
                     </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-8">
-                </div>
                 <div class="col">
                     <label style='font-size:15px' class="col-md-12">UNPAID BALANCE</label>
                     <div class="input-group mb-3">

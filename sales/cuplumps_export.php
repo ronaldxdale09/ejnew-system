@@ -53,7 +53,7 @@
                                             <th scope="col">Price per Kilo</th>
                                             <th scope="col">Ave. Kilo Cost</th>
                                             <th scope="col">Shipping Expenses</th>
-                                            <th scope="col">GPM</th>
+                                            <th scope="col">Profit</th>
                                             <th scope="col">Unpaid Balance</th>
 
                                             <th scope="col">Action</th>
@@ -78,10 +78,11 @@
                                                 <?php echo number_format(($row['total_amount']/ $row['net_weight']), 2, '.', ',')?>
                                             </td>
                                             <td> <?php echo $row['lot_num']?> </td>
-                                            <td> <?php echo $row['lot_num']?> %</td>
                                             <td class="number-cell">₱
                                                 <?php echo number_format(($row['total_amount']), 2, '.', ',')?></td>
-                                            <td class="text-center">
+                                                <td class="number-cell">₱
+                                                <?php echo number_format(($row['total_amount']), 2, '.', ',')?></td>
+                                                <td class="text-center">
                                                 <button type="button" class="btn btn-warning btn-sm btnReceivingView">
                                                     <i class="fas fa-pen"></i>
                                                 </button>
