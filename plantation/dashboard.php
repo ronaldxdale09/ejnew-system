@@ -36,13 +36,7 @@
         <div class="container home-section h-100" style="max-width:100%;">
             <div class="page-wrapper">
                 <div class="container-fluid">
-
-
-                    <!-- CARDS -->
-
                     <div class="row">
-
-
                         <div class="col">
                             <div class="stat-card">
                                 <div class="stat-card__content">
@@ -161,7 +155,7 @@
                     <div class="row">
                         <div class="card" style="width:100%;max-width:100%;">
                             <div class="card-body" style="width:100%;max-width:100%;">
-                                <h5>INVENTORY OVERVIEW</h5>
+                                <h4>INVENTORY OVERVIEW</h4>
                                 <div class="row" style="display: flex; align-items: stretch;">
                                     <div class="col" style="display: flex;">
                                         <div class="card" style="width: 100%;">
@@ -181,14 +175,6 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-5" style="display: flex;">
-                                        <div class="card" style="width: 100%;">
-                                            <div class="card-body" style="height: 400px; position: relative;">
-                                                <canvas id="inventory_baleskilo"
-                                                    style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -201,23 +187,13 @@
                     <div class="row">
                         <div class="card" style="width:100%;max-width:100%;">
                             <div class="card-body" style="width:100%;max-width:100%;">
-                                <h5>PRODUCTION VOLUME</h5>
+                                <h4>PRODUCTION VOLUME</h4>
                                 <div class="row">
                                     <div class="col" style="display: flex;">
                                         <div class="card" style="width: 100%;">
                                             <div class="card-body">
                                                 <div class="row">
-                                                    <canvas id="monthly_milling" height="250"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col" style="display: flex;">
-                                        <div class="card" style="width: 100%;">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <canvas id="monthly_drying" height="250"></canvas>
+                                                    <canvas id="monthly_milldry" height="300"></canvas>
                                                 </div>
                                             </div>
                                         </div>
@@ -248,7 +224,6 @@
             </div>
         </div>
     </div>
-    <br>
 
 </body>
 
@@ -315,28 +290,53 @@ inventory_all = document.getElementById("inventory_all");
         }
     }
         ?>
-
 new Chart(inventory_all, {
     options: {
         plugins: {
             title: {
                 display: true,
                 text: 'Inventory (Kilo)',
+                font: {
+                    size: 20,
+                    weight: 'bold'
+                }
             },
             legend: {
-                position: 'bottom',
+                display: false
             },
+        },
+        scales: {
+            y: {
+                ticks: {
+                    display: true
+                },
+                grid: {
+                    display: false
+                }
+            },
+            x: {
+                ticks: {
+                    display: true,
+                    font: {
+                        size: 14
+                    }
+                },
+                grid: {
+                    display: false
+                }
+            }
         },
         maintainAspectRatio: false,
         aspectRatio: 1.5,
     },
 
-    type: 'doughnut',
+    type: 'bar',
     data: {
-        labels: ['Cuplumps', 'Crumbed', 'Blanket', 'Bales'], //X-axis data 
+        labels: ['Cuplumps', 'Crumbs', 'Blankets', 'Bales'],
         datasets: [{
-            label: 'Purchased',
-            data: <?php echo json_encode($inventory_values) ?>, //Y-axis data 
+            label: 'Inventory',
+            display: false,
+            data: <?php echo json_encode($inventory_values) ?>,
             backgroundColor: ['#C42F1A', '#567417', '#90C226', '#E6B91E'],
             tension: 0.3,
             fill: false,
@@ -350,141 +350,55 @@ new Chart(inventory_bales, {
         plugins: {
             title: {
                 display: true,
-                text: 'Bale Inventory (Quality Comparison)',
+                text: 'Bale Inventory (Pieces)',
+                font: {
+                    size: 20,
+                    weight: 'bold'
+                }
             },
             legend: {
-                position: 'bottom',
-            },
+                position: 'left',
+                labels: {
+                    font: {
+                        size: 14
+                    }
+                }
+            }
         },
         maintainAspectRatio: false,
-        aspectRatio: 1.5,
+        aspectRatio: 1.5
     },
 
-    type: 'pie',
+    type: 'doughnut',
     data: {
-        labels: <?php echo json_encode($bales_labels) ?>, //X-axis data 
+        labels: <?php echo json_encode($bales_labels) ?>,
         datasets: [{
             label: 'Purchased',
-            data: <?php echo json_encode($bales_values) ?>, //Y-axis data 
+            data: <?php echo json_encode($bales_values) ?>,
             backgroundColor: ['#C42F1A', '#567417', '#90C226', '#E6B91E', '#CE5504'],
             tension: 0.3,
-            fill: false,
+            fill: false
         }]
     },
 });
-
-new Chart(inventory_baleskilo, {
-    options: {
-        plugins: {
-            title: {
-                display: true,
-                text: 'Bale Inventory (Kilo and Quality Comparison)',
-            },
-            legend: {
-                position: 'top',
-            },
-        },
-        maintainAspectRatio: false,
-        aspectRatio: 1.5,
-        scales: {
-            x: {
-                grid: {
-                    display: false,
-                },
-            },
-            y: {
-                grid: {
-                    display: false,
-                },
-                stacked: true, // Enable stacked bars
-            },
-        },
-    },
-
-    type: 'bar',
-    data: {
-        labels: <?php echo json_encode($bales_labels) ?>, // X-axis data
-        datasets: [{
-                label: '35 kg', // Add a label for 35kg bales
-                data: <?php echo json_encode($bales_values_35) ?>, // Y-axis data for 35kg bales
-                backgroundColor: 'rgba(196, 47, 26, 1)',
-                tension: 0.3,
-                fill: false,
-                stack: 'stack1',
-            },
-            {
-                label: '33.33 kg', // Add a label for 33.33kg bales
-                data: <?php echo json_encode($bales_values_3333) ?>, // Y-axis data for 33.33kg bales
-                backgroundColor: 'rgba(196, 47, 26, 0.6)',
-                tension: 0.3,
-                fill: false,
-                stack: 'stack1',
-            },
-        ],
-    },
-});
-
 
 <?php
 $milling_data = mysqli_query($con, "SELECT SUM(crumbed_weight) AS total_weight, MONTH(milling_date) AS month FROM planta_recording_logs
 WHERE (recording_id, planta_logs_id) IN ( SELECT recording_id, MAX(planta_logs_id) AS max_planta_logs_id FROM planta_recording_logs 
 WHERE status = 'Milling' GROUP BY recording_id ) GROUP BY MONTH(milling_date);");
 
-    if ($milling_data && $milling_data->num_rows > 0) {
+if ($milling_data && $milling_data->num_rows > 0) {
     $month_bales = [];
     $bales = [];
-        while ($row = mysqli_fetch_assoc($milling_data)) {
-            $month_bales[] = date('M Y', mktime(0, 0, 0, $row['month'], 1));
-            $bales[] = number_format($row['total_weight'], 0, '.', '');
-        }
-    }   
-?>
-new Chart(monthly_milling, {
-    options: {
-        plugins: {
-            title: {
-                display: true,
-                text: 'Monthly Crumb Production (Milling)',
-            },
-            legend: {
-                display: false
-            }
-        },
-        scales: {
-            y: {
-                ticks: {
-                    display: true // Y-Axis Label (#)
-                },
-                grid: {
-                    display: false // y-axis gridlines
-                }
-            },
-            x: {
-                grid: {
-                    display: false // x-axis gridlines
-                }
-            }
-        }
-    },
-    type: 'line',
-    data: {
-        labels: <?php echo json_encode($month_bales) ?>, //X-axis data 
-        datasets: [{
-            label: 'Crumbs',
-            data: <?php echo json_encode($bales) ?>, //Y-axis data 
-            backgroundColor: '#617391',
-            tension: 0.3,
-            fill: true,
-        }]
-    },
-});
+    while ($row = mysqli_fetch_assoc($milling_data)) {
+        $month_bales[] = date('M Y', mktime(0, 0, 0, $row['month'], 1));
+        $bales[] = number_format($row['total_weight'], 0, '.', '');
+    }
+}
 
-
-
-<?php
 $Drying_data = mysqli_query($con, "SELECT SUM(dry_weight) AS total_weight, MONTH(drying_date) AS month FROM planta_recording_logs
-    WHERE (recording_id, planta_logs_id) IN ( SELECT recording_id, MAX(planta_logs_id) AS max_planta_logs_id FROM planta_recording_logs 
-    WHERE status = 'Drying' GROUP BY recording_id ) GROUP BY MONTH(drying_date);");
+WHERE (recording_id, planta_logs_id) IN ( SELECT recording_id, MAX(planta_logs_id) AS max_planta_logs_id FROM planta_recording_logs 
+WHERE status = 'Drying' GROUP BY recording_id ) GROUP BY MONTH(drying_date);");
 
 if ($Drying_data && $Drying_data->num_rows > 0) {
     $month_Dry = [];
@@ -495,43 +409,59 @@ if ($Drying_data && $Drying_data->num_rows > 0) {
     }
 }
 ?>
-new Chart(monthly_drying, {
+
+new Chart(monthly_milldry, {
     options: {
         plugins: {
             title: {
                 display: true,
-                text: 'Monthly Blanket Production (Drying)',
+                text: 'Monthly Milling and Drying',
+                font: {
+                    size: 20,
+                    weight: 'bold'
+                }
             },
             legend: {
-                display: false
+                display: true,
             }
         },
         scales: {
             y: {
                 ticks: {
-                    display: true // Y-Axis Label (#)
+                    display: true
                 },
                 grid: {
-                    display: false // y-axis gridlines
+                    display: true
                 }
             },
             x: {
-                grid: {
-                    display: false // x-axis gridlines
-                }
+                ticks: {
+                    display: true,
+                    font: {
+                        size: 14
+                    }
+                },
             }
         }
     },
     type: 'line',
     data: {
-        labels: <?php echo json_encode($month_Dry) ?>, //X-axis data 
+        labels: <?php echo json_encode($month_bales) ?>,
         datasets: [{
-            label: 'Blankets',
-            data: <?php echo json_encode($dry_weight) ?>, //Y-axis data 
-            backgroundColor: '#3892BA',
-            tension: 0.3,
-            fill: true,
-        }]
+                label: 'Crumbs',
+                data: <?php echo json_encode($bales) ?>,
+                backgroundColor: '#617391',
+                tension: 0.3,
+                fill: true,
+            },
+            {
+                label: 'Blankets',
+                data: <?php echo json_encode($dry_weight) ?>,
+                backgroundColor: '#3892BA',
+                tension: 0.3,
+                fill: true,
+            }
+        ]
     },
 });
 
@@ -556,7 +486,11 @@ new Chart(monthly_production, {
         plugins: {
             title: {
                 display: true,
-                text: 'Monthly Bale Production (Pressing)',
+                text: 'Monthly Bale Pressing',
+                font: {
+                    size: 20,
+                    weight: 'bold'
+                }
             },
             legend: {
                 display: false
@@ -565,25 +499,28 @@ new Chart(monthly_production, {
         scales: {
             y: {
                 ticks: {
-                    display: true // Y-Axis Label (#)
+                    display: true
                 },
                 grid: {
-                    display: false // y-axis gridlines
+                    display: true
                 }
             },
             x: {
-                grid: {
-                    display: false // x-axis gridlines
-                }
+                ticks: {
+                    display: true,
+                    font: {
+                        size: 14
+                    }
+                },
             }
         }
     },
     type: 'line',
     data: {
-        labels: <?php echo json_encode($month_produced) ?>, //X-axis data 
+        labels: <?php echo json_encode($month_produced) ?>,
         datasets: [{
             label: 'Bales',
-            data: <?php echo json_encode($produced_weight) ?>, //Y-axis data 
+            data: <?php echo json_encode($produced_weight) ?>,
             backgroundColor: '#2e83c3',
             tension: 0.3,
             fill: true,
