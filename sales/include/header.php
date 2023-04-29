@@ -61,6 +61,7 @@
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
@@ -71,6 +72,21 @@
     animation: spinning 2s linear infinite;
 }
 </style>
+
+<style>
+.modal-content {
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.modal-footer {
+    border-top: none;
+}
+</style>
 <button id="refreshButton" class="floating-refresh-button" onclick="refreshPage()">
-        <i class="fas fa-sync-alt"></i>
-    </button>
+    <i class="fas fa-sync-alt"></i>
+</button>
