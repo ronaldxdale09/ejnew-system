@@ -16,31 +16,21 @@
     <div class='main-content' style='position:relative; height:100%;'>
         <div class="container home-section h-100" style="max-width:95%;">
             <div class="page-wrapper">
-                <!-- ============================================================== -->
-                <!-- Bread crumb and right sidebar toggle -->
-                <!-- ============================================================== -->
-                <br>
-                <br>
-                <br>
                 <div class="container-fluid">
-                    <!-- ============================================================== -->
-                    <!-- Start Page Content -->
-                    <!-- ============================================================== -->
+                    <h2 class="page-title">
+                        <br>
+                        <b>
+                            <font color="#0C0070"> RUBBER </font>
+                            <font color="#046D56"> TRANSACTIONS </font>
+                        </b>
+                        <br>
+                    </h2>
                     <div class="row">
-                        <h2 class="page-title">
-                            <b>
-                                <font color="#0C0070"> RUBBER </font>
-                                <font color="#046D56"> TRANSACTIONS </font>
-                            </b>
-                        </h2>
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
 
 
-                                    <!-- CONTENT -->
-
-                                    <br>
                                     <div class="table-responsive">
                                         <table class="table" id='sellerTable'>
                                             <?php
@@ -127,7 +117,6 @@
                                                 </tr> <?php } ?> </tbody>
                                         </table>
                                     </div>
-                                    <!-- END CONTENT -->
                                 </div>
                             </div>
                         </div>
@@ -135,15 +124,14 @@
                 </div>
             </div>
         </div>
+    </div>
 </body>
 
 </html>
-<!-- Modal -->
-<!-- Modal -->
+
 
 <script>
 $(document).ready(function() {
-
     var table = $('#sellerTable').DataTable({
         dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
         order: [
@@ -171,11 +159,7 @@ $(document).ready(function() {
         ],
         lengthChange: false,
         orderCellsTop: true,
-
-
-
     });
-
 });
 </script>
 

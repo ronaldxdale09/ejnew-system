@@ -51,12 +51,9 @@
     <div class='main-content' style='position:relative; height:100%;'>
         <div class="container home-section h-100" style="max-width:95%;">
             <div class="page-wrapper">
-                <!-- ============================================================== -->
                 <div class="container-fluid">
                     <div class="row">
-
-
-                        <div class="col-sm-3 offset-sm-0">
+                        <div class="col">
                             <div class="stat-card">
                                 <div class="stat-card__content">
                                     <p class="text-uppercase mb-1 text-muted"><b>CUPLUMP</b> INVENTORY</p>
@@ -77,7 +74,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-3">
+                        <div class="col">
                             <div class="stat-card">
                                 <div class="stat-card__content">
                                     <p class="text-uppercase mb-1 text-muted"><b>CRUMB</b> INVENTORY</p>
@@ -100,7 +97,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-3 offset-sm-0">
+                        <div class="col">
                             <div class="stat-card">
                                 <div class="stat-card__content">
                                     <p class="text-uppercase mb-1 text-muted"><b>BLANKET</b> INVENTORY</p>
@@ -123,7 +120,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-3">
+                        <div class="col">
                             <div class="stat-card">
                                 <div class="stat-card__content">
                                     <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY</p>
