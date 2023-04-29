@@ -46,5 +46,6 @@
 </body>
 </html>
 <?php    include "sales_modal/bales_sales_modal.php";?>
+<?php    include "fetch/wet_export_fill_data.php";?>
 
 
