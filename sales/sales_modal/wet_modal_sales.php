@@ -20,7 +20,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="product_name" class="form-label">Recorded By</label>
-                                <input type="text" class="form-control" name="recorded_by" placeholder="Recorded By">
+                                <input type="text" class="form-control" name="recorded_by" placeholder="Recorded By" required>
                             </div>
                         </div>
 

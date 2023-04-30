@@ -104,7 +104,8 @@ $sql = "UPDATE sales_cuplumps_rec SET
     pay_details = '$pay_details',
     paid_amount = '$paid_amount',
     total_ship_exp ='$total_ship_exp',
-    total_wet_cost ='$total_wet_cost'
+    total_wet_cost ='$total_wet_cost',
+    status ='Completed'
 WHERE sale_id = $sale_id";
 
 

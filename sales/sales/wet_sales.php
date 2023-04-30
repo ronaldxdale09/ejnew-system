@@ -81,8 +81,8 @@ if (isset($_GET['id'])) {
                                             <select class="form-select" id="sale_type" name="sale_type"
                                                 style="width: 100px;">
                                                 <option selected>Choose...</option>
-                                                <option value="bales_export">Bales-Export</option>
-                                                <option value="bales_local">Bales-Local</option>
+                                                <option value="EXPORT">Export</option>
+                                                <option value="LOCAL">Local</option>
                                             </select>
                                         </div>
                                     </div>
