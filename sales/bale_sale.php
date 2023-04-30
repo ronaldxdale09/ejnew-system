@@ -19,7 +19,7 @@
 
                         <h2 class="page-title">
                             <b>
-                                <font color="#0C0070">CUPLUMP </font>
+                                <font color="#0C0070">BALES </font>
                                 <font color="#046D56"> SALE </font>
                             </b>
                         </h2>
@@ -44,14 +44,16 @@
                                         <tr>
 
                                             <th scope="col">No.</th>
+                                            <th scope="col">Sale Type</th>
                                             <th scope="col">Date</th>
                                             <th scope="col">Buyer</th>
                                             <th scope="col">Destination</th>
                                             <th scope="col">Source</th>
+                                            <th scope="col">Quality</th>
+                                            <th scope="col">Bales</th>
                                             <th scope="col">Total Weight</th>
                                             <th scope="col">Price per Kilo</th>
                                             <th scope="col">Ave. Kilo Cost</th>
-                                            <th scope="col">Shipping Expenses</th>
                                             <th scope="col">Profit</th>
                                             <th scope="col">Unpaid Balance</th>
 
@@ -61,9 +63,11 @@
                                     <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?>
                                         <tr>
 
+                                            <td> <?php echo $row['status']?> </td>
                                             <td> <?php echo $row['recording_id']?> </td>
                                             <td> <?php echo $row['receiving_date']?> </td>
                                             <td> <?php echo $row['supplier']?> </td>
+                                            <td> <?php echo $row['receiving_date']?> </td>
                                             <td> <?php echo $row['location']?> </td>
                                             <td> <?php echo $row['lot_num']?> </td>
                                             <td class="number-cell">
@@ -82,7 +86,7 @@
                                                 <?php echo number_format(($row['total_amount']), 2, '.', ',')?></td>
                                                 <td class="text-center">
                                                 <button type="button" class="btn btn-warning btn-sm btnReceivingView">
-                                                    <i class="fas fa-pen"></i>
+                                                    <i class="fas fa-money"></i>
                                                 </button>
                                                 <button type="button" class="btn btn-success btn-sm btnReceivingView">
                                                     <i class="fas fa-book"></i>

@@ -45,7 +45,7 @@ error_reporting(0); // Suppress all warnings
                         <div class="col">
                             <div class="stat-card">
                                 <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>BALES</b> SALES</p>
+                                    <p class="text-uppercase mb-1 text-muted"><b>BALE</b> SALES</p>
                                     <h3>
                                         <i class="text-success font-weight-bold mr-1"></i>
                                         ₱ <?php echo number_format(250000, 0) ?>
@@ -71,23 +71,6 @@ error_reporting(0); // Suppress all warnings
                                 <div class="stat-card__icon stat-card__icon--success">
                                     <div class="stat-card__icon-circle">
                                         <i class="fa fa-shopping-cart"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>SALES</b> GROWTH</p>
-                                    <h3>
-                                        <i class="text-danger font-weight-bold mr-1"></i>
-                                        <?php echo number_format(18, 0) ?> %
-                                    </h3>
-                                </div>
-                                <div class="stat-card__icon stat-card__icon--danger">
-                                    <div class="stat-card__icon-circle">
-                                        <i class="fa fa-credit-card"></i>
                                     </div>
                                 </div>
                             </div>
@@ -157,6 +140,26 @@ error_reporting(0); // Suppress all warnings
                     <div class="row">
                         <div class="card" style="width:100%;max-width:100%;">
                             <div class="card-body" style="width:100%;max-width:100%;">
+                                <h5>INVENTORY LEVEL</h5>
+                                <div class="row" style="display: flex; align-items: stretch;">
+                                    <div class="col-5" style="display: flex;">
+                                        <div class="card" style="width: 100%;">
+                                            <div class="card-body" style="height: 400px; position: relative;">
+                                                <canvas id="inventory_bales"
+                                                    style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+                    
+                    <div class="row">
+                        <div class="card" style="width:100%;max-width:100%;">
+                            <div class="card-body" style="width:100%;max-width:100%;">
                                 <h5>SALE TREND</h5>
                                 <div class="row" style="display: flex; align-items: stretch;">
                                     <div class="col" style="display: flex;">
@@ -222,25 +225,6 @@ error_reporting(0); // Suppress all warnings
                         </div>
                     </div>
 
-                    <br>
-
-                    <div class="row">
-                        <div class="card" style="width:100%;max-width:100%;">
-                            <div class="card-body" style="width:100%;max-width:100%;">
-                                <h5>INVENTORY LEVEL</h5>
-                                <div class="row" style="display: flex; align-items: stretch;">
-                                    <div class="col-5" style="display: flex;">
-                                        <div class="card" style="width: 100%;">
-                                            <div class="card-body" style="height: 400px; position: relative;">
-                                                <canvas id="inventory_bales"
-                                                    style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                 </div>
             </div>
@@ -344,49 +328,16 @@ error_reporting(0); // Suppress all warnings
             datasets: [{
                     label: 'Gross Profit',
                     data: gpData, // Y-axis data for Gross Profit
-                    borderColor: '#28a745',
+                    backgroundColor: '#28a745',
                     borderWidth: 3,
-                    fill: false,
-                    type: 'line'
-                },
-                {
-                    label: 'Sales',
-                    data: salesData, // Y-axis data for Sales
-                    backgroundColor: '#174f77',
-                    borderWidth: 1,
                     fill: true,
-                    stack: 'stack0'
                 },
-                {
-                    label: 'COGS',
-                    data: cogsData, // Y-axis data for COGS
-                    backgroundColor: '#d34817',
-                    borderWidth: 1,
-                    fill: true,
-                    stack: 'stack1'
-                },
-                {
-                    label: 'Shipping Expenses',
-                    data: shippingExpData, // Y-axis data for Shipping Expenses
-                    backgroundColor: '#a28e6a',
-                    borderWidth: 1,
-                    fill: true,
-                    stack: 'stack1'
-                },
-                {
-                    label: 'Milling Fee',
-                    data: millExpData, // Y-axis data for Other Expenses
-                    backgroundColor: '#ff9900',
-                    borderWidth: 1,
-                    fill: true,
-                    stack: 'stack1'
-                }
             ]
         },
         options: {
             plugins: {
                 title: {
-                    display: true,
+                    display: false,
                     text: 'Gross Profit per Month',
                 },
                 legend: {
@@ -426,7 +377,8 @@ error_reporting(0); // Suppress all warnings
             },
             plugins: {
                 legend: {
-                    position: 'bottom'
+                    position: 'bottom',
+                        display: false,
                 }
             }
         },
