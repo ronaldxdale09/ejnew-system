@@ -7,23 +7,25 @@
         </div>
     </div>
 
+    <br>
+
     <a class='nav-link' href='dashboard.php'>
         <i class='fa-solid fa-house'></i> <span class='nav-text'>Home</span>
     </a>
+
+    <hr style='color:gray'>
+
     <a class='nav-link'>
         <i class='fa-solid fa-truck'></i> <span class='nav-text'>Inventory</span>
     </a>
-    <a class='nav-link' href='inv_bale.php' style='margin-left: 40px; font-size: 18px;'>
-        <span class='nav-text'>Bales</span>
-    </a>
-    <a class='nav-link' href='inv_cuplump.php' style='margin-left: 40px; font-size: 18px;'>
-        <span class='nav-text'>Cuplumps</span>
+
+    <a class='nav-link' href='inv_bale.php' style='margin-left: 30px; font-size: 18px;'>
+       <i class='fa-solid fa-cube'></i> <span class='nav-text'>Bales</span>
     </a>
 
-
-
-    <!-- PURCHASE -->
-
+    <a class='nav-link' href='inv_cuplump.php' style='margin-left: 30px; font-size: 18px;'>
+    <i class='fa-solid fa-tree'></i> <span class='nav-text'>Cuplumps</span>
+    </a>
 
     <hr style='color:gray'>
 
@@ -39,22 +41,19 @@
         <i class='fa-solid fa-book'></i> <span class='nav-text'>Cuplump Sales</span>
     </a>
 
-
-    <!-- OTHER -->
-
     <hr style='color:gray'>
 
     <a class='nav-link' href='reports.php'>
         <i class='fa-solid fa-file-alt'></i> <span class='nav-text'>Reports</span>
     </a>
-    <hr style='color:gray'>
-
 
     <div class='logout-container'>
-        <span class='nav-text'></span>
-        <a class='nav-link logout' href='function/logout.php'>
+        <a class='nav-text' href='function/logout.php'>
             <i class='fa-solid fa-arrow-right-to-bracket'></i>
+            <span class='nav-text'>Logout </span>
         </a>
     </div>
+
 </nav>
+
 <script src='assets/js/navbar.js'></script>

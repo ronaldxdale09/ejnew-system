@@ -88,13 +88,13 @@ function sortTable() {
 </script>
 
 <body>
-<header style="text-align: center; padding: 20px 0;">
+    <header style="text-align: center; padding: 20px 0;">
         <h1 style="font-family: Arial, sans-serif;">
             <img src='assets/img/logo.png' alt='Q-cart Logo' width='60' height='60' style='margin-right:5px;'>  EN Rubber</h1>
     </header>
 
     <div class="container">
-        <h3 class="text-center my-4">Sales Report</h3>
+        <h3 class="text-center my-4">Statement of Profit and Loss</h3>
         
         <h5 class="text-center">(All amounts are in Philippine Peso)</h5>
         
@@ -102,7 +102,7 @@ function sortTable() {
             <thead>
                 <tr id="table-header">
 
-                    <th scope="col">Accounts</th>
+                    <th scope="col"> </th>
                     <th scope="col">
                         <select id="year-select" onchange="updateYear()">
                             <option value="2022">2022</option>
@@ -141,7 +141,7 @@ function sortTable() {
                     <td></td>
                 </tr>
                 <tr>
-                    <td>&emsp; Bale Local Sales</td>
+                    <td>&emsp; Basilan Bale Local Sales</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -157,7 +157,7 @@ function sortTable() {
                     <td></td>
                 </tr>
                 <tr>
-                    <td>&emsp; Bale Export Sales</td>
+                    <td>&emsp; Basilan Bale Export Sales</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -173,7 +173,55 @@ function sortTable() {
                     <td></td>
                 </tr>
                 <tr>
-                    <td>&emsp; Cuplump Sale</td>
+                    <td>&emsp; Basilan Cuplump Sale</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                                <tr>
+                    <td>&emsp; Kidapawan Sale</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&emsp; Copra Sale</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>&emsp; Coffee Sale</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -221,7 +269,7 @@ function sortTable() {
                     <td></td>
                 </tr>
                 <tr>
-                    <td>&emsp; Bale Local COGS</td>
+                    <td>&emsp; Basilan Rubber COGS</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -237,7 +285,7 @@ function sortTable() {
                     <td></td>
                 </tr>
                 <tr>
-                    <td>&emsp; Bale Export COGS</td>
+                    <td>&emsp; Basilan Milling Fee</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -253,7 +301,7 @@ function sortTable() {
                     <td></td>
                 </tr>
                 <tr>
-                    <td>&emsp; Cuplump COGS</td>
+                    <td>&emsp; Shipping Expenses</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -285,7 +333,7 @@ function sortTable() {
                     <td></td>
                 </tr>
                 <tr>
-                    <th scope="row">Milling Fee</th>
+                    <th scope="row">GROSS PROFIT</th>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -301,7 +349,7 @@ function sortTable() {
                     <td></td>
                 </tr>
                 <tr>
-                    <th scope="row">Shipping Expenses</th>
+                    <th scope="row">Operating Expenses</th>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -317,7 +365,7 @@ function sortTable() {
                     <td></td>
                 </tr>
                 <tr>
-                    <td>&emsp; Loading & Unloading</td>
+                    <td>&emsp; Salaries</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -333,7 +381,7 @@ function sortTable() {
                     <td></td>
                 </tr>
                 <tr>
-                    <td>&emsp; Trucking</td>
+                    <td>&emsp; Truck Maintenance</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -365,7 +413,7 @@ function sortTable() {
                     <td></td>
                 </tr>
                 <tr>
-                    <td>&emsp; Insurance</td>
+                    <td>&emsp; Utilities</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -397,7 +445,7 @@ function sortTable() {
                     <td></td>
                 </tr>
                 <tr>
-                    <th scope="row">Total Shipping Expenses</th>
+                    <th scope="row">Total Operating Expenses</th>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -413,7 +461,7 @@ function sortTable() {
                     <td></td>
                 </tr>
                 <tr>
-                    <th scope="row">Gross Profit</th>
+                    <th scope="row">NET INCOME BEFORE TAXES</th>
                     <td></td>
                     <td></td>
                     <td></td>

@@ -6,6 +6,7 @@
         </div>
     </div>
 
+<br>
 
     <a class='nav-link' href='dashboard.php'>
         <i class='fas fa-home'></i> <span class='nav-text'>Home</span>
@@ -13,10 +14,6 @@
 
     <a class='nav-link' href='admin_expenses.php'>
         <i class='fas fa-cash-register'></i> <span class='nav-text'>Operating Expenses</span>
-    </a>
-
-    <a class='nav-link' href='9'>
-        <i class='fas fa-file-alt'></i> <span class='nav-text'>Reports</span>
     </a>
 
     <hr style='color:gray'>
@@ -37,31 +34,33 @@
 
 
     <a class='nav-link' href='admin_kidapawan_rubber.php'>
-        <i class='fas fa-tree'></i> <span class='nav-text'>Kidapawan Rubber</span>
+        <i class='fas fa-cube'></i> <span class='nav-text'>Kidapawan Rubber</span>
     </a>
 
     <a class='nav-link'>
-        <i class='fas fa-truck'></i> <span class='nav-text'>Copra</span>
+        <i class='fas fa-tree'></i> <span class='nav-text'>Copra</span>
     </a>
 
     <a class='nav-link'>
         <i class='fas fa-coffee'></i> <span class='nav-text'>Coffee</span>
     </a>
 
-
-
-
     <hr style='color:gray'>
 
+    <a class='nav-link' href='reports.php'>
+        <i class='fas fa-file-alt'></i> <span class='nav-text'>Reports</span>
+    </a>
 
-    <a class='nav-link' href='admin_users'>
+    <a class='nav-link' href='admin_users.php'>
         <i class='fas fa-users'></i> <span class='nav-text'>Manage Users</span>
     </a>
 
-    <a class='nav-text' href='function/logout.php'>
-        <i class='fa-solid fa-arrow-right-to-bracket'></i>
-        <span class='nav-text'>Logout</span>
-    </a>
+    <div class='logout-container'>
+        <a class='nav-text' href='function/logout.php'>
+            <i class='fa-solid fa-arrow-right-to-bracket'></i>
+            <span class='nav-text'>Logout </span>
+        </a>
+    </div>
 
 </nav>
 <script src='assets/js/navbar.js'></script>

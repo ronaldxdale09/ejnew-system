@@ -36,10 +36,6 @@ error_reporting(0); // Suppress all warnings
                 <div class="container-fluid">
 
 
-
-
-                    <!-- CARDS -->
-
                     <div class="row">
 
                         <div class="col">
@@ -137,10 +133,12 @@ error_reporting(0); // Suppress all warnings
                     </div>
 
 
+
+
                     <div class="row">
                         <div class="card" style="width:100%;max-width:100%;">
                             <div class="card-body" style="width:100%;max-width:100%;">
-                                <h5>INVENTORY LEVEL</h5>
+                                <h4>INVENTORY LEVEL</h4>
                                 <div class="row" style="display: flex; align-items: stretch;">
                                     <div class="col-5" style="display: flex;">
                                         <div class="card" style="width: 100%;">
@@ -160,7 +158,7 @@ error_reporting(0); // Suppress all warnings
                     <div class="row">
                         <div class="card" style="width:100%;max-width:100%;">
                             <div class="card-body" style="width:100%;max-width:100%;">
-                                <h5>SALE TREND</h5>
+                                <h4>SALE TREND</h4>
                                 <div class="row" style="display: flex; align-items: stretch;">
                                     <div class="col" style="display: flex;">
                                         <div class="card" style="width: 100%;">
@@ -181,7 +179,7 @@ error_reporting(0); // Suppress all warnings
                     <div class="row">
                         <div class="card" style="width:100%;max-width:100%;">
                             <div class="card-body" style="width:100%;max-width:100%;">
-                                <h5>GROSS PROFIT TREND</h5>
+                                <h4>GROSS PROFIT TREND</h4>
                                 <div class="row" style="display: flex; align-items: stretch;">
                                     <div class="col" style="display: flex;">
                                         <div class="card" style="width: 100%;">
@@ -201,7 +199,7 @@ error_reporting(0); // Suppress all warnings
                     <div class="row">
                         <div class="card" style="width:100%;max-width:100%;">
                             <div class="card-body" style="width:100%;max-width:100%;">
-                                <h5>SHIPPING EXPENSES</h5>
+                                <h4>SHIPPING EXPENSES</h4>
                                 <div class="row" style="display: flex; align-items: stretch;">
                                     <div class="col-5" style="display: flex;">
                                         <div class="card" style="width: 100%;">
