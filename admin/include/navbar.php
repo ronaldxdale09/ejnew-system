@@ -12,7 +12,7 @@
         <i class='fas fa-home'></i> <span class='nav-text'>Home</span>
     </a>
 
-    <a class='nav-link' href='admin_expenses.php'>
+    <a class='nav-link' href='operating_expenses.php'>
         <i class='fas fa-cash-register'></i> <span class='nav-text'>Operating Expenses</span>
     </a>
 

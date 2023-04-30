@@ -35,7 +35,7 @@
 				header('Location: ../ledger/ledger-expense.php');
 				
 			} elseif ($userType == 'admin') {
-				header('Location: ../admin/admin_dashboard.php');
+				header('Location: ../admin/dashboard.php');
 			}
 
 			elseif  ($userType =='rubber'){
