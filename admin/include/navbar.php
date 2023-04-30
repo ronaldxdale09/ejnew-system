@@ -6,20 +6,26 @@
         </div>
     </div>
 
-<br>
+    <br>
 
     <a class='nav-link' href='dashboard.php'>
         <i class='fas fa-home'></i> <span class='nav-text'>Home</span>
     </a>
 
     <a class='nav-link' href='operating_expenses.php'>
-        <i class='fas fa-cash-register'></i> <span class='nav-text'>Operating Expenses</span>
+        <i class='fas fa-money'></i> <span class='nav-text'>Operating Expenses</span>
     </a>
+
+
+    <a class='nav-link' href='purchases.php'>
+        <i class='fas fa-cash-register'></i> <span class='nav-text'>Purchases</span>
+    </a>
+
 
     <hr style='color:gray'>
 
 
-    <a class='nav-link' href='admin_basilan_rubber.php'>
+    <a class='nav-link'>
         <i class='fas fa-warehouse'></i> <span class='nav-text'>Basilan Rubber</span>
     </a>
     <a class='nav-link' href='inv_bale.php' style='margin-left: 40px; font-size: 18px;'>
