@@ -133,7 +133,7 @@
     <!-- RUBBER QUALITY -->
 
     <!-- SAMPLE STRUCTURE NG TABLE -->
-<h2>SAMPLE TABLE TEMPLATE</h2>
+    <h2>SAMPLE TABLE TEMPLATE</h2>
     <div class="row">
         <div class="col" hidden>
             <!-- HIDE ID LANG -->
@@ -281,7 +281,7 @@
         <div class="col">
             <!-- #,###.## -->
             <!-- ADD LAHAT NG COST -->
-            <label for="bales_kilo" class="form-label">Total Cost</label>
+            <label for="bales_kilo" class="form-label">Total Bale Cost</label>
             <div class="input-group">
                 <span class="input-group-text">₱</span>
                 <input type="text" class="form-control" id="bales_kilo" readonly>
@@ -357,7 +357,7 @@
 
             <div class="row">
                 <div class="col">
-                    <div class="card">
+                    <div class="card bg-secondary">
                         <div class="card-body">
                             <h5>Bale Pricing</h5>
 
@@ -542,7 +542,7 @@
                             autocomplete='off' style="width: 100px;" />
                     </div>
                 </div>
-                
+
                 <div class="col">
                     <label style='font-size:15px' class="col-md-12">Miscellaneous Expenses : </label>
                     <div class="input-group mb-3">
@@ -584,14 +584,9 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <br>
+            <br>
 
-
-    <div class="card">
-        <div class="card-body">
             <h5 class="card-title">Payment Details</h5>
 
             <hr>
@@ -641,6 +636,7 @@
 
         </div>
     </div>
+
 
 
 
