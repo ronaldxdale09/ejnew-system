@@ -109,7 +109,7 @@ error_reporting(0); // Suppress all warnings
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="col">
                             <div class="stat-card">
                                 <div class="stat-card__content">
@@ -133,28 +133,88 @@ error_reporting(0); // Suppress all warnings
                     </div>
 
 
-
-
                     <div class="row">
-                        <div class="card" style="width:100%;max-width:100%;">
-                            <div class="card-body" style="width:100%;max-width:100%;">
-                                <h4>INVENTORY LEVEL</h4>
-                                <div class="row" style="display: flex; align-items: stretch;">
-                                    <div class="col-5" style="display: flex;">
-                                        <div class="card" style="width: 100%;">
-                                            <div class="card-body" style="height: 400px; position: relative;">
-                                                <canvas id="inventory_bales"
-                                                    style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                        <div class="col-5">
+                            <div class="card" style="width:100%;max-width:100%;">
+                                <div class="card-body" style="width:100%;max-width:100%;">
+                                    <h4>INVENTORY LEVEL</h4>
+                                    <div class="row" style="display: flex; align-items: stretch;">
+                                        <div class="col" style="display: flex;">
+                                            <div class="card" style="width: 100%;">
+                                                <div class="card-body" style="height: 400px; position: relative;">
+                                                    <canvas id="inventory_bales"
+                                                        style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col">
+                            <div class="card" style="width:100%;max-width:100%;">
+                                <div class="card-body" style="width:100%;max-width:100%;">
+                                    <h4>OUTSTANDING BALANCE</h4>
+                                    <div class="row" style="display: flex; align-items: stretch;">
+                                        <div class="col" style="display: flex;">
+                                            <div class="card" style="width: 100%;">
+                                                <div class="card-body" style="height: 400px; position: relative;">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">No.</th>
+                                                                <th scope="col">Buyer</th>
+                                                                <th scope="col">Destination</th>
+                                                                <th scope="col">Total Sales</th>
+                                                                <th scope="col">Amounts Paid</th>
+                                                                <th scope="col">Balance</th>
+                                                                <th scope="col">Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <th scope="row">1</th>
+                                                                <td>John Smith</td>
+                                                                <td>New York</td>
+                                                                <td>$500</td>
+                                                                <td>$250</td>
+                                                                <td>$250</td>
+                                                                <td><i class="fas fa-credit-card"></i></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">2</th>
+                                                                <td>Jane Doe</td>
+                                                                <td>Los Angeles</td>
+                                                                <td>$1,000</td>
+                                                                <td>$500</td>
+                                                                <td>$500</td>
+                                                                <td><i class="fas fa-credit-card"></i></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">3</th>
+                                                                <td>Bob Johnson</td>
+                                                                <td>Miami</td>
+                                                                <td>$750</td>
+                                                                <td>$750</td>
+                                                                <td>$0</td>
+                                                                <td></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
 
                     <br>
-                    
+
                     <div class="row">
                         <div class="card" style="width:100%;max-width:100%;">
                             <div class="card-body" style="width:100%;max-width:100%;">
@@ -324,13 +384,12 @@ error_reporting(0); // Suppress all warnings
         data: {
             labels: labels2, // X-axis data
             datasets: [{
-                    label: 'Gross Profit',
-                    data: gpData, // Y-axis data for Gross Profit
-                    backgroundColor: '#28a745',
-                    borderWidth: 3,
-                    fill: true,
-                },
-            ]
+                label: 'Gross Profit',
+                data: gpData, // Y-axis data for Gross Profit
+                backgroundColor: '#28a745',
+                borderWidth: 3,
+                fill: true,
+            }, ]
         },
         options: {
             plugins: {
@@ -376,14 +435,15 @@ error_reporting(0); // Suppress all warnings
             plugins: {
                 legend: {
                     position: 'bottom',
-                        display: false,
+                    display: false,
                 }
             }
         },
     });
 
     const labels3 = ['Labor', 'Trucking', 'Manila Freight', 'Manila Trucking', 'Processing', 'Arrastre',
-        'Miscellaneous'];
+        'Miscellaneous'
+    ];
     const data = [880, 1200, 1200, 1500, 1800, 2100, 1600];
 
     const pie_shipexp = document.getElementById('pie_shipexp').getContext('2d');
