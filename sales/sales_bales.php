@@ -3,11 +3,10 @@
    include "include/navbar.php";
 
 
-
-    $tab= '';
-    if (isset($_GET['tab'])) {
-        $tab = filter_var($_GET['tab']) ;
-      }
+   $id= '';
+   if (isset($_GET['id'])) {
+       $id = filter_var($_GET['id']) ;
+   }
    ?>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 

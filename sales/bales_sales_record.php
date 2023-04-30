@@ -99,7 +99,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <?php    include "sales_modal/wet_modal_sales.php";?>
+                            <?php    include "sales_modal/bales_sales_modal.php";?>
 
                             <script>
                             var table = $('#recording_table-receiving').DataTable({

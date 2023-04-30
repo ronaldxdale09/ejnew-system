@@ -29,11 +29,7 @@
 
     <hr style='color:gray'>
 
-    <a class='nav-link' href='sales_bales.php'>
-        <i class='fa-solid fa-chart-line'></i> <span class='nav-text'>Bale Sales</span>
-    </a>
-
-    <a class='nav-link' href='bale_sale.php'>
+    <a class='nav-link' href='bales_sales_record.php'>
         <i class='fa-solid fa-book'></i> <span class='nav-text'>Bale Sales Record</span>
     </a>
 
