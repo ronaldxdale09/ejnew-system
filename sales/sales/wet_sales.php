@@ -18,8 +18,9 @@ if (isset($_GET['id'])) {
                 <button type="button" class="btn btn-primary confirmSales" id="someButton">Confirm Sales</button>
                 <button type="button" class="btn btn-dark text-white receiptBtn" id='receiptBtn'>
                     <span class="fa fa-print"></span> Print Receipt </button>
-                <button type="button" class="btn btn-secondary text-white vouchBtn" id='vouchBtn'>
-                    <span class="fa fa-print"></span> Print Voucher </button>
+                <button type="button" class="btn btn-secondary text-white vouchBtn" onclick="goBack()">
+                    <span class="fas fa-arrow-left"></span> Return
+                </button>
 
             </div>
 
@@ -242,7 +243,8 @@ if (isset($_GET['id'])) {
                         <div class="input-group-prepend">
                             <span class="input-group-text">₱</span>
                         </div>
-                        <input type="text" class="form-control" name='ship_exp_processing' id='ship_exp_processing' style="width: 100px;" />
+                        <input type="text" class="form-control" name='ship_exp_processing' id='ship_exp_processing'
+                            style="width: 100px;" />
                     </div>
                 </div>
             </div>
@@ -256,7 +258,8 @@ if (isset($_GET['id'])) {
                         <div class="input-group-prepend">
                             <span class="input-group-text">₱</span>
                         </div>
-                        <input type="text" class="form-control" name='ship_exp_trucking' id='ship_exp_trucking'  style="width: 100px;" />
+                        <input type="text" class="form-control" name='ship_exp_trucking' id='ship_exp_trucking'
+                            style="width: 100px;" />
                     </div>
                 </div>
 
@@ -279,7 +282,8 @@ if (isset($_GET['id'])) {
                         <div class="input-group-prepend">
                             <span class="input-group-text">₱</span>
                         </div>
-                        <input type="text" class="form-control" name='ship_exp_misc' id='ship_exp_misc' style="width: 100px;" />
+                        <input type="text" class="form-control" name='ship_exp_misc' id='ship_exp_misc'
+                            style="width: 100px;" />
                     </div>
                 </div>
             </div>

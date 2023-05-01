@@ -22,7 +22,7 @@ $output .= '
                   <th scope="col"  width="7%">Lot</th>
                   <th scope="col" width="13%">Kilo Cost</th>
                   <th scope="col" width="18%">Total Cost</th>
-                  <th scope="col" width="13%">Reweight</th>
+                  <th scope="col" width="13%">Weight</th>
                   <th scope="col"></th>
 
                </tr>
@@ -31,8 +31,8 @@ $output .= '
            {  
              while($row = mysqli_fetch_array($result)) {
                  $total_cost += floatval($row['total_amount']);
-                 $total_weight += floatval($row['reweight']);
-                 $weight = $row["reweight"];
+                 $total_weight += floatval($row['weight_selected']);
+                 $weight = $row["weight_selected"];
                  $recording_id = $row["recording_id"];
                  $cost_per_kilo = floatval($row['total_amount']) / floatval($row['net_weight']);
              
@@ -42,8 +42,8 @@ $output .= '
                          <td>'.$row['supplier'].' </td>
                          <td>'.$row['lot_num'].' </td>
                          <td>₱ '.sprintf('%.2f', $cost_per_kilo).' </td>
-                         <td>₱ '.sprintf('%.2f', $row['total_amount']).' </td>
-                         <td>'.number_format($row['reweight'], 0, '.', ',').' kg </td>
+                         <td>₱ '.number_format($row['total_amount'], 2, '.', ',').'  </td>
+                         <td>'.number_format($row['weight_selected'], 0, '.', ',').' kg </td>
                          <td><button type="button" id="addProduct" class="btn btn-danger btn-sm  addProduct"><i class="fa fa-minus"></i></button> </td>
                      </tr>
                  ';

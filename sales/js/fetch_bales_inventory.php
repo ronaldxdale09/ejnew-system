@@ -2,7 +2,7 @@
 function fetch_cost_weight() {
 
     $.ajax({
-        url: "table/bales_cost_weight.php",
+        url: "table/bales-sales-table.php",
         method: "POST",
         data: {
             sales_id: <?php echo $id ?>,
