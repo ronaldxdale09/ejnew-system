@@ -34,8 +34,8 @@ if (isset($_GET['id'])) {
                     <div class="col">
                         <label style='font-size:15px' class="col-md-12">Reference No.</label>
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" name='sale_id' id='sale_id' value='<?php echo $id?>' readonly
-                                autocomplete='off' style="width: 100px;" />
+                            <input type="text" class="form-control" name='sale_id' id='sale_id' value='<?php echo $id?>'
+                                readonly autocomplete='off' style="width: 100px;" />
                         </div>
                     </div>
 
@@ -144,8 +144,8 @@ if (isset($_GET['id'])) {
                     </div>
                     <hr>
                 </div>
-               
-              <div id='inventory_selected'></div>
+
+                <div id='inventory_selected'></div>
 
             </div>
         </div>
@@ -172,10 +172,11 @@ if (isset($_GET['id'])) {
                                             <select class="form-select" id="sale_currency" name="sale_currency"
                                                 style="width: 100px;">
                                                 <option selected>Choose...</option>
-                                                <option value="bales_local">PHP ₱</option>
-                                                <option value="bales_export">USD $</option>
-                                                <option value="bales_local">RUB ₽</option>
-                                                <option value="bales_local">CNY ¥</option>
+                                                <option value="PHP">PHP ₱</option>
+                                                <option value="USD">USD $</option>
+                                                <option value="RUB">RUB ₽</option>
+                                                <option value="MYR">MYR RM</option>
+                                                <option value="CNY">CNY ¥</option>
                                             </select>
                                         </div>
                                     </div>
@@ -505,7 +506,7 @@ if (isset($_GET['id'])) {
 <script>
 $(document).ready(function() {
 
-   
+
 
 
 
