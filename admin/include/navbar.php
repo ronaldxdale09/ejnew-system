@@ -26,18 +26,12 @@
 
 
     <a class='nav-link'>
-        <i class='fas fa-warehouse'></i> <span class='nav-text'>Basilan Rubber</span>
-    </a>
-    <a class='nav-link' href='inv_bale.php' style='margin-left: 40px; font-size: 18px;'>
-        <span class='nav-text'>Bales Inventory</span>
-    </a>
-    <a class='nav-link' href='inv_cuplump.php' style='margin-left: 40px; font-size: 18px;'>
-        <span class='nav-text'>Cuplumps Inventory</span>
-    </a>
-    <a class='nav-link' href='record_allrubber.php' style='margin-left: 40px; font-size: 18px;'>
-        <span class='nav-text'>Transaction Record</span>
+        <i class='fas fa-warehouse'></i> <span class='nav-text'>Inventory</span>
     </a>
 
+    <a class='nav-link' href='basilan_rubber_inventory.php' style='margin-left: 40px; font-size: 18px;'>
+        <span class='nav-text'>Rubber</span>
+    </a>
 
     <a class='nav-link' href='admin_kidapawan_rubber.php'>
         <i class='fas fa-cube'></i> <span class='nav-text'>Kidapawan Rubber</span>
