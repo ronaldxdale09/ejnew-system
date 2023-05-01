@@ -172,11 +172,10 @@ if (isset($_GET['id'])) {
                                             <select class="form-select" id="sale_currency" name="sale_currency"
                                                 style="width: 100px;">
                                                 <option selected>Choose...</option>
-                                                <option value="PHP">PHP ₱</option>
-                                                <option value="USD">USD $</option>
-                                                <option value="RUB">RUB ₽</option>
-                                                <option value="MYR">MYR RM</option>
-                                                <option value="CNY">CNY ¥</option>
+                                                <option value="bales_local">PHP ₱</option>
+                                                <option value="bales_export">USD $</option>
+                                                <option value="bales_local">RUB ₽</option>
+                                                <option value="bales_local">CNY ¥</option>
                                             </select>
                                         </div>
                                     </div>
