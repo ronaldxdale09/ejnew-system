@@ -20,65 +20,85 @@
 </head>
 
 <body>
-
-
     <div class='main-content' style='position:relative; height:100%;'>
         <div class="container home-section h-100" style="max-width:95%;">
             <div class="page-wrapper">
-                <!--ACCOUNT OF ALL USER -->
-                <section class="home-section">
-              
-                    <main>
-                        <div class="box-shadow p-3 rounded">
-                            <!-- cash advance -->
-                            <h3><i class='bx bx-money'></i> Expenses</h3>
-                            <small class="form-text text-muted">List of expenses. </small>
-                            <br>
-                            <br>
-                            <div class="table-responsive">
-                                <table class="table" id='expenses_table'>
-                                    <?php
-                            $results  = mysqli_query($con, "SELECT * from ledger_expenses ORDER BY id DESC  "); 
+                <div class="container-fluid">
+                    <h2 class="page-title">
+                        <br>
+                        <b>
+                            <font color="#0C0070"> RUBBER </font>
+                            <font color="#046D56"> INVENTORY </font>
+                        </b>
+                        <br>
+                    </h2>
+                    <br>
+                    <div class="table-responsive">
+                        <table class="table" id='expenses_table'>
+                            <?php
+$results  = mysqli_query($con, "SELECT DISTINCT date, particulars, voucher_no, category, amount from ledger_expenses ORDER BY id DESC");
+ 
                             ?>
-                                    <thead class="table-dark">
-                                        <tr>
-                                            <th scope="col">DATE</th>
-                                            <th scope="col">PARTICULARS</th>
-                                            <th scope="col">VOC#</th>
-                                            <th scope="col">CATEGORY</th>
-                                            <th scope="col">AMOUNT</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?>
-                                        <tr>
-                                            <td> <?php echo $row['date']?> </td>
-                                            <td> <?php echo $row['particulars']?> </td>
-                                            <td> <?php echo $row['voucher_no']?> </td>
-                                            <td> <?php echo $row['category']?> </td>
-                                            <td>₱ <?php echo number_format($row['amount'])?> </td>
-                                        </tr>
-                                        <?php }
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">DATE</th>
+                                    <th scope="col">PARTICULARS</th>
+                                    <th scope="col">VOC#</th>
+                                    <th scope="col">CATEGORY</th>
+                                    <th scope="col">AMOUNT</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <?php while ($row = mysqli_fetch_array($results)) { ?>
+                                <tr>
+                                    <td> <?php echo $row['date']?> </td>
+                                    <td> <?php echo $row['particulars']?> </td>
+                                    <td> <?php echo $row['voucher_no']?> </td>
+                                    <td> <?php echo $row['category']?> </td>
+                                    <td>₱
+                                        <?php echo number_format($row['amount'])?>
+                                    </td>
+                                </tr>
+                                <?php }
                                 ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </main>
-                </section>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <script>
-    // expenses_table
     $(document).ready(function() {
         $('#expenses_table').DataTable({
             dom: 'Bfrtip',
             buttons: [
                 'copy', 'csv', 'excel', 'pdf', 'print'
+            ],
+            pageLength: 30,
+            columnDefs: [{
+                targets: 4,
+                render: function(data, type, row) {
+                    if (type === 'sort' || type === 'type') {
+                        var amount = data.replace('₱', '').replace(/,/g, '');
+                        return parseFloat(amount);
+                    }
+                    return data;
+                }
+            }],
+            "language": {
+                "decimal": ",",
+                "thousands": "."
+            },
+            "order": [
+                [4, "desc"]
             ]
         });
     });
     </script>
+
+
     <script src="./js/admin_script.js"></script>
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"

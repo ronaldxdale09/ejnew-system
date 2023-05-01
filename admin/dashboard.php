@@ -312,15 +312,6 @@ error_reporting(0); // Suppress all warnings
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-5" style="display: flex;">
-                                    <div class="card" style="width: 100%;">
-                                        <div class="card-body" style="height: 400px; position: relative;">
-                                            <canvas id="inventory_baleskilo"
-                                                style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -779,7 +770,7 @@ error_reporting(0); // Suppress all warnings
             aspectRatio: 1.5,
         },
 
-        type: 'doughnut',
+        type: 'bar',
         data: {
             labels: ['Cuplumps', 'Crumbed', 'Blanket', 'Bales'], //X-axis data 
             datasets: [{
@@ -820,7 +811,7 @@ error_reporting(0); // Suppress all warnings
             aspectRatio: 1.5,
         },
 
-        type: 'pie',
+        type: 'doughnut',
         data: {
             labels: <?php echo json_encode($bales_labels) ?>, //X-axis data 
             datasets: [{
@@ -830,81 +821,6 @@ error_reporting(0); // Suppress all warnings
                 tension: 0.3,
                 fill: false,
             }]
-        },
-    });
-
-
-    // BALE KILO INVENTORY BAR CHART------------------------------
-
-    inventory_bales = document.getElementById("inventory_bales");
-
-    <?php              
-    $bales_type = mysqli_query($con, "SELECT bales_type,
-            SUM(CASE WHEN kilo_per_bale BETWEEN 33.32 AND 33.34 THEN number_bales ELSE 0 END) as total_33_33,
-            SUM(CASE WHEN kilo_per_bale BETWEEN 34.99 AND 35.01 THEN number_bales ELSE 0 END) as total_35
-     FROM planta_bales_production
-     GROUP BY bales_type;");
-    
-    if ($bales_type->num_rows > 0) {
-        $bales_labels = [];
-        $bales_values_3333 = [];
-        $bales_values_35 = [];
-        while ($bales_data = $bales_type->fetch_assoc()) {
-            $bales_labels[] = $bales_data['bales_type'];
-            $bales_values_3333[] = number_format($bales_data['total_33_33'], 0, '.', '');
-            $bales_values_35[] = number_format($bales_data['total_35'], 0, '.', '');
-        }
-    }
-        ?>
-
-    new Chart(inventory_baleskilo, {
-        options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Bale Inventory (Kilo and Quality Comparison)',
-                },
-                legend: {
-                    position: 'top',
-                },
-            },
-            maintainAspectRatio: false,
-            aspectRatio: 1.5,
-            scales: {
-                x: {
-                    grid: {
-                        display: false,
-                    },
-                },
-                y: {
-                    grid: {
-                        display: false,
-                    },
-                    stacked: true, // Enable stacked bars
-                },
-            },
-        },
-
-        type: 'bar',
-        data: {
-            labels: <?php echo json_encode($bales_labels) ?>, // X-axis data
-            datasets: [{
-                    label: '35 kg', // Add a label for 35kg bales
-                    data: <?php echo json_encode($bales_values_35) ?>, // Y-axis data for 35kg bales
-                    backgroundColor: 'rgba(196, 47, 26, 1)',
-                    tension: 0.3,
-                    fill: false,
-                    stack: 'stack1',
-                },
-                {
-                    label: '33.33 kg', // Add a label for 33.33kg bales
-                    data: <?php echo json_encode($bales_values_3333) ?>, // Y-axis data for 33.33kg bales
-                    backgroundColor: 'rgba(196, 47, 26, 0.6)',
-                    tension: 0.3,
-                    fill: false,
-                    stack: 'stack1',
-                },
-            ],
         },
     });
 
