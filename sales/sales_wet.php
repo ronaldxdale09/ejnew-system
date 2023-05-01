@@ -48,6 +48,8 @@
 
 </html>
 <script>
+
+    
 function submitForm() {
 
 
@@ -83,7 +85,7 @@ function submitForm() {
                 confirmButtonText: 'Confirm'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // window.location.href = '../sales/cuplumps_export.php';
+                    window.location.href = '../sales/cuplumps_export.php';
                 }
             });
         });

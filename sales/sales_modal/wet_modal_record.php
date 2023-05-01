@@ -13,9 +13,14 @@
                             <div class="row">
                                 <div class="col-12 d-flex justify-content-between align-items-center">
                                     <h3>CUPLUMP SALES RECORD</h3>
-                                    <button id="printButton" class="btn btn-primary">
-                                        <i class="fas fa-print"></i> Print/Export to PDF
-                                    </button>
+                                    <div class="btn-group">
+                                        <button  id='editButton' class="btn btn-warning" >
+                                            <i class="fas fa-print"></i> Edit Sales
+                                        </button>
+                                        <button id="printButton" class="btn btn-primary">
+                                            <i class="fas fa-print"></i> Export to PDF
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                             <hr>
@@ -390,7 +395,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-warning">Edit Sales</button>
+
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>

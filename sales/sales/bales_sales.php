@@ -9,7 +9,7 @@ if (isset($_GET['id'])) {
 
 ?>
 <?php    include "sales_modal/wet_modal_sales.php";?>
-<?php    include "js/fetch_cost_weight.php";?>
+<?php    include "js/fetch_bales_inventory.php";?>
 <div class="row">
     <div class="col-12">
         <br>
@@ -34,8 +34,8 @@ if (isset($_GET['id'])) {
                     <div class="col">
                         <label style='font-size:15px' class="col-md-12">Reference No.</label>
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" name='sale_id' id='sale_id' value='<?php echo $id?>' readonly
-                                autocomplete='off' style="width: 100px;" />
+                            <input type="text" class="form-control" name='sale_id' id='sale_id' value='<?php echo $id?>'
+                                readonly autocomplete='off' style="width: 100px;" />
                         </div>
                     </div>
 
@@ -144,8 +144,8 @@ if (isset($_GET['id'])) {
                     </div>
                     <hr>
                 </div>
-               
-              <div id='inventory_selected'></div>
+
+                <div id='cost_weight_table'></div>
 
             </div>
         </div>
@@ -309,22 +309,6 @@ if (isset($_GET['id'])) {
                                 style="width: 100px;" />
                         </div>
                     </div>
-
-                    <div class="col-4">
-                        <label style='font-size:15px' class="col-md-12">Processing Fee (Phytosanitary)</label>
-                        <div class="input-group mb-3">
-
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">₱</span>
-                            </div>
-                            <input type="text" class="form-control" name='ship_exp_processing' id='ship_exp_processing'
-                                style="width: 100px;" />
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="row">
                     <div class="col">
                         <label style='font-size:15px' class="col-md-12">Trucking Expense</label>
                         <div class="input-group mb-3">
@@ -336,6 +320,12 @@ if (isset($_GET['id'])) {
                                 style="width: 100px;" />
                         </div>
                     </div>
+
+                </div>
+
+
+                <div class="row">
+
 
                     <div class="col">
                         <label style='font-size:15px' class="col-md-12">Cranage Fee (Arrastre)</label>
@@ -360,39 +350,6 @@ if (isset($_GET['id'])) {
                                 style="width: 100px;" />
                         </div>
                     </div>
-                </div>
-
-                <!-- PROFIT/LOSS -->
-
-                <br>
-                <h5> Profit/Loss Computation </h5>
-                <hr>
-
-                <div class="row">
-                    <div class="col">
-                        <label style='font-size:15px;font-weight:bold' class="col-md-12">TOTAL SALES</label>
-                        <div class="input-group mb-3">
-
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">₱</span>
-                            </div>
-                            <input type="text" class="form-control" name='sales' id='sales' readonly
-                                style="width: 100px;" />
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <label style='font-size:15px;font-weight:bold' class="col-md-12">TOTAL CUPLUMP COST</label>
-                        <div class="input-group mb-3">
-
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">₱</span>
-                            </div>
-                            <input type="text" class="form-control" name='total_wet_cost' id='total_wet_cost' readonly
-                                style="width: 100px;" />
-                        </div>
-                    </div>
-
                     <div class="col">
                         <label style='font-size:15px;font-weight:bold' class="col-md-12">TOTAL SHIPPING
                             EXPENSES</label>
@@ -407,17 +364,21 @@ if (isset($_GET['id'])) {
                     </div>
                 </div>
 
+                <hr>
+
+
+
                 <div class="row">
-                    <div class="col">
+                    <div class="col-8">
                     </div>
                     <div class="col">
-                        <label style='font-size:15px;font-weight:bold' class="col-md-12">NET GAIN</label>
+                        <label style='font-size:15px;font-weight:bold' class="col-md-12">GROSS PROFIT</label>
                         <div class="input-group mb-3">
 
                             <div class="input-group-prepend">
                                 <span class="input-group-text">₱</span>
                             </div>
-                            <input type="text" class="form-control" name='net_gain' id='net_gain' readonly
+                            <input type="text" class="form-control" name='gross_profit' id='gross_profit' readonly
                                 style="width: 100px;" />
                         </div>
                     </div>
@@ -426,78 +387,76 @@ if (isset($_GET['id'])) {
         </div>
 
         <!-- PAYMENT DETAILS -->
-
-
-        <div class="card" style=" border: 1px solid green;">
-            <div class="card-body">
-                <h5 class="card-title">Payment Details</h5>
-                <hr>
-
-                <div class="row">
-                    <div class="col">
-                        <label style='font-size:15px' class="col-md-12">SALES</label>
-                        <div class="input-group mb-3">
-
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">₱</span>
-                            </div>
-                            <input type="text" class="form-control" name='payment_sales' id='payment_sales' readonly
-                                style="width: 100px;" />
-                        </div>
-                    </div>
-
-
-
-                    <div class="col">
-                        <label style='font-size:15px' class="col-md-12">UNPAID BALANCE</label>
-                        <div class="input-group mb-3">
-
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">₱</span>
-                            </div>
-                            <input type="text" class="form-control" name='amount_unpaid' id='amount_unpaid' readonly
-                                autocomplete='off' style="width: 100px;" />
-                        </div>
-                    </div>
-                </div>
-                <hr>
-
-                <div class="row">
-                    <div class="col-sm-3">
-                        <label style='font-size:15px' class="col-md-12">Date of Payment </label>
-                        <div class="col-md-12">
-                            <input type="date" class='form-control' id="pay_date" value="<?php echo $today; ?>"
-                                name="pay_date">
-                        </div>
-                    </div>
-
-                    <div class="col-sm-5">
-                        <label style='font-size:15px' class="col-md-12">Details</label>
-                        <div class="input-group mb-3">
-
-                            <input type="text" class="form-control" name='pay_details' id='pay_details'
-                                autocomplete='off' style="width: 100px;" />
-                        </div>
-                    </div>
-
-                    <div class="col-4">
-                        <label style='font-size:15px' class="col-md-12">Amount</label>
-                        <div class="input-group mb-3">
-
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">₱</span>
-                            </div>
-                            <input type="text" class="form-control" name='paid_amount' id='paid_amount'
-                                onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off'
-                                style="width: 100px;" />
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
         <br>
 
+    </div>
+    <div class="card" style=" border: 1px solid green;">
+        <div class="card-body">
+            <h5 class="card-title">Payment Details</h5>
+            <hr>
+
+            <div class="row">
+                <div class="col">
+                    <label style='font-size:15px' class="col-md-12">SALES</label>
+                    <div class="input-group mb-3">
+
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">₱</span>
+                        </div>
+                        <input type="text" class="form-control" name='payment_sales' id='payment_sales' readonly
+                            style="width: 100px;" />
+                    </div>
+                </div>
+
+
+
+                <div class="col">
+                    <label style='font-size:15px' class="col-md-12">UNPAID BALANCE</label>
+                    <div class="input-group mb-3">
+
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">₱</span>
+                        </div>
+                        <input type="text" class="form-control" name='amount_unpaid' id='amount_unpaid' readonly
+                            autocomplete='off' style="width: 100px;" />
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <label style='font-size:15px' class="col-md-12">Date of Payment </label>
+                    <div class="col-md-12">
+                        <input type="date" class='form-control' id="pay_date" value="<?php echo $today; ?>"
+                            name="pay_date">
+                    </div>
+                </div>
+
+                <div class="col-sm-5">
+                    <label style='font-size:15px' class="col-md-12">Details</label>
+                    <div class="input-group mb-3">
+
+                        <input type="text" class="form-control" name='pay_details' id='pay_details' autocomplete='off'
+                            style="width: 100px;" />
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <label style='font-size:15px' class="col-md-12">Amount</label>
+                    <div class="input-group mb-3">
+
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">₱</span>
+                        </div>
+                        <input type="text" class="form-control" name='paid_amount' id='paid_amount'
+                            onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off'
+                            style="width: 100px;" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>
 </form>
@@ -505,7 +464,7 @@ if (isset($_GET['id'])) {
 <script>
 $(document).ready(function() {
 
-   
+
 
 
 
@@ -522,7 +481,7 @@ $(document).ready(function() {
         function fetch_data() {
 
             $.ajax({
-                url: "table/bales_cost_weight.php",
+                url: "table/bales-inventory.php",
                 method: "POST",
                 data: {
                     sales_id: sales_id,

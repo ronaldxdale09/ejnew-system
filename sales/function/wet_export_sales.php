@@ -112,6 +112,38 @@ WHERE sale_id = $sale_id";
 
 if ($con->query($sql) === true) {
 
+   // Get all the recording_id and weight_selected values associated with the current sales_id
+   $sql2 = "SELECT recording_id, weight_selected FROM sales_cuplump_selected_inventory WHERE sales_id = $sale_id";
+   $result = $con->query($sql2);
+
+   if ($result->num_rows > 0) {
+       while($row = $result->fetch_assoc()) {
+           $recording_id = $row["recording_id"];
+           $weight_selected = $row["weight_selected"];
+
+           // Get reweight and cuplump_remaining_weight for the current recording_id
+           $sql3 = "SELECT reweight, cuplump_remaining_weight FROM planta_recording WHERE recording_id = $recording_id";
+           $result3 = $con->query($sql3);
+           $row3 = $result3->fetch_assoc();
+           $reweight = $row3["reweight"];
+           $cuplump_remaining_weight = $row3["cuplump_remaining_weight"];
+
+           // Check if cuplump_remaining_weight is not equal to reweight
+           if ($cuplump_remaining_weight != $reweight) {
+               // Update planta_recording table's cuplump_remaining_weight for each recording_id
+               $sql4 = "UPDATE planta_recording SET cuplump_remaining_weight = reweight - $weight_selected WHERE recording_id = $recording_id";
+           } else {
+               // Update planta_recording table's cuplump_remaining_weight for each recording_id
+               $sql4 = "UPDATE planta_recording SET cuplump_remaining_weight = cuplump_remaining_weight - $weight_selected WHERE recording_id = $recording_id";
+           }
+           if (!$con->query($sql4)) {
+               $response = array('success' => false, 'error' => $con->error);
+               echo json_encode($response);
+               $con->close();
+               exit();
+           }
+       }
+   }
     $response = array('success' => true);
     echo json_encode($response);
 } else {
