@@ -15,17 +15,15 @@ $cost_per_kilo = 0.0;
 $output .= '  
 <table class="table table-bordered table-hover table-striped" id="recording_table-receiving">
            <thead class="table-dark" style="font-size: 12px !important" >
-               <tr >
-                
-                  <th scope="col"> ID</th>
-                  <th scope="col">Supplier</th>
-                  <th scope="col"  width="7%">Lot</th>
-                  <th scope="col" width="13%">Kilo Cost</th>
-                  <th scope="col" width="18%">Total Cost</th>
-                  <th scope="col" width="13%">Reweight</th>
-                  <th scope="col"></th>
-
-               </tr>
+           <tr>
+           <th>ID</th>
+           <th>Source</th>
+           <th>No. of Bales</th>
+           <th>Bale Weight</th>
+           <th>Weight</th>
+           <th>Cost per Kilo</th>
+           <th>Total Cost</th>
+       </tr>
            </thead>';  
            if(mysqli_num_rows($result) > 0)  
            {  
@@ -37,15 +35,15 @@ $output .= '
                  $cost_per_kilo = floatval($row['total_amount']) / floatval($row['net_weight']);
              
                  $output .= '  
-                     <tr>  
-                         <td>'.$row['recording_id'].'</td>
-                         <td>'.$row['supplier'].' </td>
-                         <td>'.$row['lot_num'].' </td>
-                         <td>₱ '.sprintf('%.2f', $cost_per_kilo).' </td>
-                         <td>₱ '.sprintf('%.2f', $row['total_amount']).' </td>
-                         <td>'.number_format($row['reweight'], 0, '.', ',').' kg </td>
-                         <td><button type="button" id="addProduct" class="btn btn-danger btn-sm  addProduct"><i class="fa fa-minus"></i></button> </td>
-                     </tr>
+                 <tr>
+                    <td class="bales_id"></td>
+                    <td class="bales_source"></td>
+                    <td class="bales_num"></td>
+                    <td class="bales_weight"></td>
+                    <td class="bales_total_weight"></td>
+                    <td class="bales_cost_per_kilo"></td>
+                    <td class="bales_total_cost"></td>
+                   </tr>
                  ';
              }
            }
@@ -62,40 +60,51 @@ $output .= '
  $average_cost_per_kilo = $total_weight > 0 ? $total_cost / $total_weight : 0.0;
  $output .= '</table>
  </div>
- 
- <hr>
- <div class="row">
- 
-     <div class="col">
-         <label style="font-size:15px" class="col-md-12">Total Cost</label>
-         <div class="input-group mb-3">
-             <div class="input-group-prepend">
-                 <span class="input-group-text">₱</span>
-             </div>
-             <input type="text" class="form-control" name="cuplumps_total_cost"
-                 id="cuplumps_total_cost" value="'.number_format($total_cost, 2, '.', ',').'" style="width: 100px;" readonly />
-         </div>
-     </div>
- 
-     <div class="col">
-         <label style="font-size:15px" class="col-md-12">Total Weight</label>
-         <div class="input-group mb-3">
-             <input type="text" class="form-control" name="cuplumps_total_weight"
-                 id="cuplumps_total_weight" value="'.number_format($total_weight, 2, '.', ',').'" style="width: 100px;" readonly />
-         </div>
-     </div>
- 
-     <div class="col">
-         <label style="font-size:15px" class="col-md-12">Average Cost per Kilo</label>
-         <div class="input-group mb-3">
-             <div class="input-group-prepend">
-                 <span class="input-group-text">₱</span>
-             </div>
-             <input type="text" class="form-control" name="cuplumps_average_per_kilo"
-                 id="cuplumps_average_per_kilo"  value="'.number_format($average_cost_per_kilo, 2, '.', ',').'" style="width: 100px;" readonly />
-         </div>
-     </div>
- </div>
+        <div class="row">
+        <div class="col">
+            <!-- BASED SA EXCEL KO DITO, ISANG TYPE LANG DAPAT LAHAT-->
+            <label for="bales_quality" class="form-label">Quality</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="bales_quality" readonly>
+            </div>
+        </div>
+        <div class="col">
+            <!-- #,### NO DECIMAL -->
+            <!-- ADD LAHAT NG BALE PCS -->
+            <label for="bales_total_num" class="form-label">Total Bales</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="bales_total_num" readonly>
+                <span class="input-group-text">pcs</span>
+            </div>
+        </div>
+        <div class="col">
+            <!-- #,###.## -->
+            <!-- ADD LAHAT NG WEIGHT -->
+            <label for="bales_total_weight" class="form-label">Total Weight</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="bales_total_weight" readonly>
+                <span class="input-group-text">kg</span>
+            </div>
+        </div>
+        <div class="col">
+            <!-- #,###.## -->
+            <!-- = TOTAL COST / TOTAL WEIGHT -->
+            <label for="bales_avg_cost_per_kilo" class="form-label">Ave. Cost per Kilo</label>
+            <div class="input-group">
+                <span class="input-group-text">₱</span>
+                <input type="text" class="form-control" id="bales_avg_cost_per_kilo" readonly>
+            </div>
+        </div>
+        <div class="col">
+            <!-- #,###.## -->
+            <!-- ADD LAHAT NG COST -->
+            <label for="bales_total_cost" class="form-label">Total Bale Cost</label>
+            <div class="input-group">
+                <span class="input-group-text">₱</span>
+                <input type="text" class="form-control" id="bales_total_cost" readonly>
+            </div>
+        </div>
+        </div>
  ';
  
  echo $output;
