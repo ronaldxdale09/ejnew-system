@@ -6,32 +6,32 @@
         </div>
     </div>
 
-    <br>
+<br>
 
     <a class='nav-link' href='dashboard.php'>
         <i class='fas fa-home'></i> <span class='nav-text'>Home</span>
     </a>
 
     <a class='nav-link' href='operating_expenses.php'>
-        <i class='fas fa-money'></i> <span class='nav-text'>Operating Expenses</span>
+        <i class='fas fa-cash-register'></i> <span class='nav-text'>Operating Expenses</span>
     </a>
-
-
-    <a class='nav-link' href='purchases.php'>
-        <i class='fas fa-cash-register'></i> <span class='nav-text'>Purchases</span>
-    </a>
-
 
     <hr style='color:gray'>
 
 
-    <a class='nav-link'>
-        <i class='fas fa-warehouse'></i> <span class='nav-text'>Inventory</span>
+    <a class='nav-link' href='admin_basilan_rubber.php'>
+        <i class='fas fa-warehouse'></i> <span class='nav-text'>Basilan Rubber</span>
+    </a>
+    <a class='nav-link' href='inv_bale.php' style='margin-left: 40px; font-size: 18px;'>
+        <span class='nav-text'>Bales Inventory</span>
+    </a>
+    <a class='nav-link' href='inv_cuplump.php' style='margin-left: 40px; font-size: 18px;'>
+        <span class='nav-text'>Cuplumps Inventory</span>
+    </a>
+    <a class='nav-link' href='record_allrubber.php' style='margin-left: 40px; font-size: 18px;'>
+        <span class='nav-text'>Transaction Record</span>
     </a>
 
-    <a class='nav-link' href='basilan_rubber_inventory.php' style='margin-left: 40px; font-size: 18px;'>
-        <span class='nav-text'>Rubber</span>
-    </a>
 
     <a class='nav-link' href='admin_kidapawan_rubber.php'>
         <i class='fas fa-cube'></i> <span class='nav-text'>Kidapawan Rubber</span>

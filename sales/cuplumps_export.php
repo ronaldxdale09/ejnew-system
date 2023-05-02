@@ -265,5 +265,13 @@ $(document).ready(function() {
     });
 
 
+
+    document.getElementById('editButton').addEventListener('click', function() {
+        var sale_id = document.getElementById('m_sale_id').value;
+
+        // Redirect to the sales_wet.php page with the sale_id in the URL
+        window.location.href = 'sales_wet.php?id=' + sale_id;
+    });
+
 });
 </script>
