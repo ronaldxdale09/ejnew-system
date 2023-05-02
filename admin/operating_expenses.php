@@ -42,9 +42,9 @@ $results  = mysqli_query($con, "SELECT DISTINCT date, particulars, voucher_no, c
                             <thead class="table-dark">
                                 <tr>
                                     <th scope="col">DATE</th>
-                                    <th scope="col">PARTICULARS</th>
-                                    <th scope="col">VOC#</th>
                                     <th scope="col">CATEGORY</th>
+                                    <th scope="col">VOC NO.</th>
+                                    <th scope="col">PARTICULARS</th>
                                     <th scope="col">AMOUNT</th>
                                 </tr>
                             </thead>
@@ -53,9 +53,9 @@ $results  = mysqli_query($con, "SELECT DISTINCT date, particulars, voucher_no, c
                                 <?php while ($row = mysqli_fetch_array($results)) { ?>
                                 <tr>
                                     <td> <?php echo $row['date']?> </td>
-                                    <td> <?php echo $row['particulars']?> </td>
-                                    <td> <?php echo $row['voucher_no']?> </td>
                                     <td> <?php echo $row['category']?> </td>
+                                    <td> <?php echo $row['voucher_no']?> </td>
+                                    <td> <?php echo $row['particulars']?> </td>
                                     <td>₱
                                         <?php echo number_format($row['amount'])?>
                                     </td>

@@ -11,19 +11,16 @@
 
         if($_SESSION['type'] == 'copra'){
          echo "
-        <hr style='color:gray'>
+         <br>
         <a class='nav-link' href='dashboard.php'>
             <i class='fa-solid fa-house'></i> <span class='nav-text'>Home</span>
         </a>
         <hr style='color:gray'>
         <a class='nav-link' href='Transaction.php'>
-            <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>Transaction</span>
+            <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>New Purchase</span>
         </a>
         <a class='nav-link' href='transaction_history.php'>
-        <i class='fa-solid fa-book'></i> <span class='nav-text'>Transaction Record</span>
-    </a>
-        <a class='nav-link' href='seller.php'>
-            <i class='fa-solid fa-user'></i> <span class='nav-text'>Seller</span>
+        <i class='fa-solid fa-book'></i> <span class='nav-text'>Purchase Record</span>
         </a>
         <a class='nav-link' href='contract-purchase.php'>
             <i class='fa-solid fa-boxes-stacked'></i> <span class='nav-text'>Purchase Contract</span>
@@ -31,10 +28,18 @@
 
         <a class='nav-link' href='copra-ca.php'>
         <i class='fa-solid fa-money'></i> <span class='nav-text'>Cash Advance</span>
-    </a>
+        </a>
+        
+        <hr style='color:gray'>
+        
+        <a class='nav-link' href='seller.php'>
+        <i class='fa-solid fa-user'></i> <span class='nav-text'>Seller</span>
+        </a>
+            
         ";
+        
         }  if($_SESSION['type'] == 'finance'){
-    echo "
+        echo "
              <hr style='color:gray'>
         <a class='nav-link' href='ledger-expense.php'>
             <i class='fa-solid fa-money'></i> <span class='nav-text'>Expenses</span>
@@ -58,12 +63,12 @@
         ";
         }
     echo "
-        <div class='logout-container'>
-            <span class='nav-text'></span>
-            <a class='nav-link logout' href='function/logout.php'>
-                <i class='fa-solid fa-arrow-right-to-bracket'></i>
-            </a>
-        </div>
+    <div class='logout-container'>
+        <a class='nav-text' href='function/logout.php'>
+            <i class='fa-solid fa-arrow-right-to-bracket'></i>
+            <span class='nav-text'>Logout </span>
+        </a>
+    </div>
     </nav>
     <script src='assets/js/navbar.js'></script>";
 ?>
