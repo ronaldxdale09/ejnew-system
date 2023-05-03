@@ -144,7 +144,7 @@ if (isset($_GET['id'])) {
                 <div class="container">
                     <div class="row">
                         <div class="col-12 d-flex justify-content-between align-items-center">
-                            <h5 style='font-weight:bold;'>SELECTED BALES INVENTORY</h5>
+                            <h5 style='font-weight:bold;'>BALE VOLUME AND COST</h5>
                             <button id="printButton" class="btn btn-warning btnInventory">
                                 <i class="fas fa-box"></i> Select Inventory
                             </button>
