@@ -375,10 +375,10 @@ if (isset($_GET['id'])) {
                 <hr>
 
                 <div class="row">
-                    <div class="col-8">
-                    </div>
                     <div class="col">
-                        <label style='font-size:15px;font-weight:bold' class="col-md-12">NET GAIN</label>
+                    </div>
+                    <div class="col-6">
+                        <label style='font-size:15px;font-weight:bold' class="col-md-12">GROSS PROFIT/LOSS</label>
                         <div class="input-group mb-3">
 
                             <div class="input-group-prepend">
@@ -392,10 +392,9 @@ if (isset($_GET['id'])) {
             </div>
         </div>
 
-        <!-- PAYMENT DETAILS -->
         <br>
 
-        <div class="card" style=" border: 1px solid green;">
+        <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Payment Details</h5>
                 <hr>
