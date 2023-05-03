@@ -42,29 +42,28 @@ $output = '
 
             $output .= '
             <tr>
-            <td ><input type="text" class="form-control" name="type[]" autocomplete="off" step="any"
-                    value="'.$arr["bales_type"].'" style="border:none;"readonly /> </td>
+                <td ><input type="text" class="form-control" name="type[]" autocomplete="off" step="any"
+                    value="'.$arr["bales_type"].'" style="border:none;" readonly /> </td>
                 <td>
                     <div class="input-group">
-              
-                    <input type="text" readonly class="form-control" name="kilo_bale_'.$arr['bales_type'].'" id="kilo_bale_'.$arr['bales_type'].'"  value="'.$arr["kilo_per_bale"].' kg" ">
+                        <input type="text" readonly class="form-control kilo_bale" name="kilo_bale_'.str_replace(['-', ' '], '_', $arr['bales_type']).'" id="kilo_bale_'.str_replace(['-', ' '], '_', $arr['bales_type']).'"  value="'.$arr["kilo_per_bale"].' kg" ">
                     </div>
                 </td>
                 <td>
                     <div class="input-group">
-                        <input type="text" class="form-control" name="weight_'.$arr['bales_type'].'" id="weight_'.$arr['bales_type'].'" value="'.$arr["rubber_weight"].'"
+                        <input type="text" class="form-control" name="weight_'.str_replace(['-', ' '], '_', $arr['bales_type']).'" id="weight_'.str_replace(['-', ' '], '_', $arr['bales_type']).'" value="'.$arr["rubber_weight"].'"
                             onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" readonly>
                     </div>
                 </td>
                 <td>
                     <div class="input-group">
-                        <input type="text" class="form-control" name="bale_num_'.$arr['bales_type'].'" id="bale_num_'.$arr['bales_type'].'" value="'.$arr["number_bales"].'"
+                        <input type="text" class="form-control" name="bale_num_'.str_replace(['-', ' '], '_', $arr['bales_type']).'" id="bale_num_'.str_replace(['-', ' '], '_', $arr['bales_type']).'" value="'.$arr["number_bales"].'"
                             onkeypress="return CheckNumeric()"  onkeyup="FormatCurrency(this)">
                     </div>
                 </td>
                 <td>
                     <div class="input-group">
-                        <input type="text" class="form-control" name="excess_'.$arr['bales_type'].'" id="excess_'.$arr['bales_type'].'" value="'.$arr["bales_excess"].'"
+                        <input type="text" class="form-control" name="excess_'.str_replace(['-', ' '], '_', $arr['bales_type']).'" id="excess_'.str_replace(['-', ' '], '_', $arr['bales_type']).'" value="'.$arr["bales_excess"].'"
                             onkeypress="return CheckNumeric()"  onkeyup="FormatCurrency(this)">
                         <span class="input-group-text">kg</span>
                     </div>
@@ -83,77 +82,74 @@ echo $output;
 
 
 <script>
-$("#bale_num_Manhattan, #bale_num_Showa, #bale_num_Dunlop, #bale_num_Crown, #bale_num_SPR10").keyup(function() {
+$("#bale_num_5L, #bale_num_SPR_5, #bale_num_SPR_10, #bale_num_SPR_20, #bale_num_Off_Color").keyup(function() {
     computeBalesData();
 });
 
-
-$("#excess_Manhattan, #excess_Showa, #excess_Dunlop, #excess_Crown, #excess_SPR10").keyup(function() {
+$("#excess_5L, #excess_SPR_5, #excess_SPR_10, #excess_SPR_20, #excess_Off_Color").keyup(function() {
     computeBalesData();
 });
-
 
 function computeBalesData() {
     // Helper function to remove commas from a string
     function removeCommas(str) {
         return str.replace(/,/g, '');
     }
-
+    // Helper function to remove "kg" from a string
+    function removeKg(str) {
+        return str.replace(/kg/g, '').trim();
+    }
     // Get kilo_per_bale values
-    var kiloBaleManhattan = parseFloat(removeCommas($("#kilo_bale_Manhattan").val())) || 0;
-    var kiloBaleShowa = parseFloat(removeCommas($("#kilo_bale_Showa").val())) || 0;
-    var kiloBaleDunlop = parseFloat(removeCommas($("#kilo_bale_Dunlop").val())) || 0;
-    var kiloBaleCrown = parseFloat(removeCommas($("#kilo_bale_Crown").val())) || 0;
-    var kiloBaleSpr = parseFloat(removeCommas($("#kilo_bale_SPR10").val())) || 0;
+    var kiloBale5L = parseFloat(removeCommas(removeKg($("#kilo_bale_5L").val()))) || 0;
+    var kiloBaleSPR_5 = parseFloat(removeCommas(removeKg($("#kilo_bale_SPR_5").val()))) || 0;
+    var kiloBaleSPR_10 = parseFloat(removeCommas(removeKg($("#kilo_bale_SPR_10").val()))) || 0;
+    var kiloBaleSPR_20 = parseFloat(removeCommas(removeKg($("#kilo_bale_SPR_20").val()))) || 0;
+    var kiloBaleOff_Color = parseFloat(removeCommas(removeKg($("#kilo_bale_Off_Color").val()))) || 0;
 
     // Get bale_num values
-    var baleNumManhattan = parseFloat(removeCommas($("#bale_num_Manhattan").val())) || 0;
-    var baleNumShowa = parseFloat(removeCommas($("#bale_num_Showa").val())) || 0;
-    var baleNumDunlop = parseFloat(removeCommas($("#bale_num_Dunlop").val())) || 0;
-    var baleNumCrown = parseFloat(removeCommas($("#bale_num_Crown").val())) || 0;
-    var baleNumSpr = parseFloat(removeCommas($("#bale_num_SPR10").val())) || 0;
+    var baleNum5L = parseFloat(removeCommas($("#bale_num_5L").val())) || 0;
+    var baleNumSPR_5 = parseFloat(removeCommas($("#bale_num_SPR_5").val())) || 0;
+    var baleNumSPR_10 = parseFloat(removeCommas($("#bale_num_SPR_10").val())) || 0;
+    var baleNumSPR_20 = parseFloat(removeCommas($("#bale_num_SPR_20").val())) || 0;
+    var baleNumOff_Color = parseFloat(removeCommas($("#bale_num_Off_Color").val())) || 0;
 
     // Get excess values
-    var excessManhattan = parseFloat(removeCommas($("#excess_Manhattan").val())) || 0;
-    var excessShowa = parseFloat(removeCommas($("#excess_Showa").val())) || 0;
-    var excessDunlop = parseFloat(removeCommas($("#excess_Dunlop").val())) || 0;
-    var excessCrown = parseFloat(removeCommas($("#excess_Crown").val())) || 0;
-    var excessSpr = parseFloat(removeCommas($("#excess_SPR10").val())) || 0;
+    var excess5L = parseFloat(removeCommas($("#excess_5L").val())) || 0;
+    var excessSPR_5 = parseFloat(removeCommas($("#excess_SPR_5").val())) || 0;
+    var excessSPR_10 = parseFloat(removeCommas($("#excess_SPR_10").val())) || 0;
+    var excessSPR_20 = parseFloat(removeCommas($("#excess_SPR_20").val())) || 0;
+    var excessOff_Color = parseFloat(removeCommas($("#excess_Off_Color").val())) || 0;
 
     // Compute and update the weight values
-    var weightManhattan = baleNumManhattan * kiloBaleManhattan + excessManhattan;
-    $("#weight_Manhattan").val(weightManhattan.toFixed(2));
+    var weight5L = baleNum5L * kiloBale5L + excess5L;
+    $("#weight_5L").val(weight5L.toFixed(2));
 
-    var weightShowa = baleNumShowa * kiloBaleShowa + excessShowa;
-    $("#weight_Showa").val(weightShowa.toFixed(2));
+    var weightSPR_5 = baleNumSPR_5 * kiloBaleSPR_5 + excessSPR_5;
+    $("#weight_SPR_5").val(weightSPR_5.toFixed(2));
 
-    var weightDunlop = baleNumDunlop * kiloBaleDunlop + excessDunlop;
-    $("#weight_Dunlop").val(weightDunlop.toFixed(2));
+    var weightSPR_10 = baleNumSPR_10 * kiloBaleSPR_10 + excessSPR_10;
+    $("#weight_SPR_10").val(weightSPR_10.toFixed(2));
 
-    var weightCrown = baleNumCrown * kiloBaleCrown + excessCrown;
-    $("#weight_Crown").val(weightCrown.toFixed(2));
+    var weightSPR_20 = baleNumSPR_20 * kiloBaleSPR_20 + excessSPR_20;
+    $("#weight_SPR_20").val(weightSPR_20.toFixed(2));
 
-    var weightSpr = baleNumSpr * kiloBaleSpr + excessSpr;
-    $("#weight_SPR10").val(weightSpr.toFixed(2));
-
+    var weightOff_Color = baleNumOff_Color * kiloBaleOff_Color + excessOff_Color;
+    $("#weight_Off_Color").val(weightOff_Color.toFixed(2));
 
     // Get entry_weight value
     var entry_weight = parseFloat($("#entry_weight").val()) || 0;
 
-    // Check if entry_weight is non-zero
-    if (entry_weight === 0) {
-        return;
-    }
 
-    // (Existing code for getting kilo_per_bale, bale_num, and excess values, and updating weight values)
-
-    var totalWeight = weightManhattan + weightShowa + weightDunlop + weightCrown + weightSpr;
+    // Calculate the total weight and rubber_drc
+    var totalWeight = weight5L + weightSPR_5 + weightSPR_10 + weightSPR_20 + weightOff_Color;
     var rubber_drc = (totalWeight / entry_weight) * 100;
 
-    $("#press_a_total_weight").val('2');
-    $("#press_u_drc").val();
+    // Update the corresponding fields with the calculated values
+    $("#press_a_total_weight").val(totalWeight.toFixed(2));
+    $("#press_u_drc").val(rubber_drc.toFixed(2));
 
-    console.log(rubber_drc)
-    console.log(totalWeight)
+    // Log the values for debugging purposes
+    console.log('Rubber DRC:', rubber_drc);
+    console.log('Total Weight:', totalWeight);
 }
 </script>
