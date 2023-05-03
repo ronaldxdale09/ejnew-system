@@ -173,9 +173,6 @@ if (isset($_GET['id'])) {
                                         <option selected>Choose...</option>
                                         <option value="PHP">PHP ₱</option>
                                         <option value="USD">USD $</option>
-                                        <option value="RUB">RUB ₽</option>
-                                        <option value="MYR">MYR RM</option>
-                                        <option value="CNY">CNY ¥</option>
                                     </select>
                                 </div>
                             </div>

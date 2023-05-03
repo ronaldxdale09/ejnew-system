@@ -4,7 +4,7 @@
   include "function/db.php";
   include "include/bootstrap.php";
   include "include/jquery.php"; 
-  $loc = $_SESSION['loc'];
+//   $loc = $_SESSION['loc'];
   
 ?>
 <html>

@@ -42,14 +42,11 @@
                                             <th scope="col"> ID</th>
                                             <th scope="col">Date Received</th>
                                             <th scope="col">Supplier</th>
-                                            <th scope="col">Location</th>
                                             <th scope="col">Lot No.</th>
                                             <th scope="col">Weight</th>
                                             <th scope="col">Reweight</th>
                                             <th scope="col">Kilo Cost</th>
-                                            <th scope="col">Total Cost</th>
-
-                                            <th scope="col" class="text-center">Action</th>
+                                            <th>Location</th>
                                         </tr>
                                     </thead>
                                     <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?>
@@ -59,10 +56,10 @@
                                                 <span class="badge bg-success">
                                                     <?php echo $row['status']?> </spa>
                                             </td>
-                                            <td> <?php echo $row['recording_id']?> </td>
+                                            <td> <span
+                                                    class="badge bg-secondary"><?php echo $row['recording_id']?> </span></td>
                                             <td> <?php echo $row['receiving_date']?> </td>
                                             <td> <?php echo $row['supplier']?> </td>
-                                            <td> <?php echo $row['location']?> </td>
                                             <td> <?php echo $row['lot_num']?> </td>
                                             <td class="number-cell">
                                                 <?php echo number_format($row['weight'], 0, '.', ',')?>
@@ -73,12 +70,7 @@
                                             <td class="number-cell">₱
                                                 <?php echo number_format(($row['total_amount']/ $row['net_weight']), 2, '.', ',')?>
                                             </td>
-                                            <td class="number-cell">₱
-                                                <?php echo number_format(($row['total_amount']), 2, '.', ',')?></td>
-                                            <td class="text-center">
-                                                <button type="button" class="btn btn-success btn-sm btnReceivingView">
-                                                    <i class="fas fa-book"></i> View
-                                                </button>
+                                            <td>Basilan</button>
                                             </td>
 
 

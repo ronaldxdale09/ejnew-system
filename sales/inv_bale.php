@@ -47,15 +47,13 @@
                                             <th> ID</th>
                                             <th>Date Produced</th>
                                             <th>Supplier</th>
-                                            <th>Location</th>
+                                            <th>Lot No.</th>
                                             <th>Quality</th>
                                             <th>Kilo per Bale</th>
                                             <th>Bale Weight</th>
                                             <th>Bales</th>
-                                            <th>Excess</th>
                                             <th>Kilo Cost</th>
-
-                                            <th class="text-center">Action</th>
+                                            <th>Location</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -75,24 +73,24 @@
                                                 <span
                                                     class="badge bg-secondary"><?php echo $row['recording_id']?></span>
                                             </td>
-                                       
+
                                             <td><?php echo $row['production_date']?></td>
                                             <td><?php echo $row['supplier']?></td>
-                                            <td> <?php echo $row['location']?> </td>
+                                            <td> <?php echo $row['lot_num']?> </td>
                                             <td><?php echo $row['bales_type']?></td>
-                                            <td class="number-cell"> <?php echo $row['kilo_per_bale']?> kg</td>
-                                            <td class="number-cell">
-                                                <?php echo number_format($row['rubber_weight'], 0, '.', ',')?> kg</td>
-                                            <td class="number-cell">
-                                                <?php echo number_format($row['number_bales'], 0, '.', ',')?> pcs</td>
-                                            <td class="number-cell"><?php echo $row['bales_excess']?> kg</td>
-                                            <td class="number-cell">₱  <?php echo number_format(($row['total_amount']/   $row['produce_total_weight']), 2, '.', ',')?></td>
-
-                                            <td class="text-center">
-                                                <button type="button" class="btn btn-success btn-sm btnProducedView">
-                                                    <i class="fas fa-book"></i> View
-                                                </button>
+                                            <td class="number-cell" data-sort="<?php echo $row['kilo_per_bale']; ?>">
+                                                <?php echo $row['kilo_per_bale']; ?> kg</td>
+                                            <td class="number-cell" data-sort="<?php echo $row['rubber_weight']; ?>">
+                                                <?php echo number_format($row['rubber_weight'], 0, '.', ','); ?> kg</td>
+                                            <td class="number-cell" data-sort="<?php echo $row['number_bales']; ?>">
+                                                <?php echo number_format($row['number_bales'], 0, '.', ','); ?> pcs</td>
+                                            <td class="number-cell"
+                                                data-sort="<?php echo $row['total_amount'] / $row['produce_total_weight']; ?>">
+                                                ₱
+                                                <?php echo number_format(($row['total_amount'] / $row['produce_total_weight']), 2, '.', ','); ?>
                                             </td>
+
+                                            <td>Basilan</td>
                                         </tr>
                                         <?php } ?>
                                     </tbody>
@@ -104,77 +102,38 @@
                                     "order": [
                                         [1, 'asc']
                                     ],
-                                    "pageLength": 50,
-                                    "dom": "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+                                    "pageLength": -1,
+                                    "dom": "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
                                         "<'row'<'col-sm-12'tr>>" +
-                                        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-                                    "responsive": true
+                                        "<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'>>",
+                                    "responsive": true,
+                                    "buttons": [{
+                                            extend: 'excelHtml5',
+                                            text: 'Excel',
+                                            exportOptions: {
+                                                columns: ':visible'
+                                            }
+                                        },
+                                        {
+                                            extend: 'pdfHtml5',
+                                            text: 'PDF',
+                                            exportOptions: {
+                                                columns: ':visible'
+                                            }
+                                        },
+                                        {
+                                            extend: 'print',
+                                            text: 'Print',
+                                            exportOptions: {
+                                                columns: ':visible'
+                                            }
+                                        }
+                                    ]
                                 });
                             });
                             </script>
-                            <script>
-                            $('.producedView').on('click', function() {
-                                $tr = $(this).closest('tr');
-
-                                var data = $tr.children("td").map(function() {
-                                    return $(this).text();
-                                }).get();
-
-                                $('#process_supplier').val(data[3]);
-                                $('#process_weight').val(data[9]);
-                                $('#p_recording_id').val(data[0]);
-
-                                $('#modal_produced').modal('show');
 
 
-                            });
-
-
-
-
-
-
-                            $('.btnProducedView').on('click', function() {
-                                $tr = $(this).closest('tr');
-
-                                var data = $tr.children("td").map(function() {
-                                    return $(this).text();
-                                }).get();
-
-
-                                $('#prod_trans_id').val(data[1]);
-                                $('#prod_trans_date').val(data[2]);
-                                $('#prod_trans_supplier').val(data[3]);
-                                $('#prod_trans_loc').val(data[4]);
-                                $('#prod_trans_lot').val(data[5]);
-
-
-                                $('#prod_trans_entry').val(parseFloat(data[6]).toLocaleString());
-
-                                $('#prod_trans_drc').val(data[8]);
-                                $('#prod_trans_total_weight').val(data[7]);
-
-                                function fetch_data() {
-
-                                    var recording_id = data[1].replace(/\s+/g, '');
-                                    $.ajax({
-                                        url: "table/pressing_data.php",
-                                        method: "POST",
-                                        data: {
-                                            recording_id: recording_id,
-
-                                        },
-                                        success: function(data) {
-                                            $('#produced_modal_table').html(data);
-                                            $('#modal_produced_record').modal('show');
-
-                                        }
-                                    });
-                                }
-                                fetch_data();
-
-                            });
-                            </script>
                         </div>
                     </div>
                 </div>
