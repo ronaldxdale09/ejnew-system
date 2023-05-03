@@ -389,77 +389,80 @@ if (isset($_GET['id'])) {
         <!-- PAYMENT DETAILS -->
         <br>
 
-    </div>
-    <div class="card" style=" border: 1px solid green;">
-        <div class="card-body">
-            <h5 class="card-title">Payment Details</h5>
-            <hr>
+        <div class="card" style=" border: 1px solid green;">
+            <div class="card-body">
+                <h5 class="card-title">Payment Details</h5>
+                <hr>
 
-            <div class="row">
-                <div class="col">
-                    <label style='font-size:15px' class="col-md-12">SALES</label>
-                    <div class="input-group mb-3">
+                <div class="row">
+                    <div class="col">
+                        <label style='font-size:15px' class="col-md-12">SALES</label>
+                        <div class="input-group mb-3">
 
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">₱</span>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='payment_sales' id='payment_sales' readonly
+                                style="width: 100px;" />
                         </div>
-                        <input type="text" class="form-control" name='payment_sales' id='payment_sales' readonly
-                            style="width: 100px;" />
+                    </div>
+
+
+
+                    <div class="col">
+                        <label style='font-size:15px' class="col-md-12">UNPAID BALANCE</label>
+                        <div class="input-group mb-3">
+
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='amount_unpaid' id='amount_unpaid' readonly
+                                autocomplete='off' style="width: 100px;" />
+                        </div>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label style='font-size:15px' class="col-md-12">Date of Payment </label>
+                        <div class="col-md-12">
+                            <input type="date" class='form-control' id="pay_date" value="<?php echo $today; ?>"
+                                name="pay_date">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-5">
+                        <label style='font-size:15px' class="col-md-12">Details</label>
+                        <div class="input-group mb-3">
+
+                            <input type="text" class="form-control" name='pay_details' id='pay_details'
+                                autocomplete='off' style="width: 100px;" />
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <label style='font-size:15px' class="col-md-12">Amount</label>
+                        <div class="input-group mb-3">
+
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='paid_amount' id='paid_amount'
+                                onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off'
+                                style="width: 100px;" />
+                        </div>
                     </div>
                 </div>
 
-
-
-                <div class="col">
-                    <label style='font-size:15px' class="col-md-12">UNPAID BALANCE</label>
-                    <div class="input-group mb-3">
-
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">₱</span>
-                        </div>
-                        <input type="text" class="form-control" name='amount_unpaid' id='amount_unpaid' readonly
-                            autocomplete='off' style="width: 100px;" />
-                    </div>
-                </div>
             </div>
-            <hr>
-
-            <div class="row">
-                <div class="col-sm-3">
-                    <label style='font-size:15px' class="col-md-12">Date of Payment </label>
-                    <div class="col-md-12">
-                        <input type="date" class='form-control' id="pay_date" value="<?php echo $today; ?>"
-                            name="pay_date">
-                    </div>
-                </div>
-
-                <div class="col-sm-5">
-                    <label style='font-size:15px' class="col-md-12">Details</label>
-                    <div class="input-group mb-3">
-
-                        <input type="text" class="form-control" name='pay_details' id='pay_details' autocomplete='off'
-                            style="width: 100px;" />
-                    </div>
-                </div>
-
-                <div class="col-4">
-                    <label style='font-size:15px' class="col-md-12">Amount</label>
-                    <div class="input-group mb-3">
-
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">₱</span>
-                        </div>
-                        <input type="text" class="form-control" name='paid_amount' id='paid_amount'
-                            onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off'
-                            style="width: 100px;" />
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 </div>
 </form>
+
+
+
 <?php    include "fetch/wet_export_fill_data.php";?>
 <script>
 $(document).ready(function() {

@@ -134,8 +134,8 @@ WHERE planta_recording.status = 'Field'");
                                 <td>'.$row['lot_num'].' </td>
                                 <td>₱ '.number_format(($row['total_amount']/ $row['net_weight']), 2, '.', ',').' </td>
                                 <td>₱ '.number_format(($row['total_amount']), 2, '.', ',').' </td>
-                                <td>₱ '.number_format(($row['reweight']), 2, '.', ',').' </td>
-                                <td> <input  class="form-control" id="weight_'.$recording_id.'" name="weight[]" value="'.number_format($display_weight, 0, '.', ',').'" />
+                                <td style="text-align:right;">'.number_format(($row['reweight']), 2, '.', ',').' kg</td>
+                                <td> <input style="text-align:right;" class="form-control" id="weight_'.$recording_id.'" name="weight[]" value="'.number_format($display_weight, 0, '.', ',').'" />
                                 </td>
                                 <td><button type="button" id="addProduct" class="btn btn-warning btn-sm addProduct"><i
                                 class="fa fa-plus-circle"></i></button> </td>
