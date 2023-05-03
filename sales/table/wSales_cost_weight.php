@@ -17,13 +17,24 @@ $output .= '
            <thead class="table-dark" style="font-size: 12px !important" >
                <tr >
                 
-                  <th scope="col"> ID</th>
-                  <th scope="col">Supplier</th>
-                  <th scope="col"  width="7%">Lot</th>
-                  <th scope="col" width="13%">Kilo Cost</th>
-                  <th scope="col" width="18%">Total Cost</th>
-                  <th scope="col" width="13%">Weight</th>
-                  <th scope="col"></th>
+                  <th scope="col" width="4%"> ID</th>
+                  <th scope="col" width="13%">Supplier</th>
+                  <th scope="col"  width="5%">Lot</th>
+                  <th scope="col" width="6%">Kilo Cost</th>
+                  <th scope="col" width="8%">Inventory Weight</th>
+                  <th scope="col" width="8%">Weight Deduct</th>
+                  <th scope="col" width="10%">Container</th>
+                  <th scope="col" width="10%">Truck Scale Weight</th>
+                  <th scope="col" width="4%">Initial DRC</th>
+                  <th scope="col" width="10%">Initial Dry Weight</th>
+                  <th scope="col" width="10%">Initial Cost</th>
+                  <th scope="col" width="10%">Malaysia Weight</th>
+                  <th scope="col" width="4%">Final DRC</th>
+                  <th scope="col" width="10%">Dry Weight</th>
+                  <th scope="col" width="10%">Final Cost</th>
+                  <th scope="col" width="6%">Price</th>
+                  <th scope="col" width="10%">Total Price</th>
+                  <th scope="col" width="10%">Gain/Loss</th>
 
                </tr>
            </thead>';  
@@ -41,6 +52,7 @@ $output .= '
                          <td>'.$row['recording_id'].'</td>
                          <td>'.$row['supplier'].' </td>
                          <td>'.$row['lot_num'].' </td>
+                         <td> </td>
                          <td>₱ '.sprintf('%.2f', $cost_per_kilo).' </td>
                          <td>₱ '.number_format($row['total_amount'], 2, '.', ',').'  </td>
                          <td>'.number_format($row['weight_selected'], 0, '.', ',').' kg </td>

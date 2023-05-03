@@ -119,7 +119,14 @@ if (isset($_GET['id'])) {
                         </div>
                     </div>
 
-                    <div class="col-6">
+                    <div class="col">
+                        <label style='font-size:15px' class="col-md-12">Recorded by: </label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name='remarks' id='remarks'>
+                        </div>
+                    </div>
+
+                    <div class="col">
                         <label style='font-size:15px' class="col-md-12">Remarks </label>
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" name='remarks' id='remarks'>
@@ -129,14 +136,15 @@ if (isset($_GET['id'])) {
             </div>
         </div>
 
+        <br>
+
         <div class="card">
             <div class="card-body">
-                <!-- SAMPLE STRUCTURE NG TABLE -->
 
                 <div class="container">
                     <div class="row">
                         <div class="col-12 d-flex justify-content-between align-items-center">
-                            <h5 style='font-weight:bold;'>SELECTED INVENTORY</h5>
+                            <h5 style='font-weight:bold;'>SELECTED BALES INVENTORY</h5>
                             <button id="printButton" class="btn btn-warning btnInventory">
                                 <i class="fas fa-box"></i> Select Inventory
                             </button>
@@ -366,13 +374,11 @@ if (isset($_GET['id'])) {
 
                 <hr>
 
-
-
                 <div class="row">
                     <div class="col-8">
                     </div>
                     <div class="col">
-                        <label style='font-size:15px;font-weight:bold' class="col-md-12">GROSS PROFIT</label>
+                        <label style='font-size:15px;font-weight:bold' class="col-md-12">NET GAIN</label>
                         <div class="input-group mb-3">
 
                             <div class="input-group-prepend">

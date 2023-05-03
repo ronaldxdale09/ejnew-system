@@ -256,35 +256,50 @@ if (isset($_GET['id'])) {
                     </div>
                 </div>
             </div>
+        </div>
 
+<br>
 
-            <div class="col-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <h5 class="card-title">Cost & Weight</h5>
-                            <button type="button" class="btn btn-success text-white btnInventory">
-                                <i class="fa fa-plus"></i> Add Inventory
-                            </button>
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h5 class="card-title">Cost & Weight</h5>
+                    <button type="button" class="btn btn-success text-white btnInventory">
+                        <i class="fa fa-plus"></i> Add Inventory
+                    </button>
+                </div>
+                <hr>
+
+                <div id='cost_weight_table'></div>
+                <input type="hidden" name="cuplumps_total_cost" id="hidden_cuplumps_total_cost" />
+                <input type="hidden" name="cuplumps_total_weight" id="hidden_cuplumps_total_weight" />
+                <input type="hidden" name="cuplumps_average_per_kilo" id="hidden_cuplumps_average_per_kilo" />
+
+                <div class="row">
+                    <label style='font-size:15px;font-weight:bold' class="col-md-12">TOTAL CUPLUMP
+                        COST</label>
+                    <div class="input-group mb-3">
+
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">₱</span>
                         </div>
-                        <hr>
+                        <input type="text" class="form-control" name='total_wet_cost' id='total_wet_cost' readonly
+                            style="width: 100px;" />
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col">
+                    </div>
+                    <div class="col">
+                        <label style='font-size:15px;font-weight:bold' class="col-md-12">GROSS GAIN</label>
+                        <div class="input-group mb-3">
 
-                        <div id='cost_weight_table'></div>
-                        <input type="hidden" name="cuplumps_total_cost" id="hidden_cuplumps_total_cost" />
-                        <input type="hidden" name="cuplumps_total_weight" id="hidden_cuplumps_total_weight" />
-                        <input type="hidden" name="cuplumps_average_per_kilo" id="hidden_cuplumps_average_per_kilo" />
-
-                        <div class="row">
-                            <label style='font-size:15px;font-weight:bold' class="col-md-12">TOTAL CUPLUMP
-                                COST</label>
-                            <div class="input-group mb-3">
-
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">₱</span>
-                                </div>
-                                <input type="text" class="form-control" name='total_wet_cost' id='total_wet_cost'
-                                    readonly style="width: 100px;" />
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
                             </div>
+                            <input type="text" class="form-control" name='net_gain' id='net_gain' readonly
+                                style="width: 100px;" />
                         </div>
                     </div>
                 </div>
@@ -293,132 +308,126 @@ if (isset($_GET['id'])) {
 
         <br>
 
-        <h5> Shipping Expenses </h5>
+        <div class="card">
+            <div class="card-body">
+                <h5> Shipping Expenses </h5>
 
-        <hr>
+                <hr>
 
-        <div class="row">
+                <div class="row">
 
-            <div class="col">
-                <label style='font-size:15px' class="col-md-12">Freight (All In)</label>
-                <div class="input-group mb-3">
+                    <div class="col">
+                        <label style='font-size:15px' class="col-md-12">Freight (All In)</label>
+                        <div class="input-group mb-3">
 
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">₱</span>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='ship_exp_freight' id='ship_exp_freight'
+                                style="width: 100px;" />
+                        </div>
                     </div>
-                    <input type="text" class="form-control" name='ship_exp_freight' id='ship_exp_freight'
-                        style="width: 100px;" />
-                </div>
-            </div>
 
-            <div class="col">
-                <label style='font-size:15px' class="col-md-12">Loading & Unloading</label>
-                <div class="input-group mb-3">
+                    <div class="col">
+                        <label style='font-size:15px' class="col-md-12">Loading & Unloading</label>
+                        <div class="input-group mb-3">
 
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">₱</span>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='ship_exp_loading' id='ship_exp_loading'
+                                style="width: 100px;" />
+                        </div>
                     </div>
-                    <input type="text" class="form-control" name='ship_exp_loading' id='ship_exp_loading'
-                        style="width: 100px;" />
-                </div>
-            </div>
 
-            <div class="col">
-                <label style='font-size:15px' class="col-md-12">Processing Fee
-                    (Phytosanitary)</label>
-                <div class="input-group mb-3">
+                    <div class="col">
+                        <label style='font-size:15px' class="col-md-12">Processing Fee
+                            (Phytosanitary)</label>
+                        <div class="input-group mb-3">
 
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">₱</span>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='ship_exp_processing' id='ship_exp_processing'
+                                style="width: 100px;" />
+                        </div>
                     </div>
-                    <input type="text" class="form-control" name='ship_exp_processing' id='ship_exp_processing'
-                        style="width: 100px;" />
-                </div>
-            </div>
 
-            <div class="col">
-                <label style='font-size:15px' class="col-md-12">Trucking Expense</label>
-                <div class="input-group mb-3">
+                    <div class="col">
+                        <label style='font-size:15px' class="col-md-12">Trucking Expense</label>
+                        <div class="input-group mb-3">
 
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">₱</span>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='ship_exp_trucking' id='ship_exp_trucking'
+                                style="width: 100px;" />
+                        </div>
                     </div>
-                    <input type="text" class="form-control" name='ship_exp_trucking' id='ship_exp_trucking'
-                        style="width: 100px;" />
                 </div>
-            </div>
-        </div>
 
 
-        <div class="row">
+                <div class="row">
 
 
-            <div class="col">
-                <label style='font-size:15px' class="col-md-12">Cranage Fee (Arrastre)</label>
-                <div class="input-group mb-3">
+                    <div class="col">
+                        <label style='font-size:15px' class="col-md-12">Cranage Fee (Arrastre)</label>
+                        <div class="input-group mb-3">
 
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">₱</span>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='ship_exp_cranage' id='ship_exp_cranage'
+                                style="width: 100px;" />
+                        </div>
                     </div>
-                    <input type="text" class="form-control" name='ship_exp_cranage' id='ship_exp_cranage'
-                        style="width: 100px;" />
-                </div>
-            </div>
 
-            <div class="col">
-                <label style='font-size:15px' class="col-md-12">Miscellaneous Expenses : </label>
-                <div class="input-group mb-3">
+                    <div class="col">
+                        <label style='font-size:15px' class="col-md-12">Miscellaneous Expenses : </label>
+                        <div class="input-group mb-3">
 
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">₱</span>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='ship_exp_misc' id='ship_exp_misc'
+                                style="width: 100px;" />
+                        </div>
                     </div>
-                    <input type="text" class="form-control" name='ship_exp_misc' id='ship_exp_misc'
-                        style="width: 100px;" />
-                </div>
-            </div>
 
-            <div class="col-6">
-                <label style='font-size:15px;font-weight:bold' class="col-md-12">TOTAL SHIPPING
-                    EXPENSES</label>
-                <div class="input-group mb-3">
+                    <div class="col-6">
+                        <label style='font-size:15px;font-weight:bold' class="col-md-12">TOTAL SHIPPING
+                            EXPENSES</label>
+                        <div class="input-group mb-3">
 
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">₱</span>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='total_ship_exp' id='total_ship_exp' readonly
+                                style="width: 100px;" />
+                        </div>
                     </div>
-                    <input type="text" class="form-control" name='total_ship_exp' id='total_ship_exp' readonly
-                        style="width: 100px;" />
                 </div>
-            </div>
-        </div>
-
-        <hr>
-
-        <div class="row">
-        </div>
-
-
-
-        <div class="row">
-            <div class="col">
-            </div>
-            <div class="col">
-                <label style='font-size:15px;font-weight:bold' class="col-md-12">GROSS PROFIT</label>
-                <div class="input-group mb-3">
-
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">₱</span>
+<hr>
+                <div class="row">
+                    <div class="col">
                     </div>
-                    <input type="text" class="form-control" name='net_gain' id='net_gain' readonly
-                        style="width: 100px;" />
+                    <div class="col">
+                        <label style='font-size:15px;font-weight:bold' class="col-md-12">NET GAIN</label>
+                        <div class="input-group mb-3">
+
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='net_gain' id='net_gain' readonly
+                                style="width: 100px;" />
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
 
         <br>
-
-
-        <!-- PAYMENT DETAILS -->
-
 
         <div class="card">
             <div class="card-body">
