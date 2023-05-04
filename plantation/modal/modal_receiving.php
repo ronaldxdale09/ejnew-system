@@ -1,6 +1,6 @@
 <?php
 
-$sql = "SELECT id, invoice, seller FROM rubber_transaction";
+$sql = "SELECT  id, seller FROM rubber_transaction where planta_status =1";
 $result = mysqli_query($con, $sql);
 $listPurchased = '';
 while ($arr = mysqli_fetch_assoc($result)) {

@@ -1,18 +1,17 @@
 <nav id='navbar'>
-
     <div id='toggle-nav-btn'>
+        <i class='fa-solid fa-ellipsis'></i>
+    </div>
     <div class='nav-title' style='font-weight:bold;'>
         <img src='assets/img/logo.png' alt='Q-cart Logo' width='35' height='35' style='margin-right:5px;'> <span
             class='nav-text'>EJN RUBBER</span>
     </div>
-    </div>
-    
+
+
+    <hr style='color:gray'>
     <a class='nav-link' href='dashboard.php'>
         <i class='fa-solid fa-house'></i> <span class='nav-text'>Home</span>
     </a>
-
-    <!-- PURCHASE -->
-
     <hr style='color:gray'>
     <a class='nav-link' href='wet_rubber.php'>
         <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>WET Purchasing</span>
@@ -21,32 +20,24 @@
     <a class='nav-link' href='bales_rubber.php'>
         <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>Bales Purchasing</span>
     </a>
-
-    <a class='nav-link' href='purchase_record.php'>
-        <i class='fa-solid fa-book'></i> <span class='nav-text'>Purchases Record</span>
+    <hr style='color:gray'>
+    <a class='nav-link' href='record.php'>
+        <i class='fa-solid fa-book'></i> <span class='nav-text'>Transaction Record</span>
     </a>
 
+    <hr style='color:gray'>
+
+    <a class='nav-link' href='seller.php'>
+        <i class='fa-solid fa-user'></i> <span class='nav-text'>Seller</span>
+    </a>
     <a class='nav-link' href='contract-purchase.php'>
-        <i class='fa-solid fa-boxes-stacked'></i> <span class='nav-text'>Purchase Contracts</span>
+        <i class='fa-solid fa-boxes-stacked'></i> <span class='nav-text'>Purchase Contract</span>
     </a>
 
     <a class='nav-link' href='cash-advance.php'>
-        <i class='fa-solid fa-money'></i> <span class='nav-text'>Payment Advances</span>
+        <i class='fa-solid fa-money'></i> <span class='nav-text'>Cash Advance</span>
     </a>
 
-    <hr style='color:gray'>
-  
-<!-- OTHER -->
-
-
-    <a class='nav-link' href='seller.php'>
-        <i class='fa-solid fa-user'></i> <span class='nav-text'>Suppliers</span>
-    </a>
-
-    <a class='nav-link' href='reports.php'>
-        <i class='fa-solid fa-file-alt'></i> <span class='nav-text'>Reports</span>
-    </a>
-    <hr style='color:gray'>
   
 
     <div class='logout-container'>
