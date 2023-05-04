@@ -18,7 +18,7 @@
                 <th scope="col" class="text-center">Action</th>
             </tr>
         </thead>
-        <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> 
+        <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?>
             <tr>
 
                 <td>
@@ -36,13 +36,17 @@
                 <td class="text-center">
                     <button type="button" class="btn-sm btn-warning btn-sm btnTransferReceiving">
                         <i class="fas fa-chevron-right"> </i> </button>
+
+                    <button type="button" class="btn-sm btn-dark btn-sm btnUpdateReceiving">
+                        <i class="fas fa-pencil"> </i> </button>
                 </td>
 
 
 
             </tr>
-            
-            <?php } ?> </tbody>
+
+            <?php } ?>
+        </tbody>
     </table>
 </div>
 
@@ -65,6 +69,31 @@ $('.btnTransferReceiving').on('click', function() {
 
 
 });
+
+
+$('.btnUpdateReceiving').on('click', function() {
+    $tr = $(this).closest('tr');
+
+    var data = $tr.children("td").map(function() {
+        return $(this).text();
+    }).get();
+    $('#ru_receving_id').val(data[1]);
+    $('#ru_date').val(data[2]);
+    $('#ru_supplier').val(data[3]);
+    $('#ru_location').val(data[4]);
+    $('#ru_lot_num').val(data[5]);
+    $('#ru_driver').val(data[6]);
+    $('#ru_truck_num').val(data[7]);
+    
+
+
+    $('#ru_weight').val(data[8].toLocaleString());
+    $('#ru_reweight').val(data[9]);
+
+    $('#updateReceiving').modal('show');
+});
+
+
 </script>
 
 
@@ -97,19 +126,19 @@ var table = $('#recording_table-receiving').DataTable({
     buttons: [{
             extend: 'excelHtml5',
             exportOptions: {
-                columns: [0, 1, 2, 3, 4, 5, 6, 7,8,9]
+                columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
             }
         },
         {
             extend: 'pdfHtml5',
             exportOptions: {
-                columns: [0, 1, 2, 3, 4, 5, 6, 7,8,9]
+                columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
             }
         },
         {
             extend: 'print',
             exportOptions: {
-                columns: [0, 1, 2, 3, 4, 5, 6, 7,8,9]
+                columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
             }
         },
 

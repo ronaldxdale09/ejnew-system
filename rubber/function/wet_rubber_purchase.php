@@ -69,11 +69,17 @@ if (mysqli_query($con, $query)) {
     $_SESSION['print_total'] = $total_amount;
     $_SESSION['print_paid'] = $amount_paid;
     $_SESSION['print_words'] = $words_amount;
-
     echo json_encode(array('result' => 'success', 'message' => 'Transaction Was Successful!'));
 
     $_SESSION['transaction'] = 'COMPLETED';
-} else {
+    } 
+    
+    else {
+
     echo json_encode(array('result' => 'error', 'message' => 'Transaction Failed!'));
+
+    
     }
+
+    
     ?>
