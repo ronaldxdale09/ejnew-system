@@ -1,6 +1,6 @@
 <?php
 
-$sql = "SELECT id, invoice, seller FROM rubber_transaction";
+$sql = "SELECT id, seller FROM rubber_transaction";
 $result = mysqli_query($con, $sql);
 $listPurchased = '';
 while ($arr = mysqli_fetch_assoc($result)) {
@@ -178,7 +178,6 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                                 <label class="col-md-12">Crumbed Weight</label>
                                                 <input readonly type="text" style='text-align:right'
                                                     name='crumbed_weight' id='crumbed_weight' class="form-control"
-                                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
                                                     required>
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">kg</span>

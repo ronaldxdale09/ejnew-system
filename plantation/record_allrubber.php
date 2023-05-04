@@ -34,8 +34,15 @@
                                     <div class="table-responsive">
                                         <table class="table" id='sellerTable'>
                                             <?php
-                                         $results  = mysqli_query($con, "SELECT DISTINCT planta_recording.* from planta_recording
-                                    LEFT JOIN rubber_transaction on  planta_recording.purchased_id = rubber_transaction.id "); ?>
+                                        $results = mysqli_query($con, "SELECT planta_recording.recording_id, planta_recording.status, planta_recording.supplier,
+                                        planta_recording.location, planta_recording.lot_num, planta_recording.weight, planta_recording.reweight,
+                                        planta_recording.crumbed_weight, planta_recording.dry_weight, planta_recording.produce_total_weight,
+                                        planta_recording.drc, planta_recording.driver, planta_recording.truck_num, planta_recording.receiving_date, 
+                                        planta_recording.milling_date, planta_recording.drying_date, planta_recording.production_date,
+                                        rubber_transaction.date as purchased_date,rubber_transaction.net_weight as wet_net_weight
+                                        FROM planta_recording
+                                        LEFT JOIN rubber_transaction ON planta_recording.purchased_id = rubber_transaction.id
+                                        GROUP BY planta_recording.recording_id"); ?>
                                             <thead class="table-dark">
                                                 <tr>
                                                     <th scope="col">Status</th>
@@ -105,8 +112,8 @@
                                                     <td>
                                                         <button type="button" data-driver='<?php echo $row['driver'];?>'
                                                             data-truck='<?php echo $row['truck_num'];?>'
-                                                            data-date_purchased='<?php echo $row['date'];?>'
-                                                            data-wet_weight='<?php echo $row['net_weight'];?>'
+                                                            data-date_purchased='<?php echo $row['purchased_date'];?>'
+                                                            data-wet_weight='<?php echo $row['wet_net_weight'];?>'
                                                             data-date_received='<?php echo $row['receiving_date'];?>'
                                                             data-date_milled='<?php echo $row['milling_date'];?>'
                                                             data-date_dryed='<?php echo $row['drying_date'];?>'
@@ -196,17 +203,18 @@ $('.btnViewRecord').on('click', function() {
     $('#wet_weight').val(wet_weight || '-');
 
     $('#date_received').val(date_received || '-');
-    $('#reweight').val((data[6].replace(/\s+/g, '')) || '-');
+    $('#reweight').val((data[6] ? data[6].replace(/\s+/g, '') : '-') || '-');
 
     $('#milling_date').val(date_milled || '-');
     $('#crumbed_weight').val(data[7] || '-');
 
     $('#dry_date').val(date_dryed || '-');
-    $('#dry_weight').val((data[8].replace(/\s+/g, '')) || '-');
+    $('#dry_weight').val((data[8] ? data[8].replace(/\s+/g, '') : '-') || '-');
 
     $('#production_date').val(production_date || '-');
-    $('#bale_weight').val((data[9].replace(/\s+/g, '')) || '-');
+    $('#bale_weight').val((data[9] ? data[9].replace(/\s+/g, '') : '-') || '-');
     $('#drc').val(data[10] || '-');
+
 
 
     function fetch_data() {

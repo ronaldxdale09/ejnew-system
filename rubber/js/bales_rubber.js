@@ -95,4 +95,6 @@ function bales_compute(entry, net_1, net_2, kilo_bales_1, kilo_bales_2, price_1,
 
     // }
 
+
+
 }

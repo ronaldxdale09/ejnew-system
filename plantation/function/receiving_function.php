@@ -28,6 +28,11 @@
                                 $results = mysqli_query($con, $query);
                                    
                                     if ($results) {
+
+                                        $sql = "UPDATE rubber_transaction SET planta_status='0' WHERE id='$purchased_id'";
+                                        $result = mysqli_query($con, $sql);
+
+
                                         header("Location: ../recording.php");
                                         $_SESSION['receiving']= "successful";
                                         exit();

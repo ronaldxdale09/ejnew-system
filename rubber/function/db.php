@@ -12,4 +12,13 @@ if ( mysqli_connect_errno() ) {
 	exit('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
 
+
+// Report all PHP errors
+error_reporting(E_ALL);
+
+// Display errors
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+
+
 ?>
