@@ -25,7 +25,7 @@
                 <div class="row">
                     <h2 class="page-title"><B>
                             <font color="#0C0070"> CUPLUMP </font>
-                            <font color="#046D56"> EXPORT SALE </font>
+                            <font color="#046D56"> SHIPMENT </font>
                         </b></h2>
                     <div class="inventory-table">
                         <div class="container-fluid">

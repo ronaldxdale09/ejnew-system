@@ -20,21 +20,25 @@
     </a>
 
     <a class='nav-link' href='inv_bale.php' style='margin-left: 30px; font-size: 18px;'>
-       <i class='fa-solid fa-cube'></i> <span class='nav-text'>Bales</span>
+        <i class='fa-solid fa-cube'></i> <span class='nav-text'>Bales</span>
     </a>
 
     <a class='nav-link' href='inv_cuplump.php' style='margin-left: 30px; font-size: 18px;'>
-    <i class='fa-solid fa-tree'></i> <span class='nav-text'>Cuplumps</span>
+        <i class='fa-solid fa-tree'></i> <span class='nav-text'>Cuplumps</span>
     </a>
 
     <hr style='color:gray'>
 
-    <a class='nav-link' href='bales_sales_record.php'>
+    <a class='nav-link' href='bale_sale.php'>
         <i class='fa-solid fa-book'></i> <span class='nav-text'>Bale Sales Record</span>
     </a>
 
-    <a class='nav-link' href='cuplumps_export.php'>
-        <i class='fa-solid fa-book'></i> <span class='nav-text'>Cuplump Sales</span>
+    <a class='nav-link' href='cuplump_sale.php'>
+        <i class='fa-solid fa-file-alt'></i> <span class='nav-text'>Cuplump Sale</span>
+    </a>
+
+    <a class='nav-link' href='cuplump_shipment.php'>
+        <i class='fa-solid fa-book'></i> <span class='nav-text'>Cuplump Shipment</span>
     </a>
 
     <hr style='color:gray'>

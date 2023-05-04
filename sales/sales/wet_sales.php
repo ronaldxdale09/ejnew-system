@@ -258,7 +258,7 @@ if (isset($_GET['id'])) {
             </div>
         </div>
 
-<br>
+        <br>
 
         <div class="card">
             <div class="card-body">
@@ -274,6 +274,43 @@ if (isset($_GET['id'])) {
                 <input type="hidden" name="cuplumps_total_cost" id="hidden_cuplumps_total_cost" />
                 <input type="hidden" name="cuplumps_total_weight" id="hidden_cuplumps_total_weight" />
                 <input type="hidden" name="cuplumps_average_per_kilo" id="hidden_cuplumps_average_per_kilo" />
+
+
+                <div class="row">
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead>
+                            <th>
+                                Sale Contract
+                            </th>
+                            <th>
+                                Container
+                            </th>
+                            <th>
+                                Seller
+                            </th>
+                            <th>
+                                Purchase Weight
+                            </th>
+                            <th>
+                                Reweight
+                            </th>
+                            <th>
+                                Buyer Weight
+                            </th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
 
                 <div class="row">
                     <label style='font-size:15px;font-weight:bold' class="col-md-12">TOTAL CUPLUMP
@@ -407,7 +444,7 @@ if (isset($_GET['id'])) {
                         </div>
                     </div>
                 </div>
-<hr>
+                <hr>
                 <div class="row">
                     <div class="col">
                     </div>
