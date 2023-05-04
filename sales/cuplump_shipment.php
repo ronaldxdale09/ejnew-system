@@ -21,7 +21,7 @@
                         <h2 class="page-title">
                             <b>
                                 <font color="#0C0070">CUPLUMP </font>
-                                <font color="#046D56"> SALE </font>
+                                <font color="#046D56"> SHIPMENT </font>
                             </b>
                         </h2>
 

@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg  ">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Selecte Inventory</h5>
+                <h5 class="modal-title">Selected Inventory</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -79,7 +79,7 @@
     <div class="modal-dialog modal-xl  ">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Selecte Inventory</h5>
+                <h5 class="modal-title">Selected Inventory</h5>
                 <button type="button" class="btn text-light close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

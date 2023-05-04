@@ -84,6 +84,12 @@
                              
         if(mysqli_query($con, $query)) {  
 
+//EDITS: ADD DB FOR BUYER AND CHANGE QUALITY
+//QUALITY: '5L','SPR-5', 'SPR-10', 'SPR-20','Off Color'
+//          For now, SPR-20 muna ang 33.33 kasi di pa sure
+//BUYERS:     Local: 'Althea', 'Best Rubber', 'CERMATEX', 'Crown', 'Dunlop', 'JMR', 'Johnson', 'Jovita Ocampo', 'Manhattan', 'MBH', 'MBP STAR', 'Showa'
+//            Export:     Malaysia but dollars: 'Tionghuat'
+//                        Europe but dollars: 'Vitry-Middle East'
 
             // Define an array of rubber types
         $rubberTypes = [ '5L','SPR-5', 'SPR-10', 'SPR-20','Off Color'];

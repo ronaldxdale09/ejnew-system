@@ -119,8 +119,24 @@ if (isset($_GET['id'])) {
                         </div>
                     </div>
 
-                    <div class="col-6">
+                    <div class="col">
+                        <label style='font-size:15px' class="col-md-12">Recorded by: </label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name='remarks' id='remarks'>
+                        </div>
+                    </div>
+
+                    <div class="col">
                         <label style='font-size:15px' class="col-md-12">Remarks </label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name='remarks' id='remarks'>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-3">
+                        <label style='font-size:15px' class="col-md-12">No. of Bales </label>
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" name='remarks' id='remarks'>
                         </div>
@@ -129,14 +145,15 @@ if (isset($_GET['id'])) {
             </div>
         </div>
 
+        <br>
+
         <div class="card">
             <div class="card-body">
-                <!-- SAMPLE STRUCTURE NG TABLE -->
 
                 <div class="container">
                     <div class="row">
                         <div class="col-12 d-flex justify-content-between align-items-center">
-                            <h5 style='font-weight:bold;'>SELECTED INVENTORY</h5>
+                            <h5 style='font-weight:bold;'>BALE VOLUME AND COST</h5>
                             <button id="printButton" class="btn btn-warning btnInventory">
                                 <i class="fas fa-box"></i> Select Inventory
                             </button>
@@ -154,139 +171,155 @@ if (isset($_GET['id'])) {
         <br>
         <div class="card">
             <div class="card-body">
-                <!-- SHIPPING EXPENSES -->
-                <h4>Financial Metrics</h4>
+                <center>
+                    <h4>Profit & Loss Computation</h4>
+                </center>
 
+                <h5>Sale Proceeds</h5>
                 <hr>
 
                 <div class="row">
                     <div class="col">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5>Bale Pricing</h5>
-
-                                <div class="row">
-                                    <div class="col">
-                                        <label style='font-size:15px' class="col-md-12">Currency</label>
-                                        <div class="input-group mb-3">
-                                            <select class="form-select" id="sale_currency" name="sale_currency"
-                                                style="width: 100px;">
-                                                <option selected>Choose...</option>
-                                                <option value="bales_local">PHP ₱</option>
-                                                <option value="bales_export">USD $</option>
-                                                <option value="bales_local">RUB ₽</option>
-                                                <option value="bales_local">CNY ¥</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label style='font-size:15px' class="col-md-12">Price per Kilo </label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" name='price_per_kilo'
-                                                id='price_per_kilo' style="width: 100px;" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col">
-                                        <label style='font-size:15px' class="col-md-12">Exchange Rate</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" name='exchange_rate'
-                                                id='exchange_rate' style="width: 100px;" />
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label style='font-size:15px' class="col-md-12">Peso Price</label>
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">₱</span>
-                                            </div>
-                                            <input type="text" class="form-control" name='peso_price' id='peso_price'
-                                                style="width: 100px;" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col">
-                                        <label style='font-size:15px;font-weight:bold' class="col-md-12">TOTAL
-                                            SALES</label>
-                                        <div class="input-group mb-3">
-
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">₱</span>
-                                            </div>
-                                            <input type="text" class="form-control" name='total_sales' id='total_sales'
-                                                readonly style="width: 100px;" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <label style='font-size:15px' class="col-md-12">Currency</label>
+                        <div class="input-group mb-3">
+                            <select class="form-select" id="sale_currency" name="sale_currency" style="width: 100px;">
+                                <option selected>Choose...</option>
+                                <option value="bales_local">PHP ₱</option>
+                                <option value="bales_export">USD $</option>
+                                <option value="bales_local">RUB ₽</option>
+                                <option value="bales_local">CNY ¥</option>
+                            </select>
                         </div>
                     </div>
-
                     <div class="col">
-
-                        <div class="card-body">
-                            <h5>Bale Costing</h5>
-
-                            <div class="row">
-                                <div class="col">
-                                    <label style='font-size:15px' class="col-md-12">Milling Fee per Kilo </label>
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">₱</span>
-                                        </div>
-                                        <input type="text" class="form-control" name='milling_fee_per_kilo'
-                                            id='milling_fee_per_kilo' style="width: 100px;" />
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <label style='font-size:15px;' class="col-md-12">Total Weight</label>
-                                    <div class="input-group mb-3">
-
-                                        <input type="text" style='text-align:right' id='total_weight'
-                                            name='total_weight' class="form-control">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">kg</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <label style='font-size:15px;font-weight:bold' class="col-md-12">Total Milling
-                                        Fee</label>
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">₱</span>
-                                        </div>
-                                        <input type="text" class="form-control" name='total_milling_fee'
-                                            id='total_milling_fee' readonly style="width: 100px;" />
-                                    </div>
-                                </div>
+                        <label style='font-size:15px' class="col-md-12">Price per Kilo </label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name='price_per_kilo' id='price_per_kilo'
+                                style="width: 100px;" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label style='font-size:15px' class="col-md-12">Exchange Rate</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name='exchange_rate' id='exchange_rate'
+                                style="width: 100px;" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label style='font-size:15px' class="col-md-12">Peso Price</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
                             </div>
-
-                            <div class="row">
-                                <label style='font-size:15px' class="col-md-12"><b>Total Bale Cost</b> (See
-                                    Above)</label>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">₱</span>
-                                    </div>
-                                    <input type="text" class="form-control" name='total_bale_cost' id='total_bale_cost'
-                                        readonly style="width: 100px;" />
-                                </div>
-                            </div>
+                            <input type="text" class="form-control" name='peso_price' id='peso_price'
+                                style="width: 100px;" />
                         </div>
                     </div>
                 </div>
-                <hr>
-                <h5> Shipping Expenses </h5>
+
+                <div class="row">
+                    <div class="col-6">
+                    </div>
+                    <div class="col-6">
+                        <label style='font-size:15px;font-weight:bold' class="col-md-12">TOTAL
+                            SALES</label>
+                        <div class="input-group mb-3">
+
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='total_sales' id='total_sales' readonly
+                                style="width: 100px;" />
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+
+                <h5>Bale Costing</h5>
                 <hr>
 
                 <div class="row">
 
-                    <div class="col-4">
+                    <div class="col">
+                        <label style='font-size:15px;' class="col-md-12">Net Bale Weight</label>
+                        <div class="input-group mb-3">
+
+                            <input type="text" style='text-align:right' id='total_weight' name='total_weight'
+                                class="form-control">
+                            <div class="input-group-append">
+                                <span class="input-group-text">kg</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label style='font-size:15px' class="col-md-12">Average Cost</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='milling_fee_per_kilo'
+                                id='milling_fee_per_kilo' style="width: 100px;" />
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label style='font-size:15px;font-weight:bold' class="col-md-12">TOTAL
+                            COST</label>
+                        <div class="input-group mb-3">
+
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='total_cost' id='total_cost' readonly
+                                style="width: 100px;" />
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+
+                <h5> Other Expenses </h5>
+                <hr>
+
+                <div class="row">
+                    <div class="col">
+                        <label style='font-size:15px' class="col-md-12">Milling Fee per Kilo </label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='milling_fee_per_kilo'
+                                id='milling_fee_per_kilo' style="width: 100px;" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label style='font-size:15px;' class="col-md-12">Total Weight</label>
+                        <div class="input-group mb-3">
+
+                            <input type="text" style='text-align:right' id='total_weight' name='total_weight'
+                                class="form-control">
+                            <div class="input-group-append">
+                                <span class="input-group-text">kg</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label style='font-size:15px;font-weight:bold' class="col-md-12">TOTAL MILLING FEE</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='total_milling_fee' id='total_milling_fee'
+                                readonly style="width: 100px;" />
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="row">
+
+                    <div class="col">
                         <label style='font-size:15px' class="col-md-12">Freight (All In)</label>
                         <div class="input-group mb-3">
 
@@ -297,8 +330,7 @@ if (isset($_GET['id'])) {
                                 style="width: 100px;" />
                         </div>
                     </div>
-
-                    <div class="col-4">
+                    <div class="col">
                         <label style='font-size:15px' class="col-md-12">Loading & Unloading</label>
                         <div class="input-group mb-3">
 
@@ -320,13 +352,6 @@ if (isset($_GET['id'])) {
                                 style="width: 100px;" />
                         </div>
                     </div>
-
-                </div>
-
-
-                <div class="row">
-
-
                     <div class="col">
                         <label style='font-size:15px' class="col-md-12">Cranage Fee (Arrastre)</label>
                         <div class="input-group mb-3">
@@ -338,8 +363,12 @@ if (isset($_GET['id'])) {
                                 style="width: 100px;" />
                         </div>
                     </div>
+                </div>
 
-                    <div class="col">
+
+                <div class="row">
+
+                    <div class="col-3">
                         <label style='font-size:15px' class="col-md-12">Miscellaneous Expenses : </label>
                         <div class="input-group mb-3">
 
@@ -350,7 +379,9 @@ if (isset($_GET['id'])) {
                                 style="width: 100px;" />
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-3">
+                    </div>
+                    <div class="col-6">
                         <label style='font-size:15px;font-weight:bold' class="col-md-12">TOTAL SHIPPING
                             EXPENSES</label>
                         <div class="input-group mb-3">
@@ -366,13 +397,12 @@ if (isset($_GET['id'])) {
 
                 <hr>
 
-
-
                 <div class="row">
-                    <div class="col-8">
-                    </div>
                     <div class="col">
-                        <label style='font-size:15px;font-weight:bold' class="col-md-12">GROSS PROFIT</label>
+                    </div>
+                    <div class="col-6">
+                        <label style='font-size:15px;font-weight:bold' class="col-md-12">GROSS
+                            PROFIT/LOSS</label>
                         <div class="input-group mb-3">
 
                             <div class="input-group-prepend">
@@ -386,80 +416,82 @@ if (isset($_GET['id'])) {
             </div>
         </div>
 
-        <!-- PAYMENT DETAILS -->
         <br>
 
-    </div>
-    <div class="card" style=" border: 1px solid green;">
-        <div class="card-body">
-            <h5 class="card-title">Payment Details</h5>
-            <hr>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Payment Details</h5>
+                <hr>
 
-            <div class="row">
-                <div class="col">
-                    <label style='font-size:15px' class="col-md-12">SALES</label>
-                    <div class="input-group mb-3">
+                <div class="row">
+                    <div class="col">
+                        <label style='font-size:15px' class="col-md-12">SALES</label>
+                        <div class="input-group mb-3">
 
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">₱</span>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='payment_sales' id='payment_sales' readonly
+                                style="width: 100px;" />
                         </div>
-                        <input type="text" class="form-control" name='payment_sales' id='payment_sales' readonly
-                            style="width: 100px;" />
+                    </div>
+
+
+
+                    <div class="col">
+                        <label style='font-size:15px' class="col-md-12">UNPAID BALANCE</label>
+                        <div class="input-group mb-3">
+
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='amount_unpaid' id='amount_unpaid' readonly
+                                autocomplete='off' style="width: 100px;" />
+                        </div>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label style='font-size:15px' class="col-md-12">Date of Payment </label>
+                        <div class="col-md-12">
+                            <input type="date" class='form-control' id="pay_date" value="<?php echo $today; ?>"
+                                name="pay_date">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-5">
+                        <label style='font-size:15px' class="col-md-12">Details</label>
+                        <div class="input-group mb-3">
+
+                            <input type="text" class="form-control" name='pay_details' id='pay_details'
+                                autocomplete='off' style="width: 100px;" />
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <label style='font-size:15px' class="col-md-12">Amount</label>
+                        <div class="input-group mb-3">
+
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='paid_amount' id='paid_amount'
+                                onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off'
+                                style="width: 100px;" />
+                        </div>
                     </div>
                 </div>
 
-
-
-                <div class="col">
-                    <label style='font-size:15px' class="col-md-12">UNPAID BALANCE</label>
-                    <div class="input-group mb-3">
-
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">₱</span>
-                        </div>
-                        <input type="text" class="form-control" name='amount_unpaid' id='amount_unpaid' readonly
-                            autocomplete='off' style="width: 100px;" />
-                    </div>
-                </div>
             </div>
-            <hr>
-
-            <div class="row">
-                <div class="col-sm-3">
-                    <label style='font-size:15px' class="col-md-12">Date of Payment </label>
-                    <div class="col-md-12">
-                        <input type="date" class='form-control' id="pay_date" value="<?php echo $today; ?>"
-                            name="pay_date">
-                    </div>
-                </div>
-
-                <div class="col-sm-5">
-                    <label style='font-size:15px' class="col-md-12">Details</label>
-                    <div class="input-group mb-3">
-
-                        <input type="text" class="form-control" name='pay_details' id='pay_details' autocomplete='off'
-                            style="width: 100px;" />
-                    </div>
-                </div>
-
-                <div class="col-4">
-                    <label style='font-size:15px' class="col-md-12">Amount</label>
-                    <div class="input-group mb-3">
-
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">₱</span>
-                        </div>
-                        <input type="text" class="form-control" name='paid_amount' id='paid_amount'
-                            onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off'
-                            style="width: 100px;" />
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 </div>
 </form>
+
+
+
 <?php    include "fetch/wet_export_fill_data.php";?>
 <script>
 $(document).ready(function() {
