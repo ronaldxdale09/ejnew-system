@@ -220,7 +220,7 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td><button>Inventory</button></td>
+                                                        <td><button>Update</button></td>
                                                         <td><input type="text" readonly></td>
                                                         <td><input type="text" placeholder="Container No."></td>
                                                         <td class="number-cell"><input type="number"

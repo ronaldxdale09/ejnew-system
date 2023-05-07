@@ -29,15 +29,15 @@
 
     <hr style='color:gray'>
 
-    <a class='nav-link' href='bale_sale.php'>
-        <i class='fa-solid fa-book'></i> <span class='nav-text'>Bale Sales Record</span>
+    <a class='nav-link' href='bale_sale_record.php'>
+        <i class='fa-solid fa-book'></i> <span class='nav-text'>Rubber Bale Sale</span>
     </a>
 
-    <a class='nav-link' href='cuplump_sale.php'>
+    <a class='nav-link' href='cuplump_sale_record.php'>
         <i class='fa-solid fa-file-alt'></i> <span class='nav-text'>Cuplump Sale</span>
     </a>
 
-    <a class='nav-link' href='cuplump_shipment.php'>
+    <a class='nav-link' href='cuplump_shipment_record.php'>
         <i class='fa-solid fa-book'></i> <span class='nav-text'>Cuplump Shipment</span>
     </a>
 
