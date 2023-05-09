@@ -54,39 +54,38 @@
                                                 <label style='font-size:15px' class="col-md-12">EN Sale Contract
                                                     No.</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='sale_id' id='sale_id'
-                                                        value='<?php echo $id?>' readonly autocomplete='off'
+                                                    <input type="text" class="form-control" name='wet_sale_id'
+                                                        id='wet_sale_id' value='<?php echo $id?>' readonly
+                                                        autocomplete='off' style="width: 100px;" />
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <label style='font-size:15px' class="col-md-12">Buyer Purchase Contract
+                                                    No.</label>
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control" name='wet_buyer_contract'
+                                                        id='wet_buyer_contract' autocomplete='off'
                                                         style="width: 100px;" />
                                                 </div>
                                             </div>
                                             <div class="col">
-                                                <label style='font-size:15px' class="col-md-12">Purchase Contract
-                                                    No.</label>
+                                                <label style='font-size:15px' class="col-md-12">Type</label>
                                                 <div class="input-group mb-3">
-                                                    <select class="form-select" id="sale_type" name="sale_type"
+                                                    <select class="form-select" id="wet_sale_type" name="wet_sale_type"
                                                         style="width: 100px;">
-                                                        <option selected>Choose...</option>
                                                         <option value="EXPORT">Export</option>
-                                                        <option value="LOCAL">Local</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col">
-                                                <label style='font-size:15px' class="col-md-12">Type </label>
+                                                <label style='font-size:15px' class="col-md-12">Transaction Date</label>
                                                 <div class="col-md-12">
-                                                    <input type="date" class='form-control' id="ship_date"
-                                                        value="<?php echo $today; ?>" name="ship_date">
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <label style='font-size:15px' class="col-md-12">Transaction Date
-                                                </label>
-                                                <div class="col-md-12">
-                                                    <input type="date" class='form-control' id="ship_date"
-                                                        value="<?php echo $today; ?>" name="ship_date">
+                                                    <input type="date" class='form-control' id="wet_ship_date"
+                                                        value="<?php echo $today; ?>" name="wet_ship_date">
                                                 </div>
                                             </div>
                                         </div>
+
 
                                         <br>
 
@@ -95,18 +94,17 @@
                                                 <label style='font-size:15px' class="col-md-12">Buyer Company
                                                     Name</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='sale_buyer'
-                                                        id='sale_buyer' tabindex="7" autocomplete='off'
+                                                    <input type="text" class="form-control" name='wet_sale_buyer'
+                                                        id='wet_sale_buyer' tabindex="7" autocomplete='off'
                                                         style="width: 100px;" />
                                                 </div>
                                             </div>
 
                                             <div class="col">
-                                                <label style='font-size:15px' class="col-md-12">Shipping
-                                                    Date</label>
+                                                <label style='font-size:15px' class="col-md-12">Shipping Date</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='info_lading'
-                                                        id='info_lading' tabindex="7" autocomplete='off'
+                                                    <input type="date" class="form-control" name='wet_shipping_date'
+                                                        id='wet_shipping_date' tabindex="7" autocomplete='off'
                                                         style="width: 100px;" />
                                                 </div>
                                             </div>
@@ -114,22 +112,25 @@
                                             <div class="col">
                                                 <label style='font-size:15px' class="col-md-12">Quantity</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='info_lading'
-                                                        id='info_lading' tabindex="7" autocomplete='off'
+                                                    <input type="text" class="form-control" name='wet_quantity'
+                                                        id='wet_quantity' tabindex="7" autocomplete='off'
                                                         style="width: 100px;" />
+                                                    <span class="input-group-text">kg</span>
                                                 </div>
                                             </div>
 
                                             <div class="col">
                                                 <label style='font-size:15px' class="col-md-12">Price</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='remarks' id='remarks'>
+                                                    <span class="input-group-text">$</span>
+                                                    <input type="text" class="form-control" name='wet_price'
+                                                        id='wet_price'>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="row">
 
+                                        <div class="row">
                                             <div class="col">
                                                 <label style='font-size:15px' class="col-md-12">Address</label>
                                                 <div class="input-group mb-3">
@@ -140,11 +141,10 @@
                                             </div>
 
                                             <div class="col">
-                                                <label style='font-size:15px' class="col-md-12">Shipping
-                                                    Port</label>
+                                                <label style='font-size:15px' class="col-md-12">Shipping Port</label>
                                                 <div class="input-group mb-3">
                                                     <input type="text" class="form-control" name='info_lading'
-                                                        id='info_lading' tabindex="7" autocomplete='off'
+                                                        id='info_lading_2' tabindex="7" autocomplete='off'
                                                         style="width: 100px;" />
                                                 </div>
                                             </div>
@@ -152,7 +152,7 @@
                                             <div class="col">
                                                 <label style='font-size:15px' class="col-md-12">Containers</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='source' id='source'
+                                                    <input type="text" class="form-control" name='source' id='source_2'
                                                         tabindex="7" autocomplete='off' style="width: 100px;" />
                                                 </div>
                                             </div>
@@ -160,7 +160,7 @@
                                             <div class="col">
                                                 <label style='font-size:15px' class="col-md-12">Packing</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='source' id='source'
+                                                    <input type="text" class="form-control" name='source' id='source_2'
                                                         tabindex="7" autocomplete='off' style="width: 100px;" />
                                                 </div>
                                             </div>
@@ -171,7 +171,7 @@
                                                 <label style='font-size:15px' class="col-md-12">Contact
                                                     Information</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='voyage' id='voyage'
+                                                    <input type="text" class="form-control" name='voyage' id='voyage_2'
                                                         tabindex="7" autocomplete='off' style="width: 100px;" />
                                                 </div>
                                             </div>
@@ -179,7 +179,7 @@
                                             <div class="col">
                                                 <label style='font-size:15px' class="col-md-12">Destination</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='source' id='source'
+                                                    <input type="text" class="form-control" name='source' id='source_3'
                                                         tabindex="7" autocomplete='off' style="width: 100px;" />
                                                 </div>
                                             </div>
@@ -187,10 +187,12 @@
                                             <div class="col-6">
                                                 <label style='font-size:15px' class="col-md-12">Other Terms</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='remarks' id='remarks'>
+                                                    <input type="text" class="form-control" name='remarks'
+                                                        id='remarks_2'>
                                                 </div>
                                             </div>
                                         </div>
+
 
                                     </div>
                                 </div>
@@ -220,31 +222,68 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td><button>Inventory</button></td>
-                                                        <td><input type="text" readonly></td>
+                                                        <td><button>Update</button></td>
+                                                        <td><input type="text" placeholder="Shipment No."></td>
                                                         <td><input type="text" placeholder="Container No."></td>
-                                                        <td class="number-cell"><input type="number"
-                                                                placeholder="Total Kilo" step="0.01">
-                                                            kg</td>
-                                                        <td class="number-cell"><input type="number"
-                                                                placeholder="Loading Reweight" step="0.01"> kg</td>
-                                                        <td class="number-cell"><input type="number"
-                                                                placeholder="Buyer Reweight" step="0.01"> kg</td>
-                                                        <td class="number-cell"><input type="number" placeholder="DRC"
-                                                                step="0.01">
-                                                            %
+                                                        <td class="number-cell">
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control"
+                                                                    name='total_kilo' id='total_kilo' autocomplete='off'
+                                                                    style="width: 100px;" />
+                                                                <span class="input-group-text">kg</span>
+                                                            </div>
                                                         </td>
-                                                        <td class="number-cell">₱<input type="number"
-                                                                placeholder="Total Sale" step="0.01">
+                                                        <td class="number-cell">
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control"
+                                                                    name='loading_reweight' id='loading_reweight'
+                                                                    autocomplete='off' style="width: 100px;" />
+                                                                <span class="input-group-text">kg</span>
+                                                            </div>
                                                         </td>
-                                                        <td class="number-cell">₱<input type="number"
-                                                                placeholder="Total Cost" step="0.01">
+                                                        <td class="number-cell">
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control"
+                                                                    name='buyer_reweight' id='buyer_reweight'
+                                                                    autocomplete='off' style="width: 100px;" />
+                                                                <span class="input-group-text">kg</span>
+                                                            </div>
                                                         </td>
-                                                        <td class="number-cell">₱<input type="number"
-                                                                placeholder="Profit/Loss" step="0.01">
+                                                        <td class="number-cell">
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" name='drc'
+                                                                    id='drc' autocomplete='off' style="width: 100px;" />
+                                                                <span class="input-group-text">%</span>
+                                                            </div>
                                                         </td>
-                                                        <td class="number-cell">₱<input type="number"
-                                                                placeholder="Profit/Loss" step="0.01">
+                                                        <td class="number-cell">
+                                                            <div class="input-group mb-3">
+                                                                <span class="input-group-text">$</span>
+                                                                <input type="text" class="form-control"
+                                                                    name='total_sale' id='total_sale' required>
+                                                            </div>
+                                                        </td>
+                                                        <td class="number-cell">
+                                                            <div class="input-group mb-3">
+                                                                <span class="input-group-text">$</span>
+                                                                <input type="text" class="form-control"
+                                                                    name='total_cogs' id='total_cogs' required>
+                                                            </div>
+                                                        </td>
+                                                        <td class="number-cell">
+                                                            <div class="input-group mb-3">
+                                                                <span class="input-group-text">$</span>
+                                                                <input type="text" class="form-control"
+                                                                    name='shipment_expenses' id='shipment_expenses'
+                                                                    required>
+                                                            </div>
+                                                        </td>
+                                                        <td class="number-cell">
+                                                            <div class="input-group mb-3">
+                                                                <span class="input-group-text">$</span>
+                                                                <input type="text" class="form-control"
+                                                                    name='profit/loss' id='profit/loss' required>
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -252,6 +291,7 @@
                                         </div>
                                     </div>
                                 </div>
+
 
                                 <br>
 
