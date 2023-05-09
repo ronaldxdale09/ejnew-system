@@ -3,8 +3,8 @@ $month = date("m");
 $day = date("d");
 $year = date("Y");
 $dateNow = $year . "-" . $month . "-" . $day;
-
 ?>
+
 <!-- Modal -->
 <div class="modal fade" id="addExpense" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true">
@@ -239,7 +239,7 @@ $dateNow = $year . "-" . $month . "-" . $day;
       <div class="modal-body">
         <form action="../function/ledger/removeExpenses.php" method="POST">
           <input type="text" id="my_id" name="my_id" style="display: none">
-          <!--hide from uder, for db locate id only -->
+          <!--hide from user, for db locate id only -->
           <p>Please confirm to remove this row data...</p>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

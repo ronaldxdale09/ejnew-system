@@ -25,8 +25,6 @@ while ($arr = mysqli_fetch_array($result)) {
                         <button type="button" class="btn btn-dark text-white" data-toggle="modal"
                             data-target=".viewExpenseCat">
                             <i class="fa fa-book" aria-hidden="true"></i> CATEGORY </button>
-                        
-                        
                     </div>
                     <div class="col-sm">
                         <div class="row">
@@ -123,66 +121,52 @@ while ($arr = mysqli_fetch_array($result)) {
                     </table>
 
                 </div>
-                <!-- previous and next buttons -->
+
                 <?php
                 // get current date from database or use today's date
                 $current_date = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
-                $results = mysqli_query($con, "SELECT date FROM ledger_expenses ORDER BY id DESC LIMIT 1");
-                if (mysqli_num_rows($results) > 0) {
-                    $last_date = mysqli_fetch_array($results)[0];
-                    if ($current_date > $last_date) {
-                        $current_date = $last_date;
-                    }
-                }
 
-                // query to find the date of the previous transaction
-                $prev_query = "SELECT date FROM ledger_expenses WHERE DATE(date) < '$current_date' ORDER BY date DESC LIMIT 1";
-                $prev_result = mysqli_query($con, $prev_query);
-                $prev_date = null;
-                if (mysqli_num_rows($prev_result) > 0) {
-                    $prev_date = mysqli_fetch_array($prev_result)[0];
-                }
+                // check if there is any transaction for the current date
+                $has_transaction_query = "SELECT COUNT(*) FROM ledger_expenses WHERE DATE(date) = ?";
+                $stmt = mysqli_prepare($con, $has_transaction_query);
+                mysqli_stmt_bind_param($stmt, 's', $current_date);
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_bind_result($stmt, $count);
+                mysqli_stmt_fetch($stmt);
+                mysqli_stmt_close($stmt);
 
-                // query to find the date of the next transaction
-                $next_query = "SELECT date FROM ledger_expenses WHERE DATE(date) > '$current_date' ORDER BY date ASC LIMIT 1";
-                $next_result = mysqli_query($con, $next_query);
-                $next_date = null;
-                if (mysqli_num_rows($next_result) > 0) {
-                    $next_date = mysqli_fetch_array($next_result)[0];
-                }
+                // prepare the previous and next queries
+                $prev_next_query = "SELECT date FROM ledger_expenses WHERE DATE(date) %s ? ORDER BY date %s LIMIT 1";
+
+                // prepare the statement and bind the parameters for previous button
+                $stmt = mysqli_prepare($con, sprintf($prev_next_query, '<', 'DESC'));
+                mysqli_stmt_bind_param($stmt, 's', $current_date);
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_bind_result($stmt, $prev_date);
+                $prev_exists = mysqli_stmt_fetch($stmt);
+                mysqli_stmt_close($stmt);
+
+                // prepare the statement and bind the parameters for next button
+                $stmt = mysqli_prepare($con, sprintf($prev_next_query, '>', 'ASC'));
+                mysqli_stmt_bind_param($stmt, 's', $current_date);
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_bind_result($stmt, $next_date);
+                $next_exists = mysqli_stmt_fetch($stmt);
+                mysqli_stmt_close($stmt);
                 ?>
 
                 <div class="d-flex justify-content-center mt-3">
                     <div class="btn-group" role="group">
-                        <?php if ($prev_date) { ?>
-                            <a href="?date=<?php echo $prev_date ?>" class="btn btn-primary">Previous</a>
-                        <?php } else { ?>
-                            <button type="button" class="btn btn-primary" disabled>Previous</button>
-                        <?php } ?>
-                        <?php if ($next_date) { ?>
-                            <a href="?date=<?php echo $next_date ?>" class="btn btn-primary">Next</a>
-                        <?php } else { ?>
-                            <button type="button" class="btn btn-primary" disabled>Next</button>
-                        <?php } ?>
+                        <a href="?date=<?php echo $prev_date ?>"
+                            class="btn btn-primary <?php echo $prev_exists ? '' : 'disabled' ?>">Previous</a>
+                        <a href="?date=<?php echo $next_date ?>"
+                            class="btn btn-primary <?php echo $next_exists ? '' : 'disabled' ?>">Next</a>
+                        <a href="?date=<?php echo date('Y-m-d') ?>"
+                            class="btn btn-primary <?php echo $current_date == date('Y-m-d') || $count <= 0 ? 'disabled' : '' ?>">Today</a>
                     </div>
-                    <form method="get" class="ms-3">
-                        <div class="input-group">
-                            <input type="date" name="date" value="<?php echo $current_date ?>" class="form-control">
-                            <button type="submit" class="btn btn-primary">Go</button>
-                        </div>
-                    </form>
                 </div>
 
-                <?php
-                // query to get the transactions for the selected date
-                $query = "SELECT * FROM ledger_expenses WHERE DATE(date) = '$current_date' ORDER BY id DESC";
-                $result = mysqli_query($con, $query);
-                if (mysqli_num_rows($result) > 0) {
-                    // display the transactions
-                } else {
-                    echo "<div class='text-center my-3'>No transactions made for this day.</div>";
-                }
-                ?>
+
 
             </div>
         </div>
@@ -256,16 +240,21 @@ while ($arr = mysqli_fetch_array($result)) {
 
         <div class="stat-card">
             <div class="stat-card__content">
-                <p class="text-uppercase mb-1 text-muted">EXPENSES THIS MONTH</p>
-                <h2><i class="text-danger font-weight-bold mr-1"></i>
-                    ₱
-                    <?php echo number_format($expense_month['month_total']) ?>
-                </h2>
-                <div>
+                <?php if ($expense_month !== null): ?>
+                    <p class="text-uppercase mb-1 text-muted">EXPENSES THIS MONTH</p>
+                    <h2><i class="text-danger font-weight-bold mr-1"></i>
+                        ₱
+                        <?php echo number_format($expense_month['month_total']) ?>
+                    </h2>
+                <?php else: ?>
+                    <p class="text-uppercase mb-1 text-muted">EXPENSES THIS MONTH</p>
+                    <h2><i class="text-danger font-weight-bold mr-1"></i>
+                        ₱
+                        0
+                    </h2>
+                <?php endif; ?>
 
-                    <?php echo $expense_month['year']; ?>
-                    </span>
-                </div>
+
             </div>
             <div class="stat-card__icon stat-card__icon--danger">
                 <div class="stat-card__icon-circle">

@@ -11,14 +11,14 @@ $.fn.dataTable.ext.search.push(
         var max = maxDate.val();
         var date = new Date(data[0]);
 
-    if (
-    (min === null && max === null) ||
-    (min === null && date < max) ||
-    (min < date && max === null) ||
-    (min < date && date < max)
-) {
-    return true;
-}
+        if (
+            (min === null && max === null) ||
+            (min === null && date < max) ||
+            (min < date && max === null) ||
+            (min < date && date < max)
+        ) {
+            return true;
+        }
         return false;
     }
 );
@@ -33,31 +33,33 @@ $(document).ready(function() {
     });
     var table = $('#expenses_table').DataTable({
         dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
-         paging: false,
+        paging: false,
         "pageLength": 50,
-     
+
         order: [
             [0, 'desc']
         ],
         buttons: [{
-                extend: 'excelHtml5', footer: true,
+                extend: 'excelHtml5',
+                footer: true,
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4]
                 }
             },
             {
-                extend: 'pdfHtml5', footer: true,
+                extend: 'pdfHtml5',
+                footer: true,
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4]
                 }
             },
             {
-                extend: 'print', footer: true,
+                extend: 'print',
+                footer: true,
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4]
                 }
-            },
-
+            }
         ],
         drawCallback: function() {
             var api = this.api();
