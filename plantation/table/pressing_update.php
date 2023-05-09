@@ -23,11 +23,12 @@ $output = '
 <table class="table table-bordered" id="rubber-table">
     <thead>
         <tr>
-            <th scope="col" width="22%">Quality</th>
+            <th scope="col" width="15%">Quality</th>
             <th scope="col" width="20%">Kilo Per Bale</th>
             <th scope="col">Weight (kg)</th>
             <th scope="col">No. of Bale</th>
             <th scope="col">Excess</th>
+            <th scope="col" width="22%">Description</th>
         </tr>
     </thead>
     <tbody>';
@@ -68,6 +69,7 @@ $output = '
                         <span class="input-group-text">kg</span>
                     </div>
                 </td>
+                <td ><input type="text" class="form-control" name="description[]" autocomplete="off" step="any" style="border:1;"  /> </td>
             </tr>';
         }
     }
