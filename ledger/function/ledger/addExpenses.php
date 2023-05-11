@@ -7,13 +7,15 @@ function removeCharacters($string)
     return $string;
 }
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['add'])) {
     $date = $_POST['date'];
     $vouch = removeCharacters($_POST['voucher']);
-    $particular = $_POST['particulars'];
+    $particular = $_POST['particular'];
     $category = $_POST['category'];
-    $modetransac = $_POST['modeTransact'];
+    $modetransac = $_POST['mode_transaction'];
     $remark = $_POST['remarks'];
+    $type = $_POST['type'];
+    $location = $_POST['location'];
     $amount = str_replace(',', '', $_POST['amount']);
 
     // Check if the selected category already exists in the database
@@ -28,8 +30,8 @@ if (isset($_POST['submit'])) {
     }
 
     // Insert the expense into the database
-    $query = "INSERT INTO ledger_expenses (date,voucher_no,particulars,category,mode_transact,remarks,amount) 
-              VALUES ('$date','$vouch','$particular','$category','$modetransac','$remark','$amount')";
+    $query = "INSERT INTO ledger_expenses (date,voucher_no,particulars,category,mode_transact,remarks,amount,location,type_expense) 
+              VALUES ('$date','$vouch','$particular','$category','$modetransac','$remark','$amount','$location','$type')";
     $results = mysqli_query($con, $query);
 
     if ($results) {

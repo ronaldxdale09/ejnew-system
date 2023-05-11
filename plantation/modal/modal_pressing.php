@@ -27,24 +27,41 @@
                             <label class="form-label">Lot No.</label>
                             <input type="text" class="form-control" name="lot_no" id="press_u_lot" readonly>
                         </div>
-                    </div>
-
-                    <hr>
-                    <div id='pressing_modal_update_table'></div>
-                    <hr>
-
+                    </div> <br>
                     <div class="row mb-3">
-                        <div class="col" hidden>
+                        <div class="col">
                             <label class="form-label">Entry Weight</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" name='entry_weight' id="press_u_entry" readonly>
+                                <input type="text" class="form-control text-center" name='entry_weight'
+                                    id="press_u_entry" readonly>
                                 <span class="input-group-text">kg</span>
                             </div>
                         </div>
-                        <!-- <div class="col">
+
+                        <div class="col">
+                            <label class="form-label">Crumbed Weight</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control text-center" id="press_u_crumbed_weight"
+                                    readonly>
+                                <span class="input-group-text">kg</span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Dry Weight</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control text-center" id="press_u_dry_weight" readonly>
+                                <span class="input-group-text">kg</span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div id='pressing_modal_update_table'></div>
+                    <hr>
+                    <div class="row mb-3">
+                        <div class="col">
                             <label class="form-label">Total Weight</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="press_a_total_weight" readonly>
+                                <input type="text" style='font-size:19px'class="form-control text-center" id="press_u_total_weight" readonly>
                                 <span class="input-group-text">kg</span>
                             </div>
                         </div>
@@ -52,17 +69,16 @@
                             <label class="form-label">DRC</label>
 
                             <div class="input-group">
-                                <input type="text" class="form-control" name="drc" id="press_u_drc"
+                                <input type="text"style='font-size:19px'  class="form-control text-center" name="drc" id="press_u_drc"
                                     style='text-align:right' readonly>
-                                <span class="input-group-text"></span>
+                                <span class="input-group-text">%</span>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
             </div>
             <div class=" modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
-                <button type="submit" name="pressing_update"
-                    class="btn btn-success">Update</button>
+                <button type="submit" name="pressing_update" class="btn btn-success">Update</button>
                 </form>
             </div>
         </div>

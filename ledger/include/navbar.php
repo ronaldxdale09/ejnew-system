@@ -19,9 +19,6 @@
             <i class='fa-solid fa-money'></i> <span class='nav-text'>Expenses</span>
         </a>
 
-        <a class='nav-link' href='ledger-freight.php'>
-            <i class='fa-solid fa-ship'></i> <span class='nav-text'>Freight Expense</span>
-        </a>
 
         <a class='nav-link' href='ledger-purchase.php'>
             <i class='fa-solid fa-comment-dollar'></i> <span class='nav-text'>Purchases</span>

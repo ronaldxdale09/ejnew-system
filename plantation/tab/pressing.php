@@ -34,7 +34,8 @@
 
 
                 <td class="text-center">
-                    <button type="button" class="btn btn-success btn-sm btnPressUpdate">
+                    <button type="button" data-crumbed='<?php echo $row['crumbed_weight']?>'
+                        data-dry='<?php echo $row['dry_weight']?>' class="btn btn-success btn-sm btnPressUpdate">
                         <i class="fas fa-book"></i></button>
                     <button type="button" class="btn btn-warning btn-sm btnCompletePressing ">
                         <i class="fas fa-chevron-right"> </i> </button>
@@ -71,6 +72,12 @@ $('.btnPressUpdate').on('click', function() {
     $('#press_u_drc').val(data[8]);
     $('#press_u_total_weight').val(data[7]);
 
+    var crumbed = $(this).data('crumbed');
+    var dry = $(this).data('dry');
+
+    $('#press_u_crumbed_weight').val(crumbed ? crumbed : '0 ');
+    $('#press_u_dry_weight').val(dry ? dry : '0 ');
+
 
     function fetch_data() {
 
@@ -83,9 +90,9 @@ $('.btnPressUpdate').on('click', function() {
 
             },
             success: function(data) {
-         
-            $('#pressing_modal_update_table').html(data);
-                    
+
+                $('#pressing_modal_update_table').html(data);
+
             }
         });
     }

@@ -139,7 +139,9 @@ function computeBalesData() {
     $("#weight_Off_Color").val(weightOff_Color.toFixed(2));
 
     // Get entry_weight value
-    var entry_weight = parseFloat($("#entry_weight").val()) || 0;
+
+    var entry_weight = parseFloat($("#press_u_entry").val().replace(/[^0-9.]/g, '')) || 0;
+
 
 
     // Calculate the total weight and rubber_drc
@@ -147,8 +149,15 @@ function computeBalesData() {
     var rubber_drc = (totalWeight / entry_weight) * 100;
 
     // Update the corresponding fields with the calculated values
-    $("#press_a_total_weight").val(totalWeight.toFixed(2));
-    $("#press_u_drc").val(rubber_drc.toFixed(2));
+    $("#press_u_total_weight").val(totalWeight.toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    }));
+    $("#press_u_drc").val(rubber_drc.toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    }));
+
 
     // Log the values for debugging purposes
     console.log('Rubber DRC:', rubber_drc);

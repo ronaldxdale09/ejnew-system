@@ -16,7 +16,7 @@
     <script src="assets/js/numberFormat.js"></script>
     <script src="js/sweetalert2@11.js"></script>
     <title>EJN RUBBER</title>
- 
+
 
 </head>
 <?php 
@@ -29,6 +29,7 @@
     margin-top: 10px;
     margin-left: 20px;
 }
+
 /* #process_supplier[readonly] {
   background-color: #fff;
 }
@@ -41,5 +42,29 @@
   background-color: #fff;
 } */
 
+.logout-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #212529;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    background-color: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    transition: all 0.15s ease-in-out;
+}
 
+.logout-btn:hover {
+    color: #007bff;
+    background-color: rgba(0, 0, 0, 0.075);
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+.logout-btn i {
+    margin-right: 0.5rem;
+}
 </style>
