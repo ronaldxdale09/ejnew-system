@@ -48,16 +48,14 @@
             </h6>
 
             <div class="table-responsive">
-                <table class="table" id='bales_table'>
-                    <?php
-                                    $record  = mysqli_query($con, "SELECT * from bales_transaction  WHERE loc='$loc' ORDER BY id DESC  "); ?>
-                    <thead class="table-dark" style='font-size:15px'>
+                <table class="table table-striped table-hover table-bordered" id="bales_table">
+                    <thead class="table-dark">
                         <tr>
                             <th scope="col">Invoice</th>
                             <th scope="col">Date</th>
                             <th scope="col">Contract</th>
                             <th scope="col">Seller</th>
-                             <th scope="col">LOT #</th>
+                            <th scope="col">LOT #</th>
                             <th scope="col">Entry Weight</th>
                             <th scope="col">Net Weight</th>
                             <th scope="col">First Price</th>
@@ -67,29 +65,27 @@
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
-                    <tbody style='font-size:17px'> <?php while ($row = mysqli_fetch_array($record)) { ?> <tr>
-                            <td scope="row"> <?php echo $row['id']?> </td>
-                            <td> <?php echo date("F j, Y", strtotime($row['date']))?> </td>
-
-                            <td> <?php echo $row['contract']?> </td>
-                            <td> <?php echo $row['seller']?> </td>
-                              <td> <?php echo $row['lot_code']?> </td>
-                            <td> <?php echo number_format($row['entry'])?> Kg</td>
-                            <td> <?php  
-                                        $total_weight = $row['net_weight_1'] +  $row['net_weight_2'];          
-                                        echo number_format($total_weight);?> Kg </td>
-
-                            <td>₱ <?php echo number_format($row['price_1'],2)?> </td>
-                            <td>₱ <?php echo number_format($row['price_2'],2)?> </td>
-                            <td>₱ <?php echo number_format($row['less'],2)?> </td>
-                            <td>₱ <?php echo number_format(($row['amount_paid']),2); ?> </td>
-
-
-                            <td> <button type="button" class="btn btn-dark btnView"><i class="fa fa-eye"></i></button>
+                    <tbody>
+                        <?php while ($row = mysqli_fetch_array($record)) { ?>
+                        <tr>
+                            <td scope="row"><?php echo $row['id'] ?></td>
+                            <td><?php echo date("F j, Y", strtotime($row['date'])) ?></td>
+                            <td><?php echo $row['contract'] ?></td>
+                            <td><?php echo $row['seller'] ?></td>
+                            <td><?php echo $row['lot_code'] ?></td>
+                            <td><?php echo number_format($row['entry']) ?> Kg</td>
+                            <td><?php echo number_format($row['net_weight_1'] + $row['net_weight_2']) ?> Kg</td>
+                            <td>₱ <?php echo number_format($row['price_1'], 2) ?></td>
+                            <td>₱ <?php echo number_format($row['price_2'], 2) ?></td>
+                            <td>₱ <?php echo number_format($row['less'], 2) ?></td>
+                            <td>₱ <?php echo number_format($row['amount_paid'], 2) ?></td>
+                            <td>
+                                <button type="button" class="btn btn-dark btnView"><i class="fa fa-eye"></i></button>
                                 <button type="button" class="btn btn-danger btnBalesDelete"><i
                                         class="fa fa-trash"></i></button>
                             </td>
-                        </tr> <?php } ?>
+                        </tr>
+                        <?php } ?>
                     </tbody>
                     <tfoot>
                         <th></th>
@@ -104,7 +100,6 @@
                         <th></th>
                         <th></th>
                     </tfoot>
-
                 </table>
             </div>
             <!-- END CONTENT -->

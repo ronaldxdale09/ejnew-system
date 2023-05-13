@@ -23,11 +23,11 @@
             <!-- CONTENT -->
             <div class="row">
                 <div class="col-4">
-   <h4><b> WET RECORD </b></h4>
+                    <h4><b> WET RECORD </b></h4>
                 </div>
-      
+
                 <div class="col">
-                <div class="form-group">
+                    <div class="form-group">
                         <select class='form-select' id='wet_seller_filter'>
                             <option disabled="disabled" selected>Select Supplier </option>
                             <option value=''>All</option>
@@ -36,7 +36,7 @@
                         </select>
                     </div>
                 </div>
-               
+
                 <div class="col-3">
                     <input type="text" id="min1" name="min" class="form-control" placeholder="From Date" />
                 </div>
@@ -84,12 +84,16 @@
 
 
                             <td>₱ <?php echo number_format(($row['amount_paid'] )); ?> </td>
-                            <td> <button type="button" class="btn btn-dark wetBtnView"><i class="fa fa-eye"></i></button>
-                                <button type="button" class="btn btn-danger btnWetDelete"><i
-                                        class="fa fa-trash"></i></button>
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-dark btn-sm btnView"><i
+                                            class="fa fa-eye"></i></button>
+                                    <button type="button" class="btn btn-danger btn-sm btnBalesDelete"><i
+                                            class="fa fa-trash"></i></button>
+                                </div>
                             </td>
                         </tr> <?php } ?> </tbody>
-                        <tfoot>
+                    <tfoot>
                         <th></th>
                         <th></th>
                         <th></th>
