@@ -40,7 +40,6 @@ $expense_year = mysqli_fetch_array($getYearTotal);
     </div>
 </body>
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.12.1/api/sum().js"></script>
-<script src="ledgerTab/js/expenses.js"></script>
 
 
 </html>

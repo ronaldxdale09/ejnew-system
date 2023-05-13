@@ -328,42 +328,51 @@ if ($bales_inventory->num_rows > 0) {
 }
 ?>
 
-new Chart(inventory_bales, {
-    options: {
-        plugins: {
-            title: {
-                display: true,
-                text: 'Bale Inventory (Pieces)',
-                font: {
-                    size: 20,
-                    weight: 'bold'
-                }
-            },
-            legend: {
-                position: 'left',
-                labels: {
+<?php
+$bales_labels_json = json_encode($bales_labels);
+$bales_values_json = json_encode($bales_values);
+?>
+
+if(<?php echo ($bales_labels_json && $bales_values_json) ? 'true' : 'false' ?>) {
+    new Chart(inventory_bales, {
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Bale Inventory (Pieces)',
                     font: {
-                        size: 14
+                        size: 20,
+                        weight: 'bold'
+                    }
+                },
+                legend: {
+                    position: 'left',
+                    labels: {
+                        font: {
+                            size: 14
+                        }
                     }
                 }
-            }
+            },
+            maintainAspectRatio: false,
+            aspectRatio: 1.5
         },
-        maintainAspectRatio: false,
-        aspectRatio: 1.5
-    },
-
-    type: 'doughnut',
-    data: {
-        labels: <?php echo json_encode($bales_labels) ?>,
-        datasets: [{
-            label: 'Purchased',
-            data: <?php echo json_encode($bales_values) ?>,
-            backgroundColor: ['#C42F1A', '#567417', '#90C226', '#E6B91E', '#CE5504'],
-            tension: 0.3,
-            fill: false
-        }]
-    },
-});
+    
+        type: 'doughnut',
+        data: {
+            labels: <?php echo $bales_labels_json ?>,
+            datasets: [{
+                label: 'Purchased',
+                data: <?php echo $bales_values_json ?>,
+                backgroundColor: ['#C42F1A', '#567417', '#90C226', '#E6B91E', '#CE5504'],
+                tension: 0.3,
+                fill: false
+            }]
+        },
+    });
+} else {
+    console.error("Error: bales_labels or bales_values is empty.");
+}
 
 <?php
 $milling_data = mysqli_query($con, "SELECT SUM(crumbed_weight) AS total_weight, MONTH(milling_date) AS month FROM planta_recording_logs

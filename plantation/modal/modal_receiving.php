@@ -1,6 +1,6 @@
 <?php
 
-$sql = "SELECT  id, seller FROM rubber_transaction where planta_status =1";
+$sql = "SELECT  id, seller FROM rubber_transaction where planta_status =1 and supplier_type=0";
 $result = mysqli_query($con, $sql);
 $listPurchased = '';
 while ($arr = mysqli_fetch_assoc($result)) {
@@ -35,6 +35,8 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                             name='purchased_id' id='r_select_purchase'>
                                             <option disabled="disabled" selected="selected" value="">Select Invoice
                                             </option>
+                                            <option value="0">EJN RUBBER </option>
+                                            <option value="-1">RUBBER TO PROCESS </option>
                                             <?php echo $listPurchased; ?>
                                         </select>
                                     </div>
@@ -105,17 +107,30 @@ while ($arr = mysqli_fetch_assoc($result)) {
                         </div>
                         <br>
                         <hr>
-            
+
                         <div class="form-group">
                             <div class="form-group">
                                 <center style="margin: 0px 60px;">
                                     <div class="row no-gutters">
                                         <div class="col">
                                             <div class="input-group mb-12">
-                                                <label class="col-md-12">Entry Weight</label>
+                                                <label class="col-md-12">Total Purchase Cost</label>
+                                                <span class="input-group-text">₱</span>
+                                                <input type="text" style='text-align:right' name='total_cost'
+                                                    id='purchase_total_cost' readonly class="form-control">
+                                                <div class="input-group-append">
 
-                                                <input type="text" style='text-align:right' name='weight' id='r_weight'
-                                                    readonly class="form-control">
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="input-group mb-12">
+                                                <label class="col-md-12">Buying Weight</label>
+
+                                                <input type="text" style='text-align:right' name='weight'
+                                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
+                                                    id='r_weight' readonly class="form-control">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">kg</span>
                                                 </div>
@@ -164,9 +179,10 @@ while ($arr = mysqli_fetch_assoc($result)) {
                 </button>
             </div>
             <div class="modal-body">
-                <form action="function/update_receiving_function.php" method="POST">
+                <form action="function/receiving_function.php" method="POST">
                     <!-- ... START -->
-
+                    <input type="text" style='text-align:left' name='recording_id' id='ru_recording_id'
+                        class="form-control" hidden>
                     <!-- Your form content -->
                     <div class="form-group">
                         <div class="form-group">
@@ -210,7 +226,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                             <div class="row">
                                 <div class="col">
                                     <label for="ru_date">Date and Time</label>
-                                    <input type="datetime-local" style='text-align:left' name='ru_date' id='ru_date'
+                                    <input type="text" style='text-align:left' name='ru_date' id='ru_date' readonly
                                         value='' class="form-control"
                                         style='background-color:white;border:0px solid #ffffff;'>
                                 </div>
@@ -265,16 +281,16 @@ while ($arr = mysqli_fetch_assoc($result)) {
                         </div>
                     </div>
             </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" name='update' class="btn btn-success text-white">Submit</button>
-            </form>
 
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" name='update' class="btn btn-success text-white">Submit</button>
+                </form>
+
+            </div>
         </div>
     </div>
 </div>
-
 <div class="modal fade" id="modal_transMil" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">

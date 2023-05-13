@@ -3,9 +3,14 @@
     
     //TRANSFER FROM RECEIVING TO MILLING
     if (isset($_POST['milling'])) {
+        if (!isset($_POST['recording_id'])) {
+            echo "Error: recording_id is not set.";
+            exit();
+        }
+    
         $id = $_POST['recording_id'];
         $query = "UPDATE `planta_recording` SET `status`='Milling',`milling_date`=NOW() WHERE recording_id='$id'";
-                             
+                                 
         if(mysqli_query($con, $query)) {  
             header("Location: ../recording.php?tab=2");
             exit();
@@ -13,6 +18,7 @@
             echo "ERROR: Could not execute $query. " . mysqli_error($con); 
         }  
     }
+    
 
 
 
@@ -84,42 +90,6 @@
                              
         if(mysqli_query($con, $query)) {  
 
-            //EDITS: ADD DB FOR BUYER AND CHANGE QUALITY
-            //QUALITY: '5L','SPR-5', 'SPR-10', 'SPR-20','Off Color'
-            //          For now, SPR-20 muna ang 33.33 kasi di pa sure
-            //BUYERS:     Local: 'Althea', 'Best Rubber', 'CERMATEX', 'Crown', 'Dunlop', 'JMR', 'Johnson', 'Jovita Ocampo', 'Manhattan', 'MBH', 'MBP STAR', 'Showa'
-            //            Export:     Malaysia but dollars: 'Tionghuat'
-            //                        Europe but dollars: 'Vitry-Middle East'
-
-            // Define an array of rubber types
-        $rubberTypes = [ '5L','SPR-5', 'SPR-10', 'SPR-20','Off Color'];
-
-        // Loop over the rubber types and insert the data into the database
-        foreach ($rubberTypes as $type) {
-            // Set the default values to 0
-       
-            $weight = 0;
-            $bale_num = 0;
-            $excess = 0;
-
-            // Set the kilo_per_bale value based on the rubber type
-            $kilo_bale = ($type === 'SPR-20') ? 33.33 : 35;
-
-            // Insert the data into the database using the appropriate SQL statement
-            $sql = "INSERT INTO planta_bales_production (recording_id, bales_type, kilo_per_bale, rubber_weight, number_bales, bales_excess, status) 
-                    VALUES ('$id', '$type', '$kilo_bale', '$weight', '$bale_num', '$excess', 'Production')";
-
-            // Execute the SQL statement
-            $result = mysqli_query($con, $sql);
-            if (!$result) {
-                die('Error inserting data: ' . mysqli_error($con));
-            }
-        }
-
-
-
-
-
             header("Location: ../recording.php?tab=4");
             exit();
         } else {  
@@ -127,20 +97,37 @@
         }  
     }
 
-      // UPDATE DRY WEIGHT IN MILLING
-      if (isset($_POST['press_transfer'])) {
+    if (isset($_POST['press_transfer'])) {
         $id = $_POST['recording_id'];
-  
-
-        $query = "UPDATE `planta_recording` SET `status`='Produced' WHERE recording_id='$id'";
-                             
-        if(mysqli_query($con, $query)) {  
-            header("Location: ../recording.php?tab=5");
-            exit();
-        } else {  
-            echo "ERROR: Could not execute $query. " . mysqli_error($con); 
-        }  
+    
+        // Fetch the prod_type for the given recording_id
+        $query_fetch = "SELECT prod_type FROM planta_recording WHERE recording_id='$id'";
+        $result = mysqli_query($con, $query_fetch);
+    
+        if($result){
+            $row = mysqli_fetch_assoc($result);
+            $prod_type = $row['prod_type'];
+    
+            // Based on prod_type, decide the status to set
+            $status = 'Produced';  // Default status
+            if($prod_type == 'PURCHASE') {
+                $status = 'For Purchase';
+            }
+    
+            // Update the status
+            $query_update = "UPDATE `planta_recording` SET `status`='$status' WHERE recording_id='$id'";
+    
+            if(mysqli_query($con, $query_update)) {  
+                header("Location: ../recording.php?tab=5");
+                exit();
+            } else {  
+                echo "ERROR: Could not execute $query_update. " . mysqli_error($con); 
+            }
+        } else {
+            echo "ERROR: Could not execute $query_fetch. " . mysqli_error($con);
+        }
     }
+    
 
 
 

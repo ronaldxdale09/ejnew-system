@@ -80,6 +80,20 @@ $year = date("Y");
 $today = $year . "-" . $month . "-" . $day;
 }
 ?>
+<style>
+.border-box {
+    border: 1px solid #000;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.big-checkbox .form-check-input {
+    transform: scale(1.5);
+    /* Adjust size as needed */
+}
+</style>
 
 <body>
 
@@ -171,12 +185,29 @@ $today = $year . "-" . $month . "-" . $day;
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-md-12">Seller </label>
-                                                <select class='select_seller col-md-10' name='name' id='name'>
-                                                    <option disabled="disabled" selected="selected">Select Seller
-                                                    </option>
-                                                    <?php echo $sellerList; ?>
-                                                </select>
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <label class="col-md-12">Seller </label>
+                                                        <select class='select_seller col-md-10' name='name' id='name'>
+                                                            <option disabled="disabled" selected="selected">Select
+                                                                Seller
+                                                            </option>
+                                                            <?php echo $sellerList; ?>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col ">
+                                                        <label class="col-md-12"> </label>
+                                                        <div class="form-check big-checkbox  ">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                id='supplier_check'>
+                                                            <label class="form-check-label" for="exampleCheckbox">
+                                                                <b>EJN
+                                                                    RUBBER </b></label>
+                                                            <input type="text" name='supplier_type' id='supplier_type' hidden>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <!-- select seller -->
                                             <div class="form-group">
@@ -526,7 +557,14 @@ $today = $year . "-" . $month . "-" . $day;
 
 </html>
 
-
+<script>
+$(document).ready(function() {
+    $('#supplier_check').on('change', function() {
+        var supplierType = $(this).prop('checked') ? "1" : "0";
+        $('#supplier_type').val(supplierType);
+    });
+});
+</script>
 
 <?php
 

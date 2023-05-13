@@ -1,151 +1,169 @@
 <?php  
 include('../function/db.php');
 
-// Report all PHP errors
-error_reporting(E_ALL);
-
-// Display errors
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-
-
-
 $recording_id = $_POST['recording_id'];
- 
 
-$sql  = "SELECT * from planta_bales_production
-WHERE recording_id='$recording_id' "; 
-$output='';
+// Query to get the bale info from the database
+$query = "SELECT * FROM planta_bales_production WHERE recording_id = '$recording_id'";
+$result = mysqli_query($con, $query);
 
+// Check if the query was successful
+if(!$result) {
+    die('Query Failed: ' . mysqli_error($con));
+}
 
-$result = mysqli_query($con, $sql);  
+$rubberTypes = ['5L', 'SPR-5', 'SPR-10', 'SPR-20', 'Off Color'];
 $output = '
 <table class="table table-bordered" id="rubber-table">
     <thead>
         <tr>
             <th scope="col" width="15%">Quality</th>
-            <th scope="col" width="20%">Kilo Per Bale</th>
+            <th scope="col" width="15%">Kilo Per Bale</th>
             <th scope="col">Weight (kg)</th>
             <th scope="col">No. of Bale</th>
             <th scope="col">Excess</th>
-            <th scope="col" width="22%">Description</th>
+            <th scope="col" width="22%">Description (Buyer)</th>
+            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>';
 
-    if(mysqli_num_rows($result) > 0)  
-    {  
-         while($arr = mysqli_fetch_array($result))  
-         {  
-   
+    // Fetch the data from the database and output each row
+    while($row = mysqli_fetch_assoc($result)) {
+        $output .= "<tr>";
 
-
-
-            $output .= '
-            <tr>
-                <td ><input type="text" class="form-control" name="type[]" autocomplete="off" step="any"
-                    value="'.$arr["bales_type"].'" style="border:none;" readonly /> </td>
-                <td>
-                    <div class="input-group">
-                        <input type="text" readonly class="form-control kilo_bale" name="kilo_bale_'.str_replace(['-', ' '], '_', $arr['bales_type']).'" id="kilo_bale_'.str_replace(['-', ' '], '_', $arr['bales_type']).'"  value="'.$arr["kilo_per_bale"].' kg" ">
-                    </div>
-                </td>
-                <td>
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="weight_'.str_replace(['-', ' '], '_', $arr['bales_type']).'" id="weight_'.str_replace(['-', ' '], '_', $arr['bales_type']).'" value="'.$arr["rubber_weight"].'"
-                            onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" readonly>
-                    </div>
-                </td>
-                <td>
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="bale_num_'.str_replace(['-', ' '], '_', $arr['bales_type']).'" id="bale_num_'.str_replace(['-', ' '], '_', $arr['bales_type']).'" value="'.$arr["number_bales"].'"
-                            onkeypress="return CheckNumeric()"  onkeyup="FormatCurrency(this)">
-                    </div>
-                </td>
-                <td>
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="excess_'.str_replace(['-', ' '], '_', $arr['bales_type']).'" id="excess_'.str_replace(['-', ' '], '_', $arr['bales_type']).'" value="'.$arr["bales_excess"].'"
-                            onkeypress="return CheckNumeric()"  onkeyup="FormatCurrency(this)">
-                        <span class="input-group-text">kg</span>
-                    </div>
-                </td>
-                <td ><input type="text" class="form-control" name="description[]" autocomplete="off" step="any" style="border:1;"  /> </td>
-            </tr>';
+        $output .= '<td><select class="form-control type" name="type[]" autocomplete="off" step="any">';
+        foreach ($rubberTypes as $type) {
+            if ($type == $row['bales_type']) {
+                $output .= '<option selected="selected" value="'.$type.'">'.$type.'</option>';
+            } else {
+                $output .= '<option value="'.$type.'">'.$type.'</option>';
+            }
         }
+        $output .= '</select></td>';
+
+        $output .= '<td><select class="form-control kilo_bale" name="kilo_bale[]">';
+        $kiloBales = ['35', '33.33'];
+        foreach ($kiloBales as $kilo) {
+            if ($kilo == $row['kilo_per_bale']) {
+                $output .= '<option selected="selected" value="'.$kilo.'">'.$kilo.' kg</option>';
+            } else {
+                $output .= '<option value="'.$kilo.'">'.$kilo.' kg</option>';
+            }
+        }
+        $output .= '</select></td>';
+
+        $output .= '<td><input type="text" class="form-control weight" name="weight[]" readonly value="'.$row['rubber_weight'].'"></td>';
+        $output .= '<td><input type="text" class="form-control bale_num" name="bale_num[]" value="'.$row['number_bales'].'"></td>';
+        $output .= '<td>
+            <div class="input-group">
+                <input type="text" class="form-control excess" name="excess[]" value="'.$row['bales_excess'].'">
+                <span class="input-group-text">kg</span>
+            </div>
+        </td>';
+        $output .= '<td><input type="text" class="form-control" name="description[]" value="'.$row['description'].'"></td>';
+        $output .= '<td><button class="btn btn-danger removeRow"><i class="fas fa-trash"></i></button></td>';
+
+        $output .= "</tr>";
     }
 
 $output .= '
     </tbody>
-</table>';
+</table>
+<button class="btn btn-warning" type="button" id="addRow">Add Bale Production</button>
+';
 
 echo $output;
- ?>
+?>
+<script>
+$(document).ready(function() {
+    var counter = 0;
+    var rubberTypes = <?php echo json_encode($rubberTypes); ?>;
+    $("#addRow").on("click", function() {
+        var selectOptions = rubberTypes.map(function(type) {
+            return '<option value="' + type + '">' + type + '</option>';
+        }).join('');
 
+        var newRow = $('<tr>' +
+                '<td>' +
+                '<select class="form-control type" name="type[]" autocomplete="off" step="any">' +
+                selectOptions + '</select>' +
+                '</td>' +
+                '<td>' +
+                '<div class="input-group">' +
+                '<select class="form-control kilo_bale" name="kilo_bale[]" id="kilo_bale_new' + counter + '">' +
+                '<option value="35">35 kg</option>' +
+                '<option value="33.33">33.33 kg</option>' +
+                '</select>' +
+                '</div>' +
+                '</td>' +
+                '<td>' +
+                '<div class="input-group">' +
+                '<input type="text" class="form-control weight" name="weight[]" id="weight_new' + counter +
+                '" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" readonly>' +
+                '</div>' +
+                '</td>' +
+                '<td>' +
+                '<div class="input-group">' +
+                '<input type="text" class="form-control bale_num" name="bale_num[]" id="bale_num_new' + counter +
+                '" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">' +
+                '</div>' +
+                '</td>' +
+                '<td>' +
+                '<div class="input-group">' +
+                '<input type="text" class="form-control excess" name="excess[]" id="excess_new' + counter +
+                '" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">' +
+                '<span class="input-group-text">kg</span>' +
+                '</div>' +
+                '</td>' +
+                '<td>' +
+                '<input type="text" class="form-control" name="description[]" autocomplete="off" step="any">' +
+                '</td>' +
+                '<td><button class="btn btn-danger removeRow"><i class="fas fa-trash"></i></button></td>' +
+                '</tr>');
+        counter++;
+        $("#rubber-table tbody").append(newRow);
+
+        
+    });
+
+    // Remove row on click
+    $(document).on("click", ".removeRow", function() {
+        event.preventDefault();
+
+        row = $(this).closest("tr");
+        row.remove();
+
+        calculateTotals();
+    });
+});
+</script>
 
 
 <script>
-$("#bale_num_5L, #bale_num_SPR_5, #bale_num_SPR_10, #bale_num_SPR_20, #bale_num_Off_Color").keyup(function() {
-    computeBalesData();
-});
-
-$("#excess_5L, #excess_SPR_5, #excess_SPR_10, #excess_SPR_20, #excess_Off_Color").keyup(function() {
-    computeBalesData();
-});
-
-function computeBalesData() {
-    // Helper function to remove commas from a string
-    function removeCommas(str) {
-        return str.replace(/,/g, '');
-    }
-    // Helper function to remove "kg" from a string
-    function removeKg(str) {
-        return str.replace(/kg/g, '').trim();
-    }
-    // Get kilo_per_bale values
-    var kiloBale5L = parseFloat(removeCommas(removeKg($("#kilo_bale_5L").val()))) || 0;
-    var kiloBaleSPR_5 = parseFloat(removeCommas(removeKg($("#kilo_bale_SPR_5").val()))) || 0;
-    var kiloBaleSPR_10 = parseFloat(removeCommas(removeKg($("#kilo_bale_SPR_10").val()))) || 0;
-    var kiloBaleSPR_20 = parseFloat(removeCommas(removeKg($("#kilo_bale_SPR_20").val()))) || 0;
-    var kiloBaleOff_Color = parseFloat(removeCommas(removeKg($("#kilo_bale_Off_Color").val()))) || 0;
-
-    // Get bale_num values
-    var baleNum5L = parseFloat(removeCommas($("#bale_num_5L").val())) || 0;
-    var baleNumSPR_5 = parseFloat(removeCommas($("#bale_num_SPR_5").val())) || 0;
-    var baleNumSPR_10 = parseFloat(removeCommas($("#bale_num_SPR_10").val())) || 0;
-    var baleNumSPR_20 = parseFloat(removeCommas($("#bale_num_SPR_20").val())) || 0;
-    var baleNumOff_Color = parseFloat(removeCommas($("#bale_num_Off_Color").val())) || 0;
-
-    // Get excess values
-    var excess5L = parseFloat(removeCommas($("#excess_5L").val())) || 0;
-    var excessSPR_5 = parseFloat(removeCommas($("#excess_SPR_5").val())) || 0;
-    var excessSPR_10 = parseFloat(removeCommas($("#excess_SPR_10").val())) || 0;
-    var excessSPR_20 = parseFloat(removeCommas($("#excess_SPR_20").val())) || 0;
-    var excessOff_Color = parseFloat(removeCommas($("#excess_Off_Color").val())) || 0;
+$(document).on("keyup", ".bale_num, .excess", function() {
+    var row = $(this).closest("tr");
+    var kiloBale = parseFloat(row.find(".kilo_bale").val()) || 0;
+    var baleNum = parseFloat(row.find(".bale_num").val().replace(/[^0-9.]/g, '')) || 0;
+    var excess = parseFloat(row.find(".excess").val().replace(/[^0-9.]/g, '')) || 0;
 
     // Compute and update the weight values
-    var weight5L = baleNum5L * kiloBale5L + excess5L;
-    $("#weight_5L").val(weight5L.toFixed(2));
+    var weight = (baleNum * kiloBale) + excess;
+    row.find(".weight").val(weight.toFixed(2));
 
-    var weightSPR_5 = baleNumSPR_5 * kiloBaleSPR_5 + excessSPR_5;
-    $("#weight_SPR_5").val(weightSPR_5.toFixed(2));
+    // Calculate total weight and rubber_drc
+    calculateTotals();
+});
 
-    var weightSPR_10 = baleNumSPR_10 * kiloBaleSPR_10 + excessSPR_10;
-    $("#weight_SPR_10").val(weightSPR_10.toFixed(2));
 
-    var weightSPR_20 = baleNumSPR_20 * kiloBaleSPR_20 + excessSPR_20;
-    $("#weight_SPR_20").val(weightSPR_20.toFixed(2));
-
-    var weightOff_Color = baleNumOff_Color * kiloBaleOff_Color + excessOff_Color;
-    $("#weight_Off_Color").val(weightOff_Color.toFixed(2));
-
-    // Get entry_weight value
-
+function calculateTotals() {
+    var totalWeight = 0;
     var entry_weight = parseFloat($("#press_u_entry").val().replace(/[^0-9.]/g, '')) || 0;
 
+    $(".weight").each(function() {
+        totalWeight += parseFloat($(this).val().replace(/[^0-9.]/g, '')) || 0;
+    });
 
-
-    // Calculate the total weight and rubber_drc
-    var totalWeight = weight5L + weightSPR_5 + weightSPR_10 + weightSPR_20 + weightOff_Color;
     var rubber_drc = (totalWeight / entry_weight) * 100;
 
     // Update the corresponding fields with the calculated values
@@ -153,14 +171,10 @@ function computeBalesData() {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
     }));
+
     $("#press_u_drc").val(rubber_drc.toLocaleString("en-US", {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
     }));
-
-
-    // Log the values for debugging purposes
-    console.log('Rubber DRC:', rubber_drc);
-    console.log('Total Weight:', totalWeight);
 }
 </script>

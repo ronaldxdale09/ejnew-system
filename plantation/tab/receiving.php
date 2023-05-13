@@ -77,23 +77,25 @@ $('.btnUpdateReceiving').on('click', function() {
     var data = $tr.children("td").map(function() {
         return $(this).text();
     }).get();
-    $('#ru_receving_id').val(data[1]);
-    $('#ru_date').val(data[2]);
+    $('#ru_recording_id').val(data[1]);
+    var date = data[2];
+    var TformatDate = date.replace(" ", "T").substring(0, 16); // Adjusted this line
+    // Now TformatDate should be something like '2023-05-12T08:45'
+
+    console.log(date);
+    $('#ru_date').val(date);
     $('#ru_supplier').val(data[3]);
     $('#ru_location').val(data[4]);
     $('#ru_lot_num').val(data[5]);
     $('#ru_driver').val(data[6]);
     $('#ru_truck_num').val(data[7]);
-    
 
 
-    $('#ru_weight').val(data[8].toLocaleString());
-    $('#ru_reweight').val(data[9]);
+    $('#ru_weight').val(data[8].toString().replace(/\D/g, ''));
+    $('#ru_reweight').val(data[9].toString().replace(/\D/g, ''));
 
     $('#updateReceiving').modal('show');
 });
-
-
 </script>
 
 

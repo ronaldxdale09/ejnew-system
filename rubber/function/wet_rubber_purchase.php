@@ -6,6 +6,8 @@ $loc = $_SESSION["loc"];
 $date = $_POST['m_date'];
 $address = $_POST['m_address'];
 $contract = $_POST['m_contract'];
+$supplier_type = $_POST['m_supplier_type'];
+
 $seller = $_POST['m_name'];
 $gross = str_replace(',', '', $_POST['m_gross']);
 $tare = str_replace(',', '', $_POST['m_tare']);
@@ -49,8 +51,8 @@ $query = "UPDATE rubber_seller SET cash_advance = '$total_ca' WHERE name='$selle
 $results = mysqli_query($con, $query);
 
 // Insert into rubber_transaction
-$query = "INSERT INTO rubber_transaction (contract, date, address, seller, gross, tare, net_weight, price_1, price_2, total_weight_1, total_weight_2, total_amount, less, amount_paid, amount_words, type, loc, planta_status)
-VALUES ('$contract', '$date', '$address', '$seller', '$gross', '$tare', '$net_weight', '$first_price', '$sec_price', '$weight_1', '$weight_2', '$total_amount', '$less', '$amount_paid', '$words_amount', 'WET', '$loc', '1')";
+$query = "INSERT INTO rubber_transaction (contract, date, address, seller, gross, tare, net_weight, price_1, price_2, total_weight_1, total_weight_2, total_amount, less, amount_paid, amount_words, type, loc, planta_status,supplier_type)
+VALUES ('$contract', '$date', '$address', '$seller', '$gross', '$tare', '$net_weight', '$first_price', '$sec_price', '$weight_1', '$weight_2', '$total_amount', '$less', '$amount_paid', '$words_amount', 'WET', '$loc', '1','$supplier_type')";
 
 if (mysqli_query($con, $query)) {
     $last_id = $con->insert_id;

@@ -81,7 +81,7 @@ $('.btnMilTransfer').on('click', function() {
     $('#trans_mill_crumbed_weight').val(data[7]);
 
     crumbed_weight = parseFloat((data[7]).match(/[\d]+(\.[\d]+)?/)[0]);
-
+    if (crumbed_weight === 0) {
     Swal.fire({
         title: 'Proceed with zero crumb weight?',
         confirmButtonText: 'Update',
@@ -96,6 +96,23 @@ $('.btnMilTransfer').on('click', function() {
         </div>
     `
     });
+}
+else {
+    Swal.fire({
+        title: 'Transfer to Drying',
+        confirmButtonText: 'Update',
+        confirmButtonColor: '#3085d6',
+        showConfirmButton: false,
+        html: ` <br> <br>
+        <div class="text-center">
+           
+            <button id="updateButton" class="btn btn-success mr-2">Update</button>
+            <button id="proceedButton" class="btn btn-warning mr-2">Proceed</button>
+            <button id="closeButton" class="btn btn-secondary">Close</button>
+        </div>
+    `
+    });  
+}
 
     // Add a click event listener to the "Proceed" button
     document.getElementById('proceedButton').addEventListener('click', function() {

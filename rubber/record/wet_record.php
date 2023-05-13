@@ -69,7 +69,8 @@
                     </thead>
                     <tbody style='font-size:17px'> <?php while ($row = mysqli_fetch_array($record)) { ?> <tr>
                             <td scope="row"> <?php echo $row['id']?> </td>
-                            <td> <?php echo $row['date']?> </td>
+                            <td> <?php echo date("F j, Y", strtotime($row['date']))?> </td>
+
                             <td> <?php echo $row['contract']?> </td>
                             <td> <?php echo $row['seller']?> </td>
                             <td>₱ <?php echo number_format($row['price_1'])?> </td>

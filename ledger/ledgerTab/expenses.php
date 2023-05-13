@@ -1,5 +1,3 @@
-
-
 <style>
 @media (max-width: 768px) {
     .adjustable-size {
@@ -8,8 +6,6 @@
         bottom: 0;
     }
 }
-
-
 </style>
 <div class="row">
 
@@ -22,7 +18,7 @@
 
                 </h2>
                 <div>
-                  
+
                 </div>
             </div>
             <div class="stat-card__icon stat-card__icon--success">
@@ -39,10 +35,11 @@
 
                 <p class="text-uppercase mb-1 text-muted">EXPENSES THIS MONTH ( <?php echo date("F ") ; ?>)</p>
                 <h2><i class="text-danger font-weight-bold mr-1"></i>
-                    ₱ <?php echo number_format(empty($expense_month['month_total']) ? 0 : $expense_month['month_total']); ?>
+                    ₱
+                    <?php echo number_format(empty($expense_month['month_total']) ? 0 : $expense_month['month_total']); ?>
 
                 </h2>
-              
+
 
 
             </div>
@@ -62,7 +59,7 @@
                 <h2><i class="text-danger font-weight-bold mr-1"></i>
                     ₱ <?php echo number_format(empty($expense_year['year_total']) ? 0 : $expense_year['year_total']); ?>
                 </h2>
-           
+
             </div>
             <div class="stat-card__icon stat-card__icon--warning">
                 <div class="stat-card__icon-circle">
@@ -115,7 +112,7 @@
         <hr>
         <?php
                 $date = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d'); // set $date to the requested date or today's date in yyyy-mm-dd format
-                $results = mysqli_query($con, "SELECT * FROM ledger_expenses WHERE DATE(date) = '$date' ORDER BY id DESC");
+                $results = mysqli_query($con, "SELECT * FROM ledger_expenses  ORDER BY id DESC");
                 ?>
         <!-- expenses table -->
         <div class="table-responsive">
@@ -201,35 +198,107 @@
 </div>
 
 
-<?php
-                // get current date from database or use today's date
-                $current_date = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
+<script>
+$('#addExpense').on('shown.bs.modal', function() {
+    $('.ex_category', this).chosen();
+});
 
-                // check if there is any transaction for the current date
-                $has_transaction_query = "SELECT COUNT(*) FROM ledger_expenses WHERE DATE(date) = ?";
-                $stmt = mysqli_prepare($con, $has_transaction_query);
-                mysqli_stmt_bind_param($stmt, 's', $current_date);
-                mysqli_stmt_execute($stmt);
-                mysqli_stmt_bind_result($stmt, $count);
-                mysqli_stmt_fetch($stmt);
-                mysqli_stmt_close($stmt);
+var minDate, maxDate;
 
-                // prepare the previous and next queries
-                $prev_next_query = "SELECT date FROM ledger_expenses WHERE DATE(date) %s ? ORDER BY date %s LIMIT 1";
+// Custom filtering function which will search data in column four between two values
+$.fn.dataTable.ext.search.push(
+    function(settings, data, dataIndex) {
+        var min = minDate.val();
+        var max = maxDate.val();
+        var date = new Date(data[0]);
 
-                // prepare the statement and bind the parameters for previous button
-                $stmt = mysqli_prepare($con, sprintf($prev_next_query, '<', 'DESC'));
-                mysqli_stmt_bind_param($stmt, 's', $current_date);
-                mysqli_stmt_execute($stmt);
-                mysqli_stmt_bind_result($stmt, $prev_date);
-                $prev_exists = mysqli_stmt_fetch($stmt);
-                mysqli_stmt_close($stmt);
+        if (
+            (min === null && max === null) ||
+            (min === null && date < max) ||
+            (min < date && max === null) ||
+            (min < date && date < max)
+        ) {
+            return true;
+        }
+        return false;
+    }
+);
 
-                // prepare the statement and bind the parameters for next button
-                $stmt = mysqli_prepare($con, sprintf($prev_next_query, '>', 'ASC'));
-                mysqli_stmt_bind_param($stmt, 's', $current_date);
-                mysqli_stmt_execute($stmt);
-                mysqli_stmt_bind_result($stmt, $next_date);
-                $next_exists = mysqli_stmt_fetch($stmt);
-                mysqli_stmt_close($stmt);
-                ?>
+$(document).ready(function() {
+    // Create date inputs
+    minDate = new DateTime($('#min'), {
+        format: 'MMMM Do YYYY'
+    });
+    maxDate = new DateTime($('#max'), {
+        format: 'MMMM Do YYYY'
+    });
+    var table = $('#expenses_table').DataTable({
+        dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
+        paging: false,
+        "pageLength": 50,
+
+        order: [
+            [0, 'desc']
+        ],
+        buttons: [{
+                extend: 'excelHtml5',
+                footer: true,
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4]
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                footer: true,
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4]
+                }
+            },
+            {
+                extend: 'print',
+                footer: true,
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4]
+                }
+            }
+        ],
+        drawCallback: function() {
+            var api = this.api();
+            var sum = 0;
+            var formated = 0;
+            //to show first th
+            $(api.column(3).footer()).html('Total');
+
+
+            sum = api.column(4, {
+                page: 'current'
+            }).data().sum();
+
+            //to format this sum
+            formated = parseFloat(sum).toLocaleString(undefined, {
+                minimumFractionDigits: 2
+            });
+            $(api.column(4).footer()).html(formated);
+
+
+        },
+
+
+
+
+
+    });
+    $('#min, #max').on('change', function() {
+        table.draw();
+    });
+
+    $('#category_filter').on('change', function() {
+        var tosearch = this.value;
+        table.search(tosearch).draw();
+    });
+
+
+
+
+});
+</script>

@@ -196,11 +196,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                <!-- </div> -->
+                                    <!-- </div> -->
 
-                                <br>
+                                    <br>
 
-                                <!-- <div class="row"> -->
+                                    <!-- <div class="row"> -->
                                     <div class="col" style="display: flex;">
                                         <div class="card" style="width: 100%;">
                                             <div class="card-body">
@@ -210,11 +210,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                <!-- </div> -->
+                                    <!-- </div> -->
 
-                                <br>
+                                    <br>
 
-                                <!-- <div class="row"> -->
+                                    <!-- <div class="row"> -->
                                     <div class="col" style="display: flex;">
                                         <div class="card" style="width: 100%;">
                                             <div class="card-body">
@@ -238,193 +238,207 @@
 </body>
 
 </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script>
 wet_line = document.getElementById("wet_line");
 bales_bar = document.getElementById("bales_bar");
 bales_quality = document.getElementById("bales_quality");
 cuplump_inventory = document.getElementById("cuplump_inventory");
-
-
-
 bales_quality = document.getElementById("bales_quality");
 cuplump_inventory = document.getElementById("cuplump_inventory");
-
 inventory_all = document.getElementById("inventory_all");
 
 <?php
-   $currentMonth = date("m");
-   $currentDay = date("d");
-   $currentYear = date("Y");
-   
-   $today = $currentYear . "-" . $currentMonth . "-" . $currentDay;
-   
-                $purchased_count = mysqli_query($con,"SELECT year(date) as year ,MONTHNAME(date) as monthname,sum(net_weight) as month_total from rubber_transaction WHERE year(date)='$currentYear'  group by month(date) ORDER BY date");        
-                if($purchased_count->num_rows > 0) {
-                  foreach($purchased_count as $data) {
-                      $month[] = $data['monthname'];
-                      $amount[] = $data['month_total'];
-                  }
-              }
-        ?>
+    $currentMonth = date("m");
+    $currentDay = date("d");
+    $currentYear = date("Y");
+    $today = $currentYear . "-" . $currentMonth . "-" . $currentDay;
+    $month = []; // initialize array
+    $amount = []; // initialize array
+    $purchased_count = mysqli_query($con,"SELECT year(date) as year ,MONTHNAME(date) as monthname,sum(net_weight) as month_total from rubber_transaction WHERE year(date)='$currentYear'  group by month(date) ORDER BY date");        
+    if($purchased_count->num_rows > 0) {
+        foreach($purchased_count as $data) {
+            $month[] = $data['monthname'];
+            $amount[] = $data['month_total'];
+        }
+    }
+?>
 
-// new Chart(inventory_all, {
-//     options: {
-//         plugins: {
-//             title: {
-//                 display: true,
-//                 text: 'Inventory (Kilo)',
-//             },
-//             legend: {
-//                 position: 'bottom',
-//             },
-//         },
-//     },
-
-//     type: 'pie',
-//     data: {
-//         labels: ['Cuplumps', 'Crumbed', 'Blanket', 'Bales'], //X-axis data 
-//         datasets: [{
-//             label: 'Purchased',
-//             data: , //Y-axis data 
-//             backgroundColor: ['#C42F1A', '#567417', '#90C226', '#E6B91E'],
-//             tension: 0.3,
-//             fill: false,
-//         }]
-//     },
-// });
+// Uncommented the chart, added error check and data for the chart
+if (inventory_all && <?php echo json_encode($month); ?>.length > 0 && <?php echo json_encode($amount); ?>.length > 0) {
+    new Chart(inventory_all, {
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Inventory (Kilo)',
+                },
+                legend: {
+                    position: 'bottom',
+                },
+            },
+        },
+        type: 'pie',
+        data: {
+            labels: <?php echo json_encode($month); ?>, //X-axis data 
+            datasets: [{
+                label: 'Purchased',
+                data: <?php echo json_encode($amount); ?>, //Y-axis data 
+                backgroundColor: ['#C42F1A', '#567417', '#90C226', '#E6B91E'],
+                tension: 0.3,
+                fill: false,
+            }]
+        },
+    });
+}
 
 <?php
-   $Bales_currentYear = date("Y");
-   $Bales_currentMonth = date("m");
-             
-            $bales_count = mysqli_query($con,"SELECT year(date) as year ,MONTHNAME(date) as monthname,sum(bales_compute) as month_total from bales_transaction WHERE year(date)='$Bales_currentYear'  group by month(date) ORDER BY date");        
-            if($bales_count->num_rows > 0) {
-                foreach($bales_count as $b_data) {
-                    $month_bales[] = $b_data['monthname'];
-                    $bales[] = $b_data['month_total'];
+    $Bales_currentYear = date("Y");
+    $Bales_currentMonth = date("m");
+    $month_bales = []; // initialize array
+    $bales = []; // initialize array
+    $bales_count = mysqli_query($con,"SELECT year(date) as year ,MONTHNAME(date) as monthname,sum(bales_compute) as month_total from bales_transaction WHERE year(date)='$Bales_currentYear'  group by month(date) ORDER BY date");        
+    if($bales_count->num_rows > 0) {
+        foreach($bales_count as $b_data) {
+            $month_bales[] = $b_data['monthname'];
+            $bales[] = $b_data['month_total'];
+        }
+    }
+?>
+
+// Added error checks before rendering charts
+if (monthly_milling && <?php echo json_encode($month_bales); ?>.length > 0 && <?php echo json_encode($bales); ?>
+    .length > 0) {
+    new Chart(monthly_milling, {
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Monthly Crumb Production (Milling)',
+                },
+                legend: {
+                    display: false
                 }
-            }
-        ?>
-new Chart(monthly_milling, {
-    options: {
-        plugins: {
-            title: {
-                display: true,
-                text: 'Monthly Crumb Production (Milling)',
             },
-            legend: {
-                display: false
+            scales: {
+                y: {
+                    ticks: {
+                        display: true // Y-Axis Label (#)
+                    },
+                    grid: {
+                        display: false // y-axis gridlines
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false // x-axis gridlines
+                    }
+                }
             }
         },
-        scales: {
-            y: {
-                ticks: {
-                    display: true // Y-Axis Label (#)
+        type: 'line',
+        data: {
+            labels: <?php echo json_encode($month_bales) ?>, //X-axis data 
+            datasets: [{
+                label: 'Crumbs',
+                data: <?php echo json_encode($bales) ?>, //Y-axis data 
+                backgroundColor: '#617391',
+                tension: 0.3,
+                fill: true,
+            }]
+        },
+    });
+}
+
+if (monthly_drying && <?php echo json_encode($month_bales); ?>.length > 0 && <?php echo json_encode($bales); ?>.length >
+    0) {
+
+    new Chart(monthly_drying, {
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Monthly Blanket Production (Drying)',
                 },
-                grid: {
-                    display: false // y-axis gridlines
+                legend: {
+                    display: false
                 }
             },
-            x: {
-                grid: {
-                    display: false // x-axis gridlines
+            scales: {
+                y: {
+                    ticks: {
+                        display: false // Y-Axis Label (#)
+                    },
+                    grid: {
+                        display: false // y-axis gridlines
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false // x-axis gridlines
+                    }
                 }
-            }
-        }
-    },
-    type: 'line',
-    data: {
-        labels: <?php echo json_encode($month_bales) ?>, //X-axis data 
-        datasets: [{
-            label: 'Crumbs',
-            data: <?php echo json_encode($bales) ?>, //Y-axis data 
-            backgroundColor: '#617391',
-            tension: 0.3,
-            fill: true,
-        }]
-    },
-});
-
-
-new Chart(monthly_drying, {
-    options: {
-        plugins: {
-            title: {
-                display: true,
-                text: 'Monthly Blanket Production (Drying)',
-            },
-            legend: {
-                display: false
             }
         },
-        scales: {
-            y: {
-                ticks: {
-                    display: false // Y-Axis Label (#)
+        type: 'line',
+        data: {
+            labels: <?php echo json_encode($month_bales) ?>, //X-axis data 
+            datasets: [{
+                label: 'Blankets',
+                data: <?php echo json_encode($bales) ?>, //Y-axis data 
+                backgroundColor: '#3892BA',
+                tension: 0.3,
+                fill: true,
+            }]
+        },
+    });
+}
+
+if (monthly_production && <?php echo json_encode($month_bales); ?>.length > 0 && <?php echo json_encode($bales); ?>
+    .length > 0) {
+
+    new Chart(monthly_production, {
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Monthly Bale Production (Pressing)',
                 },
-                grid: {
-                    display: false // y-axis gridlines
+                legend: {
+                    display: false
                 }
             },
-            x: {
-                grid: {
-                    display: false // x-axis gridlines
+            scales: {
+                y: {
+                    ticks: {
+                        display: true // Y-Axis Label (#)
+                    },
+                    grid: {
+                        display: false // y-axis gridlines
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false // x-axis gridlines
+                    }
                 }
-            }
-        }
-    },
-    type: 'line',
-    data: {
-        labels: <?php echo json_encode($month_bales) ?>, //X-axis data 
-        datasets: [{
-            label: 'Blankets',
-            data: <?php echo json_encode($bales) ?>, //Y-axis data 
-            backgroundColor: '#3892BA',
-            tension: 0.3,
-            fill: true,
-        }]
-    },
-});
-
-
-new Chart(monthly_production, {
-    options: {
-        plugins: {
-            title: {
-                display: true,
-                text: 'Monthly Bale Production (Pressing)',
-            },
-            legend: {
-                display: false
             }
         },
-        scales: {
-            y: {
-                ticks: {
-                    display: true // Y-Axis Label (#)
-                },
-                grid: {
-                    display: false // y-axis gridlines
-                }
-            },
-            x: {
-                grid: {
-                    display: false // x-axis gridlines
-                }
-            }
-        }
-    },
-    type: 'line',
-    data: {
-        labels: <?php echo json_encode($month_bales) ?>, //X-axis data 
-        datasets: [{
-            label: 'Bales',
-            data: <?php echo json_encode($bales) ?>, //Y-axis data 
-            backgroundColor: '#2e83c3',
-            tension: 0.3,
-            fill: true,
-        }]
-    },
-});
+        type: 'line',
+        data: {
+            labels: <?php echo json_encode($month_bales) ?>, //X-axis data 
+            datasets: [{
+                label: 'Bales',
+                data: <?php echo json_encode($bales) ?>, //Y-axis data 
+                backgroundColor: '#2e83c3',
+                tension: 0.3,
+                fill: true,
+            }]
+        },
+
+
+    });
+
+}
 </script>

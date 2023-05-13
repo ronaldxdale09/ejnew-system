@@ -122,29 +122,46 @@ $('.btnCompletePressing').on('click', function() {
     $('#press_trans_lot').val(data[5]);
 
 
-    $('#press_trans_entry').val(parseFloat(data[6]).toLocaleString());
+    $('#press_trans_entry').val((data[6]));
 
     $('#press_trans_drc').val(data[8]);
     $('#press_trans_total_weight').val(data[7]);
 
-    function fetch_data() {
 
-        var recording_id = data[1].replace(/\s+/g, '');
-        $.ajax({
-            url: "table/pressing_data.php",
-            method: "POST",
-            data: {
-                recording_id: recording_id,
+    trans_drc = parseFloat((data[7]).match(/[\d]+(\.[\d]+)?/)[0]);
+    if (trans_drc === 0) {
+        Swal.fire({
 
-            },
-            success: function(data) {
-                $('#pressing_modal_trans_table').html(data);
-                $('#modal_press_transfer').modal('show');
-
-            }
+            text: 'Please update pressing first.',
+            icon: 'warning',
+            confirmButtonText: 'Update',
+            confirmButtonColor: '#3085d6',
+            showConfirmButton: false,
         });
+    } else {
+
+
+        function fetch_data() {
+
+            var recording_id = data[1].replace(/\s+/g, '');
+            $.ajax({
+                url: "table/pressing_data.php",
+                method: "POST",
+                data: {
+                    recording_id: recording_id,
+
+                },
+                success: function(data) {
+                    $('#pressing_modal_trans_table').html(data);
+                    $('#modal_press_transfer').modal('show');
+
+                }
+            });
+        }
+        fetch_data();
     }
-    fetch_data();
+
+
 
 
 

@@ -86,6 +86,8 @@
                     <input type="text" class="form-control readonly-input" id='m_total-words' name='m_total-words'
                         readonly />
 
+
+                    <input name="m_supplier_type" id="m_supplier_type" hidden>
                     <!-- hidden -->
                     <input name="m_gross" id="m_gross" hidden>
                     <input name="m_tare" id="m_tare" hidden>

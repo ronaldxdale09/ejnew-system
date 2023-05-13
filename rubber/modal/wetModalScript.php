@@ -61,6 +61,10 @@ $('#confirm').click(function() {
         $('#m_address').val($("#address").val());
         $('#m_contract').val($("#contract").val());
 
+
+        var supplierType = $("#supplier_type").val();
+    
+        $('#m_supplier_type').val(supplierType);
         $('#m_quantity').val($("#quantity").val());
         $('#m_balance').val($("#balance").val());
 
@@ -187,15 +191,15 @@ $('#receiptBtn').click(function() {
         $('#r_balance').val($("#balance").val());
 
         // purchase info
-      
+
         $('#r_gross').val($("#gross").val());
         $('#r_tare').val($("#tare").val());
         $('#r_net').val($("#net").val());
 
-       
+
         $('#r_1price').val($("#first_price").val());
         $('#r_2price').val($("#sec_price").val());
-      
+
         // total res
 
         $('#r_weight_1').val($("#first-weight").val());
@@ -203,7 +207,7 @@ $('#receiptBtn').click(function() {
 
         $('#r_total_first').val($("#first_total").val());
         $('#r_total_sec').val($("#sec_total").val());
-       
+
         // 
         $('#r_total-amount').val($("#total-amount").val());
         $('#r_less').val($("#cash_advance").val());

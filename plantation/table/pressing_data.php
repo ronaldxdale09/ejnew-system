@@ -19,6 +19,7 @@ $output = '
             <th scope="col">Weight (kg)</th>
             <th scope="col">No. of Bale</th>
             <th scope="col">Excess</th>
+            <th scope="col">Description (Buyer)</th>
         </tr>
     </thead>
     <tbody>';
@@ -60,6 +61,10 @@ if(mysqli_num_rows($result) > 0) {
                     <span class="input-group-text">kg</span>
                 </div>
             </td>
+            <td>
+            <input type="text" class="form-control"  autocomplete="off" step="any"
+            value="'.$arr["description"].'" style="border:none;" readonly>
+        </td>
         </tr>';
     }
 }

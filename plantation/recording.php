@@ -27,6 +27,17 @@
     $sql = mysqli_query($con, "SELECT SUM(produce_total_weight) as inventory from  planta_recording where status='Produced'   "); 
     $bales = mysqli_fetch_array($sql);
 
+
+
+    // Report all PHP errors
+error_reporting(E_ALL);
+
+// Display errors
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+
+
+
    ?>
 
 

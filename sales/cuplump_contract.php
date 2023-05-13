@@ -1,6 +1,37 @@
 <?php 
    include('include/header.php');
    include "include/navbar.php";
+
+   
+$id= '';
+if (isset($_GET['id'])) {
+    $id = filter_var($_GET['id']) ;
+}
+
+
+$sql = "SELECT * FROM sale_cuplump_contract WHERE id = $id";
+$result = $con->query($sql);
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    // Assigning fetched data to PHP variables
+    $en_sale_contract_no = $row['en_sale_contract_no'];
+    $transaction_date = $row['transaction_date'];
+    $buyer_purchase_contract_no = $row['buyer_purchase_contract_no'];
+    $type = $row['type'];
+    $buyer_company_name = $row['buyer_company_name'];
+    $shipping_date = $row['shipping_date'];
+    $address = $row['address'];
+    $shipping_port = $row['shipping_port'];
+    $contact_information = $row['contact_information'];
+    $destination = $row['destination'];
+    $quantity = $row['quantity'];
+    $packing = $row['packing'];
+    $containers = $row['containers'];
+    $other_terms = $row['other_terms'];
+    $price = $row['price'];
+    $recorded_by = $row['recorded_by'];
+}
 ?>
 
 <style>
@@ -55,7 +86,7 @@
                                                     No.</label>
                                                 <div class="input-group mb-3">
                                                     <input type="text" class="form-control" name='wet_sale_id'
-                                                        id='wet_sale_id' value='<?php echo $id?>' readonly
+                                                        id='wet_sale_id' value='<?php echo $en_sale_contract_no ?>' readonly
                                                         autocomplete='off' style="width: 100px;" />
                                                 </div>
                                             </div>
@@ -64,14 +95,14 @@
                                                     No.</label>
                                                 <div class="input-group mb-3">
                                                     <input type="text" class="form-control" name='wet_buyer_contract'
-                                                        id='wet_buyer_contract' autocomplete='off'
+                                                        id='wet_buyer_contract' value='<?php echo $buyer_purchase_contract_no ?>'  
                                                         style="width: 100px;" />
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <label style='font-size:15px' class="col-md-12">Type</label>
                                                 <div class="input-group mb-3">
-                                                    <select class="form-select" id="wet_sale_type" name="wet_sale_type"
+                                                    <select class="form-select" id="wet_sale_type" name="wet_sale_type"  value='<?php echo $type  ?>'  
                                                         style="width: 100px;">
                                                         <option value="EXPORT">Export</option>
                                                     </select>
@@ -80,7 +111,7 @@
                                             <div class="col">
                                                 <label style='font-size:15px' class="col-md-12">Transaction Date</label>
                                                 <div class="col-md-12">
-                                                    <input type="date" class='form-control' id="wet_ship_date"
+                                                    <input type="date" class='form-control' id="wet_ship_date"  value='<?php echo $transaction_date   ?>' 
                                                         value="<?php echo $today; ?>" name="wet_ship_date">
                                                 </div>
                                             </div>
@@ -94,7 +125,7 @@
                                                 <label style='font-size:15px' class="col-md-12">Buyer Company
                                                     Name</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='wet_sale_buyer'
+                                                    <input type="text" class="form-control" name='wet_sale_buyer' value='<?php echo $buyer_company_name  ?>'
                                                         id='wet_sale_buyer' tabindex="7" autocomplete='off'
                                                         style="width: 100px;" />
                                                 </div>
@@ -103,8 +134,8 @@
                                             <div class="col">
                                                 <label style='font-size:15px' class="col-md-12">Shipping Date</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="date" class="form-control" name='wet_shipping_date'
-                                                        id='wet_shipping_date' tabindex="7" autocomplete='off'
+                                                    <input type="text" class="form-control" name='shipping_date' value='<?php echo $shipping_date   ?>'
+                                                        id='shipping_date' tabindex="7" autocomplete='off'
                                                         style="width: 100px;" />
                                                 </div>
                                             </div>
@@ -112,7 +143,7 @@
                                             <div class="col">
                                                 <label style='font-size:15px' class="col-md-12">Quantity</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='wet_quantity'
+                                                    <input type="text" class="form-control" name='wet_quantity' value='<?php echo $quantity    ?>'
                                                         id='wet_quantity' tabindex="7" autocomplete='off'
                                                         style="width: 100px;" />
                                                     <span class="input-group-text">kg</span>
@@ -123,7 +154,7 @@
                                                 <label style='font-size:15px' class="col-md-12">Price</label>
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text">$</span>
-                                                    <input type="text" class="form-control" name='wet_price'
+                                                    <input type="text" class="form-control" name='wet_price' value='<?php echo $price   ?>'
                                                         id='wet_price'>
                                                 </div>
                                             </div>
@@ -134,7 +165,7 @@
                                             <div class="col">
                                                 <label style='font-size:15px' class="col-md-12">Address</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='sale_destination'
+                                                    <input type="text" class="form-control" name='sale_destination' value='<?php echo $address   ?>'
                                                         id='sale_destination' tabindex="7" autocomplete='off'
                                                         style="width: 100px;" />
                                                 </div>
@@ -143,7 +174,7 @@
                                             <div class="col">
                                                 <label style='font-size:15px' class="col-md-12">Shipping Port</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='info_lading'
+                                                    <input type="text" class="form-control" name='info_lading'value='<?php echo $info_lading  ?>'
                                                         id='info_lading_2' tabindex="7" autocomplete='off'
                                                         style="width: 100px;" />
                                                 </div>
@@ -152,7 +183,7 @@
                                             <div class="col">
                                                 <label style='font-size:15px' class="col-md-12">Containers</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='source' id='source_2'
+                                                    <input type="text" class="form-control" name='container' id='container' value='<?php echo $containers   ?>'
                                                         tabindex="7" autocomplete='off' style="width: 100px;" />
                                                 </div>
                                             </div>
@@ -160,7 +191,7 @@
                                             <div class="col">
                                                 <label style='font-size:15px' class="col-md-12">Packing</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='source' id='source_2'
+                                                    <input type="text" class="form-control" name='packing' id='packing' value='<?php echo $packing  ?>'
                                                         tabindex="7" autocomplete='off' style="width: 100px;" />
                                                 </div>
                                             </div>
@@ -171,7 +202,7 @@
                                                 <label style='font-size:15px' class="col-md-12">Contact
                                                     Information</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='voyage' id='voyage_2'
+                                                    <input type="text" class="form-control" name='contact_information' id='contact_information' value='<?php echo $contact_information  ?>'
                                                         tabindex="7" autocomplete='off' style="width: 100px;" />
                                                 </div>
                                             </div>
@@ -179,7 +210,7 @@
                                             <div class="col">
                                                 <label style='font-size:15px' class="col-md-12">Destination</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='source' id='source_3'
+                                                    <input type="text" class="form-control" name='destination' id='destination'  value='<?php echo $destination  ?>'
                                                         tabindex="7" autocomplete='off' style="width: 100px;" />
                                                 </div>
                                             </div>
@@ -187,7 +218,7 @@
                                             <div class="col-6">
                                                 <label style='font-size:15px' class="col-md-12">Other Terms</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='remarks'
+                                                    <input type="text" class="form-control" name='remarks'  value='<?php echo $other_terms  ?>'
                                                         id='remarks_2'>
                                                 </div>
                                             </div>

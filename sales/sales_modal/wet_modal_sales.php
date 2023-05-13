@@ -15,7 +15,7 @@
                             <label style='font-size:15px' class="col-md-12">EN Sale Contract
                                 No.</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='wet_info_lading' id='wet_info_lading'
+                                <input type="text" class="form-control" name='sale_contract_no' id='sale_contract_no'
                                     tabindex="7" autocomplete='off' style="width: 100px;" required />
                             </div>
                         </div>
@@ -23,8 +23,8 @@
                             <label style='font-size:15px' class="col-md-12">Transaction Date
                             </label>
                             <div class="col-md-12">
-                                <input type="date" class='form-control' id="wet_ship_date" value="<?php echo $today; ?>"
-                                    name="wet_ship_date" required>
+                                <input type="date" class='form-control' id="transaction_date" value="<?php echo $today; ?>"
+                                    name="transaction_date" required>
                             </div>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                             <label style='font-size:15px' class="col-md-12">Buyer Purchase Contract
                                 No.</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='wet_buyer_contract_no'
+                                <input type="text" class="form-control" name='purchase_contract_no'
                                     id='wet_buyer_contract_no' tabindex="7" autocomplete='off' style="width: 100px;" />
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                             <label style='font-size:15px' class="col-md-12">Buyer Company
                                 Name</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='wet_sale_buyer' id='wet_sale_buyer'
+                                <input type="text" class="form-control" name='buyer_company' id='buyer_company'
                                     tabindex="7" autocomplete='off' style="width: 100px;" required />
                             </div>
                         </div>
@@ -65,8 +65,8 @@
                             <label style='font-size:15px' class="col-md-12">Shipping
                                 Date</label>
                             <div class="col-md-12">
-                                <input type="date" class='form-control' id="wet_ship_date" value="<?php echo $today; ?>"
-                                    name="wet_ship_date">
+                                <input type="date" class='form-control' id="shipping_date" value="<?php echo $today; ?>"
+                                    name="shipping_date">
                             </div>
                         </div>
 
@@ -77,8 +77,8 @@
                         <div class="col">
                             <label style='font-size:15px' class="col-md-12">Address</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='wet_sale_destination'
-                                    id='wet_sale_destination' tabindex="7" autocomplete='off' style="width: 100px;" />
+                                <input type="text" class="form-control" name='address'
+                                    id='address' tabindex="7" autocomplete='off' style="width: 100px;" />
                             </div>
                         </div>
 
@@ -86,7 +86,7 @@
                             <label style='font-size:15px' class="col-md-12">Shipping
                                 Port</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='wet_info_lading' id='wet_info_lading'
+                                <input type="text" class="form-control" name='shipping_port' id='shipping_port'
                                     tabindex="7" autocomplete='off' style="width: 100px;" />
                             </div>
                         </div>
@@ -98,7 +98,7 @@
                             <label style='font-size:15px' class="col-md-12">Contact
                                 Information</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='wet_voyage' id='wet_voyage' tabindex="7"
+                                <input type="text" class="form-control" name='contact' id='contact' tabindex="7"
                                     autocomplete='off' style="width: 100px;" />
                             </div>
                         </div>
@@ -106,7 +106,7 @@
                         <div class="col">
                             <label style='font-size:15px' class="col-md-12">Destination</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='wet_source' id='wet_source' tabindex="7"
+                                <input type="text" class="form-control" name='destination' id='destination' tabindex="7"
                                     autocomplete='off' style="width: 100px;" />
                             </div>
                         </div>
@@ -120,7 +120,7 @@
                         <div class="col">
                             <label style='font-size:15px' class="col-md-12">Quantity</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='wet_quantity' id='wet_quantity'
+                                <input type="text" class="form-control" name='quantity' id='quantity'
                                     tabindex="7" autocomplete='off' style="width: 100px;" />
                                 <span class="input-group-text">kg</span>
                             </div>
@@ -149,7 +149,7 @@
                         <div class="col">
                             <label style='font-size:15px' class="col-md-12">Other Terms</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='wet_remarks' id='wet_remarks'>
+                                <input type="text" class="form-control" name='wet_terms' id='wet_termsm'>
                             </div>
                         </div>
                     </div>
@@ -173,12 +173,13 @@
                         </div>
 
                     </div>
+                </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" name='new' class="btn btn-success">Confirm</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" name='new' class="btn btn-success">Confirm</button>
 
-                    </div>
+                </div>
             </form>
         </div>
     </div>
