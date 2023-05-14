@@ -49,7 +49,7 @@ if (isset($_POST['delete'])) {
     $id = $_POST['d_id'];
                     
                   
-    $query = "DELETE FROM `expenses_category` WHERE id = '$id'";
+    $query = "DELETE FROM `category_expenses` WHERE id = '$id'";
     $results = mysqli_query($con, $query);
                                
     if ($results) {

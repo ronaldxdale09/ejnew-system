@@ -6,75 +6,67 @@
  
 ?>
 <!-- Modal -->
+<!-- Modal -->
 <div class="modal fade" id="purchase-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">PURCHASE</h5>
-                <button type="button" class="btn btn-light" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title" id="exampleModalLongTitle">Purchase</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <form action="function/ledger/addPurchase.php" id='submitPurchase' method="POST">
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label class="col-md-12">DATE</label>
+                    <div class="row">
                         <div class="col-md-12">
-                            <input class='datepicker' value="<?php echo $dateNow; ?>" type="date" id="date" name="date"
-                                required>
+                            <div class="mb-3">
+                                <label for="date">Date</label>
+                                <input class='form-control' value="<?php echo $dateNow; ?>" type="date" id="date"
+                                    name="date" required>
+                            </div>
                         </div>
                     </div>
-                    <br>
-                    <div class="form-group">
-                        <div class="row no-gutters">
-                            <div class="col-6 col-md-6">
-                                <div class="input-group mb-1">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroup-sizing-default"
-                                            style='color:black;font-weight: bold;'>Voucher</span>
-                                    </div>
-                                    <input type="text" style='text-align:right' name='p_voucher' id='p_voucher'
-                                        class="form-control" style='background-color:white;border:0px solid #ffffff;' required  autocomplete='off'>
-                                </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="p_voucher">Voucher</label>
+                                <input type="text" id='p_voucher' name='p_voucher' class="form-control" required
+                                    autocomplete='off'>
                             </div>
-                            <!--end  -->
-                            <div class="col-6 col-md-6">
-                                <select class='pur_category' name='pur_category' id='pur_category' style='width:200px'
-                                    required>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="pur_category">Category</label>
+                                <select class='form-select' name='pur_category' id='pur_category' required>
                                     <option disabled="disabled" value='' selected="selected">Select Category</option>
                                     <?php echo $purCatList; ?>
                                 </select>
                             </div>
                         </div>
-                        <br>
                     </div>
-                    <div class="form-group">
-                        <label class="col-md-12">Customer Name</label>
-                        <div class="col-md-8">
-                            <input type="text" name='p_name' id='p_name' class="form-control form-control-line"
-                            autocomplete='off'  required>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="p_name">Customer Name</label>
+                                <input type="text" name='p_name' id='p_name' class="form-control" autocomplete='off'
+                                    required>
+                            </div>
                         </div>
                     </div>
-                    <!-- net kilos -->
-                    <br>
-                    <div class="form-group">
-                        <div class="row no-gutters">
-                            <div class="col-12 col-sm-12 col-md-12">
-                                <!--  -->
-                                <div class="input-group mb-12">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroup-sizing-default"
-                                            style='color:black;font-weight: bold;'>Net Kilos</span>
-                                    </div>
-                                    <input type="text" style='text-align:right' name='p_net-kilos' id='p_net-kilos'
-                                        class="form-control" onkeypress="return CheckNumeric()"
-                                        onkeyup="FormatCurrency(this)"  autocomplete='off'>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="p_net-kilos">Net Kilos</label>
+                                <div class="input-group">
+                                    <input type="text" id='p_net-kilos' name='p_net-kilos' class="form-control"
+                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
+                                        autocomplete='off'>
                                     <div class="input-group-append">
                                         <span class="input-group-text">Kg</span>
                                     </div>
                                 </div>
-                                <!--  -->
                             </div>
                         </div>
                     </div>
@@ -91,7 +83,7 @@
                                     </div>
                                     <input type="text" style='text-align:right' name='p_price' id='p_price'
                                         onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
-                                        class="form-control"  autocomplete='off'>
+                                        class="form-control" autocomplete='off'>
                                 </div>
                             </div>
                         </div>
@@ -107,7 +99,8 @@
                                         <span class="input-group-text">₱</span>
                                     </div>
                                     <input type="text" class="form-control" id='p_adjustprice' name='p_adjustprice'
-                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"   autocomplete='off'/>
+                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
+                                        autocomplete='off' />
                                 </div>
                                 <!--  -->
                             </div>
@@ -120,7 +113,7 @@
                                     </div>
                                     <input type="text" style='text-align:right' name='p_less' id='p_less'
                                         class="form-control" onkeypress="return CheckNumeric()"
-                                        onkeyup="FormatCurrency(this)"  autocomplete='off'>
+                                        onkeyup="FormatCurrency(this)" autocomplete='off'>
                                 </div>
                                 <!--  -->
                             </div>
@@ -139,7 +132,7 @@
                                     </div>
                                     <input type="text" style='text-align:right' name='p_partial_payment'
                                         id='p_partial_payment' onkeypress="return CheckNumeric()"
-                                        onkeyup="FormatCurrency(this)" class="form-control"  autocomplete='off'>
+                                        onkeyup="FormatCurrency(this)" class="form-control" autocomplete='off'>
                                 </div>
                             </div>
                         </div>
@@ -154,8 +147,9 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">₱</span>
                                     </div>
-                                    <input type="text"  class="form-control" id='p_net_total' name='p_net_total'
-                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off' />
+                                    <input type="text" class="form-control" id='p_net_total' name='p_net_total'
+                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
+                                        autocomplete='off' />
                                 </div>
                                 <!--  -->
                             </div>
@@ -167,7 +161,7 @@
                                         <span class="input-group-text">₱</span>
                                     </div>
                                     <input type="text" style='text-align:right' name='p_total_amount'
-                                        id='p_total_amount' class="form-control" >
+                                        id='p_total_amount' class="form-control">
                                 </div>
                                 <!--  -->
                             </div>
@@ -184,8 +178,6 @@
         </div>
     </div>
 </div>
-</div>
-
 
 
 <!-- MODAL OF REMOVE EXPENSES -->
@@ -213,8 +205,7 @@
 
 
 <!-- MODAL OF UPDATE PURCHASE -->
-<div class="modal fade" id="updatePurchase" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
+<div class="modal fade" id="updatePurchase" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -228,7 +219,8 @@
                     <div class="form-group">
                         <label class="col-md-12">DATE</label>
                         <div class="col-md-12">
-                            <input class='datepicker' value="<?php echo $dateNow; ?>" type="date" id="update_date" name="date" >
+                            <input class='datepicker' value="<?php echo $dateNow; ?>" type="date" id="update_date"
+                                name="date">
                         </div>
                     </div>
                     <br>
@@ -246,8 +238,8 @@
                             </div>
                             <!--end  -->
                             <div class="col-6 col-md-6">
-                                <select class='pur_category' name='pur_category' id='update_pur_category' style='width:200px'
-                                    required>
+                                <select class='pur_category' name='pur_category' id='update_pur_category'
+                                    style='width:200px' required>
                                     <option disabled="disabled" selected="selected">Select Category</option>
                                     <?php echo $purCatList; ?>
                                 </select>
@@ -273,8 +265,8 @@
                                         <span class="input-group-text" id="inputGroup-sizing-default"
                                             style='color:black;font-weight: bold;'>Net Kilos</span>
                                     </div>
-                                    <input type="text" style='text-align:right' name='p_net-kilos' id='update_p_net-kilos'
-                                        class="form-control" onkeypress="return CheckNumeric()"
+                                    <input type="text" style='text-align:right' name='p_net-kilos'
+                                        id='update_p_net-kilos' class="form-control" onkeypress="return CheckNumeric()"
                                         onkeyup="FormatCurrency(this)">
                                     <div class="input-group-append">
                                         <span class="input-group-text">Kg</span>
@@ -312,8 +304,9 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">₱</span>
                                     </div>
-                                    <input type="text" class="form-control" id='update_p_adjustprice' name='p_adjustprice'
-                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" />
+                                    <input type="text" class="form-control" id='update_p_adjustprice'
+                                        name='p_adjustprice' onkeypress="return CheckNumeric()"
+                                        onkeyup="FormatCurrency(this)" />
                                 </div>
                                 <!--  -->
                             </div>
@@ -360,8 +353,9 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">₱</span>
                                     </div>
-                                    <input type="text" readonly class="form-control" id='update_p_net_total' name='p_net_total'
-                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" />
+                                    <input type="text" readonly class="form-control" id='update_p_net_total'
+                                        name='p_net_total' onkeypress="return CheckNumeric()"
+                                        onkeyup="FormatCurrency(this)" />
                                 </div>
                                 <!--  -->
                             </div>
@@ -394,107 +388,109 @@
 
 
 <script>
+$(function() {
+    $("#update_p_price").keyup(function() {
 
-    $(function() {
-        $("#update_p_price").keyup(function() {
-
-            $("#update_p_total_amount").val(((+$("#update_p_net-kilos").val().replace(/,/g, '') * +$("#update_p_price").val().replace(/,/g, ''))).toLocaleString());
-        });
+        $("#update_p_total_amount").val(((+$("#update_p_net-kilos").val().replace(/,/g, '') * +$(
+            "#update_p_price").val().replace(/,/g, ''))).toLocaleString());
     });
+});
 
-    $(function() {
-        $("#update_p_adjustprice").keyup(function() {
+$(function() {
+    $("#update_p_adjustprice").keyup(function() {
 
-            $("#update_p_net_total").val(((+$("#update_p_net-kilos").val().replace(/,/g, '') * +$("#update_p_adjustprice").val().replace(/,/g, ''))).toLocaleString());
-        });
+        $("#update_p_net_total").val(((+$("#update_p_net-kilos").val().replace(/,/g, '') * +$(
+            "#update_p_adjustprice").val().replace(/,/g, ''))).toLocaleString());
     });
+});
 
 
-    $(function() {
-        $("#update_p_less").keyup(function() {
+$(function() {
+    $("#update_p_less").keyup(function() {
 
-            $("#update_p_total_amount").val(((+$("#update_p_total_amount").val().replace(/,/g, '') - (+$("#update_p_less").val().replace(/,/g, ''))).toLocaleString()));
-        });
+        $("#update_p_total_amount").val(((+$("#update_p_total_amount").val().replace(/,/g, '') - (+$(
+            "#update_p_less").val().replace(/,/g, ''))).toLocaleString()));
     });
+});
 
-    $(function() {
-        $("#update_p_partial_payment").keyup(function() {
+$(function() {
+    $("#update_p_partial_payment").keyup(function() {
 
-            var total_amount = $("#update_p_total_amount").val().replace(/,/g, '').toLocaleString();
-            var partial = $("#update_p_partial_payment").val().replace(/,/g, '').toLocaleString();
+        var total_amount = $("#update_p_total_amount").val().replace(/,/g, '').toLocaleString();
+        var partial = $("#update_p_partial_payment").val().replace(/,/g, '').toLocaleString();
 
-            $("#update_p_total_amount").val(total_amount - partial);
+        $("#update_p_total_amount").val(total_amount - partial);
 
-        });
     });
-  //scripts to get the value from expenses.php to remove
-  const exampleModalRemove = document.getElementById('removePurchase')
-  exampleModalRemove.addEventListener('show.bs.modal', event => {
-      // Button that triggered the modal
-      const button = event.relatedTarget
-      // Extract info from data-bs-* attributes
-      const idRemove = button.getAttribute('data-bs-id')
-      //
-      // Update the modal's content.
-      const modalTitleRemove = exampleModalRemove.querySelector('.modal-title')
-      const my_idRemove = exampleModalRemove.querySelector('.modal-body #my_id')
+});
+//scripts to get the value from expenses.php to remove
+const exampleModalRemove = document.getElementById('removePurchase')
+exampleModalRemove.addEventListener('show.bs.modal', event => {
+    // Button that triggered the modal
+    const button = event.relatedTarget
+    // Extract info from data-bs-* attributes
+    const idRemove = button.getAttribute('data-bs-id')
+    //
+    // Update the modal's content.
+    const modalTitleRemove = exampleModalRemove.querySelector('.modal-title')
+    const my_idRemove = exampleModalRemove.querySelector('.modal-body #my_id')
 
-      my_idRemove.value = idRemove
+    my_idRemove.value = idRemove
 
-  })
+})
 
-  //scripts to get the value from expenses.php to update
+//scripts to get the value from expenses.php to update
 
-  const exampleModal = document.getElementById('updatePurchase')
-  exampleModal.addEventListener('show.bs.modal', event => {
-      // Button that triggered the modal
-      const button = event.relatedTarget
-      // Extract info from data-bs-* attributes
-      const id = button.getAttribute('data-bs-id')
-      const date = button.getAttribute('data-bs-date')
-      const category = button.getAttribute('data-bs-category')
-      const voucher = button.getAttribute('data-bs-voucher')
-      const customer_name = button.getAttribute('data-bs-customer_name')
-      const net_kilos = button.getAttribute('data-bs-net_kilos')
-      const price = button.getAttribute('data-bs-price')
-      const adjustment_price = button.getAttribute('data-bs-adjustment_price')
-      const less = button.getAttribute('data-bs-less')
-      const partial_payment = button.getAttribute('data-bs-partial_payment')
-      const net_total = button.getAttribute('data-bs-net_total')
-      const total_amount = button.getAttribute('data-bs-total_amount')
-      
-      // If necessary, you could initiate an AJAX request here
-      // and then do the updating in a callback.
-      //
-      // Update the modal's content.
-      const modalTitle = exampleModal.querySelector('.modal-title')
-      const myID = exampleModal.querySelector('.modal-body #my_id')
-      const dateID = exampleModal.querySelector('.modal-body #update_date')
-      const categoryID = exampleModal.querySelector('.modal-body #update_pur_category')
-      const voucherID = exampleModal.querySelector('.modal-body #update_p_voucher')
-      const customer_nameID = exampleModal.querySelector('.modal-body #update_p_name')
-      const net_kilosID = exampleModal.querySelector('.modal-body #update_p_net-kilos')
-      const priceID = exampleModal.querySelector('.modal-body #update_p_price')
-      const adjustment_priceID = exampleModal.querySelector('.modal-body #update_p_adjustprice')
-      const lessID = exampleModal.querySelector('.modal-body #update_p_less')
-      const partial_paymentID = exampleModal.querySelector('.modal-body #update_p_partial_payment')
-      const net_totalID = exampleModal.querySelector('.modal-body #update_p_net_total')
-      const total_amountID = exampleModal.querySelector('.modal-body #update_p_total_amount')
+const exampleModal = document.getElementById('updatePurchase')
+exampleModal.addEventListener('show.bs.modal', event => {
+    // Button that triggered the modal
+    const button = event.relatedTarget
+    // Extract info from data-bs-* attributes
+    const id = button.getAttribute('data-bs-id')
+    const date = button.getAttribute('data-bs-date')
+    const category = button.getAttribute('data-bs-category')
+    const voucher = button.getAttribute('data-bs-voucher')
+    const customer_name = button.getAttribute('data-bs-customer_name')
+    const net_kilos = button.getAttribute('data-bs-net_kilos')
+    const price = button.getAttribute('data-bs-price')
+    const adjustment_price = button.getAttribute('data-bs-adjustment_price')
+    const less = button.getAttribute('data-bs-less')
+    const partial_payment = button.getAttribute('data-bs-partial_payment')
+    const net_total = button.getAttribute('data-bs-net_total')
+    const total_amount = button.getAttribute('data-bs-total_amount')
 
-      
-      modalTitle.textContent = `Update Purchase ID #${id}`
-      myID.value = id
-      dateID.value = date
-      categoryID.value = category
-      voucherID.value = voucher
-      customer_nameID.value = customer_name
-      net_kilosID.value = net_kilos
-      priceID.value = price
-      adjustment_priceID.value = adjustment_price
-      lessID.value = less
-      partial_paymentID.value = partial_payment
-      net_totalID.value = net_total
-      total_amountID.value = total_amount
+    // If necessary, you could initiate an AJAX request here
+    // and then do the updating in a callback.
+    //
+    // Update the modal's content.
+    const modalTitle = exampleModal.querySelector('.modal-title')
+    const myID = exampleModal.querySelector('.modal-body #my_id')
+    const dateID = exampleModal.querySelector('.modal-body #update_date')
+    const categoryID = exampleModal.querySelector('.modal-body #update_pur_category')
+    const voucherID = exampleModal.querySelector('.modal-body #update_p_voucher')
+    const customer_nameID = exampleModal.querySelector('.modal-body #update_p_name')
+    const net_kilosID = exampleModal.querySelector('.modal-body #update_p_net-kilos')
+    const priceID = exampleModal.querySelector('.modal-body #update_p_price')
+    const adjustment_priceID = exampleModal.querySelector('.modal-body #update_p_adjustprice')
+    const lessID = exampleModal.querySelector('.modal-body #update_p_less')
+    const partial_paymentID = exampleModal.querySelector('.modal-body #update_p_partial_payment')
+    const net_totalID = exampleModal.querySelector('.modal-body #update_p_net_total')
+    const total_amountID = exampleModal.querySelector('.modal-body #update_p_total_amount')
 
-  })
+
+    modalTitle.textContent = `Update Purchase ID #${id}`
+    myID.value = id
+    dateID.value = date
+    categoryID.value = category
+    voucherID.value = voucher
+    customer_nameID.value = customer_name
+    net_kilosID.value = net_kilos
+    priceID.value = price
+    adjustment_priceID.value = adjustment_price
+    lessID.value = less
+    partial_paymentID.value = partial_payment
+    net_totalID.value = net_total
+    total_amountID.value = total_amount
+
+})
 </script>

@@ -61,9 +61,9 @@ $('.btnPressUpdate').on('click', function() {
     }).get();
 
     $('#press_u_id').val(data[1]);
-    $('#press_u_supplier').val(data[2]);
-    $('#press_u_loc').val(data[3]);
-    $('#press_u_lot').val(data[4]);
+    $('#press_u_supplier').val(data[3]);
+    $('#press_u_loc').val(data[4]);
+    $('#press_u_lot').val(data[5]);
 
     $('#press_u_quality').val(data[5]);
 

@@ -7,6 +7,19 @@
     }
 }
 </style>
+
+<?php 
+
+$sql = "SELECT * FROM ledger_expenses ";
+$res = mysqli_query($con, $sql);
+$category='';
+while($array = mysqli_fetch_array($res))
+{
+$category .= '
+<option value="'.$array["category"].'">'.$array["category"].'</option>';
+}
+
+?>
 <div class="row">
 
     <div class="col">
@@ -78,36 +91,33 @@
 
         <!-- CONTENT -->
         <div class="row">
-            <div class="col-sm">
+            <div class="col-sm-4">
+                <br>
                 <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#addExpense">
-                    <i class="fa fa-plus" aria-hidden="true"></i> ADD EXPENSE </button>
+                    <i class="fa fa-plus" aria-hidden="true"></i> ADD EXPENSE
+                </button>
                 <button type="button" class="btn btn-dark text-white" data-toggle="modal" data-target="#categoryModal">
-                    <i class="fa fa-book" aria-hidden="true"></i> CATEGORY </button>
+                    <i class="fa fa-book" aria-hidden="true"></i> CATEGORY
+                </button>
             </div>
-            <div class="col-sm">
-                <div class="row">
-                    <div class="col">
-
-                        <select class='form-select' name='category' id='category_filter'>
-                            <option disabled="disabled" selected>Select Category </option>
-                            <option value=''>All</option>
-                            <?php echo $categoryList ?>
-                            <!--PHP echo-->
-                        </select>
-
-                    </div>
-
-                    <div class="col">
-                        <b></b>
-                        <input type="text" id="min" name="min" class="form-control" placeholder="From Date" />
-                    </div>
-                    <div class="col">
-                        <input type="text" id="max" name="max" class="form-control" placeholder="To Date" />
-                    </div>
+            <div class="col-sm-2">
+                <br>
+                <select class='form-select' name='category' id='category_filter'>
+                    <option disabled="disabled" selected>Select Category </option>
+                    <option value=''>All</option>
+                    <?php echo $category?>
+                    <!--PHP echo-->
+                </select>
+            </div>
+            <div class="col-sm-6">
+                <div id="datatable_filter">
+                    <label>From: <input type="text" class='form-control' id="min" name="min"></label>
+                    <label>To: <input type="text" class='form-control' id="max" name="max"></label>
+                    <button class='btn btn-primary' id="today">Today</button>
+                    <button class='btn btn-secondary' id="this-week">This Week</button>
+                    <button class='btn btn-dark' id="this-month">This Month</button>
                 </div>
             </div>
-
-
         </div>
         <hr>
         <?php
@@ -132,7 +142,10 @@
                     <?php while ($row = mysqli_fetch_array($results)) { ?>
                     <tr>
                         <td>
-                            <?php echo $row['date'] ?>
+                            <?php 
+                        $date = new DateTime($row['date']);
+                        echo $date->format('F j, Y'); // Outputs date as "May 14, 2023"
+                    ?>
                         </td>
                         <td>
                             <?php echo $row['particulars'] ?>
@@ -180,16 +193,6 @@
 
         </div>
 
-        <div class="d-flex justify-content-center mt-3">
-            <div class="btn-group" role="group">
-                <a href="?date=<?php echo $prev_date ?>"
-                    class="btn btn-primary <?php echo $prev_exists ? '' : 'disabled' ?>">Previous</a>
-                <a href="?date=<?php echo $next_date ?>"
-                    class="btn btn-primary <?php echo $next_exists ? '' : 'disabled' ?>">Next</a>
-                <a href="?date=<?php echo date('Y-m-d') ?>"
-                    class="btn btn-primary <?php echo $current_date == date('Y-m-d') || $count <= 0 ? 'disabled' : '' ?>">Today</a>
-            </div>
-        </div>
 
 
 
@@ -203,38 +206,28 @@ $('#addExpense').on('shown.bs.modal', function() {
     $('.ex_category', this).chosen();
 });
 
-var minDate, maxDate;
-
-// Custom filtering function which will search data in column four between two values
-$.fn.dataTable.ext.search.push(
-    function(settings, data, dataIndex) {
-        var min = minDate.val();
-        var max = maxDate.val();
-        var date = new Date(data[0]);
-
-        if (
-            (min === null && max === null) ||
-            (min === null && date < max) ||
-            (min < date && max === null) ||
-            (min < date && date < max)
-        ) {
-            return true;
-        }
-        return false;
-    }
-);
-
 $(document).ready(function() {
-    // Create date inputs
-    minDate = new DateTime($('#min'), {
-        format: 'MMMM Do YYYY'
-    });
-    maxDate = new DateTime($('#max'), {
-        format: 'MMMM Do YYYY'
-    });
+
+
+    $.fn.dataTable.ext.search.push(
+        function(settings, data, dataIndex) {
+            var min = $('#min').datepicker("getDate");
+            var max = $('#max').datepicker("getDate");
+            var startDate = new Date(data[0]);
+
+            if (min == null && max == null) return true;
+            if (min == null && startDate <= max) return true;
+            if (max == null && startDate >= min) return true;
+            if (startDate <= max && startDate >= min) return true;
+            return false;
+        }
+    );
+
+
+
+
     var table = $('#expenses_table').DataTable({
         dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
-        paging: false,
         "pageLength": 50,
 
         order: [
@@ -282,13 +275,49 @@ $(document).ready(function() {
 
 
         },
-
-
-
-
-
     });
-    $('#min, #max').on('change', function() {
+
+    $("#min").datepicker({
+        onSelect: function() {
+            table.draw();
+        },
+        changeMonth: true,
+        changeYear: true
+    });
+    $("#max").datepicker({
+        onSelect: function() {
+            table.draw();
+        },
+        changeMonth: true,
+        changeYear: true
+    });
+
+    // Event listener to the two range filtering inputs to redraw on input
+    $('#min, #max').change(function() {
+        table.draw();
+    });
+
+    // Quick date filters
+    $('#today').on('click', function() {
+        var today = new Date();
+        $('#min, #max').datepicker('setDate', today);
+        table.draw();
+    });
+
+    $('#this-week').on('click', function() {
+        var today = new Date();
+        var firstDayOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today
+            .getDay());
+        $('#min').datepicker('setDate', firstDayOfWeek);
+        $('#max').datepicker('setDate', today);
+        table.draw();
+    });
+
+    $('#this-month').on('click', function() {
+        var today = new Date();
+        var firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+        $('#min').datepicker('setDate', firstDayOfMonth);
+        $('#max').datepicker('setDate', today);
         table.draw();
     });
 
@@ -296,8 +325,6 @@ $(document).ready(function() {
         var tosearch = this.value;
         table.search(tosearch).draw();
     });
-
-
 
 
 });

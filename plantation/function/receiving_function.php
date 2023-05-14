@@ -3,7 +3,7 @@
                         if (isset($_POST['add'])) {
 
 
-
+                            $source =$_SESSION["source"];
                             $purchased_id = $_POST['purchased_id'];
 
                             if ($purchased_id == 0){
@@ -32,8 +32,8 @@
                             $total_cost = str_replace(',', '', $_POST['total_cost']);
                         
 
-                                $query = "INSERT INTO planta_recording (prod_type,cost,lot_num,purchased_id,receiving_date,supplier,location,driver,truck_num,weight,reweight,total_cost,status) 
-                                        VALUES ('$prod_type','$cost','$lot_num','$purchased_id',NOW(),'$supplier','$location','$driver','$truck_num','$weight','$reweight','$total_cost','Field')";
+                                $query = "INSERT INTO planta_recording (prod_type,cost,lot_num,purchased_id,receiving_date,supplier,location,driver,truck_num,weight,reweight,total_cost,status,source) 
+                                        VALUES ('$prod_type','$cost','$lot_num','$purchased_id',NOW(),'$supplier','$location','$driver','$truck_num','$weight','$reweight','$total_cost','Field','$source')";
                                 $results = mysqli_query($con, $query);
                                    
                                     if ($results) {

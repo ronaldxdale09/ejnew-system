@@ -28,6 +28,7 @@
 			$_SESSION["username"] = $username;
 			$_SESSION["pass"] = $password;
 			$_SESSION["loc"] = $user['loc'];
+			$_SESSION["source"] = $user['loc'];
 			if ($userType =='copra'){
 				header('Location: ../transaction.php');
 			}

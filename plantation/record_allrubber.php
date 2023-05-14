@@ -82,6 +82,12 @@
                                                             case "Sold":
                                                                 $status_color = 'bg-info';
                                                                 break;
+                                                            case "For Sale":
+                                                                $status_color = 'bg-dark';
+                                                                break;
+                                                            case "For Purchase":
+                                                                $status_color = 'bg-light text-dark'; // changed color here
+                                                                break;
                                                         }
                                                     ?>
                                                     <td> <span class="badge <?php echo $status_color; ?>">
@@ -107,7 +113,8 @@
                                                     <td class="number-cell">
                                                         <?php echo number_format($row['produce_total_weight'], 0, '.', ','); ?>
                                                         kg</td>
-                                                    <td class="number-cell"> <?php echo $row['drc']?>%</td>
+                                                    <td class="number-cell">
+                                                        <?php echo number_format($row['drc'], 2, '.', ','); ?> %</td>
 
                                                     <td>
                                                         <button type="button" data-driver='<?php echo $row['driver'];?>'

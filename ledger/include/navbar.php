@@ -36,7 +36,12 @@
 </a>
 <hr style='color:white'>
 
-
+<a class='nav-link' href='expense_report.php'>
+<i class='fa-solid fa-money'></i> <span class='nav-text'>Expense Report</span>
+</a>
+<a class='nav-link' href='purchase_report.php'>
+<i class='fa-solid fa-comment-dollar'></i> <span class='nav-text'>Purchase Report</span>
+</a>
         
         ";
         }

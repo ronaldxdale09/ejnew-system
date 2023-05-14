@@ -1,5 +1,13 @@
 <div class="table-responsive">
-
+    <br>
+    <div id="datatable_filter">
+        <label>From: <input type="text" class='form-control' id="min" name="min"></label>
+        <label>To: <input type="text" class='form-control' id="max" name="max"></label>
+        <button class='btn btn-primary' id="today">Today</button>
+        <button class='btn btn-secondary' id="this-week">This Week</button>
+        <button class='btn btn-dark' id="this-month">This Month</button>
+    </div>
+    <hr>
     <table class="table table-bordered table-hover table-striped table-responsive" style='width:100%'
         id="recording_table-produced">
 
@@ -39,6 +47,8 @@
                     <span class="badge bg-danger"><?php echo $row['status']?></span>
                     <?php elseif ($row['status'] == 'For Purchase'): ?>
                     <span class="badge bg-info"><?php echo $row['status']?></span>
+                    <?php elseif ($row['status'] == 'For Sale'): ?>
+                    <span class="badge bg-primary"><?php echo $row['status']?></span>
                     <?php else: ?>
                     <span class="badge"><?php echo $row['status']?></span>
                     <?php endif; ?>
@@ -48,7 +58,12 @@
                     <span class="badge bg-secondary"><?php echo $row['bales_prod_id']?></span>
                 </td>
                 <td><?php echo $row['bales_type']?></td>
-                <td><?php echo $row['production_date']?></td>
+                <td>
+                    <?php 
+                        $date = new DateTime($row['production_date']);
+                        echo $date->format('F j, Y'); // Outputs date as "May 14, 2023"
+                    ?>
+                </td>
                 <td><?php echo $row['supplier']?></td>
                 <td> <?php echo $row['location']?> </td>
                 <td><?php echo $row['bales_type']?></td>
@@ -59,9 +74,8 @@
                 <td><?php echo $row['description']?></td>
                 <td> ₱ <?php echo number_format($row['total_cost']/$row['produce_total_weight'],2)?></td>
                 <td class="text-center">
-                    <button type="button" 
-                    data-recording_id ='<?php echo $row['recording_id']?>'
-                    class="btn btn-success btn-sm btnProducedView">
+                    <button type="button" data-recording_id='<?php echo $row['recording_id']?>'
+                        class="btn btn-success btn-sm btnProducedView">
                         <i class="fas fa-book"></i> View
                     </button>
                 </td>
@@ -75,6 +89,37 @@
 
 <script>
 $(document).ready(function() {
+
+
+    $.fn.dataTable.ext.search.push(
+        function(settings, data, dataIndex) {
+            var min = $('#min').datepicker("getDate");
+            var max = $('#max').datepicker("getDate");
+            var startDate = new Date(data[3]);
+
+            if (min == null && max == null) return true;
+            if (min == null && startDate <= max) return true;
+            if (max == null && startDate >= min) return true;
+            if (startDate <= max && startDate >= min) return true;
+            return false;
+        }
+    );
+
+    $("#min").datepicker({
+        onSelect: function() {
+            table.draw();
+        },
+        changeMonth: true,
+        changeYear: true
+    });
+    $("#max").datepicker({
+        onSelect: function() {
+            table.draw();
+        },
+        changeMonth: true,
+        changeYear: true
+    });
+
     var table = $('#recording_table-produced').DataTable({
         "order": [
             [1, 'asc']
@@ -85,6 +130,37 @@ $(document).ready(function() {
             "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
         "responsive": true
     });
+
+    // Event listener to the two range filtering inputs to redraw on input
+    $('#min, #max').change(function() {
+        table.draw();
+    });
+
+    // Quick date filters
+    $('#today').on('click', function() {
+        var today = new Date();
+        $('#min, #max').datepicker('setDate', today);
+        table.draw();
+    });
+
+    $('#this-week').on('click', function() {
+        var today = new Date();
+        var firstDayOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today
+            .getDay());
+        $('#min').datepicker('setDate', firstDayOfWeek);
+        $('#max').datepicker('setDate', today);
+        table.draw();
+    });
+
+    $('#this-month').on('click', function() {
+        var today = new Date();
+        var firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+        $('#min').datepicker('setDate', firstDayOfMonth);
+        $('#max').datepicker('setDate', today);
+        table.draw();
+    });
+
+
 });
 </script>
 <script>

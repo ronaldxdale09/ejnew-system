@@ -222,7 +222,8 @@ while ($arr = mysqli_fetch_array($result)) {
                     <div class="mb-3 text-center">
                         <input id='u_id' name='id' hidden>
                         <label for="category" class="form-label">Category Name</label>
-                        <input type="text" class="form-control text-center" id="u_name" name="name" aria-describedby="category">
+                        <input type="text" class="form-control text-center" id="u_name" name="name"
+                            aria-describedby="category">
 
                     </div>
 
@@ -245,7 +246,7 @@ while ($arr = mysqli_fetch_array($result)) {
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method='POST' action='../../function/admin/Excategory_crud.php'>
+                <form class="col-md-12" method='POST' a action="function/ledger/addCategory.php">
                     <div class="mb-3">
                         <input id='d_id' name='d_id' hidden>
                         <div id="category" class="form-text mb-3">Please be advice that it will remove permanently.
