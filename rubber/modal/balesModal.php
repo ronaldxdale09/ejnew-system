@@ -1,44 +1,3 @@
-<div class="modal" id="myModal" data-backdrop="static">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">BALES RUBBER PURCHASING</h4>
-                <button type="button" class="close" data-dismiss="modal">×</button>
-            </div>
-            <form>
-                <div class="container"></div>
-                <div class="modal-body">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm">
-                                    <label> Date </label>
-                                    <br>
-                                    <input type="date" name="delivery_date" id="delivery_date" class="form-control"
-                                        style="font-size:18px;border: 2;font-weight:bold" required>
-                                </div>
-                                <div class="col-sm">
-                                    <label> LOT #:</label>
-                                    <br>
-                                    <input type='text' id="lot_number" name='lot_number' class="form-control"
-                                        style="font-size:18px;border: 2;font-weight:bold" required>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" id='submit' data-toggle="modal" href="#confirmModal" data-dismiss="modal"
-                        class="btn btn-dark">Confirm</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-
 <!-- Confirm Transaction -->
 <form action="function/bales_rubber_purchase.php" id='newPurchase' method="POST">
     <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" data-backdrop="static"
@@ -54,18 +13,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="row no-gutters">
-                            <div class="col-12 col-sm-5 col-md-4">
 
-                                <div class="input-group mb-1">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroup-sizing-default"
-                                            style='color:black;font-weight: bold;'>Invoice</span>
-                                    </div>
-                                    <input type="text" style='text-align:right' name='m_invoice' id='m_invoice'
-                                        class="form-control" style='background-color:white;border:0px solid #ffffff;'
-                                        readonly>
-                                </div>
-                            </div>
                             <div class="col-6 col-md-4">
                                 <div class="input-group mb-1">
                                     <div class="input-group-prepend">
@@ -77,12 +25,18 @@
                                         readonly>
                                 </div>
                             </div>
+                            <div class="col-12 col-sm-5 col-md-4">
+
+                            <input type="text" style='text-align:right' name='m_prod_id' id='m_prod_id'
+                                        class="form-control" style='background-color:white;border:0px solid #ffffff;'
+                                       hidden readonly>
+                            </div>
                             <!--end  -->
                             <div class="col-6 col-md-4">
                                 <div class="input-group mb-1">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="inputGroup-sizing-default"
-                                            style='color:black;font-weight: bold;'>Date</span>
+                                            style='color:black;font-weight: bold;'>Transaction Date</span>
                                     </div>
                                     <input type="text" style='text-align:right' name='m_date' id='m_date'
                                         class="form-control" style='background-color:white;border:0px solid #ffffff;'
@@ -92,6 +46,7 @@
                             <!--  end-->
                         </div>
                     </div>
+                    <hr>
                     <div class="form-group">
                         <div class="row no-gutters">
                             <div class="col-12 col-sm-5 col-md-4">
@@ -197,9 +152,9 @@
 
                                     <label style='font-size:15px' class="col-md-12">PREPARED BY :</label>
                                     <div class="input-group mb-3">
-                                     
-                                        <input type="text" class="form-control" id='prepared_by' value='JANE QUINOL' required
-                                            name='prepared_by' />
+
+                                        <input type="text" class="form-control" id='prepared_by' value='JANE QUINOL'
+                                            required name='prepared_by' />
                                     </div>
 
                                 </div>
@@ -211,8 +166,9 @@
 
                                     <label style='font-size:15px' class="col-md-12">APPROVED BY :</label>
                                     <div class="input-group mb-3">
-                                    
-                                        <input type="text" class="form-control" id='approved_by' name='approved_by'  value='RICHARD NEW' required/>
+
+                                        <input type="text" class="form-control" id='approved_by' name='approved_by'
+                                            value='RICHARD NEW' required />
                                     </div>
 
                                 </div>
@@ -223,8 +179,9 @@
 
                                     <label style='font-size:15px' class="col-md-12">RECEIVED BY :</label>
                                     <div class="input-group mb-3">
-            
-                                        <input type="text" class="form-control" id='received_by' name='received_by' required/>
+
+                                        <input type="text" class="form-control" id='received_by' name='received_by'
+                                            required />
                                     </div>
 
                                 </div>
@@ -561,7 +518,7 @@ $(document).ready(function() {
             setTimeout(function() {
                 nw.close()
             }, 500)
-        }, 1000)
+        }, 6000)
     })
 });
 </script>
@@ -592,7 +549,8 @@ $(document).ready(function() {
 
             </div>
             <div class="modal-footer">
-                <button onclick="location.href = 'transaction.php';" class="btn btn-success text-white">Confirm</button>
+                <button onclick="location.href = 'bales_rubber.php';"
+                    class="btn btn-success text-white">Confirm</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
             </div>

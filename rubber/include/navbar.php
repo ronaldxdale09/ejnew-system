@@ -27,6 +27,22 @@
 
     <hr style='color:gray'>
 
+
+    <a class='nav-link'>
+        <i class='fa-solid fa-truck'></i> <span class='nav-text'>Inventory</span>
+    </a>
+
+    <a class='nav-link' href='inv_bale.php' style='margin-left: 30px; font-size: 18px;'>
+        <i class='fa-solid fa-cube'></i> <span class='nav-text'>Bales</span>
+    </a>
+
+    <a class='nav-link' href='inv_cuplump.php' style='margin-left: 30px; font-size: 18px;'>
+        <i class='fa-solid fa-tree'></i> <span class='nav-text'>Cuplumps</span>
+    </a>
+
+
+
+    <hr style='color:gray'>
     <a class='nav-link' href='seller.php'>
         <i class='fa-solid fa-user'></i> <span class='nav-text'>Seller</span>
     </a>
@@ -38,7 +54,7 @@
         <i class='fa-solid fa-money'></i> <span class='nav-text'>Cash Advance</span>
     </a>
 
-  
+
 
     <div class='logout-container'>
         <span class='nav-text'></span>

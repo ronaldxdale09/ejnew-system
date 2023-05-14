@@ -280,21 +280,8 @@
                     <hr>
 
                     <div class="row mb-3">
-                        <div class="col">
-                            <label class="form-label">Entry Weight</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name='entry_weight' id="prod_trans_entry" readonly>
-                                <span class="input-group-text">kg</span>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <label class="form-label">Total Weight</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="prod_trans_total_weight" readonly>
-                                <span class="input-group-text">kg</span>
-                            </div>
-                        </div>
-                        <div class="col">
+                        
+                        <div class="col-5">
                             <label class="form-label">DRC</label>
 
                             <div class="input-group">

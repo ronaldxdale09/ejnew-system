@@ -51,7 +51,7 @@ $('#confirm').click(function() {
         });
     }
      else {
-        $('#myModal').modal('show');
+        $('#confirmModal').modal('show');
    
         $('#m_invoice').val($("#invoice").val());
         $('#m_name').val($("#name").val());

@@ -23,8 +23,9 @@
                 <th>Kilo per Bale</th>
                 <th>Bale Weight</th>
                 <th>Bales</th>
-                <th>Excess</th>
-
+                <th>DRC</th>
+                <th>Description</th>
+                <th>Cost</th>
                 <th class="text-center">Action</th>
             </tr>
         </thead>
@@ -54,10 +55,13 @@
                 <td class="number-cell"> <?php echo $row['kilo_per_bale']?> kg</td>
                 <td class="number-cell"> <?php echo number_format($row['rubber_weight'], 0, '.', ',')?> kg</td>
                 <td class="number-cell"> <?php echo number_format($row['number_bales'], 0, '.', ',')?></td>
-                <td class="number-cell"><?php echo $row['bales_excess']?> kg</td>
-
+                <td class="number-cell"><?php echo number_format($row['drc'],2)?> %</td>
+                <td><?php echo $row['description']?></td>
+                <td> ₱ <?php echo number_format($row['total_cost']/$row['produce_total_weight'],2)?></td>
                 <td class="text-center">
-                    <button type="button" class="btn btn-success btn-sm btnProducedView">
+                    <button type="button" 
+                    data-recording_id ='<?php echo $row['recording_id']?>'
+                    class="btn btn-success btn-sm btnProducedView">
                         <i class="fas fa-book"></i> View
                     </button>
                 </td>
@@ -113,6 +117,8 @@ $('.btnProducedView').on('click', function() {
     }).get();
 
 
+    var recording = $(this).data('recording_id');
+
     $('#prod_trans_id').val(data[1]);
     $('#prod_trans_date').val(data[2]);
     $('#prod_trans_supplier').val(data[3]);
@@ -125,14 +131,14 @@ $('.btnProducedView').on('click', function() {
     $('#prod_trans_drc').val(data[8]);
     $('#prod_trans_total_weight').val(data[7]);
 
-    function fetch_data() {
 
-        var recording_id = data[1].replace(/\s+/g, '');
+    function fetch_record() {
+
         $.ajax({
             url: "table/pressing_data.php",
             method: "POST",
             data: {
-                recording_id: recording_id,
+                recording_id: recording,
 
             },
             success: function(data) {
@@ -142,7 +148,8 @@ $('.btnProducedView').on('click', function() {
             }
         });
     }
-    fetch_data();
+    fetch_record();
+
 
 });
 </script>

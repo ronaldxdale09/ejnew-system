@@ -102,6 +102,9 @@ $today = $year . "-" . $month . "-" . $day;
                             <div class="col-7">
                                 <div class="text-end upgrade-btn">
                                     <!-- CONTENT -->
+                                    <button type="button" class="btn btn-primary text-white" data-toggle="modal"
+                                        data-target="#modal_new_transact">New
+                                        Transaction</button>
                                     <button type="button" class="btn btn-success text-white" data-toggle="modal"
                                         data-target="#add_seller1"><span class="fa fa-plus text-white"></span>
                                         Add Seller</button>
@@ -133,29 +136,7 @@ $today = $year . "-" . $month . "-" . $day;
 
                                                 </tr>
                                             </table>
-                                            <div class="row">
-                                                <div class="col-sm-5">
-                                                    <div class="form-group">
-                                                        <label class="col-md-12">Reference #</label>
-                                                        <div class="col-md-12">
-                                                            <input type="number" name='invoice' id='invoice'
-                                                                value="<?php echo "$invoiceCount"; ?>"
-                                                                class="form-control form-control-line" readonly>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-7">
-                                                    <div class="form-group">
-                                                        <label class="col-md-12"></label>
-                                                        <div class="col-md-12">
-                                                            <button type="button" class="btn btn-primary text-white"
-                                                                data-toggle="modal"
-                                                                data-target="#modal_new_transact">New
-                                                                Transaction</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+
                                             <div class="form-group">
                                                 <label class="col-md-12">Date</label>
                                                 <div class="col-md-12 ">
@@ -279,10 +260,28 @@ $today = $year . "-" . $month . "-" . $day;
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="container">
+                                                <button type="button" class="btn btn-dark text-white btnSelectTrans"
+                                                    id='receiptBtn'>
+                                                    <span class="fa fa-book"></span> Select Transaction</button>
+                                                <hr>
                                                 <!-- -->
                                                 <div class="form-group">
                                                     <div class="row no-gutters">
-                                                        <div class="col-12 col-md-3">
+
+                                                        <div class="col-2">
+                                                            <label style='font-size:15px' class="col-md-12"></label>
+                                                            <div class="input-group mb-1">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text"
+                                                                        id="inputGroup-sizing-default"
+                                                                        style='color:black'>Prod ID
+                                                                    </span>
+                                                                </div>
+                                                                <input type="text" class="form-control"
+                                                                    id='recording_id' name='recording_id' readonly />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-md-2">
                                                             <label style='font-size:15px' class="col-md-12">Entry Weight
                                                                 (WET)</label>
                                                             <!-- new column -->
@@ -297,7 +296,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                             </div>
                                                         </div>
                                                         <!--end  -->
-                                                        <div class="col-6 col-md-4">
+                                                        <div class="col-3">
                                                             <label style='font-size:15px' class="col-md-12"> </label>
                                                             <div class="input-group mb-1">
                                                                 <div class="input-group-prepend">
@@ -327,7 +326,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                             </select>
                                                         </div>
 
-                                                        <div class="col-6 col-md-3">
+                                                        <div class="col-5 col-md-3">
                                                             <label class="col-md-12">Bales</label>
                                                             <input type="text" class="form-control" id='total_bales_1'
                                                                 name='total_bales_1' readonly />
@@ -338,7 +337,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                 <div class="form-group">
                                                     <div class="row no-gutters">
                                                         <div class="col-12 col-md-3">
-                                                
+
                                                         </div>
                                                         <!--end  -->
                                                         <div class="col-6 col-md-4">
@@ -365,9 +364,10 @@ $today = $year . "-" . $month . "-" . $day;
                                                             <label class="col-md-12">Kilo Per Bale</label>
                                                             <select class='form-select' name='kilo_bales_2'
                                                                 id='kilo_bales_2' disabled>
-                                                                <option value='1'selected="selected">Select Kilo</option>
+                                                                <option value='1' selected="selected">Select Kilo
+                                                                </option>
                                                                 <option value="35">35 KG </option>
-                                                                <option value="33.33" >33.33 KG
+                                                                <option value="33.33">33.33 KG
                                                                 </option>
 
                                                             </select>
@@ -409,8 +409,8 @@ $today = $year . "-" . $month . "-" . $day;
                                                         </div>
 
                                                         <div class="col-6 col-md-2">
-                                                        <input type="text" class="form-control" id='bales_compute'
-                                                                name='bales_compute' hidden  />
+                                                            <input type="text" class="form-control" id='bales_compute'
+                                                                name='bales_compute' hidden />
                                                             <!--  end-->
                                                         </div>
                                                     </div>
@@ -593,7 +593,7 @@ $today = $year . "-" . $month . "-" . $day;
 
 include "modal/balesModal.php";
 include "modal/balesModalScript.php";
-
+include "modal/balePurchase.php";
 include "modal/contractModal.php";
 include "modal/cashadvanceModal.php";
 include "modal/addseller_modal.php";

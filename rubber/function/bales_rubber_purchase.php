@@ -40,7 +40,8 @@
                             $first_total= str_replace( ',', '', $_POST['m_first_total']);
                             $second_total= str_replace( ',', '', $_POST['m_second_total']);
 
-
+                            
+                            $prod_id= str_replace( ',', '', $_POST['m_prod_id']);
 
 
                              $total_amount = str_replace( ',', '', $_POST['m_total_amount']);
@@ -97,9 +98,9 @@
                             
 
                             $query = "INSERT INTO bales_transaction (
-                                invoice,contract,date,address,seller,entry,net_weight_1,net_weight_2,total_net_weight,kilo_bales_1,kilo_bales_2,total_bales_1,total_bales_2,drc,
+                                production_id,invoice,contract,date,address,seller,entry,net_weight_1,net_weight_2,total_net_weight,kilo_bales_1,kilo_bales_2,total_bales_1,total_bales_2,drc,
                                 price_1,price_2,total_amount,less,amount_paid,words_amount,delivery_date,lot_code,bales_compute) 
-                                    VALUES ('$invoice','$contract','$date','$address','$seller','$entry','$net_weight_1','$net_weight_2','$total_net_weight',
+                                    VALUES ('$prod_id','$invoice','$contract','$date','$address','$seller','$entry','$net_weight_1','$net_weight_2','$total_net_weight',
                                     '$kilo_bales_1','$kilo_bales_2','$total_bales_1','$total_bales_2','$drc','$price_1','$price_2',
                                     '$total_amount','$less','$amount_paid','$words_amount','$delivery_date','$lot_number','$bales_compute')";
 
@@ -108,9 +109,9 @@
 
                                    
                                 if(mysqli_query($con, $query)){
-
+                                    $last_id = $con->insert_id;
                                     
-                                    $_SESSION['print_invoice'] = $invoice;
+                                    $_SESSION['print_invoice'] = $last_id;
                                     $_SESSION['print_seller'] = $seller;
                                     $_SESSION['print_date'] = $date;
                                     $_SESSION['print_address'] = $address;

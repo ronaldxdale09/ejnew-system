@@ -46,7 +46,7 @@ $output = '
         $kiloBales = ['35', '33.33'];
         foreach ($kiloBales as $kilo) {
             if ($kilo == $row['kilo_per_bale']) {
-                $output .= '<option selected="selected" value="'.$kilo.'">'.$kilo.' kg</option>';
+                $output .= '<option value="'.$kilo.'">'.$kilo.' kg</option>';
             } else {
                 $output .= '<option value="'.$kilo.'">'.$kilo.' kg</option>';
             }
@@ -86,12 +86,14 @@ $(document).ready(function() {
 
         var newRow = $('<tr>' +
                 '<td>' +
-                '<select class="form-control type" name="type[]" autocomplete="off" step="any">' +
+                '<select class="form-control type" name="type[]" autocomplete="off" step="any" style="font-weight:normal;">' +
+                '<option selected="selected" disabled value="" style="font-weight:normal;">Choose Quality </option>' +
                 selectOptions + '</select>' +
                 '</td>' +
                 '<td>' +
                 '<div class="input-group">' +
-                '<select class="form-control kilo_bale" name="kilo_bale[]" id="kilo_bale_new' + counter + '">' +
+                '<select class="form-control kilo_bale" name="kilo_bale[]" id="kilo_bale_new' + counter + '" style="font-weight:normal;">' +
+                '<option selected="selected" disabled value="" style="font-weight:normal;">Choose Kilo</option>' +
                 '<option value="35">35 kg</option>' +
                 '<option value="33.33">33.33 kg</option>' +
                 '</select>' +
