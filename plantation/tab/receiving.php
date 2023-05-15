@@ -37,7 +37,8 @@
                     <button type="button" class="btn-sm btn-warning btn-sm btnTransferReceiving">
                         <i class="fas fa-chevron-right"> </i> </button>
 
-                    <button type="button" class="btn-sm btn-dark btn-sm btnUpdateReceiving">
+                    <button type="button" data-total_cost='<?php echo $row['total_cost']?>'
+                        class="btn-sm btn-dark btn-sm btnUpdateReceiving">
                         <i class="fas fa-pencil"> </i> </button>
                 </td>
 
@@ -81,7 +82,7 @@ $('.btnUpdateReceiving').on('click', function() {
     var date = data[2];
     var TformatDate = date.replace(" ", "T").substring(0, 16); // Adjusted this line
     // Now TformatDate should be something like '2023-05-12T08:45'
-
+    var total_cost = $(this).data('total_cost');
     console.log(date);
     $('#ru_date').val(date);
     $('#ru_supplier').val(data[3]);
@@ -90,9 +91,10 @@ $('.btnUpdateReceiving').on('click', function() {
     $('#ru_driver').val(data[6]);
     $('#ru_truck_num').val(data[7]);
 
+    $('#ru_total_cost').val(parseFloat(total_cost).toLocaleString());
+    $('#ru_weight').val(parseFloat(data[8].toString().replace(/\D/g, '')).toLocaleString());
+    $('#ru_reweight').val(parseFloat(data[9].toString().replace(/\D/g, '')).toLocaleString());
 
-    $('#ru_weight').val(data[8].toString().replace(/\D/g, ''));
-    $('#ru_reweight').val(data[9].toString().replace(/\D/g, ''));
 
     $('#updateReceiving').modal('show');
 });

@@ -3,7 +3,7 @@ include('../function/db.php');
 
 $sql  = "SELECT * FROM planta_bales_production 
 LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
-WHERE planta_recording.status='For Purchase' and (rubber_weight !='0' or rubber_weight IS NOT NULL)
+WHERE planta_recording.status='Purchase' and (rubber_weight !='0' or rubber_weight IS NOT NULL)
 ORDER BY planta_bales_production.recording_id ASC "; 
 
 $result = mysqli_query($con, $sql);  

@@ -36,7 +36,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                             <option disabled="disabled" selected="selected" value="">Select Invoice
                                             </option>
                                             <option value="0">EJN RUBBER </option>
-                                            <option value="-1">RUBBER TO PROCESS </option>
+                                            <option value="-1">PROCESS RUBBER (DRY PRICE) </option>
                                             <?php echo $listPurchased; ?>
                                         </select>
                                     </div>
@@ -117,6 +117,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                                 <label class="col-md-12">Total Purchase Cost</label>
                                                 <span class="input-group-text">₱</span>
                                                 <input type="text" style='text-align:right' name='total_cost'
+                                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
                                                     id='purchase_total_cost' readonly class="form-control">
                                                 <div class="input-group-append">
 
@@ -245,18 +246,31 @@ while ($arr = mysqli_fetch_assoc($result)) {
                             </div>
                         </div>
                         <br>
-                        <hr>
-                        <br>
                         <div class="form-group">
                             <div class="form-group">
                                 <center style="margin: 0px 60px;">
                                     <div class="row no-gutters">
+
+                                        <div class="col">
+                                            <div class="input-group mb-12">
+                                                <label class="col-md-12">Total Purchase Cost</label>
+                                                <span class="input-group-text">₱</span>
+                                                <input type="text" style='text-align:right' name='total_cost'
+                                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
+                                                    id='ru_total_cost' class="form-control">
+                                                <div class="input-group-append">
+
+                                                </div>
+
+                                            </div>
+                                        </div>
                                         <div class="col">
                                             <div class="input-group mb-12">
                                                 <label class="col-md-12">Entry Weight</label>
 
                                                 <input type="text" style='text-align:right' name='ru_weight'
-                                                    id='ru_weight' readonly class="form-control">
+                                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
+                                                    id='ru_weight' class="form-control">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">kg</span>
                                                 </div>

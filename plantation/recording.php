@@ -24,7 +24,7 @@
     $drying = mysqli_fetch_array($sql);
 
 
-    $sql = mysqli_query($con, "SELECT SUM(produce_total_weight) as inventory from  planta_recording where status='Produced'   "); 
+    $sql = mysqli_query($con, "SELECT SUM(produce_total_weight) as inventory from  planta_recording where status='For Sale' or  status='Purchase'    "); 
     $bales = mysqli_fetch_array($sql);
 
 

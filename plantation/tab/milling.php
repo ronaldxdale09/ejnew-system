@@ -10,7 +10,7 @@
                 <th scope="col">Supplier</th>
                 <th scope="col">Location</th>
                 <th scope="col">Lot No.</th>
-                <th scope="col">Cuplump Reweight</th>
+                <th scope="col">Reweight</th>
                 <th scope="col">Crumbed Weight</th>
                 <th scope="col" class="text-center">Action</th>
             </tr>

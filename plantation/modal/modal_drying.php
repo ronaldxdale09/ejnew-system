@@ -199,8 +199,7 @@
                         </center>
                     </div>
                     <div id='dry_table_record_trans'></div>
-                    <hr>
-
+             
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>

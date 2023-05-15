@@ -85,7 +85,7 @@
                                                             case "For Sale":
                                                                 $status_color = 'bg-dark';
                                                                 break;
-                                                            case "For Purchase":
+                                                            case "Purchase":
                                                                 $status_color = 'bg-light text-dark'; // changed color here
                                                                 break;
                                                         }

@@ -111,7 +111,7 @@
             // Based on prod_type, decide the status to set
             $status = 'Produced';  // Default status
             if($prod_type == 'PURCHASE') {
-                $status = 'For Purchase';
+                $status = 'Purchase';
             }
     
             // Update the status

@@ -177,7 +177,7 @@
                                 SUM(CASE WHEN status = 'Field' THEN reweight ELSE 0 END) as cumplumps,
                                 SUM(CASE WHEN status = 'Milling' THEN crumbed_weight ELSE 0 END) as crumbed,
                                 SUM(CASE WHEN status = 'Drying' THEN dry_weight ELSE 0 END) as dry,
-                                SUM(CASE WHEN status = 'Produced' THEN produce_total_weight ELSE 0 END) as produced
+                                SUM(CASE WHEN status = 'For Sale' THEN produce_total_weight ELSE 0 END) as produced
                                 FROM planta_recording");
 
                                 if ($inventory->num_rows > 0) {
@@ -249,7 +249,7 @@
                                 });
 
 
-                                <?php           
+                                <?php                
                                 $bales_inventory = mysqli_query($con, "SELECT bales_type, SUM(number_bales) as total FROM planta_bales_production GROUP BY bales_type;");
 
                                 if ($bales_inventory->num_rows > 0) {
