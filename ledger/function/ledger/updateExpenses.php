@@ -1,32 +1,46 @@
+<?php
+include('../db.php');
 
+function removeCharacters($string)
+{
+    $string = preg_replace('/[^0-9]/', '', $string);
+    return $string;
+}
 
-<?php 
- include('../db.php');
-                        if (isset($_POST['submit'])) {
-                            $id = $_POST['my_id'];
-                            $date = $_POST['update_date'];
-                            $vouch = $_POST['update_voucher'];
-                            $particular = $_POST['update_particular'];
-                            $category = $_POST['update_category'];
-                            $amount = str_replace(',', '', $_POST['update_amount']);
+if (isset($_POST['update'])) {
+    $id = $_POST['id'];
+    $date = $_POST['date'];
+    $vouch = removeCharacters($_POST['voucher']);
+    $particular = $_POST['particular'];
+    $category = $_POST['category'];
+    $modetransac = $_POST['mode_transaction'];
+    $remark = $_POST['remarks'];
+    $type = $_POST['type'];
+    $location = $_POST['location'];
+    $amount = str_replace(',', '', $_POST['amount']);
 
+    $category = $_POST['category'];
 
+    // Update the expense in the database
+    $query = "UPDATE ledger_expenses SET 
+              date='$date', 
+              voucher_no='$vouch', 
+              particulars='$particular', 
+              category='$category', 
+              mode_transact='$modetransac', 
+              remarks='$remark', 
+              amount='$amount', 
+              location='$location', 
+              type_expense='$type' 
+              WHERE id = $id";
+    $results = mysqli_query($con, $query);
 
-                        
-
-                                $query = "UPDATE `ledger_expenses` SET `voucher_no`='$vouch',`particulars`='$particular',`date`='$date',`category`='$category',`amount`='$amount' WHERE id = '$id'";
-                             
-                                    if(mysqli_query($con, $query))
-                                    {  
-                                        header("Location: ../../ledger-expense.php");
-                                        $_SESSION['expenses']= "successful";
-                                       
-                                        exit();
-                                    }
-                                    else
-                                    {  
-                                        echo "ERROR: Could not be able to execute $query. ".mysqli_error($con); 
-                                    }  
-                                //exit();
-                                }
- ?>
+    if ($results) {
+        header("Location: ../../ledger-expense.php");
+        $_SESSION['expenses'] = "Update successful";
+        exit();
+    } else {
+        echo "ERROR: Could not be able to execute $query. " . mysqli_error($con);
+    }
+}
+?>

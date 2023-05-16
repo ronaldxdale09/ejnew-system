@@ -111,7 +111,10 @@
                                 if(mysqli_query($con, $query)){
                                     $last_id = $con->insert_id;
 
-                                    $sql=mysqli_query($con,"UPDATE  planta_recording SET status = 'For Sale' where recording_id='$prod_id' ");
+                                    $sql=mysqli_query($con,"UPDATE  planta_recording SET 
+                                    total_cost = '$total_amount',
+                                    
+                                    status = 'For Sale' where recording_id='$prod_id' ");
                    
                                     $_SESSION['print_invoice'] = $last_id;
                                     $_SESSION['print_seller'] = $seller;

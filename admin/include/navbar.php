@@ -12,9 +12,14 @@
         <i class='fas fa-home'></i> <span class='nav-text'>Home</span>
     </a>
 
-    <a class='nav-link' href='operating_expenses.php'>
-        <i class='fas fa-cash-register'></i> <span class='nav-text'>Operating Expenses</span>
+    <a class='nav-link' href='expense_report.php'>
+        <i class='fas fa-cash-register'></i> <span class='nav-text'>Expense Report</span>
     </a>
+
+    <a class='nav-link' href='purchase_report.php'>
+        <i class='fas fa-cash-register'></i> <span class='nav-text'>Purchase Report</span>
+    </a>
+
 
     <hr style='color:gray'>
 
@@ -32,18 +37,18 @@
         <span class='nav-text'>Transaction Record</span>
     </a>
 
-
+<!-- 
     <a class='nav-link' href='admin_kidapawan_rubber.php'>
         <i class='fas fa-cube'></i> <span class='nav-text'>Kidapawan Rubber</span>
-    </a>
+    </a> -->
 
-    <a class='nav-link'>
+    <!-- <a class='nav-link'>
         <i class='fas fa-tree'></i> <span class='nav-text'>Copra</span>
     </a>
 
     <a class='nav-link'>
         <i class='fas fa-coffee'></i> <span class='nav-text'>Coffee</span>
-    </a>
+    </a> -->
 
     <hr style='color:gray'>
 

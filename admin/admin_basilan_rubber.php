@@ -1,86 +1,52 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
+<?php 
+   include('include/header.php');
+   include "include/navbar.php";
+   ini_set('display_errors', 1);
+   ini_set('display_startup_errors', 1);
+   error_reporting(E_ALL);
+   $sql = mysqli_query($con, "SELECT SUM(reweight) as inventory from  planta_recording where status='Field'   "); 
+   $cuplumps = mysqli_fetch_array($sql);
 
-<head>
-    <meta charset="UTF-8">
-    <title> Administrator Menu | EJN </title>
-</head>
+   $sql = mysqli_query($con, "SELECT SUM(crumbed_weight) as inventory from  planta_recording where status='Milling'   "); 
+   $milling = mysqli_fetch_array($sql);
 
-<!-- PHP Code -->
-<!-- copra dashboard -->
-<?php
-        include 'include/header.php';
-        include 'include/navbar.php';
+   
+   $sql = mysqli_query($con, "SELECT SUM(dry_weight) as inventory from  planta_recording where status='Drying'   "); 
+   $drying = mysqli_fetch_array($sql);
 
 
-        $sql  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(net_weight) as month_total 
-        from rubber_transaction  where loc='Basilan'  group by year(date), month(date) ORDER BY ID DESC");
-        $sumPurchaced_wet = mysqli_fetch_array($sql);
-        $monthNum  = $sumPurchaced_wet["month"];
-        $dateObj   = DateTime::createFromFormat('!m', $monthNum);
-     
-     
-        $sql  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(amount_paid) as amount_purchased 
-        from rubber_transaction  where loc='Basilan'   group by year(date), month(date) ORDER BY ID DESC");
-        $sumAmountPurchased = mysqli_fetch_array($sql);
-     
-        /////////////////
-     
-        $sql  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(total_net_weight) as month_total 
-        from bales_transaction  where loc='Basilan'   group by year(date), month(date) ORDER BY ID DESC");
-        $sumPurchaced_bales = mysqli_fetch_array($sql);
-        $monthNum  = $sumPurchaced_bales["month"];
-        $dateObj   = DateTime::createFromFormat('!m', $monthNum);
-      
-     
-        $sql  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(amount_paid) as amount_purchased 
-        from bales_transaction   where loc='Basilan'  group by year(date), month(date) ORDER BY ID DESC");
-        $sumAmountPurchased_bales = mysqli_fetch_array($sql);
-     
-     
-        //PENDING CONTRACT
-        $sql = mysqli_query($con,"SELECT * FROM rubber_contract where  loc='Basilan' AND  status='WET' AND status='PENDING' OR status='UPDATED' ");
-        $contract_wet=mysqli_num_rows($sql);
-     
-        $sql = mysqli_query($con,"SELECT * FROM rubber_contract where  loc='Basilan' AND  status='BALES' AND  status='PENDING' OR status='UPDATED'");
-        $contract_bales=mysqli_num_rows($sql);
-     
-     //    cash advance
-     
-        $sql = mysqli_query($con, "SELECT SUM(cash_advance) AS total_ca from rubber_seller where loc='Basilan'  "); 
-        $ca_wet = mysqli_fetch_array($sql);
-     
-        
-        $sql = mysqli_query($con, "SELECT SUM(bales_cash_advance) AS total_ca from rubber_seller  where loc='Basilan' "); 
-        $ca_bales = mysqli_fetch_array($sql);
-        ?>
+   $sql = mysqli_query($con, "SELECT SUM(produce_total_weight) as inventory from  planta_recording where status='For Sale' or status='Purchase'  "); 
+   $bales = mysqli_fetch_array($sql);
+
+   $sql = mysqli_query($con, "SELECT SUM(number_bales) as inventory from  planta_bales_production where status !='Sold'   "); 
+   $balesCount = mysqli_fetch_array($sql);
+
+
+
+
+   ?>
 
 <body>
-
-    <!--DASHBOARD OF ALL USER -->
-    <section class="home-section">
-        <div class="home-content">
-            <i class='bx bx-menu'></i>
-            <span class="text">Basilan Rubber Dashbaord</span>
-        </div>
-
-        <main>
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"
+        integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel='stylesheet' href='css/statistic-card.css'>
+    <input type='hidden' id='selected-cart' value=''>
+    <div class='main-content' style='position:relative; height:100%;'>
+        <div class="container home-section h-100" style="max-width:100%;">
             <div class="page-wrapper">
                 <div class="container-fluid">
-                    <!-- ============================================================== -->
                     <div class="row">
-                        <div class="col-sm-3 offset-sm-0">
+                        <div class="col">
                             <div class="stat-card">
                                 <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>WET</b> PURCHASED</p>
-                                    <h3><i class="text-danger font-weight-bold mr-1"></i>
-                                        <?php echo number_format($sumPurchaced_wet['month_total']); ?> KG
+                                    <p class="text-uppercase mb-1 text-muted"><b>CUPLUMP</b> INVENTORY</p>
+                                    <h3>
+                                        <i class="text-danger font-weight-bold mr-1"></i>
+                                        <?php echo number_format($cuplumps['inventory'] ?? 0, 0) ?> kg
                                     </h3>
                                     <div>
-                                        <span class="text-muted"> <?php echo $today = date("F, Y"); ?>
-                                            <?php echo $sumPurchaced_wet['year']; ?>
+                                        <span class="text-muted">
                                         </span>
                                     </div>
                                 </div>
@@ -91,35 +57,42 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+
+                        <div class="col">
                             <div class="stat-card">
                                 <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>WET</b> TOTAL PURCHASED</p>
-                                    <h3>₱ <?php echo number_format($sumAmountPurchased['amount_purchased']) ; ?></h2>
-                                        <div>
-                                            <span class="text-muted"> <?php echo $today = date("F, Y"); ?>
-                                                <?php echo $sumPurchaced_wet['year']; ?>
-                                            </span>
-                                        </div>
+                                    <p class="text-uppercase mb-1 text-muted"><b>CRUMB</b> INVENTORY</p>
+
+                                    <h3>
+                                        <i class="text-danger font-weight-bold mr-1"></i>
+                                        <?php echo number_format($milling['inventory'] ?? 0, 0) ?> kg
+                                    </h3>
+
+                                    <div>
+                                        <span class="text-muted">
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="stat-card__icon stat-card__icon--secondary">
                                     <div class="stat-card__icon-circle">
-                                        <i class="fa fa-money"></i>
+                                        <i class="fas fa-tint"></i><i class="fas fa-wind"></i>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-sm-3 offset-sm-0">
+                        <div class="col">
                             <div class="stat-card">
                                 <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>BALES</b> PURCHASED</p>
-                                    <h3><i class="text-danger font-weight-bold mr-1"></i>
-                                        <?php echo number_format($sumPurchaced_bales['month_total']); ?> KG
+                                    <p class="text-uppercase mb-1 text-muted"><b>BLANKET</b> INVENTORY</p>
+
+                                    <h3>
+                                        <i class="text-danger font-weight-bold mr-1"></i>
+                                        <?php echo number_format($drying['inventory'] ?? 0, 0) ?> kg
                                     </h3>
+
                                     <div>
-                                        <span class="text-muted"> <?php echo $today = date("F, Y"); ?>
-                                            <?php echo $sumPurchaced_bales['year']; ?>
+                                        <span class="text-muted">
                                         </span>
                                     </div>
                                 </div>
@@ -130,15 +103,37 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+
+                        <div class="col">
                             <div class="stat-card">
                                 <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>BALES</b> TOTAL PURCHASED</p>
-                                    <h3>₱ <?php echo number_format($sumAmountPurchased_bales['amount_purchased']) ; ?>
+                                    <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY (KG)</p>
+                                    <h3>
+                                        <i class="text-danger font-weight-bold mr-1"></i>
+                                        <?php echo number_format($bales['inventory'] ?? 0, 0) ?> kg
                                     </h3>
                                     <div>
-                                        <span class="text-muted"> <?php echo $today = date("F, Y"); ?>
-                                            <?php echo $sumPurchaced_wet['year']; ?>
+                                        <span class="text-muted">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="stat-card__icon stat-card__icon--success">
+                                    <div class="stat-card__icon-circle">
+                                        <i class="fa fa-money"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="stat-card">
+                                <div class="stat-card__content">
+                                    <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY </p>
+                                    <h3>
+                                        <i class="text-danger font-weight-bold mr-1"></i>
+                                        <?php echo number_format($balesCount['inventory'] ?? 0, 0) ?> pcs
+                                    </h3>
+                                    <div>
+                                        <span class="text-muted">
                                         </span>
                                     </div>
                                 </div>
@@ -150,265 +145,378 @@
                             </div>
                         </div>
                     </div>
-                    <!-- ============================================================== -->
+
+
+
+                    <!-------------------------------- CHARTS -------------------------------->
+
+
 
                     <div class="row">
-                        <div class="col-sm-3 offset-sm-0">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <h3><i class="text-danger font-weight-bold mr-1"></i>
-                                        ₱ <?php echo number_format($ca_wet[0],2); ?>
-                                    </h3>
-                                    <div>
-                                        <p class="text-uppercase mb-1 text-muted"><b>WET</b> TOTAL CASH ADVANCE</p>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3" style='text-align:center;'>
-                            <div class="stat-card" style='text-align:center;'>
-                                <div class="stat-card__content" style='text-align:center;'>
-
-                                    <h3> <?php echo ($contract_wet) ; ?></h2>
-                                        <p class="text-uppercase mb-1 text-muted"><b>WET</b> PENDING CONTRACT</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3 offset-sm-0">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <h3><i class="text-danger font-weight-bold mr-1"></i>
-                                        ₱ <?php echo number_format($ca_bales[0],2); ?>
-                                    </h3>
-                                    <p class="text-uppercase mb-1 text-muted"><b>BALES</b> TOTAL CASH ADVANCE</p>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3" style='text-align:center;'>
-                            <div class="stat-card" style='text-align:center;'>
-                                <div class="stat-card__content" style='text-align:center;'>
-
-                                    <h3> <?php echo ($contract_bales) ; ?></h2>
-                                        <p class="text-uppercase mb-1 text-muted"><b>BALES</b> PENDING CONTRACT</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- =============================================================== -->
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-10">
-                                            <h5>RUBBER WET TRANSACTION </h5>
+                        <div class="card" style="width:100%;max-width:100%;">
+                            <div class="card-body" style="width:100%;max-width:100%;">
+                                <h4>INVENTORY OVERVIEW</h4>
+                                <div class="row" style="display: flex; align-items: stretch;">
+                                    <div class="col" style="display: flex;">
+                                        <div class="card" style="width: 100%;">
+                                            <div class="card-body" style="height: 400px; position: relative;">
+                                                <canvas id="inventory_all"
+                                                    style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                            </div>
                                         </div>
-
                                     </div>
-                                    <hr>
-                                    <div class="table-responsive">
-                                        <table class="table" id='sellerTable'>
-                                            <?php
-                                    $record  = mysqli_query($con, "SELECT * from rubber_transaction  where loc='Basilan'  ORDER BY id DESC LIMIT 5 "); ?>
-                                            <thead class="table-dark" style='font-size:12px'>
-                                                <tr>
-                                                    <th scope="col">Invoice</th>
-                                                    <th scope="col">Date</th>
-                                                    <th scope="col">Contract</th>
-                                                    <th scope="col">Seller</th>
-                                                    <th scope="col">Price 1</th>
-                                                    <th scope="col">Price 2</th>
-                                                    <th scope="col">Net Weight </th>
-                                                    <th scope="col">Amount Paid</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody style='font-size:15px'>
-                                                <?php while ($row = mysqli_fetch_array($record)) { ?> <tr>
-                                                    <th scope="row"> <?php echo $row['id']?> </th>
-                                                    <td> <?php echo $row['date']?> </td>
-                                                    <td> <?php echo $row['contract']?> </td>
-                                                    <td> <?php echo $row['seller']?> </td>
-                                                    <td>₱ <?php echo number_format($row['price_1'],2);?></td>
-                                                    <td>₱ <?php echo number_format($row['price_2'],2);?></td>
-                                                    <td> <?php echo number_format($row['net_weight']);?> Kg </td>
 
-                                                    <td>₱ <?php echo number_format($row['amount_paid'],2); ?> </td>
-                                                </tr> <?php } ?> </tbody>
-                                        </table>
+                                    <div class="col" style="display: flex;">
+                                        <div class="card" style="width: 100%;">
+                                            <div class="card-body" style="height: 400px; position: relative;">
+                                                <canvas id="inventory_bales"
+                                                    style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card" style="width:100%;max-width:100%; height:100%;">
-                                <div class="card-body" style="width:100%;max-width:100%; height:100%;">
-                                    <canvas id="wet_line" style="width:100%;max-width:100%; height:100%;"></canvas>
+
                                 </div>
                             </div>
                         </div>
                     </div>
+
+
                     <br>
+
+
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-10">
-                                            <h5>BALES TRANSACTION </h5>
+                        <div class="card" style="width:100%;max-width:100%;">
+                            <div class="card-body" style="width:100%;max-width:100%;">
+                                <h4>PRODUCTION VOLUME</h4>
+                                <div class="row">
+                                    <div class="col" style="display: flex;">
+                                        <div class="card" style="width: 100%;">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <canvas id="monthly_milldry" height="300"></canvas>
+                                                </div>
+                                            </div>
                                         </div>
-
-                                    </div>
-                                    <hr>
-                                    <div class="table-responsive">
-                                        <table class="table" id='sellerTable'>
-                                            <?php
-                                    $record  = mysqli_query($con, "SELECT * from bales_transaction  where loc='Basilan' ORDER BY id DESC LIMIT 5 "); ?>
-                                            <thead class="table-dark" style='font-size:12px'>
-                                                <tr>
-                                                    <th scope="col">LOT #</th>
-                                                    <th scope="col">Date</th>
-                                                    <th scope="col">Contract</th>
-                                                    <th scope="col">Seller</th>
-                                                    <th scope="col">Bales</th>
-                                                    <th scope="col">Price 1</th>
-                                                    <th scope="col">Price 2</th>
-                                                    <th scope="col">Net Weight </th>
-                                                    <th scope="col">Amount Paid</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody> <?php while ($row = mysqli_fetch_array($record)) { ?> <tr>
-                                                    <th scope="row">LOT #<?php echo $row['lot_code']?> </th>
-                                                    <td> <?php echo $row['date']?> </td>
-                                                    <td> <?php echo $row['contract']?> </td>
-                                                    <td> <?php echo $row['seller']?> </td>
-                                                    <td>
-                                                        <?php 
-                                                    if ($row['total_bales_2'] =='0 Bales ') {
-                                                        echo  $row['total_bales_1'].' @ '.$row['kilo_bales_1'].' Kg'; 
-                                                    } else {
-                                                        echo  $row['total_bales_1'].' @ '.$row['kilo_bales_1'].' Kg<br>'; 
-                                                        echo  $row['total_bales_2'].' @ '.$row['kilo_bales_2'].' Kg'; 
-                                                    }
-                                                    
-                                                    ?>
-                                                    </td>
-                                                    <td>₱ <?php echo number_format($row['price_1'],2);?></td>
-                                                    <td>₱ <?php echo number_format($row['price_2'],2);?></td>
-                                                    <td> <?php echo number_format($row['total_net_weight']);?> Kg </td>
-
-                                                    <td>₱ <?php echo number_format($row['amount_paid'],2); ?> </td>
-                                                </tr> <?php } ?> </tbody>
-                                        </table>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card" style="width:100%;max-width:100%; height:100%;">
-                                <div class="card-body" style="width:100%;max-width:100%; height:100%;">
-                                    <canvas id="bales_bar" style="width:100%;max-width:100%; height:100%;"></canvas>
+
+                                <br>
+
+                                <div class="row">
+                                    <div class="col" style="display: flex;">
+                                        <div class="card" style="width: 100%;">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <canvas id="monthly_production" height="300"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
-                <?php 
-          include "../modal/viewTransactionModal.php";
-        ?>
-
-                <script>
-                wet_line = document.getElementById("wet_line");
-                bales_bar = document.getElementById("bales_bar");
-
-                <?php
-   $currentMonth = date("m");
-   $currentDay = date("d");
-   $currentYear = date("Y");
-   
-   $today = $currentYear . "-" . $currentMonth . "-" . $currentDay;
-   
-                $purchased_count = mysqli_query($con,"SELECT year(date) as year ,MONTHNAME(date) as monthname,sum(net_weight) as month_total from rubber_transaction WHERE year(date)='$currentYear' AND loc='Basilan'  group by month(date) ORDER BY date");        
-                if($purchased_count->num_rows > 0) {
-                  foreach($purchased_count as $data) {
-                      $month[] = $data['monthname'];
-                      $amount[] = $data['month_total'];
-                  }
-              }
-        ?>
-
-                new Chart(wet_line, {
-                    options: {
-                        plugins: {
-                            title: {
-                                display: true,
-                                text: 'Monthly WET Rubber Purchased',
-                            },
-                        },
-                    },
-                    type: 'line', //Declare the chart type 
-                    data: {
-                        labels: <?php echo json_encode($month) ?>, //X-axis data 
-                        datasets: [{
-                            label: 'Purchased',
-                            data: <?php echo json_encode($amount) ?>, //Y-axis data 
-                            backgroundColor: '#f26c4f',
-                            borderColor: '#f26c4f',
-                            tension: 0.3,
-                            fill: false, //Fills the curve under the line with the babckground color. It's true by default
-                        }]
-                    },
-                });
 
 
-                <?php
-   $Bales_currentYear = date("Y");
-   $Bales_currentMonth = date("m");
-             
-            $bales_count = mysqli_query($con,"SELECT year(date) as year ,MONTHNAME(date) as monthname,sum(bales_compute) as month_total from bales_transaction WHERE
-             year(date)='$Bales_currentYear'   and loc='Basilan' group by month(date) ORDER BY date");        
-            if($bales_count->num_rows > 0) {
-                foreach($bales_count as $b_data) {
-                    $month_bales[] = $b_data['monthname'];
-                    $bales[] = $b_data['month_total'];
-                }
-            }
-        ?>
 
-                new Chart(bales_bar, {
-                    options: {
-                        plugins: {
-                            title: {
-                                display: true,
-                                text: 'Monthly Total Bales Purchased',
-                            },
-                        },
-                    },
-                    type: 'bar', //Declare the chart type 
-                    data: {
-                        labels: <?php echo json_encode($month_bales) ?>, //X-axis data 
-                        datasets: [{
-                            label: 'Bales',
-                            data: <?php echo json_encode($bales) ?>, //Y-axis data 
-                            backgroundColor: '#781710',
-                            borderColor: '#781710',
-                            tension: 0.3,
-                            fill: false, //Fills the curve under the line with the babckground color. It's true by default
-                        }]
-                    },
-                });
-                </script>
-
-
-                <link rel='stylesheet' href='css/statistic-card.css'>
-                <input type='hidden' id='selected-cart' value=''>
-
-        </main>
-
-    </section>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 
 </html>
+
+<script>
+wet_line = document.getElementById("wet_line");
+bales_bar = document.getElementById("bales_bar");
+bales_quality = document.getElementById("bales_quality");
+cuplump_inventory = document.getElementById("cuplump_inventory");
+inventory_bales = document.getElementById("inventory_bales");
+inventory_all = document.getElementById("inventory_all");
+
+<?php
+
+
+              $inventory = mysqli_query($con, "SELECT 
+              SUM(CASE WHEN status = 'Field' THEN reweight ELSE 0 END) as cumplumps,
+              SUM(CASE WHEN status = 'Milling' THEN crumbed_weight ELSE 0 END) as crumbed,
+              SUM(CASE WHEN status = 'Drying' THEN dry_weight ELSE 0 END) as dry,
+              SUM(CASE WHEN status = 'Produced' THEN produce_total_weight ELSE 0 END) as produced
+          FROM planta_recording");
+          
+              if ($inventory->num_rows > 0) {
+                $inventory_data = $inventory->fetch_assoc();
+                $inventory_values = [
+                    number_format($inventory_data['cumplumps'], 0, '.', ''),
+                    number_format($inventory_data['crumbed'], 0, '.', ''),
+                    number_format($inventory_data['dry'], 0, '.', ''),
+                    number_format($inventory_data['produced'], 0, '.', '')
+                ];
+            }
+            
+            ?>
+
+
+new Chart(inventory_all, {
+    options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Inventory (Kilo)',
+                font: {
+                    size: 20,
+                    weight: 'bold'
+                }
+            },
+            legend: {
+                display: false
+            },
+        },
+        scales: {
+            y: {
+                ticks: {
+                    display: true
+                },
+                grid: {
+                    display: false
+                }
+            },
+            x: {
+                ticks: {
+                    display: true,
+                    font: {
+                        size: 14
+                    }
+                },
+                grid: {
+                    display: false
+                }
+            }
+        },
+        maintainAspectRatio: false,
+        aspectRatio: 1.5,
+    },
+
+    type: 'bar',
+    data: {
+        labels: ['Cuplumps', 'Crumbs', 'Blankets', 'Bales'],
+        datasets: [{
+            label: 'Inventory',
+            display: false,
+            data: <?php echo json_encode($inventory_values) ?>,
+            backgroundColor: ['#C42F1A', '#567417', '#90C226', '#E6B91E'],
+            tension: 0.3,
+            fill: false,
+        }]
+    },
+});
+
+
+ <?php           
+$bales_inventory = mysqli_query($con, "SELECT bales_type, SUM(number_bales) as total FROM planta_bales_production GROUP BY bales_type;");
+
+if ($bales_inventory->num_rows > 0) {
+    $bales_values = [];
+    $bales_labels = [];
+    while ($bales_data = $bales_inventory->fetch_assoc()) {
+        $bales_labels[] = $bales_data['bales_type'];
+        $bales_values[] = number_format($bales_data['total'], 0, '.', '');
+    }
+}
+?>
+
+<?php
+$bales_labels_json = json_encode($bales_labels);
+$bales_values_json = json_encode($bales_values);
+?>
+
+if(<?php echo ($bales_labels_json && $bales_values_json) ? 'true' : 'false' ?>) {
+    new Chart(inventory_bales, {
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Bale Inventory (Pieces)',
+                    font: {
+                        size: 20,
+                        weight: 'bold'
+                    }
+                },
+                legend: {
+                    position: 'left',
+                    labels: {
+                        font: {
+                            size: 14
+                        }
+                    }
+                }
+            },
+            maintainAspectRatio: false,
+            aspectRatio: 1.5
+        },
+    
+        type: 'doughnut',
+        data: {
+            labels: <?php echo $bales_labels_json ?>,
+            datasets: [{
+                label: 'Purchased',
+                data: <?php echo $bales_values_json ?>,
+                backgroundColor: ['#C42F1A', '#567417', '#90C226', '#E6B91E', '#CE5504'],
+                tension: 0.3,
+                fill: false
+            }]
+        },
+    });
+} else {
+    console.error("Error: bales_labels or bales_values is empty.");
+}
+
+<?php
+$milling_data = mysqli_query($con, "SELECT SUM(crumbed_weight) AS total_weight, MONTH(milling_date) AS month FROM planta_recording_logs
+WHERE (recording_id, planta_logs_id) IN ( SELECT recording_id, MAX(planta_logs_id) AS max_planta_logs_id FROM planta_recording_logs 
+WHERE status = 'Milling' GROUP BY recording_id ) GROUP BY MONTH(milling_date);");
+
+if ($milling_data && $milling_data->num_rows > 0) {
+    $month_bales = [];
+    $bales = [];
+    while ($row = mysqli_fetch_assoc($milling_data)) {
+        $month_bales[] = date('M Y', mktime(0, 0, 0, $row['month'], 1));
+        $bales[] = number_format($row['total_weight'], 0, '.', '');
+    }
+}
+
+$Drying_data = mysqli_query($con, "SELECT SUM(dry_weight) AS total_weight, MONTH(drying_date) AS month FROM planta_recording_logs
+WHERE (recording_id, planta_logs_id) IN ( SELECT recording_id, MAX(planta_logs_id) AS max_planta_logs_id FROM planta_recording_logs 
+WHERE status = 'Drying' GROUP BY recording_id ) GROUP BY MONTH(drying_date);");
+
+if ($Drying_data && $Drying_data->num_rows > 0) {
+    $month_Dry = [];
+    $dry_weight = [];
+    while ($row = mysqli_fetch_assoc($Drying_data)) {
+        $month_Dry[] = date('M Y', mktime(0, 0, 0, $row['month'], 1));
+        $dry_weight[] = number_format($row['total_weight'], 0, '.', '');
+    }
+}
+?>
+
+new Chart(monthly_milldry, {
+    options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Monthly Milling and Drying',
+                font: {
+                    size: 20,
+                    weight: 'bold'
+                }
+            },
+            legend: {
+                display: true,
+            }
+        },
+        scales: {
+            y: {
+                ticks: {
+                    display: true
+                },
+                grid: {
+                    display: true
+                }
+            },
+            x: {
+                ticks: {
+                    display: true,
+                    font: {
+                        size: 14
+                    }
+                },
+            }
+        }
+    },
+    type: 'line',
+    data: {
+        labels: <?php echo json_encode($month_bales) ?>,
+        datasets: [{
+                label: 'Crumbs',
+                data: <?php echo json_encode($bales) ?>,
+                backgroundColor: '#617391',
+                tension: 0.3,
+                fill: true,
+            },
+            {
+                label: 'Blankets',
+                data: <?php echo json_encode($dry_weight) ?>,
+                backgroundColor: '#3892BA',
+                tension: 0.3,
+                fill: true,
+            }
+        ]
+    },
+});
+
+
+
+<?php
+$bale_prod = mysqli_query($con, "SELECT SUM(produce_total_weight) AS total_weight, MONTH(production_date) AS month FROM planta_recording_logs
+    WHERE (recording_id, planta_logs_id) IN ( SELECT recording_id, MAX(planta_logs_id) AS max_planta_logs_id FROM planta_recording_logs 
+    WHERE status = 'Pressing' GROUP BY recording_id ) GROUP BY MONTH(production_date);");
+
+if ($bale_prod && $bale_prod->num_rows > 0) {
+    $month_produced = [];
+    $produced_weight = [];
+    while ($row = mysqli_fetch_assoc($bale_prod)) {
+        $month_produced[] = date('M Y', mktime(0, 0, 0, $row['month'], 1));
+        $produced_weight[] = number_format($row['total_weight'], 0, '.', '');
+    }
+}
+?>
+new Chart(monthly_production, {
+    options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Monthly Bale Pressing',
+                font: {
+                    size: 20,
+                    weight: 'bold'
+                }
+            },
+            legend: {
+                display: false
+            }
+        },
+        scales: {
+            y: {
+                ticks: {
+                    display: true
+                },
+                grid: {
+                    display: true
+                }
+            },
+            x: {
+                ticks: {
+                    display: true,
+                    font: {
+                        size: 14
+                    }
+                },
+            }
+        }
+    },
+    type: 'line',
+    data: {
+        labels: <?php echo json_encode($month_produced) ?>,
+        datasets: [{
+            label: 'Bales',
+            data: <?php echo json_encode($produced_weight) ?>,
+            backgroundColor: '#2e83c3',
+            tension: 0.3,
+            fill: true,
+        }]
+    },
+});
+</script>

@@ -40,11 +40,11 @@
                         data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
                         aria-selected="true"><i class='bx bx-user-voice'></i> User Account</button>
                 </li>
-                <li class="nav-item" role="presentation">
+                <!-- <li class="nav-item" role="presentation">
                     <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
                         data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
                         aria-selected="false"><i class='bx bx-user-pin'></i> Seller Account</button>
-                </li>
+                </li> -->
             </ul>
             <div class="tab-content box-shadow" id="pills-tabContent">
                 <div class="tab-pane fade show active rounded bg-white" id="pills-home" role="tabpanel"
