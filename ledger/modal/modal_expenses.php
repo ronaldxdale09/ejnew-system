@@ -54,7 +54,7 @@ while ($arr = mysqli_fetch_array($result)) {
                         <div class="col">
                             <div class="mb-3">
                                 <label for="product_name" class="form-label">Type</label>
-                                <select class='form-select category' name='category' id='category' required>
+                                <select class='form-select category' name='type' id='type' required>
                                     <option disabled="disabled" value='' selected="selected">Select Type </option>
                                     <option value='Rubber Expenses'>Rubber Expenses</option>
                                     <option value='Coffee Expenses'>Coffee Expenses</option>
