@@ -181,8 +181,8 @@ Address: <?php echo  $_SESSION['print_address'] ?> <br>
                           if ($_SESSION['print_net_weight_2'] == '') {
                             echo  number_format($_SESSION['print_net_weight_1']).' Kg '; 
                         } else {
-                            echo  number_format($_SESSION['print_net_weight_1']).' Kg <br>'; 
-                            echo  number_format($_SESSION['print_net_weight_2']).' Kg '; 
+                            echo  number_format($_SESSION['print_net_weight_1'],2).' Kg <br>'; 
+                            echo  number_format($_SESSION['print_net_weight_2'],2).' Kg '; 
                         }
                     ?>
 
@@ -222,7 +222,7 @@ Address: <?php echo  $_SESSION['print_address'] ?> <br>
 
                     <td></td>
                     <td style='width:10%'>Total :</td>
-                    <td> <?php echo  number_format($_SESSION['print_total_net_weight']) ?> Kg<br></td>
+                    <td> <?php echo  number_format($_SESSION['print_total_net_weight'],2) ?> Kg<br></td>
                     <td style='width:10%'>Total : </td>
 
                     <td><?php echo  '₱ '.number_format($_SESSION['print_total'],2) ?> </td>

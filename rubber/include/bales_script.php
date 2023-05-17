@@ -125,7 +125,7 @@ function contractSet(contractVal) {
                         document.getElementById("cash_advance").value = nf.format(
                             less);
                         document.getElementById("total_ca").value = nf.format(less);
-                        document.getElementById('cash_advance').readOnly = true;
+                        // document.getElementById('cash_advance').readOnly = true;
                     }
                     console.log(less);
 
@@ -193,7 +193,7 @@ $(document).ready(function() {
                     document.getElementById("cash_advance").value = nf.format(less);
                     document.getElementById("total_ca").value = less;
 
-                    document.getElementById('cash_advance').readOnly = true;
+                 //   document.getElementById('cash_advance').readOnly = true;
 
                     BalesRubber();
                 } else {

@@ -13,40 +13,24 @@
                             
 
                              $seller = $_POST['m_name'];
-                            $entry = str_replace( ',', '', $_POST['m_entry']);
-
-
-                            $net_weight_1 = str_replace( ',', '', $_POST['m_net_weight_1']);
-                            $net_weight_2 = str_replace( ',', '', $_POST['m_net_weight_2']);
-                            $total_net_weight = str_replace( ',', '', $_POST['m_total_net_weight']);
-                            
-
-                            $kilo_bales_1 = str_replace( ',', '', $_POST['m_kilo_bales_1']);
-                            $kilo_bales_2= str_replace( ',', '', $_POST['m_kilo_bales_2']);
-                            
-                            $total_bales_1 = ($_POST['m_total_bales_1']);
-                            $total_bales_2= ($_POST['m_total_bales_2']);
-
-                            $bales_compute= ($_POST['m_bales_compute']);
-
-                            
-
-                            
-                            $drc= str_replace( ',', '', $_POST['m_drc']);
-
-                            $price_1= str_replace( ',', '', $_POST['m_price_1']);
-                            $price_2= str_replace( ',', '', $_POST['m_price_2']);
-
-                            $first_total= str_replace( ',', '', $_POST['m_first_total']);
-                            $second_total= str_replace( ',', '', $_POST['m_second_total']);
-
-                            
-                            $prod_id= str_replace( ',', '', $_POST['m_prod_id']);
-
-
-                             $total_amount = str_replace( ',', '', $_POST['m_total_amount']);
-                             $less = str_replace( ',', '',$_POST['m_less']);
-                             $amount_paid =	 str_replace( ',', '', $_POST['m_total-paid']);
+                             $entry = floatval(str_replace(',', '', $_POST['m_entry']));
+                             $net_weight_1 = floatval(str_replace(',', '', $_POST['m_net_weight_1']));
+                             $net_weight_2 = floatval(str_replace(',', '', $_POST['m_net_weight_2']));
+                             $total_net_weight = floatval(str_replace(',', '', $_POST['m_total_net_weight']));
+                             $kilo_bales_1 = floatval(str_replace(',', '', $_POST['m_kilo_bales_1']));
+                             $kilo_bales_2 = floatval(str_replace(',', '', $_POST['m_kilo_bales_2']));
+                             $total_bales_1 = ($_POST['m_total_bales_1']);
+                             $total_bales_2 = ($_POST['m_total_bales_2']);
+                             $bales_compute = floatval($_POST['m_bales_compute']);
+                             $drc = floatval(str_replace(',', '', $_POST['m_drc']));
+                             $price_1 = floatval(str_replace(',', '', $_POST['m_price_1']));
+                             $price_2 = floatval(str_replace(',', '', $_POST['m_price_2']));
+                             $first_total = floatval(str_replace(',', '', $_POST['m_first_total']));
+                             $second_total = floatval(str_replace(',', '', $_POST['m_second_total']));
+                             $prod_id = floatval(str_replace(',', '', $_POST['m_prod_id']));
+                             $total_amount = floatval(str_replace(',', '', $_POST['m_total_amount']));
+                             $less = floatval(str_replace(',', '', $_POST['m_less']));
+                             $amount_paid = floatval(str_replace(',', '', $_POST['m_total-paid']));
                              
                              $words_amount =  $_POST['m_total-words'];
 

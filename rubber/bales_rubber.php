@@ -533,7 +533,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                                         onkeypress="return CheckNumeric()"
                                                                         onkeyup="FormatCurrency(this)"
                                                                         class="form-control" tabindex="9"
-                                                                        autocomplete='off' readonly />
+                                                                        autocomplete='off'  />
 
                                                                 </div>
                                                                 <!--  -->
