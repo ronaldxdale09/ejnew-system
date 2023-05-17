@@ -109,7 +109,7 @@ $today = $year . "-" . $month . "-" . $day;
                                 <br>
                                 <h2 class="page-title"><B>
                                         <font color="#0C0070"> WET RUBBER </font>
-                                        <font color="#046D56"> PURCHASING </font>
+                                        <font color="#046D56"> RECEIVING </font>
                                     </b></h2>
                             </div>
                             <div class="col-7">
@@ -196,17 +196,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                         </select>
                                                     </div>
 
-                                                    <div class="col ">
-                                                        <label class="col-md-12"> </label>
-                                                        <div class="form-check big-checkbox  ">
-                                                            <input class="form-check-input" type="checkbox"
-                                                                id='supplier_check'>
-                                                            <label class="form-check-label" for="exampleCheckbox">
-                                                                <b>EJN
-                                                                    RUBBER </b></label>
-                                                            <input type="text" name='supplier_type' id='supplier_type' hidden>
-                                                        </div>
-                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                             <!-- select seller -->
@@ -234,7 +224,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                                     name='quantity' id='quantity' class="form-control"
                                                                     readonly>
                                                                 <div class="input-group-append">
-                                                                    <span class="input-group-text">Kg</span>
+                                                                    <span class="input-group-text">kg</span>
                                                                 </div>
                                                             </div>
                                                             <!--  -->
@@ -256,7 +246,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                                     name='balance' id='balance' class="form-control"
                                                                     readonly>
                                                                 <div class="input-group-append">
-                                                                    <span class="input-group-text">Kg</span>
+                                                                    <span class="input-group-text">kg</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -316,53 +306,71 @@ $today = $year . "-" . $month . "-" . $day;
                                                             <label style='font-size:15px' class="col-md-12">Gross
                                                                 Weight
                                                                 (Kilos)</label>
-                                                            <!-- new column -->
                                                             <div class="input-group mb-3">
                                                                 <input type="text" class="form-control" id='gross'
                                                                     name='gross' onkeypress="return CheckNumeric()"
                                                                     onkeyup="FormatCurrency(this)" tabindex="2"
                                                                     autocomplete='off' />
                                                                 <div class="input-group-append">
-                                                                    <span class="input-group-text">Kg</span>
+                                                                    <span class="input-group-text">kg</span>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <!--end  -->
                                                         <div class="col-6 col-md-4">
                                                             <label style='font-size:15px' class="col-md-12">Deductable
                                                                 Tare Kilos</label>
-                                                            <!-- new column -->
                                                             <div class="input-group mb-3">
                                                                 <input type="text" class="form-control" id='tare'
                                                                     name='tare' onkeypress="return CheckNumeric()"
                                                                     onkeyup="FormatCurrency(this)" tabindex="3"
                                                                     autocomplete='off' />
                                                                 <div class="input-group-append">
-                                                                    <span class="input-group-text">Kg</span>
+                                                                    <span class="input-group-text">kg</span>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <!--  end-->
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="row no-gutters">
-                                                        <div class="col-12 col-sm-5 col-md-5">
-                                                            <!--  -->
+                                                        <div class="col-6 col-md-4">
+                                                            <label style='font-size:15px' class="col-md-12">Net Cup Lump
+                                                                Weight</label>
                                                             <div class="input-group mb-1">
                                                                 <div class="input-group-prepend">
-                                                                    <span class="input-group-text"
-                                                                        id="inputGroup-sizing-default"
-                                                                        style='color:black;font-weight: bold;'>Net
-                                                                        Weight</span>
                                                                 </div>
                                                                 <input type="text" style='text-align:right' name='net'
                                                                     id='net' class="form-control" readonly>
                                                                 <div class="input-group-append">
-                                                                    <span class="input-group-text">Kg</span>
+                                                                    <span class="input-group-text">kg</span>
                                                                 </div>
                                                             </div>
-                                                            <!--  -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="row no-gutters">
+                                                        <div class="col-6 col-md-4">
+                                                        </div>
+                                                        <div class="col-6 col-md-4">
+                                                            <label style='font-size:15px' class="col-md-12">Assumed DRC</label>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" id='assumed_drc'
+                                                                    name='assumed_drc' onkeypress="return CheckNumeric()"
+                                                                    onkeyup="FormatCurrency(this)" tabindex="3"
+                                                                    autocomplete='off' />
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text">%</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-4">
+                                                            <label style='font-size:15px' class="col-md-12">Assumed Bale Weight</label>
+                                                            <div class="input-group mb-1">
+                                                                <div class="input-group-prepend">
+                                                                </div>
+                                                                <input type="text" style='text-align:right' name='assumed_weight'
+                                                                    id='assumed_weight' class="form-control" readonly>
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text">kg</span>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -397,7 +405,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                                 <input type="text" style='text-align:right'
                                                                     id='first-weight' class="form-control" readonly>
                                                                 <div class="input-group-append">
-                                                                    <span class="input-group-text">Kg</span>
+                                                                    <span class="input-group-text">kg</span>
                                                                 </div>
                                                             </div>
                                                             <!--  -->
@@ -442,7 +450,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                                 <input type="text" style='text-align:right'
                                                                     id='second-weight' class="form-control" readonly>
                                                                 <div class="input-group-append">
-                                                                    <span class="input-group-text">Kg</span>
+                                                                    <span class="input-group-text">kg</span>
                                                                 </div>
                                                             </div>
                                                             <!--  -->
@@ -553,7 +561,7 @@ $today = $year . "-" . $month . "-" . $day;
     </div>
     </div>
 </body>
-<script type="text/javascript" src="js/wet_rubber.js"></script>
+<script type="text/javascript" src="js/wet_rubber_receiving.js"></script>
 
 </html>
 

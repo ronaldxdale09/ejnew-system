@@ -123,7 +123,7 @@ $ExpensesMonth = (isset($_GET['month'])) ? $_GET['month'] : $Currentmonth; // se
 
             <div class="row">
                 <div class="row">
-                    <hr>
+         
                     <div class="col-md-1">
                         <label for="date"> Date Filter</label>
                     </div>
@@ -304,7 +304,7 @@ $ExpensesMonth = (isset($_GET['month'])) ? $_GET['month'] : $Currentmonth; // se
                 data: {
                     labels: <?php echo isset($expenses_category) ? json_encode($expenses_category) : json_encode([]); ?>,
                     datasets: [{
-                        label: 'Operating Expenses',
+                        label: 'Purchase ',
                         data: <?php echo isset($expense_total) ? json_encode($expense_total) : json_encode([]); ?>,
                         borderColor: '#000000',
                         backgroundColor: getRandomColor(10),
@@ -319,7 +319,7 @@ $ExpensesMonth = (isset($_GET['month'])) ? $_GET['month'] : $Currentmonth; // se
                         },
                         title: {
                             display: true,
-                            text: 'Expenses Chart',
+                            text: 'Purchases Chart',
                         },
                     },
                     scales: {

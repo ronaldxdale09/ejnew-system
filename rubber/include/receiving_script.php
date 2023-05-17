@@ -31,34 +31,28 @@ $(document).ready(function() {
     });
 
     // Textbox keyup events
-    $("#entry, #net_weight_1, #net_weight_2, #kilo_bales_1, #kilo_bales_2, #price_1, #price_2, #cash_advance")
-        .keyup(function() {
-            computeBalesRubber();
-            var amount_paid = $("#amount_paid").val().replace(/,/g, '');
-            var words = numToWords(amount_paid);
-            $("#amount-paid-words").val(words);
-        });
-
-    // Dropdown change events
-    $("#kilo_bales_1, #kilo_bales_2").on("change", function() {
-        computeBalesRubber();
+    $("#gross,#assumed_drc, #tare, #first_price, #second_price, #cash_advance").keyup(function() {
+        ComputationRubber();
+        var amount_paid = $("#amount-paid").val().replace(/,/g, '');
+        var words = numToWords(amount_paid);
+        $("#amount-paid-words").val(words);
     });
 });
 
-function computeBalesRubber() {
-    var entry = $("#entry").val().replace(/,/g, '');
-    var net_1 = $("#net_weight_1").val().replace(/,/g, '');
-    var net_2 = $("#net_weight_2").val().replace(/,/g, '');
-    var kilo_bales_1 = $("#kilo_bales_1").val().replace(/,/g, '');
-    var kilo_bales_2 = $("#kilo_bales_2").val().replace(/,/g, '');
-    var price_1 = $("#price_1").val().replace(/,/g, '');
-    var price_2 = $("#price_2").val().replace(/,/g, '');
+function ComputationRubber() {
+    var gross = $("#gross").val().replace(/,/g, '');
+    var drc = $("#assumed_drc").val().replace(/,/g, '');
+    var tare = $("#tare").val().replace(/,/g, '');
+    var price1 = $("#first_price").val().replace(/,/g, '');
+    var price2 = $("#second_price").val().replace(/,/g, '');
     var less = $("#cash_advance").val().replace(/,/g, '');
 
-    bales_compute(entry, net_1, net_2, kilo_bales_1, kilo_bales_2, price_1, price_2, less);
+    rubberComputation(drc,gross, tare, price1, price2, less);
 }
 
 function contractSet(contract) {
+    // AJAX request for contract details
+    // Use jQuery $.get for simplicity
     $.get("include/fetch/fetchContract.php", {
         contract: contract.replace(/,/g, '')
     }, function(response) {
@@ -67,27 +61,22 @@ function contractSet(contract) {
         if (contract == "SPOT") {
             $('#name').prop('disabled', false);
             $("#contract-form").hide();
-            $('#net_weight_2, #price_2, #kilo_bales_2').prop('disabled', true);
         } else {
             $("#contract-form").show();
             $('#name').prop('disabled', true);
-            $('#net_weight_2, #price_2, #kilo_bales_2').prop('disabled', false);
         }
 
         fetchAddress(myObj[4]);
-        fetchCashAdvance(myObj[4]);
+        fetchRubberCashAdvance(myObj[4]);
+
         $("#balance").val(myObj[2]);
         $("#quantity").val(myObj[0]);
         $('#name').val(myObj[4]).trigger('chosen:updated');
-    })
-}
-
-function nameChange(name) {
-    fetchAddress(name);
-    fetchCashAdvance(name);
+    });
 }
 
 function fetchAddress(name) {
+    // AJAX request for address
     $.post("include/fetch/fetchAddress.php", {
         name: name
     }, function(address) {
@@ -95,24 +84,51 @@ function fetchAddress(name) {
     });
 }
 
-function fetchCashAdvance(name) {
+function fetchRubberCashAdvance(name) {
+    // AJAX request for cash advance
     $.post("include/fetch/fetchRubberCashAdvance.php", {
+        name: name
+    }, function(less) {
+        if (less !== "") {
+            $("#cash_advance").val(nf.format(less));
+            $("#total_ca").val(nf.format(less));
+            $('#cash_advance').prop('readOnly', false);
+        } else {
+            $("#cash_advance").val(nf.format(less));
+            $("#total_ca").val(nf.format(less));
+            // $('#cash_advance').prop('readOnly', true);
+        }
+    });
+}
+
+function nameChange(name) {
+    fetchAddress(name);
+    fetchCaWET(name);
+}
+
+function fetchCaWET(name) {
+    // AJAX request for CaWET
+    $.post("include/fetch/fetchCaWET.php", {
         name: name
     }, function(less) {
         if (less == '' || less == '0') {
             $("#cash_advance-form").hide();
             $("#cash_advance").val(nf.format(less));
             $("#total_ca").val(less);
+            // $('#cash_advance').prop('readOnly', true);
         } else {
             $("#cash_advance-form").show();
             $("#cash_advance").val(nf.format(less));
             $("#total_ca").val(nf.format(less));
             $('#cash_advance').prop('readOnly', false);
         }
-        computeBalesRubber();
+        ComputationRubber();
     });
 }
 </script>
+
+
+
 <script>
 function numToWords(s) {
 
@@ -156,7 +172,7 @@ function numToWords(s) {
     str += 'peso/s ';
     if (x != s.length) {
         var y = s.length;
-        str += 'and ';
+        str += 'pesos and ';
         for (var i = x + 1; i < y; i++) str += dg[n[i]] + ' ';
         str = str + 'centavo/s ';
     }

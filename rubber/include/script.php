@@ -1,30 +1,18 @@
 <script type="text/javascript" src="js/getWords.js"></script>
-<script>
-function ComputationRubber() {
 
-    var gross = $("#gross").val().replace(/,/g, '');
-    var tare = $("#tare").val().replace(/,/g, '');
-    var price1 = $("#first_price").val().replace(/,/g, '');
-    var price2 = $("#second_price").val().replace(/,/g, '');
-    var less = $("#cash_advance").val().replace(/,/g, '');
-
-
-    rubberComputation(gross, tare, price1, price2, less);
-
-};
-</script>
-<!--hide contract details -->
 <script type="text/javascript">
 $(document).ready(function() {
+    var nf = new Intl.NumberFormat('en-US');
 
+    // Hide contract details
+    $("#contract-form").hide();
+    $("#cash_advance-form").hide();
 
-
-    //IF THE USER PRESS ENTER , THE FOCUS TEXT BOX WILL MOVE TO THE NEXT INDEX
+    // Keyboard events
     $('input,select').on('keypress', function(e) {
         if (e.which == 13) {
             e.preventDefault();
             var $next = $('[tabIndex=' + (+this.tabIndex + 1) + ']');
-            console.log($next.length);
             if (!$next.length) {
                 $next = $('[tabIndex=1]');
             }
@@ -32,266 +20,112 @@ $(document).ready(function() {
         }
     });
 
-
-
-
-    document.getElementById("contract-form").style.display = "none";
-    document.getElementById("cash_advance-form").style.display = "none";
-});
-</script>
-
-
-<!-- CONTRACT DETAILS -->
-<script type="text/javascript">
-$(document).ready(function() {
-    // Country dependent ajax
+    // Contract change event
     $("#contract").on("change", function() {
-        var contract = $(this).val();
+        contractSet($(this).val());
+    });
 
-        contractSet(contract);
+    // Name change event
+    $("#name").on("change", function() {
+        nameChange($(this).val());
+    });
+
+    // Textbox keyup events
+    $("#gross, #tare, #first_price, #second_price, #cash_advance").keyup(function() {
+        ComputationRubber();
+        var amount_paid = $("#amount-paid").val().replace(/,/g, '');
+        var words = numToWords(amount_paid);
+        $("#amount-paid-words").val(words);
     });
 });
 
+function ComputationRubber() {
+    var gross = $("#gross").val().replace(/,/g, '');
+    var tare = $("#tare").val().replace(/,/g, '');
+    var price1 = $("#first_price").val().replace(/,/g, '');
+    var price2 = $("#second_price").val().replace(/,/g, '');
+    var less = $("#cash_advance").val().replace(/,/g, '');
 
-function contractSet(contractVal) {
-    var contract = contractVal;
+    rubberComputation(gross, tare, price1, price2, less);
+}
 
-    // Creates a new XMLHttpRequest object
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
+function contractSet(contract) {
+    // AJAX request for contract details
+    // Use jQuery $.get for simplicity
+    $.get("include/fetch/fetchContract.php", {
+        contract: contract.replace(/,/g, '')
+    }, function(response) {
+        var myObj = JSON.parse(response);
 
-        // Defines a function to be called when
-        // the readyState property changess
-        if (this.readyState == 4 &&
-            this.status == 200) {
-
-            // Typical action to be performed
-            // when the document is ready
-            var myObj = JSON.parse((this.responseText));
-
-            if (contract == "SPOT") {
-                $('#name').attr('disabled', false);
-                document.getElementById("contract-form").style.display = "none";
-
-            } else {
-                document.getElementById("contract-form").style.display = "block";
-                $('#name').attr('disabled', true);
-
-            }
-
-
-            console.log(quantity = myObj[0]);
-            console.log(delivered = myObj[1]);
-            console.log(balance = myObj[2]);
-            console.log(ca = myObj[3]);
-            console.log(name = myObj[4]);
-
-            $.ajax({
-                url: "include/fetch/fetchAddress.php",
-                type: "POST",
-                cache: false,
-                data: {
-                    name: name
-                },
-                cache: false,
-                success: function(address) {
-                    $("#address").html(address);
-
-                }
-            });
-
-
-            document.getElementById("balance").value = balance;
-            document.getElementById("quantity").value = quantity;
-
-
-            $('#name').val(name).trigger('chosen:updated');
-
-            let nf = new Intl.NumberFormat('en-US');
-            $.ajax({
-                url: "include/fetch/fetchRubberCashAdvance.php",
-                type: "POST",
-                cache: false,
-                data: {
-                    name: name
-                },
-                cache: false,
-                success: function(less) {
-                    if (less !== "") {
-                        document.getElementById("cash_advance-form").style.display =
-                            "block";
-                        document.getElementById("cash_advance").value = nf.format(
-                            less);
-                        document.getElementById("total_ca").value = nf.format(less);
-                        document.getElementById('cash_advance').readOnly = false;
-                    } else {
-                        document.getElementById("cash_advance-form").style.display =
-                            "none";
-                        document.getElementById("cash_advance").value = nf.format(
-                            less);
-                        document.getElementById("total_ca").value = nf.format(less);
-                        // document.getElementById('cash_advance').readOnly = true;
-                    }
-                    console.log(less);
-
-
-                }
-            });
-
+        if (contract == "SPOT") {
+            $('#name').prop('disabled', false);
+            $("#contract-form").hide();
+        } else {
+            $("#contract-form").show();
+            $('#name').prop('disabled', true);
         }
-    };
 
-    // xhttp.open("GET", "filename", true);
-    xmlhttp.open("GET", "include/fetch/fetchContract.php?contract=" + contract.replace(/,/g, ''),
-        true);
+        fetchAddress(myObj[4]);
+        fetchRubberCashAdvance(myObj[4]);
 
-    // Sends the request to the server
-    xmlhttp.send();
+        $("#balance").val(myObj[2]);
+        $("#quantity").val(myObj[0]);
+        $('#name').val(myObj[4]).trigger('chosen:updated');
+    });
+}
+
+function fetchAddress(name) {
+    // AJAX request for address
+    $.post("include/fetch/fetchAddress.php", {
+        name: name
+    }, function(address) {
+        $("#address").html(address);
+    });
+}
+
+function fetchRubberCashAdvance(name) {
+    // AJAX request for cash advance
+    $.post("include/fetch/fetchRubberCashAdvance.php", {
+        name: name
+    }, function(less) {
+        if (less !== "") {
+            $("#cash_advance").val(nf.format(less));
+            $("#total_ca").val(nf.format(less));
+            $('#cash_advance').prop('readOnly', false);
+        } else {
+            $("#cash_advance").val(nf.format(less));
+            $("#total_ca").val(nf.format(less));
+            // $('#cash_advance').prop('readOnly', true);
+        }
+    });
+}
+
+function nameChange(name) {
+    fetchAddress(name);
+    fetchCaWET(name);
+}
+
+function fetchCaWET(name) {
+    // AJAX request for CaWET
+    $.post("include/fetch/fetchCaWET.php", {
+        name: name
+    }, function(less) {
+        if (less == '' || less == '0') {
+            $("#cash_advance-form").hide();
+            $("#cash_advance").val(nf.format(less));
+            $("#total_ca").val(less);
+            // $('#cash_advance').prop('readOnly', true);
+        } else {
+            $("#cash_advance-form").show();
+            $("#cash_advance").val(nf.format(less));
+            $("#total_ca").val(nf.format(less));
+            $('#cash_advance').prop('readOnly', false);
+        }
+        ComputationRubber();
+    });
 }
 </script>
 
-
-
-<!-- DISPLAY ADDRESS -->
-<script type="text/javascript">
-$(document).ready(function() {
-    let nf = new Intl.NumberFormat('en-US');
-    // Country dependent ajax
-    $("#name").on("change", function() {
-        var name = $(this).val();
-        nameChange(name);
-
-
-    });
-
-
-
-    function nameChange(name) {
-        $.ajax({
-            url: "include/fetch/fetchAddress.php",
-            type: "POST",
-            cache: false,
-            data: {
-                name: name
-            },
-            cache: false,
-            success: function(address) {
-                $("#address").html(address);
-
-            }
-        });
-
-        //CASH ADVANCE SHOW
-
-        $.ajax({
-            url: "include/fetch/fetchCaWET.php",
-            type: "POST",
-            cache: false,
-            data: {
-                name: name
-            },
-            cache: false,
-            success: function(less) {
-                console.log(less);
-                if (less == '' || less == '0') {
-                    document.getElementById("cash_advance-form").style.display = "none";
-                    document.getElementById("cash_advance").value = nf.format(less);
-                    document.getElementById("total_ca").value = less;
-
-                    // document.getElementById('cash_advance').readOnly = true;
-
-                    ComputationRubber();
-                } else {
-
-
-                    document.getElementById("cash_advance-form").style.display = "block";
-                    document.getElementById("cash_advance").value = nf.format(less);
-                    document.getElementById("total_ca").value = nf.format(less);
-                    document.getElementById('cash_advance').readOnly = false;
-
-
-                    ComputationRubber();
-                }
-
-
-
-            }
-        });
-    }
-
-});
-</script>
-
-
-
-
-<!-- add netweight -->
-<script>
-$(function() {
-    $("#gross").keyup(function() {
-        ComputationRubber();
-    });
-
-
-
-
-});
-</script>
-
-
-<script>
-$(function() {
-    $("#tare").keyup(function() {
-        ComputationRubber();
-
-    });
-
-
-
-
-});
-</script>
-
-<!-- total -->
-<script>
-$(function() {
-    $("#first_price").keyup(function() {
-
-        ComputationRubber();
-        var amount_paid = $("#amount-paid").val().replace(/,/g, '');
-
-        words = numToWords(amount_paid);
-        document.getElementById("amount-paid-words").value = words;
-
-    });
-});
-</script>
-
-<script>
-$(function() {
-    $("#second_price").keyup(function() {
-
-        ComputationRubber();
-        var amount_paid = $("#amount-paid").val().replace(/,/g, '');
-
-        words = numToWords(amount_paid);
-        document.getElementById("amount-paid-words").value = words;
-
-    });
-});
-</script>
-<script>
-$(function() {
-    $("#cash_advance").keyup(function() {
-        ComputationRubber();
-        var amount_paid = $("#amount-paid").val().replace(/,/g, '');
-
-        words = numToWords(amount_paid);
-        document.getElementById("amount-paid-words").value = words;
-
-    });
-});
-</script>
 
 
 <script>

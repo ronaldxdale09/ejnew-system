@@ -44,7 +44,7 @@ if(mysqli_num_rows($result) > 0) {
             <td>'.$arr["lot_num"].'</td>
             <td>'.number_format($arr['weight'], 0, '.', ',').' kg</td>
             <td>'.number_format($arr['produce_total_weight'], 0, '.', ',').' kg</td>
-            <td>'.($arr['drc'] ? number_format($arr['drc'], 2) : '-').' kg</td>
+            <td>'.($arr['drc'] ? number_format($arr['drc'], 2) : '-').' %</td>
             <td scope="col">  <button type="button" class="btn btn-warning text-dark btnSelectTrans"
             id="receiptBtn">Select</button></td>
         </tr>';

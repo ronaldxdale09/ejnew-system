@@ -1,7 +1,9 @@
+// Function to format currency
 function currencyFormat(num) {
-    return num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "")
+    return num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, ",");
 }
 
+// Function to get the decimal part of a number
 function getDecimalPart(num) {
     if (Number.isInteger(num)) {
         return 0;
@@ -11,90 +13,55 @@ function getDecimalPart(num) {
     return Number(decimalStr);
 }
 
+// Compute bales function
 function bales_compute(entry, net_1, net_2, kilo_bales_1, kilo_bales_2, price_1, price_2, less) {
-    let nf = new Intl.NumberFormat('en-US');
+    const nf = new Intl.NumberFormat('en-US');
 
+    // Calculate total net
+    let total_net = Number(net_1) + Number(net_2);
+    $("#total_net_weight").val(nf.format(total_net.toFixed(2)));
 
-    total_net = (+net_1 + +net_2);
-    total_net = $("#total_net_weight").val(nf.format(total_net.toFixed(2)));
-
-
-
-    total_net = $("#total_net_weight").val().replace(/,/g, '')
-    drc = (((+total_net) / (+entry)) * 100);
+    total_net = $("#total_net_weight").val().replace(/,/g, '');
+    let drc = ((Number(total_net) / Number(entry)) * 100);
     $("#drc").val(drc.toFixed(2));
 
+    // Compute bales and excess for first and second bales
+    const computeBalesAndExcess = (net, kilo_bales) => {
+        const bales = Math.floor(Number(net) / Number(kilo_bales));
+        const bales_decimal = (Number(net) / Number(kilo_bales)).toFixed(2);
+        const excess_kilo = ((Number(bales_decimal) - Number(bales)) * kilo_bales).toFixed(0);
 
-
-    bales_1 = (Math.floor((+net_1) / (+kilo_bales_1)));
-    bales_1_decimal = (((+net_1) / (+kilo_bales_1)).toFixed(2));
-    excess_kilo_1 = (((+bales_1_decimal - (+bales_1)) * kilo_bales_1)).toFixed(0);
-
-    if (excess_kilo_1 != 0) {
-        total_bales_1 = (bales_1 + " Bales " + "& " + excess_kilo_1 + " Kg");
-    } else {
-        total_bales_1 = (bales_1 + " Bales ");
+        return excess_kilo != 0 ? `${bales} Bales & ${excess_kilo} Kg` : `${bales} Bales`;
     }
 
-    $("#total_bales_1").val(((total_bales_1)));
+    $("#total_bales_1").val(computeBalesAndExcess(net_1, kilo_bales_1));
+    $("#total_bales_2").val(computeBalesAndExcess(net_2, kilo_bales_2));
 
+    // Compute total bales
+    const bales_1 = Math.floor(Number(net_1) / Number(kilo_bales_1));
+    const excess_kilo_1 = getDecimalPart(Number(net_1) / Number(kilo_bales_1)) * kilo_bales_1;
+    const bales_2 = Math.floor(Number(net_2) / Number(kilo_bales_2));
+    const excess_kilo_2 = getDecimalPart(Number(net_2) / Number(kilo_bales_2)) * kilo_bales_2;
+    const total_bales = parseFloat(`${bales_1}.${excess_kilo_1}`) + parseFloat(`${bales_2}.${excess_kilo_2}`);
+    $("#bales_compute").val(total_bales);
 
-
-    bales_2 = (Math.floor((+net_2) / (+kilo_bales_2)));
-    bales_2_decimal = (((+net_2) / (+kilo_bales_2)).toFixed(2));
-    excess_kilo_2 = (((+bales_2_decimal - (+bales_2)) * kilo_bales_2)).toFixed(0);
-
-    if (excess_kilo_2 != 0) {
-
-        total_bales_2 = (bales_2 + " Bales " + "& " + excess_kilo_2 + " Kg");
-    } else {
-        total_bales_2 = (bales_2 + " Bales ");
+    // Compute totals
+    const computeTotal = (price, net) => {
+        const total = Number(price) * Number(net);
+        return nf.format(total.toFixed(2));
     }
 
-    $("#total_bales_2").val(((total_bales_2)));
+    $("#first_total").val(computeTotal(price_1, net_1));
+    $("#second_total").val(computeTotal(price_2, net_2));
 
-
-    $("#bales_compute").val((parseFloat(bales_1 + '.' + excess_kilo_1) + parseFloat((bales_2 + '.' + excess_kilo_2))));
-
-
-    first_total = (+price_1) * (+net_1);
-    second_total = (+price_2) * (+net_2);
-
-    $("#first_total").val(nf.format(first_total.toFixed(2)));
-    $("#second_total").val(nf.format(second_total.toFixed(2)));
-
-    first_total = $("#first_total").val().replace(/,/g, '');
-    second_total = $("#second_total").val().replace(/,/g, '');
-
-
-    total_amount = (+first_total) + (+second_total);
-
+    // Compute total amount and amount paid
+    let first_total = $("#first_total").val().replace(/,/g, '');
+    let second_total = $("#second_total").val().replace(/,/g, '');
+    let total_amount = Number(first_total) + Number(second_total);
     $("#total_amount").val(nf.format(total_amount.toFixed(2)));
 
-    total_amount = (+$("#total_amount").val().replace(/,/g, ''));
-    amount_paid = (+total_amount) - (+less);
+    total_amount = Number($("#total_amount").val().replace(/,/g, ''));
+    const amount_paid = total_amount - Number(less);
     $("#amount_paid").val(nf.format(amount_paid.toFixed(2)));
-
-
-    // x = (((net) / (bales_kilo)));
-    // bales = (parseInt(parseInt(net) / parseInt(bales_kilo)));
-    // bales_excess = parseInt(Number((x - bales).toFixed(2)) * bales_kilo);
-    // $("#excess_kg").val(bales_excess);
-
-    // var contract = document.getElementById("contract").value;
-    // if (contract === 'SPOT') {
-    //     document.getElementById("second_price").readOnly = false;
-
-
-    //     $("#first_total").val(nf.format((parseInt(price) * parseInt(net))));
-    //     $("#total_amount").val(nf.format((parseInt(price) * parseInt(net))));
-
-
-    //     amount_paid = $("#amount_paid").val(nf.format((parseInt(price) * parseInt(net))));
-
-
-    // }
-
-
 
 }

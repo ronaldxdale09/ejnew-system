@@ -43,13 +43,6 @@ $('#confirm').click(function() {
             text: 'This transaction is already completed',
         });
     } 
-    else if (parseInt(ca) > parseInt(available_ca)) {
-        Swal.fire({
-            icon: 'info',
-            title: 'Oops...',
-            text: 'Less is greater than your total cash advance',
-        });
-    }
      else {
         $('#confirmModal').modal('show');
    

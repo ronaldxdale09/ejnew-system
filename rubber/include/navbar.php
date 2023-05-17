@@ -7,11 +7,15 @@
             class='nav-text'>EJN RUBBER</span>
     </div>
 
-
     <hr style='color:gray'>
     <a class='nav-link' href='dashboard.php'>
         <i class='fa-solid fa-house'></i> <span class='nav-text'>Home</span>
     </a>
+    <hr style='color:gray'>
+    <a class='nav-link' href='wet_receiving.php'>
+        <i class='fa-solid fa-truck'></i> <span class='nav-text'>WET Receiving</span>
+    </a>
+
     <hr style='color:gray'>
     <a class='nav-link' href='wet_rubber.php'>
         <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>WET Purchasing</span>
