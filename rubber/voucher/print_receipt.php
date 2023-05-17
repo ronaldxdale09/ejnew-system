@@ -116,7 +116,7 @@ table.GeneratedTable {
             </tr>
             <tr>
                 <td><p>Net Weight</td>
-                <td><p><?php echo  number_format($_SESSION['print_net_weight']);  ?> Kgs</td>
+                <td><p><?php echo  number_format($_SESSION['print_net_weight'],2);  ?> Kgs</td>
             </tr>
 
             <tr>
@@ -128,8 +128,8 @@ table.GeneratedTable {
     <br>
 
     <p>
-        <?php echo  number_format($_SESSION['print_net_weight']);  ?> Kg @ ₱ <?php echo $_SESSION['print_price1']; ?> =
-        ₱ <?php echo number_format($_SESSION['print_total']); ?>
+        <?php echo  number_format($_SESSION['print_net_weight'],2);  ?> Kg @ ₱ <?php echo $_SESSION['print_price1']; ?> =
+        ₱ <?php echo number_format($_SESSION['print_total'],2); ?>
 
     </p>
     <br>
