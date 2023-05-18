@@ -16,8 +16,7 @@
     <div class='main-content' style='position:relative; height:100%;'>
         <div class="text-center mb-4">
             <h2 class="display-4 mb-1">Purchases Report</h2>
-            <p class="text-muted mt-0">Detailed view of all purchases</p>
-            <p class="text-muted mt-1"><?php echo $_SESSION['loc']?></p>
+            <h3 class="text-muted mt-1"><?php echo $_SESSION['loc']?></h3>
         </div>
 
 
