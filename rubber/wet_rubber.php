@@ -503,7 +503,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                                     id='cash_advance' name='cash_advance'
                                                                     onkeypress="return CheckNumeric()"
                                                                     onkeyup="FormatCurrency(this)" class="form-control"
-                                                                    tabindex="9" autocomplete='off' readonly />
+                                                                    tabindex="9" autocomplete='off'  />
 
                                                             </div>
                                                             <!--  -->

@@ -2,49 +2,17 @@
 include "include/header.php";
 include "include/navbar.php";
 
-
-
-if (isset($_GET['view'])) {
-    $_SESSION['transaction'] ='ONGOING';
-    $view = $_GET['view'];
-
-    $sql = mysqli_query($con, "SELECT  * from rubber_transaction where invoice='$view'  and  loc='$loc' ");
-    $record = mysqli_fetch_array($sql);
-
-    $invoiceCount = $record['invoice'];
-    $today= $record['date'];
-
-    $contract = "SELECT * FROM rubber_contract where  loc='$loc' and type='WET' AND status='PENDING' OR status='UPDATED' ";
-    $c_result = mysqli_query($con, $contract);
-    $contractList = "";
-    while ($arr = mysqli_fetch_array($c_result)) {
-        $contractList .=
-            '
-            <option value="' .
-            $arr["contract_no"] .
-            '">[ ' .
-            $arr["contract_no"] .
-            " ]  " .
-            $arr["seller"] .
-            "</option>";
-    }
-
-
-    $seller = "SELECT * FROM rubber_seller   where loc='$loc' ";
-    $result = mysqli_query($con, $seller);
-    $sellerList = "";
-    while ($arr = mysqli_fetch_array($result)) {
-        $sellerList .=
-            '<option value="' .$arr["name"] .'">[ '.$arr["name"] ."</option>";
-    }
-
-  }
+if (isset($_GET['id'])) {
   
-  else {
+    $trans_id = $_GET['id'];
+    $trans_id=  preg_replace('~\D~', '', $trans_id);
+  }
+
+
 $_SESSION['transaction'] ='ONGOING';
 //seller list
 
-$contract = "SELECT * FROM rubber_contract where loc='$loc' and type='WET' AND status='PENDING' OR status='UPDATED' ";
+$contract = "SELECT * FROM rubber_contract where loc='$loc' and type='BALES' AND status='PENDING' OR status='UPDATED' ";
 $c_result = mysqli_query($con, $contract);
 $contractList = "";
 while ($arr = mysqli_fetch_array($c_result)) {
@@ -78,7 +46,7 @@ $day = date("d");
 $year = date("Y");
 
 $today = $year . "-" . $month . "-" . $day;
-}
+
 ?>
 <style>
 .border-box {
@@ -152,7 +120,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                         <label class="col-md-12">Reference #</label>
                                                         <div class="col-md-12">
                                                             <input type="number" name='invoice' id='invoice'
-                                                                value="<?php echo "$invoiceCount"; ?>"
+                                                                value="<?php echo "$trans_id"; ?>"
                                                                 class="form-control form-control-line" readonly>
                                                         </div>
                                                     </div>
@@ -196,7 +164,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                         </select>
                                                     </div>
 
-                                                    
+
                                                 </div>
                                             </div>
                                             <!-- select seller -->
@@ -210,49 +178,37 @@ $today = $year . "-" . $month . "-" . $day;
                                             <hr>
                                             <div id='contract-form'>
                                                 <div class="form-group" id='quantity_textbox'>
-                                                    <label class="col-md-12">Contract </label>
-                                                    <div class="row no-gutters">
-                                                        <div class="col-12 col-sm-9 col-md-9">
-                                                            <!--  -->
-                                                            <div class="input-group mb-1">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text"
-                                                                        id="inputGroup-sizing-default"
-                                                                        style='color:black;font-weight: bold;'>Quantity</span>
-                                                                </div>
-                                                                <input type="text" style='text-align:right'
-                                                                    name='quantity' id='quantity' class="form-control"
-                                                                    readonly>
-                                                                <div class="input-group-append">
-                                                                    <span class="input-group-text">kg</span>
-                                                                </div>
-                                                            </div>
-                                                            <!--  -->
-                                                        </div>
+                                                    <label class="col-md-12">Contract</label>
+                                                    <div class="input-group mb-1">
+                                                        <span class="input-group-text"
+                                                            style='color:black;font-weight: bold;'>Quantity</span>
+                                                        <input type="text" style='text-align:right' name='quantity'
+                                                            id='quantity' class="form-control" readonly>
+                                                        <span class="input-group-text">kg</span>
                                                     </div>
                                                 </div>
 
-                                                <br>
                                                 <div class="form-group" id='balance_textbox'>
-                                                    <div class="row no-gutters">
-                                                        <div class="col-12 col-sm-9 col-md-9">
-                                                            <div class="input-group mb-1">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text"
-                                                                        id="inputGroup-sizing-default"
-                                                                        style='color:black;font-weight: bold;'>Balance</span>
-                                                                </div>
-                                                                <input type="text" style='text-align:right'
-                                                                    name='balance' id='balance' class="form-control"
-                                                                    readonly>
-                                                                <div class="input-group-append">
-                                                                    <span class="input-group-text">kg</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                    <div class="input-group mb-1">
+                                                        <span class="input-group-text"
+                                                            style='color:black;font-weight: bold;'>Balance</span>
+                                                        <input type="text" style='text-align:right' name='balance'
+                                                            id='balance' class="form-control" readonly>
+                                                        <span class="input-group-text">kg</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group" id='balance_textbox'>
+                                                    <div class="input-group mb-1">
+                                                        <span class="input-group-text"
+                                                            style='color:black;font-weight: bold;'>Price</span>
+                                                        <input type="text" style='text-align:right' name='contract_price'
+                                                            id='contract_price' class="form-control" readonly>
+                                              
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div id='cash_advance-form'>
                                                 <div class="form-group" id='quantity_textbox'>
                                                     <label class="col-md-12">Cash Advance </label>
@@ -280,14 +236,8 @@ $today = $year . "-" . $month . "-" . $day;
                                     <hr>
                                     <div class="row">
                                         <div class="col-12">
-                                            <button type="button" class="btn btn-success text-white confirm"
-                                                id='confirm'>Confirm Transaction</button>
-                                            <button type="button" class="btn btn-dark text-white receiptBtn"
-                                                id='receiptBtn'>
-                                                <span class="fa fa-print"></span> Print Receipt </button>
-                                            <button type="button" class="btn btn-secondary text-white vouchBtn"
-                                                id='vouchBtn'>
-                                                <span class="fa fa-print"></span> Print Voucher </button>
+                                            <button type="button" class="btn btn-dark text-white confirm"
+                                                id='confirm'>Confirm Transfer</button>
 
                                         </div>
 
@@ -349,10 +299,12 @@ $today = $year . "-" . $month . "-" . $day;
                                                         <div class="col-6 col-md-4">
                                                         </div>
                                                         <div class="col-6 col-md-4">
-                                                            <label style='font-size:15px' class="col-md-12">Assumed DRC</label>
+                                                            <label style='font-size:15px' class="col-md-12">Assumed
+                                                                DRC</label>
                                                             <div class="input-group mb-3">
                                                                 <input type="text" class="form-control" id='assumed_drc'
-                                                                    name='assumed_drc' onkeypress="return CheckNumeric()"
+                                                                    name='assumed_drc'
+                                                                    onkeypress="return CheckNumeric()"
                                                                     onkeyup="FormatCurrency(this)" tabindex="3"
                                                                     autocomplete='off' />
                                                                 <div class="input-group-append">
@@ -361,12 +313,14 @@ $today = $year . "-" . $month . "-" . $day;
                                                             </div>
                                                         </div>
                                                         <div class="col-6 col-md-4">
-                                                            <label style='font-size:15px' class="col-md-12">Assumed Bale Weight</label>
+                                                            <label style='font-size:15px' class="col-md-12">Assumed Bale
+                                                                Weight</label>
                                                             <div class="input-group mb-1">
                                                                 <div class="input-group-prepend">
                                                                 </div>
-                                                                <input type="text" style='text-align:right' name='assumed_weight'
-                                                                    id='assumed_weight' class="form-control" readonly>
+                                                                <input type="text" style='text-align:right'
+                                                                    name='assumed_weight' id='assumed_weight'
+                                                                    class="form-control" readonly>
                                                                 <div class="input-group-append">
                                                                     <span class="input-group-text">kg</span>
                                                                 </div>
@@ -401,9 +355,8 @@ $today = $year . "-" . $month . "-" . $day;
                                                         <div class="col-6 col-md-4">
                                                             <!-- new column -->
                                                             <div class="input-group mb-3">
-
                                                                 <input type="text" style='text-align:right'
-                                                                    id='first-weight' class="form-control" readonly>
+                                                                    id='first-weight' class="form-control">
                                                                 <div class="input-group-append">
                                                                     <span class="input-group-text">kg</span>
                                                                 </div>
@@ -439,7 +392,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                                     id='second_price' name='second_price'
                                                                     onkeypress="return CheckNumeric()"
                                                                     onkeyup="FormatCurrency(this)" tabindex="8"
-                                                                    autocomplete='off' readonly />
+                                                                    autocomplete='off' />
                                                             </div>
                                                         </div>
 
@@ -511,7 +464,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                                     id='cash_advance' name='cash_advance'
                                                                     onkeypress="return CheckNumeric()"
                                                                     onkeyup="FormatCurrency(this)" class="form-control"
-                                                                    tabindex="9" autocomplete='off' readonly />
+                                                                    tabindex="9" autocomplete='off' />
 
                                                             </div>
                                                             <!--  -->
@@ -576,13 +529,11 @@ $(document).ready(function() {
 
 <?php
 
-include "modal/transactionModal.php";
-include "modal/wetModalScript.php";
-
+include "modal/wetReceivingModal.php";
 include "modal/contractModal.php";
 include "modal/cashadvanceModal.php";
 include "modal/addseller_modal.php";
-include "include/script.php";
+include "include/receiving_script.php";
 ?>
 
 

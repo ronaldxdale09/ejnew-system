@@ -30,4 +30,20 @@
     margin-top: 10px;
     margin-left: 20px;
 }
+
+.location-badge {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: lightblue; /* Change to desired color */
+    color: #fff; /* Change to desired color */
+    border-radius: 5px;
+    z-index: 9999;
+}
 </style>
+
+<div class="location-badge">
+    <?php echo $_SESSION['loc'];?>
+</div>

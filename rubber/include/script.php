@@ -70,6 +70,7 @@ function contractSet(contract) {
 
         $("#balance").val(myObj[2]);
         $("#quantity").val(myObj[0]);
+        $("#first_price").val(myObj[3]);
         $('#name').val(myObj[4]).trigger('chosen:updated');
     });
 }

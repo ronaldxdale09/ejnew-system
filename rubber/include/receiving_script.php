@@ -31,7 +31,7 @@ $(document).ready(function() {
     });
 
     // Textbox keyup events
-    $("#gross,#assumed_drc, #tare, #first_price, #second_price, #cash_advance").keyup(function() {
+    $("#gross,#assumed_drc, #tare, #first_price, #second_price,#first-weight,#cash_advance").keyup(function() {
         ComputationRubber();
         var amount_paid = $("#amount-paid").val().replace(/,/g, '');
         var words = numToWords(amount_paid);
@@ -46,8 +46,9 @@ function ComputationRubber() {
     var price1 = $("#first_price").val().replace(/,/g, '');
     var price2 = $("#second_price").val().replace(/,/g, '');
     var less = $("#cash_advance").val().replace(/,/g, '');
-
-    rubberComputation(drc,gross, tare, price1, price2, less);
+    var firstWeight = $("#first-weight").val().replace(/,/g, '');
+    
+    rubberComputation(gross, tare, price1, price2, less,drc);
 }
 
 function contractSet(contract) {
@@ -68,9 +69,12 @@ function contractSet(contract) {
 
         fetchAddress(myObj[4]);
         fetchRubberCashAdvance(myObj[4]);
-
+        
         $("#balance").val(myObj[2]);
         $("#quantity").val(myObj[0]);
+        $("#contract_price").val(myObj[3]);
+        $("#first_price").val(myObj[3]);
+
         $('#name').val(myObj[4]).trigger('chosen:updated');
     });
 }
