@@ -32,7 +32,7 @@ include "include/navbar.php";
                                 <div class="row">
                                     <div class="col-12">
                                         <button type="button" class="btn btn-primary confirmSales"
-                                            id="someButton">Confirm
+                                            id="btnConfirmShipment">Confirm
                                             Shipment</button>
                                         <button type="button" class="btn btn-dark text-white receiptBtn"
                                             id='receiptBtn'>
@@ -69,8 +69,8 @@ include "include/navbar.php";
                                                 <div class="col">
                                                     <label style='font-size:15px' class="col-md-12">Destination</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='sale_destination'
-                                                            id='sale_destination' tabindex="7" autocomplete='off'
+                                                        <input type="text" class="form-control" name='ship_destination'
+                                                            id='ship_destination' tabindex="7" autocomplete='off'
                                                             style="width: 100px;" />
                                                     </div>
                                                 </div>
@@ -79,16 +79,16 @@ include "include/navbar.php";
                                                 <div class="col">
                                                     <label style='font-size:15px' class="col-md-12">Voyage</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='voyage'
-                                                            id='voyage' tabindex="7" autocomplete='off'
+                                                        <input type="text" class="form-control" name='ship_voyage'
+                                                            id='ship_voyage' tabindex="7" autocomplete='off'
                                                             style="width: 100px;" />
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <label style='font-size:15px' class="col-md-12">Vessel</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='vessel'
-                                                            id='vessel' tabindex="7" autocomplete='off'
+                                                        <input type="text" class="form-control" name='ship_vessel'
+                                                            id='ship_vessel' tabindex="7" autocomplete='off'
                                                             style="width: 100px;" />
                                                     </div>
                                                 </div>
@@ -96,8 +96,8 @@ include "include/navbar.php";
                                                     <label style='font-size:15px' class="col-md-12">Bill of
                                                         Lading</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='info_lading'
-                                                            id='info_lading' tabindex="7" autocomplete='off'
+                                                        <input type="text" class="form-control" name='ship_info_lading'
+                                                            id='ship_info_lading' tabindex="7" autocomplete='off'
                                                             style="width: 100px;" />
                                                     </div>
                                                 </div>
@@ -106,23 +106,23 @@ include "include/navbar.php";
                                                 <div class="col">
                                                     <label style='font-size:15px' class="col-md-12">Source</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='source'
-                                                            id='source' tabindex="7" autocomplete='off'
+                                                        <input type="text" class="form-control" name='ship_source'
+                                                            id='ship_source' tabindex="7" autocomplete='off'
                                                             style="width: 100px;" />
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <label style='font-size:15px' class="col-md-12">Remarks</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='remarks'
-                                                            id='remarks' tabindex="7" autocomplete='off'
+                                                        <input type="text" class="form-control" name='ship_remarks'
+                                                            id='ship_remarks' tabindex="7" autocomplete='off'
                                                             style="width: 100px;" />
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <label style='font-size:15px' class="col-md-12">Recorded by:</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='user' id='user'
+                                                        <input type="text" class="form-control" name='ship_user' id='ship_user'
                                                             tabindex="7" autocomplete='off' style="width: 100px;" />
                                                     </div>
                                                 </div>
@@ -329,8 +329,7 @@ include "include/navbar.php";
                                                 </div>
                                             </div>
                                             <div class="col">
-                                                <label style='font-size:15px;font-weight:bold' class="col-md-12">NET
-                                                    GAIN</label>
+                                                <label style='font-size:15px;font-weight:bold' class="col-md-12">SHIPMENT GAIN/LOSS</label>
                                                 <div class="input-group mb-3">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">₱</span>
