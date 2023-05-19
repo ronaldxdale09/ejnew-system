@@ -546,3 +546,532 @@ $(document).ready(function() {
 
 });
 </script>
+
+<!-- 
+
+<div class="row">
+    <div class="col-12">
+        <br>
+        <div class="row">
+            <div class="col-12">
+                <button type="button" class="btn btn-primary confirmSales" id="someButton">Confirm Sales</button>
+                <button type="button" class="btn btn-dark text-white receiptBtn" id='receiptBtn'>
+                    <span class="fa fa-print"></span> Print Receipt </button>
+                <button type="button" class="btn btn-secondary text-white vouchBtn" onclick="goBack()">
+                    <span class="fas fa-arrow-left"></span> Return
+                </button>
+
+            </div>
+
+        </div>
+        <hr>
+
+        <div class="card">
+            <div class="card-body">
+                <h4>Sales Information</h4>
+                <hr>
+                <form method='POST' id='transaction_form'>
+                    <div class="row">
+                        <div class="col">
+                            <label style='font-size:15px' class="col-md-12">Sales ID.</label>
+                            <div class="input-group mb-3">
+
+                                <input type="text" class="form-control" name='sale_id' id='sale_id'
+                                    value='<?php echo $id?>' readonly autocomplete='off' style="width: 100px;" />
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <label style='font-size:15px' class="col-md-12">Sale Type</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" name='sale_type' id='sale_type'
+                                    value="Export" />
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <label style='font-size:15px' class="col-md-12">Van No. </label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" name='van_no' id='van_no' tabindex="7"
+                                    autocomplete='off' style="width: 100px;" />
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <label style='font-size:15px' class="col-md-12">Shipment Date </label>
+                            <div class="col-md-12">
+                                <input type="date" class='form-control' id="ship_date" value="<?php echo $today; ?>"
+                                    name="ship_date">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <label style='font-size:15px' class="col-md-12">Buyer</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" name='sale_buyer' id='sale_buyer' tabindex="7"
+                                    autocomplete='off' style="width: 100px;" />
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <label style='font-size:15px' class="col-md-12">Destination</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" name='sale_destination' id='sale_destination'
+                                    tabindex="7" autocomplete='off' style="width: 100px;" />
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <label style='font-size:15px' class="col-md-12">Voyage</label>
+                            <div class="input-group mb-3">
+
+                                <input type="text" class="form-control" name='voyage' id='voyage' tabindex="7"
+                                    autocomplete='off' style="width: 100px;" />
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <label style='font-size:15px' class="col-md-12">Vessel</label>
+                            <div class="input-group mb-3">
+
+                                <input type="text" class="form-control" name='vessel' id='vessel' tabindex="7"
+                                    autocomplete='off' style="width: 100px;" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col">
+                            <label style='font-size:15px' class="col-md-12">Bill of Lading</label>
+                            <div class="input-group mb-3">
+
+                                <input type="text" class="form-control" name='info_lading' id='info_lading' tabindex="7"
+                                    autocomplete='off' style="width: 100px;" />
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <label style='font-size:15px' class="col-md-12">Source</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" name='source' id='source' tabindex="7"
+                                    autocomplete='off' style="width: 100px;" />
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <label style='font-size:15px' class="col-md-12">Recorded by:</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" name='user' id='user' tabindex="7"
+                                    autocomplete='off' style="width: 100px;" />
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <label style='font-size:15px' class="col-md-12">Remarks</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" name='remarks' id='remarks' tabindex="7"
+                                    autocomplete='off' style="width: 100px;" />
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+
+        <br>
+
+        RUBBER WEIGHT
+
+        <div class="row">
+
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Cuplump Pricing</h5>
+                        <hr>
+
+                        <div class="row">
+
+                            <div class="col">
+                                <label style='font-size:15px' class="col-md-12">Currency</label>
+                                <div class="input-group mb-3">
+                                    <select class="form-select" id="sale_currency" name="sale_currency"
+                                        style="width: 100px;">
+                                        <option value="PHP">PHP ₱</option>
+                                        <option value="USD">USD $</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <label style='font-size:15px' class="col-md-12">Exchange Rate (to
+                                    pesos)</label>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" name='exchange_rate' id='exchange_rate'
+                                        style="width: 100px;" value='1' />
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <label style='font-size:15px' class="col-md-12">Dry Price</label>
+                                <div class="input-group mb-3">
+
+                                    <input type="text" class="form-control" name='wet_kilo_price' id='wet_kilo_price'
+                                        style="width: 100px;" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="row">
+
+                            <div class="col">
+                                <label style='font-size:15px' class="col-md-12">Initial Reweight</label>
+                                <div class="input-group mb-3">
+
+                                    <input type="text" class="form-control" name='cuplumps_total_weight'
+                                        id='cuplumps_total_weight' style="width: 100px;" />
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <label style='font-size:15px' class="col-md-12">Initial DRC</label>
+                                <div class="input-group mb-3">
+
+                                    <input type="text" class="form-control" name='initial_drc' id='initial_drc'
+                                        style="width: 100px;" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label style='font-size:15px;font-weight:bold' class="col-md-12">INITIAL SALE</label>
+                            <div class="input-group mb-3">
+
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">₱</span>
+                                </div>
+                                <input type="text" class="form-control" name='sales' id='sales' readonly
+                                    style="width: 100px;" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <label style='font-size:15px' class="col-md-12">Final Reweight</label>
+                                <div class="input-group mb-3">
+
+                                    <input type="text" class="form-control" name='cuplumps_total_weight'
+                                        id='cuplumps_total_weight' style="width: 100px;" />
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <label style='font-size:15px' class="col-md-12">Final DRC</label>
+                                <div class="input-group mb-3">
+
+                                    <input type="text" class="form-control" name='initial_drc' id='initial_drc'
+                                        style="width: 100px;" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label style='font-size:15px;font-weight:bold' class="col-md-12">FINAL SALE</label>
+                            <div class="input-group mb-3">
+
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">₱</span>
+                                </div>
+                                <input type="text" class="form-control" name='sales' id='sales' readonly
+                                    style="width: 100px;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h5 class="card-title">Cost & Weight</h5>
+                    <button type="button" class="btn btn-success text-white btnInventory">
+                        <i class="fa fa-plus"></i> Add Inventory
+                    </button>
+                </div>
+                <hr>
+
+                <div id='cost_weight_table'></div>
+                <input type="hidden" name="cuplumps_total_cost" id="hidden_cuplumps_total_cost" />
+                <input type="hidden" name="cuplumps_total_weight" id="hidden_cuplumps_total_weight" />
+                <input type="hidden" name="cuplumps_average_per_kilo" id="hidden_cuplumps_average_per_kilo" />
+
+
+                <div class="row">
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead>
+                            <th>
+                                Sale Contract
+                            </th>
+                            <th>
+                                Container
+                            </th>
+                            <th>
+                                Seller
+                            </th>
+                            <th>
+                                Purchase Weight
+                            </th>
+                            <th>
+                                Reweight
+                            </th>
+                            <th>
+                                Buyer Weight
+                            </th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <div class="row">
+                    <label style='font-size:15px;font-weight:bold' class="col-md-12">TOTAL CUPLUMP
+                        COST</label>
+                    <div class="input-group mb-3">
+
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">₱</span>
+                        </div>
+                        <input type="text" class="form-control" name='total_wet_cost' id='total_wet_cost' readonly
+                            style="width: 100px;" />
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col">
+                    </div>
+                    <div class="col">
+                        <label style='font-size:15px;font-weight:bold' class="col-md-12">GROSS GAIN</label>
+                        <div class="input-group mb-3">
+
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='net_gain' id='net_gain' readonly
+                                style="width: 100px;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="card">
+            <div class="card-body">
+                <h5> Shipping Expenses </h5>
+
+                <hr>
+
+                <div class="row">
+
+                    <div class="col">
+                        <label style='font-size:15px' class="col-md-12">Freight (All In)</label>
+                        <div class="input-group mb-3">
+
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='ship_exp_freight' id='ship_exp_freight'
+                                style="width: 100px;" />
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <label style='font-size:15px' class="col-md-12">Loading & Unloading</label>
+                        <div class="input-group mb-3">
+
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='ship_exp_loading' id='ship_exp_loading'
+                                style="width: 100px;" />
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <label style='font-size:15px' class="col-md-12">Processing Fee
+                            (Phytosanitary)</label>
+                        <div class="input-group mb-3">
+
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='ship_exp_processing' id='ship_exp_processing'
+                                style="width: 100px;" />
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <label style='font-size:15px' class="col-md-12">Trucking Expense</label>
+                        <div class="input-group mb-3">
+
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='ship_exp_trucking' id='ship_exp_trucking'
+                                style="width: 100px;" />
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+
+
+                    <div class="col">
+                        <label style='font-size:15px' class="col-md-12">Cranage Fee (Arrastre)</label>
+                        <div class="input-group mb-3">
+
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='ship_exp_cranage' id='ship_exp_cranage'
+                                style="width: 100px;" />
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <label style='font-size:15px' class="col-md-12">Miscellaneous Expenses : </label>
+                        <div class="input-group mb-3">
+
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='ship_exp_misc' id='ship_exp_misc'
+                                style="width: 100px;" />
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <label style='font-size:15px;font-weight:bold' class="col-md-12">TOTAL SHIPPING
+                            EXPENSES</label>
+                        <div class="input-group mb-3">
+
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='total_ship_exp' id='total_ship_exp' readonly
+                                style="width: 100px;" />
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col">
+                    </div>
+                    <div class="col">
+                        <label style='font-size:15px;font-weight:bold' class="col-md-12">NET GAIN</label>
+                        <div class="input-group mb-3">
+
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='net_gain' id='net_gain' readonly
+                                style="width: 100px;" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <br>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Payment Details</h5>
+                <hr>
+
+                <div class="row">
+                    <div class="col">
+                        <label style='font-size:15px' class="col-md-12">SALES</label>
+                        <div class="input-group mb-3">
+
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='payment_sales' id='payment_sales' readonly
+                                style="width: 100px;" />
+                        </div>
+                    </div>
+
+
+
+                    <div class="col">
+                        <label style='font-size:15px' class="col-md-12">UNPAID BALANCE</label>
+                        <div class="input-group mb-3">
+
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='amount_unpaid' id='amount_unpaid' readonly
+                                autocomplete='off' style="width: 100px;" />
+                        </div>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label style='font-size:15px' class="col-md-12">Date of Payment </label>
+                        <div class="col-md-12">
+                            <input type="date" class='form-control' id="pay_date" value="<?php echo $today; ?>"
+                                name="pay_date">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-5">
+                        <label style='font-size:15px' class="col-md-12">Details</label>
+                        <div class="input-group mb-3">
+
+                            <input type="text" class="form-control" name='pay_details' id='pay_details'
+                                autocomplete='off' style="width: 100px;" />
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <label style='font-size:15px' class="col-md-12">Amount</label>
+                        <div class="input-group mb-3">
+
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₱</span>
+                            </div>
+                            <input type="text" class="form-control" name='paid_amount' id='paid_amount'
+                                onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off'
+                                style="width: 100px;" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div> -->

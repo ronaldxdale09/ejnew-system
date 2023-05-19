@@ -47,7 +47,7 @@
                                     total_ship_exp as ShippingExpenses,
                                     net_gain as Profit,
                                     amount_unpaid as UnpaidBalance
-                                  FROM sales_cuplumps_rec");?>
+                                  FROM shipment");?>
                                 <table class="table table-bordered table-hover table-striped"
                                     id='recording_table-receiving'>
                                     <thead class="table-dark text-center" style="font-size: 14px !important">
