@@ -1,5 +1,4 @@
 <?php
-session_start();
 include('db.php');
 
 
@@ -55,6 +54,7 @@ if ($contract != 'SPOT') {
 $sql = mysqli_query($con, "SELECT * FROM rubber_seller WHERE name='$seller'");
 $row = mysqli_fetch_array($sql);
 $seller_ca = $row['cash_advance'];
+$less = floatval($less);
 $total_ca = $seller_ca - $less;
 $query = "UPDATE rubber_seller SET cash_advance = '$total_ca' WHERE name='$seller'";
 $results = mysqli_query($con, $query);
@@ -78,20 +78,20 @@ SET
     less = '$less',
     amount_paid = '$amount_paid',
     amount_words = '$words_amount',
-    type = 'DRY',
-    loc = '$loc',
     planta_status = '1',
     supplier_type = '$supplier_type'
 WHERE id = '$id'";
 
-if (mysqli_query($con, $query)) {
+$result = mysqli_query($con, $query);
+
+if ($result) {
     $_SESSION['print_invoice'] = $id;
-    // ... more session variables ...
+    header("Location: ../wet_receiving_record.php");
     echo json_encode(array('result' => 'success', 'message' => 'Transaction Was Successful!'));
     $_SESSION['transaction'] = 'COMPLETED';
 } else {
-    // Print the error message
-    echo "Error: " . $query . "<br>" . mysqli_error($con);
+    echo "Error updating record: " . mysqli_error($con);
+    $_SESSION['transaction'] = 'ERROR';
     echo json_encode(array('result' => 'error', 'message' => 'Transaction Failed!'));
 }
 ?>

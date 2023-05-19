@@ -86,7 +86,7 @@
                     <input type="text" class="form-control readonly-input" id='m_total-words' name='m_total-words'
                         readonly />
 
-                  <input name="m_id" id="m_id"  hidden>
+                  <input name="m_id" id="m_id" hidden  >
                     <input name="m_supplier_type" id="m_supplier_type"  hidden>
                     <!-- hidden -->
                     <input name="m_gross" id="m_gross" hidden>
@@ -111,14 +111,15 @@
                     <input name="m_balance" id="m_balance" hidden >
                 </div>
                 <div class="modal-footer">
-                    <button type='submit' id='confirmPurchase' name='confirmPurchase'
+                    <button type='submit'  name='confirmPurchase'
                         class="btn btn-success text-white">Submit</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
-</form>
+
 
 
 
@@ -218,26 +219,8 @@ function showSwalMessage(icon, title, text) {
     });
 }
 
-function handleNewPurchaseFormSubmission() {
-    $("#confirmModal").modal("hide");
 
-    $.post($('#newPurchase').attr('action'), $('#newPurchase :input').serializeArray(), function(result) {
-        $('#result').html(result);
-        showSwalMessage('success', 'Good job!', 'Transaction Was Successful!');
-
-        // After successful submission
-        const span = document.getElementById('trans_status');
-        span.className = 'badge bg-success';
-        span.textContent = 'COMPLETED';
-
-        document.getElementById("receiptBtn").click();
-        $_SESSION['transaction'] = 'COMPLETED';
-    });
-}
 // Attach event handlers
 $('#confirm').click(handleConfirmButtonClick);
-$('#newPurchase').submit(function() {
-    return false;
-});
-$('#confirmPurchase').click(handleNewPurchaseFormSubmission);
+
 </script>
