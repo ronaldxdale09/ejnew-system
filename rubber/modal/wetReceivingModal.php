@@ -1,5 +1,5 @@
 <!-- Confirm Transaction -->
-<form action="function/wet_rubber_purchase.php" id='newPurchase' method="POST">
+<form action="function/confirmWetReceiving.php" id='newPurchase' method="POST">
     <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -16,7 +16,7 @@
                             <div class="col-12 col-sm-5 col-md-4">
                                 <div class="input-group mb-1">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroup-sizing-default">Invoice</span>
+                                        <span class="input-group-text" id="inputGroup-sizing-default">Ref #</span>
                                     </div>
                                     <input type="text" style='text-align:right' name='m_invoice' id='m_invoice'
                                         class="form-control readonly-input" readonly>
@@ -92,10 +92,10 @@
                     <input name="m_gross" id="m_gross" hidden>
                     <input name="m_tare" id="m_tare" hidden>
                     <input name="m_net" id="m_net" hidden>
-
-
                     <input name="drc" id="m_drc" hidden >
                     <input name="bale_weight" id="m_bale_weight" hidden>
+
+             
 
                     <input name="m_1price" id="m_1price" hidden>
                     <input name="m_2price" id="m_2price" hidden>
@@ -122,296 +122,6 @@
 
 
 
-<!-- PRINT Transaction -->
-<div class="modal fade" id="print_vouch" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">PRINT VOUCHER</h5>
-                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <div class="row no-gutters">
-                        <div class="col-6 col-md-4">
-                            <div class="input-group mb-1">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroup-sizing-default"
-                                        style='color:black;font-weight: bold;'>Contract</span>
-                                </div>
-                                <input type="text" style='text-align:right' name='v_contract' id='v_contract'
-                                    class="form-control" style='background-color:white;border:0px solid #ffffff;'
-                                    readonly>
-                            </div>
-                        </div>
-                        <!--end  -->
-                        <div class="col-6 col-md-4">
-                            <div class="input-group mb-1">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroup-sizing-default"
-                                        style='color:black;font-weight: bold;'>Date</span>
-                                </div>
-                                <input type="text" style='text-align:right' name='v_date' id='v_date'
-                                    class="form-control" style='background-color:white;border:0px solid #ffffff;'
-                                    readonly>
-                            </div>
-                        </div>
-                        <!--  end-->
-                    </div>
-                </div>
-                <div class="col-6 col-md-4">
-                    <div class="input-group mb-1">
-
-                        <label style='font-size:15px' class="col-md-12">Seller :</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" id='v_name' name='v_name'
-                                onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" readonly />
-                        </div>
-
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-8">Voucher:</label>
-                    <div class="col-md-4">
-                        <textarea name="v_voucher" id="v_voucher" class="form-control"
-                            style='font-size:15px;background-color:white;width:700px;height:100px;'></textarea>
-                    </div>
-                </div>
-
-                <hr>
-                <div class="form-group">
-                    <div class="row no-gutters">
-                        <div class="col-12 col-sm-5 col-md-3">
-
-                            <div class="input-group mb-1">
-
-                                <label style='font-size:15px' class="col-md-12">Total Amount :</label>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">₱</span>
-                                    </div>
-                                    <input type="text" class="form-control" id='v_total-amount' name='v_total-amount'
-                                        readonly onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" />
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <div class="col-6 col-md-4">
-
-                            <div class="input-group mb-1">
-
-                                <label style='font-size:15px' class="col-md-12">Less :</label>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">₱</span>
-                                    </div>
-                                    <input type="text" class="form-control" id='v_less' name='v_less' readonly
-                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" />
-                                </div>
-
-                            </div>
-                        </div>
-                        <!--  total dust-->
-                        <div class="col-6 col-md-4">
-                            <div class="input-group mb-1">
-
-                                <label style='font-size:15px' class="col-md-12">Total Amount Paid :</label>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">₱</span>
-                                    </div>
-                                    <input type="text" class="form-control" id='v_total-paid' name='v_total-paid'
-                                        readonly onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="row no-gutters">
-                        <div class="col-12 col-sm-5 col-md-3">
-
-                            <div class="input-group mb-1">
-
-                                <label style='font-size:15px' class="col-md-12">Approved By:</label>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" id='approved_by' name='approved_by'
-                                        value='RICHARD J. NEW' onkeypress="return CheckNumeric()"
-                                        onkeyup="FormatCurrency(this)" />
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <div class="col-6 col-md-4">
-
-                            <!-- empty -->
-                        </div>
-                        <!--  total dust-->
-                        <div class="col-6 col-md-4">
-                            <div class="input-group mb-1">
-
-                                <label style='font-size:15px' class="col-md-12">Recorded By :</label>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" id='recorded_by' name='recorded_by' />
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end -->
-                </div>
-                <!-- end table -->
-                <input type="text" class="form-control" id='v_total-words' name='v_total-words' readonly
-                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" />
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button id='print_voucher' name='print_voucher' class="btn btn-success text-white">Print</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--END PRINT Transaction -->
-
-
-<script type="text/javascript">
-$(document).ready(function() {
-    $('#print_voucher').click(function() {
-
-        var voucher = document.getElementById("v_voucher").value;
-        var approved = document.getElementById("approved_by").value;
-        var recorded = document.getElementById("recorded_by").value;
-
-        $.ajax({
-            url: "voucher/fetchVouch.php",
-            type: "POST",
-            cache: false,
-            data: {
-                voucher: voucher,
-                approved: approved,
-                recorded: recorded,
-            },
-            cache: false,
-            success: function(voucher) {
-
-
-            }
-        });
-
-
-        var nw = window.open("voucher/print_voucher.php", "_blank", "height=623,width=850 ")
-
-
-
-
-        setTimeout(function() {
-            nw.print()
-            setTimeout(function() {
-                nw.close()
-            }, 500)
-        }, 1000)
-    })
-});
-</script>
-
-
-<!-- PRINT Transaction -->
-<div class="modal fade" id="modal_receipt" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog " role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">PRINT RECEIPT</h5>
-                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!--  total dust-->
-                <div class="col-6 col-md-4">
-                    <div class="input-group mb-1">
-
-                        <label style='font-size:15px' class="col-md-12">Confirm to print the transaction
-                            receipt</label>
-
-                    </div>
-                </div>
-                <!-- end -->
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button id='print_receipt' name='print_receipt' class="btn btn-success text-white">Print</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<script type="text/javascript">
-$(document).ready(function() {
-    $('#print_receipt').click(function() {
-
-        var nw = window.open("voucher/print_receipt.php", "_blank",
-            "height=623,width=812")
-
-
-
-
-        setTimeout(function() {
-            nw.print()
-            setTimeout(function() {
-                nw.close()
-            }, 500)
-        }, 1000)
-    })
-});
-</script>
-
-
-<!-- PRINT Transaction -->
-<div class="modal fade" id="modal_new_transact" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog " role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">NEW TRANSACTION</h5>
-                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!--  total dust-->
-                <center>
-                    <div class="col-6 col-md-12">
-                        <div class="input-group mb-12">
-                            <label style='font-size:25px' class="col-md-12">Confirm to create new
-                                transaction</label>
-
-                        </div>
-                    </div>
-                    <center>
-                        <!-- end -->
-
-            </div>
-            <div class="modal-footer">
-                <button onclick="location.href = 'wet_rubber.php';" class="btn btn-success text-white">Confirm</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-
 <script>
 // Function to fetch the transaction status
 function fetchTransactionStatus(ca, callback) {
@@ -430,14 +140,6 @@ function fetchTransactionStatus(ca, callback) {
     });
 }
 
-// Function to display a Swal message
-function showSwalMessage(icon, title, text) {
-    Swal.fire({
-        icon: icon,
-        title: title,
-        text: text,
-    });
-}
 
 // Function to handle confirm button click
 function handleConfirmButtonClick() {
@@ -470,6 +172,7 @@ function showModalAndSetFields() {
 
     // Setting up the modal fields
     $('#m_id').val($("#invoice").val());
+    $('#m_invoice').val($("#invoice").val());
     
     $('#m_name').val($("#name").val());
     $('#m_date').val($("#date").val());
@@ -506,8 +209,15 @@ function showModalAndSetFields() {
     $('#m_total-paid').val($("#amount-paid").val());
     $('#m_total-words').val($("#amount-paid-words").val());
 }
+// Function to display a Swal message
+function showSwalMessage(icon, title, text) {
+    Swal.fire({
+        icon: icon,
+        title: title,
+        text: text,
+    });
+}
 
-// Function to handle new purchase form submission
 function handleNewPurchaseFormSubmission() {
     $("#confirmModal").modal("hide");
 
@@ -516,10 +226,9 @@ function handleNewPurchaseFormSubmission() {
         showSwalMessage('success', 'Good job!', 'Transaction Was Successful!');
 
         // After successful submission
-        $(document).ready(function() {
-            const span = document.getElementById('trans_status');
-            span.innerHTML = `<span class="badge alert-success">COMPLETED</span>`;
-        });
+        const span = document.getElementById('trans_status');
+        span.className = 'badge bg-success';
+        span.textContent = 'COMPLETED';
 
         document.getElementById("receiptBtn").click();
         $_SESSION['transaction'] = 'COMPLETED';
@@ -531,128 +240,4 @@ $('#newPurchase').submit(function() {
     return false;
 });
 $('#confirmPurchase').click(handleNewPurchaseFormSubmission);
-</script>
-
-<!-- end -->
-
-<script>
-// validation
-
-$('#vouchBtn').click(function() {
-
-    if (!document.getElementById('total-amount').value ||
-        !document.getElementById('date').value ||
-        !$("#name").val()
-    ) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Fill all the necessary fields ',
-        })
-
-    } else {
-        $('#print_vouch').modal('show');
-        $tr = $(this).closest('tr');
-
-        var data = $tr.children("td").map(function() {
-            return $(this).text();
-        }).get();
-        $('#v_invoice').val($("#invoice").val());
-        $('#v_name').val($("#name").val());
-        $('#v_date').val($("#date").val());
-        $('#v_address').val($("#address").val());
-        $('#v_contract').val($("#contract").val());
-
-        $('#v_quantity').val($("#quantity").val());
-        $('#v_balance').val($("#balance").val());
-
-        // purchase info
-
-        $('#v_gross').val($("#gross").val());
-        $('#v_tare').val($("#tare").val());
-        $('#v_net').val($("#net").val());
-
-
-        $('#v_1price').val($("#first_price").val());
-        $('#v_2price').val($("#sec_price").val());
-
-        // total res
-
-        $('#v_weight_1').val($("#first-weight").val());
-        $('#v_weight_2').val($("#second-weight").val());
-
-        $('#v_total_first').val($("#first_total").val());
-        $('#v_total_sec').val($("#sec_total").val());
-
-        // 
-        $('#v_total-amount').val($("#total-amount").val());
-        $('#v_less').val($("#cash_advance").val());
-        $('#v_total-paid').val($("#amount-paid").val());
-        $('#v_total-words').val($("#amount-paid-words").val());
-
-    }
-
-});
-</script>
-
-
-
-<script>
-// validation
-
-$('#receiptBtn').click(function() {
-
-    if (!document.getElementById('total-amount').value ||
-        !document.getElementById('date').value ||
-        !$("#name").val()
-    ) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Fill all the necessary fields ',
-        })
-
-    } else {
-        $('#modal_receipt').modal('show');
-        $tr = $(this).closest('tr');
-
-        var data = $tr.children("td").map(function() {
-            return $(this).text();
-        }).get();
-        $('#r_invoice').val($("#invoice").val());
-        $('#r_name').val($("#name").val());
-        $('#r_date').val($("#date").val());
-        $('#r_address').val($("#address").val());
-        $('#r_contract').val($("#contract").val());
-
-        $('#r_quantity').val($("#quantity").val());
-        $('#r_balance').val($("#balance").val());
-
-        // purchase info
-
-        $('#r_gross').val($("#gross").val());
-        $('#r_tare').val($("#tare").val());
-        $('#r_net').val($("#net").val());
-
-
-        $('#r_1price').val($("#first_price").val());
-        $('#r_2price').val($("#sec_price").val());
-
-        // total res
-
-        $('#r_weight_1').val($("#first-weight").val());
-        $('#r_weight_2').val($("#second-weight").val());
-
-        $('#r_total_first').val($("#first_total").val());
-        $('#r_total_sec').val($("#sec_total").val());
-
-        // 
-        $('#r_total-amount').val($("#total-amount").val());
-        $('#r_less').val($("#cash_advance").val());
-        $('#r_total-paid').val($("#amount-paid").val());
-        $('#r_total-words').val($("#amount-paid-words").val());
-
-    }
-
-});
 </script>

@@ -101,19 +101,14 @@ $today = $year . "-" . $month . "-" . $day;
                                 <div class="col-lg-4 col-xlg-3 col-md-5">
                                     <div class="card">
                                         <div class="card-body">
-                                            <table>
-                                                <tr>
-                                                    <td>
-                                                        <h4>Status : </h4>
-                                                    </td>
-                                                    <td>
-                                                        <h5><span id='trans_status'
-                                                                class="badge alert-danger">ONGOING</span></h5>
-
-                                                    </td>
-
-                                                </tr>
-                                            </table>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h4 class="card-title">Transaction Status</h4>
+                                                    <h5 class="card-text">Status: <span id='trans_status'
+                                                            class="badge bg-danger">ONGOING</span></h5>
+                                                </div>
+                                            </div>
+                                            <br>
                                             <div class="row">
                                                 <div class="col-sm-5">
                                                     <div class="form-group">
@@ -125,17 +120,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-7">
-                                                    <div class="form-group">
-                                                        <label class="col-md-12"></label>
-                                                        <div class="col-md-12">
-                                                            <button type="button" class="btn btn-primary text-white"
-                                                                data-toggle="modal"
-                                                                data-target="#modal_new_transact">New
-                                                                Transaction</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                               
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-12">Date</label>
@@ -202,9 +187,10 @@ $today = $year . "-" . $month . "-" . $day;
                                                     <div class="input-group mb-1">
                                                         <span class="input-group-text"
                                                             style='color:black;font-weight: bold;'>Price</span>
-                                                        <input type="text" style='text-align:right' name='contract_price'
-                                                            id='contract_price' class="form-control" readonly>
-                                              
+                                                        <input type="text" style='text-align:right'
+                                                            name='contract_price' id='contract_price'
+                                                            class="form-control" readonly>
+
                                                     </div>
                                                 </div>
                                             </div>

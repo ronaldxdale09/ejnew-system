@@ -21,7 +21,6 @@ $net_weight = str_replace(',', '', $_POST['m_net']);
 
 
 
-
 $first_price = str_replace(',', '', $_POST['m_1price']);
 $sec_price = str_replace(',', '', $_POST['m_2price']);
 $total_first = str_replace(',', '', $_POST['m_total_first']);

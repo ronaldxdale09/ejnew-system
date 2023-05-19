@@ -1,13 +1,21 @@
 <?php
 
-$sql = "SELECT  id, seller FROM rubber_transaction where planta_status =1 and supplier_type=0";
+$sql = "(SELECT id as id, seller, type FROM rubber_transaction WHERE planta_status = 1 AND supplier_type = 0)
+        UNION
+        (SELECT ejn_id as id, supplier as seller, type FROM ejn_rubber_transfer WHERE planta_status = 1)
+       ";
+
 $result = mysqli_query($con, $sql);
 $listPurchased = '';
+
 while ($arr = mysqli_fetch_assoc($result)) {
     $invoice = htmlspecialchars($arr['id'], ENT_QUOTES);
     $seller = htmlspecialchars($arr['seller'], ENT_QUOTES);
-    $listPurchased .= '<option value="'.$arr['id'] . '">INVOICE #' . $invoice . ' - ' . $seller . '</option>';
+    $type = htmlspecialchars($arr['type'], ENT_QUOTES);
+    // Combine 'id' and 'type' to be the 'value' of this option:
+    $listPurchased .= '<option value="'.$type.','.$arr['id'].'">' . $type . ' #' . $invoice . ' - ' . $seller . '</option>';
 }
+
 
 ?>
 
@@ -33,10 +41,8 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                     <div class="col-md-12">
                                         <select required="required" class='source col-md-12 r_select_purchase'
                                             name='purchased_id' id='r_select_purchase'>
-                                            <option disabled="disabled" selected="selected" value="">Select Invoice
+                                            <option disabled="disabled" selected="selected" value="">Select Receiving
                                             </option>
-                                            <option value="0">EJN RUBBER </option>
-                                            <option value="-1">PROCESS RUBBER (DRY PRICE) </option>
                                             <?php echo $listPurchased; ?>
                                         </select>
                                     </div>

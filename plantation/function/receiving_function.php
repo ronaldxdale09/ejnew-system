@@ -5,11 +5,14 @@
 
                             $source =$_SESSION["source"];
                             $purchased_id = $_POST['purchased_id'];
-
-                            if ($purchased_id == 0){
+                            $splitOption = explode(",", $purchased_id);
+                            $type = $splitOption[0];
+                            $id = $splitOption[1];
+                            
+                            if ($type === 'EJN'){
                                 $prod_type='EJN';
                             }
-                            elseif ($purchased_id == -1){
+                            elseif ($type === 'DRY'){
                                 $prod_type='PURCHASE';
                             }
                             else{
@@ -33,12 +36,16 @@
                         
 
                                 $query = "INSERT INTO planta_recording (prod_type,cost,lot_num,purchased_id,receiving_date,supplier,location,driver,truck_num,weight,reweight,total_cost,status,source) 
-                                        VALUES ('$prod_type','$cost','$lot_num','$purchased_id',NOW(),'$supplier','$location','$driver','$truck_num','$weight','$reweight','$total_cost','Field','$source')";
+                                        VALUES ('$prod_type','$cost','$lot_num','$id',NOW(),'$supplier','$location','$driver','$truck_num','$weight','$reweight','$total_cost','Field','$source')";
                                 $results = mysqli_query($con, $query);
                                    
                                     if ($results) {
 
-                                        $sql = "UPDATE rubber_transaction SET planta_status='0' WHERE id='$purchased_id'";
+                                        if ($type === 'EJN'){
+                                            $sql = "UPDATE ejn_rubber_transfer SET planta_status='0' WHERE ejn_id='$id'";
+                                        } else {
+                                            $sql = "UPDATE rubber_transaction SET planta_status='0' WHERE id='$id'";
+                                        }
                                         $result = mysqli_query($con, $sql);
 
 

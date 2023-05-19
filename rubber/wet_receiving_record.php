@@ -34,11 +34,6 @@
                             <hr>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-hover table-striped" id='inventory-table'>
-                                    <?php
-                                    $results  = mysqli_query($con, "SELECT DISTINCT planta_recording.*, rubber_transaction.total_amount as total_amount, rubber_transaction.net_weight as net_weight 
-                                    FROM planta_recording
-                                    LEFT JOIN rubber_transaction ON planta_recording.purchased_id = rubber_transaction.id
-                                    WHERE planta_recording.status = 'Field'");?>
                                     <thead class="table-dark">
                                         <tr>
 
@@ -46,31 +41,57 @@
                                             <th scope="col"> ID</th>
                                             <th scope="col">Date Received</th>
                                             <th scope="col">Supplier</th>
-                                            <th scope="col">Lot No.</th>
-                                            <th scope="col">Weight</th>
-                                            <th scope="col">Reweight</th>
-
+                                            <th scope="col">Location</th>
+                                            <th scope="col">Gross.</th>
+                                            <th scope="col">Tare</th>
+                                            <th scope="col">Net Cuplump</th>
+                                            <th scope="col">Estimated DRC</th>
+                                            <th scope="col">Estimated Total Bale Weight</th>
+                                            <th scope="col">Total Cost</th>
+                                            <th scope="col">Cash Advance</th>
+                                            <th scope="col">Amount Paid</th>
+                                            <th scope="col">Type</th>
+                                            <th scope="col">Recorded By</th>
                                         </tr>
                                     </thead>
-                                    <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?>
-                                        <tr>
+                                    <tbody>
+                                        <?php
+                            $sql = "SELECT * FROM rubber_transaction where type ='DRY'";
+                            $result = mysqli_query($con, $sql);
+                            if (mysqli_num_rows($result) > 0) {
+                                while($row = mysqli_fetch_assoc($result)) {
 
-                                            <td><span class="badge bg-success"> <?php echo $row['status']?> </span></td>
-                                            <td> <span
-                                                    class="badge bg-secondary"><?php echo $row['recording_id']?></span>
-                                            </td>
-                                            <td> <?php echo $row['receiving_date']?> </td>
-                                            <td> <?php echo $row['supplier']?> </td>
-                                            <td> <?php echo $row['lot_num']?> </td>
-                                            <td class="number-cell">
-                                                <?php echo number_format($row['weight'], 0, '.', ',')?> kg</td>
-                                            <td class="number-cell">
-                                                <?php echo number_format($row['reweight'], 0, '.', ',')?> kg</td>
+                                    $status='';
+                                    if ($row['planta_status'] == 1){
+                                        $status='EJN';
+                                    }
+                                    else {
+                                        $status='PLANTA';
+                                    }
 
-
-
-                                        </tr>
-                                        <?php } ?>
+                                    echo "<tr>";
+                                    echo "<td><span class=\"badge " . ($status === 'EJN' ? 'bg-success' : 'bg-warning') . "\">" . $status . "</span></td>";
+                                    echo "<td>".$row['id']."</td>";
+                                    echo "<td>".$row['date']."</td>";
+                                    echo "<td>".$row['seller']."</td>";
+                                    echo "<td>".$row['address']."</td>";
+                                    echo "<td>".$row['gross']."</td>";
+                                    echo "<td>".$row['tare']."</td>";
+                                    echo "<td>".$row['net_weight']."</td>";
+                                    echo "<td>".$row['assumed_drc']."</td>";
+                                    echo "<td>".$row['assumed_baleWeight']."</td>";
+                                    echo "<td>".$row['total_amount']."</td>";
+                                    echo "<td>".$row['less']."</td>";
+                                    echo "<td>".$row['amount_paid']."</td>";
+                                    echo "<td>".$row['type']."</td>";
+                                    echo "<td>".$row['recorded_by']."</td>";
+        
+                                    echo "</tr>";
+                                }
+                            } else {
+                                echo "<tr><td colspan='23'>No records found</td></tr>";
+                            }
+                            ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -148,18 +169,19 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="product_name" class="form-label">Date.</label>
-                                    <input type="date" class="form-control" name="date" value="<?php echo date('Y-m-d'); ?>" required>
+                                    <input type="date" class="form-control" name="date"
+                                        value="<?php echo date('Y-m-d'); ?>" required>
 
                                 </div>
                             </div>
                             <div class="col-md-6">
-                            <label for="product_name" class="form-label">Recorded By</label>
+                                <label for="product_name" class="form-label">Recorded By</label>
                                 <input type="text" class="form-control" name="recorded_by" placeholder="Recorded By"
                                     value='JANE'>
                             </div>
                         </div>
 
-                    
+
                     </center>
 
 

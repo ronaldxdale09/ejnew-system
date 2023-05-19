@@ -17,7 +17,7 @@
     <a class='nav-link' href='wet_receiving_record.php'>
         <i class='fa-solid fa-truck'></i> <span class='nav-text'>WET Receiving</span>
         <a class='nav-link' href='ejn_rubber_record.php'>
-            <i class='fa-solid fa-truck'></i> <span class='nav-text'>EJN RUBBER</span>
+            <i class='fa-solid fa-truck'></i> <span class='nav-text'>EJN Rubber</span>
         </a>
 
         <hr style='color:gray'>
