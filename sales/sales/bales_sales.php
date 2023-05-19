@@ -32,10 +32,18 @@ if (isset($_GET['id'])) {
                 <hr>
                 <div class="row">
                     <div class="col">
-                        <label style='font-size:15px' class="col-md-12">Reference No.</label>
+                        <label style='font-size:15px' class="col-md-12">EN Sale Contract</label>
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" name='sale_id' id='sale_id' value='<?php echo $id?>'
-                                readonly autocomplete='off' style="width: 100px;" />
+                            <input type="text" class="form-control" name='en_bale_contract' id='en_bale_contract'
+                                value='' readonly autocomplete='off' style="width: 100px;">
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <label style='font-size:15px' class="col-md-12">Buyer Purchase Contract</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name='buyer_bale_contract' id='buyer_bale_contract'
+                                value='' style="width: 100px;" />
                         </div>
                     </div>
 
@@ -51,18 +59,10 @@ if (isset($_GET['id'])) {
                     </div>
 
                     <div class="col">
-                        <label style='font-size:15px' class="col-md-12">Van No. </label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" name='van_no' id='van_no' tabindex="7"
-                                autocomplete='off' style="width: 100px;" />
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <label style='font-size:15px' class="col-md-12">Shipment Date </label>
+                        <label style='font-size:15px' class="col-md-12">Transaction Date </label>
                         <div class="col-md-12">
-                            <input type="date" class='form-control' id="ship_date" value="<?php echo $today; ?>"
-                                name="ship_date">
+                            <input type="date" class='form-control' id="bale_sale_date" value="<?php echo $today; ?>"
+                                name="bale_sale_date">
                         </div>
                     </div>
                 </div>

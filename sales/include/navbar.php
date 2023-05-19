@@ -15,20 +15,6 @@
 
     <hr style='color:gray'>
 
-    <a class='nav-link'>
-        <i class='fa-solid fa-truck'></i> <span class='nav-text'>Inventory</span>
-    </a>
-
-    <a class='nav-link' href='inv_bale.php' style='margin-left: 30px; font-size: 18px;'>
-        <i class='fa-solid fa-cube'></i> <span class='nav-text'>Bales</span>
-    </a>
-
-    <a class='nav-link' href='inv_cuplump.php' style='margin-left: 30px; font-size: 18px;'>
-        <i class='fa-solid fa-tree'></i> <span class='nav-text'>Cuplumps</span>
-    </a>
-
-    <hr style='color:gray'>
-
     <a class='nav-link' href='bale_sale_record.php'>
         <i class='fa-solid fa-book'></i> <span class='nav-text'>Rubber Bale Sale</span>
     </a>
@@ -38,13 +24,23 @@
     </a>
 
     <a class='nav-link' href='cuplump_shipment_record.php'>
-        <i class='fa-solid fa-book'></i> <span class='nav-text'>Cuplump Shipment</span>
+        <i class='fa-solid fa-ship'></i> <span class='nav-text'>Cuplump Shipment</span>
+    </a>
+
+    <hr style='color:gray'>
+
+    <a class='nav-link' href='inventory_bale.php'>
+        <i class='fa-solid fa-cube'></i> <span class='nav-text'>Bale Inventory</span>
+    </a>
+
+    <a class='nav-link' href='inventory_cuplump.php'>
+        <i class='fa-solid fa-tree'></i> <span class='nav-text'>Cuplump Inventory</span>
     </a>
 
     <hr style='color:gray'>
 
     <a class='nav-link' href='reports.php'>
-        <i class='fa-solid fa-file-alt'></i> <span class='nav-text'>Reports</span>
+        <i class='fa-solid fa-file-alt'></i> <span class='nav-text'>Sales Report</span>
     </a>
 
     <div class='logout-container'>
