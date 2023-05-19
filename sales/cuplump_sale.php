@@ -51,7 +51,7 @@ if ($result->num_rows > 0) {
                         <h2 class="page-title">
                             <b>
                                 <font color="#0C0070">CUPLUMP </font>
-                                <font color="#046D56"> SALE CONTRACT </font>
+                                <font color="#046D56">SALE </font>
                             </b>
                         </h2>
 
@@ -84,7 +84,7 @@ if ($result->num_rows > 0) {
                                         <div class="row">
                                             <div class="col">
                                                 <label style='font-size:15px' class="col-md-12">EN Sale Contract
-                                                    No.</label>
+                                                </label>
                                                 <div class="input-group mb-3">
                                                     <input type="text" class="form-control" name='en_sale_contract_no'
                                                         id='en_sale_contract_no' value='' readonly autocomplete='off'
@@ -94,7 +94,7 @@ if ($result->num_rows > 0) {
 
                                             <div class="col">
                                                 <label style='font-size:15px' class="col-md-12">Buyer Purchase Contract
-                                                    No.</label>
+                                                </label>
                                                 <div class="input-group mb-3">
                                                     <input type="text" class="form-control"
                                                         name='buyer_purchase_contract_no'
@@ -124,8 +124,7 @@ if ($result->num_rows > 0) {
 
                                         <div class="row">
                                             <div class="col">
-                                                <label style='font-size:15px' class="col-md-12">Buyer Company
-                                                    Name</label>
+                                                <label style='font-size:15px' class="col-md-12">Buyer Name</label>
                                                 <div class="input-group mb-3">
                                                     <input type="text" class="form-control" name='buyer_company_name'
                                                         value='' id='buyer_company_name' tabindex="7" autocomplete='off'
@@ -268,16 +267,16 @@ if ($result->num_rows > 0) {
                                                         </td>
                                                         <td class="number-cell">
                                                             <div class="input-group">
-                                                                <input type="text" class="form-control" name="net_weight"
-                                                                    >
+                                                                <input type="text" class="form-control"
+                                                                    name="net_weight">
                                                                 <span class="input-group-text"> kg</span>
                                                             </div>
                                                         </td>
                                                         <td class="number-cell">
                                                             <div class="input-group">
                                                                 <span class="input-group-text">$</span>
-                                                                <input type="text" class="form-control" name="container_sale"
-                                                                    readonly>
+                                                                <input type="text" class="form-control"
+                                                                    name="container_sale" readonly>
                                                             </div>
                                                         </td>
                                                     </tr>

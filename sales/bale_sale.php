@@ -22,8 +22,8 @@
 
                 <div class="row">
                     <h2 class="page-title"><B>
-                            <font color="#0C0070"> RUBBER </font>
-                            <font color="#046D56"> SALES TRANSACTION </font>
+                            <font color="#0C0070"> RUBBER BALE </font>
+                            <font color="#046D56"> SALE </font>
                         </b></h2>
                     <div class="inventory-table">
                         <div class="container-fluid">
