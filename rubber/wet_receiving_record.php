@@ -20,8 +20,8 @@
 
                         <h1 class="page-title">
                             <b>
-                                <font color="#0C0070">WET RECEIVING</font>
-                                <font color="#046D56"> RECORD </font>
+                                <font color="#0C0070">DRY PRICE</font>
+                                <font color="#046D56">RECEIVING RECORD </font>
                             </b>
                         </h1>
 

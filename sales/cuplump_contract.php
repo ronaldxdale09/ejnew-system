@@ -74,10 +74,11 @@ if ($result->num_rows > 0) {
 
                                 </div>
 
+                                <br>
 
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4>Sales Contract</h4>
+                                        <h4>Sale Contract</h4>
                                         <hr>
 
                                         <div class="row">
@@ -90,6 +91,7 @@ if ($result->num_rows > 0) {
                                                         style="width: 100px;">
                                                 </div>
                                             </div>
+
                                             <div class="col">
                                                 <label style='font-size:15px' class="col-md-12">Buyer Purchase Contract
                                                     No.</label>
@@ -100,15 +102,17 @@ if ($result->num_rows > 0) {
                                                         style="width: 100px;" />
                                                 </div>
                                             </div>
+
                                             <div class="col">
                                                 <label style='font-size:15px' class="col-md-12">Type</label>
                                                 <div class="input-group mb-3">
                                                     <select class="form-select" id="wet_sale_type" name="wet_sale_type"
                                                         style="width: 100px;">
-                                                        <option value="EXPORT">Export</option>
+                                                        <option value="EXPORT">Wet Export</option>
                                                     </select>
                                                 </div>
                                             </div>
+
                                             <div class="col">
                                                 <label style='font-size:15px' class="col-md-12">Transaction Date</label>
                                                 <div class="col-md-12">
@@ -117,9 +121,6 @@ if ($result->num_rows > 0) {
                                                 </div>
                                             </div>
                                         </div>
-
-
-                                        <br>
 
                                         <div class="row">
                                             <div class="col">
@@ -142,41 +143,10 @@ if ($result->num_rows > 0) {
                                             </div>
 
                                             <div class="col">
-                                                <label style='font-size:15px' class="col-md-12">Quantity</label>
+                                                <label style='font-size:15px' class="col-md-12">Destination</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='quantity' value=''
-                                                        id='quantity' tabindex="7" autocomplete='off'
-                                                        style="width: 100px;" />
-                                                    <span class="input-group-text">kg</span>
-                                                </div>
-                                            </div>
-
-                                            <div class="col">
-                                                <label style='font-size:15px' class="col-md-12">Price</label>
-                                                <div class="input-group mb-3">
-                                                    <span class="input-group-text">$</span>
-                                                    <input type="text" class="form-control" name='price' value=''
-                                                        id='price'>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="row">
-                                            <div class="col">
-                                                <label style='font-size:15px' class="col-md-12">Address</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='address' value=''
-                                                        id='address' tabindex="7" autocomplete='off'
-                                                        style="width: 100px;" />
-                                                </div>
-                                            </div>
-
-                                            <div class="col">
-                                                <label style='font-size:15px' class="col-md-12">Shipping Port</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='shipping_port'
-                                                        value='' id='shipping_port' tabindex="7" autocomplete='off'
+                                                    <input type="text" class="form-control" name='destination'
+                                                        id='destination' value='' tabindex="7" autocomplete='off'
                                                         style="width: 100px;" />
                                                 </div>
                                             </div>
@@ -189,47 +159,37 @@ if ($result->num_rows > 0) {
                                                         style="width: 100px;" />
                                                 </div>
                                             </div>
-
-                                            <div class="col">
-                                                <label style='font-size:15px' class="col-md-12">Packing</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='packing' id='packing'
-                                                        value='' tabindex="7" autocomplete='off'
-                                                        style="width: 100px;" />
-                                                </div>
-                                            </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="col">
-                                                <label style='font-size:15px' class="col-md-12">Contact
-                                                    Information</label>
+                                                <label style='font-size:15px' class="col-md-12">Quantity</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='contact_information'
-                                                        id='contact_information' value='' tabindex="7"
-                                                        autocomplete='off' style="width: 100px;" />
+                                                    <input type="text" class="form-control" name='quantity' value=''
+                                                        id='quantity' tabindex="7" autocomplete='off'
+                                                        style="width: 100px;" />
+                                                    <span class="input-group-text"> kg</span>
                                                 </div>
                                             </div>
 
                                             <div class="col">
-                                                <label style='font-size:15px' class="col-md-12">Destination</label>
+                                                <label style='font-size:15px' class="col-md-12">Price</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='destination'
-                                                        id='destination' value='' tabindex="7" autocomplete='off'
-                                                        style="width: 100px;" />
+                                                    <span class="input-group-text">$</span>
+                                                    <input type="text" class="form-control" name='price' value=''
+                                                        id='price'>
                                                 </div>
                                             </div>
 
                                             <div class="col-6">
-                                                <label style='font-size:15px' class="col-md-12">Other Terms</label>
+                                                <label style='font-size:15px' class="col-md-12">Other Terms
+                                                    (Optional)</label>
                                                 <div class="input-group mb-3">
                                                     <input type="text" class="form-control" name='other_terms' value=''
                                                         id='other_terms'>
                                                 </div>
                                             </div>
                                         </div>
-
-
                                     </div>
                                 </div>
 
@@ -237,42 +197,108 @@ if ($result->num_rows > 0) {
 
                                 <div class="card">
                                     <div class="card-body d-flex justify-content-between align-items-center">
-                                        <h4>Cup Lumps</h4>
+                                        <h4>Cuplump Costing</h4>
 
-                                        <button id="add-row-btn" class="btn btn-success">+ Add Container</button>
+                                        <button id="add-row-btn" class="btn btn-success">Select Container</button>
                                     </div>
 
                                     <div class="card-body">
+
+                                        <div class="table-responsive">
+                                            <table id="container-table"
+                                                class="table table-bordered table-hover table-striped">
+                                                <thead class="table text-center" style="font-size: 14px !important">
+                                                    <tr>
+                                                        <th scope="col"></th>
+                                                        <th scope="col">Container No.</th>
+                                                        <th scope="col">Shipment No.</th>
+                                                        <th scope="col">Supplier</th>
+                                                        <th scope="col">Loading Weight</th>
+                                                        <th scope="col">Cuplump Cost</th>
+                                                        <th scope="col">Shipping Expense</th>
+                                                        <th scope="col">Net Kilo Cost</th>
+                                                        <th scope="col">Buyer Reweight</th>
+                                                        <th scope="col">Sale</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <button class="btn btn-danger" data-bs-toggle="modal"
+                                                                data-bs-target="#updateModal"
+                                                                onclick="openUpdateModal(this)">Remove</button>
+                                                        </td>
+
+                                                        <td>
+                                                            <input type="text" class="form-control" readonly>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control" readonly>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control" readonly>
+                                                        </td>
+                                                        <td class="number-cell">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control"
+                                                                    name="total_kilo" autocomplete="off" readonly>
+                                                                <span class="input-group-text"> kg</span>
+                                                            </div>
+                                                        </td>
+                                                        <td class="number-cell">
+                                                            <div class="input-group">
+                                                                <span class="input-group-text">₱</span>
+                                                                <input type="text" class="form-control"
+                                                                    name="total_cogs" readonly>
+                                                            </div>
+                                                        </td>
+                                                        <td class="number-cell">
+                                                            <div class="input-group">
+                                                                <span class="input-group-text">₱</span>
+                                                                <input type="text" class="form-control"
+                                                                    name="shipment_expenses" readonly>
+                                                            </div>
+                                                        </td>
+                                                        <td class="number-cell">
+                                                            <div class="input-group">
+                                                                <span class="input-group-text">₱</span>
+                                                                <input type="text" class="form-control" name="net_cost"
+                                                                    readonly>
+                                                            </div>
+                                                        </td>
+                                                        <td class="number-cell">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" name="net_weight"
+                                                                    >
+                                                                <span class="input-group-text"> kg</span>
+                                                            </div>
+                                                        </td>
+                                                        <td class="number-cell">
+                                                            <div class="input-group">
+                                                                <span class="input-group-text">$</span>
+                                                                <input type="text" class="form-control" name="container_sale"
+                                                                    readonly>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <hr>
+
                                         <div class="row">
                                             <div class="col">
-                                                <label style='font-size:15px' class="col-md-12">Total Kilo</label>
+                                                <label style='font-size:15px' class="col-md-12">Cuplump Weight</label>
                                                 <div class="input-group mb-3">
                                                     <input type="text" class="form-control" name='total_kilo'
                                                         id='total_kilo' tabindex="7" autocomplete='off'
                                                         style="width: 100px;" readonly>
-                                                    <span class="input-group-text">kg</span>
+                                                    <span class="input-group-text"> kg</span>
                                                 </div>
                                             </div>
                                             <div class="col">
-                                                <label style='font-size:15px' class="col-md-12">Total Sale ($)</label>
-                                                <div class="input-group mb-3">
-                                                    <span class="input-group-text">$</span>
-                                                    <input type="text" class="form-control" name='total_sale'
-                                                        id='total_sale' tabindex="7" autocomplete='off'
-                                                        style="width: 100px;" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <label style='font-size:15px' class="col-md-12">Total Peso Sale</label>
-                                                <div class="input-group mb-3">
-                                                    <span class="input-group-text">₱</span>
-                                                    <input type="text" class="form-control" name='total_peso_sale'
-                                                        id='total_peso_sale' tabindex="7" autocomplete='off'
-                                                        style="width: 100px;" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <label style='font-size:15px' class="col-md-12">Total Cuplump
+                                                <label style='font-size:15px' class="col-md-12">Overall Cuplump
                                                     Cost</label>
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text">₱</span>
@@ -281,7 +307,7 @@ if ($result->num_rows > 0) {
                                                 </div>
                                             </div>
                                             <div class="col">
-                                                <label style='font-size:15px' class="col-md-12">Total Shipping
+                                                <label style='font-size:15px' class="col-md-12">Overall Shipping
                                                     Expenses</label>
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text">₱</span>
@@ -290,125 +316,49 @@ if ($result->num_rows > 0) {
                                                         readonly>
                                                 </div>
                                             </div>
+
+                                            <div class="col">
+                                                <label style='font-size:15px' class="col-md-12">Other
+                                                    Sale Expenses</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">₱</span>
+                                                    <input type="text" class="form-control" name='other_expenses'
+                                                        id='other_expenses'>
+                                                </div>
+                                            </div>
                                         </div>
 
 
-                                        <div class="table-responsive">
-                                            <table id="container-table"
-                                                class="table table-bordered table-hover table-striped">
-                                                <thead class="table text-center" style="font-size: 14px !important">
-                                                    <tr>
-                                                        <th scope="col">Actions</th>
-                                                        <th scope="col">Shipment No.</th>
-                                                        <th scope="col">Container No.</th>
-                                                        <th scope="col">Total Kilo</th>
-                                                        <th scope="col">Loading Reweight</th>
-                                                        <th scope="col">Buyer Reweight</th>
-                                                        <th scope="col">DRC</th>
-                                                        <th scope="col">Peso Sale</th>
-                                                        <th scope="col">Rubber Cost</th>
-                                                        <th scope="col">Shipment Expenses</th>
-                                                        <th scope="col">Profit/Loss</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <button class="btn btn-primary" data-bs-toggle="modal"
-                                                                data-bs-target="#updateModal"
-                                                                onclick="openUpdateModal(this)">Update</button>
-                                                        </td>
-
-                                                        <td>
-                                                            <input type="text" class="form-control" readonly>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control">
-                                                        </td>
-                                                        <td class="number-cell">
-                                                            <div class="input-group">
-                                                                <input type="text" class="form-control"
-                                                                    name="total_kilo" autocomplete="off">
-                                                                <span class="input-group-text">kg</span>
-                                                            </div>
-                                                        </td>
-                                                        <td class="number-cell">
-                                                            <div class="input-group">
-                                                                <input type="text" class="form-control"
-                                                                    name="loading_reweight" autocomplete="off">
-                                                                <span class="input-group-text">kg</span>
-                                                            </div>
-                                                        </td>
-                                                        <td class="number-cell">
-                                                            <div class="input-group">
-                                                                <input type="text" class="form-control"
-                                                                    name="buyer_reweight" autocomplete="off">
-                                                                <span class="input-group-text">kg</span>
-                                                            </div>
-                                                        </td>
-                                                        <td class="number-cell">
-                                                            <div class="input-group">
-                                                                <input type="text" class="form-control" name="drc"
-                                                                    autocomplete="off">
-                                                                <span class="input-group-text">%</span>
-                                                            </div>
-                                                        </td>
-                                                        <td class="number-cell">
-                                                            <div class="input-group">
-                                                                <span class="input-group-text">₱</span>
-                                                                <input type="text" class="form-control"
-                                                                    name="total_sale" required>
-                                                            </div>
-                                                        </td>
-                                                        <td class="number-cell">
-                                                            <div class="input-group">
-                                                                <span class="input-group-text">₱</span>
-                                                                <input type="text" class="form-control"
-                                                                    name="total_cogs" required>
-                                                            </div>
-                                                        </td>
-                                                        <td class="number-cell">
-                                                            <div class="input-group">
-                                                                <span class="input-group-text">₱</span>
-                                                                <input type="text" class="form-control"
-                                                                    name="shipment_expenses" required>
-                                                            </div>
-                                                        </td>
-                                                        <td class="number-cell">
-                                                            <div class="input-group">
-                                                                <span class="input-group-text">₱</span>
-                                                                <input type="text" class="form-control"
-                                                                    name="profit_loss" required>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <br>
-
-                                <div class="card">
-                                    <div class="card-body">
                                         <div class="row">
+                                            <div class="col">
+                                                <label style='font-size:15px' class="col-md-12">Buyer Reweight</label>
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control" name='net_weight'
+                                                        id='net_weight' tabindex="7" autocomplete='off'
+                                                        style="width: 100px;" readonly>
+                                                    <span class="input-group-text"> kg</span>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <label style='font-size:15px' class="col-md-12">Peso
+                                                    Sale (Collections)</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">₱</span>
+                                                    <input type="text" class="form-control" name='total_peso_sale'
+                                                        id='total_peso_sale' tabindex="7" autocomplete='off'
+                                                        style="width: 100px;" readonly>
+                                                </div>
+                                            </div>
                                             <div class="col-6">
                                                 <label class="col-md-12">NET PROFIT/LOSS (₱)</label>
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text">₱</span>
                                                     <input type="text" class="form-control" name="net_profit_loss"
-                                                        id="net_profit_loss">
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <label class="col-md-12">Word Equivalent</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control word-equivalent"
-                                                        id="word_equivalent" readonly>
+                                                        id="net_profit_loss" readonly>
                                                 </div>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
 
@@ -433,7 +383,8 @@ if ($result->num_rows > 0) {
                                                 </div>
                                             </div>
                                             <div class="col">
-                                                <label style="font-size: 15px" class="col-md-12">Amount Paid</label>
+                                                <label style="font-size: 15px" class="col-md-12">Amount Paid in
+                                                    Dollar</label>
                                                 <div class="input-group mb-3">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">$</span>
@@ -444,7 +395,8 @@ if ($result->num_rows > 0) {
                                                 </div>
                                             </div>
                                             <div class="col">
-                                                <label style="font-size: 15px" class="col-md-12">Amount in Peso</label>
+                                                <label style="font-size: 15px" class="col-md-12">Amount Paid in
+                                                    Peso</label>
                                                 <div class="input-group mb-3">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">₱</span>
@@ -680,31 +632,7 @@ if ($result->num_rows > 0) {
       <td class="number-cell">
         <div class="input-group">
           <input type="text" class="form-control" name="total_kilo" autocomplete="off">
-          <span class="input-group-text">kg</span>
-        </div>
-      </td>
-      <td class="number-cell">
-        <div class="input-group">
-          <input type="text" class="form-control" name="loading_reweight" autocomplete="off">
-          <span class="input-group-text">kg</span>
-        </div>
-      </td>
-      <td class="number-cell">
-        <div class="input-group">
-          <input type="text" class="form-control" name="buyer_reweight" autocomplete="off">
-          <span class="input-group-text">kg</span>
-        </div>
-      </td>
-      <td class="number-cell">
-        <div class="input-group">
-          <input type="text" class="form-control" name="drc" autocomplete="off">
-          <span class="input-group-text">%</span>
-        </div>
-      </td>
-      <td class="number-cell">
-        <div class="input-group">
-          <span class="input-group-text">₱</span>
-          <input type="text" class="form-control" name="total_sale" required>
+          <span class="input-group-text"> kg</span>
         </div>
       </td>
       <td class="number-cell">
@@ -722,7 +650,7 @@ if ($result->num_rows > 0) {
       <td class="number-cell">
         <div class="input-group">
           <span class="input-group-text">₱</span>
-          <input type="text" class="form-control" name="profit_loss" required>
+          <input type="text" class="form-control" name="net_cost" required>
         </div>
       </td>
     `;

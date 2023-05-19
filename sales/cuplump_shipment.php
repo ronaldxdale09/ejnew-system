@@ -12,6 +12,8 @@ include "include/navbar.php";
 
 
 <body>
+
+    <br>
     <div class='main-content' style='min-height:100vh;'>
         <div class="container home-section h-100" style="max-width:95%;">
             <div class="page-wrapper">
@@ -44,6 +46,9 @@ include "include/navbar.php";
                                         </button>
                                     </div>
                                 </div>
+
+                                <br>
+
                                 <div class="card">
                                     <div class="card-body">
                                         <h4>Shipment Information</h4>
@@ -59,14 +64,6 @@ include "include/navbar.php";
                                                     </div>
                                                 </div>
                                                 <div class="col">
-                                                    <label style='font-size:15px' class="col-md-12">Shipment
-                                                        Date</label>
-                                                    <div class="col-md-12">
-                                                        <input type="date" class='form-control' id="ship_date"
-                                                            value="<?php echo $today; ?>" name="ship_date">
-                                                    </div>
-                                                </div>
-                                                <div class="col">
                                                     <label style='font-size:15px' class="col-md-12">Destination</label>
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" name='ship_destination'
@@ -74,16 +71,24 @@ include "include/navbar.php";
                                                             style="width: 100px;" />
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
                                                 <div class="col">
-                                                    <label style='font-size:15px' class="col-md-12">Voyage</label>
+                                                    <label style='font-size:15px' class="col-md-12">Source</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='ship_voyage'
-                                                            id='ship_voyage' tabindex="7" autocomplete='off'
+                                                        <input type="text" class="form-control" name='ship_source'
+                                                            id='ship_source' tabindex="7" autocomplete='off'
                                                             style="width: 100px;" />
                                                     </div>
                                                 </div>
+                                                <div class="col">
+                                                    <label style='font-size:15px' class="col-md-12">Shipment
+                                                        Date</label>
+                                                    <div class="col-md-12">
+                                                        <input type="date" class='form-control' id="ship_date"
+                                                            value="<?php echo $today; ?>" name="ship_date">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
                                                 <div class="col">
                                                     <label style='font-size:15px' class="col-md-12">Vessel</label>
                                                     <div class="input-group mb-3">
@@ -101,16 +106,6 @@ include "include/navbar.php";
                                                             style="width: 100px;" />
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <label style='font-size:15px' class="col-md-12">Source</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='ship_source'
-                                                            id='ship_source' tabindex="7" autocomplete='off'
-                                                            style="width: 100px;" />
-                                                    </div>
-                                                </div>
                                                 <div class="col">
                                                     <label style='font-size:15px' class="col-md-12">Remarks</label>
                                                     <div class="input-group mb-3">
@@ -122,8 +117,9 @@ include "include/navbar.php";
                                                 <div class="col">
                                                     <label style='font-size:15px' class="col-md-12">Recorded by:</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='ship_user' id='ship_user'
-                                                            tabindex="7" autocomplete='off' style="width: 100px;" />
+                                                        <input type="text" class="form-control" name='ship_user'
+                                                            id='ship_user' tabindex="7" autocomplete='off'
+                                                            style="width: 100px;" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -204,117 +200,7 @@ include "include/navbar.php";
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-
-                                <br>
-
-                                <div class="card">
-                                    <div class="card-body d-flex justify-content-between align-items-center">
-                                        <h4>Containers</h4>
-                                        <button id="add-row-btn" class="btn btn-success">+ Select Container</button>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table id="container-table"
-                                                class="table table-bordered table-hover table-striped">
-                                                <thead class="table text-center" style="font-size: 14px !important">
-                                                    <tr>
-                                                        <th scope="col">Container No.</th>
-                                                        <th scope="col">Total Kilo</th>
-                                                        <th scope="col">Loading Reweight</th>
-                                                        <th scope="col">Peso Sale</th>
-                                                        <th scope="col">Cuplump Cost</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="text" class="form-control">
-                                                        </td>
-                                                        <td class="number-cell">
-                                                            <div class="input-group">
-                                                                <input type="text" class="form-control"
-                                                                    name="total_kilo" autocomplete="off">
-                                                                <span class="input-group-text">kg</span>
-                                                            </div>
-                                                        </td>
-                                                        <td class="number-cell">
-                                                            <div class="input-group">
-                                                                <input type="text" class="form-control"
-                                                                    name="loading_reweight" autocomplete="off">
-                                                                <span class="input-group-text">kg</span>
-                                                            </div>
-                                                        </td>
-                                                        <td class="number-cell">
-                                                            <div class="input-group">
-                                                                <span class="input-group-text">₱</span>
-                                                                <input type="text" class="form-control"
-                                                                    name="total_sale" required>
-                                                            </div>
-                                                        </td>
-                                                        <td class="number-cell">
-                                                            <div class="input-group">
-                                                                <span class="input-group-text">₱</span>
-                                                                <input type="text" class="form-control"
-                                                                    name="total_cogs" required>
-                                                            </div>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
                                         <hr>
-                                        <div class="row">
-                                            <div class="col">
-                                                <label style='font-size:15px' class="col-md-12">Total Kilo</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='total_kilo'
-                                                        id='total_kilo' tabindex="7" autocomplete='off'
-                                                        style="width: 100px;" readonly>
-                                                    <span class="input-group-text">kg</span>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <label style='font-size:15px' class="col-md-12">Load Reweight</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='total_reweight'
-                                                        id='total_reweight' tabindex="7" autocomplete='off'
-                                                        style="width: 100px;" readonly>
-                                                    <span class="input-group-text">kg</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <br>
-
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4>Profit/Loss Computation</h4>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col">
-                                                <label style='font-size:15px;font-weight:bold' class="col-md-12">Total
-                                                    Peso Sale</label>
-                                                <div class="input-group mb-3">
-                                                    <span class="input-group-text">₱</span>
-                                                    <input type="text" class="form-control" name='total_peso_sale'
-                                                        id='total_peso_sale' tabindex="7" autocomplete='off'
-                                                        style="width: 100px;" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <label style='font-size:15px;font-weight:bold' class="col-md-12">Total
-                                                    Rubber
-                                                    Cost</label>
-                                                <div class="input-group mb-3">
-                                                    <span class="input-group-text">₱</span>
-                                                    <input type="text" class="form-control" name='total_cuplump_cost'
-                                                        id='total_cuplump_cost' readonly>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="row">
                                             <div class="col">
                                                 <label style='font-size:15px;font-weight:bold' class="col-md-12">Total
@@ -329,13 +215,140 @@ include "include/navbar.php";
                                                 </div>
                                             </div>
                                             <div class="col">
-                                                <label style='font-size:15px;font-weight:bold' class="col-md-12">SHIPMENT GAIN/LOSS</label>
+                                                <label style='font-size:15px;font-weight:bold' class="col-md-12">No. of
+                                                    Containers</label>
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control" readonly
+                                                        name='ship_exp_misc' id='ship_exp_misc' style="width: 100px;" />
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <label style='font-size:15px;font-weight:bold'
+                                                    class="col-md-12">Shipping
+                                                    Cost per Container</label>
                                                 <div class="input-group mb-3">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">₱</span>
                                                     </div>
-                                                    <input type="text" class="form-control" name='net_gain'
-                                                        id='net_gain' readonly style="width: 100px;" />
+                                                    <input type="text" class="form-control" name='container_ship_exp'
+                                                        id='container_ship_exp' readonly style="width: 100px;" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+
+                                <div class="card">
+                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                        <h4>Containers</h4>
+                                        <button id="add-row-btn" class="btn btn-success">+ New Container</button>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table id="container-table"
+                                                class="table table-bordered table-hover table-striped">
+                                                <thead class="table text-center" style="font-size: 14px !important">
+                                                    <tr>
+                                                        <th scope="col"></th>
+                                                        <th scope="col">Container No.</th>
+                                                        <th scope="col">Supplier</th>
+                                                        <th scope="col">Loading Weight</th>
+                                                        <th scope="col">Cost Type</th>
+                                                        <th scope="col">Cost (Wet)</th>
+                                                        <th scope="col">Cost (Dry)</th>
+                                                        <th scope="col">DRC</th>
+                                                        <th scope="col">Cuplump Cost</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <button class="btn btn-danger"
+                                                                data-bs-toggle="modal">Remove</button>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control">
+                                                        </td>
+                                                        <td class="number-cell">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control"
+                                                                    name="total_kilo" autocomplete="off">
+                                                                <span class="input-group-text"> kg</span>
+                                                            </div>
+                                                        </td>
+                                                        <td class="number-cell">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control"
+                                                                    name="loading_reweight" autocomplete="off">
+                                                                <span class="input-group-text"> kg</span>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group mb-3">
+                                                                <select class="form-select" id="cost_type"
+                                                                    name="cost_type" style="width: 100px;">
+                                                                    <option>Select</option>
+                                                                    <option value="DRY">Dry</option>
+                                                                    <option value="WET">Wet</option>
+                                                                </select>
+                                                            </div>
+                                                        </td>
+                                                        <td class="number-cell">
+                                                            <div class="input-group">
+                                                                <span class="input-group-text">₱</span>
+                                                                <input type="text" class="form-control"
+                                                                    name="kilo_cost_wet" required>
+                                                            </div>
+                                                        </td>
+                                                        <td class="number-cell">
+                                                            <div class="input-group">
+                                                                <span class="input-group-text">₱</span>
+                                                                <input type="text" class="form-control"
+                                                                    name="kilo_cost_dry" required>
+                                                            </div>
+                                                        </td>
+                                                        <td class="number-cell">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" name="cost_drc"
+                                                                    required>
+                                                                <span class="input-group-text">%</span>
+                                                            </div>
+                                                        </td>
+                                                        <td class="number-cell">
+                                                            <div class="input-group">
+                                                                <span class="input-group-text">₱</span>
+                                                                <input type="text" class="form-control"
+                                                                    name="total_cogs" required>
+                                                            </div>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-2">
+                                            </div>
+                                            <div class="col-4">
+                                                <label style='font-size:15px;font-weight:bold' class="col-md-12">Total
+                                                    Loading Weight</label>
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control" name='total_kilo'
+                                                        id='total_kilo' tabindex="7" autocomplete='off'
+                                                        style="width: 100px;" readonly>
+                                                    <span class="input-group-text"> kg</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <label style='font-size:15px;font-weight:bold' class="col-md-12">Total
+                                                    Cuplump Cost</label>
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">₱</span>
+                                                    </div>
+                                                    <input type="text" class="form-control" name='total_cogs'
+                                                        id='total_cogs' readonly style="width: 100px;" />
                                                 </div>
                                             </div>
                                         </div>
@@ -348,4 +361,5 @@ include "include/navbar.php";
             </div>
         </div>
     </div>
+    <br>
 </body>
