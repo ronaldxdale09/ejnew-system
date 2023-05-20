@@ -11,12 +11,16 @@
                             
                             if ($type === 'EJN'){
                                 $prod_type='EJN';
+                                $trans_type='EJN';
                             }
                             elseif ($type === 'DRY'){
                                 $prod_type='PURCHASE';
+                                $trans_type='DRY';
                             }
                             else{
                                 $prod_type='SALE';
+                                $trans_type='SALE';
+
                             }
                
                             $supplier = $_POST['supplier'];
@@ -35,14 +39,17 @@
                             $total_cost = str_replace(',', '', $_POST['total_cost']);
                         
 
-                                $query = "INSERT INTO planta_recording (prod_type,cost,lot_num,purchased_id,receiving_date,supplier,location,driver,truck_num,weight,reweight,total_cost,status,source) 
-                                        VALUES ('$prod_type','$cost','$lot_num','$id',NOW(),'$supplier','$location','$driver','$truck_num','$weight','$reweight','$total_cost','Field','$source')";
+                                $query = "INSERT INTO planta_recording (prod_type,trans_type,cost,lot_num,purchased_id,receiving_date,supplier,location,driver,truck_num,weight,reweight,total_cost,status,source) 
+                                        VALUES ('$prod_type','$trans_type','$cost','$lot_num','$id',NOW(),'$supplier','$location','$driver','$truck_num','$weight','$reweight','$total_cost','Field','$source')";
                                 $results = mysqli_query($con, $query);
                                    
                                     if ($results) {
 
                                         if ($type === 'EJN'){
                                             $sql = "UPDATE ejn_rubber_transfer SET planta_status='0' WHERE ejn_id='$id'";
+                                        }
+                                        elseif ($type === 'DRY'){
+                                            $sql = "UPDATE dry_price_transfer SET planta_status='0' WHERE dry_id='$id'";
                                         } else {
                                             $sql = "UPDATE rubber_transaction SET planta_status='0' WHERE id='$id'";
                                         }

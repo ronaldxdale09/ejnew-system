@@ -71,7 +71,12 @@ while ($arr = mysqli_fetch_array($result)) {
 $invoice = mysqli_query($con, "SELECT * FROM bales_transaction WHERE loc='$loc' ORDER BY id DESC LIMIT 1");
 $getinvoice = mysqli_fetch_array($invoice);
 
-$invoiceCount = $getinvoice[0]+1;
+if ($getinvoice) {
+    $invoiceCount = $getinvoice[0] + 1;
+} else {
+    $invoiceCount = 1; // Default value when table is empty
+}
+
 
 $month = date("m");
 $day = date("d");

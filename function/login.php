@@ -40,7 +40,7 @@
 			}
 
 			elseif  ($userType =='rubber'){
-				header('Location: ../rubber/dashboard.php');
+				header('Location: ../rubber/dry_receiving_record.php');
 			}
 			elseif  ($userType =='planta'){
 				header('Location: ../plantation/dashboard.php');

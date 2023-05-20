@@ -92,9 +92,12 @@
                                             <td>
                                                 <!-- Update Button -->
                                                 <button type="button" class="btn btn-primary updateBtn"
-                                                    data-id="<?php echo $row['ejn_id']; ?>">Update</button>
+                                                    data-id="<?php echo $row['ejn_id']; ?>">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
 
-
+                                                <button type='button' class='btn btn-danger deleteBtn'> <i
+                                                        class='fas fa-trash'></i> </button>
                                             </td>
 
 
@@ -173,6 +176,21 @@ $('.updateBtn').click(function() {
     $('#u_recorded').val(data[9]);
     $('#updateModal').modal('show');
 });
+
+$('.deleteBtn').click(function() {
+
+
+    $tr = $(this).closest('tr');
+
+    var data = $tr.children("td").map(function() {
+        return $(this).text();
+    }).get();
+
+    $('#d_id').val(data[1]);
+
+
+    $('#deleteModal').modal('show');
+});
 </script>
 
 </html>
@@ -215,8 +233,7 @@ $('.updateBtn').click(function() {
                         <div class="col">
                             <div class="mb-3">
                                 <label for="total_buying_weight" class="form-label">Total Buying Weight</label>
-                                <input type="text" class="form-control" name="weight" id='u_weight'
-                                    required>
+                                <input type="text" class="form-control" name="weight" id='u_weight' required>
                             </div>
                         </div>
                         <div class="col">
@@ -356,6 +373,29 @@ $('.updateBtn').click(function() {
 </div>
 
 
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method='POST' action='function/newEjnRubber.php'>
+                <div class="modal-body">
+                    <input type="text" class="form-control" id="d_id" name='id' hidden>
+                    <p class="text-center text-danger"><i class="fa fa-exclamation-triangle"
+                            style="font-size: 2em;"></i>
+                    </p>
+                    <p class="text-center">Are you sure you want to delete this record?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger" name='delete'>Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <script>
 document.getElementById('net_weight').addEventListener('keyup', calculateAverageKiloCost);

@@ -64,4 +64,24 @@ if (isset($_POST['update'])) {
         echo "ERROR: Could not execute query: $query. " . mysqli_error($con);
     }
 }
+
+
+if (isset($_POST['delete'])) {
+    $id = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
+    // Assuming 'dry_id' is passed from the form
+
+    // Debugging: Echo dry_id
+    echo " ID to delete: " . $id . "<br>";
+
+    $query = "DELETE FROM ejn_rubber_transfer WHERE ejn_id = '$id'";
+    $results = mysqli_query($con, $query);
+
+    if ($results) {
+        header("Location: ../ejn_rubber_record.php");
+        $_SESSION['message'] = "Record successfully deleted";
+        exit();
+    } else {
+        echo "ERROR: Could not be able to execute $query. " . mysqli_error($con);
+    }
+}
 ?>
