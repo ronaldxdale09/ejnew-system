@@ -4,6 +4,14 @@
   include "function/db.php";
   include "include/bootstrap.php";
   include "include/jquery.php"; 
+
+  if (!isset($_SESSION['loc']) || empty($_SESSION['loc'])) {
+    header('Location: function/logout.php'); // replace 'logout.php' with your logout script
+    exit();
+}
+
+
+$loc = $_SESSION['loc'];
 ?>
 <html>
 
@@ -67,4 +75,21 @@
 .logout-btn i {
     margin-right: 0.5rem;
 }
+
+.location-badge {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: lightblue;
+    /* Change to desired color */
+    color: #fff;
+    /* Change to desired color */
+    border-radius: 5px;
+    z-index: -99999;
+}
 </style>
+<div class="location-badge">
+    <?php echo $_SESSION['loc'];?>
+</div>

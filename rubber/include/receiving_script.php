@@ -18,7 +18,7 @@ $(document).ready(function() {
             }
             $next.focus();
         }
-    });
+    }); 
 
     // Contract change event
     $("#contract").on("change", function() {

@@ -17,6 +17,8 @@ $(document).ready(function() {
         console.log(purchased_id);
         if (type === 'EJN') {
             ejnData(purchased_id);
+        } else if (type === 'DRY') {
+            dryData(purchased_id);
         } else {
             purchasedData(purchased_id);
         }
@@ -80,6 +82,31 @@ $(document).ready(function() {
         xmlhttp.send();
     }
 
+    function dryData(purchased_id) {
+        var p_id = purchased_id;
 
+        // Creates a new XMLHttpRequest object
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                // Parse the JSON response
+                var myObj = JSON.parse(this.responseText);
+
+                // Update fields with the response values
+                document.getElementById("r_date").value = myObj[0];
+                document.getElementById("r_supplier").value = myObj[1];
+                document.getElementById("r_location").value = myObj[2];
+
+                document.getElementById("r_weight").value = Number(myObj[3]).toLocaleString();
+                document.getElementById("purchase_total_cost").value = 0;
+
+            }
+        };
+
+        xmlhttp.open("GET", "fetch/fetchDryPrice.php?purchased_id=" + p_id.replace(/,/g, ''), true);
+
+        // Sends the request to the server
+        xmlhttp.send();
+    }
 
 });

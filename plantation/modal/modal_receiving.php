@@ -1,9 +1,13 @@
 <?php
 
-$sql = "(SELECT id as id, seller, type FROM rubber_transaction WHERE planta_status = 1 AND supplier_type = 0)
-        UNION
-        (SELECT ejn_id as id, supplier as seller, type FROM ejn_rubber_transfer WHERE planta_status = 1)
-       ";
+$sql = "
+    (SELECT id, seller, type FROM rubber_transaction WHERE planta_status = 1 AND supplier_type = 0)
+    UNION ALL
+    (SELECT ejn_id as id, supplier as seller, type FROM ejn_rubber_transfer WHERE planta_status = 1)
+    UNION ALL
+    (SELECT dry_id as id, seller as seller, type FROM dry_price_transfer WHERE planta_status = 1)
+    ORDER BY id;
+";
 
 $result = mysqli_query($con, $sql);
 $listPurchased = '';

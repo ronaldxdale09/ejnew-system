@@ -4,8 +4,12 @@
   include "function/db.php";
   include "include/bootstrap.php";
   include "include/jquery.php"; 
-  $loc = $_SESSION['loc'];
-  
+  if (!isset($_SESSION['loc']) || empty($_SESSION['loc'])) {
+    header('Location: function/logout.php'); // replace 'logout.php' with your logout script
+    exit();
+}
+
+$loc = $_SESSION['loc'];
 ?>
 <html>
 
@@ -37,8 +41,10 @@
     right: 10px;
     display: inline-block;
     padding: 10px 20px;
-    background-color: lightblue; /* Change to desired color */
-    color: #fff; /* Change to desired color */
+    background-color: lightblue;
+    /* Change to desired color */
+    color: #fff;
+    /* Change to desired color */
     border-radius: 5px;
     z-index: 9999;
 }
