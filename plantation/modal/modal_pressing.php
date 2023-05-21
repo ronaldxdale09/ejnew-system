@@ -61,7 +61,8 @@
                         <div class="col">
                             <label class="form-label">Total Weight</label>
                             <div class="input-group">
-                                <input type="text" style='font-size:19px'class="form-control text-center" id="press_u_total_weight" readonly>
+                                <input type="text" style='font-size:19px' class="form-control text-center"
+                                    id="press_u_total_weight" readonly>
                                 <span class="input-group-text">kg</span>
                             </div>
                         </div>
@@ -69,9 +70,26 @@
                             <label class="form-label">DRC</label>
 
                             <div class="input-group">
-                                <input type="text"style='font-size:19px'  class="form-control text-center" name="drc" id="press_u_drc"
-                                    style='text-align:right' readonly>
+                                <input type="text" style='font-size:19px' class="form-control text-center" name="drc"
+                                    id="press_u_drc" style='text-align:right' readonly>
                                 <span class="input-group-text">%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label class="form-label">Itemized Expenses</label>
+                            <div class="input-group">
+                                <input type="text" style='font-size:19px' class="form-control text-center"
+                                    id="pressing_expense_itemized">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Expense Amount</label>
+                            <div class="input-group">
+                                <span class="input-group-text">₱</span>
+                                <input type="text" style='font-size:19px' class="form-control text-center"
+                                    id="pressing_expense_amount">
                             </div>
                         </div>
                     </div>
@@ -130,10 +148,9 @@
                         </div>
 
                     </div>
-                    <hr>
-
 
                     <hr>
+
                     <div id='pressing_modal_trans_table'></div>
                     <hr>
 
@@ -164,6 +181,23 @@
                         </div>
                     </div>
 
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label class="form-label">Itemized Expenses</label>
+                            <div class="input-group">
+                                <input type="text" style='font-size:19px' class="form-control text-center"
+                                    id=""readonly>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Expense Amount</label>
+                            <div class="input-group">
+                                <span class="input-group-text">₱</span>
+                                <input type="text" style='font-size:19px' class="form-control text-center"
+                                    id="pressing_expense_amount"readonly>
+                            </div>
+                        </div>
+                    </div>
 
             </div>
             <div class="modal-footer">
