@@ -74,16 +74,11 @@
                                                 echo "<td>".$row['price']."</td>";
                                                 echo "<td>".$row['cash_advance']."</td>";
                                                 echo "<td>".$row['recorded_by']."</td>";
-                                                
-                                                // Only render buttons if planta_status is 1
-                                                if ($row['planta_status'] == 1) {
-                                                    echo "<td>
-                                                            <button type='button' class='btn btn-primary updateBtn'> <i class='fas fa-edit'></i> </button>
-                                                            <button type='button' class='btn btn-danger deleteBtn'> <i class='fas fa-trash'></i> </button>
-                                                        </td>";
-                                                } else {
-                                                    echo "<td></td>";
-                                                }
+                                                echo "<td>
+                                                        <button type='button' class='btn btn-primary updateBtn'> <i class='fas fa-edit'></i> </button>
+                                                        <button type='button' class='btn btn-danger deleteBtn'> <i class='fas fa-trash'></i> </button>
+                                                    </td>";
+                                            
 
                                                 echo "</tr>";
                                             }

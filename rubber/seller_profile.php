@@ -11,9 +11,9 @@ $row = mysqli_fetch_array($results);
 $sellerID = $row['id'];
 $name = $row['name'];
 
-   //PENDING CONTRACT
-   $pendingContract_count = mysqli_query($con,"SELECT * FROM wet_rubber_contract where loc='$loc' and status='PENDING' OR status='UPDATED' AND seller='$name'");
-   $contract=mysqli_num_rows($pendingContract_count);
+//    //PENDING CONTRACT
+//    $pendingContract_count = mysqli_query($con,"SELECT * FROM wet_rubber_contract where loc='$loc' and status='PENDING' OR status='UPDATED' AND seller='$name'");
+//    $contract=mysqli_num_rows($pendingContract_count);
 
 
 ?>

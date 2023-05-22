@@ -81,7 +81,7 @@
                             <label class="form-label">Itemized Expenses</label>
                             <div class="input-group">
                                 <input type="text" style='font-size:19px' class="form-control text-center"
-                                    id="pressing_expense_itemized">
+                                name='expense_desc'  id="u_expense_desc" placeholder='Expense Description' >
                             </div>
                         </div>
                         <div class="col">
@@ -89,7 +89,8 @@
                             <div class="input-group">
                                 <span class="input-group-text">₱</span>
                                 <input type="text" style='font-size:19px' class="form-control text-center"
-                                    id="pressing_expense_amount">
+                                    id="u_expense" name='expense' onkeypress="return CheckNumeric()"
+                                    onkeyup="FormatCurrency(this)" >
                             </div>
                         </div>
                     </div>
@@ -186,7 +187,7 @@
                             <label class="form-label">Itemized Expenses</label>
                             <div class="input-group">
                                 <input type="text" style='font-size:19px' class="form-control text-center"
-                                    id=""readonly>
+                                    id="t_expense_desc" placeholder='Description' >
                             </div>
                         </div>
                         <div class="col">
@@ -194,7 +195,7 @@
                             <div class="input-group">
                                 <span class="input-group-text">₱</span>
                                 <input type="text" style='font-size:19px' class="form-control text-center"
-                                    id="pressing_expense_amount"readonly>
+                                id="t_expnese" readonly>
                             </div>
                         </div>
                     </div>

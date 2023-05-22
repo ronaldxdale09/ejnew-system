@@ -32,11 +32,12 @@
                 <td class="number-cell"> <?php echo number_format($row['weight'], 0, '.', ',')?> kg</td>
                 <td class="number-cell"> <?php echo number_format($row['produce_total_weight'], 0, '.', ',')?> kg</td>
                 <td class="number-cell"><?php echo $row['drc']? number_format($row['drc'], 2)  : '-' ?> %</td>
-                <td class="number-cell">₱ <?php echo number_format($row['pressing_expense_amount'], 0, '.', ',')?></td>
+                <td class="number-cell">₱ <?php echo number_format($row['production_expense'], 0, '.', ',')?></td>
 
 
                 <td class="text-center">
                     <button type="button" data-crumbed='<?php echo $row['crumbed_weight']?>'
+                        data-expense_desc='<?php echo $row['prod_expense_desc']?>'
                         data-dry='<?php echo $row['dry_weight']?>' class="btn btn-success btn-sm btnPressUpdate">
                         <i class="fas fa-book"></i></button>
                     <button type="button" class="btn btn-warning btn-sm btnCompletePressing ">
@@ -76,6 +77,15 @@ $('.btnPressUpdate').on('click', function() {
 
     var crumbed = $(this).data('crumbed');
     var dry = $(this).data('dry');
+
+
+    var expense_desc = $(this).data('expense_desc');
+    $('#u_expense_desc').val(expense_desc);
+    var numericalData = data[9].match(/\d+/g);
+    if (numericalData !== null) {
+        $('#u_expense').val(parseFloat(numericalData.join('')));
+    }
+
 
     $('#press_u_crumbed_weight').val(crumbed ? crumbed : '0 ');
     $('#press_u_dry_weight').val(dry ? dry : '0 ');

@@ -108,13 +108,13 @@ $(document).ready(function() {
                 '<td>' +
                 '<div class="input-group">' +
                 '<input type="text" class="form-control bale_num" name="bale_num[]" id="bale_num_new' + counter +
-                '" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">' +
+                '" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" disabled>' +
                 '</div>' +
                 '</td>' +
                 '<td>' +
                 '<div class="input-group">' +
                 '<input type="text" class="form-control excess" name="excess[]" id="excess_new' + counter +
-                '" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">' +
+                '" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" disabled>' +
                 '<span class="input-group-text">kg</span>' +
                 '</div>' +
                 '</td>' +
@@ -125,7 +125,21 @@ $(document).ready(function() {
                 '</tr>');
         counter++;
         $("#rubber-table tbody").append(newRow);
+        $(document).on("change", ".type, .kilo_bale", function() {
+            var row = $(this).closest("tr");
+            var selectedType = row.find(".type").val();
+            var selectedKilo = row.find(".kilo_bale").val();
+            var baleNumInput = row.find(".bale_num");
+            var excessInput = row.find(".excess");
 
+            if (selectedType && selectedKilo) {
+                baleNumInput.prop("disabled", false);
+                excessInput.prop("disabled", false);
+            } else {
+                baleNumInput.prop("disabled", true);
+                excessInput.prop("disabled", true);
+            }
+        });
         
     });
 

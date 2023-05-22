@@ -74,7 +74,7 @@
                 <td class="number-cell"> <?php echo number_format($row['bales_excess'], 0, '.', ',')?> kg</td>
                 <td class="number-cell"><?php echo number_format($row['drc'],2)?> %</td>
                 <td><?php echo $row['description']?></td>
-                <td> ₱ <?php echo number_format($row['total_cost']/$row['produce_total_weight'],2)?></td>
+                <td> ₱ <?php echo number_format($row['purchase_cost']/$row['produce_total_weight'],2)?></td>
                 <td class="text-center">
                     <button type="button" data-recording_id='<?php echo $row['recording_id']?>'
                         class="btn btn-success btn-sm btnProducedView">

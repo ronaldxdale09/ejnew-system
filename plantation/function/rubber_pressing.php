@@ -15,6 +15,8 @@
 
 
         $type = $_POST['type'];
+        $expense_desc = $_POST['expense_desc'];
+        $expense = $_POST['expense'];
     
         $entry_weight = str_replace(',', '', $_POST['entry_weight']);
     
@@ -50,6 +52,7 @@
             echo "weight: $weight <br>";
             echo "bale_num: $bale_num <br>";
             echo "excess: $excess <br>";
+            echo "expense: $expense <br>";
             echo "------------------------- <br>";
                 
                     // Insert SQL query
@@ -62,11 +65,35 @@
         }
    
         echo "Total weight: " . $total_weight;
-        $rubber_drc = ($total_weight / $entry_weight) * 100;
+        $rubber_drc = (floatval($total_weight) / floatval($entry_weight)) * 100;
 
-        $query = "UPDATE `planta_recording` SET `drc`='$rubber_drc', `produce_total_weight`='$total_weight'
+        
+
+
+        $query_fetch = "SELECT recording_id,purchase_cost,production_expense FROM planta_recording WHERE recording_id='$id'";
+        $result = mysqli_query($con, $query_fetch);
+        
+        if ($result) {
+            $row = mysqli_fetch_assoc($result);
+            $purchase_cost = $row['purchase_cost'];
+        
+
+            $total_production_cost = floatval($purchase_cost) + floatval($expense);
+            echo "total purchase Cost: $total_production_cost <br>";
+        } else {
+            echo "Error: Query did not return a result.";
+        }
+
+        $query = "UPDATE `planta_recording` SET `drc`='$rubber_drc', `produce_total_weight`='$total_weight',`production_expense`='$expense',`prod_expense_desc`='$expense_desc',
+        `total_production_cost` = '$total_production_cost'
         WHERE recording_id='$id'";
-        $result = mysqli_query($con, $query);
+       $result = mysqli_query($con, $query);
+    
+       if ($result) {
         header("Location: ../recording.php?tab=4");
+       } else {
+           echo "Error updating record: " . mysqli_error($con);
+       }
+
     }
 ?>

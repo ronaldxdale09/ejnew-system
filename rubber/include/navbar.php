@@ -9,12 +9,12 @@
 
     </div>
 
-    <hr style='color:gray'>
-    <a class='nav-link' href='dashboard.php'>
+    <!-- <hr style='color:gray'> -->
+    <!-- <a class='nav-link' href='dashboard.php'>
         <i class='fa-solid fa-house'></i> <span class='nav-text'>Home</span>
-    </a>
+    </a> -->
     <hr style='color:gray'>
-    <a class='nav-link' href='wet_receiving_record.php'>
+    <a class='nav-link' href='dry_receiving_record.php'>
         <i class='fa-solid fa-truck'></i> <span class='nav-text'>DRY Receiving</span>
         <a class='nav-link' href='ejn_rubber_record.php'>
             <i class='fa-solid fa-truck'></i> <span class='nav-text'>EJN Rubber</span>
@@ -31,9 +31,7 @@
         </a>
 
 
-        <a class='nav-link' href='record.php'>
-            <i class='fa-solid fa-book'></i> <span class='nav-text'>Purchase Record</span>
-        </a>
+
 
         <hr style='color:gray'>
 
