@@ -51,7 +51,7 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $sql = "SELECT * FROM dry_price_transfer";
+                                        $sql = "SELECT * FROM dry_price_transfer ORDER BY dry_id desc";
                                         $result = mysqli_query($con, $sql);
                                         if (mysqli_num_rows($result) > 0) {
                                             while($row = mysqli_fetch_assoc($result)) {
@@ -94,7 +94,7 @@
                             $(document).ready(function() {
                                 var table = $('#inventory-table').DataTable({
                                     "order": [
-                                        [1, 'asc']
+                                        [1, 'desc']
                                     ],
                                     "pageLength": -1,
                                     "dom": "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
@@ -212,7 +212,8 @@ while ($arr = mysqli_fetch_array($result)) {
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="product_name" class="form-label">Net Cuplumps Weight</label>
-                                <input type="text" class="form-control" name="net" required>
+                                <input type="text" class="form-control" name="net" onkeypress="return CheckNumeric()"
+                                    onkeyup="FormatCurrency(this)" required>
 
                             </div>
                         </div>
@@ -317,7 +318,8 @@ while ($arr = mysqli_fetch_array($result)) {
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="product_name" class="form-label">Net Cuplumps Weight</label>
-                                <input type="text" class="form-control" name="net" id='u_net' required>
+                                <input type="text" class="form-control" name="net" id='u_net'
+                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" required>
 
                             </div>
                         </div>

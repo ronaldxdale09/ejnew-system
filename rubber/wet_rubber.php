@@ -3,44 +3,7 @@ include "include/header.php";
 include "include/navbar.php";
 
 
-
-if (isset($_GET['view'])) {
-    $_SESSION['transaction'] ='ONGOING';
-    $view = $_GET['view'];
-
-    $sql = mysqli_query($con, "SELECT  * from rubber_transaction where invoice='$view'  and  loc='$loc' ");
-    $record = mysqli_fetch_array($sql);
-
-    $invoiceCount = $record['invoice'];
-    $today= $record['date'];
-
-    $contract = "SELECT * FROM rubber_contract where  loc='$loc' and type='WET' AND status='PENDING' OR status='UPDATED' ";
-    $c_result = mysqli_query($con, $contract);
-    $contractList = "";
-    while ($arr = mysqli_fetch_array($c_result)) {
-        $contractList .=
-            '
-            <option value="' .
-            $arr["contract_no"] .
-            '">[ ' .
-            $arr["contract_no"] .
-            " ]  " .
-            $arr["seller"] .
-            "</option>";
-    }
-
-
-    $seller = "SELECT * FROM rubber_seller   where loc='$loc' ";
-    $result = mysqli_query($con, $seller);
-    $sellerList = "";
-    while ($arr = mysqli_fetch_array($result)) {
-        $sellerList .=
-            '<option value="' .$arr["name"] .'">[ '.$arr["name"] ."</option>";
-    }
-
-  }
-  
-  else {
+$trans_id = $_GET['id'];
 $_SESSION['transaction'] ='ONGOING';
 //seller list
 
@@ -68,14 +31,6 @@ while ($arr = mysqli_fetch_array($result)) {
         '<option value="' .$arr["name"] .'">'.$arr["name"] ."</option>";
 }
 
-$invoice = mysqli_query($con, "SELECT * FROM rubber_transaction   where loc='$loc' ORDER BY id DESC LIMIT 1");
-$getinvoice = mysqli_fetch_array($invoice);
-
-if ($getinvoice) {
-    $invoiceCount = $getinvoice[0] + 1;
-} else {
-    $invoiceCount = 1; // Default value when table is empty
-}
 
 
 $month = date("m");
@@ -83,7 +38,7 @@ $day = date("d");
 $year = date("Y");
 
 $today = $year . "-" . $month . "-" . $day;
-}
+
 ?>
 <style>
 .border-box {
@@ -138,26 +93,21 @@ $today = $year . "-" . $month . "-" . $day;
                                 <div class="col-lg-4 col-xlg-3 col-md-5">
                                     <div class="card">
                                         <div class="card-body">
-                                            <table>
-                                                <tr>
-                                                    <td>
-                                                        <h4>Status : </h4>
-                                                    </td>
-                                                    <td>
-                                                        <h5><span id='trans_status'
-                                                                class="badge alert-danger">ONGOING</span></h5>
-
-                                                    </td>
-
-                                                </tr>
-                                            </table>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h4 class="card-title">Transaction Status</h4>
+                                                    <h5 class="card-text">Status: <span id='trans_status'
+                                                            class="badge bg-danger">ONGOING</span></h5>
+                                                </div>
+                                            </div>
+                                            <br>
                                             <div class="row">
                                                 <div class="col-sm-5">
                                                     <div class="form-group">
                                                         <label class="col-md-12">Reference #</label>
                                                         <div class="col-md-12">
                                                             <input type="number" name='invoice' id='invoice'
-                                                                value="<?php echo "$invoiceCount"; ?>"
+                                                                value="<?php echo $trans_id ?>"
                                                                 class="form-control form-control-line" readonly>
                                                         </div>
                                                     </div>
@@ -209,7 +159,8 @@ $today = $year . "-" . $month . "-" . $day;
                                                             <label class="form-check-label" for="exampleCheckbox">
                                                                 <b>EJN
                                                                     RUBBER </b></label>
-                                                            <input type="text" name='supplier_type' id='supplier_type' hidden>
+                                                            <input type="text" name='supplier_type' id='supplier_type'
+                                                                hidden>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -341,7 +292,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                                 <input type="text" class="form-control" id='tare'
                                                                     name='tare' onkeypress="return CheckNumeric()"
                                                                     onkeyup="FormatCurrency(this)" tabindex="3"
-                                                                    autocomplete='off' />
+                                                                    value='0' autocomplete='off' />
                                                                 <div class="input-group-append">
                                                                     <span class="input-group-text">Kg</span>
                                                                 </div>
@@ -508,7 +459,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                                     id='cash_advance' name='cash_advance'
                                                                     onkeypress="return CheckNumeric()"
                                                                     onkeyup="FormatCurrency(this)" class="form-control"
-                                                                    tabindex="9" autocomplete='off'  />
+                                                                    tabindex="9" autocomplete='off' value='0' />
 
                                                             </div>
                                                             <!--  -->

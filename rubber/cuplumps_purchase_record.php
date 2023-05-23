@@ -140,7 +140,6 @@
 </body>
 
 </html>
-
 <div class="modal fade" id="createNew" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -148,17 +147,26 @@
                 <h5 class="modal-title" id="exampleModalLabel">New Cuplump Purchase</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method='POST' action='function/newDryReceiving.php'>
+            <form method='POST' action='function/wetPurchasing.php'>
                 <div class="modal-body">
                     <input type="text" class="form-control" id="d_id" name='dry_id' hidden>
-                    <p class="text-center text-danger"><i class="fa fa-exclamation-triangle"
-                            style="font-size: 2em;"></i>
+                    <p class="text-center text-success"><i class="fa fa-plus-circle" style="font-size:3em;"></i>
                     </p>
                     <p class="text-center">Proceed to Cuplump Purchasing</p>
+                    <div class="form-group">
+                        <label for="date">Date</label>
+                        <input type="date" class="form-control" id="date" name="date"
+                            value="<?php echo date('Y-m-d'); ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="recorded_by">Recorded By</label>
+                        <input type="text" class="form-control" id="recorded_by" name="recorded_by"
+                            value="<?php echo $user_name ?>">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success" name='delete'>Process</button>
+                    <button type="submit" class="btn btn-success" name='new'>Proceed</button>
                 </div>
             </form>
         </div>

@@ -10,6 +10,7 @@
 }
 
 $loc = $_SESSION['loc'];
+$user_name = $_SESSION["username"];
 ?>
 <html>
 

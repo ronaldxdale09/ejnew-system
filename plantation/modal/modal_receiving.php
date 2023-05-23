@@ -1,25 +1,33 @@
 <?php
 
 $sql = "
-    (SELECT id, seller, type FROM rubber_transaction WHERE planta_status = 1 AND supplier_type = 0)
-    UNION ALL
-    (SELECT ejn_id as id, supplier as seller, type FROM ejn_rubber_transfer WHERE planta_status = 1)
-    UNION ALL
-    (SELECT dry_id as id, seller as seller, type FROM dry_price_transfer WHERE planta_status = 1)
-    ORDER BY id;
+(SELECT id, seller, type, net_weight as weight FROM rubber_transaction WHERE planta_status = 1 AND supplier_type = 0)
+UNION ALL
+(SELECT ejn_id as id, supplier as seller, type, total_buying_weight as weight FROM ejn_rubber_transfer WHERE planta_status = 1)
+UNION ALL
+(SELECT dry_id as id, seller as seller, type, net as weight FROM dry_price_transfer WHERE planta_status = 1)
+ORDER BY id;
 ";
 
 $result = mysqli_query($con, $sql);
-$listPurchased = '';
 
-while ($arr = mysqli_fetch_assoc($result)) {
+if ($result) {
+  $listPurchased = '';
+
+  while ($arr = mysqli_fetch_assoc($result)) {
     $invoice = htmlspecialchars($arr['id'], ENT_QUOTES);
     $seller = htmlspecialchars($arr['seller'], ENT_QUOTES);
     $type = htmlspecialchars($arr['type'], ENT_QUOTES);
-    // Combine 'id' and 'type' to be the 'value' of this option:
-    $listPurchased .= '<option value="'.$type.','.$arr['id'].'">' . $type . ' #' . $invoice . ' - ' . $seller . '</option>';
-}
 
+    $weight = number_format(htmlspecialchars($arr['weight'], ENT_QUOTES));
+
+
+    // Combine 'id' and 'type' to be the 'value' of this option:
+    $listPurchased .= '<option value="'.$type.','.$arr['id'].'">' . $type . ' #' . $invoice . ' - ' . $seller . ' - ' . $weight . ' kg </option>';
+  }
+} else {
+  echo "Error querying database: " . mysqli_error($con);
+}
 
 ?>
 
@@ -39,19 +47,19 @@ while ($arr = mysqli_fetch_assoc($result)) {
 
                     <div class="form-group">
                         <div class="row no-gutters">
-                            <center>
-                                <div class="input-group mb-12">
-                                    <label class="col-md-12"></label>
-                                    <div class="col-md-12">
-                                        <select required="required" class='source col-md-12 r_select_purchase'
-                                            name='purchased_id' id='r_select_purchase'>
-                                            <option disabled="disabled" selected="selected" value="">Select Receiving
-                                            </option>
-                                            <?php echo $listPurchased; ?>
-                                        </select>
-                                    </div>
+
+                            <div class="input-group mb-12">
+                                <label class="col-md-12"></label>
+                                <div class="col-md-12">
+                                    <select required="required" class='source col-md-12 r_select_purchase'
+                                        name='purchased_id' id='r_select_purchase'>
+                                        <option disabled="disabled" selected="selected" value="">Select Receiving
+                                        </option>
+                                        <?php echo $listPurchased; ?>
+                                    </select>
                                 </div>
-                            </center>
+                            </div>
+
                         </div>
 
                         <br>
@@ -104,14 +112,12 @@ while ($arr = mysqli_fetch_assoc($result)) {
 
                                 <div class="col">
                                     <label for="driver">Driver</label>
-                                    <input type="text" style='text-align:left' name='driver' required
-                                        class="form-control">
+                                    <input type="text" style='text-align:left' name='driver' class="form-control">
                                 </div>
 
                                 <div class="col-3">
                                     <label for="truck_num">Truck No.</label>
-                                    <input type="text" style='text-align:right' name='truck_num' class="form-control"
-                                        required>
+                                    <input type="text" style='text-align:right' name='truck_num' class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -172,7 +178,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" name='add' class="btn btn-success text-white">Submit</button>
+                <button type="submit" name='add' class="btn btn-success text-white">Confirm</button>
                 </form>
             </div>
         </div>
@@ -309,6 +315,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="submit" name='update' class="btn btn-success text-white">Submit</button>
+                <button type="submit" name='delete' class="btn btn-danger text-white">Remove</button>
                 </form>
 
             </div>

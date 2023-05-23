@@ -1,7 +1,11 @@
 // Rubber computation function
 function rubberComputation(gross, tare, price1, price2, less) {
-    const nf = new Intl.NumberFormat('en-US');
-
+    const nf = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    gross = parseFloat(gross);
+    tare = parseFloat(tare);
+    price1 = parseFloat(price1);
+    price2 = parseFloat(price2);
+    less = parseFloat(less);
     // Calculate net
     const net = gross - tare;
     $("#net").val(nf.format(net));

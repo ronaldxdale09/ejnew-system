@@ -50,29 +50,9 @@ $total_ca = $seller_ca - $less;
 $query = "UPDATE rubber_seller SET cash_advance = '$total_ca' WHERE name='$seller'";
 $results = mysqli_query($con, $query);
 
-
-$query = "UPDATE rubber_transaction SET
-    contract = '$contract',
-    date = '$date',
-    address = '$address',
-    seller = '$seller',
-    gross = '$gross',
-    tare = '$tare',
-    net_weight = '$net_weight',
-    price_1 = '$first_price',
-    price_2 = '$sec_price',
-    total_weight_1 = '$weight_1',
-    total_weight_2 = '$weight_2',
-    total_amount = '$total_amount',
-    less = '$less',
-    amount_paid = '$amount_paid',
-    amount_words = '$words_amount',
-    type = 'WET',
-    loc = '$loc',
-    planta_status = '1',
-    supplier_type = '$supplier_type'
-WHERE id = '$id'";
-
+// Insert into rubber_transaction
+$query = "INSERT INTO rubber_transaction (contract, date, address, seller, gross, tare, net_weight, price_1, price_2, total_weight_1, total_weight_2, total_amount, less, amount_paid, amount_words, type, loc, planta_status,supplier_type)
+VALUES ('$contract', '$date', '$address', '$seller', '$gross', '$tare', '$net_weight', '$first_price', '$sec_price', '$weight_1', '$weight_2', '$total_amount', '$less', '$amount_paid', '$words_amount', 'WET', '$loc', '1','$supplier_type')";
 
 if (mysqli_query($con, $query)) {
     $last_id = $con->insert_id;

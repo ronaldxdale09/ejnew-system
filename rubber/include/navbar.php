@@ -22,7 +22,7 @@
 
         <hr style='color:gray'>
 
-        <a class='nav-link' href='wet_rubber.php'>
+        <a class='nav-link' href='cuplumps_purchase_record.php'>
             <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>WET Purchasing</span>
         </a>
 
