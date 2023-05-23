@@ -16,13 +16,22 @@
 
     <hr style='color:gray'>
 
-
     <a class='nav-link' href='recording.php'>
-        <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>Rubber Processing</span>
+        <i class='fa-solid fa-gear'></i> <span class='nav-text'>Rubber Processing</span>
     </a>
 
     <a class='nav-link' href='record_allrubber.php'>
         <i class='fa-solid fa-book'></i> <span class='nav-text'>Transaction Record</span>
+    </a>
+
+    <hr style='color:gray'>
+
+    <a class='nav-link' href='container.php'>
+        <i class='fa-solid fa-truck'></i> <span class='nav-text'>Container</span>
+    </a>
+
+    <a class='nav-link' href='container_record.php'>
+        <i class='fa-solid fa-truck'></i> <span class='nav-text'>Container Record</span>
     </a>
 
     <div class="logout-container">
@@ -36,7 +45,8 @@
 
 <script src='assets/js/navbar.js'></script>
 <!-- Logout confirmation modal -->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
