@@ -66,8 +66,14 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Proceed</button>
+                <button type="button" class="btn btn-primary" id="proceedButton">Proceed</button>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+document.getElementById("proceedButton").addEventListener("click", function() {
+    window.location.href = "container.php";
+});
+</script>

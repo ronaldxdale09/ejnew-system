@@ -2,8 +2,6 @@
 include 'include/header.php';
 include 'include/navbar.php';
 
-// Assuming $results is the variable containing the container records fetched from the database
-
 ?>
 
 <style>
@@ -13,6 +11,7 @@ include 'include/navbar.php';
 </style>
 
 <?php include 'modal/modal_container.php'; ?>
+
 <body>
     <link rel='stylesheet' href='css/statistic-card.css'>
     <div class='main-content' style='min-height:100vh;'>
@@ -35,6 +34,10 @@ include 'include/navbar.php';
                                 data-target="#newContainer">NEW CONTAINER</button>
                             <hr>
                             <div class="table-responsive">
+                            <?php
+                        $results  = mysqli_query($con, "SELECT * from rubber_containers "); 
+                                    
+                                    ?> 
                                 <table class="table table-bordered table-hover table-striped"
                                     id='recording_table-receiving'>
                                     <thead class="table-dark text-center" style="font-size: 14px !important">
@@ -46,6 +49,7 @@ include 'include/navbar.php';
                                             <th scope="col">Kilo per Bale</th>
                                             <th scope="col">No. of Bales</th>
                                             <th scope="col">Total Weight</th>
+                                            <th scope="col" hidden>Bale Cost</th>
                                             <th scope="col">Remarks</th>
                                             <th scope="col">Recorded</th>
                                             <th scope="col">Action</th>
@@ -62,10 +66,13 @@ include 'include/navbar.php';
                                                 <?php echo number_format($row['bale_kilo'], 0, '.', ','); ?> kg
                                             </td>
                                             <td class="number-cell">
-                                                <?php echo number_format($row['no_bales'], 2, '.', ','); ?>
+                                                <?php echo number_format($row['no_bales'], 2, '.', ','); ?> pcs
                                             </td>
                                             <td class="number-cell">
-                                                <?php echo number_format($row['total_weight'], 2, '.', ','); ?>
+                                                <?php echo number_format($row['total_weight'], 2, '.', ','); ?> kg
+                                            </td>
+                                            <td class="number-cell" hidden>₱
+                                                <?php echo number_format($row['container_cost'], 2, '.', ','); ?>
                                             </td>
                                             <td><?php echo $row['remarks']; ?></td>
                                             <td><?php echo $row['user']; ?></td>
@@ -114,28 +121,3 @@ include 'include/navbar.php';
 </body>
 
 </html>
-
-
-<script>
-$(document).ready(function() {
-    document.getElementById('printButton').addEventListener('click', function() {
-        const transactionRecord = document.getElementById('transaction_record');
-        html2canvas(transactionRecord).then(function(canvas) {
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = pdfMake.createPdf({
-                content: [{
-                    image: imgData,
-                    width: 500
-                }]
-            });
-            pdf.download('containers.pdf');
-        });
-    });
-
-    document.getElementById('editButton').addEventListener('click', function() {
-        var sale_id = document.getElementById('m_sale_id').value;
-        // Redirect to the sales_wet.php page with the sale_id in the URL
-        window.location.href = 'container.php?id=' + sale_id;
-    });
-});
-</script>

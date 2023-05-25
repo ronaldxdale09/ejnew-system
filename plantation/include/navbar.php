@@ -26,12 +26,8 @@
 
     <hr style='color:gray'>
 
-    <a class='nav-link' href='container.php'>
-        <i class='fa-solid fa-truck'></i> <span class='nav-text'>Container</span>
-    </a>
-
     <a class='nav-link' href='container_record.php'>
-        <i class='fa-solid fa-truck'></i> <span class='nav-text'>Container Record</span>
+        <i class='fa-solid fa-truck'></i> <span class='nav-text'>Container</span>
     </a>
 
     <div class="logout-container">
