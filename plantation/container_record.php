@@ -12,6 +12,7 @@ include 'include/navbar.php';
 }
 </style>
 
+<?php include 'modal/modal_container.php'; ?>
 <body>
     <link rel='stylesheet' href='css/statistic-card.css'>
     <div class='main-content' style='min-height:100vh;'>
@@ -114,7 +115,6 @@ include 'include/navbar.php';
 
 </html>
 
-<?php include 'modal/modal_container.php'; ?>
 
 <script>
 $(document).ready(function() {
