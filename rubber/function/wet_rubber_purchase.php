@@ -2,6 +2,9 @@
 session_start();
 include('db.php');
 
+$id = $_SESSION["m_invoice"];
+
+
 $loc = $_SESSION["loc"];
 $date = $_POST['m_date'];
 $address = $_POST['m_address'];

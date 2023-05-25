@@ -80,7 +80,9 @@ function fetchAddress(name) {
     $.post("include/fetch/fetchAddress.php", {
         name: name
     }, function(address) {
-        $("#address").html(address);
+
+        $("#address").val(address);
+
     });
 }
 

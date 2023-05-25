@@ -3,7 +3,77 @@ include "include/header.php";
 include "include/navbar.php";
 
 
-$trans_id = $_GET['id'];
+if (isset($_GET['id'])) {
+  
+    $trans_id = $_GET['id'];
+    $trans_id=  preg_replace('~\D~', '', $trans_id);
+
+    $sql = "SELECT * FROM rubber_transaction WHERE id = $trans_id";
+    $result = $con->query($sql);
+
+    if ($result->num_rows > 0) {
+        // Output data of each row
+        $record = $result->fetch_assoc();
+        
+        $invoice = $record['id'];
+        $contract = $record['contract'];
+        $seller = $record['seller'];
+        $date = $record['date'];
+       
+        $address = $record['address'];
+        $gross = $record['gross'];
+        $tare = $record['tare'];
+        $net_weight = $record['net_weight'];
+        $price_1 = $record['price_1'];
+        $price_2 = $record['price_2'];
+        $total_weight_1 = $record['total_weight_1'];
+        $total_weight_2 = $record['total_weight_2'];
+        $total_amount = $record['total_amount'];
+        $less = $record['less'];
+        $amount_paid = $record['amount_paid'];
+        $amount_words = $record['amount_words'];
+        $type = $record['type'];
+        $loc = $record['loc'];
+        $planta_status = $record['planta_status'];
+        $supplier_type = $record['supplier_type'];
+        $recorded_by = $record['recorded_by'];
+
+        $first_total = $total_weight_1 * $price_1;
+        $sec_total = $total_weight_2 * $price_2;
+      
+        echo "
+            <script>
+                $(document).ready(function() {
+                    $('#name').val('" . $seller . "').trigger('chosen:updated');
+                    $('#contract').val('" . $contract . "').trigger('chosen:updated');
+                    $('#address').val('" . $address . "');
+
+                    $('#gross').val('" . $gross . "');
+                    $('#tare').val('" . $tare . "');
+                    $('#net').val('" . $net_weight . "');
+                    $('#first_price').val('" . $price_1 . "');
+                    $('#first-weight').val('" . $total_weight_1 . "');
+                    $('#first_total').val('" . $first_total . "');
+
+                    $('#second_price').val('" . $price_2 . "');
+                    $('#second-weight').val('" . $total_weight_2 . "');
+                    $('#second_total').val('" . $sec_total . "');
+
+                    
+                    $('#total-amount').val('" . $total_amount . "');
+                    $('#cash_advance').val('" . $less . "');
+                    $('#amount-paid').val('" . $amount_paid . "');
+                    $('#amount-paid-words').val('" . $amount_words . "');
+
+
+                });
+            </script>
+        ";
+    } 
+
+
+
+  }
 $_SESSION['transaction'] ='ONGOING';
 //seller list
 
@@ -107,7 +177,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                         <label class="col-md-12">Reference #</label>
                                                         <div class="col-md-12">
                                                             <input type="number" name='invoice' id='invoice'
-                                                                value="<?php echo $trans_id ?>"
+                                                                value="<?php echo isset($record['id']) ? $record['id'] : '' ?>"
                                                                 class="form-control form-control-line" readonly>
                                                         </div>
                                                     </div>
@@ -128,7 +198,8 @@ $today = $year . "-" . $month . "-" . $day;
                                                 <label class="col-md-12">Date</label>
                                                 <div class="col-md-12 ">
                                                     <input type="date" class='datepicker' id="date"
-                                                        value="<?php echo $today; ?>" name="date">
+                                                        value="<?php echo isset($record['date']) ? $record['date'] : $today ?>"
+                                                        name="date">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -169,8 +240,7 @@ $today = $year . "-" . $month . "-" . $day;
                                             <div class="form-group">
                                                 <label class="col-md-12">Address</label>
                                                 <div class="col-md-12">
-                                                    <select name="address" id="address" class="form-control"
-                                                        disabled></select>
+                                                    <input name="address" id="address" class="form-control" readonly>
                                                 </div>
                                             </div>
                                             <hr>

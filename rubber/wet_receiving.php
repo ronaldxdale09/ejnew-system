@@ -3,7 +3,6 @@ include "include/header.php";
 include "include/navbar.php";
 
 if (isset($_GET['id'])) {
-  
     $trans_id = $_GET['id'];
     $trans_id=  preg_replace('~\D~', '', $trans_id);
   }

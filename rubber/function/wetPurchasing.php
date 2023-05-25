@@ -21,4 +21,14 @@
                                     }
                                 exit();
                                 }
+
+
+                     if (isset($_POST['edit'])) {
+                            
+                   
+                                    $id = $_POST['id'];
+                                header("Location: ../wet_rubber.php?id=$id");
+    
+                                exit();
+                     }
  ?>
