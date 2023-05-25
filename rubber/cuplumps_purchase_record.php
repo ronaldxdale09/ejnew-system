@@ -67,14 +67,14 @@
                                                     
                                                     $total_weight = $row['total_weight_1'] +  $row['total_weight_2'];
                                                     
-                                                    echo number_format($total_weight);?> Kg </td>
+                                                    echo number_format($total_weight);?> kg </td>
 
                                             <td>₱ <?php echo number_format($row['total_amount'])?> </td>
                                             <td>₱ <?php echo number_format($row['less'])?> </td>
                                             <td>₱ <?php echo number_format(($row['amount_paid'] )); ?> </td>
 
                                             <td>
-                                                <button type="button" class="btn btn-dark wetBtnView"
+                                                <button type="button" class="btn btn-sm btn-dark wetBtnView"
                                                     data-id="<?php echo $row['id']; ?>"
                                                     data-contract="<?php echo $row['contract']; ?>"
                                                     data-date="<?php echo $row['date']; ?>"
@@ -91,7 +91,7 @@
                                                     data-less="<?php echo $row['less']; ?>"
                                                     data-amount_paid="<?php echo $row['amount_paid']; ?>"
                                                     data-amount_words="<?php echo $row['amount_words']; ?>">
-                                                    <i class="fa fa-eye"></i>
+                                                    VIEW
                                                 </button>
                                             </td>
                                         </tr> <?php } ?>
@@ -112,7 +112,7 @@
 
                             <script>
                             $(document).ready(function() {
-                                var table = $('#inventory-table').DataTable({
+                                var table = $('#wet_record_table').DataTable({
                                     "order": [
                                         [1, 'asc']
                                     ],
@@ -233,7 +233,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="row">
-                                            <div class="col-md-8">
+                                            <div class="col-md-12">
                                                 <label class="col-md-12">Seller</label>
                                                 <input type="text" id='v_seller' class="form-control" readonly>
                                             </div>
@@ -247,10 +247,8 @@
                                                 tabindex="2" autocomplete='off' readonly />
                                         </div>
                                     </div>
-                                    <hr>
                                 </div>
                             </div>
-                            <hr>
                         </div>
                         <div class="col-lg-8 col-xlg-9 col-md-7">
                             <div class="card">
@@ -258,48 +256,42 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <div class="row no-gutters">
-                                                <div class="col-6 col-md-4">
+                                                <div class="col">
                                                     <label style='font-size:15px' class="col-md-12">Gross Weight
                                                         (Kilos)</label>
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" id='gross' name='gross'
                                                             tabindex="2" autocomplete='off' readonly />
                                                         <div class="input-group-append">
-                                                            <span class="input-group-text">Kg</span>
+                                                            <span class="input-group-text">kg</span>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-6 col-md-4">
+                                                <div class="col">
                                                     <label style='font-size:15px' class="col-md-12">Deductable Tare
                                                         Kilos</label>
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" id='tare' name='tare'
                                                             tabindex="3" readonly autocomplete='off' />
                                                         <div class="input-group-append">
-                                                            <span class="input-group-text">Kg</span>
+                                                            <span class="input-group-text">kg</span>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="row no-gutters">
-                                                <div class="col-12 col-sm-5 col-md-5">
-                                                    <div class="input-group mb-1">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text"
-                                                                id="inputGroup-sizing-default"
-                                                                style='color:black;font-weight: bold;'>Net Weight</span>
-                                                        </div>
+                                                <div class="col">
+                                                    <label style='font-size:15px' class="col-md-12">Net Weight</label>
+                                                    <div class="input-group mb-3">
                                                         <input type="text" style='text-align:right' name='net' id='net'
                                                             class="form-control" readonly>
                                                         <div class="input-group-append">
-                                                            <span class="input-group-text">Kg</span>
+                                                            <span class="input-group-text">kg</span>
                                                         </div>
                                                     </div>
                                                 </div>
+
                                             </div>
                                         </div>
+
                                         <hr>
                                         <div class="form-group">
                                             <div class="row no-gutters">
@@ -318,7 +310,7 @@
                                                         <input type="text" style='text-align:right' id='first-weight'
                                                             class="form-control" readonly>
                                                         <div class="input-group-append">
-                                                            <span class="input-group-text">Kg</span>
+                                                            <span class="input-group-text">kg</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -351,7 +343,7 @@
                                                         <input type="text" style='text-align:right' id='second-weight'
                                                             class="form-control" readonly>
                                                         <div class="input-group-append">
-                                                            <span class="input-group-text">Kg</span>
+                                                            <span class="input-group-text">kg</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -369,7 +361,7 @@
                                         <hr>
                                         <div class="form-group">
                                             <div class="row no-gutters">
-                                                <div class="col-12 col-sm-7 col-md-8">
+                                                <div class="col-12 ">
                                                     <div class="input-group mb-1">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"
@@ -385,12 +377,13 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="row no-gutters">
-                                                <div class="col-12 col-sm-7 col-md-8">
+                                                <div class="col-12">
                                                     <div class="input-group mb-1">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"
                                                                 id="inputGroup-sizing-default"
-                                                                style='color:black;font-weight: bold;'>Less/CA ₱</span>
+                                                                style='color:black;font-weight: bold;'>Less: Cash Adance
+                                                                ₱</span>
                                                         </div>
                                                         <input type="text" style='text-align:left' id='cash_advance'
                                                             name='cash_advance' class="form-control" tabindex="9"
@@ -401,7 +394,7 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="row no-gutters">
-                                                <div class="col-12 col-sm-7 col-md-8">
+                                                <div class="col-12">
                                                     <div class="input-group mb-1">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"
@@ -431,13 +424,32 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-success" name='edit'>Edit</button>
-                    <button type="submit" class="btn btn-danger" name='remove'>Remove</button>
+                    <button type="button" class="btn btn-danger" name='remove' id='removeBtn'>Remove</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
+
+<!-- Confirmation Modal -->
+<div class="modal" id="confirmationModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to remove?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger" id="confirmRemoveBtn">Yes, Remove</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
 $('.wetBtnView').on('click', function() {
@@ -467,7 +479,7 @@ $('.wetBtnView').on('click', function() {
     $('#v_invoice').val(id.toLocaleString());
     $('#w_id').val(id.toLocaleString());
     $('#v_contract').val(contract);
-    $('#date').val(date);
+    $('#v_date').val(date);
     $('#v_seller').val(seller);
     $('#address').val(address);
     $('#gross').val(gross.toLocaleString());
@@ -491,5 +503,9 @@ $('.wetBtnView').on('click', function() {
     $('#amount-paid-words').val(amount_words);
 
     $('#viewRecord').modal('show');
+});
+
+$('#removeBtn').click(function() {
+    $('#confirmationModal').modal('show'); // Open the confirmation modal
 });
 </script>

@@ -154,10 +154,13 @@ function numToWords(s) {
         }
     }
     str += 'peso/s ';
+
     if (x != s.length) {
         var y = s.length;
         str += 'and ';
-        for (var i = x + 1; i < y; i++) str += dg[n[i]] + ' ';
+        var centavos = Number(s.slice(x + 1, y));
+        var centavosStr = numToWords(centavos); // recursively call the function to convert centavos to words
+        str += centavosStr.slice(0, -7); // remove " peso/s " from the end of the centavos string
         str = str + 'centavo/s ';
     }
 

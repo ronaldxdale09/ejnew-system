@@ -2,7 +2,7 @@
 session_start();
 include('db.php');
 
-$id = $_SESSION["m_invoice"];
+$id = $_POST["m_invoice"];
 
 
 $loc = $_SESSION["loc"];

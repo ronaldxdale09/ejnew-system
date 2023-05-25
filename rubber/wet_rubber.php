@@ -495,7 +495,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                 <!-- RASE 3-->
                                                 <div class="form-group">
                                                     <div class="row no-gutters">
-                                                        <div class="col-12 col-sm-7 col-md-8">
+                                                        <div class="col-12">
                                                             <!--  -->
                                                             <div class="input-group mb-1">
                                                                 <div class="input-group-prepend">
@@ -516,7 +516,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="row no-gutters">
-                                                        <div class="col-12 col-sm-7 col-md-8">
+                                                        <div class="col-12 ">
                                                             <!--  -->
                                                             <div class="input-group mb-1">
                                                                 <div class="input-group-prepend">
@@ -540,7 +540,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                 <!-- start-->
                                                 <div class="form-group">
                                                     <div class="row no-gutters">
-                                                        <div class="col-12 col-sm-7 col-md-8">
+                                                        <div class="col-12 ">
                                                             <!--  -->
                                                             <div class="input-group mb-1">
                                                                 <div class="input-group-prepend">
