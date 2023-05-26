@@ -23,8 +23,8 @@
 
                         <h1 class="page-title">
                             <b>
-                                <font color="#0C0070">EJN </font>
-                                <font color="#046D56"> RUBBER </font>
+                                <font color="#0C0070">WET </font>
+                                <font color="#046D56"> PURCHASING  </font>
                             </b>
                         </h1>
 
@@ -41,7 +41,7 @@
                   $record  = mysqli_query($con, "SELECT * from rubber_transaction   where loc='$loc' ORDER BY id DESC  "); ?>
                                     <thead class="table-dark" style='font-size:15px'>
                                         <tr>
-                                            <th scope="col">Invoice</th>
+                                            <th scope="col">ID</th>
                                             <th scope="col">Date</th>
                                             <th scope="col">Contract</th>
                                             <th scope="col">Seller</th>

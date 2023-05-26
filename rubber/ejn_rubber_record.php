@@ -84,7 +84,7 @@
                                                 ₱ <?php echo number_format($row['total_purchase_cost'], 2, '.', ',')?>
                                             </td>
                                             <td class="number-cell">
-                                                ₱ <?php echo number_format($row['total_purchase_cost'],2, '.', ',')?>
+                                                ₱ <?php echo number_format($row['total_purchase_cost']/$row['total_buying_weight'],2, '.', ',')?>
                                             </td>
                                             <td> <?php echo $row['remarks']?> </td>
                                             <td> <?php echo $row['recorded_by']?> </td>
@@ -203,7 +203,7 @@ $('.deleteBtn').click(function() {
             <div class="modal-header">
                 <h5 class="modal-title">Update Record</h5>
             </div>
-            <form method='POST' action='function/updateEjnRubber.php'>
+            <form method='POST' action='function/newEjnRubber.php'>
                 <div class="modal-body">
                     <input type="hidden" name="id" id="u_id">
 
@@ -245,7 +245,7 @@ $('.deleteBtn').click(function() {
                         <div class="col">
                             <div class="mb-3">
                                 <label for="ave_kiloCost" class="form-label">Average Kilo Cost</label>
-                                <input type="text" class="form-control" name="aveCost" id='u_aveCost' required>
+                                <input type="text" class="form-control" name="aveCost" id='u_aveCost' readonly required>
                             </div>
                         </div>
                     </div>
@@ -421,6 +421,35 @@ function calculateAverageKiloCost() {
         document.getElementById('ave_cost').value = formatCurrency(averageKiloCost.toFixed(2));
     }
 }
+
+
+document.getElementById('u_weight').addEventListener('keyup', updateCalculateAverageKiloCost);
+document.getElementById('u_cost').addEventListener('keyup', updateCalculateAverageKiloCost);
+
+
+function updateCalculateAverageKiloCost() {
+    var netWeight = parseFloat(document.getElementById('u_weight').value.replace(/,/g, ''));
+    var purchaseCost = parseFloat(document.getElementById('u_cost').value.replace(/,/g, ''));
+
+    // Debugging lines
+    console.log('Net Weight: ', netWeight);
+    console.log('Purchase Cost: ', purchaseCost);
+
+    if (isNaN(netWeight) || isNaN(purchaseCost)) {
+        console.log('Error parsing numbers');
+        document.getElementById('u_aveCost').value = '';
+    } else if (netWeight === 0) {
+        console.log('Net weight is zero, can not divide by zero');
+        document.getElementById('u_aveCost').value = '';
+    } else {
+        var averageKiloCost = purchaseCost / netWeight;
+        console.log('Average Kilo Cost: ', averageKiloCost);
+        document.getElementById('u_aveCost').value = (averageKiloCost.toFixed(2));
+    }
+}
+
+
+
 
 
 function formatCurrency(number) {
