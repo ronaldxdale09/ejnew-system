@@ -26,7 +26,7 @@
             <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>WET Purchasing</span>
         </a>
 
-        <a class='nav-link' href='bales_rubber.php'>
+        <a class='nav-link' href='bales_purchase_record.php'>
             <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>Bales Purchasing</span>
         </a>
 

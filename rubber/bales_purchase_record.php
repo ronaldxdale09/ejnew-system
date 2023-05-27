@@ -23,8 +23,8 @@
 
                         <h1 class="page-title">
                             <b>
-                                <font color="#0C0070">CUPLUMP </font>
-                                <font color="#046D56"> PURCHASE  </font>
+                                <font color="#0C0070">BALES </font>
+                                <font color="#046D56"> PURCHASE RECORD </font>
                             </b>
                         </h1>
 
@@ -35,19 +35,22 @@
                             <button type="button" class="btn btn-primary text-white" data-toggle="modal"
                                 data-target="#createNew">NEW PURCHASE</button>
                             <hr>
+                           
                             <div class="table-responsive">
-                                <table class="table" id='wet_record_table'>
+                                <table class="table" id='bales_table'>
                                     <?php
-                  $record  = mysqli_query($con, "SELECT * from rubber_transaction   where loc='$loc' ORDER BY id DESC  "); ?>
+                                    $record  = mysqli_query($con, "SELECT * from bales_transaction   "); ?>
                                     <thead class="table-dark" style='font-size:15px'>
                                         <tr>
-                                            <th scope="col">Purchase ID</th>
+                                            <th scope="col">Invoice</th>
                                             <th scope="col">Date</th>
+                                            <th scope="col">Contract</th>
                                             <th scope="col">Seller</th>
+                                            <th scope="col">LOT #</th>
+                                            <th scope="col">Entry Weight</th>
+                                            <th scope="col">Net Weight</th>
                                             <th scope="col">First Price</th>
                                             <th scope="col">Second Price</th>
-                                            <th scope="col">Net Weight</th>
-                                            <th scope="col">Total Amount</th>
                                             <th scope="col">Cash Advance</th>
                                             <th scope="col">Amount Paid</th>
                                             <th scope="col">Action</th>
@@ -57,40 +60,25 @@
                                         <tr>
                                             <td scope="row"> <?php echo $row['id']?> </td>
                                             <td> <?php echo $row['date']?> </td>
+                                            <td> <?php echo $row['contract']?> </td>
                                             <td> <?php echo $row['seller']?> </td>
-                                            <td>₱ <?php echo number_format($row['price_1'])?> </td>
-                                            <td>₱ <?php echo number_format($row['price_2'])?> </td>
-
+                                            <td> <?php echo $row['lot_code']?> </td>
+                                            <td> <?php echo number_format($row['entry'])?> Kg</td>
                                             <td> <?php 
-                                                    
-                                                    $total_weight = $row['total_weight_1'] +  $row['total_weight_2'];
-                                                    
-                                                    echo number_format($total_weight);?> kg </td>
+                                                    $total_weight = $row['net_weight_1'] +  $row['net_weight_2'];          
+                                                    echo number_format($total_weight);?> Kg </td>
 
-                                            <td>₱ <?php echo number_format($row['total_amount'])?> </td>
-                                            <td>₱ <?php echo number_format($row['less'])?> </td>
-                                            <td>₱ <?php echo number_format(($row['amount_paid'] )); ?> </td>
+                                            <td>₱ <?php echo number_format($row['price_1'],2)?> </td>
+                                            <td>₱ <?php echo number_format($row['price_2'],2)?> </td>
+                                            <td>₱ <?php echo number_format($row['less'],2)?> </td>
 
-                                            <td>
-                                                <button type="button" class="btn btn-sm btn-dark wetBtnView"
-                                                    data-id="<?php echo $row['id']; ?>"
-                                                    data-contract="<?php echo $row['contract']; ?>"
-                                                    data-date="<?php echo $row['date']; ?>"
-                                                    data-seller="<?php echo $row['seller']; ?>"
-                                                    data-address="<?php echo $row['address']; ?>"
-                                                    data-gross="<?php echo $row['gross']; ?>"
-                                                    data-tare="<?php echo $row['tare']; ?>"
-                                                    data-net_weight="<?php echo $row['net_weight']; ?>"
-                                                    data-price_1="<?php echo $row['price_1']; ?>"
-                                                    data-price_2="<?php echo $row['price_2']; ?>"
-                                                    data-total_weight_1="<?php echo $row['total_weight_1']; ?>"
-                                                    data-total_weight_2="<?php echo $row['total_weight_2']; ?>"
-                                                    data-total_amount="<?php echo $row['total_amount']; ?>"
-                                                    data-less="<?php echo $row['less']; ?>"
-                                                    data-amount_paid="<?php echo $row['amount_paid']; ?>"
-                                                    data-amount_words="<?php echo $row['amount_words']; ?>">
-                                                    VIEW
-                                                </button>
+
+
+                                            <td>₱ <?php echo number_format(($row['amount_paid']),2); ?> </td>
+                                            <td> <button type="button" class="btn btn-dark btnView"><i
+                                                        class="fa fa-eye"></i></button>
+                                                <button type="button" class="btn btn-danger btnBalesDelete"><i
+                                                        class="fa fa-trash"></i></button>
                                             </td>
                                         </tr> <?php } ?>
                                     </tbody>
@@ -104,7 +92,10 @@
                                         <th></th>
                                         <th></th>
                                         <th></th>
+                                        <th></th>
+                                        <th></th>
                                     </tfoot>
+
                                 </table>
                             </div>
 
@@ -162,10 +153,10 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">New Cuplump Purchase</h5>
+                <h5 class="modal-title" id="exampleModalLabel">New Bales Purchase</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method='POST' action='function/wetPurchasing.php'>
+            <form method='POST' action='function/balesPurchasing.php'>
                 <div class="modal-body">
                     <input type="text" class="form-control" id="d_id" name='dry_id' hidden>
                     <p class="text-center text-success"><i class="fa fa-plus-circle" style="font-size:3em;"></i>

@@ -50,14 +50,14 @@
                                             <th>Bale ID</th>
                                             <th>Date Produced</th>
                                             <th>Supplier</th>
-                                            <th>Lot #</th>
+                                            <th>Lot No.</th>
                                             <th>Quality</th>
-                                            <th>Kilo per Bale</th>
-                                            <th>Bales</th>
-                                            <th>Excess</th>
-                                            <th>Bale Weight</th>
+                                            <th>Bale Kilo</th>
+                                            <th>No. of Bales</th>
+                                            <th>Excess Kilo</th>
+                                            <th>Total Weight</th>
                                             <th>DRC</th>
-                                            <th>Description</th>
+                                            <th>Description (Buyer) </th>
                                             <th>Cost</th>
                                         </tr>
                                     </thead>
@@ -97,7 +97,7 @@
                                             <td class="number-cell"><?php echo number_format($row['drc'],2)?> %</td>
                                             <td><?php echo $row['description']?></td>
                                             <td> ₱
-                                                <?php echo number_format($row['purchase_cost']/$row['produce_total_weight'],2)?>
+                                                <?php echo number_format($row['total_production_cost']/$row['produce_total_weight'],2)?>
                                             </td>
 
                                         </tr>
