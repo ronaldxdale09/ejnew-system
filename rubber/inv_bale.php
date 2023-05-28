@@ -19,7 +19,6 @@
             <div class="page-wrapper">
                 <div class="row">
                     <div class="col-sm-12">
-
                         <h2 class="page-title">
                             <b>
                                 <font color="#0C0070">BALE </font>
@@ -46,7 +45,7 @@
                                     <thead class="table-dark" style='font-size:13px'>
                                         <tr>
                                             <th>Status</th>
-                                            <th>Purchase ID</th>
+                                            <th>Wet ID</th>
                                             <th>Bale ID</th>
                                             <th>Date Produced</th>
                                             <th>Supplier</th>

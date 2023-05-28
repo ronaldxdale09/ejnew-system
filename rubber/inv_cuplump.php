@@ -122,7 +122,7 @@
                                         <tr>
 
                                             <th scope="col">Status</th>
-                                            <th scope="col">Purchase ID</th>
+                                            <th scope="col">Wet ID</th>
                                             <th scope="col">Date Received</th>
                                             <th scope="col">Supplier</th>
                                             <th scope="col">Location</th>

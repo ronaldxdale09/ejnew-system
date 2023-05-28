@@ -23,8 +23,8 @@
 
                         <h1 class="page-title">
                             <b>
-                                <font color="#0C0070">BALES </font>
-                                <font color="#046D56"> PURCHASE RECORD </font>
+                                <font color="#0C0070">BALE </font>
+                                <font color="#046D56"> PURCHASE </font>
                             </b>
                         </h1>
 
@@ -46,7 +46,7 @@
                                             <th scope="col">Date</th>
                                             <th scope="col">Contract</th>
                                             <th scope="col">Seller</th>
-                                            <th scope="col">LOT #</th>
+                                            <th scope="col">Lot No.</th>
                                             <th scope="col">Entry Weight</th>
                                             <th scope="col">Net Weight</th>
                                             <th scope="col">First Price</th>

@@ -30,23 +30,15 @@
             <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>Bales Purchasing</span>
         </a>
 
-
-
-
         <hr style='color:gray'>
 
         <a class='nav-link' href='inv_bale.php'>
-            <i class='fa-solid fa-cube'></i> <span class='nav-text'>Bales Inventory</span>
+            <i class='fa-solid fa-cube'></i> <span class='nav-text'>Bale Inventory</span>
         </a>
         <a class='nav-link' href='inv_cuplump.php'>
-            <i class='fa-solid fa-tree'></i> <span class='nav-text'>Cuplumps Inventory</span>
+            <i class='fa-solid fa-tree'></i> <span class='nav-text'>Cuplump Inventory</span>
         </a>
 
-        <hr style='color:gray'>
-
-        <a class='nav-link' href='seller.php'>
-            <i class='fa-solid fa-user'></i> <span class='nav-text'>Seller</span>
-        </a>
         <a class='nav-link' href='contract-purchase.php'>
             <i class='fa-solid fa-boxes-stacked'></i> <span class='nav-text'>Purchase Contract</span>
         </a>
@@ -55,6 +47,9 @@
             <i class='fa-solid fa-money'></i> <span class='nav-text'>Cash Advance</span>
         </a>
 
+        <a class='nav-link' href='seller.php'>
+            <i class='fa-solid fa-user'></i> <span class='nav-text'>Suppliers</span>
+        </a>
 
 
         <div class='logout-container'>

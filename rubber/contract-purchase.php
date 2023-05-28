@@ -35,13 +35,38 @@ $year = date("Y");
                         <div class="col-sm-3 offset-sm-0">
                             <div class="stat-card">
                                 <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted">PURCHASED CONTRACT BALANCE</p>
-                                    <h2><i class="text-danger font-weight-bold mr-1"></i>
-                                        <?php echo ($sumPurchaced_Copra['month_total']); ?> KG
+                                    <p class="text-uppercase mb-1 text-muted"><b><?php echo $month; ?>
+                                            <?php echo $year; ?> </b> CONTRACTS</p>
+                                    <h2><i
+                                            class="text-danger font-weight-bold mr-1"></i><?php echo number_format($sumPurchaced_Copra['month_total'], 0, '', ',') ?>
+                                        KG
                                     </h2>
                                     <div>
-                                        <span class="text-muted"> <?php echo $month; ?>
-                                            <?php echo $year; ?>
+                                        <span class="text-muted">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="stat-card__icon stat-card__icon--success">
+                                    <div class="stat-card__icon-circle">
+                                        <i class="fa fa-info" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 offset-sm-0">
+                            <div class="stat-card">
+                                <div class="stat-card__content">
+                                    <p class="text-uppercase mb-1 text-muted"><b><?php echo $month; ?>
+                                            <?php echo $year; ?> </b> BALANCE</p>
+                                    <h2>
+                                        <!-- WHY COPRA -->
+                                        <!-- <i
+                                            class="text-danger font-weight-bold mr-1"></i><?php echo number_format($sumPurchaced_Copra['month_total'], 0, '', ',') ?> -->
+                                        KG
+                                    </h2>
+                                    <div>
+                                        <span class="text-muted">
                                         </span>
                                     </div>
                                 </div>
@@ -58,9 +83,6 @@ $year = date("Y");
                                 <div class="stat-card__content">
                                     <p class="text-uppercase mb-1 text-muted">Pending Contracts</p>
                                     <h2><?php echo $contract; ?> </h2>
-                                    <div>
-                                        <span class="text-muted">ACTIVE CONTRACT</span>
-                                    </div>
                                 </div>
                                 <div class="stat-card__icon stat-card__icon--primary">
                                     <div class="stat-card__icon-circle">
@@ -83,7 +105,7 @@ $year = date("Y");
                                                 <i class="fa fa-add" aria-hidden="true"></i> NEW CONTRACT </button>
                                         </div>
                                         <div class="col">
-                                            <h5> Date Filter</h5>
+                                            <h6> Date <br> Filter</h6>
                                         </div>
                                         <div class="col-3">
                                             <input type="text" id="min" name="min" class="form-control"
@@ -94,12 +116,8 @@ $year = date("Y");
                                                 placeholder="To Date" />
                                         </div>
                                     </div>
-                                    <br>
-                                    <h6 class="card-title m-t-40">
-                                        <i class="m-r-5 font-18 mdi mdi-numeric-1-box-multiple-outline"></i>List of
-                                        Purchase Contract
-                                    </h6>
 
+                                    <hr>
 
                                     <div class="table-responsive">
                                         <table class="table" id='contractTable'> <?php
@@ -107,16 +125,16 @@ $year = date("Y");
                                     
                                     ?> <thead class="table-dark">
                                                 <tr>
-                                                    <th width="10%">Date</th>
-                                                    <th width="10%">Contact No.</th>
-                                                    <th width="15%">Seller</th>
-                                                    <th scope="col">Quantity</th>
-                                                    <th hidden scope="col">Delivered</th>
-                                                    <th scope="col">Balance</th>
-                                                    <th scope="col">₱/KG</th>
-                                                    <th scope="col">Status</th>
+                                                    <th width="10%">Contract No.</th>
                                                     <th scope="col">Type</th>
-                                                    <th></th>
+                                                    <th width="10%">Date</th>
+                                                    <th width="15%">Supplier</th>
+                                                    <th scope="col">Contract Qty</th>
+                                                    <th hidden scope="col">Delivered</th>
+                                                    <th scope="col">Remaining Qty</th>
+                                                    <th scope="col">Contract Price</th>
+                                                    <th scope="col">Status</th>
+                                                    <th>Action</th>
                                                     <th hidden></th>
                                                 </tr>
                                             </thead>
@@ -134,19 +152,19 @@ $year = date("Y");
                                                 
                                                 
                                                 ?> <tr>
-                                                    <td scope="row"> <?php echo $row['date']?> </td>
                                                     <td> <?php echo $row['contract_no']?> </td>
+                                                    <td><?php echo $row['type'] ?></td>
+                                                    <td scope="row"> <?php echo $row['date']?> </td>
                                                     <td> <?php echo $row['seller']?> </td>
-                                                    <td> <?php echo number_format($row['contract_quantity'])?> Kg</td>
+                                                    <td> <?php echo number_format($row['contract_quantity'])?> kg</td>
                                                     <td hidden> <?php echo number_format($row['delivered'])?> </td>
-                                                    <td> <?php echo number_format($row['balance'])?> Kg</td>
+                                                    <td> <?php echo number_format($row['balance'])?> kg</td>
                                                     <td>₱ <?php echo number_format($row['price'],2)?> </td>
                                                     <td>
                                                         <h5><span
                                                                 class="badge bg-<?php echo $status ?>"><?php echo $row['status']?></span>
                                                         </h5>
                                                     </td>
-                                                    <td style='font-weight:bold;'><?php echo $row['type'] ?></td>
 
                                                     <td>
                                                         <button type="button"

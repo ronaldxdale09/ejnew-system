@@ -13,7 +13,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">NEW SELLER</h5>
+                <h5 class="modal-title" id="exampleModalLabel">NEW SUPPLIER</h5>
                 <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -23,14 +23,14 @@
                     <!-- ... START -->
                     <center>
                         <div class="form-group">
-                            <label class="col-md-12">CODE</label>
+                            <label class="col-md-12">ID</label>
                             <div class="col-md-8">
                                 <input type="text" value="<?php echo $generate; ?>" name='code'
                                     class="form-control form-control-line" readonly>
                             </div>
                             <br>
                             <div class="form-group">
-                                <label class="col-md-12">Name</label>
+                                <label class="col-md-12">Supplier Name</label>
                                 <div class="col-md-8">
                                     <input type="text" name='name' class="form-control form-control-line">
                                 </div>

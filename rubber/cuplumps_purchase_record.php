@@ -41,7 +41,7 @@
                   $record  = mysqli_query($con, "SELECT * from rubber_transaction   where loc='$loc' ORDER BY id DESC  "); ?>
                                     <thead class="table-dark" style='font-size:15px'>
                                         <tr>
-                                            <th scope="col">Purchase ID</th>
+                                            <th scope="col">Invoice</th>
                                             <th scope="col">Date</th>
                                             <th scope="col">Seller</th>
                                             <th scope="col">First Price</th>
