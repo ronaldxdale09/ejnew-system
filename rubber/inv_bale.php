@@ -81,7 +81,8 @@
                                                 <span
                                                     class="badge bg-secondary"><?php echo $row['bales_prod_id']?></span>
                                             </td>
-                                            <td><?php echo $row['production_date']?></td>
+                                            <td><?php echo date('M d, Y H:i', strtotime($row['production_date']))?>
+                                            </td>
                                             <td><?php echo $row['supplier']?></td>
                                             <td> <?php echo $row['lot_num']?> </td>
                                             <td><?php echo $row['bales_type']?></td>

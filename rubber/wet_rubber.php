@@ -320,13 +320,11 @@ $today = $year . "-" . $month . "-" . $day;
                                             <div class="form-group">
                                                 <div class="row no-gutters">
                                                     <div class="col">
-                                                        <label style='font-size:15px' class="col-md-12">Gross
-                                                            Weight
+                                                        <label style='font-size:15px' class="col-md-12">Gross Weight
                                                             (Kilos)</label>
-                                                        <!-- new column -->
                                                         <div class="input-group mb-3">
                                                             <input type="text" class="form-control" id='gross'
-                                                                name='gross' onkeypress="return CheckNumeric()"
+                                                                name='gross' required onkeypress="return CheckNumeric()"
                                                                 onkeyup="FormatCurrency(this)" tabindex="2"
                                                                 autocomplete='off' />
                                                             <div class="input-group-append">
@@ -334,7 +332,6 @@ $today = $year . "-" . $month . "-" . $day;
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <!--end  -->
                                                     <div class="col">
                                                         <label style='font-size:15px' class="col-md-12">Deductable
                                                             Tare Kilos</label>
@@ -383,7 +380,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                             <input type="text" class="form-control" name='first_price'
                                                                 id='first_price' onkeypress="return CheckNumeric()"
                                                                 onkeyup="FormatCurrency(this)" tabindex="7"
-                                                                autocomplete='off' />
+                                                                autocomplete='off' required />
                                                         </div>
                                                     </div>
                                                     <div class="col-6 col-md-4">
