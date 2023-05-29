@@ -122,6 +122,7 @@
                                         <tr>
 
                                             <th scope="col">Status</th>
+                                            <th scope="col">Type</th>
                                             <th scope="col">Wet ID</th>
                                             <th scope="col">Date Received</th>
                                             <th scope="col">Supplier</th>
@@ -137,10 +138,11 @@
                                         <tr>
 
                                             <td><span class="badge bg-success"> <?php echo $row['status']?> </span></td>
+                                            <td> </td>
                                             <td> <span
                                                     class="badge bg-secondary"><?php echo $row['recording_id']?></span>
                                             </td>
-                                            <td> <?php echo $row['receiving_date']?> </td>
+                                            <td><?php echo date('M d, Y H:i', strtotime($row['receiving_date'])); ?></td>
                                             <td> <?php echo $row['supplier']?> </td>
                                             <td> <?php echo $row['location']?> </td>
                                             <td> <?php echo $row['lot_num']?> </td>

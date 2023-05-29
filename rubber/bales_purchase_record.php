@@ -35,7 +35,7 @@
                             <button type="button" class="btn btn-primary text-white" data-toggle="modal"
                                 data-target="#createNew">NEW PURCHASE</button>
                             <hr>
-                           
+
                             <div class="table-responsive">
                                 <table class="table" id='bales_table'>
                                     <?php
@@ -45,6 +45,7 @@
                                             <th scope="col">Invoice</th>
                                             <th scope="col">Date</th>
                                             <th scope="col">Contract</th>
+                                            <th scope="col">Mill ID</th>
                                             <th scope="col">Seller</th>
                                             <th scope="col">Lot No.</th>
                                             <th scope="col">Entry Weight</th>
@@ -59,22 +60,24 @@
                                     <tbody style='font-size:17px'> <?php while ($row = mysqli_fetch_array($record)) { ?>
                                         <tr>
                                             <td scope="row"> <?php echo $row['id']?> </td>
-                                            <td> <?php echo $row['date']?> </td>
+                                            <td><?php echo date('M j, Y', strtotime($row['date'])); ?></td>
                                             <td> <?php echo $row['contract']?> </td>
+                                            <td scope="row"> </td>
                                             <td> <?php echo $row['seller']?> </td>
                                             <td> <?php echo $row['lot_code']?> </td>
-                                            <td> <?php echo number_format($row['entry'])?> Kg</td>
-                                            <td> <?php 
+                                            <td style="text-align: right"> <?php echo number_format($row['entry'])?> kg
+                                            </td>
+                                            <td style="text-align: right"> <?php 
                                                     $total_weight = $row['net_weight_1'] +  $row['net_weight_2'];          
-                                                    echo number_format($total_weight);?> Kg </td>
-
-                                            <td>₱ <?php echo number_format($row['price_1'],2)?> </td>
-                                            <td>₱ <?php echo number_format($row['price_2'],2)?> </td>
-                                            <td>₱ <?php echo number_format($row['less'],2)?> </td>
-
-
-
-                                            <td>₱ <?php echo number_format(($row['amount_paid']),2); ?> </td>
+                                                    echo number_format($total_weight);?> kg </td>
+                                            <td style="text-align: right">₱
+                                                <?php echo number_format($row['price_1'],2)?> </td>
+                                            <td style="text-align: right">₱
+                                                <?php echo number_format($row['price_2'],2)?> </td>
+                                            <td style="text-align: right">₱ <?php echo number_format($row['less'],0)?>
+                                            </td>
+                                            <td style="text-align: right">₱
+                                                <?php echo number_format(($row['amount_paid']),0); ?> </td>
                                             <td> <button type="button" class="btn btn-dark btnView"><i
                                                         class="fa fa-eye"></i></button>
                                                 <button type="button" class="btn btn-danger btnBalesDelete"><i

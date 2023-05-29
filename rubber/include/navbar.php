@@ -48,7 +48,7 @@
         </a>
 
         <a class='nav-link' href='seller.php'>
-            <i class='fa-solid fa-user'></i> <span class='nav-text'>Suppliers</span>
+            <i class='fa-solid fa-user'></i> <span class='nav-text'>Sellers</span>
         </a>
 
 

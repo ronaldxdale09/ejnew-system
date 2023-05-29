@@ -42,7 +42,7 @@
                                             <th scope="col">Date</th>
                                             <th scope="col">Supplier</th>
                                             <th scope="col">Location</th>
-                                            <th scope="col">Net Weight.</th>
+                                            <th scope="col">Net Weight</th>
                                             <th scope="col">Price</th>
                                             <th scope="col">Cash Advance</th>
                                             <th scope="col">Recorded By</th>
@@ -67,12 +67,12 @@
                                                 echo "<tr>";
                                                 echo "<td><span class=\"badge " . ($status === 'EJN' ? 'bg-success' : 'bg-warning') . "\">" . $status . "</span></td>";
                                                 echo "<td>".$row['dry_id']."</td>";
-                                                echo "<td>".$row['date']."</td>";
+                                                echo "<td>".date("M j, Y", strtotime($row['date']))."</td>";
                                                 echo "<td>".$row['seller']."</td>";
                                                 echo "<td>".$row['address']."</td>";
-                                                echo "<td>".$row['net']."</td>";
-                                                echo "<td>".$row['price']."</td>";
-                                                echo "<td>".$row['cash_advance']."</td>";
+                                                echo "<td style='text-align: right'>" . number_format($row['net'], 2, '.', ',') . " kg</td>";
+                                                echo "<td style='text-align: right'>₱ " . number_format($row['price'], 2, '.', ',') . "</td>";
+                                                echo "<td style='text-align: right'>₱ " . number_format($row['cash_advance'], 0, '.', ',') . "</td>";                                                                                          
                                                 echo "<td>".$row['recorded_by']."</td>";
                                                 echo "<td>
                                                         <button type='button' class='btn btn-primary updateBtn'> <i class='fas fa-edit'></i> </button>

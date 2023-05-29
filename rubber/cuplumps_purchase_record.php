@@ -24,7 +24,7 @@
                         <h1 class="page-title">
                             <b>
                                 <font color="#0C0070">CUPLUMP </font>
-                                <font color="#046D56"> PURCHASE  </font>
+                                <font color="#046D56"> PURCHASE </font>
                             </b>
                         </h1>
 
@@ -56,21 +56,21 @@
                                     <tbody style='font-size:17px'> <?php while ($row = mysqli_fetch_array($record)) { ?>
                                         <tr>
                                             <td scope="row"> <?php echo $row['id']?> </td>
-                                            <td> <?php echo $row['date']?> </td>
+                                            <td><?php echo date('M j, Y', strtotime($row['date'])); ?></td>
                                             <td> <?php echo $row['seller']?> </td>
-                                            <td>₱ <?php echo number_format($row['price_1'])?> </td>
-                                            <td>₱ <?php echo number_format($row['price_2'])?> </td>
-
-                                            <td> <?php 
-                                                    
-                                                    $total_weight = $row['total_weight_1'] +  $row['total_weight_2'];
-                                                    
-                                                    echo number_format($total_weight);?> kg </td>
-
-                                            <td>₱ <?php echo number_format($row['total_amount'])?> </td>
-                                            <td>₱ <?php echo number_format($row['less'])?> </td>
-                                            <td>₱ <?php echo number_format(($row['amount_paid'] )); ?> </td>
-
+                                            <td style="text-align: right">₱
+                                                <?php echo number_format($row['price_1'], 2)?></td>
+                                            <td style="text-align: right">₱
+                                                <?php echo number_format($row['price_2'], 2)?></td>
+                                            <td style="text-align: right">
+                                                <?php $total_weight = $row['total_weight_1'] +  $row['total_weight_2']; echo number_format($total_weight);?>
+                                                kg </td>
+                                            <td style="text-align: right">₱
+                                                <?php echo number_format($row['total_amount'])?> </td>
+                                            <td style="text-align: right">₱ <?php echo number_format($row['less'])?>
+                                            </td>
+                                            <td style="text-align: right">₱
+                                                <?php echo number_format(($row['amount_paid'] )); ?> </td>
                                             <td>
                                                 <button type="button" class="btn btn-sm btn-dark wetBtnView"
                                                     data-id="<?php echo $row['id']; ?>"

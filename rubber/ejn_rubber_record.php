@@ -68,13 +68,10 @@
                                         
                                         ?>
                                         <tr>
-                                            <!-- status is "Transfer" -->
                                             <td><span class="badge bg-success"> <?php echo $status?> </span></td>
                                             <td> <span class="badge bg-secondary"><?php echo $row['ejn_id']?></span>
                                             </td>
-                                            <!-- date only, no time -->
-                                            <td> <?php echo $row['date']?> </td>
-                                            <!-- supplier automatic EJN Rubber -->
+                                            <td><?php echo date("M j, Y", strtotime($row['date'])); ?></td>
                                             <td> <?php echo $row['supplier']?> </td>
                                             <td> <?php echo $row['location']?> </td>
                                             <td class="number-cell">
@@ -84,7 +81,8 @@
                                                 ₱ <?php echo number_format($row['total_purchase_cost'], 2, '.', ',')?>
                                             </td>
                                             <td class="number-cell">
-                                                ₱ <?php echo number_format($row['total_purchase_cost']/$row['total_buying_weight'],2, '.', ',')?>
+                                                ₱
+                                                <?php echo number_format($row['total_purchase_cost']/$row['total_buying_weight'],2, '.', ',')?>
                                             </td>
                                             <td> <?php echo $row['remarks']?> </td>
                                             <td> <?php echo $row['recorded_by']?> </td>

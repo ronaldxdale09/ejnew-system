@@ -47,10 +47,9 @@ if ($result) {
 
                     <div class="form-group">
                         <div class="row no-gutters">
-
                             <div class="input-group mb-12">
                                 <label class="col-md-12"></label>
-                                <div class="col-md-12">
+                                <div class="col-md-12 text-center">
                                     <select required="required" class='source col-md-12 r_select_purchase'
                                         name='purchased_id' id='r_select_purchase'>
                                         <option disabled="disabled" selected="selected" value="">Select Receiving
@@ -59,15 +58,15 @@ if ($result) {
                                     </select>
                                 </div>
                             </div>
-
                         </div>
+
 
                         <br>
 
                         <div class="form-group">
                             <div class="row no-gutters">
 
-                                <div class="col-5">
+                                <div class="col">
                                     <div class="input-group mb-12">
                                         <label class="col-md-12">Supplier</label>
                                         <div class="col-md-12">
@@ -77,7 +76,7 @@ if ($result) {
                                     </div>
                                 </div>
 
-                                <div class="col-4">
+                                <div class="col">
                                     <div class="input-group mb-12">
                                         <label class="col-md-12">Location</label>
                                         <div class="col-md-12">
@@ -117,18 +116,17 @@ if ($result) {
 
                                 <div class="col-3">
                                     <label for="truck_num">Truck No.</label>
-                                    <input type="text" style='text-align:right' name='truck_num' class="form-control">
+                                    <input type="text" style='text-align:right' name='truck_num' class="form-control"
+                                        required>
                                 </div>
                             </div>
                         </div>
-                        <br>
-                        <hr>
 
                         <div class="form-group">
                             <div class="form-group">
                                 <center style="margin: 0px 60px;">
                                     <div class="row no-gutters">
-                                        <div class="col">
+                                        <div class="col" hidden>
                                             <div class="input-group mb-12">
                                                 <label class="col-md-12">Total Purchase Cost</label>
                                                 <span class="input-group-text">₱</span>
@@ -136,9 +134,7 @@ if ($result) {
                                                     onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
                                                     id='purchase_total_cost' readonly class="form-control">
                                                 <div class="input-group-append">
-
                                                 </div>
-
                                             </div>
                                         </div>
                                         <div class="col">
@@ -210,7 +206,7 @@ if ($result) {
                                         <label class="col-md-12">Supplier</label>
                                         <div class="col-md-12">
                                             <input type="text" style='text-align:left' name='ru_supplier'
-                                                id='ru_supplier' class="form-control">
+                                                id='ru_supplier' class="form-control" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -243,9 +239,8 @@ if ($result) {
                             <div class="row">
                                 <div class="col">
                                     <label for="ru_date">Date and Time</label>
-                                    <input type="text" style='text-align:left' name='ru_date' id='ru_date' readonly
-                                        value='' class="form-control"
-                                        style='background-color:white;border:0px solid #ffffff;'>
+                                    <input type="text" style='text-align:left' name='ru_date' id='ru_date' value=''
+                                        class="form-control" style='background-color:white;border:0px solid #ffffff;'>
                                 </div>
 
                                 <div class="col">
@@ -267,13 +262,13 @@ if ($result) {
                                 <center style="margin: 0px 60px;">
                                     <div class="row no-gutters">
 
-                                        <div class="col">
+                                        <div class="col" hidden>
                                             <div class="input-group mb-12">
                                                 <label class="col-md-12">Total Purchase Cost</label>
                                                 <span class="input-group-text">₱</span>
                                                 <input type="text" style='text-align:right' name='total_cost'
                                                     onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
-                                                    id='ru_total_cost' class="form-control">
+                                                    id='ru_total_cost' class="form-control" readonly>
                                                 <div class="input-group-append">
 
                                                 </div>
@@ -286,7 +281,7 @@ if ($result) {
 
                                                 <input type="text" style='text-align:right' name='ru_weight'
                                                     onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
-                                                    id='ru_weight' class="form-control">
+                                                    id='ru_weight' class="form-control" readonly>
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">kg</span>
                                                 </div>
