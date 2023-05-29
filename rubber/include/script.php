@@ -82,11 +82,11 @@ function fetchAddress(name) {
     }, function(address) {
 
         $("#address").val(address);
-
     });
 }
 
 function fetchRubberCashAdvance(name) {
+    var nf = new Intl.NumberFormat('en-US');
     // AJAX request for cash advance
     $.post("include/fetch/fetchRubberCashAdvance.php", {
         name: name
@@ -109,6 +109,7 @@ function nameChange(name) {
 }
 
 function fetchCaWET(name) {
+    var nf = new Intl.NumberFormat('en-US');
     // AJAX request for CaWET
     $.post("include/fetch/fetchCaWET.php", {
         name: name
@@ -132,12 +133,15 @@ function fetchCaWET(name) {
 
 
 <script>
+
 function numToWords(s) {
 
 var th = ['', 'thousand', 'million', 'billion', 'trillion'];
 
 var dg = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
-var tn = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
+var tn = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen',
+    'nineteen'
+];
 var tw = ['twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
 
 s = s.toString();
@@ -174,7 +178,7 @@ str += 'peso/s ';
 if (x != s.length) {
     var y = s.length;
     str += 'and ';
-    var centavos = Number(s.slice(x+1, y));
+    var centavos = Number(s.slice(x + 1, y));
     var centavosStr = numToWords(centavos); // recursively call the function to convert centavos to words
     str += centavosStr.slice(0, -7); // remove " peso/s " from the end of the centavos string
     str = str + 'centavo/s ';
@@ -183,5 +187,4 @@ if (x != s.length) {
 str = str.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
 return str.replace(/\s+/g, ' ');
 }
-
 </script>

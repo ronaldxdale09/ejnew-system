@@ -431,20 +431,24 @@
 
 
 <!-- Confirmation Modal -->
-<div class="modal" id="confirmationModal">
+<div class="modal fade" id="confirmationModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Confirmation</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
+            <form method='POST' action='function/wetPurchasing.php'>
             <div class="modal-body">
+            <input type="text" class="form-control" id="remove_w_id" name='id' hidden>
+
                 <p>Are you sure you want to remove?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                <button type="button" class="btn btn-danger" id="confirmRemoveBtn">Yes, Remove</button>
+                <button type="submit" class="btn btn-danger" name="remove">Yes, Remove</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
@@ -504,6 +508,8 @@ $('.wetBtnView').on('click', function() {
 });
 
 $('#removeBtn').click(function() {
+    var id = $('#w_id').val(); // get the id from viewRecord modal
+    $('#remove_w_id').val(id); // set the id to the confirmationModal
     $('#confirmationModal').modal('show'); // Open the confirmation modal
 });
 </script>

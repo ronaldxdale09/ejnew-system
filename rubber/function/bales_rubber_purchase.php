@@ -81,15 +81,32 @@
                             $results = mysqli_query($con, $query);
                             
 
-                            $query = "INSERT INTO bales_transaction (
-                                production_id,invoice,contract,date,address,seller,entry,net_weight_1,net_weight_2,total_net_weight,kilo_bales_1,kilo_bales_2,total_bales_1,total_bales_2,drc,
-                                price_1,price_2,total_amount,less,amount_paid,words_amount,delivery_date,lot_code,bales_compute) 
-                                    VALUES ('$prod_id','$invoice','$contract','$date','$address','$seller','$entry','$net_weight_1','$net_weight_2','$total_net_weight',
-                                    '$kilo_bales_1','$kilo_bales_2','$total_bales_1','$total_bales_2','$drc','$price_1','$price_2',
-                                    '$total_amount','$less','$amount_paid','$words_amount','$delivery_date','$lot_number','$bales_compute')";
-
-
-
+                            $query = "UPDATE bales_transaction 
+                            SET production_id = '$prod_id',
+                                invoice = '$invoice',
+                                contract = '$contract',
+                                date = '$date',
+                                address = '$address',
+                                seller = '$seller',
+                                entry = '$entry',
+                                net_weight_1 = '$net_weight_1',
+                                net_weight_2 = '$net_weight_2',
+                                total_net_weight = '$total_net_weight',
+                                kilo_bales_1 = '$kilo_bales_1',
+                                kilo_bales_2 = '$kilo_bales_2',
+                                total_bales_1 = '$total_bales_1',
+                                total_bales_2 = '$total_bales_2',
+                                drc = '$drc',
+                                price_1 = '$price_1',
+                                price_2 = '$price_2',
+                                total_amount = '$total_amount',
+                                less = '$less',
+                                amount_paid = '$amount_paid',
+                                words_amount = '$words_amount',
+                                delivery_date = '$delivery_date',
+                                lot_code = '$lot_number',
+                                bales_compute = '$bales_compute'
+                            WHERE id = '$invoice'"; 
 
                                    
                                 if(mysqli_query($con, $query)){

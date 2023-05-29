@@ -26,9 +26,29 @@
                      if (isset($_POST['edit'])) {
                             
                    
-                                    $id = $_POST['id'];
-                                header("Location: ../wet_rubber.php?id=$id");
+                                    $id = $_POST['recording_id'];
+                                header("Location: ../bales_rubber.php?id=$id");
     
                                 exit();
                      }
+
+                     if (isset($_POST['remove'])) {
+                        $id = $_POST['id'];
+                    
+                    
+                            $query = "DELETE FROM `bales_transaction` WHERE id = '$id'";
+                         
+                                if(mysqli_query($con, $query))
+                                {  
+                                    header("Location: ../bales_purchase_record.php");
+                                    $_SESSION['deleted']= "successful";
+                                   
+                                    exit();
+                                }
+                                else
+                                {  
+                                    echo "ERROR: Could not be able to execute $query. ".mysqli_error($con); 
+                                }  
+                            //exit();
+                            }
  ?>
