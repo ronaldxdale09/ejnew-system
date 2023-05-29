@@ -5,10 +5,10 @@
                    
                             $date = $_POST['date'];
                             $recorded_by = $_POST['recorded_by'];
-                           
+                            $loc = $_SESSION['loc'];
 
-                                $query = "INSERT INTO rubber_transaction (date,recorded_by) 
-                                        VALUES ('$date','$recorded_by')";
+                                $query = "INSERT INTO rubber_transaction (date,recorded_by,loc) 
+                                        VALUES ('$date','$recorded_by','$loc')";
                                 $results = mysqli_query($con, $query);
                                    
                                     if ($results) {
@@ -31,4 +31,24 @@
     
                                 exit();
                      }
+
+                     if (isset($_POST['remove'])) {
+                        $id = $_POST['id'];
+                    
+                    
+                            $query = "DELETE FROM `rubber_transaction` WHERE id = '$id'";
+                         
+                                if(mysqli_query($con, $query))
+                                {  
+                                    header("Location: ../cuplumps_purchase_record.php");
+                                    $_SESSION['deleted']= "successful";
+                                   
+                                    exit();
+                                }
+                                else
+                                {  
+                                    echo "ERROR: Could not be able to execute $query. ".mysqli_error($con); 
+                                }  
+                            //exit();
+                            }
  ?>

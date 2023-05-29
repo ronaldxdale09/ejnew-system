@@ -15,28 +15,29 @@ if (isset($_GET['id'])) {
         // Output data of each row
         $record = $result->fetch_assoc();
         
-        $invoice = $record['id'];
-        $contract = $record['contract'];
-        $seller = $record['seller'];
-        $date = $record['date'];
-       
-        $address = $record['address'];
-        $gross = $record['gross'];
-        $tare = $record['tare'];
-        $net_weight = $record['net_weight'];
-        $price_1 = $record['price_1'];
-        $price_2 = $record['price_2'];
-        $total_weight_1 = $record['total_weight_1'];
-        $total_weight_2 = $record['total_weight_2'];
-        $total_amount = $record['total_amount'];
-        $less = $record['less'];
-        $amount_paid = $record['amount_paid'];
-        $amount_words = $record['amount_words'];
-        $type = $record['type'];
-        $loc = $record['loc'];
-        $planta_status = $record['planta_status'];
-        $supplier_type = $record['supplier_type'];
-        $recorded_by = $record['recorded_by'];
+            
+        $invoice = isset($record['id']) ? $record['id'] : '';
+        $contract = isset($record['contract']) && !empty($record['contract']) ? $record['contract'] : 'SPOT';
+        $seller = isset($record['seller']) ? $record['seller'] : '';
+        $date = isset($record['date']) ? $record['date'] : '';
+
+        $address = isset($record['address']) ? $record['address'] : '';
+        $gross = isset($record['gross']) ? $record['gross'] : 0;
+        $tare = isset($record['tare']) ? $record['tare'] : 0;
+        $net_weight = isset($record['net_weight']) ? $record['net_weight'] : 0;
+        $price_1 = isset($record['price_1']) ? $record['price_1'] : 0;
+        $price_2 = isset($record['price_2']) ? $record['price_2'] : 0;
+        $total_weight_1 = isset($record['total_weight_1']) ? $record['total_weight_1'] : 0;
+        $total_weight_2 = isset($record['total_weight_2']) ? $record['total_weight_2'] : 0;
+        $total_amount = isset($record['total_amount']) ? $record['total_amount'] : 0;
+        $less = isset($record['less']) ? $record['less'] : 0;
+        $amount_paid = isset($record['amount_paid']) ? $record['amount_paid'] : 0;
+        $amount_words = isset($record['amount_words']) ? $record['amount_words'] : '';
+        $type = isset($record['type']) ? $record['type'] : '';
+        $loc = isset($record['loc']) ? $record['loc'] : '';
+        $planta_status = isset($record['planta_status']) ? $record['planta_status'] : '';
+        $supplier_type = isset($record['supplier_type']) ? $record['supplier_type'] : '';
+        $recorded_by = isset($record['recorded_by']) ? $record['recorded_by'] : '';
 
         $first_total = $total_weight_1 * $price_1;
         $sec_total = $total_weight_2 * $price_2;
@@ -44,8 +45,10 @@ if (isset($_GET['id'])) {
         echo "
             <script>
                 $(document).ready(function() {
+                    
+                    $('#invoice').val('" . $invoice . "');
                     $('#name').val('" . $seller . "').trigger('chosen:updated');
-                    $('#contract').val('" . $contract . "').trigger('chosen:updated');
+                    $('#contract').val('" . $contract . "');
                     $('#address').val('" . $address . "');
 
                     $('#gross').val('" . $gross . "');
@@ -72,8 +75,6 @@ if (isset($_GET['id'])) {
     } 
 
 
-
-  }
 $_SESSION['transaction'] ='ONGOING';
 //seller list
 
@@ -109,6 +110,8 @@ $year = date("Y");
 
 $today = $year . "-" . $month . "-" . $day;
 
+
+}
 ?>
 <style>
 .border-box {
@@ -167,7 +170,6 @@ $today = $year . "-" . $month . "-" . $day;
                                                     <label class="col-md-12">Purchase ID</label>
                                                     <div class="col-md-12">
                                                         <input type="number" name='invoice' id='invoice'
-                                                            value="<?php echo isset($record['id']) ? $record['id'] : '' ?>"
                                                             class="form-control form-control-line" readonly>
                                                     </div>
                                                 </div>
@@ -292,7 +294,7 @@ $today = $year . "-" . $month . "-" . $day;
 
                                         </div>
                                     </div>
-                                </div>
+                                </div> <br>
                                 <div class="col">
                                     <div class="text-center upgrade-btn">
                                         <!-- CONTENT -->
@@ -518,7 +520,7 @@ $today = $year . "-" . $month . "-" . $day;
 
                                         </div>
                                     </div>
-                                </div>
+                                </div> <br>
                                 <div class="row">
                                     <div class="text-end col-12">
                                         <button type="button" class="btn btn-success text-white confirm"

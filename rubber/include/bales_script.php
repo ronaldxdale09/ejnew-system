@@ -1,4 +1,3 @@
-<script type="text/javascript" src="js/getWords.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -91,11 +90,12 @@ function fetchAddress(name) {
     $.post("include/fetch/fetchAddress.php", {
         name: name
     }, function(address) {
-        $("#address").html(address);
+        $("#address").val(address);
     });
 }
 
 function fetchCashAdvance(name) {
+    var nf = new Intl.NumberFormat('en-US');
     $.post("include/fetch/fetchRubberCashAdvance.php", {
         name: name
     }, function(less) {
