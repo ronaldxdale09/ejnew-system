@@ -75,7 +75,7 @@
                                             </button>
                                         </div>
                                         <div class="col">
-                                            <h5> Date Filter</h5>
+                                            <p> Date <br> Filter</p>
                                         </div>
                                         <div class="col-3">
                                             <input type="text" id="min" name="min" class="form-control"
@@ -86,13 +86,6 @@
                                                 placeholder="To Date" />
                                         </div>
                                     </div>
-                                    <br>
-                                    <h6 class="card-title m-t-40">
-                                        <i class="m-r-5 font-18 mdi mdi-numeric-1-box-multiple-outline"></i>List
-                                        of
-                                        Purchase Contract
-                                    </h6>
-
 
                                     <div class="table-responsive">
                                         <table class="table" id='contractTable'> <?php
@@ -101,11 +94,11 @@
                                     ?> <thead class="table-dark">
                                                 <tr>
                                                     <th width="10%">ID</th>
-                                                    <th width="15%">Name</th>
+                                                    <th width="15%">Supplier Name</th>
                                                     <th scope="col">Address</th>
-                                                    <th scope="col">WET CA</th>
-                                                    <th scope="col">Bales CA</th>
-                                                    <th scope="col">Total CA</th>
+                                                    <th scope="col">Cuplump Purchase CA</th>
+                                                    <th scope="col">Bale Purchase CA</th>
+                                                    <th scope="col">Total Cash Advance</th>
                                                     <th scope="col">Action</th>
                                                 </tr>
                                             </thead>

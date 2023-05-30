@@ -1,4 +1,3 @@
-<script type="text/javascript" src="js/getWords.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -91,11 +90,12 @@ function fetchAddress(name) {
     $.post("include/fetch/fetchAddress.php", {
         name: name
     }, function(address) {
-        $("#address").html(address);
+        $("#address").val(address);
     });
 }
 
 function fetchCashAdvance(name) {
+    var nf = new Intl.NumberFormat('en-US');
     $.post("include/fetch/fetchRubberCashAdvance.php", {
         name: name
     }, function(less) {
@@ -154,10 +154,13 @@ function numToWords(s) {
         }
     }
     str += 'peso/s ';
+
     if (x != s.length) {
         var y = s.length;
         str += 'and ';
-        for (var i = x + 1; i < y; i++) str += dg[n[i]] + ' ';
+        var centavos = Number(s.slice(x + 1, y));
+        var centavosStr = numToWords(centavos); // recursively call the function to convert centavos to words
+        str += centavosStr.slice(0, -7); // remove " peso/s " from the end of the centavos string
         str = str + 'centavo/s ';
     }
 

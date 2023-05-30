@@ -68,13 +68,10 @@
                                         
                                         ?>
                                         <tr>
-                                            <!-- status is "Transfer" -->
                                             <td><span class="badge bg-success"> <?php echo $status?> </span></td>
                                             <td> <span class="badge bg-secondary"><?php echo $row['ejn_id']?></span>
                                             </td>
-                                            <!-- date only, no time -->
-                                            <td> <?php echo $row['date']?> </td>
-                                            <!-- supplier automatic EJN Rubber -->
+                                            <td><?php echo date("M j, Y", strtotime($row['date'])); ?></td>
                                             <td> <?php echo $row['supplier']?> </td>
                                             <td> <?php echo $row['location']?> </td>
                                             <td class="number-cell">
@@ -203,7 +200,7 @@ $('.deleteBtn').click(function() {
             <div class="modal-header">
                 <h5 class="modal-title">Update Record</h5>
             </div>
-            <form method='POST' action='function/updateEjnRubber.php'>
+            <form method='POST' action='function/newEjnRubber.php'>
                 <div class="modal-body">
                     <input type="hidden" name="id" id="u_id">
 
@@ -245,7 +242,7 @@ $('.deleteBtn').click(function() {
                         <div class="col">
                             <div class="mb-3">
                                 <label for="ave_kiloCost" class="form-label">Average Kilo Cost</label>
-                                <input type="text" class="form-control" name="aveCost" id='u_aveCost' readonly>
+                                <input type="text" class="form-control" name="aveCost" id='u_aveCost' readonly required>
                             </div>
                         </div>
                     </div>
@@ -444,9 +441,11 @@ function updateCalculateAverageKiloCost() {
     } else {
         var averageKiloCost = purchaseCost / netWeight;
         console.log('Average Kilo Cost: ', averageKiloCost);
-        document.getElementById('u_aveCost').value = formatCurrency(averageKiloCost.toFixed(2));
+        document.getElementById('u_aveCost').value = (averageKiloCost.toFixed(2));
     }
 }
+
+
 
 
 

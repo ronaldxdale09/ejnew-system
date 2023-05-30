@@ -55,95 +55,80 @@ select:invalid[multiple] {
                     <!-- ... START -->
                     <div class="form-group">
                         <div class="row no-gutters">
-                            <div class="col-6 col-md-6">
-                                <div class="input-group mb-12">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroup-sizing-default"
-                                            style='color:black;font-weight: bold;'>Contract</span>
-                                    </div>
+                            <div class="col-6">Contract No.
+                                <div class="input-group">
                                     <input type="text" style='text-align:right' name='v_contact' id='v_contact'
                                         class="form-control" style='background-color:white;border:0px solid #ffffff;'
                                         value="<?php echo  $code ?>" readonly>
+
                                 </div>
                             </div>
                             <!--end  -->
-                            <div class="col-6 col-md-6">
-                                <div class="input-group mb-1">
+                            <div class="col-6"> Date
+                                <div class="input-group">
                                     <input type="date" id="date" name="date" class='datepicker'
                                         value='<?php echo $dateNow?>' required>
                                 </div>
                             </div>
-                            <!--  end-->
                         </div>
                     </div>
-                    <center>
-                        <div class="form-group">
-                            <div class="row no-gutters">
-                                <div class="col-6 col-md-6">
-                                    <div class="input-group mb-12">
-                                        <label class="col-md-12">Seller</label>
-                                        <div class="col-md-12">
-                                            <select required="required" class='select_seller col-md-12' name='name'
-                                                id='name'>
-                                                <option disabled="disabled" selected="selected" value="">Select Seller
-                                                </option>
-                                                <?php echo $sellerList; ?>
-                                            </select>
-                                        </div>
 
-                                    </div>
-                                </div>
-                                <!--end  -->
-                                <div class="col-6 col-md-6">
-                                    <div class="input-group mb-1">
-                                        <label class="col-md-12">Type</label>
-                                        <div class="col-md-12">
-                                            <select required="required" class='select_seller col-md-12' name='type'
-                                                id='type'>
-                                                <option disabled="disabled" selected="selected" value="">Select Type
-                                                </option>
-                                                <option value="WET">WET</option>
-                                                <option value="BALES">BALES</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--  end-->
-                            </div>
-                        </div>
-                    </center>
                     <div class="form-group">
                         <div class="row no-gutters">
-                            <div class="col-12 col-sm-5 col-md-12">
+                            <div class="col-6 col-md-6">
+                                <div class="input-group mb-12">
+                                    <label class="col-md-12">Supplier</label>
+                                    <div class="col-md-12">
+                                        <select required="required" class='select_seller col-md-12' name='name'
+                                            id='name'>
+                                            <option disabled="disabled" selected="selected" value="">Select Supplier
+                                            </option>
+                                            <?php echo $sellerList; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-md-6">
+                                <div class="input-group mb-1">
+                                    <label class="col-md-12">Type</label>
+                                    <div class="col-md-12">
+                                        <select required="required" class='select_seller col-md-12' name='type'
+                                            id='type'>
+                                            <option disabled="disabled" selected="selected" value="">Select Type
+                                            </option>
+                                            <option value="WET">Cuplump (WET Price)</option>
+                                            <option value="BALES">Bales (DRY Price)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<hr>
+                    <div class="form-group">
+                        <div class="row no-gutters">
+                            <div class="col"> Total Quantity
                                 <!--  -->
                                 <div class="input-group mb-1">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroup-sizing-default"
-                                            style='color:black;font-weight: bold;'>Contract Quantity</span>
-                                    </div>
                                     <input type="text" style='text-align:right' name='quantity' id='quantity'
                                         class="form-control" onkeypress="return CheckNumeric()"
                                         onkeyup="FormatCurrency(this)" required>
                                     <div class="input-group-append">
-                                        <span class="input-group-text">Kg</span>
+                                        <span class="input-group-text">kg</span>
                                     </div>
                                 </div>
                                 <!--  -->
                             </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="form-group">
-                        <div class="row no-gutters">
-                            <div class="col-12 col-sm-5 col-md-12">
+                            <div class="col">Price per Kilo
                                 <!--  -->
                                 <div class="input-group mb-1">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="inputGroup-sizing-default"
-                                            style='color:black;font-weight: bold;'>₱/KG</span>
+                                            style='color:black;'> ₱</span>
                                     </div>
                                     <input type="text" style='text-align:right' name='ca' id='ca' class="form-control"
-                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
+                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" required>
                                 </div>
                                 <!--  -->
                             </div>
@@ -229,7 +214,7 @@ $('#newContract').on('shown.bs.modal', function() {
                                                 <option disabled="disabled" selected="selected" value="">Select Type
                                                 </option>
                                                 <option value="WET">WET</option>
-                                                <option value="BALES">BALES</option>
+                                                <option value="BALES">DRY</option>
                                             </select>
                                         </div>
                                     </div>
@@ -252,7 +237,7 @@ $('#newContract').on('shown.bs.modal', function() {
                                         class="form-control" onkeypress="return CheckNumeric()"
                                         onkeyup="FormatCurrency(this)" required>
                                     <div class="input-group-append">
-                                        <span class="input-group-text">Kg</span>
+                                        <span class="input-group-text">kg</span>
                                     </div>
                                 </div>
                                 <!--  -->

@@ -5,7 +5,7 @@
             <tr>
 
                 <th scope="col">Status</th>
-                <th scope="col"> ID</th>
+                <th scope="col">ID</th>
                 <th scope="col">Date Received</th>
                 <th scope="col">Supplier</th>
                 <th scope="col">Location</th>
@@ -25,7 +25,7 @@
                     <span class="badge bg-success"> <?php echo $row['status']?> </spa>
                 </td>
                 <td> <?php echo $row['recording_id']?> </td>
-                <td> <?php echo $row['receiving_date']?> </td>
+                <td><?php echo date('M j, Y h:i A', strtotime($row['receiving_date'])); ?></td>
                 <td> <?php echo $row['supplier']?> </td>
                 <td> <?php echo $row['location']?> </td>
                 <td> <?php echo $row['lot_num']?> </td>

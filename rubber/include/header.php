@@ -38,11 +38,11 @@ $user_name = $_SESSION["username"];
 
 .location-badge {
     position: fixed;
-    top: 10px;
+    bottom: 10px;
     right: 10px;
     display: inline-block;
     padding: 10px 20px;
-    background-color: lightblue;
+    background-color: rgb(8, 70, 115);
     /* Change to desired color */
     color: #fff;
     /* Change to desired color */
@@ -52,5 +52,5 @@ $user_name = $_SESSION["username"];
 </style>
 
 <div class="location-badge">
-    <?php echo $_SESSION['loc'];?>
+    <?php echo $loc ;?>
 </div>

@@ -10,7 +10,7 @@
 
   while ($row = $result->fetch_assoc())
   {
-    $output .= '<option style="font-size:15px;" value="'.$row["address"].'">'.$row["address"].'</option>';
+    $output = $row["address"];
 
   } 
 
