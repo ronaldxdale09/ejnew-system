@@ -81,8 +81,7 @@
                                                 ₱ <?php echo number_format($row['total_purchase_cost'], 2, '.', ',')?>
                                             </td>
                                             <td class="number-cell">
-                                                ₱
-                                                <?php echo number_format($row['total_purchase_cost']/$row['total_buying_weight'],2, '.', ',')?>
+                                                ₱ <?php echo number_format($row['total_purchase_cost']/$row['total_buying_weight'],2, '.', ',')?>
                                             </td>
                                             <td> <?php echo $row['remarks']?> </td>
                                             <td> <?php echo $row['recorded_by']?> </td>
