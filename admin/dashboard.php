@@ -5,7 +5,8 @@
 error_reporting(0); // Suppress all warnings
 
    $loc = ''; // Please replace with your location value
-
+   $Currentmonth = date('n');
+   $CurrentYear = date('Y');
 ?>
 
 
@@ -13,6 +14,11 @@ error_reporting(0); // Suppress all warnings
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"
     integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"
+    integrity="sha512-JPcRR8yFa8mmCsfrw4TNte1ZvF1e3+1SdGMslZvmrzDYxS69J7J49vkFL8u6u8PlPJK+H3voElBtUCzaXj+6ig=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-labels@1.1.0/src/chartjs-plugin-labels.js"></script>
+
 
 <body>
     <div class='main-content' style='position:relative; height:100%;'>
@@ -269,8 +275,9 @@ error_reporting(0); // Suppress all warnings
                                 <div class="col-5" style="display: flex;">
                                     <div class="card" style="width: 100%;">
                                         <div class="card-body" style="height: 400px; position: relative;">
-                                            <canvas id="pie_opex"
+                                            <canvas id="expense_bar_chart"
                                                 style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+
                                         </div>
                                     </div>
                                 </div>
@@ -278,7 +285,7 @@ error_reporting(0); // Suppress all warnings
                                 <div class="col" style="display: flex;">
                                     <div class="card" style="width: 100%;">
                                         <div class="card-body" style="height: 400px; position: relative;">
-                                            <canvas id="trend_shipexp"
+                                            <canvas id="expense_monthly"
                                                 style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
                                         </div>
                                     </div>
@@ -378,362 +385,109 @@ error_reporting(0); // Suppress all warnings
             </div>
         </div>
     </div>
-   
 
+    <?php
+    $expense_count = mysqli_query($con,"SELECT   category,year(date) as year,month(date) as month,sum(amount) as  total
+    from ledger_expenses WHERE month(date)='$Currentmonth' and  year(date)='$CurrentYear'   group by year(date), month(date),
+    category ORDER BY id ASC");        
+           if($expense_count->num_rows > 0) {
+                 foreach($expense_count as $data) {
+                     $expenses_category[] = $data['category'];
+                     $expense_total[] = $data['total'];
+                 }
+             }
+   ?>
     <script>
-    const labels0 = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August'];
-    const incomeData = [1500, 2000, 2300, 2100, 2500, 2300, 1850, 2000];
+    expense_pie = document.getElementById("expense_bar_chart");
+    expense_monthly = document.getElementById("expense_monthly");
 
-    const trend_income = document.getElementById('trend_income').getContext('2d');
-    new Chart(trend_income, {
-        type: 'bar',
-        data: {
-            labels: labels0,
-            datasets: [{
-                label: 'Shipping Expenses',
-                data: incomeData,
-                borderColor: '#000000',
-                backgroundColor: '#174f77',
-                fill: true,
-            }]
-        },
-        options: {
-            plugins: {
-                title: {
-                    display: false,
-                    text: 'Monthly Net Income'
-                },
-                legend: {
-                    display: false
-                }
-            },
-            maintainAspectRatio: false,
-            aspectRatio: 1.5,
-            scales: {
-                y: {
-                    type: 'linear',
-                    display: true,
-                    position: 'left',
-                    title: {
-                        display: false,
-                        text: 'Amount'
-                    },
-                    beginAtZero: true
-                },
-                x: {
-                    display: true,
-                    title: {
-                        display: false,
-                        text: 'Months'
-                    },
-                    grid: {
-                        display: false
-                    }
-                }
-            },
-            elements: {
-                line: {
-                    tension: 0.3
-                }
-            },
-            legend: {
-                display: false
+
+    function getRandomColor(n) {
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        var colors = [];
+        for (var j = 0; j < n; j++) {
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
             }
+            colors.push(color);
+            color = '#';
         }
-    });
-
-    const labels2 = ['January', 'February', 'March', 'April', 'May'];
-    const gpData = [880, 1200, 1200, 1500, 1800];
-    const salesData = [2000, 2200, 2300, 2100, 2500];
-    const cogsData = [900, 1000, 1100, 950, 1300];
-    const shippingExpData = [200, 250, 300, 350, 400];
-    const millExpData = [100, 150, 200, 250, 300];
-
-    const trend_grossprofit = document.getElementById('trend_grossprofit').getContext('2d');
-
-
-    new Chart(trend_grossprofit, {
-        type: 'bar',
-        data: {
-            labels: labels2, // X-axis data
-            datasets: [{
-                    label: 'Gross Profit',
-                    data: gpData, // Y-axis data for Gross Profit
-                    borderColor: '#28a745',
-                    borderWidth: 3,
-                    fill: false,
-                    type: 'line'
-                },
-                {
-                    label: 'Sales',
-                    data: salesData, // Y-axis data for Sales
-                    backgroundColor: '#174f77',
-                    borderWidth: 1,
-                    fill: true,
-                    stack: 'stack0'
-                },
-                {
-                    label: 'COGS',
-                    data: cogsData, // Y-axis data for COGS
-                    backgroundColor: '#d34817',
-                    borderWidth: 1,
-                    fill: true,
-                    stack: 'stack1'
-                },
-                {
-                    label: 'Shipping Expenses',
-                    data: shippingExpData, // Y-axis data for Shipping Expenses
-                    backgroundColor: '#a28e6a',
-                    borderWidth: 1,
-                    fill: true,
-                    stack: 'stack1'
-                },
-                {
-                    label: 'Milling Fee',
-                    data: millExpData, // Y-axis data for Other Expenses
-                    backgroundColor: '#ff9900',
-                    borderWidth: 1,
-                    fill: true,
-                    stack: 'stack1'
-                }
-            ]
-        },
-        options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Gross Profit per Month',
-                },
-                legend: {
-                    position: 'bottom',
-                },
-            },
-            maintainAspectRatio: false,
-            aspectRatio: 1.5,
-            scales: {
-                y: {
-                    stacked: true,
-                    type: 'linear',
-                    display: true,
-                    position: 'left',
-                    title: {
-                        display: false,
-                        text: 'Amount'
-                    },
-                    beginAtZero: true
-                },
-                x: {
-                    stacked: true,
-                    display: true,
-                    title: {
-                        display: false,
-                        text: 'Months'
-                    },
-                    grid: {
-                        display: false
-                    }
-                }
-            },
-            elements: {
-                line: {
-                    tension: 0.3
-                }
-            },
-            plugins: {
-                legend: {
-                    position: 'bottom'
-                }
-            }
-        },
-    });
-
-
-
-
-    const labels = ['January', 'February', 'March', 'April', 'May'];
-    const totalSalesData = [300, 450, 600, 500, 700];
-    const baleLocalSalesData = [300, 450, 600, 500, 700];
-    const baleExportData = [200, 250, 400, 350, 500];
-    const cuplumpExportData = [100, 150, 200, 300, 200];
-
-    const trend_sales = document.getElementById('trend_sales').getContext('2d');
-
-    new Chart(trend_sales, {
-        type: 'bar',
-        data: {
-            labels: labels,
-            datasets: [{
-                    label: 'Total Sales',
-                    type: 'line',
-                    data: totalSalesData,
-                    borderColor: '#000000',
-                    backgroundColor: '#415588',
-                },
-                {
-                    label: 'Bale Local Sales',
-                    data: baleLocalSalesData,
-                    borderColor: '#000000',
-                    backgroundColor: '#415588',
-                },
-                {
-                    label: 'Bale Export',
-                    data: baleExportData,
-                    borderColor: '#000000',
-                    backgroundColor: '#4294b6',
-                },
-                {
-                    label: 'Cuplump Export',
-                    data: cuplumpExportData,
-                    borderColor: '#000000',
-                    backgroundColor: '#087d7c',
-                }
-            ]
-        },
-        options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Monthly Sales (Bale Local, Bale Export, Cuplump Export)',
-                },
-                legend: {
-                    position: 'bottom',
-                },
-            },
-            maintainAspectRatio: false,
-            aspectRatio: 1.5,
-            scales: {
-                y: {
-                    stacked: true,
-                    type: 'linear',
-                    display: true,
-                    position: 'left',
-                    title: {
-                        display: false,
-                        text: 'Amount'
-                    },
-                    beginAtZero: true,
-                },
-                x: {
-                    stacked: true,
-                    display: true,
-                    title: {
-                        display: false,
-                        text: 'Months'
-                    },
-                    grid: {
-                        display: false
-                    }
-                }
-            },
-            elements: {
-                line: {
-                    tension: 0.3
-                }
-            },
-            plugins: {
-                legend: {
-                    position: 'bottom'
-                }
-            }
-        }
-    });
-
-
-    const labels3 = ['Labor', 'Salary', 'Truck', 'Utilities', 'Maintenance', 'Selling', 'Miscellaneous'];
-    const data = [880, 1200, 1200, 1500, 1800, 2100, 1600];
-
-    const pie_pie_opex = document.getElementById('pie_opex').getContext('2d');
-
-    new Chart(pie_opex, {
+        return colors;
+    }
+    new Chart(expense_pie, {
         type: 'pie',
         data: {
-            labels: labels3,
+            labels: <?php echo isset($expenses_category) ? json_encode($expenses_category) : json_encode([]); ?>,
             datasets: [{
-                data: data,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)',
-                    'rgba(54, 162, 235, 1)'
-                ]
+                label: 'Operating Expenses',
+                data: <?php echo isset($expense_total) ? json_encode($expense_total) : json_encode([]); ?>,
+                borderColor: '#000000',
+                backgroundColor: getRandomColor(10),
+                borderWidth: 1.5
             }]
         },
         options: {
+            responsive: true,
+            aspectRatio: 1.5,
             plugins: {
-                title: {
-                    display: false,
-                    text: 'Annual Shipping Expenses',
+                labels: {
+                    render: 'value',
                 },
                 legend: {
-                    position: 'bottom',
+                    position: 'right'
                 },
-            },
-            maintainAspectRatio: false,
-            aspectRatio: 1.5
+                title: {
+                    display: true,
+                    text: 'Expenses Chart'
+                }
+            }
         }
     });
 
-    const labels4 = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August'];
-    const shippingData = [1500, 2000, 2300, 2100, 2500, 2300, 1850, 2000];
 
-    const trend_shipexp = document.getElementById('trend_shipexp').getContext('2d');
-    new Chart(trend_shipexp, {
-        type: 'bar',
+
+    new Chart(expense_monthly, {
+        type: 'bar', // Change the chart type to 'bar'
         data: {
-            labels: labels4,
+            labels: <?php echo isset($expenses_category) ? json_encode($expenses_category) : json_encode([]); ?>,
             datasets: [{
-                label: 'Shipping Expenses',
-                data: shippingData,
-                borderColor: 'rgba(255, 153, 0, 1)',
-                backgroundColor: 'rgba(255, 153, 0, 1)',
-                borderWidth: 2,
-                fill: true,
+                label: 'Operating Expenses',
+                data: <?php echo isset($expense_total) ? json_encode($expense_total) : json_encode([]); ?>,
+                borderColor: '#000000',
+                backgroundColor: getRandomColor(10),
+                borderWidth: 1.5
             }]
         },
         options: {
+            responsive: true,
+            aspectRatio: 1.5,
             plugins: {
-                title: {
-                    display: false,
-                    text: 'Monthly Shipping Expenses'
+                labels: {
+                    render: 'value',
                 },
                 legend: {
-                    display: false
+                    position: 'right'
+                },
+                title: {
+                    display: true,
+                    text: 'Monthly Expenses Chart' // Update the chart title to 'Monthly Expenses Chart'
                 }
             },
-            maintainAspectRatio: false,
-            aspectRatio: 1.5,
             scales: {
                 y: {
-                    type: 'linear',
-                    display: true,
-                    position: 'left',
+                    beginAtZero: true,
                     title: {
-                        display: false,
-                        text: 'Amount'
-                    },
-                    beginAtZero: true
+                        display: true,
+                        text: 'Expenses'
+                    }
                 },
                 x: {
-                    display: true,
                     title: {
-                        display: false,
-                        text: 'Months'
-                    },
-                    grid: {
-                        display: false
+                        display: true,
+                        text: 'Category'
                     }
                 }
-            },
-            elements: {
-                line: {
-                    tension: 0.3
-                }
-            },
-            legend: {
-                display: false
             }
         }
     });
@@ -781,10 +535,10 @@ error_reporting(0); // Suppress all warnings
 
         type: 'doughnut',
         data: {
-            labels: ['Cuplumps', 'Crumbed', 'Blanket', 'Bales'], //X-axis data 
+            labels: ['Cuplumps', 'Crumbed', 'Blanket', 'Bales'], //X-axis data
             datasets: [{
                 label: 'Purchased',
-                data: <?php echo json_encode($inventory_values) ?>, //Y-axis data 
+                data: <?php echo json_encode($inventory_values) ?>, //Y-axis data
                 backgroundColor: ['#C42F1A', '#567417', '#90C226', '#E6B91E'],
                 tension: 0.3,
                 fill: false,
@@ -822,10 +576,10 @@ error_reporting(0); // Suppress all warnings
 
         type: 'pie',
         data: {
-            labels: <?php echo json_encode($bales_labels) ?>, //X-axis data 
+            labels: <?php echo json_encode($bales_labels) ?>, //X-axis data
             datasets: [{
                 label: 'Purchased',
-                data: <?php echo json_encode($bales_values) ?>, //Y-axis data 
+                data: <?php echo json_encode($bales_values) ?>, //Y-axis data
                 backgroundColor: ['#C42F1A', '#567417', '#90C226', '#E6B91E', '#CE5504'],
                 tension: 0.3,
                 fill: false,
@@ -939,10 +693,10 @@ error_reporting(0); // Suppress all warnings
         },
         type: 'line',
         data: {
-            labels: <?php echo json_encode($month_bales) ?>, //X-axis data 
+            labels: <?php echo json_encode($month_bales) ?>, //X-axis data
             datasets: [{
                 label: 'Crumbs',
-                data: <?php echo json_encode($bales) ?>, //Y-axis data 
+                data: <?php echo json_encode($bales) ?>, //Y-axis data
                 backgroundColor: '#617391',
                 tension: 0.3,
                 fill: true,
@@ -980,10 +734,10 @@ error_reporting(0); // Suppress all warnings
         },
         type: 'line',
         data: {
-            labels: <?php echo json_encode($month_bales) ?>, //X-axis data 
+            labels: <?php echo json_encode($month_bales) ?>, //X-axis data
             datasets: [{
                 label: 'Blankets',
-                data: <?php echo json_encode($bales) ?>, //Y-axis data 
+                data: <?php echo json_encode($bales) ?>, //Y-axis data
                 backgroundColor: '#3892BA',
                 tension: 0.3,
                 fill: true,
@@ -1021,10 +775,10 @@ error_reporting(0); // Suppress all warnings
         },
         type: 'line',
         data: {
-            labels: <?php echo json_encode($month_bales) ?>, //X-axis data 
+            labels: <?php echo json_encode($month_bales) ?>, //X-axis data
             datasets: [{
                 label: 'Bales',
-                data: <?php echo json_encode($bales) ?>, //Y-axis data 
+                data: <?php echo json_encode($bales) ?>, //Y-axis data
                 backgroundColor: '#2e83c3',
                 tension: 0.3,
                 fill: true,
