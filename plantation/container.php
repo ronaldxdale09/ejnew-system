@@ -81,10 +81,11 @@ include "include/navbar.php";
                                                     </div>
                                                 </div>
                                                 <div class="col">
-                                                    <label style='font-size:15px' class="col-md-12">Recorded by:</label>
+                                                    <label style='font-size:15px' class="col-md-12">Van
+                                                        No.</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='ship_user'
-                                                            id='ship_user' tabindex="7" autocomplete='off'
+                                                        <input type="text" class="form-control" name='ship_destination'
+                                                            id='ship_destination' tabindex="7" autocomplete='off'
                                                             style="width: 100px;" />
                                                     </div>
                                                 </div>
@@ -109,11 +110,19 @@ include "include/navbar.php";
                                                             style="width: 100px;" />
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
+                                                <div class="col">
                                                     <label style='font-size:15px' class="col-md-12">Remarks</label>
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" name='ship_remarks'
                                                             id='ship_remarks' tabindex="7" autocomplete='off'
+                                                            style="width: 100px;" />
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <label style='font-size:15px' class="col-md-12">Recorded by:</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" name='ship_user'
+                                                            id='ship_user' tabindex="7" autocomplete='off'
                                                             style="width: 100px;" />
                                                     </div>
                                                 </div>
@@ -154,42 +163,42 @@ include "include/navbar.php";
                                                 class="table table-bordered table-hover table-striped">
                                                 <thead class="table text-center" style="font-size: 14px !important">
                                                     <tr>
-                                                        <th scope="col">Date Produced</th>
+                                                        <th scope="col" hidden>Date Produced</th>
                                                         <th scope="col">Supplier</th>
                                                         <th scope="col">Lot No.</th>
                                                         <th scope="col">Quality</th>
                                                         <th scope="col">No. of Bales</th>
                                                         <th scope="col">Kilo per Bale</th>
                                                         <th scope="col">Total Weight</th>
-                                                        <th scope="col">DRC</th>
+                                                        <th scope="col" hidden>DRC</th>
                                                         <th scope="col">Description</th>
                                                         <th scope="col"></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td>
-                                                            <input type="text" class="form-control"readonly>
+                                                        <td hidden>
+                                                            <input type="text" class="form-control" readonly>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control"readonly>
+                                                            <input type="text" class="form-control" readonly>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control"readonly>
+                                                            <input type="text" class="form-control" readonly>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control"readonly>
+                                                            <input type="text" class="form-control" readonly>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control"readonly>
+                                                            <input type="text" class="form-control" readonly>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control"readonly>
+                                                            <input type="text" class="form-control" readonly>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control"readonly>
+                                                            <input type="text" class="form-control" readonly>
                                                         </td>
-                                                        <td>
+                                                        <td hidden>
                                                             <input type="text" class="form-control" readonly>
                                                         </td>
                                                         <td>
