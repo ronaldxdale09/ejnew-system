@@ -33,17 +33,20 @@ include "include/navbar.php";
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-12">
-                                        <button type="button" class="btn btn-primary confirmSales"
-                                            id="btnConfirmShipment">Confirm
-                                            Shipment</button>
-                                        <button type="button" class="btn btn-dark text-white receiptBtn"
-                                            id='receiptBtn'>
-                                            <span class="fa fa-print"></span> Print Receipt
-                                        </button>
                                         <button type="button" class="btn btn-secondary text-white vouchBtn"
                                             onclick="goBack()">
                                             <span class="fas fa-arrow-left"></span> Return
                                         </button>
+                                        <button type="button" class="btn btn-dark text-white printBtn"
+                                            id='printBtn'>
+                                            <span class="fa fa-print"></span> Print
+                                        </button>
+                                        <button type="button" class="btn btn-dark text-white pdfBtn"
+                                            id='pdftBtn'>
+                                            <span class="fa fa-file"></span> PDF
+                                        </button>
+                                        <button type="button" class="btn btn-primary confirmSales"
+                                            id="btnConfirmShipment"><span class="fas fa-check"></span> Complete</button>
                                     </div>
                                 </div>
 
@@ -73,20 +76,20 @@ include "include/navbar.php";
                                                     </div>
                                                 </div>
                                                 <div class="col">
-                                                    <label style='font-size:15px' class="col-md-12">Loading
-                                                        Date</label>
-                                                    <div class="col-md-12">
-                                                        <input type="date" class='form-control' id="ship_date"
-                                                            value="<?php echo $today; ?>" name="ship_date">
-                                                    </div>
-                                                </div>
-                                                <div class="col">
                                                     <label style='font-size:15px' class="col-md-12">Van
                                                         No.</label>
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" name='ship_destination'
                                                             id='ship_destination' tabindex="7" autocomplete='off'
                                                             style="width: 100px;" />
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <label style='font-size:15px' class="col-md-12">Withdrawal
+                                                        Date</label>
+                                                    <div class="col-md-12">
+                                                        <input type="date" class='form-control' id="ship_date"
+                                                            value="<?php echo $today; ?>" name="ship_date">
                                                     </div>
                                                 </div>
                                             </div>

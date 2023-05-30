@@ -20,7 +20,7 @@
                         </div>
                     </div>
                     <div class="col">
-                        <label style='font-size:15px' class="col-md-12">Loading
+                        <label style='font-size:15px' class="col-md-12">Withdrawal
                             Date</label>
                         <div class="col-md-12">
                             <input type="date" class='form-control' id="ship_date" value="<?php echo $today; ?>"
@@ -30,7 +30,6 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <!-- if and only if one quality -->
                         <label style='font-size:15px' class="col-md-12">Quality</label>
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" name='ship_info_lading' id='ship_info_lading'
@@ -38,7 +37,6 @@
                         </div>
                     </div>
                     <div class="col">
-                        <!-- if and only if one kilo per bale -->
                         <label style='font-size:15px' class="col-md-12">Kilo per
                             Bale</label>
                         <div class="input-group mb-3">

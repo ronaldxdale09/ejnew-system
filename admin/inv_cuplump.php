@@ -122,7 +122,7 @@
                                         <tr>
 
                                             <th scope="col">Status</th>
-                                            <th scope="col"> ID</th>
+                                            <th scope="col">ID</th>
                                             <th scope="col">Date Received</th>
                                             <th scope="col">Supplier</th>
                                             <th scope="col">Lot No.</th>
@@ -136,7 +136,7 @@
 
                                             <td><span class="badge bg-success"> <?php echo $row['status']?> </span></td>
                                             <td> <span
-                                                    class="badge bg-secondary"><?php echo $row['recording_id']?></span>
+                                                    class="badge bg-secondary"> <?php echo $row['trans_type']?> - <?php echo $row['recording_id']?></span>
                                             </td>
                                             <td> <?php echo date('M d, Y g:i A', strtotime($row['receiving_date'])); ?> </td>
                                             <td> <?php echo $row['supplier']?> </td>

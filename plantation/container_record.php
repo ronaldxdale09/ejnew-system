@@ -44,7 +44,8 @@ include 'include/navbar.php';
                                         <tr>
                                             <th scope="col">Ref No.</th>
                                             <th scope="col">Container No.</th>
-                                            <th scope="col">Loading Date</th>
+                                            <th scope="col">Van No.</th>
+                                            <th scope="col">Withdrawal Date</th>
                                             <th scope="col">Quality</th>
                                             <th scope="col">Kilo per Bale</th>
                                             <th scope="col">No. of Bales</th>
@@ -60,6 +61,7 @@ include 'include/navbar.php';
                                         <tr>
                                             <td><?php echo $row['container_id']; ?></td>
                                             <td><?php echo $row['container_no']; ?></td>
+                                            <td><?php echo $row['van_no']; ?></td>
                                             <td><?php echo $row['load_date']; ?></td>
                                             <td><?php echo $row['quality']; ?></td>
                                             <td class="number-cell">

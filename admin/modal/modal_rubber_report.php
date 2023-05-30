@@ -279,18 +279,6 @@ while ($arr = mysqli_fetch_assoc($result)) {
                             
                         </div>
                     </div>
-                    <!-- ... START -->
-
-
-
-
-                    <!-- <hr>
-                   
-                    <hr> -->
-                    <br>
-
-                    <hr>
-
             </div>
 
             </center>
