@@ -13,50 +13,54 @@
     <!-- <a class='nav-link' href='dashboard.php'>
         <i class='fa-solid fa-house'></i> <span class='nav-text'>Home</span>
     </a> -->
+    
     <hr style='color:gray'>
+
     <a class='nav-link' href='dry_receiving_record.php'>
         <i class='fa-solid fa-truck'></i> <span class='nav-text'>DRY Receiving</span>
-        <a class='nav-link' href='ejn_rubber_record.php'>
-            <i class='fa-solid fa-truck'></i> <span class='nav-text'>EJN Rubber</span>
+    </a>
+
+    <a class='nav-link' href='ejn_rubber_record.php'>
+        <i class='fa-solid fa-truck'></i> <span class='nav-text'>EJN Rubber</span>
+    </a>
+
+    <hr style='color:gray'>
+
+    <a class='nav-link' href='cuplumps_purchase_record.php'>
+        <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>WET Purchasing</span>
+    </a>
+
+    <a class='nav-link' href='bales_purchase_record.php'>
+        <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>Bales Purchasing</span>
+    </a>
+
+    <hr style='color:gray'>
+
+    <a class='nav-link' href='inv_bale.php'>
+        <i class='fa-solid fa-cube'></i> <span class='nav-text'>Bale Inventory</span>
+    </a>
+    <a class='nav-link' href='inv_cuplump.php'>
+        <i class='fa-solid fa-tree'></i> <span class='nav-text'>Cuplump Inventory</span>
+    </a>
+
+    <a class='nav-link' href='contract-purchase.php'>
+        <i class='fa-solid fa-boxes-stacked'></i> <span class='nav-text'>Purchase Contract</span>
+    </a>
+
+    <a class='nav-link' href='cash-advance.php'>
+        <i class='fa-solid fa-money'></i> <span class='nav-text'>Cash Advance</span>
+    </a>
+
+    <a class='nav-link' href='seller.php'>
+        <i class='fa-solid fa-user'></i> <span class='nav-text'>Sellers</span>
+    </a>
+
+
+    <div class='logout-container'>
+        <span class='nav-text'></span>
+        <a class='nav-link logout' href='function/logout.php'>
+            <i class='fa-solid fa-arrow-right-to-bracket'></i>
         </a>
-
-        <hr style='color:gray'>
-
-        <a class='nav-link' href='cuplumps_purchase_record.php'>
-            <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>WET Purchasing</span>
-        </a>
-
-        <a class='nav-link' href='bales_purchase_record.php'>
-            <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>Bales Purchasing</span>
-        </a>
-
-        <hr style='color:gray'>
-
-        <a class='nav-link' href='inv_bale.php'>
-            <i class='fa-solid fa-cube'></i> <span class='nav-text'>Bale Inventory</span>
-        </a>
-        <a class='nav-link' href='inv_cuplump.php'>
-            <i class='fa-solid fa-tree'></i> <span class='nav-text'>Cuplump Inventory</span>
-        </a>
-
-        <a class='nav-link' href='contract-purchase.php'>
-            <i class='fa-solid fa-boxes-stacked'></i> <span class='nav-text'>Purchase Contract</span>
-        </a>
-
-        <a class='nav-link' href='cash-advance.php'>
-            <i class='fa-solid fa-money'></i> <span class='nav-text'>Cash Advance</span>
-        </a>
-
-        <a class='nav-link' href='seller.php'>
-            <i class='fa-solid fa-user'></i> <span class='nav-text'>Sellers</span>
-        </a>
-
-
-        <div class='logout-container'>
-            <span class='nav-text'></span>
-            <a class='nav-link logout' href='function/logout.php'>
-                <i class='fa-solid fa-arrow-right-to-bracket'></i>
-            </a>
-        </div>
+    </div>
 </nav>
 <script src='assets/js/navbar.js'></script>

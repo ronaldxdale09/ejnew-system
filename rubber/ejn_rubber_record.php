@@ -21,12 +21,12 @@
                 <div class="row">
                     <div class="col-sm-12">
 
-                        <h1 class="page-title">
+                        <h2 class="page-title">
                             <b>
-                                <font color="#0C0070">EJN </font>
-                                <font color="#046D56"> RUBBER </font>
+                                <font color="#0C0070">EJN Rubber </font>
+                                <font color="#046D56"> Transactions </font>
                             </b>
-                        </h1>
+                        </h2>
 
                         <br>
 

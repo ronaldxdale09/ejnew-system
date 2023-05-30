@@ -132,122 +132,67 @@ $balesCount = mysqli_fetch_array($sql);
                             </div>
                         </div>
                     </div>
-
                 </div>
 
-
-
-                <!-- CARDS -->
+                <!-- INVENTORY CARDS -->
 
                 <div class="row">
-                        <div class="col">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>CUPLUMP</b> INVENTORY</p>
-                                    <h3>
-                                        <i class="text-danger font-weight-bold mr-1"></i>
-                                        <?php echo number_format($cuplumps['inventory'] ?? 0, 0) ?> kg
-                                    </h3>
-                                    <div>
-                                        <span class="text-muted">
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="stat-card__icon stat-card__icon--danger">
-                                    <div class="stat-card__icon-circle">
-                                        <i class="fa fa-weight" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>CRUMB</b> INVENTORY</p>
-
-                                    <h3>
-                                        <i class="text-danger font-weight-bold mr-1"></i>
-                                        <?php echo number_format($milling['inventory'] ?? 0, 0) ?> kg
-                                    </h3>
-
-                                    <div>
-                                        <span class="text-muted">
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="stat-card__icon stat-card__icon--secondary">
-                                    <div class="stat-card__icon-circle">
-                                        <i class="fas fa-tint"></i><i class="fas fa-wind"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>BLANKET</b> INVENTORY</p>
-
-                                    <h3>
-                                        <i class="text-danger font-weight-bold mr-1"></i>
-                                        <?php echo number_format($drying['inventory'] ?? 0, 0) ?> kg
-                                    </h3>
-
-                                    <div>
-                                        <span class="text-muted">
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="stat-card__icon stat-card__icon--warning">
-                                    <div class="stat-card__icon-circle">
-                                        <i class="fa fa-weight" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY (KG)</p>
-                                    <h3>
-                                        <i class="text-danger font-weight-bold mr-1"></i>
-                                        <?php echo number_format($bales['inventory'] ?? 0, 0) ?> kg
-                                    </h3>
-                                    <div>
-                                        <span class="text-muted">
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="stat-card__icon stat-card__icon--success">
-                                    <div class="stat-card__icon-circle">
-                                        <i class="fa fa-money"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY </p>
-                                    <h3>
-                                        <i class="text-danger font-weight-bold mr-1"></i>
-                                        <?php echo number_format($balesCount['inventory'] ?? 0, 0) ?> pcs
-                                    </h3>
-                                    <div>
-                                        <span class="text-muted">
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="stat-card__icon stat-card__icon--success">
-                                    <div class="stat-card__icon-circle">
-                                        <i class="fa fa-money"></i>
-                                    </div>
-                                </div>
+                    <div class="col">
+                        <div class="stat-card">
+                            <div class="stat-card__content">
+                                <p class="text-uppercase mb-1 text-muted"><b>CUPLUMP</b> INVENTORY</p>
+                                <h4>
+                                    <?php echo number_format($cuplumps['inventory'] ?? 0, 0) ?> kg
+                                </h4>
                             </div>
                         </div>
                     </div>
+
+                    <div class="col">
+                        <div class="stat-card">
+                            <div class="stat-card__content">
+                                <p class="text-uppercase mb-1 text-muted"><b>CRUMB</b> INVENTORY</p>
+                                <h4>
+                                    <?php echo number_format($milling['inventory'] ?? 0, 0) ?> kg
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="stat-card">
+                            <div class="stat-card__content">
+                                <p class="text-uppercase mb-1 text-muted"><b>BLANKET</b> INVENTORY</p>
+                                <h4>
+                                    <?php echo number_format($drying['inventory'] ?? 0, 0) ?> kg
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="stat-card">
+                            <div class="stat-card__content">
+                                <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY</p>
+                                <h4>
+                                    <?php echo number_format($bales['inventory'] ?? 0, 0) ?> kg
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="stat-card">
+                            <div class="stat-card__content">
+                                <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY</p>
+                            <div class="stat-card__content">
+                                <h4>
+                                    <?php echo number_format($balesCount['inventory'] ?? 0, 0) ?> pcs
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
                 <div class="row" hidden>
@@ -379,7 +324,7 @@ $balesCount = mysqli_fetch_array($sql);
                 <br>
 
 
-                <div class="row">
+                <div class="row" hidden>
                     <div class="card" style="width:100%;max-width:100%;">
                         <div class="card-body" style="width:100%;max-width:100%;">
                             <h5>PRODUCTION VOLUME</h5>
@@ -609,14 +554,27 @@ $balesCount = mysqli_fetch_array($sql);
                     text: 'Bale Inventory (Quality Comparison)',
                 },
                 legend: {
-                    position: 'bottom',
+                    display: false
                 },
             },
             maintainAspectRatio: false,
             aspectRatio: 1.5,
+            scales: {
+                x: {
+                    grid: {
+                        display: false,
+                    },
+                },
+                y: {
+                    grid: {
+                        display: false,
+                    },
+                    stacked: true, // Enable stacked bars
+                },
+            },
         },
 
-        type: 'pie',
+        type: 'bar',
         data: {
             labels: <?php echo json_encode($bales_labels) ?>, //X-axis data
             datasets: [{

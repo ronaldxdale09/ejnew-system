@@ -21,12 +21,12 @@
                 <div class="row">
                     <div class="col-sm-12">
 
-                        <h1 class="page-title">
+                        <h2 class="page-title">
                             <b>
-                                <font color="#0C0070">BALE </font>
-                                <font color="#046D56"> PURCHASE </font>
+                                <font color="#0C0070">Bale </font>
+                                <font color="#046D56"> Purchase </font>
                             </b>
-                        </h1>
+                        </h2>
 
                         <br>
 
@@ -45,7 +45,6 @@
                                             <th scope="col">Invoice</th>
                                             <th scope="col">Date</th>
                                             <th scope="col">Contract</th>
-                                            <th scope="col">Mill ID</th>
                                             <th scope="col">Seller</th>
                                             <th scope="col">Lot No.</th>
                                             <th scope="col">Entry Weight</th>
@@ -62,7 +61,6 @@
                                             <td scope="row"> <?php echo $row['id']?> </td>
                                             <td><?php echo date('M j, Y', strtotime($row['date'])); ?></td>
                                             <td> <?php echo $row['contract']?> </td>
-                                            <td scope="row"> </td>
                                             <td> <?php echo $row['seller']?> </td>
                                             <td> <?php echo $row['lot_code']?> </td>
                                             <td style="text-align: right"> <?php echo number_format($row['entry'])?> kg
@@ -76,7 +74,7 @@
                                             <td style="text-align: right">₱ <?php echo number_format($row['less'],0)?> </td>
                                             <td style="text-align: right">₱ <?php echo number_format(($row['amount_paid']),0); ?> </td>
                                             <td>
-                                                <button type="button" class="btn btn-dark btnView"
+                                                <button type="button" class="btn btn-sm btn-primary btnView"
                                                     data-id="<?php echo $row['id']; ?>"
                                                     data-invoice="<?php echo $row['invoice']; ?>"
                                                     data-date="<?php echo $row['date']; ?>"
@@ -106,7 +104,7 @@
                                                     data-loc="<?php echo $row['loc']; ?>"
                                                     data-production_id="<?php echo $row['production_id']; ?>"
                                                     data-recorded_by="<?php echo $row['recorded_by']; ?>">
-                                                    <i class="fa fa-eye"></i>
+                                                    <i class="fa fa-edit"></i>
                                                 </button>
                                             </td>
                                         </tr> <?php } ?>

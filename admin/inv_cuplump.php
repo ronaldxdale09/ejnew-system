@@ -138,7 +138,7 @@
                                             <td> <span
                                                     class="badge bg-secondary"><?php echo $row['recording_id']?></span>
                                             </td>
-                                            <td> <?php echo $row['receiving_date']?> </td>
+                                            <td> <?php echo date('M d, Y g:i A', strtotime($row['receiving_date'])); ?> </td>
                                             <td> <?php echo $row['supplier']?> </td>
                                             <td> <?php echo $row['lot_num']?> </td>
                                             <td class="number-cell">

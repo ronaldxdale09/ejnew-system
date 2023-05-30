@@ -33,8 +33,8 @@
 
                         <h2 class="page-title">
                             <b>
-                                <font color="#0C0070">CUPLUMP </font>
-                                <font color="#046D56"> INVENTORY </font>
+                                <font color="#0C0070">Cuplump </font>
+                                <font color="#046D56"> Inventory </font>
                             </b>
                         </h2>
 
@@ -122,11 +122,9 @@
                                         <tr>
 
                                             <th scope="col">Status</th>
-                                            <th scope="col">Type</th>
                                             <th scope="col">Wet ID</th>
                                             <th scope="col">Date Received</th>
                                             <th scope="col">Supplier</th>
-                                            <th scope="col">Location</th>
                                             <th scope="col">Lot No.</th>
                                             <th scope="col">Driver</th>
                                             <th scope="col">Truck No.</th>
@@ -138,13 +136,12 @@
                                         <tr>
 
                                             <td><span class="badge bg-success"> <?php echo $row['status']?> </span></td>
-                                            <td> </td>
-                                            <td> <span
-                                                    class="badge bg-secondary"><?php echo $row['recording_id']?></span>
+                                            <td> <span class="badge bg-secondary"> <?php echo $row['trans_type']?> </span> <span
+                                                    class="badge bg-dark"><?php echo $row['recording_id']?></span>
                                             </td>
-                                            <td><?php echo date('M d, Y H:i', strtotime($row['receiving_date'])); ?></td>
+                                            <td><?php echo date('M d, Y H:i', strtotime($row['receiving_date'])); ?>
+                                            </td>
                                             <td> <?php echo $row['supplier']?> </td>
-                                            <td> <?php echo $row['location']?> </td>
                                             <td> <?php echo $row['lot_num']?> </td>
                                             <td> <?php echo $row['driver']?> </td>
                                             <td> <?php echo $row['truck_num']?> </td>

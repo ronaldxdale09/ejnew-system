@@ -21,12 +21,12 @@
                 <div class="row">
                     <div class="col-sm-12">
 
-                        <h1 class="page-title">
+                        <h2 class="page-title">
                             <b>
-                                <font color="#0C0070">CUPLUMP </font>
-                                <font color="#046D56"> PURCHASE </font>
+                                <font color="#0C0070">Cuplump </font>
+                                <font color="#046D56"> Purchase </font>
                             </b>
-                        </h1>
+                        </h2>
 
                         <br>
 
@@ -44,6 +44,7 @@
                                             <th scope="col">Invoice</th>
                                             <th scope="col">Date</th>
                                             <th scope="col">Seller</th>
+                                            <th scope="col">Location</th>
                                             <th scope="col">First Price</th>
                                             <th scope="col">Second Price</th>
                                             <th scope="col">Net Weight</th>
@@ -58,6 +59,7 @@
                                             <td scope="row"> <?php echo $row['id']?> </td>
                                             <td><?php echo date('M j, Y', strtotime($row['date'])); ?></td>
                                             <td> <?php echo $row['seller']?> </td>
+                                            <td> <?php echo $row['address']?> </td>
                                             <td style="text-align: right">₱
                                                 <?php echo number_format($row['price_1'], 2)?></td>
                                             <td style="text-align: right">₱
@@ -72,7 +74,7 @@
                                             <td style="text-align: right">₱
                                                 <?php echo number_format(($row['amount_paid'] )); ?> </td>
                                             <td>
-                                                <button type="button" class="btn btn-sm btn-dark wetBtnView"
+                                                <button type="button" class="btn btn-sm btn-primary wetBtnView"
                                                     data-id="<?php echo $row['id']; ?>"
                                                     data-contract="<?php echo $row['contract']; ?>"
                                                     data-date="<?php echo $row['date']; ?>"
@@ -89,7 +91,7 @@
                                                     data-less="<?php echo $row['less']; ?>"
                                                     data-amount_paid="<?php echo $row['amount_paid']; ?>"
                                                     data-amount_words="<?php echo $row['amount_words']; ?>">
-                                                    VIEW
+                                                    <i class='fas fa-edit'></i>
                                                 </button>
                                             </td>
                                         </tr> <?php } ?>

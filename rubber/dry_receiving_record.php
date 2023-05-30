@@ -18,12 +18,12 @@
                 <div class="row">
                     <div class="col-sm-12">
 
-                        <h1 class="page-title">
+                        <h2 class="page-title">
                             <b>
-                                <font color="#0C0070">Transfer</font>
-                                <font color="#046D56"> Record (Dry Price) </font>
+                                <font color="#0C0070">DRY Price</font>
+                                <font color="#046D56"> Transactions </font>
                             </b>
-                        </h1>
+                        </h2>
 
                         <br>
 
@@ -163,13 +163,10 @@ while ($arr = mysqli_fetch_array($result)) {
                 <div class="modal-body">
 
                     <center>
-                        <h5> Create New Cuplumps Transfer (Dry Price) </h5>
-
-                        <hr>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="product_name" class="form-label">Date.</label>
+                                    <label for="product_name" class="form-label">Date</label>
                                     <input type="date" class="form-control" name="date"
                                         value="<?php echo date('Y-m-d'); ?>" required>
 
@@ -212,9 +209,13 @@ while ($arr = mysqli_fetch_array($result)) {
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="product_name" class="form-label">Net Cuplumps Weight</label>
-                                <input type="text" class="form-control" name="net" onkeypress="return CheckNumeric()"
-                                    onkeyup="FormatCurrency(this)" required>
-
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" name="net"
+                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" required>
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">kg</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -269,13 +270,10 @@ while ($arr = mysqli_fetch_array($result)) {
                 <div class="modal-body">
 
                     <center>
-                        <h5> Create New Cuplumps Transfer (Dry Price) </h5>
-
-                        <hr>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="product_name" class="form-label">Date.</label>
+                                    <label for="product_name" class="form-label">Date</label>
                                     <input type="date" class="form-control" name="date" id='u_date'
                                         value="<?php echo date('Y-m-d'); ?>" required>
 
@@ -318,44 +316,48 @@ while ($arr = mysqli_fetch_array($result)) {
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="product_name" class="form-label">Net Cuplumps Weight</label>
-                                <input type="text" class="form-control" name="net" id='u_net'
-                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" required>
-
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="product_name" class="form-label">Dry Price</label>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">₱</span>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" name="net" id='u_net'
+                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" required>
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">kg</span>
+                                    </div>
                                 </div>
-                                <input type="text" class="form-control" id='u_price' name='price'
-                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" tabindex="8"
-                                    autocomplete='off' />
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="mb-3">
-                            <label for="product_name" class="form-label">Cash Advance</label>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">₱</span>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="product_name" class="form-label">Dry Price</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">₱</span>
+                                    </div>
+                                    <input type="text" class="form-control" id='u_price' name='price'
+                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" tabindex="8"
+                                        autocomplete='off' />
                                 </div>
-                                <input type="text" class="form-control" id='u_less' name='cash_advance'
-                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" tabindex="8"
-                                    autocomplete='off' />
                             </div>
                         </div>
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="product_name" class="form-label">Cash Advance</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">₱</span>
+                                    </div>
+                                    <input type="text" class="form-control" id='u_less' name='cash_advance'
+                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" tabindex="8"
+                                        autocomplete='off' />
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
+                    <div class="modal-footer">
+                        <button type="submit" name='update' class="btn btn-success">Update</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
-
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" name='update' class="btn btn-success">Update</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-                </div>
+                    </div>
             </form>
         </div>
     </div>

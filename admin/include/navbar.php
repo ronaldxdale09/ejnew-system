@@ -26,7 +26,7 @@
 
     <a>Basilan Rubber</a>
     <a class='nav-link' href='inv_bale.php' style='margin-left: 20px; font-size: 18px;'> <i class='fas fa-cube'></i>
-        <span class='nav-text'>Bales Inventory</span>
+        <span class='nav-text'>Bale Inventory</span>
     </a>
     <a class='nav-link' href='inv_cuplump.php' style='margin-left: 20px; font-size: 18px;'> <i class='fas fa-tree'></i>
         <span class='nav-text'>Cuplump Inventory</span>
