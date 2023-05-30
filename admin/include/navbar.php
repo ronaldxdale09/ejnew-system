@@ -24,16 +24,14 @@
     <hr style='color:gray'>
 
 
-    <a class='nav-link' href='admin_basilan_rubber.php'>
-        <i class='fas fa-warehouse'></i> <span class='nav-text'>Basilan Rubber</span>
-    </a>
-    <a class='nav-link' href='inv_bale.php' style='margin-left: 40px; font-size: 18px;'>
+    <a>Basilan Rubber</a>
+    <a class='nav-link' href='inv_bale.php' style='margin-left: 20px; font-size: 18px;'> <i class='fas fa-cube'></i>
         <span class='nav-text'>Bales Inventory</span>
     </a>
-    <a class='nav-link' href='inv_cuplump.php' style='margin-left: 40px; font-size: 18px;'>
-        <span class='nav-text'>Cuplumps Inventory</span>
+    <a class='nav-link' href='inv_cuplump.php' style='margin-left: 20px; font-size: 18px;'> <i class='fas fa-tree'></i>
+        <span class='nav-text'>Cuplump Inventory</span>
     </a>
-    <a class='nav-link' href='record_allrubber.php' style='margin-left: 40px; font-size: 18px;'>
+    <a class='nav-link' href='record_allrubber.php' style='margin-left: 20px; font-size: 18px;'><i class='fas fa-file-alt'></i>
         <span class='nav-text'>Transaction Record</span>
     </a>
 
