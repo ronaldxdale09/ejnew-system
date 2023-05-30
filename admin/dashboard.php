@@ -29,7 +29,7 @@ error_reporting(0); // Suppress all warnings
                                 <p class="text-uppercase mb-1 text-muted"><b>BALES</b> SALES</p>
                                 <h3>
                                     <i class="text-success font-weight-bold mr-1"></i>
-                                    ₱ <?php echo number_format(250000, 0) ?>
+                                    ₱ <?php echo number_format(0, 0) ?>
                                 </h3>
                             </div>
                             <div class="stat-card__icon stat-card__icon--success">
@@ -46,7 +46,7 @@ error_reporting(0); // Suppress all warnings
                                 <p class="text-uppercase mb-1 text-muted"><b>CUPLUMP</b> EXPORT</p>
                                 <h3>
                                     <i class="text-success font-weight-bold mr-1"></i>
-                                    ₱ <?php echo number_format(250000, 0) ?>
+                                    ₱ <?php echo number_format(0, 0) ?>
                                 </h3>
                             </div>
                             <div class="stat-card__icon stat-card__icon--success">
@@ -63,7 +63,7 @@ error_reporting(0); // Suppress all warnings
                                 <p class="text-uppercase mb-1 text-muted"><b>OPERATING</b> EXPENSES</p>
                                 <h3>
                                     <i class="text-success font-weight-bold mr-1"></i>
-                                    ₱ <?php echo number_format(180000, 0) ?>
+                                    ₱ <?php echo number_format(0, 0) ?>
                                 </h3>
                             </div>
                             <div class="stat-card__icon stat-card__icon--success">
@@ -80,7 +80,7 @@ error_reporting(0); // Suppress all warnings
                                 <p class="text-uppercase mb-1 text-muted"><b>SALES</b> GROWTH</p>
                                 <h3>
                                     <i class="text-danger font-weight-bold mr-1"></i>
-                                    <?php echo number_format(18, 0) ?> %
+                                    <?php echo number_format(0, 0) ?> %
                                 </h3>
                             </div>
                             <div class="stat-card__icon stat-card__icon--danger">
@@ -97,7 +97,7 @@ error_reporting(0); // Suppress all warnings
                                 <p class="text-uppercase mb-1 text-muted"><b>OUTSTANDING </b>BALANCE</p>
                                 <h3>
                                     <i class="text-primary font-weight-bold mr-1"></i>
-                                    ₱ <?php echo number_format(75000, 0) ?>
+                                    ₱ <?php echo number_format(0, 0) ?>
                                 </h3>
                             </div>
                             <div class="stat-card__icon stat-card__icon--primary">

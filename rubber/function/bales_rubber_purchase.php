@@ -70,12 +70,16 @@
 
 
 
-                            //Update Seller Cash Advance
+                           //Update Seller Cash Advance
                             $sql=mysqli_query($con,"SELECT * FROM rubber_seller WHERE name='$seller' ");
                             $row = mysqli_fetch_array($sql);
                             $seller_ca = $row['cash_advance'];
 
                             $total_ca = $seller_ca - $less;
+
+                            if ($total_ca < 0) {
+                                $total_ca = 0;
+                            }
                             
                             $query = "UPDATE  rubber_seller SET bales_cash_advance = '$total_ca' where name='$seller' ";
                             $results = mysqli_query($con, $query);
