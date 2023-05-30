@@ -202,7 +202,7 @@ error_reporting(0); // Suppress all warnings
                 </div>
 
 
-                <div class="row" hidden>
+                <div class="row">
                     <div class="card" style="width:100%;max-width:100%;">
                         <div class="card-body" style="width:100%;max-width:100%;">
                             <h5>NET INCOME TREND</h5>
@@ -220,7 +220,7 @@ error_reporting(0); // Suppress all warnings
                     </div>
                 </div>
 
-                <div class="row" hidden>
+                <div class="row">
                     <div class="card" style="width:100%;max-width:100%;">
                         <div class="card-body" style="width:100%;max-width:100%;">
                             <h5>GROSS PROFIT TREND</h5>
@@ -240,7 +240,7 @@ error_reporting(0); // Suppress all warnings
 
                 <br>
 
-                <div class="row" hidden>
+                <div class="row">
                     <div class="card" style="width:100%;max-width:100%;">
                         <div class="card-body" style="width:100%;max-width:100%;">
                             <h5>SALE TREND</h5>
@@ -257,6 +257,9 @@ error_reporting(0); // Suppress all warnings
                         </div>
                     </div>
                 </div>
+
+
+                <br>
 
                 <div class="row">
                     <div class="card" style="width:100%;max-width:100%;">

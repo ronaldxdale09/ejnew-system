@@ -13,7 +13,7 @@
     </a>
 
     <a class='nav-link' href='expense_report.php'>
-        <i class='fas fa-cash-register'></i> <span class='nav-text'>Expense Report</span>
+        <i class='fas fa-money'></i> <span class='nav-text'>Expense Report</span>
     </a>
 
     <a class='nav-link' href='purchase_report.php'>

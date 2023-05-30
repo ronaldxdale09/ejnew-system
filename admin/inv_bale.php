@@ -50,14 +50,16 @@
                                             <th>Quality</th>
                                             <th>Date Produced</th>
                                             <th>Supplier</th>
-                                            <th>Location</th>
+                                            <th hidden>Location</th>
+                                            <th>Lot No.</th>
                                             <th>Quality</th>
                                             <th>Kilo per Bale</th>
                                             <th>Bale Weight</th>
                                             <th>Bales</th>
+                                            <th>Excess</th>
                                             <th>DRC</th>
                                             <th>Description</th>
-                                            <th>Cost</th>
+                                            <th>Kilo Cost</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -80,15 +82,18 @@
                                                     class="badge bg-secondary"><?php echo $row['bales_prod_id']?></span>
                                             </td>
                                             <td><?php echo $row['bales_type']?></td>
-                                            <td><?php echo $row['production_date']?></td>
+                                            <td><?php echo date('M j, Y', strtotime($row['production_date'])); ?></td>
                                             <td><?php echo $row['supplier']?></td>
-                                            <td> <?php echo $row['location']?> </td>
+                                            <td hidden> <?php echo $row['location']?> </td>
+                                            <td><?php echo $row['lot_num']?></td>
                                             <td><?php echo $row['bales_type']?></td>
                                             <td class="number-cell"> <?php echo $row['kilo_per_bale']?> kg</td>
                                             <td class="number-cell">
                                                 <?php echo number_format($row['rubber_weight'], 0, '.', ',')?> kg</td>
                                             <td class="number-cell">
                                                 <?php echo number_format($row['number_bales'], 0, '.', ',')?> pcs</td>
+                                            <td class="number-cell">
+                                                <?php echo number_format($row['bales_excess'], 0, '.', ',')?> kg</td>
                                             <td class="number-cell"><?php echo number_format($row['drc'],2)?> %</td>
                                             <td><?php echo $row['description']?></td>
                                             <td> ₱

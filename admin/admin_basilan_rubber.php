@@ -193,33 +193,16 @@
                                         <div class="card" style="width: 100%;">
                                             <div class="card-body">
                                                 <div class="row">
-                                                    <canvas id="monthly_milldry" height="300"></canvas>
+                                                    <canvas id="monthly_production"
+                                                        height="300"></canvas>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <br>
-
-                                <div class="row">
-                                    <div class="col" style="display: flex;">
-                                        <div class="card" style="width: 100%;">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <canvas id="monthly_production" height="300"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
         </div>
@@ -315,7 +298,7 @@ new Chart(inventory_all, {
 });
 
 
- <?php           
+<?php           
 $bales_inventory = mysqli_query($con, "SELECT bales_type, SUM(number_bales) as total FROM planta_bales_production GROUP BY bales_type;");
 
 if ($bales_inventory->num_rows > 0) {
@@ -333,7 +316,7 @@ $bales_labels_json = json_encode($bales_labels);
 $bales_values_json = json_encode($bales_values);
 ?>
 
-if(<?php echo ($bales_labels_json && $bales_values_json) ? 'true' : 'false' ?>) {
+if (<?php echo ($bales_labels_json && $bales_values_json) ? 'true' : 'false' ?>) {
     new Chart(inventory_bales, {
         options: {
             plugins: {
@@ -357,7 +340,7 @@ if(<?php echo ($bales_labels_json && $bales_values_json) ? 'true' : 'false' ?>) 
             maintainAspectRatio: false,
             aspectRatio: 1.5
         },
-    
+
         type: 'doughnut',
         data: {
             labels: <?php echo $bales_labels_json ?>,
@@ -370,31 +353,31 @@ if(<?php echo ($bales_labels_json && $bales_values_json) ? 'true' : 'false' ?>) 
             }]
         },
     });
-} else {
+}
+
+else {
     console.error("Error: bales_labels or bales_values is empty.");
 }
 
 <?php
-$milling_data = mysqli_query($con, "SELECT SUM(crumbed_weight) AS total_weight, MONTH(milling_date) AS month FROM planta_recording_logs
-WHERE (recording_id, planta_logs_id) IN ( SELECT recording_id, MAX(planta_logs_id) AS max_planta_logs_id FROM planta_recording_logs 
-WHERE status = 'Milling' GROUP BY recording_id ) GROUP BY MONTH(milling_date);");
+// Get milling data
+$milling_data = mysqli_query($con, "SELECT SUM(crumbed_weight) AS total_weight, MONTH(milling_date) AS month FROM planta_recording_logs WHERE (recording_id, planta_logs_id) IN ( SELECT recording_id, MAX(planta_logs_id) AS max_planta_logs_id FROM planta_recording_logs WHERE status = 'Milling' GROUP BY recording_id ) GROUP BY MONTH(milling_date);");
 
+$month_bales = [];
+$bales = [];
 if ($milling_data && $milling_data->num_rows > 0) {
-    $month_bales = [];
-    $bales = [];
     while ($row = mysqli_fetch_assoc($milling_data)) {
         $month_bales[] = date('M Y', mktime(0, 0, 0, $row['month'], 1));
         $bales[] = number_format($row['total_weight'], 0, '.', '');
     }
 }
 
-$Drying_data = mysqli_query($con, "SELECT SUM(dry_weight) AS total_weight, MONTH(drying_date) AS month FROM planta_recording_logs
-WHERE (recording_id, planta_logs_id) IN ( SELECT recording_id, MAX(planta_logs_id) AS max_planta_logs_id FROM planta_recording_logs 
-WHERE status = 'Drying' GROUP BY recording_id ) GROUP BY MONTH(drying_date);");
+// Get drying data
+$Drying_data = mysqli_query($con, "SELECT SUM(dry_weight) AS total_weight, MONTH(drying_date) AS month FROM planta_recording_logs WHERE (recording_id, planta_logs_id) IN ( SELECT recording_id, MAX(planta_logs_id) AS max_planta_logs_id FROM planta_recording_logs WHERE status = 'Drying' GROUP BY recording_id ) GROUP BY MONTH(drying_date);");
 
+$month_Dry = [];
+$dry_weight = [];
 if ($Drying_data && $Drying_data->num_rows > 0) {
-    $month_Dry = [];
-    $dry_weight = [];
     while ($row = mysqli_fetch_assoc($Drying_data)) {
         $month_Dry[] = date('M Y', mktime(0, 0, 0, $row['month'], 1));
         $dry_weight[] = number_format($row['total_weight'], 0, '.', '');
@@ -402,12 +385,12 @@ if ($Drying_data && $Drying_data->num_rows > 0) {
 }
 ?>
 
-new Chart(monthly_milldry, {
+new Chart(monthly_production, {
     options: {
         plugins: {
             title: {
                 display: true,
-                text: 'Monthly Milling and Drying',
+                text: 'Monthly Production',
                 font: {
                     size: 20,
                     weight: 'bold'
@@ -452,71 +435,15 @@ new Chart(monthly_milldry, {
                 backgroundColor: '#3892BA',
                 tension: 0.3,
                 fill: true,
+            },
+            {
+                label: 'Bales',
+                data: <?php echo json_encode($produced_weight) ?>,
+                backgroundColor: '#2e83c3',
+                tension: 0.3,
+                fill: true,
             }
         ]
-    },
-});
-
-
-
-<?php
-$bale_prod = mysqli_query($con, "SELECT SUM(produce_total_weight) AS total_weight, MONTH(production_date) AS month FROM planta_recording_logs
-    WHERE (recording_id, planta_logs_id) IN ( SELECT recording_id, MAX(planta_logs_id) AS max_planta_logs_id FROM planta_recording_logs 
-    WHERE status = 'Pressing' GROUP BY recording_id ) GROUP BY MONTH(production_date);");
-
-if ($bale_prod && $bale_prod->num_rows > 0) {
-    $month_produced = [];
-    $produced_weight = [];
-    while ($row = mysqli_fetch_assoc($bale_prod)) {
-        $month_produced[] = date('M Y', mktime(0, 0, 0, $row['month'], 1));
-        $produced_weight[] = number_format($row['total_weight'], 0, '.', '');
-    }
-}
-?>
-new Chart(monthly_production, {
-    options: {
-        plugins: {
-            title: {
-                display: true,
-                text: 'Monthly Bale Pressing',
-                font: {
-                    size: 20,
-                    weight: 'bold'
-                }
-            },
-            legend: {
-                display: false
-            }
-        },
-        scales: {
-            y: {
-                ticks: {
-                    display: true
-                },
-                grid: {
-                    display: true
-                }
-            },
-            x: {
-                ticks: {
-                    display: true,
-                    font: {
-                        size: 14
-                    }
-                },
-            }
-        }
-    },
-    type: 'line',
-    data: {
-        labels: <?php echo json_encode($month_produced) ?>,
-        datasets: [{
-            label: 'Bales',
-            data: <?php echo json_encode($produced_weight) ?>,
-            backgroundColor: '#2e83c3',
-            tension: 0.3,
-            fill: true,
-        }]
     },
 });
 </script>
