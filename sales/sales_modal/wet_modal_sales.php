@@ -16,7 +16,7 @@
                                 No.</label>
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" name='sale_contract_no' id='sale_contract_no'
-                                    tabindex="7" autocomplete='off' style="width: 100px;" required />
+                                    tabindex="7" autocomplete='off' style="width: 100px;"  />
                             </div>
                         </div>
                         <div class="col">
@@ -24,7 +24,7 @@
                             </label>
                             <div class="col-md-12">
                                 <input type="date" class='form-control' id="transaction_date" value="<?php echo $today; ?>"
-                                    name="transaction_date" required>
+                                    name="transaction_date" >
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                                 Name</label>
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" name='buyer_company' id='buyer_company'
-                                    tabindex="7" autocomplete='off' style="width: 100px;" required />
+                                    tabindex="7" autocomplete='off' style="width: 100px;"  />
                             </div>
                         </div>
 
@@ -141,7 +141,7 @@
                             <label style='font-size:15px' class="col-md-12">Containers</label>
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" name='wet_containers' id='wet_containers'
-                                    tabindex="7" autocomplete='off' style="width: 100px;" required />
+                                    tabindex="7" autocomplete='off' style="width: 100px;"  />
                             </div>
                         </div>
 
@@ -161,14 +161,14 @@
                             <label style='font-size:15px' class="col-md-12">Price</label>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">$</span>
-                                <input type="text" class="form-control" name='wet_price' id='wet_price' required>
+                                <input type="text" class="form-control" name='wet_price' id='wet_price' >
                             </div>
                         </div>
 
                         <div class="col">
                             <label for="product_name" class="form-label">Recorded By</label>
                             <div class="mb-3">
-                                <input type="text" class="form-control" name="wet_recorded_by" required>
+                                <input type="text" class="form-control" name="wet_recorded_by" >
                             </div>
                         </div>
 

@@ -243,7 +243,7 @@ include "include/navbar.php";
                                 <div class="card">
                                     <div class="card-body d-flex justify-content-between align-items-center">
                                         <h4>Containers</h4>
-                                        <button id="add-row-btn" class="btn btn-success">+ New Container</button>
+                                        <button id="add-row-btn" class="btn btn-success">Select Container</button>
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
