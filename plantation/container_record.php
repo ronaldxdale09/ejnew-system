@@ -35,7 +35,7 @@ include 'include/navbar.php';
                             <hr>
                             <div class="table-responsive">
                             <?php
-                        $results  = mysqli_query($con, "SELECT * from rubber_containers "); 
+                        $results  = mysqli_query($con, "SELECT * from container_record "); 
                                     
                                     ?> 
                                 <table class="table table-bordered table-hover table-striped"
