@@ -1,7 +1,7 @@
 <?php 
    include('include/header.php');
    include "include/navbar.php";
-
+   include "sales_modal/wet_modal_shipment.php";
 ?>
 
 <style>
@@ -21,7 +21,7 @@
                         <h2 class="page-title">
                             <b>
                                 <font color="#0C0070">CUPLUMP </font>
-                                <font color="#046D56"> SHIPMENTS </font>
+                                <font color="#046D56"> SHIPMENT </font>
                             </b>
                         </h2>
 
@@ -91,8 +91,8 @@
                                             <td class="number-cell">₱
                                                 <?php echo number_format($row['Profit'], 2, '.', ',')?>
                                             </td>
-                                                ₱
-                                                <?php echo number_format($row['UnpaidBalance'], 2, '.', ',')?>
+                                            ₱
+                                            <?php echo number_format($row['UnpaidBalance'], 2, '.', ',')?>
                                             </td>
                                             <td class="text-center">
 
@@ -105,7 +105,6 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <?php    include "sales_modal/wet_modal_shipment.php";?>
 
                             <script>
                             var table = $('#recording_table-receiving').DataTable({
@@ -142,11 +141,6 @@
 
 </html>
 
-
-<?php 
-include('sales_modal/wet_modal_shipment.php');
- 
-?>
 
 <script>
 $(document).ready(function() {

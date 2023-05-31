@@ -29,7 +29,7 @@ if (isset($_POST["new"])) {
 
     if ($results) {
         $last_id = $con->insert_id;
-        header("Location: ../cuplump_contract.php?id=$last_id");
+        header("Location: ../cuplump_sale.php?id=$last_id");
         $_SESSION["seller"] = "successful";
         exit();
     } else {
