@@ -53,9 +53,9 @@ $today = date('Y-m-d');
                     </div>
                     <div class="row">
                         <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Remarks</label>
+                            <label style='font-size:15px' class="col-md-12">Van No.</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='remarks' id='n_remarks'
+                                <input type="text" class="form-control" name='van_no' id='n_van'
                                     tabindex="7" autocomplete='off' style="width: 100px;" />
                             </div>
                         </div>
@@ -67,6 +67,13 @@ $today = date('Y-m-d');
                             </div>
                         </div>
                     </div>
+                    <div class="col">
+                            <label style='font-size:15px' class="col-md-12">Remarks</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" name='remarks' id='n_remarks'
+                                    tabindex="7" autocomplete='off' style="width: 100px;" />
+                            </div>
+                        </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -1,13 +1,42 @@
 <?php 
-$id = '';
-if (isset($_GET['id'])) {
-    $id = filter_var($_GET['id']);
-}
-?>
-
-<?php 
 include('include/header.php');
 include "include/navbar.php";
+
+    if (isset($_GET['id'])) {
+        $id = $_GET['id'];
+        $id=  preg_replace('~\D~', '', $id);
+
+        $sql = "SELECT * FROM container_record WHERE container_id = $id";
+        $result = $con->query($sql);
+
+        if ($result->num_rows > 0) {
+            // Output data of each row
+            $record = $result->fetch_assoc();
+            
+            $container_no = isset($record['container_no']) ? $record['container_no'] : '';
+            $van_no = isset($record['van_no']) ? $record['van_no'] : '';
+            $withdrawal_date = isset($record['withdrawal_date']) ? $record['withdrawal_date'] : '';
+            $quality = isset($record['quality']) ? $record['quality'] : '';
+            $kilo_bale = isset($record['kilo_bale']) ? $record['kilo_bale'] : '';
+            $remarks = isset($record['remarks']) ? $record['remarks'] : '';
+            $recorded_by = isset($record['recorded_by']) ? $record['recorded_by'] : '';
+
+            echo "
+                <script>
+                    $(document).ready(function() {
+                        $('#ref_no').val('" . $id . "');
+                        $('#container_no').val('" . $container_no . "');
+                        $('#ship_destination').val('" . $van_no . "');
+                        $('#withdrawal_date').val('" . $withdrawal_date . "');
+                        $('#quality').val('" . $quality . "');
+                        $('#kilo_bale').val('" . $kilo_bale . "');
+                        $('#remarks').val('" . $remarks . "');
+                        $('#recorded_by').val('" . $recorded_by . "');
+                    });
+                </script>
+            ";
+        }
+    }
 ?>
 
 
@@ -37,12 +66,10 @@ include "include/navbar.php";
                                             onclick="goBack()">
                                             <span class="fas fa-arrow-left"></span> Return
                                         </button>
-                                        <button type="button" class="btn btn-dark text-white printBtn"
-                                            id='printBtn'>
+                                        <button type="button" class="btn btn-dark text-white printBtn" id='printBtn'>
                                             <span class="fa fa-print"></span> Print
                                         </button>
-                                        <button type="button" class="btn btn-dark text-white pdfBtn"
-                                            id='pdftBtn'>
+                                        <button type="button" class="btn btn-dark text-white pdfBtn" id='pdftBtn'>
                                             <span class="fa fa-file"></span> PDF
                                         </button>
                                         <button type="button" class="btn btn-primary confirmSales"
@@ -61,17 +88,16 @@ include "include/navbar.php";
                                                 <div class="col">
                                                     <label style='font-size:15px' class="col-md-12">Ref No.</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='ship_id'
-                                                            id='ship_id' value='<?php echo $id?>' readonly
-                                                            autocomplete='off' style="width: 100px;" />
+                                                        <input type="text" class="form-control" name='ref_no'
+                                                            id='ref_no' value='<?php echo $id?>' readonly  style="width: 100px;" />
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <label style='font-size:15px' class="col-md-12">Container
                                                         No.</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='ship_destination'
-                                                            id='ship_destination' tabindex="7" autocomplete='off'
+                                                        <input type="text" class="form-control" name='container_no'
+                                                            id='container_no' tabindex="7" autocomplete='off'
                                                             style="width: 100px;" />
                                                     </div>
                                                 </div>
@@ -79,7 +105,7 @@ include "include/navbar.php";
                                                     <label style='font-size:15px' class="col-md-12">Van
                                                         No.</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='ship_destination'
+                                                        <input type="text" class="form-control" name='van_no'
                                                             id='ship_destination' tabindex="7" autocomplete='off'
                                                             style="width: 100px;" />
                                                     </div>
@@ -88,8 +114,8 @@ include "include/navbar.php";
                                                     <label style='font-size:15px' class="col-md-12">Withdrawal
                                                         Date</label>
                                                     <div class="col-md-12">
-                                                        <input type="date" class='form-control' id="ship_date"
-                                                            value="<?php echo $today; ?>" name="ship_date">
+                                                        <input type="date" class='form-control' id="withdrawal_date"
+                                                            name="withdrawal_date">
                                                     </div>
                                                 </div>
                                             </div>
@@ -98,8 +124,8 @@ include "include/navbar.php";
                                                     <!-- if and only if one quality -->
                                                     <label style='font-size:15px' class="col-md-12">Quality</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='ship_info_lading'
-                                                            id='ship_info_lading' tabindex="7" autocomplete='off'
+                                                        <input type="text" class="form-control" name='quality'
+                                                            id='quality' tabindex="7" autocomplete='off'
                                                             style="width: 100px;" />
                                                     </div>
                                                 </div>
@@ -108,24 +134,24 @@ include "include/navbar.php";
                                                     <label style='font-size:15px' class="col-md-12">Kilo per
                                                         Bale</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='ship_info_lading'
-                                                            id='ship_info_lading' tabindex="7" autocomplete='off'
+                                                        <input type="text" class="form-control" name='kilo_bale'
+                                                            id='kilo_bale' tabindex="7" autocomplete='off'
                                                             style="width: 100px;" />
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <label style='font-size:15px' class="col-md-12">Remarks</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='ship_remarks'
-                                                            id='ship_remarks' tabindex="7" autocomplete='off'
+                                                        <input type="text" class="form-control" name='remarks'
+                                                            id='remarks' tabindex="7" autocomplete='off'
                                                             style="width: 100px;" />
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <label style='font-size:15px' class="col-md-12">Recorded by:</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='ship_user'
-                                                            id='ship_user' tabindex="7" autocomplete='off'
+                                                        <input type="text" class="form-control" name='recorded_by'
+                                                            id='recorded_by' tabindex="7" autocomplete='off'
                                                             style="width: 100px;" />
                                                     </div>
                                                 </div>
