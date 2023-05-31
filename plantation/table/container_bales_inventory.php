@@ -14,8 +14,9 @@ if (!$result) {
 }
 
 $output = '
-<table class="table table-bordered" id="rubber-record">
-<thead class="table-dark" style="font-size: 14px !important" >
+<div class="table-responsive">  <!-- Add responsive class -->
+    <table class="table table-bordered table-striped table-hover" id="bales-inventory">  <!-- Add striped and hover classes -->
+    <thead class="table-dark">
             <tr>
             <th scope="col">BALE ID</th>
             <th scope="col">Status</th>
@@ -30,13 +31,13 @@ $output = '
             <th scope="col"></th>
         </tr>
     </thead>
-    <tbody>';
+    <tbody >';
 
 if(mysqli_num_rows($result) > 0) {  
     while($arr = mysqli_fetch_assoc($result)) {  
 
         $output .= '
-        <tr>
+        <tr >
              <td>'.$arr["bales_prod_id"].'</td>
             <td>'.$arr["status"].'</td>
             <td>'.$arr["bales_type"].'</td>
@@ -46,8 +47,8 @@ if(mysqli_num_rows($result) > 0) {
             <td>'.number_format($arr['produce_total_weight'], 0, '.', ',').' kg</td>
             <td>'.($arr['drc'] ? number_format($arr['drc'], 2) : '-').' %</td>
             <td><b>'.number_format($arr['number_bales'], 0, '.', ',').' pcs </b></td>
-            <td class="keyvalue" > <input type="number" class="form-control quantity" placeholder="Quantity"  id="quantity" name="quantity"></td>
-            <td><button type="button" id="addProduct" class="btn btn-warning btn-sm addProduct"><i
+            <td class="keyvalue" > <input type="number" class="form-control num_bales"   id="num_bales" name="num_bales"></td>
+            <td><button type="button" id="addInventory" class="btn btn-warning btn-sm addInventory"><i
             class="fa fa-plus-circle"></i></button> </td>
         </tr>';
     }
@@ -55,69 +56,81 @@ if(mysqli_num_rows($result) > 0) {
 
 $output .= '
     </tbody>
-</table>';
+</table>
+</div>';
 
 echo $output;
 ?>
 
 
 <script>
-var container_id = <?php echo $_POST['container_id'] ?>;
-
-
-$('.btnSelectTrans').on('click', function() {
-
-
+$('.addInventory').on('click', function() {
     $tr = $(this).closest('tr');
     var data = $tr.children("td").map(function() {
         return $(this).text();
     }).get();
 
     $tr.each(function() {
-        var quantity = $(this).find(".keyvalue input").val();
+        var num_bales = $(this).find(".keyvalue input").val();
+        var max_bales = parseInt($(this).find("td:nth-child(9)")
+            .text()); // Get the number of bales from the row
 
-        console.log(quantity);
-
-
+        if (num_bales > max_bales) {
+            // If input is greater than available bales, show error and return
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Input exceeds available bales',
+                showConfirmButton: true,
+            });
+            return;
+        }
 
         var bales_id = data[0];
+        var container_id = <?php echo $_POST['container_id'] ?>;
 
-        var voucher = <?php echo $voucher ?>;
-
-
+        console.log(num_bales);
+        console.log(bales_id);
+        console.log(container_id);
         $.ajax({
             method: "POST",
-            url: "table/contailer/addInventory.php",
+            url: "table/container/addInventory.php",
             data: {
-                receiving_id: receiving_id,
-                product_id: product_id,
-
+                container_id: container_id,
+                bales_id: bales_id,
+                num_bales: num_bales
             },
             success: function(data) {
-                console.log('success');
                 console.log(data);
-                fetch_list();
+                fetch_data();
+                if (data === 'Product Added!') {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Product Added!',
+                        showConfirmButton: false,
+                        timer: 600
+                    });
 
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Product Added!',
-                    showConfirmButton: false,
-                    timer: 600
-                })
+     
 
-
+                } else {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'info',
+                        title: data,
+                        showConfirmButton: false,
+                    });
+                }
             }
-
         });
     });
-
-
 });
 
 
-var table = $('#p_record_table').DataTable({
-    dom: "frltip",
 
-});
+// var table = $('#bales-inventory').DataTable({
+//     dom: "frltip",
+
+// });
 </script>

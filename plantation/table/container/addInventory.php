@@ -1,49 +1,24 @@
-
 <?php 
 include('../../function/db.php');
-                       
-    $container_id = $_POST['container_id']; 
-    $bales_id = $_POST['bales_id'];
-    $num_bales = preg_replace('/[^\p{L}\p{N}\s]/u', '', $_POST['num_bales']);;
 
+$container_id = $_POST['container_id']; 
+$bales_id = $_POST['bales_id'];
+$num_bales = preg_replace('/[^\p{L}\p{N}\s]/u', '', $_POST['num_bales']);
 
+// first check if the bales_id already exists in the database
+$check_sql = "SELECT * FROM container_bales_selection WHERE bales_id='$bales_id' AND container_id='$container_id'";
+$check_result = mysqli_query($con, $check_sql);
 
-    $check = mysqli_query($con, "SELECT * FROM receiving_record_product WHERE  product_id='$product_id' AND receiving_id='$receiving_id' AND loc='NTC'");
-    $arrCheck = mysqli_fetch_array($check);
-
-    $quantity += $arrCheck['product_quantity'];
-
-
-    if($check->num_rows == 1) {
-        $update = "UPDATE  receiving_record_product set product_quantity ='$quantity'
-          WHERE   product_id='$product_id' AND receiving_id='$receiving_id' AND loc='NTC'";
-        $results = mysqli_query($con, $update);
-    
-    
-
-        }
-
-        else{
-
-          if ($quantity =='' || $quantity ==null ){
-            $quantity=1;
-          }
-
-            $sql = "INSERT INTO receiving_record_product (receiving_id,product_id,product_quantity,loc,voucher) VALUES ('$receiving_id','$product_id','$quantity','NTC','$voucher')";
-            $results = mysqli_query($con, $sql);
-
-    }
-    
-  
-    echo $product_id;
-
-    exit();
-
-  
- ?>
-
-
-
-
-
- 
+if(mysqli_num_rows($check_result) > 0){
+    // if it exists, update it
+    $update_sql = "UPDATE container_bales_selection SET num_bales='$num_bales' WHERE bales_id='$bales_id' AND container_id='$container_id'";
+    $results = mysqli_query($con, $update_sql);
+    echo 'Inventory Updated!';
+}else{
+    // if it doesn't exist, then insert it
+    $insert_sql = "INSERT INTO container_bales_selection (container_id,bales_id,num_bales) VALUES ('$container_id','$bales_id','$num_bales')";
+    $results = mysqli_query($con, $insert_sql);
+    echo 'Product Added!';
+}
+exit();
+?>

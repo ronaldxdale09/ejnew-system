@@ -1,7 +1,6 @@
 <?php 
 include('include/header.php');
 include "include/navbar.php";
-
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
         $id=  preg_replace('~\D~', '', $id);
@@ -41,7 +40,6 @@ include "include/navbar.php";
 
 
 <body>
-
     <br>
     <div class='main-content' style='min-height:100vh;'>
         <div class="container home-section h-100" style="max-width:95%;">
@@ -98,7 +96,7 @@ include "include/navbar.php";
                                                         No.</label>
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" name='container_no'
-                                                            id='container_no' tabindex="7" autocomplete='off'
+                                                            id='container_no'  autocomplete='off'
                                                             style="width: 100px;" />
                                                     </div>
                                                 </div>
@@ -107,7 +105,7 @@ include "include/navbar.php";
                                                         No.</label>
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" name='van_no'
-                                                            id='ship_destination' tabindex="7" autocomplete='off'
+                                                            id='ship_destination'  autocomplete='off'
                                                             style="width: 100px;" />
                                                     </div>
                                                 </div>
@@ -126,7 +124,7 @@ include "include/navbar.php";
                                                     <label style='font-size:15px' class="col-md-12">Quality</label>
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" name='quality'
-                                                            id='quality' tabindex="7" autocomplete='off'
+                                                            id='quality'  autocomplete='off'
                                                             style="width: 100px;" />
                                                     </div>
                                                 </div>
@@ -136,7 +134,7 @@ include "include/navbar.php";
                                                         Bale</label>
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" name='kilo_bale'
-                                                            id='kilo_bale' tabindex="7" autocomplete='off'
+                                                            id='kilo_bale'  autocomplete='off'
                                                             style="width: 100px;" />
                                                     </div>
                                                 </div>
@@ -144,7 +142,7 @@ include "include/navbar.php";
                                                     <label style='font-size:15px' class="col-md-12">Remarks</label>
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" name='remarks'
-                                                            id='remarks' tabindex="7" autocomplete='off'
+                                                            id='remarks'  autocomplete='off'
                                                             style="width: 100px;" />
                                                     </div>
                                                 </div>
@@ -152,7 +150,7 @@ include "include/navbar.php";
                                                     <label style='font-size:15px' class="col-md-12">Recorded by:</label>
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" name='recorded_by'
-                                                            id='recorded_by' tabindex="7" autocomplete='off'
+                                                            id='recorded_by'  autocomplete='off'
                                                             style="width: 100px;" />
                                                     </div>
                                                 </div>
@@ -175,18 +173,18 @@ include "include/navbar.php";
                                             <div class="col">
                                                 <label style='font-size:15px' class="col-md-12">No. of Bales</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='ship_info_lading'
-                                                        id='ship_info_lading' tabindex="7" autocomplete='off'
-                                                        style="width: 100px;" />
+                                                    <input type="text" class="form-control" name='num_bales'
+                                                        id='num_bales'  autocomplete='off'
+                                                        style="width: 100px;"  readonly/>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <label style='font-size:15px' class="col-md-12">Total Bale
                                                     Weight</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='ship_vessel'
-                                                        id='ship_vessel' tabindex="7" autocomplete='off'
-                                                        style="width: 100px;" />
+                                                    <input type="text" class="form-control" name='total_bale_weight'
+                                                        id='total_bale_weight' autocomplete='off'
+                                                        style="width: 100px;" readonly />
                                                 </div>
                                             </div>
                                         </div>
@@ -204,7 +202,10 @@ include "include/navbar.php";
 </body>
 
 
+<?php 
 
+include "js/container_table.php";
+?>
 
 
 <div class="modal fade" id="modal_produced_record" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -238,6 +239,9 @@ include "include/navbar.php";
 
 
 <script>
+    
+
+
 $('.btnSelectTrans').on('click', function() {
     $tr = $(this).closest('tr');
 
@@ -270,20 +274,4 @@ $('.btnSelectTrans').on('click', function() {
 
 });
 
-function fetch_data() {
-    var container_id = <?php echo  $id ?>;
-    $.ajax({
-        url: "table/contaner_selectedList.php",
-        method: "POST",
-        data: {
-            container_id: container_id,
-
-        },
-        success: function(data) {
-            $('#selected_inventory').html(data);
-
-        }
-    });
-}
-fetch_data();
 </script>
