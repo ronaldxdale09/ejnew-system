@@ -89,7 +89,8 @@ include "include/navbar.php";
                                                     <label style='font-size:15px' class="col-md-12">Ref No.</label>
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" name='ref_no'
-                                                            id='ref_no' value='<?php echo $id?>' readonly  style="width: 100px;" />
+                                                            id='ref_no' value='<?php echo $id?>' readonly
+                                                            style="width: 100px;" />
                                                     </div>
                                                 </div>
                                                 <div class="col">
@@ -165,7 +166,9 @@ include "include/navbar.php";
                                 <div class="card">
                                     <div class="card-body d-flex justify-content-between align-items-center">
                                         <h4>Bale Inventory</h4>
-                                        <button id="add-row-btn" class="btn btn-success">Select Inventory</button>
+                                        <button type="button" class="btn btn-dark text-white btnSelectTrans"
+                                            id='receiptBtn'>
+                                            <span class="fa fa-book"></span> Select Inventory</button>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
@@ -187,60 +190,7 @@ include "include/navbar.php";
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="table-responsive">
-                                            <table id="container-table"
-                                                class="table table-bordered table-hover table-striped">
-                                                <thead class="table text-center" style="font-size: 14px !important">
-                                                    <tr>
-                                                        <th scope="col" hidden>Date Produced</th>
-                                                        <th scope="col">Supplier</th>
-                                                        <th scope="col">Lot No.</th>
-                                                        <th scope="col">Quality</th>
-                                                        <th scope="col">No. of Bales</th>
-                                                        <th scope="col">Kilo per Bale</th>
-                                                        <th scope="col">Total Weight</th>
-                                                        <th scope="col" hidden>DRC</th>
-                                                        <th scope="col">Description</th>
-                                                        <th scope="col"></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td hidden>
-                                                            <input type="text" class="form-control" readonly>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control" readonly>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control" readonly>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control" readonly>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control" readonly>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control" readonly>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control" readonly>
-                                                        </td>
-                                                        <td hidden>
-                                                            <input type="text" class="form-control" readonly>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control" readonly>
-                                                        </td>
-                                                        <td>
-                                                            <button class="btn btn-danger"
-                                                                data-bs-toggle="modal">Remove</button>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                        <div id='selected_inventory'></div>
                                     </div>
                                 </div>
                             </div>
@@ -252,3 +202,88 @@ include "include/navbar.php";
     </div>
     <br>
 </body>
+
+
+
+
+
+<div class="modal fade" id="modal_produced_record" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title" id="exampleModalLabel"> Production Record</h5>
+                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="text-white">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="function/rubber_process.php" method="POST">
+
+                    <hr>
+                    <div id='produced_modal_table'></div>
+                    <hr>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+$('.btnSelectTrans').on('click', function() {
+    $tr = $(this).closest('tr');
+
+    var data = $tr.children("td").map(function() {
+        return $(this).text();
+    }).get();
+
+
+    var container_id = <?php echo  $id ?>;
+    console.log(container_id);
+
+    function fetch_record() {
+
+        $.ajax({
+            url: "table/container_bales_inventory.php",
+            method: "POST",
+            data: {
+                container_id: container_id,
+
+            },
+            success: function(data) {
+                $('#produced_modal_table').html(data);
+
+
+            }
+        });
+    }
+    fetch_record();
+    $('#modal_produced_record').modal('show');
+
+});
+
+function fetch_data() {
+    var container_id = <?php echo  $id ?>;
+    $.ajax({
+        url: "table/contaner_selectedList.php",
+        method: "POST",
+        data: {
+            container_id: container_id,
+
+        },
+        success: function(data) {
+            $('#selected_inventory').html(data);
+
+        }
+    });
+}
+fetch_data();
+</script>
