@@ -344,7 +344,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                 <hr>
                                                 <!-- -->
 
-                                                <br>
+                                                 <br>
                                                 <div id='selected_inventory_bales'></div> <br>
                                                 <div class="form-group">
                                                     <div class="row no-gutters">

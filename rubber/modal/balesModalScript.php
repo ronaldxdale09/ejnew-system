@@ -27,7 +27,7 @@ $('#confirm').click(function() {
     ////////////////////////////////////////
 
     if (!document.getElementById('total_amount').value ||
-        !document.getElementById('date').value ||
+        !document.getElementById('date').value ||   !document.getElementById('price_1').value ||
         !$("#name").val()
     ) {
         Swal.fire({
@@ -42,10 +42,9 @@ $('#confirm').click(function() {
             title: 'PLEASE CREATE NEW TRANSACTION',
             text: 'This transaction is already completed',
         });
-    } 
-     else {
+    } else {
         $('#confirmModal').modal('show');
-   
+
         $('#m_invoice').val($("#invoice").val());
         $('#m_name').val($("#name").val());
         $('#received_by').val($("#name").val());
@@ -57,28 +56,19 @@ $('#confirm').click(function() {
         $('#m_balance').val($("#balance").val());
 
         // purchase info
-        
+
         $('#m_entry').val($("#entry").val());
-        $('#m_net_weight_1').val($("#net_weight_1").val());
-        $('#m_net_weight_2').val($("#net_weight_2").val());
+
 
         $('#m_total_net_weight').val($("#total_net_weight").val());
-        
         $('#m_drc').val($("#drc").val());
-        $('#m_kilo_bales_1').val($("#kilo_bales_1").val());
-        $('#m_kilo_bales_2').val($("#kilo_bales_2").val());
 
-        
-        $('#m_total_bales_1').val($("#total_bales_1").val());
-        $('#m_total_bales_2').val($("#total_bales_2").val());
 
-        $('#m_bales_compute').val($("#bales_compute").val());
-        
         $('#m_price_1').val($("#price_1").val());
         $('#m_price_2').val($("#price_2").val());
+        $('#m_bales_count').val($("#bales_count").val());
 
         
-
 
         $('#m_first_total').val($("#first_total").val());
         $('#m_second_total').val($("#second_total").val());
@@ -89,8 +79,39 @@ $('#confirm').click(function() {
         $('#m_total-paid').val($("#amount_paid").val());
         $('#m_total-words').val($("#amount-paid-words").val());
 
-   
-        
+
+        console.log("m_invoice: " + $('#m_invoice').val());
+        console.log("m_name: " + $('#m_name').val());
+        console.log("received_by: " + $('#received_by').val());
+        console.log("m_date: " + $('#m_date').val());
+        console.log("m_address: " + $('#m_address').val());
+        console.log("m_contract: " + $('#m_contract').val());
+
+        console.log("m_quantity: " + $('#m_quantity').val());
+        console.log("m_balance: " + $('#m_balance').val());
+
+        // purchase info
+   console.log("m_bales_count: " + $('#m_bales_count').val());
+
+        console.log("m_entry: " + $('#m_entry').val());
+
+        console.log("m_total_net_weight: " + $('#m_total_net_weight').val());
+        console.log("m_drc: " + $('#m_drc').val());
+
+        console.log("m_price_1: " + $('#m_price_1').val());
+        console.log("m_price_2: " + $('#m_price_2').val());
+
+        console.log("m_first_total: " + $('#m_first_total').val());
+        console.log("m_second_total: " + $('#m_second_total').val());
+
+        // 
+        console.log("m_total_amount: " + $('#m_total_amount').val());
+        console.log("m_less: " + $('#m_less').val());
+        console.log("m_total-paid: " + $('#m_total-paid').val());
+        console.log("m_total-words: " + $('#m_total-words').val());
+
+
+
     }
 });
 
@@ -98,7 +119,7 @@ $('#confirm').click(function() {
 $(function() {
     $("#delivery_date,#lot_number").keyup(function() {
 
-   
+
         var delivery_date = $("#delivery_date").val();
         var lot_number = $("#lot_number").val();
 
@@ -107,7 +128,6 @@ $(function() {
 
     });
 });
-
 </script>
 
 <!-- end -->
@@ -196,7 +216,7 @@ $('#receiptBtn').click(function() {
         var data = $tr.children("td").map(function() {
             return $(this).text();
         }).get();
-        
+
         $('#r_invoice').val($("#invoice").val());
         $('#r_name').val($("#name").val());
         $('#r_date').val($("#date").val());
@@ -207,22 +227,23 @@ $('#receiptBtn').click(function() {
         $('#r_balance').val($("#balance").val());
 
         // purchase info
-        
+
         $('#r_entry').val($("#entry").val());
         $('#r_net_weight_1').val($("#net_weight_1").val());
         $('#r_net_weight_2').val($("#net_weight_2").val());
 
+
         $('#r_total_net_weight').val($("#total_net_weight").val());
-        
+
         $('#r_drc').val($("#drc").val());
         $('#r_kilo_bales_1').val($("#kilo_bales_1").val());
         $('#r_kilo_bales_2').val($("#kilo_bales_2").val());
 
-        
+
         $('#r_total_bales_1').val($("#total_bales_1").val());
         $('#r_total_bales_2').val($("#total_bales_2").val());
 
-        
+
         $('#r_price_1').val($("#price_1").val());
         $('#r_price_2').val($("#price_2").val());
 

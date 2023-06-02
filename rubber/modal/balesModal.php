@@ -24,13 +24,7 @@
                                         class="form-control" style='background-color:white;border:0px solid #ffffff;'
                                         readonly>
                                 </div>
-                            </div>
-                            <div class="col-12 col-sm-5 col-md-4">
-
-                            <input type="text" style='text-align:right' name='m_prod_id' id='m_prod_id'
-                                        class="form-control" style='background-color:white;border:0px solid #ffffff;'
-                                       hidden readonly>
-                            </div>
+                            </div>                  
                             <!--end  -->
                             <div class="col-6 col-md-4">
                                 <div class="input-group mb-1">
@@ -183,7 +177,7 @@
                                         <input type="text" class="form-control" id='received_by' name='received_by'
                                             required />
                                     </div>
-
+                                    <input type="text" style='text-align:right' name='m_prod_id' id='m_prod_id' hidden>
                                 </div>
                             </div>
                         </div>
@@ -192,21 +186,9 @@
                     <!-- hidden -->
 
                     <input name="m_entry" id="m_entry" hidden>
-                    <input name="m_net_weight_1" id="m_net_weight_1" hidden>
-                    <input name="m_net_weight_2" id="m_net_weight_2" hidden>
 
                     <input name="m_total_net_weight" id="m_total_net_weight" hidden>
-
-                    <input name="m_kilo_bales_1" id="m_kilo_bales_1" hidden>
-                    <input name="m_kilo_bales_2" id="m_kilo_bales_2" hidden>
-
-                    <input name="m_total_bales_1" id="m_total_bales_1" hidden>
-
-                    <input name="m_total_bales_2" id="m_total_bales_2" hidden>
-                    <input name="m_bales_compute" id="m_bales_compute" hidden>
-
-
-
+                    
                     <input name="m_drc" id="m_drc" hidden>
 
                     <input name="m_price_1" id="m_price_1" hidden>
@@ -215,7 +197,7 @@
                     <input name="m_first_total" id="m_first_total" hidden>
                     <input name="m_second_total" id="m_second_total" hidden>
 
-
+                    <input name="m_bales_count" id="m_bales_count" hidden>
                     <input name="m_address" id="m_address" hidden>
                     <input name="m_quantity" id="m_quantity" hidden>
                     <input name="m_balance" id="m_balance" hidden>

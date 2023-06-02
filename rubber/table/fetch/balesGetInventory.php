@@ -37,9 +37,9 @@ while ($data = mysqli_fetch_assoc($result_select)) {
 
     // Prepare the SQL insert query
     $sql_insert = "INSERT INTO bales_purchase_inventory 
-               (purchase_id, type, bales_id, kilo_bale, weight, excess) 
+               (purchase_id,number_bales, type, bales_id, kilo_bale, weight, excess) 
                VALUES 
-               ('$purchase_id', '{$data['bales_type']}', '{$data['bales_prod_id']}', '{$data['kilo_per_bale']}', '{$data['rubber_weight']}', '{$data['bales_excess']}')";
+               ('$purchase_id','{$data['number_bales']}',  '{$data['bales_type']}', '{$data['bales_prod_id']}', '{$data['kilo_per_bale']}', '{$data['rubber_weight']}', '{$data['bales_excess']}')";
 
     // Execute the SQL insert query
     $result_insert = mysqli_query($con, $sql_insert);
