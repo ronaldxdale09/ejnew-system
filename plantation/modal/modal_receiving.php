@@ -51,7 +51,7 @@ if ($result) {
                                 <label class="col-md-12"></label>
                                 <div class="col-md-12 text-center">
                                     <select required="required" class='source col-md-12 r_select_purchase'
-                                        name='purchased_id' id='r_select_purchase'>
+                                        name='purchased_id' id='r_select_purchase' required>
                                         <option disabled="disabled" selected="selected" value="">Select Receiving
                                         </option>
                                         <?php echo $listPurchased; ?>
@@ -104,7 +104,7 @@ if ($result) {
                             <div class="row">
                                 <div class="col">
                                     <label for="r_date">Date and Time</label>
-                                    <input type="datetime-local" style='text-align:left' name='date' id='r_date'
+                                    <input type="datetime-local" style='text-align:left' name='date' id='r_date' required
                                         value='' class="form-control"
                                         style='background-color:white;border:0px solid #ffffff;'>
                                 </div>
