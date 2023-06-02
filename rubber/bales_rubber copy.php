@@ -248,7 +248,7 @@ $today = $year . "-" . $month . "-" . $day;
                                             <div class="form-group">
                                                 <label class="col-md-12">Address</label>
                                                 <div class="col-md-12">
-                                                    <input type="text" class='form-control' id="address" name="address">
+                                                <input type="text" class='form-control' id="address" name="address" >
                                                 </div>
                                             </div>
                                             <div id='contract-form'>
@@ -343,9 +343,90 @@ $today = $year . "-" . $month . "-" . $day;
                                                     <span class="fa fa-book"></span> Select Inventory</button>
                                                 <hr>
                                                 <!-- -->
+                                                <div class="form-group">
+                                                    <div class="row no-gutters">
+                                                        <!--end  -->
+                                                        <div class="col">
+                                                            <label style='font-size:15px' class="col-md-12">
+                                                            </label>
+                                                            <div class="input-group mb-1">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text"
+                                                                        id="inputGroup-sizing-default"
+                                                                        style='color:black'>Net
+                                                                    </span>
+                                                                </div>
+                                                                <input type="text" class="form-control"
+                                                                    id='net_weight_1' name='net_weight_1'
+                                                                    onkeypress="return CheckNumeric()"
+                                                                    onkeyup="FormatCurrency(this)" tabindex="2"
+                                                                    autocomplete='off' />
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text">Kg</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
+                                                        <div class="col">
+                                                            <label class="col-md-12">Kilo Per Bale</label>
+                                                            <select class='form-select' name='kilo_bales_1'
+                                                                id='kilo_bales_1'>
+                                                                <option value="35" selected="selected">35 KG
+                                                                </option>
+                                                                <option value="33.33">33.33 KG </option>
+
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="col">
+                                                            <label class="col-md-12">Bales</label>
+                                                            <input type="text" class="form-control" id='total_bales_1'
+                                                                name='total_bales_1' readonly />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="row no-gutters">
+                                                        <div class="col">
+                                                            <label style='font-size:15px' class="col-md-12">
+                                                            </label>
+                                                            <div class="input-group mb-1">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text"
+                                                                        id="inputGroup-sizing-default"
+                                                                        style='color:black'>Net
+                                                                    </span>
+                                                                </div>
+                                                                <input type="text" class="form-control"
+                                                                    id='net_weight_2' name='net_weight_2'
+                                                                    onkeypress="return CheckNumeric()"
+                                                                    onkeyup="FormatCurrency(this)" tabindex="2" disabled
+                                                                    autocomplete='off' />
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text">Kg</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <label class="col-md-12">Kilo Per Bale</label>
+                                                            <select class='form-select' name='kilo_bales_2'
+                                                                id='kilo_bales_2' disabled>
+                                                                <option value='1' selected="selected">Select Kilo
+                                                                </option>
+                                                                <option value="35">35 KG </option>
+                                                                <option value="33.33">33.33 KG
+                                                                </option>
+
+                                                            </select>
+                                                        </div>
+                                                        <div class="col">
+                                                            <label class="col-md-12">Bales</label>
+                                                            <input type="text" class="form-control" id='total_bales_2'
+                                                                name='total_bales_2' readonly />
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <br>
-                                                <div id='selected_inventory_bales'></div> <br>
                                                 <div class="form-group">
                                                     <div class="row no-gutters">
                                                         <div class="col">
@@ -357,7 +438,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                                 <input type="text" class="form-control" id='entry'
                                                                     name='entry' onkeypress="return CheckNumeric()"
                                                                     onkeyup="FormatCurrency(this)" tabindex="1"
-                                                                    autocomplete='off' readonly />
+                                                                    autocomplete='off' />
                                                                 <div class="input-group-append">
                                                                     <span class="input-group-text">Kg</span>
                                                                 </div>
@@ -387,6 +468,12 @@ $today = $year . "-" . $month . "-" . $day;
                                                                 </div>
                                                             </div>
                                                         </div>
+
+                                                        <div class="col" hidden>
+                                                            <input type="text" class="form-control" id='bales_compute'
+                                                                name='bales_compute' hidden />
+                                                            <!--  end-->
+                                                        </div>
                                                     </div>
                                                     <hr>
 
@@ -399,8 +486,9 @@ $today = $year . "-" . $month . "-" . $day;
                                                     <!-- RASE-->
                                                     <div class="form-group">
                                                         <div class="row no-gutters">
-                                                            <label style='font-size:15px' class="col-md-12">
-                                                                Price :</label>
+                                                            <label style='font-size:15px' class="col-md-12">SPOT
+                                                                Price
+                                                                :</label>
                                                             <div class="col">
                                                                 <div class="input-group">
                                                                     <div class="input-group-prepend">
@@ -413,18 +501,6 @@ $today = $year . "-" . $month . "-" . $day;
                                                                         autocomplete='off' />
                                                                 </div>
                                                             </div>
-                                                            <div class="col">
-
-                                                                <div class="input-group">
-                                                                    <input type="text" style='text-align:right'
-                                                                        name='weight_1' id='weight_1'
-                                                                        class="form-control" readonly>
-                                                                    <div class="input-group-append">
-                                                                        <span class="input-group-text">Kg</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
                                                             <div class="col">
                                                                 <div class="input-group mb">
                                                                     <div class="input-group-prepend">
@@ -451,17 +527,6 @@ $today = $year . "-" . $month . "-" . $day;
                                                                         onkeypress="return CheckNumeric()"
                                                                         onkeyup="FormatCurrency(this)" tabindex="4"
                                                                         autocomplete='off' disabled />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col">
-
-                                                                <div class="input-group">
-                                                                    <input type="text" style='text-align:right'
-                                                                        name='weight_2' id='weight_2'
-                                                                        class="form-control" readonly>
-                                                                    <div class="input-group-append">
-                                                                        <span class="input-group-text">Kg</span>
-                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <!--  -->
@@ -569,25 +634,6 @@ $today = $year . "-" . $month . "-" . $day;
 
 </html>
 
-<script>
-function fetch_record() {
-    var purchase_id = <?php echo $trans_id;?>;
-    $.ajax({
-        url: "table/bales_purchase_selection.php",
-        method: "POST",
-        data: {
-            purchase_id: purchase_id,
-
-        },
-        success: function(data) {
-            $('#selected_inventory_bales').html(data);
-
-
-        }
-    });
-}
-fetch_record();
-</script>
 
 <script type="text/javascript" src="js/bales_rubber.js"></script>
 <script type="text/javascript" src="js/getWords.js"></script>

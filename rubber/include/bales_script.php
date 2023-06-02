@@ -1,4 +1,3 @@
-
 <script type="text/javascript">
 $(document).ready(function() {
     var nf = new Intl.NumberFormat('en-US');
@@ -30,7 +29,7 @@ $(document).ready(function() {
     });
 
     // Textbox keyup events
-    $("#entry, #net_weight_1, #net_weight_2, #kilo_bales_1, #kilo_bales_2, #price_1, #price_2, #cash_advance")
+    $("#price_1, #price_2, #cash_advance")
         .keyup(function() {
             computeBalesRubber();
             var amount_paid = $("#amount_paid").val().replace(/,/g, '');
@@ -46,15 +45,17 @@ $(document).ready(function() {
 
 function computeBalesRubber() {
     var entry = $("#entry").val().replace(/,/g, '');
-    var net_1 = $("#net_weight_1").val().replace(/,/g, '');
-    var net_2 = $("#net_weight_2").val().replace(/,/g, '');
-    var kilo_bales_1 = $("#kilo_bales_1").val().replace(/,/g, '');
-    var kilo_bales_2 = $("#kilo_bales_2").val().replace(/,/g, '');
     var price_1 = $("#price_1").val().replace(/,/g, '');
     var price_2 = $("#price_2").val().replace(/,/g, '');
+    var weight_1 = $("#weight_1").val().replace(/,/g, '');
+    var weight_2 = $("#weight_2").val().replace(/,/g, '');
     var less = $("#cash_advance").val().replace(/,/g, '');
 
-    bales_compute(entry, net_1, net_2, kilo_bales_1, kilo_bales_2, price_1, price_2, less);
+    bales_compute(price_1, price_2, less);
+    
+    var amount_paid = $("#amount_paid").val().replace(/,/g, '');
+    var words = numToWords(amount_paid);
+    $("#amount-paid-words").val(words);
 }
 
 function contractSet(contract) {

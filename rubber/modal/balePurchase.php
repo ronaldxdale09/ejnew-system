@@ -38,18 +38,21 @@ $('.btnSelectTrans').on('click', function() {
         return $(this).text();
     }).get();
 
+    var purchase_id = <?php echo $trans_id;?>;
 
-
+    console.log(purchase_id);
     function fetch_record() {
 
         $.ajax({
             url: "table/bales_purchasing_table.php",
             method: "POST",
-            // data: {
-            //     recording_id: recording,
+            data: {
+                purchase_id: purchase_id,
 
-            // },
+            },
             success: function(data) {
+
+                
                 $('#produced_modal_table').html(data);
                
 
