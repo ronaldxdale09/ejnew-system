@@ -65,14 +65,17 @@
                                             <td> <?php echo $row['lot_code']?> </td>
                                             <td style="text-align: right"> <?php echo number_format($row['entry'])?> kg
                                             </td>
-                                            <td style="text-align: right"> <?php 
-                                                    $total_weight = $row['net_weight_1'] +  $row['net_weight_2'];          
-                                                    echo number_format($total_weight);?> kg </td>
+                                            <td style="text-align: right"> <?php         
+                                                    echo number_format($row['total_net_weight']);?> kg </td>
 
-                                            <td style="text-align: right">₱ <?php echo number_format($row['price_1'],2)?> </td>
-                                            <td style="text-align: right">₱ <?php echo number_format($row['price_2'],2)?> </td>
-                                            <td style="text-align: right">₱ <?php echo number_format($row['less'],0)?> </td>
-                                            <td style="text-align: right">₱ <?php echo number_format(($row['amount_paid']),0); ?> </td>
+                                            <td style="text-align: right">₱
+                                                <?php echo number_format($row['price_1'],2)?> </td>
+                                            <td style="text-align: right">₱
+                                                <?php echo number_format($row['price_2'],2)?> </td>
+                                            <td style="text-align: right">₱ <?php echo number_format($row['less'],0)?>
+                                            </td>
+                                            <td style="text-align: right">₱
+                                                <?php echo number_format(($row['amount_paid']),0); ?> </td>
                                             <td>
                                                 <button type="button" class="btn btn-sm btn-primary btnView"
                                                     data-id="<?php echo $row['id']; ?>"
@@ -84,14 +87,7 @@
                                                     data-delivery_date="<?php echo $row['delivery_date']; ?>"
                                                     data-lot_code="<?php echo $row['lot_code']; ?>"
                                                     data-entry="<?php echo $row['entry']; ?>"
-                                                    data-net_weight_1="<?php echo $row['net_weight_1']; ?>"
-                                                    data-net_weight_2="<?php echo $row['net_weight_2']; ?>"
                                                     data-total_net_weight="<?php echo $row['total_net_weight']; ?>"
-                                                    data-kilo_bales_1="<?php echo $row['kilo_bales_1']; ?>"
-                                                    data-kilo_bales_2="<?php echo $row['kilo_bales_2']; ?>"
-                                                    data-total_bales_1="<?php echo $row['total_bales_1']; ?>"
-                                                    data-total_bales_2="<?php echo $row['total_bales_2']; ?>"
-                                                    data-bales_compute="<?php echo $row['bales_compute']; ?>"
                                                     data-drc="<?php echo $row['drc']; ?>"
                                                     data-price_1="<?php echo $row['price_1']; ?>"
                                                     data-price_2="<?php echo $row['price_2']; ?>"
@@ -242,7 +238,7 @@
                                             <div class="col">
                                                 <label class="col-md-12">Date</label>
                                                 <div class="col-md-12 ">
-                                                    <input  type="text" class="form-control" id="v_date" readonly>
+                                                    <input type="text" class="form-control" id="v_date" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -259,7 +255,8 @@
                                     <div class="form-group">
                                         <label class="col-md-12">Address</label>
                                         <div class="col-md-12">
-                                            <input type="text" class='form-control' id="address" name="address" readonly>
+                                            <input type="text" class='form-control' id="address" name="address"
+                                                readonly>
                                         </div>
                                     </div>
 
@@ -288,7 +285,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="container">
-                                      
+
                                         <!-- -->
                                         <div class="form-group">
                                             <div class="row no-gutters">
@@ -314,7 +311,8 @@
 
                                                 <div class="col">
                                                     <label class="col-md-12">Kilo Per Bale</label>
-                                                    <input type="text" class="form-control" id='kilo_bales_1' readonly />
+                                                    <input type="text" class="form-control" id='kilo_bales_1'
+                                                        readonly />
                                                 </div>
 
                                                 <div class="col">
@@ -344,7 +342,8 @@
                                                 </div>
                                                 <div class="col">
                                                     <label class="col-md-12">Kilo Per Bale</label>
-                                                    <input type="text" class="form-control" id='kilo_bales_2' readonly />
+                                                    <input type="text" class="form-control" id='kilo_bales_2'
+                                                        readonly />
                                                 </div>
                                                 <div class="col">
                                                     <label class="col-md-12">Bales</label>
@@ -362,7 +361,8 @@
                                                         (WET)</label>
                                                     <!-- new column -->
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" id='entry' name='entry' readonly/>
+                                                        <input type="text" class="form-control" id='entry' name='entry'
+                                                            readonly />
                                                         <div class="input-group-append">
                                                             <span class="input-group-text">Kg</span>
                                                         </div>
@@ -444,7 +444,7 @@
                                                                 <span class="input-group-text">₱</span>
                                                             </div>
                                                             <input type="text" class="form-control" name='price_2'
-                                                                id='price_2' readonly/>
+                                                                id='price_2' readonly />
                                                         </div>
                                                     </div>
                                                     <!--  -->
@@ -497,7 +497,8 @@
                                                                     Cash Advance
                                                                     ₱</span>
                                                             </div>
-                                                            <input type="text" style='text-align:left' class="form-control" id='cash_advance'
+                                                            <input type="text" style='text-align:left'
+                                                                class="form-control" id='cash_advance'
                                                                 name='cash_advance' readonly />
                                                         </div>
                                                     </div>
@@ -558,15 +559,15 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <form method='POST' action='function/balesPurchasing.php'>
-            <div class="modal-body">
-            <input type="text" class="form-control" id="remove_id" name='id' hidden>
+                <div class="modal-body">
+                    <input type="text" class="form-control" id="remove_id" name='id' hidden>
 
-                <p>Are you sure you want to remove?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                <button type="submit" class="btn btn-danger" name="remove">Yes, Remove</button>
-            </div>
+                    <p>Are you sure you want to remove?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-danger" name="remove">Yes, Remove</button>
+                </div>
             </form>
         </div>
     </div>

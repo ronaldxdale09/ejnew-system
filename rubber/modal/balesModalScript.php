@@ -62,7 +62,7 @@ $('#confirm').click(function() {
 
         $('#m_total_net_weight').val($("#total_net_weight").val());
         $('#m_drc').val($("#drc").val());
-
+        $('#m_excess').val($("#excess").val());
 
         $('#m_price_1').val($("#price_1").val());
         $('#m_price_2').val($("#price_2").val());
@@ -80,7 +80,7 @@ $('#confirm').click(function() {
         $('#m_total-words').val($("#amount-paid-words").val());
 
 
-        console.log("m_invoice: " + $('#m_invoice').val());
+        console.log("m_invoice: " + $('#recording_id').val());
         console.log("m_name: " + $('#m_name').val());
         console.log("received_by: " + $('#received_by').val());
         console.log("m_date: " + $('#m_date').val());

@@ -1,20 +1,29 @@
-<!-- Confirm Transaction -->
 <form action="function/bales_rubber_purchase.php" id='newPurchase' method="POST">
-    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" data-backdrop="static"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Confrim Transaction</h5>
-                    <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
+                    <h5 class="modal-title" id="confirmModalLabel">Confirm Transaction</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="row no-gutters">
-
-                            <div class="col-6 col-md-4">
+                            <div class="col">
+                                <div class="input-group mb-1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-default"
+                                            style='color:black;font-weight: bold;'>ID</span>
+                                    </div>
+                                    <input type="text" style='text-align:right' name='m_invoice' id='m_invoice'
+                                        class="form-control" style='background-color:white;border:0px solid #ffffff;'
+                                        readonly>
+                                </div>
+                            </div>
+                            <div class="col">
                                 <div class="input-group mb-1">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="inputGroup-sizing-default"
@@ -24,9 +33,9 @@
                                         class="form-control" style='background-color:white;border:0px solid #ffffff;'
                                         readonly>
                                 </div>
-                            </div>                  
+                            </div>
                             <!--end  -->
-                            <div class="col-6 col-md-4">
+                            <div class="col">
                                 <div class="input-group mb-1">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="inputGroup-sizing-default"
@@ -188,9 +197,9 @@
                     <input name="m_entry" id="m_entry" hidden>
 
                     <input name="m_total_net_weight" id="m_total_net_weight" hidden>
-                    
-                    <input name="m_drc" id="m_drc" hidden>
 
+                    <input name="m_drc" id="m_drc" hidden>
+                    <input name="m_excess" id="m_excess" hidden>
                     <input name="m_price_1" id="m_price_1" hidden>
                     <input name="m_price_2" id="m_price_2" hidden>
 
@@ -208,13 +217,11 @@
                     <button type='submit' id='confirmPurchase' name='confirmPurchase'
                         class="btn btn-success text-white">Submit</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
                 </div>
+            </div>
+        </div>
+    </div>
 </form>
-</div>
-</div>
-</div>
-</div>
 <!--END Confirm Transaction -->
 <script>
 $('#newPurchase').submit(function() {

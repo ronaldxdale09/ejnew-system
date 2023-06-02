@@ -124,23 +124,35 @@ table.lastTable {
     clear: both;
 }
 </style>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 
-Hji. Yusop Rubber Trading
-Quezon Blvd. Lamitan City, Basilan Province<br>
-RUBBER PURCHASE <br>
+<?php 
+$transaction_id = $_SESSION['invoice']; // replace this with the actual id
+
+$query = "SELECT * FROM bales_transaction WHERE id = $transaction_id";
+$result = mysqli_query($con, $query);
+$data = mysqli_fetch_assoc($result);
+
+?>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+<center>
+    Hji. Yusop Rubber Trading
+    Quezon Blvd. Lamitan City, Basilan Province<br>
+    RUBBER PURCHASE <br>
+</center>
+
 -------------------------------------
 <table class="lastTable">
-  <tr>
-    <th>Invoice: <?php echo $_SESSION['print_invoice'] ?></th>
-    <th>Date: <?php echo  $_SESSION['print_date'] ?> </th>
-  
-  </tr>
-  
+    <tr>
+        <th>Invoice: <?php echo $transaction_id ?></th>
+        <th>Date: <?php echo  $data['date'] ?> </th>
+
+    </tr>
+
 </table>
 
-Seller : <?php echo  $_SESSION['print_seller'] ?><br>
-Address: <?php echo  $_SESSION['print_address'] ?> <br>
+Seller : <?php echo  $data['seller'] ?><br>
+Address: <?php echo  $data['address'] ?> <br>
 -------------------------------------
 <br>
 <center>
@@ -155,62 +167,52 @@ Address: <?php echo  $_SESSION['print_address'] ?> <br>
                     <th>Amount</th>
                 </tr>
                 <tr style='text-align: center; '>
-                    <td>
-                        LOT #<?php echo  $_SESSION['print_lot_number'] ?> <br>
-                        <?php echo  $_SESSION['print_delivery'] ?>
-                        <hr>
-                        <?php echo  number_format($_SESSION['print_entry']).' Kg' ?>
+                    <td><br>
+                        LOT #<?php echo  $data['lot_code'] ?> <br>
+                        <?php echo  number_format($data['entry'],0).' Kg' ?>
                     </td>
-                    <td style='width:10%'> <br> <br> <?php echo  $_SESSION['print_drc'] ?> %</td>
+                    <td style='width:10%'> <br> <br> <?php echo  $data['drc'] ?> %</td>
 
-                    <td style='width:25%'> <br> <br>
-
+                    <td style='width:25%'> <br>
                         <?php 
-                        if ($_SESSION['print_total_bales_2'] =='0 Bales ') {
-                            echo  $_SESSION['print_total_bales_1'].' @ '.$_SESSION['print_kilo_bales_1']; 
-                        } else {
-                            echo  $_SESSION['print_total_bales_1'].' @ '.$_SESSION['print_kilo_bales_1'].'<br>'; 
-                            echo  $_SESSION['print_total_bales_2'].' @ '.$_SESSION['print_kilo_bales_2']; 
+                        $sql  = "SELECT * FROM bales_purchase_inventory 
+                        where purchase_id='$transaction_id' "; 
+                        $result = mysqli_query($con, $sql);
+                        if(mysqli_num_rows($result) > 0) {  
+                            while($arr = mysqli_fetch_assoc($result)) {  
+                                echo $arr['number_bales'].' pcs bales  &'.$arr['excess'].' kg @'.$arr['kilo_bale'].' kg' ;
+                            }
                         }
-                        
                         ?>
                     </td>
 
                     <td style='width:15%'> <br> <br>
                         <?php 
-                          if ($_SESSION['print_net_weight_2'] == '') {
-                            echo  number_format($_SESSION['print_net_weight_1']).' Kg '; 
-                        } else {
-                            echo  number_format($_SESSION['print_net_weight_1'],2).' Kg <br>'; 
-                            echo  number_format($_SESSION['print_net_weight_2'],2).' Kg '; 
-                        }
-                    ?>
-
-
-
+                       
+                            echo  number_format($data['total_net_weight']).' Kg ';       ?>
                     </td>
 
 
                     <td> <br> <br>
                         <?php 
-                          if ($_SESSION['print_price2'] =='') {
-                            echo  '₱ '.$_SESSION['print_price1']; 
+                          if ($data['price_2'] ==0) {
+                            echo  '₱ '.$data['price_1']; 
                         } else {
-                            echo  '₱ '.$_SESSION['print_price1'].'<br>';
-                            echo  '₱ '.$_SESSION['print_price2'].'<br>'; 
+                            echo  '₱ '.$data['price_1'].'<br>';
+                            echo  '₱ '.$data['price_2'].'<br>'; 
                         }
                     ?>
 
 
                     </td>
 
-                    <td> <br> <br> 
-                    <?php 
-                          if ($_SESSION['print_second_total'] ==0) {
-                            echo  '₱ '.number_format($_SESSION['print_first_total'],2); 
+                    <td> <br> <br>
+                        <?php 
+                          if ($data['second_total'] ==0) {
+                            echo  '₱ '.number_format($data['first_total'],2); 
                         } else {
-                            echo  '₱ '.number_format($_SESSION['print_first_total'],2).'<br>';
-                            echo  '₱ '.number_format($_SESSION['print_second_total'],2).'<br>';
+                            echo  '₱ '.number_format($data['first_total'],2).'<br>';
+                            echo  '₱ '.number_format($data['second_total'],2).'<br>';
                         }
                     ?>
                     </td>
@@ -222,10 +224,10 @@ Address: <?php echo  $_SESSION['print_address'] ?> <br>
 
                     <td></td>
                     <td style='width:10%'>Total :</td>
-                    <td> <?php echo  number_format($_SESSION['print_total_net_weight'],2) ?> Kg<br></td>
+                    <td> <?php echo  number_format($data['total_net_weight'],2) ?> Kg<br></td>
                     <td style='width:10%'>Total : </td>
 
-                    <td><?php echo  '₱ '.number_format($_SESSION['print_total'],2) ?> </td>
+                    <td><?php echo  '₱ '.number_format($data['total_amount'],2) ?> </td>
 
                 </tr>
             </table>
@@ -253,33 +255,36 @@ Address: <?php echo  $_SESSION['print_address'] ?> <br>
 
 <br>
 <table class="lastTable">
-  <tr>
-    <th>PREPARED BY</th>
-    <th>APPROVED BY </th>
-    <th>RECEIVED BY</th>
-  </tr>
-  <tr>
-    <td><br><br><?php echo  $_SESSION['prepared_by']?></td>
-    <td><br><br><?php echo  $_SESSION['approved_by']?></td>
-    <td><br><br><?php echo  $_SESSION['received_by']?></td>  </tr>
+    <tr>
+        <th>PREPARED BY</th>
+        <th>APPROVED BY </th>
+        <th>RECEIVED BY</th>
+    </tr>
+    <tr>
+        <td><br><br><?php echo  $_SESSION['prepared_by']?></td>
+        <td><br><br><?php echo  $_SESSION['approved_by']?></td>
+        <td><br><br><?php echo  $_SESSION['received_by']?></td>
+    </tr>
 
 </table>
 <hr>
-Hji. Yusop Rubber Trading
-Quezon Blvd. Lamitan City, Basilan Province<br>
-RUBBER PURCHASE <br>
+<center>
+    Hji. Yusop Rubber Trading
+    Quezon Blvd. Lamitan City, Basilan Province<br>
+    RUBBER PURCHASE <br>
+</center>
 -------------------------------------
 <table class="lastTable">
-  <tr>
-    <th>Invoice: <?php echo $_SESSION['print_invoice'] ?></th>
-    <th>Date: <?php echo  $_SESSION['print_date'] ?> </th>
-  
-  </tr>
-  
+    <tr>
+        <th>Invoice: <?php echo $transaction_id ?></th>
+        <th>Date: <?php echo  $data['date'] ?> </th>
+
+    </tr>
+
 </table>
 
-Seller : <?php echo  $_SESSION['print_seller'] ?><br>
-Address: <?php echo  $_SESSION['print_address'] ?> <br>
+Seller : <?php echo  $data['seller'] ?><br>
+Address: <?php echo  $data['address'] ?> <br>
 -------------------------------------
 <br>
 <center>
@@ -294,62 +299,52 @@ Address: <?php echo  $_SESSION['print_address'] ?> <br>
                     <th>Amount</th>
                 </tr>
                 <tr style='text-align: center; '>
-                    <td>
-                        LOT #<?php echo  $_SESSION['print_lot_number'] ?> <br>
-                        <?php echo  $_SESSION['print_delivery'] ?>
-                        <hr>
-                        <?php echo  number_format($_SESSION['print_entry']).' Kg' ?>
+                    <td><br>
+                        LOT #<?php echo  $data['lot_code'] ?> <br>
+                        <?php echo  number_format($data['entry'],0).' Kg' ?>
                     </td>
-                    <td style='width:10%'> <br> <br> <?php echo  $_SESSION['print_drc'] ?> %</td>
+                    <td style='width:10%'> <br> <br> <?php echo  $data['drc'] ?> %</td>
 
-                    <td style='width:25%'> <br> <br>
-
+                    <td style='width:25%'> <br>
                         <?php 
-                        if ($_SESSION['print_total_bales_2'] =='0 Bales ') {
-                            echo  $_SESSION['print_total_bales_1'].' @ '.$_SESSION['print_kilo_bales_1']; 
-                        } else {
-                            echo  $_SESSION['print_total_bales_1'].' @ '.$_SESSION['print_kilo_bales_1'].'<br>'; 
-                            echo  $_SESSION['print_total_bales_2'].' @ '.$_SESSION['print_kilo_bales_2']; 
+                        $sql  = "SELECT * FROM bales_purchase_inventory 
+                        where purchase_id='$transaction_id' "; 
+                        $result = mysqli_query($con, $sql);
+                        if(mysqli_num_rows($result) > 0) {  
+                            while($arr = mysqli_fetch_assoc($result)) {  
+                                echo $arr['number_bales'].' pcs bales  &'.$arr['excess'].' kg @'.$arr['kilo_bale'].' kg' ;
+                            }
                         }
-                        
                         ?>
                     </td>
 
                     <td style='width:15%'> <br> <br>
                         <?php 
-                          if ($_SESSION['print_net_weight_2'] == '') {
-                            echo  number_format($_SESSION['print_net_weight_1']).' Kg '; 
-                        } else {
-                            echo  number_format($_SESSION['print_net_weight_1']).' Kg <br>'; 
-                            echo  number_format($_SESSION['print_net_weight_2']).' Kg '; 
-                        }
-                    ?>
-
-
-
+                       
+                            echo  number_format($data['total_net_weight']).' Kg ';       ?>
                     </td>
 
 
                     <td> <br> <br>
                         <?php 
-                          if ($_SESSION['print_price2'] =='') {
-                            echo  '₱ '.$_SESSION['print_price1']; 
+                          if ($data['price_2'] ==0) {
+                            echo  '₱ '.$data['price_1']; 
                         } else {
-                            echo  '₱ '.$_SESSION['print_price1'].'<br>';
-                            echo  '₱ '.$_SESSION['print_price2'].'<br>'; 
+                            echo  '₱ '.$data['price_1'].'<br>';
+                            echo  '₱ '.$data['price_2'].'<br>'; 
                         }
                     ?>
 
 
                     </td>
 
-                    <td> <br> <br> 
-                    <?php 
-                          if ($_SESSION['print_second_total'] ==0) {
-                            echo  '₱ '.number_format($_SESSION['print_first_total'],2); 
+                    <td> <br> <br>
+                        <?php 
+                          if ($data['second_total'] ==0) {
+                            echo  '₱ '.number_format($data['first_total'],2); 
                         } else {
-                            echo  '₱ '.number_format($_SESSION['print_first_total'],2).'<br>';
-                            echo  '₱ '.number_format($_SESSION['print_second_total'],2).'<br>';
+                            echo  '₱ '.number_format($data['first_total'],2).'<br>';
+                            echo  '₱ '.number_format($data['second_total'],2).'<br>';
                         }
                     ?>
                     </td>
@@ -361,10 +356,10 @@ Address: <?php echo  $_SESSION['print_address'] ?> <br>
 
                     <td></td>
                     <td style='width:10%'>Total :</td>
-                    <td> <?php echo  number_format($_SESSION['print_total_net_weight']) ?> Kg<br></td>
+                    <td> <?php echo  number_format($data['total_net_weight'],2) ?> Kg<br></td>
                     <td style='width:10%'>Total : </td>
 
-                    <td><?php echo  '₱ '.number_format($_SESSION['print_total'],2) ?> </td>
+                    <td><?php echo  '₱ '.number_format($data['total_amount'],2) ?> </td>
 
                 </tr>
             </table>
@@ -385,21 +380,22 @@ Address: <?php echo  $_SESSION['print_address'] ?> <br>
 
         <tr>
             <td> <b>TOTAL AMOUNT PAYABLE</td>
-            <td> <b> <?php echo  '₱ '.number_format($_SESSION['print_paid'],2 ) ?></td>
+            <td> <b> <?php echo  '₱ '.number_format($_SESSION['print_paid'],2) ?></td>
         </tr>
     </tbody>
 </table>
 
 <br>
 <table class="lastTable">
-  <tr>
-    <th>PREPARED BY</th>
-    <th>APPROVED BY </th>
-    <th>RECEIVED BY</th>
-  </tr>
-  <tr>
-    <td><br><br><?php echo  $_SESSION['prepared_by']?></td>
-    <td><br><br><?php echo  $_SESSION['approved_by']?></td>
-    <td><br><br><?php echo  $_SESSION['received_by']?></td>  </tr>
+    <tr>
+        <th>PREPARED BY</th>
+        <th>APPROVED BY </th>
+        <th>RECEIVED BY</th>
+    </tr>
+    <tr>
+        <td><br><br><?php echo  $_SESSION['prepared_by']?></td>
+        <td><br><br><?php echo  $_SESSION['approved_by']?></td>
+        <td><br><br><?php echo  $_SESSION['received_by']?></td>
+    </tr>
 
 </table>

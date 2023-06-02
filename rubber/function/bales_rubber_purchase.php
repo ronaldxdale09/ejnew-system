@@ -17,6 +17,9 @@ include('db.php');
     $entry = floatval(str_replace(',', '', $_POST['m_entry']));
     $total_net_weight = floatval(str_replace(',', '', $_POST['m_total_net_weight']));
     $drc = floatval(str_replace(',', '', $_POST['m_drc']));
+    $excess = floatval(str_replace(',', '', $_POST['m_excess']));
+
+    
     $price_1 = floatval(str_replace(',', '', $_POST['m_price_1']));
     $price_2 = floatval(str_replace(',', '', $_POST['m_price_2']));
     $first_total = floatval(str_replace(',', '', $_POST['m_first_total']));
@@ -58,7 +61,8 @@ include('db.php');
         $status='UPDATED';
     }
 
-    $sql=mysqli_query($con,"UPDATE `rubber_contract` SET `delivered` = '$newDelivered' , balance='$newBalance',status='$status' WHERE `contract_no` ='$contract'");
+    $sql=mysqli_query($con,"UPDATE `rubber_contract` SET 
+    `delivered` = '$newDelivered' , balance='$newBalance',status='$status' WHERE `contract_no` ='$contract'");
     echo $balance;
 }
 
@@ -87,6 +91,7 @@ SET production_id = '$prod_id',
     address = '$address',
     seller = '$seller',
     entry = '$entry',
+    excess= '$excess'
     total_net_weight = '$total_net_weight',
     drc = '$drc',
     total_bales_pcs = '$bales_count',
@@ -102,53 +107,53 @@ WHERE id = '$invoice'";
 
         
     if(mysqli_query($con, $query)){
-        $last_id = $con->insert_id;
+        // $last_id = $con->insert_id;
 
         // $sql=mysqli_query($con,"UPDATE  planta_recording SET 
         // purchase_cost = '$total_amount',
         // status = 'For Sale' where recording_id='$prod_id' ");
 
-        $_SESSION['print_invoice'] = $last_id;
-        $_SESSION['print_seller'] = $seller;
-        $_SESSION['print_date'] = $date;
-        $_SESSION['print_address'] = $address;
+        $_SESSION['invoice'] = $invoice;
+        // $_SESSION['print_seller'] = $seller;
+        // $_SESSION['print_date'] = $date;
+        // $_SESSION['print_address'] = $address;
 
-        $_SESSION['print_delivery'] = $delivery_date;
-        $_SESSION['print_lot_number'] = $lot_number;
-        ///
+        // $_SESSION['print_delivery'] = $delivery_date;
+        // $_SESSION['print_lot_number'] = $lot_number;
+        // ///
     
-        $_SESSION['print_entry']= $entry;
-        $_SESSION['print_net_weight_1']= $net_weight_1;
-        $_SESSION['print_net_weight_2']= $net_weight_2;
+        // $_SESSION['print_entry']= $entry;
+        // $_SESSION['print_net_weight_1']= $net_weight_1;
+        // $_SESSION['print_net_weight_2']= $net_weight_2;
 
-        $_SESSION['print_total_net_weight']= $total_net_weight;
-
-
-        $_SESSION['print_kilo_bales_1']= $kilo_bales_1;
-        $_SESSION['print_kilo_bales_2']= $kilo_bales_2;
+        // $_SESSION['print_total_net_weight']= $total_net_weight;
 
 
-        $_SESSION['print_total_bales_1']= $total_bales_1;
-        $_SESSION['print_total_bales_2']= $total_bales_2;
+        // $_SESSION['print_kilo_bales_1']= $kilo_bales_1;
+        // $_SESSION['print_kilo_bales_2']= $kilo_bales_2;
+
+
+        // $_SESSION['print_total_bales_1']= $total_bales_1;
+        // $_SESSION['print_total_bales_2']= $total_bales_2;
 
         
-        $_SESSION['print_drc']= $drc;
+        // $_SESSION['print_drc']= $drc;
 
 
     
         
-        $_SESSION['print_price1'] = $price_1;
-        $_SESSION['print_price2'] = $price_2;
+        // $_SESSION['print_price1'] = $price_1;
+        // $_SESSION['print_price2'] = $price_2;
                 
         
-        $_SESSION['print_first_total'] = $first_total;
-        $_SESSION['print_second_total'] = $second_total;
+        // $_SESSION['print_first_total'] = $first_total;
+        // $_SESSION['print_second_total'] = $second_total;
     
 
-        $_SESSION['print_less'] = $less;
-        $_SESSION['print_total'] = $total_amount;
-        $_SESSION['print_paid'] = $amount_paid;
-        $_SESSION['print_words'] = $words_amount;
+        // $_SESSION['print_less'] = $less;
+        // $_SESSION['print_total'] = $total_amount;
+        // $_SESSION['print_paid'] = $amount_paid;
+        // $_SESSION['print_words'] = $words_amount;
 
         $_SESSION['prepared_by'] = $prepared_by;
         $_SESSION['approved_by'] = $approved_by;

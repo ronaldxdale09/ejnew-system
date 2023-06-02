@@ -9,11 +9,9 @@ if (!$result) {
     die('Error in query: ' . mysqli_error($con));
 }
 $total_bales_count =0;
+$total_excess =0;
 $output = '
 <div class="row no-gutters">
-    <div class="col-4">
-        
-    </div>
     <div class="col-4">
         
     </div>
@@ -26,6 +24,18 @@ $output = '
                 class="form-control" readonly>
             <div class="input-group-append">
                 <span class="input-group-text">pcs</span>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <label style="font-size:15px" class="col-md-12">Excess</label>
+        <div class="input-group">
+
+            <input type="text" style="text-align:right"
+                name="excess" id="excess"
+                class="form-control" readonly>
+            <div class="input-group-append">
+                <span class="input-group-text"> kg</span>
             </div>
         </div>
     </div>
@@ -48,6 +58,7 @@ $output = '
 if(mysqli_num_rows($result) > 0) {  
     while($arr = mysqli_fetch_assoc($result)) {  
         $total_bales_count += $arr['number_bales'];
+        $total_excess += $arr['excess'];
         $output .= '
         <tr>
             <td>'.$arr["bales_id"].'</td>
@@ -66,6 +77,7 @@ $output .= '
 
 <script>
     document.getElementById("bales_count").value = ' . $total_bales_count . ';
+    document.getElementById("excess").value = ' . $total_excess . ';
 </script>
 ';
 

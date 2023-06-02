@@ -22,14 +22,9 @@ if (isset($_GET['id'])) {
         $date = isset($record['date']) ? $record['date'] : '';
         $address = isset($record['address']) ? $record['address'] : '';
         $entry = isset($record['entry']) ? $record['entry'] : 0;
-        $net_weight_1 = isset($record['net_weight_1']) ? $record['net_weight_1'] : 0;
-        $kilo_bales_1 = isset($record['kilo_bales_1']) ? $record['kilo_bales_1'] : 0;
-        $total_bales_1 = isset($record['total_bales_1']) ? $record['total_bales_1'] : 0;
-        $net_weight_2 = isset($record['net_weight_2']) ? $record['net_weight_2'] : 0;
-        $kilo_bales_2 = isset($record['kilo_bales_2']) ? $record['kilo_bales_2'] : 0;
-        $total_bales_2 = isset($record['total_bales_2']) ? $record['total_bales_2'] : 0;
+       
         $total_net_weight = isset($record['total_net_weight']) ? $record['total_net_weight'] : 0;
-        $bales_compute = isset($record['bales_compute']) ? $record['bales_compute'] : 0;
+    
         $price_1 = isset($record['price_1']) ? $record['price_1'] : 0;
         $first_total = isset($record['first_total']) ? $record['first_total'] : 0;
         $price_2 = isset($record['price_2']) ? $record['price_2'] : 0;
@@ -50,14 +45,9 @@ echo "
     console.log('date: " . $date . "');
     console.log('address: " . $address . "');
     console.log('entry: " . $entry . "');
-    console.log('net_weight_1: " . $net_weight_1 . "');
-    console.log('kilo_bales_1: " . $kilo_bales_1 . "');
-    console.log('total_bales_1: " . $total_bales_1 . "');
-    console.log('net_weight_2: " . $net_weight_2 . "');
-    console.log('kilo_bales_2: " . $kilo_bales_2 . "');
-    console.log('total_bales_2: " . $total_bales_2 . "');
+
     console.log('total_net_weight: " . $total_net_weight . "');
-    console.log('bales_compute: " . $bales_compute . "');
+
     console.log('price_1: " . $price_1 . "');
     console.log('first_total: " . $first_total . "');
     console.log('price_2: " . $price_2 . "');
@@ -74,22 +64,13 @@ echo "
         echo "
             <script>
                 $(document).ready(function() {
-                    $('#recording_id').val('" . $trans_id . "');
+                    $('#invoice').val('" . $trans_id . "');
                     $('#date').val('" . $date . "');
                     $('#contract').val('" . $contract . "');
                     $('#name').val('" . $seller . "').trigger('chosen:updated');
                     $('#address').val('" . $address . "');
-
                     $('#entry').val('" . $entry . "');
-                    $('#net_weight_1').val('" . $net_weight_1 . "');
-                    $('#kilo_bales_1').val('" . $kilo_bales_1 . "');
-                    $('#total_bales_1').val('" . $total_bales_1 . "');
-                    $('#net_weight_2').val('" . $net_weight_2 . "');
-                    $('#kilo_bales_2').val('" . $kilo_bales_2 . "');
-                    $('#total_bales_2').val('" . $total_bales_2 . "');
-
                     $('#total_net_weight').val('" . $total_net_weight . "');
-                    $('#bales_compute').val('" . $bales_compute . "');
                     $('#price_1').val('" . $price_1 . "');
                     $('#first_total').val('" . $first_total . "');
 
@@ -215,8 +196,8 @@ $today = $year . "-" . $month . "-" . $day;
                                                                     style='color:black'>ID
                                                                 </span>
                                                             </div>
-                                                            <input type="text" class="form-control" id='recording_id'
-                                                                name='recording_id' readonly />
+                                                            <input type="text" class="form-control" id='invoice'
+                                                                name='invoice' readonly />
                                                         </div>
                                                     </div>
                                                     <div class="col">
@@ -344,7 +325,7 @@ $today = $year . "-" . $month . "-" . $day;
                                                 <hr>
                                                 <!-- -->
 
-                                                 <br>
+                                                <br>
                                                 <div id='selected_inventory_bales'></div> <br>
                                                 <div class="form-group">
                                                     <div class="row no-gutters">
