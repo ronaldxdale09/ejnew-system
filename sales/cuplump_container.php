@@ -93,15 +93,17 @@ include "include/navbar.php";
                                             </div>
                                             <div class="row">
                                                 <div class="col">
-                                                    <label style='font-size:15px' class="col-md-12">Total Loading
+                                                    <label style='font-size:15px;font-weight:bold'
+                                                        class="col-md-12">Total
                                                         Weight</label>
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" name='ship_info_lading'
                                                             id='ship_info_lading' tabindex="7" autocomplete='off'
-                                                            style="width: 100px;" />
+                                                            style="width: 100px;" readonly />
+                                                                <span class="input-group-text"> kg</span>
                                                     </div>
                                                 </div>
-                                                <div class="col">
+                                                <div class="col-6">
                                                     <label style='font-size:15px' class="col-md-12">Remarks</label>
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" name='ship_remarks'
@@ -110,7 +112,7 @@ include "include/navbar.php";
                                                     </div>
                                                 </div>
                                                 <div class="col">
-                                                    <label style='font-size:15px' class="col-md-12">Recorded by:</label>
+                                                    <label style='font-size:15px' class="col-md-12">Recorded by</label>
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" name='ship_user'
                                                             id='ship_user' tabindex="7" autocomplete='off'
@@ -192,12 +194,12 @@ include "include/navbar.php";
                                                             <div class="input-group">
                                                                 <span class="input-group-text">₱</span>
                                                                 <input type="text" class="form-control"
-                                                                    name="total_cogs" required>
+                                                                    name="total_cogs" readonly>
                                                             </div>
                                                         </td>
                                                         <td>
                                                             <button class="btn btn-danger"
-                                                                data-bs-toggle="modal">Remove</button>
+                                                                data-bs-toggle="modal">x</button>
                                                         </td>
                                                     </tr>
                                                 </tbody>

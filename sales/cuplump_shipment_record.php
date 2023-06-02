@@ -33,66 +33,39 @@
                                 data-target="#newWetExport">NEW EXPORT </button>
                             <hr>
                             <div class="table-responsive">
-                                <?php
-                                    $results  = mysqli_query($con, "SELECT 
-                                    sale_id as sales_id,
-                                    sale_type as SaleType,
-                                    sales_date as Date,
-                                    sale_buyer as Buyer,
-                                    sale_destination as Destination,
-                                    source as Source,
-                                    cuplumps_total_weight as TotalWeight,
-                                    wet_kilo_price as PricePerKilo,
-                                    cuplumps_average_per_kilo as AveKiloCost,
-                                    total_ship_exp as ShippingExpenses,
-                                    net_gain as Profit,
-                                    amount_unpaid as UnpaidBalance
-                                  FROM shipment");?>
                                 <table class="table table-bordered table-hover table-striped"
                                     id='recording_table-receiving'>
                                     <thead class="table-dark text-center" style="font-size: 14px !important">
                                         <tr>
-                                            <th scope="col">Reference</th>
-                                            <th scope="col">Sale Type</th>
-                                            <th scope="col">Date</th>
-                                            <th scope="col">Buyer</th>
+                                            <th scope="col">ID</th>
+                                            <th scope="col" hidden>Shipment Type</th>
+                                            <th scope="col">Shipment Date</th>
                                             <th scope="col">Destination</th>
                                             <th scope="col">Source</th>
+                                            <th scope="col">Containers</th>
                                             <th scope="col">Total Weight</th>
-                                            <th scope="col">Price per Kilo</th>
-                                            <th scope="col">Ave. Kilo Cost</th>
+                                            <th scope="col">Cuplump Cost</th>
                                             <th scope="col">Shipping Expenses</th>
-                                            <th scope="col">Profit</th>
-                                            <th scope="col">Unpaid Balance</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php while ($row = mysqli_fetch_array($results)) { ?>
                                         <tr>
-                                            <td> <?php echo $row['sales_id']?> </td>
-                                            <td> <?php echo $row['SaleType']?> </td>
-                                            <td> <?php echo $row['Date']?> </td>
-                                            <td> <?php echo $row['Buyer']?> </td>
-                                            <td> <?php echo $row['Destination']?> </td>
-                                            <td> <?php echo $row['Source']?> </td>
+                                            <td> <?php echo $row['ship_id']?> </td>
+                                            <td hidden> <?php echo $row['ship_type']?> </td>
+                                            <td> <?php echo $row['ship_date']?> </td>
+                                            <td> <?php echo $row['buyer']?> </td>
+                                            <td> <?php echo $row['destination']?> </td>
+                                            <td> <?php echo $row['source']?> </td>
                                             <td class="number-cell">
-                                                <?php echo number_format($row['TotalWeight'], 0, '.', ',')?> kg
+                                                <?php echo number_format($row['ship_weight'], 0, '.', ',')?> kg
                                             </td>
                                             <td class="number-cell">₱
-                                                <?php echo number_format($row['PricePerKilo'], 2, '.', ',')?>
+                                                <?php echo number_format($row['ship_cogs'], 2, '.', ',')?>
                                             </td>
                                             <td class="number-cell">₱
-                                                <?php echo number_format($row['AveKiloCost'], 2, '.', ',')?>
-                                            </td>
-                                            <td class="number-cell">₱
-                                                <?php echo number_format($row['ShippingExpenses'], 2, '.', ',')?>
-                                            </td>
-                                            <td class="number-cell">₱
-                                                <?php echo number_format($row['Profit'], 2, '.', ',')?>
-                                            </td>
-                                            ₱
-                                            <?php echo number_format($row['UnpaidBalance'], 2, '.', ',')?>
+                                                <?php echo number_format($row['ship_expense'], 2, '.', ',')?>
                                             </td>
                                             <td class="text-center">
 

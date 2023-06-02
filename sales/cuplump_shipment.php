@@ -215,14 +215,6 @@ include "include/navbar.php";
                                                 </div>
                                             </div>
                                             <div class="col">
-                                                <label style='font-size:15px;font-weight:bold' class="col-md-12">No. of
-                                                    Containers</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" readonly
-                                                        name='ship_exp_misc' id='ship_exp_misc' style="width: 100px;" />
-                                                </div>
-                                            </div>
-                                            <div class="col">
                                                 <label style='font-size:15px;font-weight:bold'
                                                     class="col-md-12">Shipping
                                                     Cost per Container</label>
@@ -251,22 +243,27 @@ include "include/navbar.php";
                                                 class="table table-bordered table-hover table-striped">
                                                 <thead class="table text-center" style="font-size: 14px !important">
                                                     <tr>
-                                                        <th scope="col"></th>
+                                                        <th scope="col">ID</th>
                                                         <th scope="col">Container No.</th>
-                                                        <th scope="col">Supplier</th>
-                                                        <th scope="col">Loading Weight</th>
-                                                        <th scope="col">Cost Type</th>
-                                                        <th scope="col">Cost (Wet)</th>
-                                                        <th scope="col">Cost (Dry)</th>
-                                                        <th scope="col">DRC</th>
+                                                        <th scope="col">Van No.</th>
+                                                        <th scope="col">Withdrawal Date</th>
+                                                        <th scope="col">Total Weight</th>
                                                         <th scope="col">Cuplump Cost</th>
+                                                        <th scope="col">Remarks</th>
+                                                        <th scope="col">Recorded by</th>
+                                                        <th scope="col"></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
                                                         <td>
-                                                            <button class="btn btn-danger"
-                                                                data-bs-toggle="modal">Remove</button>
+                                                            <input type="text" class="form-control">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control">
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control">
@@ -274,25 +271,8 @@ include "include/navbar.php";
                                                         <td class="number-cell">
                                                             <div class="input-group">
                                                                 <input type="text" class="form-control"
-                                                                    name="total_kilo" autocomplete="off">
-                                                                <span class="input-group-text"> kg</span>
-                                                            </div>
-                                                        </td>
-                                                        <td class="number-cell">
-                                                            <div class="input-group">
-                                                                <input type="text" class="form-control"
                                                                     name="loading_reweight" autocomplete="off">
                                                                 <span class="input-group-text"> kg</span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="input-group mb-3">
-                                                                <select class="form-select" id="cost_type"
-                                                                    name="cost_type" style="width: 100px;">
-                                                                    <option>Select</option>
-                                                                    <option value="DRY">Dry</option>
-                                                                    <option value="WET">Wet</option>
-                                                                </select>
                                                             </div>
                                                         </td>
                                                         <td class="number-cell">
@@ -302,33 +282,29 @@ include "include/navbar.php";
                                                                     name="kilo_cost_wet" required>
                                                             </div>
                                                         </td>
-                                                        <td class="number-cell">
-                                                            <div class="input-group">
-                                                                <span class="input-group-text">₱</span>
-                                                                <input type="text" class="form-control"
-                                                                    name="kilo_cost_dry" required>
-                                                            </div>
+                                                        <td>
+                                                            <input type="text" class="form-control">
                                                         </td>
-                                                        <td class="number-cell">
-                                                            <div class="input-group">
-                                                                <input type="text" class="form-control" name="cost_drc"
-                                                                    required>
-                                                                <span class="input-group-text">%</span>
-                                                            </div>
+                                                        <td>
+                                                            <input type="text" class="form-control">
                                                         </td>
-                                                        <td class="number-cell">
-                                                            <div class="input-group">
-                                                                <span class="input-group-text">₱</span>
-                                                                <input type="text" class="form-control"
-                                                                    name="total_cogs" required>
-                                                            </div>
+                                                        <td>
+                                                            <button class="btn btn-danger"
+                                                                data-bs-toggle="modal">x</button>
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                         </div>
                                         <hr>
                                         <div class="row">
-                                            <div class="col-2">
+                                            <div class="col">
+                                                <label style='font-size:15px;font-weight:bold' class="col-md-12">No. of
+                                                    Containers</label>
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control" readonly
+                                                        name='ship_exp_misc' id='ship_exp_misc' style="width: 100px;" />
+                                                </div>
                                             </div>
                                             <div class="col-4">
                                                 <label style='font-size:15px;font-weight:bold' class="col-md-12">Total

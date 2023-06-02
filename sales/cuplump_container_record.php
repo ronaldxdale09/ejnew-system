@@ -10,7 +10,7 @@ include 'include/navbar.php';
 }
 </style>
 
-<?php include 'modal/cuplump_container.php'; ?>
+<?php include 'sales_modal/cuplump_container.php'; ?>
 
 <body>
     <link rel='stylesheet' href='css/statistic-card.css'>
