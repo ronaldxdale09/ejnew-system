@@ -17,17 +17,17 @@ if (!$result_select) {
 
 // Loop through each row of the result
 while ($data = mysqli_fetch_assoc($result_select)) {
-    // Check if the record already exists in bales_purchase_inventory
-    $sql_check = "SELECT * FROM bales_purchase_inventory WHERE  purchase_id = '$purchase_id'";
+    // Check if the record already exists in bales_purchase_inventory for this bales_id
+    $sql_check = "SELECT * FROM bales_purchase_inventory WHERE  purchase_id = '$purchase_id' AND bales_id = '{$data['bales_prod_id']}'";
     $result_check = mysqli_query($con, $sql_check);
 
     if (mysqli_num_rows($result_check) > 0) {
         // Get the record
         $existing_record = mysqli_fetch_assoc($result_check);
 
-        // If the recording_id is different, delete all records associated with this bales_id
+        // If the recording_id is different, delete the record associated with this bales_id
         if ($existing_record['recording_id'] != $recording_id) {
-            $sql_delete = "DELETE FROM bales_purchase_inventory WHERE  purchase_id = '$purchase_id'";
+            $sql_delete = "DELETE FROM bales_purchase_inventory WHERE  purchase_id = '$purchase_id' AND bales_id = '{$data['bales_prod_id']}'";
             $result_delete = mysqli_query($con, $sql_delete);
             if (!$result_delete) {
                 die('Error in delete query: ' . mysqli_error($con));

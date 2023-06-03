@@ -187,7 +187,7 @@
                             <label class="form-label">Itemized Expenses</label>
                             <div class="input-group">
                                 <input type="text" style='font-size:19px' class="form-control text-center"
-                                    id="t_expense_desc" placeholder='Description' >
+                                    id="t_expense_desc" placeholder='Description' readonly >
                             </div>
                         </div>
                         <div class="col">
@@ -195,7 +195,7 @@
                             <div class="input-group">
                                 <span class="input-group-text">₱</span>
                                 <input type="text" style='font-size:19px' class="form-control text-center"
-                                id="t_expnese" readonly>
+                                id="t_expense" readonly>
                             </div>
                         </div>
                     </div>

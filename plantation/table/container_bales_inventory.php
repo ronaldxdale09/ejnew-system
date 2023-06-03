@@ -25,8 +25,9 @@ $output = '
             <th scope="col">Location</th>
             <th scope="col">Lot No.</th>
             <th scope="col">Total Weight</th>
-            <th scope="col">DRC</th>
+            <th hidden scope="col">DRC</th>
             <th scope="col"> Num Bales</th>
+            <th scope="col" hidden></th>
             <th scope="col"></th>
             <th scope="col"></th>
         </tr>
@@ -45,8 +46,9 @@ if(mysqli_num_rows($result) > 0) {
             <td>'.$arr["location"].'</td>
             <td>'.$arr["lot_num"].'</td>
             <td>'.number_format($arr['produce_total_weight'], 0, '.', ',').' kg</td>
-            <td>'.($arr['drc'] ? number_format($arr['drc'], 2) : '-').' %</td>
+            <td hidden>'.($arr['drc'] ? number_format($arr['drc'], 2) : '-').' %</td>
             <td><b>'.number_format($arr['number_bales'], 0, '.', ',').' pcs </b></td>
+            <td hidden>'.$arr["recording_id"].'</td>
             <td class="keyvalue" > <input type="number" class="form-control num_bales"   id="num_bales" name="num_bales"></td>
             <td><button type="button" id="addInventory" class="btn btn-warning btn-sm addInventory"><i
             class="fa fa-plus-circle"></i></button> </td>
@@ -87,6 +89,7 @@ $('.addInventory').on('click', function() {
         }
 
         var bales_id = data[0];
+        var planta_id = data[9];
         var container_id = <?php echo $_POST['container_id'] ?>;
 
         console.log(num_bales);
@@ -98,7 +101,8 @@ $('.addInventory').on('click', function() {
             data: {
                 container_id: container_id,
                 bales_id: bales_id,
-                num_bales: num_bales
+                num_bales: num_bales,
+                planta_id:planta_id
             },
             success: function(data) {
                 console.log(data);

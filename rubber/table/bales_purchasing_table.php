@@ -2,11 +2,10 @@
 include('../function/db.php');
 
 $purchase_id = $_POST['purchase_id'];
-$sql  = "SELECT *,dry_price_transfer.price as dry_price FROM planta_bales_production 
-LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
+$sql  = "SELECT *,dry_price_transfer.price as dry_price FROM planta_recording 
 LEFT JOIN dry_price_transfer ON planta_recording.purchased_id = dry_price_transfer.dry_id
-WHERE planta_recording.status='Purchase' and (rubber_weight !='0' or rubber_weight IS NOT NULL)
-ORDER BY planta_bales_production.recording_id ASC "; 
+WHERE planta_recording.status='Purchase' and (produce_total_weight !='0' or produce_total_weight IS NOT NULL)
+ORDER BY planta_recording.recording_id ASC "; 
 
 $result = mysqli_query($con, $sql);  
 if (!$result) {

@@ -40,7 +40,9 @@
                         data-expense_desc='<?php echo $row['prod_expense_desc']?>'
                         data-dry='<?php echo $row['dry_weight']?>' class="btn btn-success btn-sm btnPressUpdate">
                         <i class="fas fa-book"></i></button>
-                    <button type="button" class="btn btn-warning btn-sm btnCompletePressing ">
+                    <button type="button"
+                    data-expense_desc='<?php echo $row['prod_expense_desc']?>'
+                    class="btn btn-warning btn-sm btnCompletePressing ">
                         <i class="fas fa-chevron-right"> </i> </button>
                     <!-- <button type="button" class="btn btn-primary btn-dark btn-sm btnViewRecordPressing">
                         <i class="fas fa-book"></i></button> -->
@@ -138,6 +140,13 @@ $('.btnCompletePressing').on('click', function() {
 
     $('#press_trans_drc').val(data[8]);
     $('#press_trans_total_weight').val(data[7]);
+
+    var expense_desc = $(this).data('expense_desc');
+    $('#t_expense_desc').val(expense_desc);
+    var numericalData = data[9].match(/\d+/g);
+    if (numericalData !== null) {
+        $('#t_expense').val(parseFloat(numericalData.join('')));
+    }
 
 
     trans_drc = parseFloat((data[7]).match(/[\d]+(\.[\d]+)?/)[0]);

@@ -158,7 +158,7 @@ if ($result) {
                                                 <input type="text" style='text-align:right' name='reweight'
                                                     id='reweight' class="form-control"
                                                     onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
-                                                    required>
+                                                    autocomplete='off'  required>
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">kg</span>
                                                 </div>

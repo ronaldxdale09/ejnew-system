@@ -91,7 +91,7 @@ SET production_id = '$prod_id',
     address = '$address',
     seller = '$seller',
     entry = '$entry',
-    excess= '$excess'
+    excess= '$excess',
     total_net_weight = '$total_net_weight',
     drc = '$drc',
     total_bales_pcs = '$bales_count',
@@ -107,11 +107,16 @@ WHERE id = '$invoice'";
 
         
     if(mysqli_query($con, $query)){
-        // $last_id = $con->insert_id;
 
-        // $sql=mysqli_query($con,"UPDATE  planta_recording SET 
-        // purchase_cost = '$total_amount',
-        // status = 'For Sale' where recording_id='$prod_id' ");
+        $sql=mysqli_query($con,"SELECT * FROM planta_recording WHERE recording_id='$prod_id' ");
+        $row = mysqli_fetch_array($sql);
+        $expenses = $row['production_expense'];
+
+        $total_prod_cost = $total_amount + $expenses;
+
+        $sql=mysqli_query($con,"UPDATE  planta_recording SET 
+        purchase_cost = '$total_amount',total_production_cost='$total_prod_cost',
+        status = 'For Sale' where recording_id='$prod_id' ");
 
         $_SESSION['invoice'] = $invoice;
         // $_SESSION['print_seller'] = $seller;

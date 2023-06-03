@@ -35,7 +35,8 @@ include 'include/navbar.php';
                             <hr>
                             <div class="table-responsive">
                             <?php
-                        $results  = mysqli_query($con, "SELECT * from container_record "); 
+                            $results  = mysqli_query($con, "SELECT * from container_record 
+                            LEFT JOIN container_bales_selection ON container_bales_selection.container_id =  container_record.container_id "); 
                                     
                                     ?> 
                                 <table class="table table-bordered table-hover table-striped"
@@ -62,22 +63,19 @@ include 'include/navbar.php';
                                             <td><?php echo $row['container_id']; ?></td>
                                             <td><?php echo $row['container_no']; ?></td>
                                             <td><?php echo $row['van_no']; ?></td>
-                                            <td><?php echo $row['load_date']; ?></td>
+                                            <td><?php echo $row['withdrawal_date']; ?></td>
                                             <td><?php echo $row['quality']; ?></td>
                                             <td class="number-cell">
-                                                <?php echo number_format($row['bale_kilo'], 0, '.', ','); ?> kg
+                                                <?php echo number_format($row['kilo_bale'], 0, '.', ','); ?> kg
                                             </td>
                                             <td class="number-cell">
-                                                <?php echo number_format($row['no_bales'], 2, '.', ','); ?> pcs
+                                                <?php echo number_format($row['num_bales'], 0, '.', ','); ?> pcs
                                             </td>
                                             <td class="number-cell">
-                                                <?php echo number_format($row['total_weight'], 2, '.', ','); ?> kg
-                                            </td>
-                                            <td class="number-cell" hidden>₱
-                                                <?php echo number_format($row['container_cost'], 2, '.', ','); ?>
+                                                <?php echo number_format($row['total_bale_weight'], 0, '.', ','); ?> kg
                                             </td>
                                             <td><?php echo $row['remarks']; ?></td>
-                                            <td><?php echo $row['user']; ?></td>
+                                            <td><?php echo $row['recorded_by']; ?></td>
                                             <td class="text-center">
                                                 <button type="button" class="btn btn-success btn-sm btnViewRecord">
                                                     <i class="fas fa-book"></i>

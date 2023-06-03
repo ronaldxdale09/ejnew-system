@@ -64,133 +64,110 @@ include "include/navbar.php";
                                             onclick="goBack()">
                                             <span class="fas fa-arrow-left"></span> Return
                                         </button>
-                                        <button type="button" class="btn btn-dark text-white printBtn" id='printBtn'>
-                                            <span class="fa fa-print"></span> Print
-                                        </button>
-                                        <button type="button" class="btn btn-dark text-white pdfBtn" id='pdftBtn'>
-                                            <span class="fa fa-file"></span> PDF
-                                        </button>
-                                        <button type="button" class="btn btn-primary confirmSales"
-                                            id="btnConfirmShipment"><span class="fas fa-check"></span> Complete</button>
+
+                                        <button type="button" class="btn btn-primary confirmSales"><span
+                                                class="fas fa-check"></span> Complete</button>
                                     </div>
                                 </div>
 
                                 <br>
+                                <form action="function/confirmContainer.php" method="POST" id='transaction_form'>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4>Container Information</h4>
+                                            <hr>
+                                            <form method='POST' id='transaction_form'>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <label style='font-size:15px' class="col-md-12">Ref No.</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" name='ref_no'
+                                                                id='ref_no' value='<?php echo $id?>' readonly
+                                                                style="width: 100px;" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <label style='font-size:15px' class="col-md-12">Container
+                                                            No.</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" name='container_no'
+                                                                id='container_no' autocomplete='off'
+                                                                style="width: 100px;" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <label style='font-size:15px' class="col-md-12">Van
+                                                            No.</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" name='van_no'
+                                                                id='ship_destination' autocomplete='off'
+                                                                style="width: 100px;" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <label style='font-size:15px' class="col-md-12">Withdrawal
+                                                            Date</label>
+                                                        <div class="col-md-12">
+                                                            <input type="date" class='form-control' id="withdrawal_date"
+                                                                name="withdrawal_date">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <!-- if and only if one quality -->
+                                                        <label style='font-size:15px' class="col-md-12">Quality</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" name='quality'
+                                                                id='quality' autocomplete='off' style="width: 100px;" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <!-- if and only if one kilo per bale -->
+                                                        <label style='font-size:15px' class="col-md-12">Kilo per
+                                                            Bale</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" name='kilo_bale'
+                                                                id='kilo_bale' autocomplete='off'
+                                                                style="width: 100px;" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <label style='font-size:15px' class="col-md-12">Remarks</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" name='remarks'
+                                                                id='remarks' autocomplete='off' style="width: 100px;" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <label style='font-size:15px' class="col-md-12">Recorded
+                                                            by:</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" name='recorded_by'
+                                                                id='recorded_by' autocomplete='off'
+                                                                style="width: 100px;" />
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4>Container Information</h4>
-                                        <hr>
-                                        <form method='POST' id='transaction_form'>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <label style='font-size:15px' class="col-md-12">Ref No.</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='ref_no'
-                                                            id='ref_no' value='<?php echo $id?>' readonly
-                                                            style="width: 100px;" />
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <label style='font-size:15px' class="col-md-12">Container
-                                                        No.</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='container_no'
-                                                            id='container_no'  autocomplete='off'
-                                                            style="width: 100px;" />
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <label style='font-size:15px' class="col-md-12">Van
-                                                        No.</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='van_no'
-                                                            id='ship_destination'  autocomplete='off'
-                                                            style="width: 100px;" />
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <label style='font-size:15px' class="col-md-12">Withdrawal
-                                                        Date</label>
-                                                    <div class="col-md-12">
-                                                        <input type="date" class='form-control' id="withdrawal_date"
-                                                            name="withdrawal_date">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <!-- if and only if one quality -->
-                                                    <label style='font-size:15px' class="col-md-12">Quality</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='quality'
-                                                            id='quality'  autocomplete='off'
-                                                            style="width: 100px;" />
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <!-- if and only if one kilo per bale -->
-                                                    <label style='font-size:15px' class="col-md-12">Kilo per
-                                                        Bale</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='kilo_bale'
-                                                            id='kilo_bale'  autocomplete='off'
-                                                            style="width: 100px;" />
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <label style='font-size:15px' class="col-md-12">Remarks</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='remarks'
-                                                            id='remarks'  autocomplete='off'
-                                                            style="width: 100px;" />
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <label style='font-size:15px' class="col-md-12">Recorded by:</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='recorded_by'
-                                                            id='recorded_by'  autocomplete='off'
-                                                            style="width: 100px;" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-
-                                <br>
-
-                                <div class="card">
-                                    <div class="card-body d-flex justify-content-between align-items-center">
-                                        <h4>Bale Inventory</h4>
-                                        <button type="button" class="btn btn-dark text-white btnSelectTrans"
-                                            id='receiptBtn'>
-                                            <span class="fa fa-book"></span> Select Inventory</button>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col">
-                                                <label style='font-size:15px' class="col-md-12">No. of Bales</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='num_bales'
-                                                        id='num_bales'  autocomplete='off'
-                                                        style="width: 100px;"  readonly/>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <label style='font-size:15px' class="col-md-12">Total Bale
-                                                    Weight</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name='total_bale_weight'
-                                                        id='total_bale_weight' autocomplete='off'
-                                                        style="width: 100px;" readonly />
-                                                </div>
-                                            </div>
                                         </div>
-                                        <div id='selected_inventory'></div>
                                     </div>
-                                </div>
+
+                                    <br>
+
+                                    <div class="card">
+                                        <div class="card-body d-flex justify-content-between align-items-center">
+                                            <h4>Bale Inventory</h4>
+                                            <button type="button" class="btn btn-dark text-white btnSelectTrans"
+                                                id='receiptBtn'>
+                                                <span class="fa fa-book"></span> Select Inventory</button>
+                                        </div>
+                                        <div class="card-body">
+
+                                            <div id='selected_inventory'></div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -201,11 +178,6 @@ include "include/navbar.php";
     <br>
 </body>
 
-
-<?php 
-
-include "js/container_table.php";
-?>
 
 
 <div class="modal fade" id="modal_produced_record" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -219,29 +191,42 @@ include "js/container_table.php";
                 </button>
             </div>
             <div class="modal-body">
-                <form action="function/rubber_process.php" method="POST">
 
-                    <hr>
-                    <div id='produced_modal_table'></div>
-                    <hr>
+
+                <hr>
+                <div id='produced_modal_table'></div>
+                <hr>
 
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
 
-                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirm Transaction</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to complete the transaction?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="confirmButton">Yes, Complete</button>
             </div>
         </div>
     </div>
 </div>
 
 
-
 <script>
-    
-
-
 $('.btnSelectTrans').on('click', function() {
     $tr = $(this).closest('tr');
 
@@ -274,4 +259,39 @@ $('.btnSelectTrans').on('click', function() {
 
 });
 
+
+document.getElementById("confirmButton").addEventListener("click", function() {
+    document.getElementById("transaction_form").submit();
+});
+
+$('.confirmSales').on('click', function() {
+    $tr = $(this).closest('tr');
+
+    var data = $tr.children("td").map(function() {
+        return $(this).text();
+    }).get();
+
+
+    var container_id = <?php echo  $id ?>;
+
+    $('#confirmModal').modal('show');
+
+});
+
+
+function fetch_data() {
+    var container_id = $('#ref_no').val();
+    $.ajax({
+        url: "table/contaner_selectedList.php",
+        method: "POST",
+        data: {
+            container_id: container_id,
+        },
+        success: function(data) {
+            $('#selected_inventory').html(data);
+
+        }
+    });
+}
+fetch_data();
 </script>
