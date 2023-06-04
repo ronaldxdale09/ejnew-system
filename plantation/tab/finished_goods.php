@@ -1,3 +1,10 @@
+<style>
+.bales-column {
+    background-color: rgb(230, 236, 245) !important;
+    font-weight:bold;
+}
+</style>
+
 <div class="table-responsive">
     <br>
     <div id="datatable_filter">
@@ -14,15 +21,15 @@
         <?php
        $results = mysqli_query($con, "SELECT * FROM planta_bales_production 
        LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
-       WHERE planta_bales_production.status='Produced' and (rubber_weight !='0' or rubber_weight !=null)
+       WHERE planta_bales_production.status='Produced' and (rubber_weight !='0' or rubber_weight !=null) and remaining_bales !='0'
        ORDER BY planta_bales_production.recording_id ASC ");
-    ?>
+             ?>
 
 
         <thead class="table-dark" style='font-size:13px'>
             <tr>
                 <th>Status</th>
-                <th>Bale ID</th>
+                <!-- <th>Bale ID</th> -->
                 <th>Quality</th>
                 <th>Date Produced</th>
                 <th>Supplier</th>
@@ -31,6 +38,7 @@
                 <th>Kilo per Bale</th>
                 <th>Bale Weight</th>
                 <th>Bales</th>
+                <th>Bales in Container</th>
                 <th>Excess</th>
                 <th>DRC</th>
                 <th>Description</th>
@@ -56,9 +64,9 @@
                     <?php endif; ?>
                 </td>
 
-                <td>
+                <!-- <td>
                     <span class="badge bg-secondary"><?php echo $row['bales_prod_id']?></span>
-                </td>
+                </td> -->
                 <td><?php echo $row['bales_type']?></td>
                 <td>
                     <?php 
@@ -71,7 +79,8 @@
                 <td><?php echo $row['bales_type']?></td>
                 <td class="number-cell"> <?php echo $row['kilo_per_bale']?> kg</td>
                 <td class="number-cell"> <?php echo number_format($row['rubber_weight'], 0, '.', ',')?> kg</td>
-                <td class="number-cell"> <?php echo number_format($row['number_bales'], 0, '.', ',')?> pcs</td>
+                <td class="number-cell bales-column"> <?php echo number_format($row['number_bales'], 0, '.', ',')?> pcs </td>
+                <td class="number-cell bales-column"> <?php echo number_format($row['number_bales'] - $row['remaining_bales'], 0, '.', ',')?> pcs </td>
                 <td class="number-cell"> <?php echo number_format($row['bales_excess'], 0, '.', ',')?> kg</td>
                 <td class="number-cell"><?php echo number_format($row['drc'],2)?> %</td>
                 <td><?php echo $row['description']?></td>
@@ -168,13 +177,6 @@ $(document).ready(function() {
 });
 </script>
 <script>
-
-
-
-
-
-
-
 $('.btnProducedView').on('click', function() {
     $tr = $(this).closest('tr');
 

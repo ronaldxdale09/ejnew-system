@@ -34,11 +34,11 @@ include 'include/navbar.php';
                                 data-target="#newContainer">NEW CONTAINER</button>
                             <hr>
                             <div class="table-responsive">
-                            <?php
-                            $results  = mysqli_query($con, "SELECT * from container_record 
+                                <?php
+                            $results  = mysqli_query($con, "SELECT *,container_record.container_id as con_id  from container_record 
                             LEFT JOIN container_bales_selection ON container_bales_selection.container_id =  container_record.container_id "); 
                                     
-                                    ?> 
+                                    ?>
                                 <table class="table table-bordered table-hover table-striped"
                                     id='recording_table-receiving'>
                                     <thead class="table-dark text-center" style="font-size: 14px !important">
@@ -54,19 +54,35 @@ include 'include/navbar.php';
                                             <th scope="col" hidden>Bale Cost</th>
                                             <th scope="col">Remarks</th>
                                             <th scope="col">Recorded</th>
+                                            <th scope="col">Status</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php while ($row = mysqli_fetch_array($results)) { ?>
+                                        <?php while ($row = mysqli_fetch_array($results)) {
+                                            $status_color = '';
+                                            switch($row['status']){
+                                                case "Draft":
+                                                    $status_color = 'bg-primary';
+                                                    break;
+                                                case "Pending":
+                                                    $status_color = 'bg-warning';
+                                                    break;
+                                                case "Complete":
+                                                    $status_color = 'bg-success';
+                                                    break;
+                                               
+                                            }
+                                            
+                                            ?>
                                         <tr>
-                                            <td><?php echo $row['container_id']; ?></td>
+                                            <td><?php echo $row['con_id']; ?></td>
                                             <td><?php echo $row['container_no']; ?></td>
                                             <td><?php echo $row['van_no']; ?></td>
                                             <td><?php echo $row['withdrawal_date']; ?></td>
                                             <td><?php echo $row['quality']; ?></td>
                                             <td class="number-cell">
-                                                <?php echo number_format($row['kilo_bale'], 0, '.', ','); ?> kg
+                                                <?php echo $row['kilo_bale']; ?> kg
                                             </td>
                                             <td class="number-cell">
                                                 <?php echo number_format($row['num_bales'], 0, '.', ','); ?> pcs
@@ -76,6 +92,10 @@ include 'include/navbar.php';
                                             </td>
                                             <td><?php echo $row['remarks']; ?></td>
                                             <td><?php echo $row['recorded_by']; ?></td>
+                                            <td> <span class="badge <?php echo $status_color; ?>">
+                                                    <?php echo $row['status']?>
+                                                </span>
+                                            </td>
                                             <td class="text-center">
                                                 <button type="button" class="btn btn-success btn-sm btnViewRecord">
                                                     <i class="fas fa-book"></i>
@@ -117,7 +137,55 @@ include 'include/navbar.php';
             info: false,
         });
     });
+
+
+
+
+    $('.btnViewRecord').on('click', function() {
+        $tr = $(this).closest('tr');
+
+        var data = $tr.children("td").map(function() {
+            return $(this).text();
+        }).get();
+
+        $('#v_id').val(data[0]);
+
+        $('#v_container_no').val(data[1]);
+        $('#v_van').val(data[2]);
+        $('#v_date').val(data[3]);
+        $('#v_quality').val(data[4]);
+        $('#v_kilo').val(data[5]);
+        $('#v_remarks').val(data[8]);
+        $('#v_recorded').val(data[9]);
+
+
+        function fetch_table() {
+
+            var container_id = (data[0]);
+            $.ajax({
+                url: "table/contaner_bales_record.php",
+                method: "POST",
+                data: {
+                    container_id: container_id,
+
+                },
+                success: function(data) {
+                    $('#container_record').html(data);
+                }
+            });
+        }
+        fetch_table();
+
+
+
+
+        $('#viewContainer').modal('show');
+
+
+    });
     </script>
+
+
 </body>
 
 </html>
