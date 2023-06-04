@@ -32,7 +32,7 @@
          echo $id;
 
         $sql = "UPDATE container_record SET 
-        status = 'Pending'
+        status = 'In Progress'
         WHERE container_id = '$id'";
         mysqli_query($con, $sql);
 
@@ -40,4 +40,35 @@
             exit();
         
     }
+
+    if (isset($_POST['draft'])) {
+
+        $id = $_POST['id'];
+        echo $id;
+
+       $sql = "UPDATE container_record SET 
+       status = 'In Progress'
+       WHERE container_id = '$id'";
+       mysqli_query($con, $sql);
+
+       header("Location: ../container_record.php");  // Change this to your desired location
+           exit();
+       
+   }
+   if (isset($_POST['released'])) {
+
+    $id = $_POST['id'];
+    echo $id;
+
+   $sql = "UPDATE container_record SET 
+   status = 'Released'
+   WHERE container_id = '$id'";
+   mysqli_query($con, $sql);
+
+   header("Location: ../container_record.php");  // Change this to your desired location
+       exit();
+   
+}
+
+   
 ?>

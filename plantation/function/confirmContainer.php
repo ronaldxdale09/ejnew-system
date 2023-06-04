@@ -21,7 +21,8 @@
               remarks = '$remarks', 
               recorded_by = '$recorded_by', 
               num_bales = '$num_bales', 
-              total_bale_weight = '$total_bale_weight' 
+              total_bale_weight = '$total_bale_weight' ,
+              status = 'Awaiting Shipment' 
               WHERE container_id  = '$ref_no'";
 
     $results = mysqli_query($con, $query);

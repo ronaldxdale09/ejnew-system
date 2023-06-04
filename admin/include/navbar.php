@@ -6,7 +6,7 @@
         </div>
     </div>
 
-<br>
+    <br>
 
     <a class='nav-link' href='dashboard.php'>
         <i class='fas fa-home'></i> <span class='nav-text'>Home</span>
@@ -31,11 +31,16 @@
     <a class='nav-link' href='inv_cuplump.php' style='margin-left: 20px; font-size: 18px;'> <i class='fas fa-tree'></i>
         <span class='nav-text'>Cuplump Inventory</span>
     </a>
-    <a class='nav-link' href='record_allrubber.php' style='margin-left: 20px; font-size: 18px;'><i class='fas fa-file-alt'></i>
+
+    <a class='nav-link' href='container_record.php' style='margin-left: 20px; font-size: 18px;'> <i class='fas fa-shipping-fast'></i>
+        <span class='nav-text'>Container Record</span>
+    </a>
+    <a class='nav-link' href='record_allrubber.php' style='margin-left: 20px; font-size: 18px;'><i
+            class='fas fa-file-alt'></i>
         <span class='nav-text'>Transaction Record</span>
     </a>
 
-<!-- 
+    <!-- 
     <a class='nav-link' href='admin_kidapawan_rubber.php'>
         <i class='fas fa-cube'></i> <span class='nav-text'>Kidapawan Rubber</span>
     </a> -->

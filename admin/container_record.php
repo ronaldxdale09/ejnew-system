@@ -30,13 +30,11 @@ include 'include/navbar.php';
                         <br>
 
                         <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
-                            <button type="button" class="btn btn-success text-white" data-toggle="modal"
-                                data-target="#newContainer">NEW CONTAINER</button>
                             <hr>
                             <div class="table-responsive">
                                 <?php
-                                    $results  = mysqli_query($con, "SELECT *,container_record.container_id as con_id  from container_record 
-                                    LEFT JOIN container_bales_selection ON container_bales_selection.container_id =  container_record.container_id "); 
+                            $results  = mysqli_query($con, "SELECT *,container_record.container_id as con_id  from container_record 
+                            LEFT JOIN container_bales_selection ON container_bales_selection.container_id =  container_record.container_id "); 
                                     
                                     ?>
                                 <table class="table table-bordered table-hover table-striped"
@@ -63,7 +61,7 @@ include 'include/navbar.php';
                                             $status_color = '';
                                             switch($row['status']){
                                                 case "Draft":
-                                                    $status_color = 'bg-info';
+                                                    $status_color = 'bg-primary';
                                                     break;
                                                 case "In Progress":
                                                     $status_color = 'bg-warning';
@@ -71,9 +69,7 @@ include 'include/navbar.php';
                                                 case "Awaiting Shipment":
                                                     $status_color = 'bg-success';
                                                     break;
-                                                case "Released":
-                                                    $status_color = 'bg-primary';
-                                                    break;
+                                               
                                             }
                                             
                                             ?>
@@ -99,8 +95,7 @@ include 'include/navbar.php';
                                                 </span>
                                             </td>
                                             <td class="text-center">
-                                                <button type="button" class="btn btn-success btn-sm btnViewRecord"
-                                                    data-status="<?php echo $row['status']; ?>">
+                                                <button type="button" class="btn btn-success btn-sm btnViewRecord">
                                                     <i class="fas fa-book"></i>
                                                 </button>
                                             </td>
@@ -161,16 +156,6 @@ include 'include/navbar.php';
         $('#v_remarks').val(data[8]);
         $('#v_recorded').val(data[9]);
 
-        var status = $(this).data('status');
-
-        if (status == "Awaiting Shipment") {
-            $('#releaseButton').show();
-        } else if (status == 'Released') {
-            $('#editButton').hide();
-            $('#releaseButton').hide();
-        } else {
-            $('#releaseButton').hide();
-        }
 
         function fetch_table() {
 
