@@ -10,7 +10,7 @@ include 'include/navbar.php';
 }
 </style>
 
-<?php include 'sales_modal/bale_shipment_modal.php'; ?>
+<?php include 'sales_modal/modal_container.php'; ?>
 
 <body>
     <link rel='stylesheet' href='css/statistic-card.css'>
@@ -23,7 +23,7 @@ include 'include/navbar.php';
                         <h2 class="page-title">
                             <b>
                                 <font color="#0C0070">BALE </font>
-                                <font color="#046D56"> SHIPMENT </font>
+                                <font color="#046D56"> CONTAINER </font>
                             </b>
                         </h2>
 
@@ -31,7 +31,7 @@ include 'include/navbar.php';
 
                         <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
                             <button type="button" class="btn btn-success text-white" data-toggle="modal"
-                                data-target="#newShipment">NEW SHIPMENT</button>
+                                data-target="#newContainer">NEW CONTAINER</button>
                             <hr>
                             <div class="table-responsive">
                                 <?php
@@ -144,58 +144,58 @@ include 'include/navbar.php';
 
 
 
-    // $('.btnViewRecord').on('click', function() {
-    //     $tr = $(this).closest('tr');
+    $('.btnViewRecord').on('click', function() {
+        $tr = $(this).closest('tr');
 
-    //     var data = $tr.children("td").map(function() {
-    //         return $(this).text();
-    //     }).get();
+        var data = $tr.children("td").map(function() {
+            return $(this).text();
+        }).get();
 
-    //     $('#v_id').val(data[0]);
+        $('#v_id').val(data[0]);
 
-    //     $('#v_container_no').val(data[1]);
-    //     $('#v_van').val(data[2]);
-    //     $('#v_date').val(data[3]);
-    //     $('#v_quality').val(data[4]);
-    //     $('#v_kilo').val(data[5]);
-    //     $('#v_remarks').val(data[8]);
-    //     $('#v_recorded').val(data[9]);
+        $('#v_container_no').val(data[1]);
+        $('#v_van').val(data[2]);
+        $('#v_date').val(data[3]);
+        $('#v_quality').val(data[4]);
+        $('#v_kilo').val(data[5]);
+        $('#v_remarks').val(data[8]);
+        $('#v_recorded').val(data[9]);
 
-    //     var status = $(this).data('status');
+        var status = $(this).data('status');
 
-    //     if (status == "Awaiting Shipment") {
-    //         $('#releaseButton').show();
-    //     } else if (status == 'Released') {
-    //         $('#editButton').hide();
-    //         $('#releaseButton').hide();
-    //     } else {
-    //         $('#releaseButton').hide();
-    //     }
+        if (status == "Awaiting Shipment") {
+            $('#releaseButton').show();
+        } else if (status == 'Released') {
+            $('#editButton').hide();
+            $('#releaseButton').hide();
+        } else {
+            $('#releaseButton').hide();
+        }
 
-    //     function fetch_table() {
+        function fetch_table() {
 
-    //         var container_id = (data[0]);
-    //         $.ajax({
-    //             url: "table/contaner_bales_record.php",
-    //             method: "POST",
-    //             data: {
-    //                 container_id: container_id,
+            var container_id = (data[0]);
+            $.ajax({
+                url: "table/contaner_bales_record.php",
+                method: "POST",
+                data: {
+                    container_id: container_id,
 
-    //             },
-    //             success: function(data) {
-    //                 $('#container_record').html(data);
-    //             }
-    //         });
-    //     }
-    //     fetch_table();
-
-
+                },
+                success: function(data) {
+                    $('#container_record').html(data);
+                }
+            });
+        }
+        fetch_table();
 
 
-    //     $('#newShipment').modal('show');
 
 
-    // });
+        $('#viewContainer').modal('show');
+
+
+    });
     </script>
 
 
