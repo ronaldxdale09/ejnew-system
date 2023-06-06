@@ -60,13 +60,14 @@ include "include/navbar.php";
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-12">
-                                        <button type="button" class="btn btn-secondary text-white vouchBtn"
-                                            onclick="goBack()">
+                                        <button type="button" class="btn btn-secondary text-white voidContainer">
                                             <span class="fas fa-arrow-left"></span> Return
                                         </button>
 
                                         <button type="button" class="btn btn-primary confirmSales"><span
                                                 class="fas fa-check"></span> Complete</button>
+                                        <button type="button" class="btn btn-warning btnDraft"><span
+                                                class="fas fa-info-circle"></span> Save as Draft</button>
                                     </div>
                                 </div>
 
@@ -133,7 +134,7 @@ include "include/navbar.php";
                                                         </div>
                                                     </div>
                                                     <div class="col">
-                                                        <label style='font-size:15px' class="col-md-12">Remarks</label>
+                                                        <label style='font-size:15px' class="col-md-12">Particulars</label>
                                                         <div class="input-group mb-3">
                                                             <input type="text" class="form-control" name='remarks'
                                                                 id='remarks' autocomplete='off' style="width: 100px;" />
@@ -218,9 +219,41 @@ include "include/navbar.php";
                 Are you sure you want to complete the transaction?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-primary" id="confirmButton">Yes, Complete</button>
             </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="draftModal" tabindex="-1" aria-labelledby="draftModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="draftModalLabel">
+                    <i class="fas fa-file-alt"></i> Save as Draft
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="function/container.php" method="POST" id='transaction_form'>
+                <div class="modal-body">
+                    <input type="text" name='id' id='draft_id' hidden>
+                    <p>
+                        <i class="fas fa-info-circle"></i>
+                        Do you want to save your progress and continue editing later?
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button type="submit" class="btn btn-success" name='draft'>
+                        <i class="fas fa-save"></i> Save as Draft
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -277,6 +310,24 @@ $('.confirmSales').on('click', function() {
     $('#confirmModal').modal('show');
 
 });
+
+
+
+$('.btnDraft').on('click', function() {
+    $tr = $(this).closest('tr');
+
+    var data = $tr.children("td").map(function() {
+        return $(this).text();
+    }).get();
+
+    var id=  <?php echo  $id ?>;
+    
+    $('#draft_id').val(id);
+
+    $('#draftModal').modal('show');
+
+});
+
 
 
 function fetch_data() {

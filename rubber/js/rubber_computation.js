@@ -38,7 +38,7 @@ function rubberComputation(gross, tare, price1, price2, less) {
             //make rese2 editable if total weight is greater than contract quantity
             document.getElementById("second_price").readOnly = false;
 
-
+            //
             document.getElementById("first-weight").value = nf.format(balance);
             var first_weight = $("#first-weight").val().replace(/,/g, '');
 
@@ -46,12 +46,10 @@ function rubberComputation(gross, tare, price1, price2, less) {
             document.getElementById("first_total").value = nf.format(price1 * first_weight);
 
 
-
             //RESE 2
             var contract_balance = $("#balance").val().replace(/,/g, '');
-
-
             document.getElementById("second-weight").value = nf.format((Math.round(net_total - contract_balance)));
+
 
             //GET RESE 2 TOTAL
             var second_weight = $("#second-weight").val().replace(/,/g, '');

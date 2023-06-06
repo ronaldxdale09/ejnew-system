@@ -92,7 +92,7 @@
                                                     ?>
                                                     <td> <span class="badge <?php echo $status_color; ?>">
                                                             <?php echo $row['status']?>
-                                                            </spa>
+                                                            </span>
                                                     </td>
                                                     <td hidden> <?php echo $row['recording_id']?> </td>
                                                     <td> <?php echo $row['supplier']?> </td>

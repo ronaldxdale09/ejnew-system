@@ -56,8 +56,8 @@
             echo "------------------------- <br>";
                 
                     // Insert SQL query
-            $sql = "INSERT INTO planta_bales_production (recording_id, bales_type, kilo_per_bale, rubber_weight, description, number_bales, bales_excess,status)
-            VALUES ('$id', '$bales_type', '$kilo_bale', '$weight', '$description', '$bale_num', '$excess','Produced')";
+            $sql = "INSERT INTO planta_bales_production (recording_id, bales_type, kilo_per_bale, rubber_weight, description, number_bales, remaining_bales, bales_excess,status)
+            VALUES ('$id', '$bales_type', '$kilo_bale', '$weight', '$description', '$bale_num', '$bale_num', '$excess','Produced')";
             $result = mysqli_query($con, $sql);
             if (!$result) {
             die('Error inserting data: ' . mysqli_error($con));

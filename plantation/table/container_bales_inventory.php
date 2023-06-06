@@ -5,7 +5,7 @@ include('../function/db.php');
 $container_id = $_POST['container_id'];
 $sql  = "SELECT * FROM planta_bales_production 
 LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
-WHERE (planta_recording.status='Purchase' or planta_recording.status='For Sale' ) and (rubber_weight !='0' or rubber_weight IS NOT NULL)
+WHERE (planta_recording.status='Purchase' or planta_recording.status='For Sale' ) and (rubber_weight !='0' or rubber_weight IS NOT NULL) and remaining_bales !='0'
 ORDER BY planta_bales_production.recording_id ASC "; 
 
 $result = mysqli_query($con, $sql);  
@@ -21,14 +21,14 @@ $output = '
             <th scope="col">BALE ID</th>
             <th scope="col">Status</th>
             <th scope="col">Type</th>
+            <th scope="col">Kilo Bale</th>
             <th scope="col">Supplier</th>
-            <th scope="col">Location</th>
             <th scope="col">Lot No.</th>
             <th scope="col">Total Weight</th>
             <th hidden scope="col">DRC</th>
-            <th scope="col"> Num Bales</th>
+            <th scope="col">Bales Available</th>
             <th scope="col" hidden></th>
-            <th scope="col"></th>
+            <th scope="col" width="10%"></th>
             <th scope="col"></th>
         </tr>
     </thead>
@@ -42,12 +42,12 @@ if(mysqli_num_rows($result) > 0) {
              <td>'.$arr["bales_prod_id"].'</td>
             <td>'.$arr["status"].'</td>
             <td>'.$arr["bales_type"].'</td>
+            <td>'.$arr["kilo_per_bale"].' kg</td>
             <td>'.$arr["supplier"].'</td>
-            <td>'.$arr["location"].'</td>
             <td>'.$arr["lot_num"].'</td>
             <td>'.number_format($arr['produce_total_weight'], 0, '.', ',').' kg</td>
             <td hidden>'.($arr['drc'] ? number_format($arr['drc'], 2) : '-').' %</td>
-            <td><b>'.number_format($arr['number_bales'], 0, '.', ',').' pcs </b></td>
+            <td><b>'.number_format($arr['remaining_bales'], 0, '.', ',').' pcs </b></td>
             <td hidden>'.$arr["recording_id"].'</td>
             <td class="keyvalue" > <input type="number" class="form-control num_bales"   id="num_bales" name="num_bales"></td>
             <td><button type="button" id="addInventory" class="btn btn-warning btn-sm addInventory"><i
