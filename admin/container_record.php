@@ -46,7 +46,7 @@ include 'include/navbar.php';
                                             <th scope="col">Van No.</th>
                                             <th scope="col">Withdrawal Date</th>
                                             <th scope="col">Quality</th>
-                                            <th scope="col">Kilo per Bale</th>
+                                            <th scope="col">Kilo</th>
                                             <th scope="col">No. of Bales</th>
                                             <th scope="col">Total Weight</th>
                                             <th scope="col" hidden>Bale Cost</th>
@@ -57,11 +57,11 @@ include 'include/navbar.php';
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php while ($row = mysqli_fetch_array($results)) {
+                                    <?php while ($row = mysqli_fetch_array($results)) {
                                             $status_color = '';
                                             switch($row['status']){
                                                 case "Draft":
-                                                    $status_color = 'bg-primary';
+                                                    $status_color = 'bg-info';
                                                     break;
                                                 case "In Progress":
                                                     $status_color = 'bg-warning';
@@ -69,18 +69,19 @@ include 'include/navbar.php';
                                                 case "Awaiting Shipment":
                                                     $status_color = 'bg-success';
                                                     break;
-                                               
+                                                case "Released":
+                                                    $status_color = 'bg-primary';
+                                                    break;
                                             }
                                             
                                             ?>
                                         <tr>
                                             <td><?php echo $row['con_id']; ?></td>
                                             <td><?php echo $row['container_no']; ?></td>
-                                            <td><?php echo $row['van_no']; ?></td>
-                                            <td><?php echo $row['withdrawal_date']; ?></td>
+                                            <td><?php echo $row['van_no']; ?></td><td><?php echo date('M d, Y', strtotime($row['withdrawal_date'])); ?></td>
                                             <td><?php echo $row['quality']; ?></td>
                                             <td class="number-cell">
-                                                <?php echo $row['kilo_bale']; ?> kg
+                                                <?php echo $row['kilo_bale']; ?>
                                             </td>
                                             <td class="number-cell">
                                                 <?php echo number_format($row['num_bales'], 0, '.', ','); ?> pcs

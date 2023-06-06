@@ -39,6 +39,7 @@
                                         planta_recording.crumbed_weight, planta_recording.dry_weight, planta_recording.produce_total_weight,
                                         planta_recording.drc, planta_recording.driver, planta_recording.truck_num, planta_recording.receiving_date, 
                                         planta_recording.milling_date, planta_recording.drying_date, planta_recording.production_date,
+                                        planta_recording.production_expense,
                                         rubber_transaction.date as purchased_date,rubber_transaction.net_weight as wet_net_weight
                                         FROM planta_recording
                                         LEFT JOIN rubber_transaction ON planta_recording.purchased_id = rubber_transaction.id
