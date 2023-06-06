@@ -47,7 +47,6 @@
                 <th>DRC</th>
                 <th>Description</th>
                 <!-- <th>Cost</th> -->
-                <th>Expenses</th>
                 <th class="text-center">Action</th>
             </tr>
         </thead>
@@ -89,7 +88,7 @@
                 <td class="number-cell"><?php echo number_format($row['drc'],2)?> %</td>
                 <td><?php echo $row['description']?></td>
                 <!-- <td> ₱ <?php echo number_format($row['total_production_cost']/$row['produce_total_weight'],2)?></td> -->
-                <td> ₱ <?php echo number_format($row['production_expense'],2)?></td>
+
                 <td class="text-center">
                     <button type="button" data-recording_id='<?php echo $row['recording_id']?>'
                         class="btn btn-success btn-sm btnProducedView">

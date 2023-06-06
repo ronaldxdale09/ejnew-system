@@ -109,7 +109,7 @@
             $prod_type = $row['prod_type'];
     
             // Based on prod_type, decide the status to set
-            $status = 'Produced';  // Default status
+            $status = 'For Sale';  // Default status
             if($prod_type == 'PURCHASE') {
                 $status = 'Purchase';
             }
