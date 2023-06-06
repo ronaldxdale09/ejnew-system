@@ -6,11 +6,13 @@
     $van_no = $_POST['van_no'];
     $withdrawal_date = $_POST['withdrawal_date'];
     $quality = $_POST['quality'];
-    $kilo_bale = str_replace(',', '', $_POST['kilo_bale']);
+  
     $remarks = $_POST['remarks'];
     $recorded_by = $_POST['recorded_by'];
-    $num_bales = $_POST['num_bales'];
-    $total_bale_weight = $_POST['total_bale_weight'];
+
+    $total_bale_weight = preg_replace("/[^0-9\.]/", "", $_POST['total_bale_weight']);
+    $num_bales = preg_replace("/[^0-9\.]/", "", $_POST['num_bales']);
+    $kilo_bale = preg_replace("/[^0-9\.]/", "", str_replace(',', '', $_POST['kilo_bale']));
 
     $query = "UPDATE container_record SET 
               container_no = '$container_no', 
