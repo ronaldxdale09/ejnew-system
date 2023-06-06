@@ -21,12 +21,12 @@ $output = '
             <th scope="col">BALE ID</th>
             <th scope="col">Status</th>
             <th scope="col">Type</th>
+            <th scope="col">Kilo Bale</th>
             <th scope="col">Supplier</th>
-            <th scope="col">Location</th>
             <th scope="col">Lot No.</th>
             <th scope="col">Total Weight</th>
             <th hidden scope="col">DRC</th>
-            <th scope="col"> Remaining Bales</th>
+            <th scope="col">Bales Available</th>
             <th scope="col" hidden></th>
             <th scope="col" width="10%"></th>
             <th scope="col"></th>
@@ -42,8 +42,8 @@ if(mysqli_num_rows($result) > 0) {
              <td>'.$arr["bales_prod_id"].'</td>
             <td>'.$arr["status"].'</td>
             <td>'.$arr["bales_type"].'</td>
+            <td>'.$arr["kilo_per_bale"].' kg</td>
             <td>'.$arr["supplier"].'</td>
-            <td>'.$arr["location"].'</td>
             <td>'.$arr["lot_num"].'</td>
             <td>'.number_format($arr['produce_total_weight'], 0, '.', ',').' kg</td>
             <td hidden>'.($arr['drc'] ? number_format($arr['drc'], 2) : '-').' %</td>

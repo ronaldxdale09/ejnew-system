@@ -134,7 +134,7 @@ include "include/navbar.php";
                                                         </div>
                                                     </div>
                                                     <div class="col">
-                                                        <label style='font-size:15px' class="col-md-12">Remarks</label>
+                                                        <label style='font-size:15px' class="col-md-12">Particulars</label>
                                                         <div class="input-group mb-3">
                                                             <input type="text" class="form-control" name='remarks'
                                                                 id='remarks' autocomplete='off' style="width: 100px;" />

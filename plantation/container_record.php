@@ -35,9 +35,11 @@ include 'include/navbar.php';
                             <hr>
                             <div class="table-responsive">
                                 <?php
-                                    $results  = mysqli_query($con, "SELECT *,container_record.container_id as con_id  from container_record 
-                                    LEFT JOIN container_bales_selection ON container_bales_selection.container_id =  container_record.container_id "); 
-                                    
+       $results  = mysqli_query($con, "SELECT *, container_record.container_id as con_id from container_record 
+       LEFT JOIN container_bales_selection ON container_bales_selection.container_id =  container_record.container_id
+       GROUP BY container_record.container_id");
+
+
                                     ?>
                                 <table class="table table-bordered table-hover table-striped"
                                     id='recording_table-receiving'>
@@ -81,7 +83,7 @@ include 'include/navbar.php';
                                             <td><?php echo $row['con_id']; ?></td>
                                             <td><?php echo $row['container_no']; ?></td>
                                             <td><?php echo $row['van_no']; ?></td>
-                                            <td><?php echo $row['withdrawal_date']; ?></td>
+                                            <td><?php echo date('M d, Y', strtotime($row['withdrawal_date'])); ?></td>
                                             <td><?php echo $row['quality']; ?></td>
                                             <td class="number-cell">
                                                 <?php echo $row['kilo_bale']; ?> kg

@@ -8,7 +8,7 @@ if (isset($_GET['id'])) {
 <?php 
 include('include/header.php');
 include "include/navbar.php";
-
+include "sales_modal/bale_shipment_modal.php";
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -296,7 +296,8 @@ if (isset($_GET['id'])) {
                                                     Containers</label>
                                                 <div class="input-group mb-3">
                                                     <input type="text" class="form-control" readonly
-                                                        name='ship_no_container' id='ship_no_container' style="width: 100px;" />
+                                                        name='ship_no_container' id='ship_no_container'
+                                                        style="width: 100px;" />
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -307,8 +308,9 @@ if (isset($_GET['id'])) {
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">₱</span>
                                                     </div>
-                                                    <input type="text" class="form-control" name='ship_cost_per_container'
-                                                        id='ship_cost_per_container' readonly style="width: 100px;" />
+                                                    <input type="text" class="form-control"
+                                                        name='ship_cost_per_container' id='ship_cost_per_container'
+                                                        readonly style="width: 100px;" />
                                                 </div>
                                             </div>
                                         </div>
@@ -320,7 +322,7 @@ if (isset($_GET['id'])) {
                                 <div class="card">
                                     <div class="card-body d-flex justify-content-between align-items-center">
                                         <h4>Containers</h4>
-                                        <button id="add-row-btn" class="btn btn-success">Select Container</button>
+                                        <button id="add-row-btn" class="btn btn-success selectContainer">Select Container</button>
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
@@ -393,6 +395,7 @@ if (isset($_GET['id'])) {
                                                                 <input type="text" class="form-control"
                                                                     name="total_cogs" required>
                                                             </div>
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -442,3 +445,37 @@ if (isset($_GET['id'])) {
     </div>
     <br>
 </body>
+
+
+<script>
+
+$('.selectContainer').on('click', function() {
+    $tr = $(this).closest('tr');
+
+    var data = $tr.children("td").map(function() {
+        return $(this).text();
+    }).get();
+
+
+
+    function fetch_table() {
+
+        var container_id = (data[0]);
+        $.ajax({
+            url: "table/bales_container_list.php",
+            method: "POST",
+            success: function(data) {
+                $('#container_list').html(data);
+            }
+        });
+    }
+    fetch_table();
+
+
+
+
+    $('#containerModal').modal('show');
+
+
+});
+</script>

@@ -68,7 +68,7 @@ $today = date('Y-m-d');
                         </div>
                     </div>
                     <div class="col">
-                        <label style='font-size:15px' class="col-md-12">Remarks</label>
+                        <label style='font-size:15px' class="col-md-12">Particulars</label>
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" name='remarks' id='n_remarks' tabindex="7"
                                 autocomplete='off' style="width: 100px;" />
@@ -103,7 +103,7 @@ document.getElementById("proceedButton").addEventListener("click", function() {
                 </button>
             </div>
             <form action="function/container.php" method="POST">
-                <input type="text" class="form-control" id='v_id' name='id' readonly />
+                <input type="text" class="form-control" id='v_id' name='id' readonly hidden/>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col">
@@ -115,10 +115,10 @@ document.getElementById("proceedButton").addEventListener("click", function() {
                             </div>
                         </div>
                         <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Withdrawal
-                                Date</label>
-                            <div class="col-md-12">
-                                <input type="date" class='form-control' id="v_date" readonly>
+                            <label style='font-size:15px' class="col-md-12">Van No.</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id='v_van' tabindex="7" autocomplete='off'
+                                    style="width: 100px;" readonly />
                             </div>
                         </div>
                     </div>
@@ -141,10 +141,10 @@ document.getElementById("proceedButton").addEventListener("click", function() {
                     </div>
                     <div class="row">
                         <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Van No.</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" id='v_van' tabindex="7" autocomplete='off'
-                                    style="width: 100px;" readonly />
+                            <label style='font-size:15px' class="col-md-12">Withdrawal
+                                Date</label>
+                            <div class="col-md-12">
+                                <input type="text" class='form-control' id="v_date" readonly>
                             </div>
                         </div>
                         <div class="col">

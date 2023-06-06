@@ -33,7 +33,7 @@
         <thead class="table-dark" style='font-size:13px'>
             <tr>
                 <th>Status</th>
-                <!-- <th>Bale ID</th> -->
+                <th>Bale ID</th>
                 <th>Quality</th>
                 <th>Date Produced</th>
                 <th>Supplier</th>
@@ -46,8 +46,8 @@
                 <th>Excess</th>
                 <th>DRC</th>
                 <th>Description</th>
-                <th>Cost</th>
-                <!-- <th>Expenses</th> -->
+                <!-- <th>Cost</th> -->
+                <th>Expenses</th>
                 <th class="text-center">Action</th>
             </tr>
         </thead>
@@ -68,9 +68,9 @@
                     <?php endif; ?>
                 </td>
 
-                <!-- <td>
+                <td>
                     <span class="badge bg-secondary"><?php echo $row['bales_prod_id']?></span>
-                </td> -->
+                </td>
                 <td><?php echo $row['bales_type']?></td>
                 <td>
                     <?php 
@@ -88,8 +88,8 @@
                 <td class="number-cell"> <?php echo number_format($row['bales_excess'], 0, '.', ',')?> kg</td>
                 <td class="number-cell"><?php echo number_format($row['drc'],2)?> %</td>
                 <td><?php echo $row['description']?></td>
-                <td> ₱ <?php echo number_format($row['purchase_cost']/$row['produce_total_weight'],2)?></td>
-                <!-- <td> ₱ <?php echo number_format($row['production_expense'],2)?></td> -->
+                <!-- <td> ₱ <?php echo number_format($row['total_production_cost']/$row['produce_total_weight'],2)?></td> -->
+                <td> ₱ <?php echo number_format($row['production_expense'],2)?></td>
                 <td class="text-center">
                     <button type="button" data-recording_id='<?php echo $row['recording_id']?>'
                         class="btn btn-success btn-sm btnProducedView">
@@ -200,7 +200,7 @@ $('.btnProducedView').on('click', function() {
 
     $('#prod_trans_entry').val(parseFloat(data[6]).toLocaleString());
 
-    $('#prod_trans_drc').val(data[11]);
+    $('#prod_trans_drc').val(data[12]);
     $('#prod_trans_total_weight').val(data[8]);
 
 

@@ -143,7 +143,7 @@
                                             <td class="number-cell"><?php echo number_format($row['drc'],2)?> %</td>
                                             <td><?php echo $row['description']?></td>
                                             <td> ₱
-                                                <?php echo number_format($row['purchase_cost']/$row['produce_total_weight'],2)?>
+                                                <?php echo number_format($row['total_production_cost']/$row['produce_total_weight'],2)?>
                                             </td>
 
                                         </tr>
