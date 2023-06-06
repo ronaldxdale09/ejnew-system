@@ -17,7 +17,7 @@ $today = date('Y-m-d');
                 </button>
             </div>
             <form action="function/container.php" method="POST">
-            <input type="text" class="form-control"  id='v_id' name='id'  readonly/>
+            <input type="text" class="form-control"  id='v_id' name='id'  hidden/>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col">
@@ -29,11 +29,34 @@ $today = date('Y-m-d');
                             </div>
                         </div>
                         <div class="col">
+                            <label style='font-size:15px' class="col-md-12">Van No.</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control"  id='v_van' tabindex="7"
+                                    autocomplete='off' style="width: 100px;" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
                             <label style='font-size:15px' class="col-md-12">Withdrawal
                                 Date</label>
                             <div class="col-md-12">
-                                <input type="date" class='form-control' id="v_date"  readonly>
+                                <input type="text" class='form-control' id="v_date"  readonly>
                             </div>
+                        </div>
+                        <div class="col">
+                            <label style='font-size:15px' class="col-md-12">Recorded by</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id='v_recorded' tabindex="7"
+                                    autocomplete='off' style="width: 100px;" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label style='font-size:15px' class="col-md-12">Remarks</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control"  id='v_remarks' tabindex="7"
+                                autocomplete='off' style="width: 100px;"  readonly/>
                         </div>
                     </div>
                     <div class="row">
@@ -51,29 +74,6 @@ $today = date('Y-m-d');
                                 <input type="text" class="form-control" id='v_kilo' tabindex="7"
                                     autocomplete='off' style="width: 100px;" readonly />
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Van No.</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control"  id='v_van' tabindex="7"
-                                    autocomplete='off' style="width: 100px;" readonly />
-                            </div>
-                        </div>
-                        <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Recorded by:</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" id='v_recorded' tabindex="7"
-                                    autocomplete='off' style="width: 100px;" readonly />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <label style='font-size:15px' class="col-md-12">Remarks</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control"  id='v_remarks' tabindex="7"
-                                autocomplete='off' style="width: 100px;"  readonly/>
                         </div>
                     </div>
                     

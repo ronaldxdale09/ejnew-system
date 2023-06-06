@@ -50,12 +50,12 @@ include 'include/navbar.php';
                                             <th scope="col">Van No.</th>
                                             <th scope="col">Withdrawal Date</th>
                                             <th scope="col">Quality</th>
-                                            <th scope="col">Kilo per Bale</th>
+                                            <th scope="col">Kilo</th>
                                             <th scope="col">No. of Bales</th>
                                             <th scope="col">Total Weight</th>
                                             <th scope="col" hidden>Bale Cost</th>
-                                            <th scope="col">Remarks</th>
-                                            <th scope="col">Recorded</th>
+                                            <th scope="col">Particulars</th>
+                                            <th scope="col">Record</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Action</th>
                                         </tr>
@@ -86,7 +86,7 @@ include 'include/navbar.php';
                                             <td><?php echo date('M d, Y', strtotime($row['withdrawal_date'])); ?></td>
                                             <td><?php echo $row['quality']; ?></td>
                                             <td class="number-cell">
-                                                <?php echo $row['kilo_bale']; ?> kg
+                                                <?php echo $row['kilo_bale']; ?>
                                             </td>
                                             <td class="number-cell">
                                                 <?php echo number_format($row['num_bales'], 0, '.', ','); ?> pcs

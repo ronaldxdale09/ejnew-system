@@ -89,13 +89,13 @@
                                     <thead class="table-dark" style='font-size:13px'>
                                         <tr>
                                             <th>Status</th>
-                                            <th>Purchase ID</th>
+                                            <th>Wet ID</th>
                                             <th>Bale ID</th>
                                             <th>Date Produced</th>
                                             <th>Supplier</th>
-                                            <th>Lot #</th>
+                                            <th>Lot No.</th>
                                             <th>Quality</th>
-                                            <th>Kilo per Bale</th>
+                                            <th>Kilo</th>
                                             <th>Bales</th>
                                             <th>Excess</th>
                                             <th>Cuplump Weight</th>
@@ -126,7 +126,7 @@
                                                 <span
                                                     class="badge bg-secondary"><?php echo $row['bales_prod_id']?></span>
                                             </td>
-                                            <td><?php echo $row['production_date']?></td>
+                                            <td><?php echo date('M d, Y', strtotime($row['production_date'])); ?></td>
                                             <td><?php echo $row['supplier']?></td>
                                             <td> <?php echo $row['lot_num']?> </td>
                                             <td><?php echo $row['bales_type']?></td>

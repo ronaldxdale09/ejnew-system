@@ -39,6 +39,7 @@
                                         planta_recording.crumbed_weight, planta_recording.dry_weight, planta_recording.produce_total_weight,
                                         planta_recording.drc, planta_recording.driver, planta_recording.truck_num, planta_recording.receiving_date, 
                                         planta_recording.milling_date, planta_recording.drying_date, planta_recording.production_date,
+                                        planta_recording.production_expense,
                                         rubber_transaction.date as purchased_date,rubber_transaction.net_weight as wet_net_weight
                                         FROM planta_recording
                                         LEFT JOIN rubber_transaction ON planta_recording.purchased_id = rubber_transaction.id
@@ -48,7 +49,6 @@
                                                     <th scope="col">Status</th>
                                                     <th scope="col" hidden>ID</th>
                                                     <th scope="col">Supplier</th>
-                                                    <th scope="col">Location</th>
                                                     <th scope="col">Lot No.</th>
                                                     <th scope="col">Cuplump</th>
                                                     <th scope="col">Reweight</th>
@@ -56,6 +56,7 @@
                                                     <th scope="col">Blanket</th>
                                                     <th scope="col">Bale Weight</th>
                                                     <th scope="col">DRC</th>
+                                                    <th scope="col">Expense</th>
                                                     <th scope="col">Action</th>
                                                 </tr>
                                             </thead>
@@ -65,7 +66,7 @@
                                                         $status_color = '';
                                                         switch($row['status']){
                                                             case "Field":
-                                                                $status_color = 'bg-success';
+                                                                $status_color = 'bg-dark';
                                                                 break;
                                                             case "Milling":
                                                                 $status_color = 'bg-secondary';
@@ -80,13 +81,13 @@
                                                                 $status_color = 'bg-primary';
                                                                 break;
                                                             case "Sold":
-                                                                $status_color = 'bg-info';
+                                                                $status_color = 'bg-succeess';
                                                                 break;
                                                             case "For Sale":
-                                                                $status_color = 'bg-dark';
+                                                                $status_color = 'bg-primary';
                                                                 break;
                                                             case "Purchase":
-                                                                $status_color = 'bg-light text-dark'; // changed color here
+                                                                $status_color = 'bg-info';
                                                                 break;
                                                         }
                                                     ?>
@@ -96,7 +97,6 @@
                                                     </td>
                                                     <td hidden> <?php echo $row['recording_id']?> </td>
                                                     <td> <?php echo $row['supplier']?> </td>
-                                                    <td> <?php echo $row['location']?> </td>
                                                     <td> <?php echo $row['lot_num']?> </td>
                                                     <td class="number-cell">
                                                         <?php echo number_format($row['weight'], 0, '.', ','); ?> kg
@@ -115,6 +115,8 @@
                                                         kg</td>
                                                     <td class="number-cell">
                                                         <?php echo number_format($row['drc'], 2, '.', ','); ?> %</td>
+                                                    <td class="number-cell">₱
+                                                        <?php echo number_format($row['production_expense'], 0, '.', ','); ?></td>
 
                                                     <td>
                                                         <button type="button" data-driver='<?php echo $row['driver'];?>'
