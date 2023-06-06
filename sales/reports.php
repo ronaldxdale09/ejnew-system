@@ -88,16 +88,21 @@ function sortTable() {
 </script>
 
 <body>
-<header style="text-align: center; padding: 20px 0;">
-        <h1 style="font-family: Arial, sans-serif;">
-            <img src='assets/img/logo.png' alt='Q-cart Logo' width='60' height='60' style='margin-right:5px;'>  EN Rubber</h1>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">
+                <img src="assets/img/logo.png" alt="Q-cart Logo" width="60" height="60" style="margin-right:5px;">
+                EN Rubber
+            </a>
+        </nav>
     </header>
+
 
     <div class="container">
         <h3 class="text-center my-4">Sales Report</h3>
-        
+
         <h5 class="text-center">(All amounts are in Philippine Peso)</h5>
-        
+
         <table class="table table-bordered" id="sales-report-table">
             <thead>
                 <tr id="table-header">
@@ -432,59 +437,18 @@ function sortTable() {
         </table>
 
 
-        <footer style="text-align: center; padding: 20px 0; background-color: #f2f2f2;">
-            <p style="font-family: Arial, sans-serif; margin: 0;">EN Rubber &copy; 2023 | All Rights Reserved</p>
-            <p style="font-family: Arial, sans-serif; margin: 0;">Lamitan City, Basilan, Philippines 7302</p>
-            <p style="font-family: Arial, sans-serif; margin: 0;"><i>Developer: Ronald Dale Fuentebella | Email: ronxdale@gmail.com</i>
-            </p>
+        <footer class="mt-5">
+            <p class="text-center">EN Rubber &copy; 2023 | All Rights Reserved</p>
+            <p class="text-center">Lamitan City, Basilan, Philippines 7302</p>
+            <p class="text-center"><i>Developer: Ronald Dale Fuentebella | Email: ronxdale@gmail.com</i></p>
         </footer>
+
 
 
 
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 
 </body>
-<!-- 
-<script>
-function updateYear() {
-    const yearSelect = document.getElementById("year-select");
-    const selectedYear = yearSelect.value;
-    const tableHeader = document.getElementById("table-header");
-
-    // Clear the table header
-    tableHeader.innerHTML = "";
-
-    // Generate the table header based on the selected year
-    const headerContent = `
-            <th scope="col">Accounts</th>
-            <th scope="col">Total</th>
-            <th scope="col">${selectedYear}-01</th>
-            <th scope="col">${selectedYear}-02</th>
-        <th scope="col">${selectedYear}-03</th>
-        <th scope="col">${selectedYear}-04</th>
-        <th scope="col">${selectedYear}-05</th>
-        <th scope="col">${selectedYear}-06</th>
-        <th scope="col">${selectedYear}-07</th>
-        <th scope="col">${selectedYear}-08</th>
-        <th scope="col">${selectedYear}-09</th>
-        <th scope="col">${selectedYear}-10</th>
-        <th scope="col">${selectedYear}-11</th>
-        <th scope="col">${selectedYear}-12</th>
-    `;
-
-    // Insert the new header content
-    tableHeader.innerHTML = headerContent;
-}
-
-
-// Initialize the table header on page load
-updateYear();
-</script> -->
-
 
 </html>
