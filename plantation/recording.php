@@ -28,6 +28,9 @@
     $bales = mysqli_fetch_array($sql);
 
 
+    $sql = mysqli_query($con, "SELECT SUM(number_bales) as inventory from  planta_bales_production where status !='Sold'   "); 
+    $balesCount = mysqli_fetch_array($sql);
+    
 
     // Report all PHP errors
 error_reporting(E_ALL);
@@ -138,6 +141,27 @@ ini_set('display_startup_errors', 1);
                                     <h3>
                                         <i class="text-danger font-weight-bold mr-1"></i>
                                         <?php echo number_format($bales['inventory'] ?? 0, 0) ?> kg
+                                    </h3>
+                                    <div>
+                                        <span class="text-muted">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="stat-card__icon stat-card__icon--success">
+                                    <div class="stat-card__icon-circle">
+                                        <i class="fa fa-money"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col">
+                            <div class="stat-card">
+                                <div class="stat-card__content">
+                                    <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY </p>
+                                    <h3>
+                                        <i class="text-danger font-weight-bold mr-1"></i>
+                                        <?php echo number_format($balesCount['inventory'] ?? 0, 0) ?> pcs
                                     </h3>
                                     <div>
                                         <span class="text-muted">

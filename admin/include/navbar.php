@@ -55,7 +55,7 @@
 
     <hr style='color:gray'>
 
-    <a class='nav-link' href='reports.php'>
+    <a class='nav-link' href='reports.php' hidden>
         <i class='fas fa-file-alt'></i> <span class='nav-text'>Reports</span>
     </a>
 
