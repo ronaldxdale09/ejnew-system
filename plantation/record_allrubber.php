@@ -83,10 +83,10 @@
                                                                 $status_color = 'bg-info';
                                                                 break;
                                                             case "For Sale":
-                                                                $status_color = 'bg-dark';
+                                                                $status_color = 'bg-primary';
                                                                 break;
                                                             case "Purchase":
-                                                                $status_color = 'bg-light text-dark'; // changed color here
+                                                                $status_color = 'bg-light text-dark';
                                                                 break;
                                                         }
                                                     ?>
@@ -148,6 +148,7 @@
 $(document).ready(function() {
     var table = $('#sellerTable').DataTable({
         dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
+        "pageLength": 50,
         order: [
             [0, 'desc']
         ],

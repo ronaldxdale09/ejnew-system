@@ -44,10 +44,9 @@ if (!$result) {
         <th scope="col">Location</th>
         <th scope="col">Lot No.</th>
         <th scope="col">Quality</th>
-     
+        <th scope="col">Kilo per Bale</th>
         <th scope="col">Remaining Bales</th>
         <th scope="col">Withdrawal Bales</th>
-        <th scope="col">Kilo per Bale</th>
         <th scope="col">Bale Weight</th>
         <th scope="col"></th>
 
@@ -70,9 +69,9 @@ if(mysqli_num_rows($result) > 0) {
             <td>'.$arr["location"].'</td>
             <td>'.$arr["recording_id"].'</td>
             <td>'.$arr["bales_type"].'</td>
-            <td>'.$remaining.'</td>
-            <td>'.$arr["num_bales"].'</td>
             <td>'.$arr["kilo_per_bale"].' kg</td>
+            <td>'.$remaining.' pcs</td>
+            <td>'.$arr["num_bales"].' pcs</td>
             <td>'.number_format( $weight, 0, '.', ',').' kg</td>
             <td >  <button type="button" class="btn btn-sm btn-warning text-dark removeBtn " >REMOVE</button></td>
         </tr>';

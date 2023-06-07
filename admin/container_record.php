@@ -30,7 +30,6 @@ include 'include/navbar.php';
                         <br>
 
                         <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
-                            <hr>
                             <div class="table-responsive">
                                 <?php
                             $results  = mysqli_query($con, "SELECT *,container_record.container_id as con_id  from container_record 

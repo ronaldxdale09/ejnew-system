@@ -45,7 +45,7 @@ $today = date('Y-m-d');
                         <div class="col">
                             <label style='font-size:15px' class="col-md-12">Recorded by</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='recorded' id='n_recorded' tabindex="7"
+                                <input type="text" class="form-control" name='recorded' id='n_recorded'   value="<?php echo $name;?>" tabindex="7"
                                     autocomplete='off' style="width: 100px;" require />
                             </div>
                         </div>
