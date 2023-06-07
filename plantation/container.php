@@ -37,7 +37,11 @@ include "include/navbar.php";
         }
     }
 ?>
-
+<style>
+input.invalid-input {
+    border: 2px solid red !important;
+}
+</style>
 
 <body>
     <br>
@@ -60,9 +64,11 @@ include "include/navbar.php";
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-12">
-                                        <button type="button" class="btn btn-secondary text-white voidContainer">
+                                        <a href="container_record.php"
+                                            class="btn btn-secondary text-white returnBtn">
                                             <span class="fas fa-arrow-left"></span> Return
-                                        </button>
+                                        </a>
+
 
                                         <button type="button" class="btn btn-primary confirmSales"><span
                                                 class="fas fa-check"></span> Complete</button>
@@ -93,7 +99,7 @@ include "include/navbar.php";
                                                         <div class="input-group mb-3">
                                                             <input type="text" class="form-control" name='container_no'
                                                                 id='container_no' autocomplete='off'
-                                                                style="width: 100px;" />
+                                                                style="width: 100px;" required />
                                                         </div>
                                                     </div>
                                                     <div class="col">
@@ -102,7 +108,7 @@ include "include/navbar.php";
                                                         <div class="input-group mb-3">
                                                             <input type="text" class="form-control" name='van_no'
                                                                 id='ship_destination' autocomplete='off'
-                                                                style="width: 100px;" />
+                                                                style="width: 100px;" required />
                                                         </div>
                                                     </div>
                                                     <div class="col">
@@ -110,17 +116,16 @@ include "include/navbar.php";
                                                             Date</label>
                                                         <div class="col-md-12">
                                                             <input type="date" class='form-control' id="withdrawal_date"
-                                                                name="withdrawal_date">
+                                                                name="withdrawal_date" required>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <!-- if and only if one quality -->
-                                                        <label style='font-size:15px' class="col-md-12">Quality</label>
+                                                        <label style='font-size:15px' class="col-md-12">Bale Quality</label>
                                                         <div class="input-group mb-3">
                                                             <input type="text" class="form-control" name='quality'
-                                                                id='quality' autocomplete='off' style="width: 100px;" />
+                                                                id='quality' autocomplete='off' style="width: 100px;" required />
                                                         </div>
                                                     </div>
                                                     <div class="col">
@@ -130,11 +135,12 @@ include "include/navbar.php";
                                                         <div class="input-group mb-3">
                                                             <input type="text" class="form-control" name='kilo_bale'
                                                                 id='kilo_bale' autocomplete='off'
-                                                                style="width: 100px;" />
+                                                                style="width: 100px;" required />
                                                         </div>
                                                     </div>
                                                     <div class="col">
-                                                        <label style='font-size:15px' class="col-md-12">Particulars</label>
+                                                        <label style='font-size:15px'
+                                                            class="col-md-12">Particulars</label>
                                                         <div class="input-group mb-3">
                                                             <input type="text" class="form-control" name='remarks'
                                                                 id='remarks' autocomplete='off' style="width: 100px;" />
@@ -142,11 +148,11 @@ include "include/navbar.php";
                                                     </div>
                                                     <div class="col">
                                                         <label style='font-size:15px' class="col-md-12">Recorded
-                                                            by:</label>
+                                                            by</label>
                                                         <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" name='recorded_by'
+                                                            <input type="text" class="form-control" name='recorded_by' value="<?php echo $name;?>"
                                                                 id='recorded_by' autocomplete='off'
-                                                                style="width: 100px;" />
+                                                                style="width: 100px;" required />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -293,9 +299,34 @@ $('.btnSelectTrans').on('click', function() {
 });
 
 
-document.getElementById("confirmButton").addEventListener("click", function() {
-    document.getElementById("transaction_form").submit();
+document.getElementById("confirmButton").addEventListener("click", function(e) {
+    var fields = ['ref_no', 'container_no', 'ship_destination', 'withdrawal_date', 'quality', 'kilo_bale','recorded_by'
+    ];
+    var isEmpty = false;
+
+    fields.forEach(function(field) {
+        var inputElement = document.getElementById(field);
+        if (!inputElement.value) {
+            inputElement.classList.add('invalid-input');
+            isEmpty = true;
+        } else {
+            inputElement.classList.remove('invalid-input');
+        }
+    });
+
+    if (isEmpty) {
+        e.preventDefault(); // Stop form submission
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Please fill all the required fields!',
+        });
+    } else {
+        document.getElementById("transaction_form").submit();
+    }
 });
+
+
 
 $('.confirmSales').on('click', function() {
     $tr = $(this).closest('tr');
@@ -320,8 +351,8 @@ $('.btnDraft').on('click', function() {
         return $(this).text();
     }).get();
 
-    var id=  <?php echo  $id ?>;
-    
+    var id = <?php echo  $id ?>;
+
     $('#draft_id').val(id);
 
     $('#draftModal').modal('show');

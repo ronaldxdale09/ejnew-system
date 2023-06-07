@@ -5,7 +5,7 @@ include('../function/db.php');
 $container_id = $_POST['container_id'];
 $sql  = "SELECT * FROM planta_bales_production 
 LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
-WHERE (planta_recording.status='Purchase' or planta_recording.status='For Sale' ) and (rubber_weight !='0' or rubber_weight IS NOT NULL) and remaining_bales !='0'
+WHERE ( planta_recording.status='For Sale' ) and (rubber_weight !='0' or rubber_weight IS NOT NULL) and remaining_bales !='0'
 ORDER BY planta_bales_production.recording_id ASC "; 
 
 $result = mysqli_query($con, $sql);  
@@ -40,7 +40,7 @@ if(mysqli_num_rows($result) > 0) {
         $output .= '
         <tr >
              <td>'.$arr["bales_prod_id"].'</td>
-            <td>'.$arr["status"].'</td>
+            <td> <span class="badge bg-primary">'.$arr["status"].'</span></td>
             <td>'.$arr["bales_type"].'</td>
             <td>'.$arr["kilo_per_bale"].' kg</td>
             <td>'.$arr["supplier"].'</td>
