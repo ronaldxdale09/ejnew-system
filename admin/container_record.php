@@ -41,7 +41,6 @@ include 'include/navbar.php';
                                     <thead class="table-dark text-center" style="font-size: 14px !important">
                                         <tr>
                                             <th scope="col">Ref No.</th>
-                                            <th scope="col">Container No.</th>
                                             <th scope="col">Van No.</th>
                                             <th scope="col">Withdrawal Date</th>
                                             <th scope="col">Quality</th>
@@ -76,7 +75,6 @@ include 'include/navbar.php';
                                             ?>
                                         <tr>
                                             <td><?php echo $row['con_id']; ?></td>
-                                            <td><?php echo $row['container_no']; ?></td>
                                             <td><?php echo $row['van_no']; ?></td><td><?php echo date('M d, Y', strtotime($row['withdrawal_date'])); ?></td>
                                             <td><?php echo $row['quality']; ?></td>
                                             <td class="number-cell">

@@ -21,6 +21,7 @@ $drying = mysqli_fetch_array($sql);
 $sql = mysqli_query($con, "SELECT SUM(produce_total_weight) as inventory from  planta_recording where status='For Sale' or status='Purchase'  "); 
 $bales = mysqli_fetch_array($sql);
 
+
 $sql = mysqli_query($con, "SELECT SUM(number_bales) as inventory from  planta_bales_production where status !='Sold'   "); 
 $balesCount = mysqli_fetch_array($sql);
 
@@ -154,66 +155,57 @@ $balesCount = mysqli_fetch_array($sql);
 
                     <br>
 
-<div class="row">
-    <div class="card" style="width:100%;max-width:100%;">
-        <div class="card-body" style="width:100%;max-width:100%;">
-            <h5>INVENTORY OVERVIEW</h5>
-            <div class="row" style="display: flex; align-items: stretch;">
-                <div class="col" style="display: flex;">
-                    <div class="card" style="width: 100%;">
-                        <div class="card-body" style="height: 400px; position: relative;">
-                            <canvas id="inventory_all"
-                                style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
-                        </div>
-                    </div>
-                </div>
+                    <div class="row">
+                        <div class="card" style="width:100%;max-width:100%;">
+                            <div class="card-body" style="width:100%;max-width:100%;">
+                                <h5>INVENTORY OVERVIEW</h5>
+                                <div class="row" style="display: flex; align-items: stretch;">
+                                    <div class="col" style="display: flex;">
+                                        <div class="card" style="width: 100%;">
+                                            <div class="card-body" style="height: 400px; position: relative;">
+                                                <canvas id="inventory_all"
+                                                    style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                <div class="col" style="display: flex;">
-                    <div class="card" style="width: 100%;">
-                        <div class="card-body" style="height: 400px; position: relative;">
-                            <canvas id="inventory_bales"
-                                style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col" style="display: flex;">
-                    <div class="card" style="width: 100%;">
-                        <div class="card-body" style="height: 400px; position: relative;">
-                            <canvas id="inventory_baleskilo"
-                                style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<br>
-
-
-<div class="row">
-    <div class="card" style="width:100%;max-width:100%;">
-        <div class="card-body" style="width:100%;max-width:100%;">
-            <h5>PRODUCTION VOLUME</h5>
-
-            <div class="row">
-                <div class="col" style="display: flex;">
-                    <div class="card" style="width: 100%;">
-                        <div class="card-body">
-                            <div class="row">
-                                <canvas id="monthly_production" height="300"></canvas>
+                                    <div class="col" style="display: flex;">
+                                        <div class="card" style="width: 100%;">
+                                            <div class="card-body" style="height: 400px; position: relative;">
+                                                <canvas id="inventory_baleskilo"
+                                                    style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-        </div>
-    </div>
-</div>
+
+                    <br>
+
+
+                    <div class="row" hidden>
+                        <div class="card" style="width:100%;max-width:100%;">
+                            <div class="card-body" style="width:100%;max-width:100%;">
+                                <h5>PRODUCTION VOLUME</h5>
+
+                                <div class="row">
+                                    <div class="col" style="display: flex;">
+                                        <div class="card" style="width: 100%;">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <canvas id="monthly_production" height="300"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
 
 
                 </div>
@@ -228,27 +220,21 @@ $balesCount = mysqli_fetch_array($sql);
 <script>
 // ALL INVENTORY PIE CHART------------------------------
 
-
-inventory_all = document.getElementById("inventory_all");
-
 <?php
-              $inventory = mysqli_query($con, "SELECT 
-              SUM(CASE WHEN status = 'Field' THEN reweight ELSE 0 END) as cumplumps,
-              SUM(CASE WHEN status = 'Milling' THEN crumbed_weight ELSE 0 END) as crumbed,
-              SUM(CASE WHEN status = 'Drying' THEN dry_weight ELSE 0 END) as dry,
-              SUM(CASE WHEN status = 'Produced' THEN produce_total_weight ELSE 0 END) as produced
-          FROM planta_recording");
-          
-              if ($inventory->num_rows > 0) {
-                $inventory_data = $inventory->fetch_assoc();
-                $inventory_values = [
-                    number_format($inventory_data['cumplumps'], 0, '.', ''),
-                    number_format($inventory_data['crumbed'], 0, '.', ''),
-                    number_format($inventory_data['dry'], 0, '.', ''),
-                    number_format($inventory_data['produced'], 0, '.', '')
-                ];
-            }
-            ?>
+
+$sql = mysqli_query($con, "SELECT SUM(reweight) as Cuplump from  planta_recording where status='Field'   "); 
+$cuplump = mysqli_fetch_array($sql);
+
+$sql = mysqli_query($con, "SELECT SUM(crumbed_weight) as Crumb from  planta_recording where status='Milling'   "); 
+$crumb = mysqli_fetch_array($sql);
+
+$sql = mysqli_query($con, "SELECT SUM(dry_weight) as Blanket from  planta_recording where status='Drying'   "); 
+$blanket = mysqli_fetch_array($sql);
+
+$sql = mysqli_query($con, "SELECT SUM(produce_total_weight) as Bale from  planta_recording where status='For Sale' or status='Purchase'  "); 
+$bale = mysqli_fetch_array($sql);
+?>
+
 
 new Chart(inventory_all, {
     options: {
@@ -262,52 +248,7 @@ new Chart(inventory_all, {
                 }
             },
             legend: {
-                position: 'bottom',
-            },
-        },
-        maintainAspectRatio: false,
-        aspectRatio: 1.5,
-    },
-
-    type: 'doughnut',
-    data: {
-        labels: ['Cuplumps', 'Crumbed', 'Blanket', 'Bales'], //X-axis data
-        datasets: [{
-            label: 'Purchased',
-            data: <?php echo json_encode($inventory_values) ?>, //Y-axis data
-            backgroundColor: ['#C42F1A', '#567417', '#90C226', '#E6B91E'],
-            tension: 0.3,
-            fill: false,
-        }]
-    },
-});
-
-
-// BALE INVENTORY DOUGHNUT CHART------------------------------
-
-<?php $bales_inventory = mysqli_query($con, "SELECT bales_type, SUM(number_bales) as total FROM planta_bales_production GROUP BY bales_type;");
-
-            if ($bales_inventory->num_rows > 0) {
-                $bales_values = [];
-                $bales_labels = [];
-                while ($bales_data = $bales_inventory->fetch_assoc()) {
-                    $bales_labels[] = $bales_data['bales_type'];
-                    $bales_values[] = number_format($bales_data['total'], 0, '.', '');
-                } } ?>
-
-new Chart(inventory_bales, {
-    options: {
-        plugins: {
-            title: {
-                display: true,
-                text: 'Bale Inventory by Quality (pcs)',
-                font: {
-                    size: 18,
-                    weight: 'bold'
-                }
-            },
-            legend: {
-                display: false
+                display: false // Hide the legend
             },
         },
         maintainAspectRatio: false,
@@ -319,26 +260,27 @@ new Chart(inventory_bales, {
                 },
             },
             y: {
-                grid: {
-                    display: false,
-                },
-                stacked: true, // Enable stacked bars
-            },
-        },
+                beginAtZero: true // Start the y-axis from zero
+            }
+        }
     },
 
     type: 'bar',
     data: {
-        labels: <?php echo json_encode($bales_labels) ?>, //X-axis data
+        labels: ['Cuplumps', 'Crumbs', 'Blankets', 'Bales'],
         datasets: [{
-            label: 'Purchased',
-            data: <?php echo json_encode($bales_values) ?>, //Y-axis data
-            backgroundColor: ['#C42F1A', '#567417', '#90C226', '#E6B91E', '#CE5504'],
+            data: [<?php echo $cuplump['Cuplump'] ?>, <?php echo $crumb['Crumb'] ?>,
+                <?php echo $blanket['Blanket'] ?>, <?php echo $bale['Bale'] ?>
+            ],
+            backgroundColor: ['#C42F1A', '#E6B91E', '#90C226', '#567417'],
             tension: 0.3,
-            fill: false,
+            fill: true,
         }]
     },
+
 });
+
+
 
 
 // BALE KILO INVENTORY BAR CHART------------------------------
@@ -389,7 +331,7 @@ new Chart(inventory_baleskilo, {
             },
             y: {
                 grid: {
-                    display: false,
+                    display: true,
                 },
                 stacked: true, // Enable stacked bars
             },
@@ -419,38 +361,33 @@ new Chart(inventory_baleskilo, {
     },
 });
 
-
-
 <?php
-$milling_data = mysqli_query($con, "SELECT SUM(crumbed_weight) AS total_weight, MONTH(milling_date) AS month FROM planta_recording_logs
-WHERE (recording_id, planta_logs_id) IN ( SELECT recording_id, MAX(planta_logs_id) AS max_planta_logs_id FROM planta_recording_logs 
-WHERE status = 'Milling' GROUP BY recording_id ) GROUP BY MONTH(milling_date);");
+$milling_data = mysqli_query($con, "SELECT SUM(crumbed_weight) AS total_weight, MONTH(milling_date) AS month FROM planta_recording
+    WHERE status = 'Milling' GROUP BY MONTH(milling_date);");
 
 if ($milling_data && $milling_data->num_rows > 0) {
-    $month_bales = [];
-    $bales = [];
+    $month_mill = [];
+    $crumbs_weight = [];
     while ($row = mysqli_fetch_assoc($milling_data)) {
-        $month_bales[] = date('M Y', mktime(0, 0, 0, $row['month'], 1));
-        $bales[] = number_format($row['total_weight'], 0, '.', '');
+        $month_mill[] = date('M Y', mktime(0, 0, 0, $row['month'], 1));
+        $crumbs_weight[] = number_format($row['total_weight'], 0, '.', '');
     }
 }
 
-$Drying_data = mysqli_query($con, "SELECT SUM(dry_weight) AS total_weight, MONTH(drying_date) AS month FROM planta_recording_logs
-WHERE (recording_id, planta_logs_id) IN ( SELECT recording_id, MAX(planta_logs_id) AS max_planta_logs_id FROM planta_recording_logs 
-WHERE status = 'Drying' GROUP BY recording_id ) GROUP BY MONTH(drying_date);");
+$Drying_data = mysqli_query($con, "SELECT SUM(dry_weight) AS total_weight, MONTH(drying_date) AS month FROM planta_recording
+    WHERE status = 'Drying' GROUP BY MONTH(drying_date);");
 
 if ($Drying_data && $Drying_data->num_rows > 0) {
-    $month_Dry = [];
+    $month_dry = [];
     $dry_weight = [];
     while ($row = mysqli_fetch_assoc($Drying_data)) {
-        $month_Dry[] = date('M Y', mktime(0, 0, 0, $row['month'], 1));
+        $month_dry[] = date('M Y', mktime(0, 0, 0, $row['month'], 1));
         $dry_weight[] = number_format($row['total_weight'], 0, '.', '');
     }
 }
 
-$bale_prod = mysqli_query($con, "SELECT SUM(produce_total_weight) AS total_weight, MONTH(production_date) AS month FROM planta_recording_logs
-    WHERE (recording_id, planta_logs_id) IN ( SELECT recording_id, MAX(planta_logs_id) AS max_planta_logs_id FROM planta_recording_logs 
-    WHERE status = 'Pressing' GROUP BY recording_id ) GROUP BY MONTH(production_date);");
+$bale_prod = mysqli_query($con, "SELECT SUM(produce_total_weight) AS total_weight, MONTH(production_date) AS month FROM planta_recording
+    WHERE status = 'Pressing' GROUP BY MONTH(production_date);");
 
 if ($bale_prod && $bale_prod->num_rows > 0) {
     $month_produced = [];
@@ -498,10 +435,11 @@ new Chart(monthly_production, {
     },
     type: 'line',
     data: {
-        labels: <?php echo json_encode($month_bales) ?>,
-        datasets: [{
+        labels: <?php echo json_encode($month_produced) ?>,
+        datasets: [
+            {
                 label: 'Crumbs',
-                data: <?php echo json_encode($bales) ?>,
+                data: <?php echo json_encode($crumbs_weight) ?>,
                 backgroundColor: '#e6b91e',
                 tension: 0.3,
                 fill: true,
@@ -523,6 +461,5 @@ new Chart(monthly_production, {
         ]
     },
 });
-
 
 </script>

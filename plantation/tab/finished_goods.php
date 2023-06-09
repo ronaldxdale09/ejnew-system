@@ -34,17 +34,17 @@
             <tr>
                 <th>Status</th>
                 <th>Bale ID</th>
-                <th>Quality</th>
                 <th>Date Produced</th>
-                <th>Supplier</th>
-                <th>Location</th>
                 <th>Quality</th>
-                <th>Kilo per Bale</th>
-                <th>Bale Weight</th>
+                <th>Kilo</th>
+                <th>Supplier</th>
+                <th>Lot No.</th>
                 <th>Bales</th>
                 <th>Bales in Container</th>
                 <th>Excess</th>
+                <th>Bale Weight</th>
                 <th>DRC</th>
+                <th>Overhead</th>
                 <th>Description</th>
                 <!-- <th>Cost</th> -->
                 <th class="text-center">Action</th>
@@ -70,25 +70,23 @@
                 <td>
                     <span class="badge bg-secondary"><?php echo $row['bales_prod_id']?></span>
                 </td>
-                <td><?php echo $row['bales_type']?></td>
                 <td>
                     <?php 
                         $date = new DateTime($row['production_date']);
                         echo $date->format('F j, Y'); // Outputs date as "May 14, 2023"
                     ?>
                 </td>
-                <td><?php echo $row['supplier']?></td>
-                <td> <?php echo $row['location']?> </td>
                 <td><?php echo $row['bales_type']?></td>
                 <td class="number-cell"> <?php echo $row['kilo_per_bale']?> kg</td>
-                <td class="number-cell"> <?php echo number_format($row['rubber_weight'], 0, '.', ',')?> kg</td>
+                <td><?php echo $row['supplier']?></td>
+                <td><?php echo $row['lot_num']?></td>
                 <td class="number-cell bales-column"> <?php echo number_format($row['number_bales'], 0, '.', ',')?> pcs </td>
                 <td class="number-cell remaining-column"> <?php echo number_format($row['number_bales'] - $row['remaining_bales'], 0, '.', ',')?> pcs </td>
                 <td class="number-cell"> <?php echo number_format($row['bales_excess'], 0, '.', ',')?> kg</td>
+                <td class="number-cell"> <?php echo number_format($row['rubber_weight'], 0, '.', ',')?> kg</td>
                 <td class="number-cell"><?php echo number_format($row['drc'],2)?> %</td>
+                <td class="number-cell">₱ <?php echo number_format($row['mill_cost'],2)?></td>
                 <td><?php echo $row['description']?></td>
-                <!-- <td> ₱ <?php echo number_format($row['total_production_cost']/$row['produce_total_weight'],2)?></td> -->
-
                 <td class="text-center">
                     <button type="button" data-recording_id='<?php echo $row['recording_id']?>'
                         class="btn btn-success btn-sm btnProducedView">

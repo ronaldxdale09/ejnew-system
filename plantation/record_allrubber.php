@@ -46,9 +46,8 @@
                                             <thead class="table-dark">
                                                 <tr>
                                                     <th scope="col">Status</th>
-                                                    <th scope="col" hidden>ID</th>
+                                                    <th scope="col">ID</th>
                                                     <th scope="col">Supplier</th>
-                                                    <th scope="col">Location</th>
                                                     <th scope="col">Lot No.</th>
                                                     <th scope="col">Cuplump</th>
                                                     <th scope="col">Reweight</th>
@@ -56,6 +55,8 @@
                                                     <th scope="col">Blanket</th>
                                                     <th scope="col">Bale Weight</th>
                                                     <th scope="col">DRC</th>
+                                                    <th scope="col">Expense</th>
+                                                    <th scope="col">Overhead</th>
                                                     <th scope="col">Action</th>
                                                 </tr>
                                             </thead>
@@ -94,9 +95,8 @@
                                                             <?php echo $row['status']?>
                                                             </span>
                                                     </td>
-                                                    <td hidden> <?php echo $row['recording_id']?> </td>
+                                                    <td> <?php echo $row['recording_id']?> </td>
                                                     <td> <?php echo $row['supplier']?> </td>
-                                                    <td> <?php echo $row['location']?> </td>
                                                     <td> <?php echo $row['lot_num']?> </td>
                                                     <td class="number-cell">
                                                         <?php echo number_format($row['weight'], 0, '.', ','); ?> kg
@@ -115,6 +115,10 @@
                                                         kg</td>
                                                     <td class="number-cell">
                                                         <?php echo number_format($row['drc'], 2, '.', ','); ?> %</td>
+                                                    <td class="number-cell">₱ 
+                                                        <?php echo number_format($row['production_expense'], 0, '.', ','); ?></td>
+                                                    <td class="number-cell">₱ 
+                                                        <?php echo number_format($row['mill_cost'], 2, '.', ','); ?></td>
 
                                                     <td>
                                                         <button type="button" data-driver='<?php echo $row['driver'];?>'
