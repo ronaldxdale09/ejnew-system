@@ -25,7 +25,7 @@
                     <span class="badge bg-warning"> <?php echo $row['status']?> </spa>
                 </td>
                 <td> <?php echo $row['recording_id']?> </td>
-                <td> <?php echo $row['milling_date']?> </td>
+                <td> <?php echo date('M d, Y', strtotime($row['milling_date'])); ?> </td>
                 <td> <?php echo $row['supplier']?> </td>
                 <td> <?php echo $row['location']?> </td>
                 <td> <?php echo $row['lot_num']?> </td>
@@ -88,7 +88,7 @@ $('.btnDryTransfer').on('click', function() {
     $('#trans_dry_weight').val(data[7]);
 
 
-dry_weight = parseFloat(data[7].match(/\d+\.?\d*/));
+    dry_weight = parseFloat(data[7].match(/\d+\.?\d*/));
 
 
     if (dry_weight === 0) {
