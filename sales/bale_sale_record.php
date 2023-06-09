@@ -44,7 +44,6 @@
                                         <tr>
 
                                             <th scope="col">No.</th>
-                                            <th scope="col">Sale Type</th>
                                             <th scope="col">Date</th>
                                             <th scope="col">Buyer</th>
                                             <th scope="col">Destination</th>
