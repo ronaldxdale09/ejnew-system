@@ -198,6 +198,14 @@
                                 id="t_expense" readonly>
                             </div>
                         </div>
+                        <div class="col">
+                            <label class="form-label">Milling Cost</label>
+                            <div class="input-group">
+                                <span class="input-group-text">₱</span>
+                                <input type="text" style='font-size:19px' class="form-control text-center"
+                                id="mill_cost" readonly>
+                            </div>
+                        </div>
                     </div>
 
             </div>

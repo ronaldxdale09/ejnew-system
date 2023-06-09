@@ -283,48 +283,37 @@ $balesCount = mysqli_fetch_array($sql);
                 </div>
 
                 <br>
-
+                
                 <div class="row">
-                    <div class="card" style="width:100%;max-width:100%;">
-                        <div class="card-body" style="width:100%;max-width:100%;">
-                            <h5>INVENTORY OVERVIEW</h5>
-                            <div class="row" style="display: flex; align-items: stretch;">
-                                <div class="col" style="display: flex;">
-                                    <div class="card" style="width: 100%;">
-                                        <div class="card-body" style="height: 400px; position: relative;">
-                                            <canvas id="inventory_all"
-                                                style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                        <div class="card" style="width:100%;max-width:100%;">
+                            <div class="card-body" style="width:100%;max-width:100%;">
+                                <h5>INVENTORY OVERVIEW</h5>
+                                <div class="row" style="display: flex; align-items: stretch;">
+                                    <div class="col" style="display: flex;">
+                                        <div class="card" style="width: 100%;">
+                                            <div class="card-body" style="height: 400px; position: relative;">
+                                                <canvas id="inventory_all"
+                                                    style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="col" style="display: flex;">
-                                    <div class="card" style="width: 100%;">
-                                        <div class="card-body" style="height: 400px; position: relative;">
-                                            <canvas id="inventory_bales"
-                                                style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col" style="display: flex;">
-                                    <div class="card" style="width: 100%;">
-                                        <div class="card-body" style="height: 400px; position: relative;">
-                                            <canvas id="inventory_baleskilo"
-                                                style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                    <div class="col" style="display: flex;">
+                                        <div class="card" style="width: 100%;">
+                                            <div class="card-body" style="height: 400px; position: relative;">
+                                                <canvas id="inventory_baleskilo"
+                                                    style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
 
                 <br>
 
-
-                <div class="row">
+                <div class="row" hidden>
                     <div class="card" style="width:100%;max-width:100%;">
                         <div class="card-body" style="width:100%;max-width:100%;">
                             <h5>PRODUCTION VOLUME</h5>
@@ -457,127 +446,76 @@ $balesCount = mysqli_fetch_array($sql);
     });
 
 
+// ALL INVENTORY PIE CHART------------------------------
 
-    // ALL INVENTORY PIE CHART------------------------------
+<?php
+
+$sql = mysqli_query($con, "SELECT SUM(reweight) as Cuplump from  planta_recording where status='Field'   "); 
+$cuplump = mysqli_fetch_array($sql);
+
+$sql = mysqli_query($con, "SELECT SUM(crumbed_weight) as Crumb from  planta_recording where status='Milling'   "); 
+$crumb = mysqli_fetch_array($sql);
+
+$sql = mysqli_query($con, "SELECT SUM(dry_weight) as Blanket from  planta_recording where status='Drying'   "); 
+$blanket = mysqli_fetch_array($sql);
+
+$sql = mysqli_query($con, "SELECT SUM(produce_total_weight) as Bale from  planta_recording where status='For Sale' or status='Purchase'  "); 
+$bale = mysqli_fetch_array($sql);
+?>
 
 
-    inventory_all = document.getElementById("inventory_all");
-
-    <?php
-              $inventory = mysqli_query($con, "SELECT 
-              SUM(CASE WHEN status = 'Field' THEN reweight ELSE 0 END) as cumplumps,
-              SUM(CASE WHEN status = 'Milling' THEN crumbed_weight ELSE 0 END) as crumbed,
-              SUM(CASE WHEN status = 'Drying' THEN dry_weight ELSE 0 END) as dry,
-              SUM(CASE WHEN status = 'Produced' THEN produce_total_weight ELSE 0 END) as produced
-          FROM planta_recording");
-          
-              if ($inventory->num_rows > 0) {
-                $inventory_data = $inventory->fetch_assoc();
-                $inventory_values = [
-                    number_format($inventory_data['cumplumps'], 0, '.', ''),
-                    number_format($inventory_data['crumbed'], 0, '.', ''),
-                    number_format($inventory_data['dry'], 0, '.', ''),
-                    number_format($inventory_data['produced'], 0, '.', '')
-                ];
+new Chart(inventory_all, {
+    options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Overall Inventory (kilo)',
+                font: {
+                    size: 18,
+                    weight: 'bold'
+                }
+            },
+            legend: {
+                display: false // Hide the legend
+            },
+        },
+        maintainAspectRatio: false,
+        aspectRatio: 1.5,
+        scales: {
+            x: {
+                grid: {
+                    display: false,
+                },
+            },
+            y: {
+                beginAtZero: true // Start the y-axis from zero
             }
-            ?>
+        }
+    },
 
-    new Chart(inventory_all, {
-        options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Overall Inventory (kilo)',
-                font: {
-                    size: 18,
-                    weight: 'bold'
-                }
-                },
-                legend: {
-                    position: 'bottom',
-                },
-            },
-            maintainAspectRatio: false,
-            aspectRatio: 1.5,
-        },
+    type: 'bar',
+    data: {
+        labels: ['Cuplumps', 'Crumbs', 'Blankets', 'Bales'],
+        datasets: [{
+            data: [<?php echo $cuplump['Cuplump'] ?>, <?php echo $crumb['Crumb'] ?>,
+                <?php echo $blanket['Blanket'] ?>, <?php echo $bale['Bale'] ?>
+            ],
+            backgroundColor: ['#C42F1A', '#E6B91E', '#90C226', '#567417'],
+            tension: 0.3,
+            fill: true,
+        }]
+    },
 
-        type: 'doughnut',
-        data: {
-            labels: ['Cuplumps', 'Crumbed', 'Blanket', 'Bales'], //X-axis data
-            datasets: [{
-                label: 'Purchased',
-                data: <?php echo json_encode($inventory_values) ?>, //Y-axis data
-                backgroundColor: ['#C42F1A', '#567417', '#90C226', '#E6B91E'],
-                tension: 0.3,
-                fill: false,
-            }]
-        },
-    });
+});
 
 
-    // BALE INVENTORY DOUGHNUT CHART------------------------------
-
-    <?php $bales_inventory = mysqli_query($con, "SELECT bales_type, SUM(number_bales) as total FROM planta_bales_production GROUP BY bales_type;");
-
-            if ($bales_inventory->num_rows > 0) {
-                $bales_values = [];
-                $bales_labels = [];
-                while ($bales_data = $bales_inventory->fetch_assoc()) {
-                    $bales_labels[] = $bales_data['bales_type'];
-                    $bales_values[] = number_format($bales_data['total'], 0, '.', '');
-                } } ?>
-
-    new Chart(inventory_bales, {
-        options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Bale Inventory by Quality (pcs)',
-                font: {
-                    size: 18,
-                    weight: 'bold'
-                }
-                },
-                legend: {
-                    display: false
-                },
-            },
-            maintainAspectRatio: false,
-            aspectRatio: 1.5,
-            scales: {
-                x: {
-                    grid: {
-                        display: false,
-                    },
-                },
-                y: {
-                    grid: {
-                        display: false,
-                    },
-                    stacked: true, // Enable stacked bars
-                },
-            },
-        },
-
-        type: 'bar',
-        data: {
-            labels: <?php echo json_encode($bales_labels) ?>, //X-axis data
-            datasets: [{
-                label: 'Purchased',
-                data: <?php echo json_encode($bales_values) ?>, //Y-axis data
-                backgroundColor: ['#C42F1A', '#567417', '#90C226', '#E6B91E', '#CE5504'],
-                tension: 0.3,
-                fill: false,
-            }]
-        },
-    });
 
 
-    // BALE KILO INVENTORY BAR CHART------------------------------
+// BALE KILO INVENTORY BAR CHART------------------------------
 
-    inventory_bales = document.getElementById("inventory_bales");
+inventory_bales = document.getElementById("inventory_bales");
 
-    <?php              
+<?php              
     $bales_type = mysqli_query($con, "SELECT bales_type,
             SUM(CASE WHEN kilo_per_bale BETWEEN 33.32 AND 33.34 THEN number_bales ELSE 0 END) as total_33_33,
             SUM(CASE WHEN kilo_per_bale BETWEEN 34.99 AND 35.01 THEN number_bales ELSE 0 END) as total_35
@@ -596,61 +534,60 @@ $balesCount = mysqli_fetch_array($sql);
     }
         ?>
 
-    new Chart(inventory_baleskilo, {
-        options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Bale Inventory by Kilo (pcs)',
+new Chart(inventory_baleskilo, {
+    options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Bale Inventory by Kilo (pcs)',
                 font: {
                     size: 18,
                     weight: 'bold'
                 }
-                },
-                legend: {
-                    position: 'top',
-                },
             },
-            maintainAspectRatio: false,
-            aspectRatio: 1.5,
-            scales: {
-                x: {
-                    grid: {
-                        display: false,
-                    },
-                },
-                y: {
-                    grid: {
-                        display: false,
-                    },
-                    stacked: true, // Enable stacked bars
-                },
+            legend: {
+                position: 'top',
             },
         },
-
-        type: 'bar',
-        data: {
-            labels: <?php echo json_encode($bales_labels) ?>, // X-axis data
-            datasets: [{
-                    label: '35 kg', // Add a label for 35kg bales
-                    data: <?php echo json_encode($bales_values_35) ?>, // Y-axis data for 35kg bales
-                    backgroundColor: 'rgba(196, 47, 26, 1)',
-                    tension: 0.3,
-                    fill: false,
-                    stack: 'stack1',
+        maintainAspectRatio: false,
+        aspectRatio: 1.5,
+        scales: {
+            x: {
+                grid: {
+                    display: false,
                 },
-                {
-                    label: '33.33 kg', // Add a label for 33.33kg bales
-                    data: <?php echo json_encode($bales_values_3333) ?>, // Y-axis data for 33.33kg bales
-                    backgroundColor: 'rgba(196, 47, 26, 0.6)',
-                    tension: 0.3,
-                    fill: false,
-                    stack: 'stack1',
+            },
+            y: {
+                grid: {
+                    display: true,
                 },
-            ],
+                stacked: true, // Enable stacked bars
+            },
         },
-    });
+    },
 
+    type: 'bar',
+    data: {
+        labels: <?php echo json_encode($bales_labels) ?>, // X-axis data
+        datasets: [{
+                label: '35 kg', // Add a label for 35kg bales
+                data: <?php echo json_encode($bales_values_35) ?>, // Y-axis data for 35kg bales
+                backgroundColor: 'rgba(196, 47, 26, 1)',
+                tension: 0.3,
+                fill: false,
+                stack: 'stack1',
+            },
+            {
+                label: '33.33 kg', // Add a label for 33.33kg bales
+                data: <?php echo json_encode($bales_values_3333) ?>, // Y-axis data for 33.33kg bales
+                backgroundColor: 'rgba(196, 47, 26, 0.6)',
+                tension: 0.3,
+                fill: false,
+                stack: 'stack1',
+            },
+        ],
+    },
+});
 
 
     <?php

@@ -46,7 +46,6 @@ include 'include/navbar.php';
                                     <thead class="table-dark text-center" style="font-size: 14px !important">
                                         <tr>
                                             <th scope="col">Ref No.</th>
-                                            <th scope="col">Container No.</th>
                                             <th scope="col">Van No.</th>
                                             <th scope="col">Withdrawal Date</th>
                                             <th scope="col">Quality</th>
@@ -55,7 +54,7 @@ include 'include/navbar.php';
                                             <th scope="col">Total Weight</th>
                                             <th scope="col" hidden>Bale Cost</th>
                                             <th scope="col">Particulars</th>
-                                            <th scope="col">Record</th>
+                                            <th scope="col">User</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Action</th>
                                         </tr>
@@ -81,7 +80,6 @@ include 'include/navbar.php';
                                             ?>
                                         <tr>
                                             <td><?php echo $row['con_id']; ?></td>
-                                            <td><?php echo $row['container_no']; ?></td>
                                             <td><?php echo $row['van_no']; ?></td>
                                             <td><?php echo date('M d, Y', strtotime($row['withdrawal_date'])); ?></td>
                                             <td><?php echo $row['quality']; ?></td>
@@ -155,13 +153,12 @@ include 'include/navbar.php';
 
         $('#v_id').val(data[0]);
 
-        $('#v_container_no').val(data[1]);
-        $('#v_van').val(data[2]);
-        $('#v_date').val(data[3]);
-        $('#v_quality').val(data[4]);
-        $('#v_kilo').val(data[5]);
-        $('#v_remarks').val(data[8]);
-        $('#v_recorded').val(data[9]);
+        $('#v_van').val(data[1]);
+        $('#v_date').val(data[2]);
+        $('#v_remarks').val(data[3]);
+        $('#v_recorded').val(data[4]);
+        $('#v_quality').val(data[5]);
+        $('#v_kilo').val(data[6]);
 
         var status = $(this).data('status');
 

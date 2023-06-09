@@ -16,6 +16,7 @@
                 <th scope="col"> Total Weight</th>
                 <th scope="col"> DRC</th>
                 <th scope="col">Expense</th>
+                <th scope="col">Overhead</th>
 
                 <th scope="col" class="text-center">Action</th>
             </tr>
@@ -25,7 +26,7 @@
                     <span class="badge bg-danger"> <?php echo $row['status']?> </span>
                 </td>
                 <td> <?php echo $row['recording_id']?> </td>
-                <td> <?php echo $row['pressing_date']?> </td>
+                <td><?php echo date('M d, Y', strtotime($row['pressing_date'])); ?></td>
                 <td> <?php echo $row['supplier']?> </td>
                 <td> <?php echo $row['location']?> </td>
                 <td> <?php echo $row['lot_num']?> </td>
@@ -33,6 +34,7 @@
                 <td class="number-cell"> <?php echo number_format($row['produce_total_weight'], 0, '.', ',')?> kg</td>
                 <td class="number-cell"><?php echo $row['drc']? number_format($row['drc'], 2)  : '-' ?> %</td>
                 <td class="number-cell">₱ <?php echo number_format($row['production_expense'], 0, '.', ',')?></td>
+                <td class="number-cell">₱ <?php echo number_format($row['mill_cost'], 0, '.', ',')?></td>
 
 
                 <td class="text-center">
@@ -40,9 +42,8 @@
                         data-expense_desc='<?php echo $row['prod_expense_desc']?>'
                         data-dry='<?php echo $row['dry_weight']?>' class="btn btn-success btn-sm btnPressUpdate">
                         <i class="fas fa-book"></i></button>
-                    <button type="button"
-                    data-expense_desc='<?php echo $row['prod_expense_desc']?>'
-                    class="btn btn-warning btn-sm btnCompletePressing ">
+                    <button type="button" data-expense_desc='<?php echo $row['prod_expense_desc']?>'
+                        class="btn btn-warning btn-sm btnCompletePressing ">
                         <i class="fas fa-chevron-right"> </i> </button>
                     <!-- <button type="button" class="btn btn-primary btn-dark btn-sm btnViewRecordPressing">
                         <i class="fas fa-book"></i></button> -->

@@ -18,59 +18,61 @@ $today = date('Y-m-d');
                 <div class="modal-body">
                     <div class="row">
                         <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Container
-                                No.</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='container_no' id='n_container_no'
-                                    tabindex="1" autocomplete='off' style="width: 100px;" />
-                            </div>
-                        </div>
-                        <div class="col">
                             <label style='font-size:15px' class="col-md-12">Van No.</label>
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" name='van_no' id='n_van' tabindex="2"
                                     autocomplete='off' style="width: 100px;" require />
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col">
                             <label style='font-size:15px' class="col-md-12">Withdrawal
                                 Date</label>
                             <div class="col-md-12">
-                                <input type="date" class='form-control' id="date" tabindex="3" value="<?php echo $today; ?>"
-                                    name="n_date" require>
+                                <input type="date" class='form-control' id="date" tabindex="3"
+                                    value="<?php echo $today; ?>" name="n_date" require>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label style='font-size:15px' class="col-md-12">Particulars</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" name='remarks' id='n_remarks' tabindex="7"
+                                    autocomplete='off' style="width: 100px;" />
                             </div>
                         </div>
                         <div class="col">
                             <label style='font-size:15px' class="col-md-12">Recorded by</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='recorded' id='n_recorded'   value="<?php echo $name;?>" tabindex="7"
-                                    autocomplete='off' style="width: 100px;" require />
+                                <input type="text" class="form-control" name='recorded' id='n_recorded'
+                                    value="<?php echo $name;?>" tabindex="7" autocomplete='off' style="width: 100px;"
+                                    require />
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <label style='font-size:15px' class="col-md-12">Particulars</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" name='remarks' id='n_remarks' tabindex="7"
-                                autocomplete='off' style="width: 100px;" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <label style='font-size:15px' class="col-md-12">Quality</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='quality' id='n_quality' tabindex="7"
-                                    autocomplete='off' style="width: 100px;" require />
+                                <select class="form-select" name="quality" id="n_quality" tabindex="7" required>
+                                    <option disabled selected>Select quality...</option>
+                                    <option value="SPR5">5L</option>
+                                    <option value="SPR5">SPR-5</option>
+                                    <option value="SPR10">SPR-10</option>
+                                    <option value="SPR20">SPR-20</option>
+                                    <option value="Offcolor">Off Color</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col">
                             <label style='font-size:15px' class="col-md-12">Kilo per
                                 Bale</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='kilo_bale' id='n_kilo_bale' tabindex="7"
-                                    autocomplete='off' style="width: 100px;" require />
+                                <select class="form-select" name="kilo_bale" id="n_kilo_bale" tabindex="7" required>
+                                    <option disabled selected>Select kilo...</option>
+                                    <option value="35kg">35.00 kg</option>
+                                    <option value="33.33kg">33.33 kg</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -107,27 +109,26 @@ document.getElementById("proceedButton").addEventListener("click", function() {
                 <div class="modal-body">
                     <div class="row">
                         <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Container
-                                No.</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" id='v_container_no' tabindex="7"
-                                    autocomplete='off' style="width: 100px;" readonly />
-                            </div>
-                        </div>
-                        <div class="col">
                             <label style='font-size:15px' class="col-md-12">Van No.</label>
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" id='v_van' tabindex="7" autocomplete='off'
                                     style="width: 100px;" readonly />
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col">
                             <label style='font-size:15px' class="col-md-12">Withdrawal
                                 Date</label>
                             <div class="col-md-12">
                                 <input type="text" class='form-control' id="v_date" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label style='font-size:15px' class="col-md-12">Particulars</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id='v_remarks' tabindex="7" autocomplete='off'
+                                    style="width: 100px;" readonly />
                             </div>
                         </div>
                         <div class="col">
@@ -138,13 +139,7 @@ document.getElementById("proceedButton").addEventListener("click", function() {
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <label style='font-size:15px' class="col-md-12">Particulars</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" id='v_remarks' tabindex="7" autocomplete='off'
-                                style="width: 100px;" readonly />
-                        </div>
-                    </div>
+                    <hr>
                     <div class="row">
                         <div class="col">
                             <label style='font-size:15px' class="col-md-12">Quality</label>
