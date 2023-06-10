@@ -30,9 +30,6 @@ include 'include/navbar.php';
                         <br>
 
                         <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
-                            <button type="button" class="btn btn-success text-white" data-toggle="modal"
-                                data-target="#newContainer">NEW CONTAINER</button>
-                            <hr>
                             <div class="table-responsive">
                                 <?php
                                     $results  = mysqli_query($con, "SELECT *,container_record.container_id as con_id  from container_record 
@@ -44,14 +41,14 @@ include 'include/navbar.php';
                                     <thead class="table-dark text-center" style="font-size: 14px !important">
                                         <tr>
                                             <th scope="col">Ref No.</th>
-                                            <th scope="col">Container No.</th>
                                             <th scope="col">Van No.</th>
                                             <th scope="col">Withdrawal Date</th>
                                             <th scope="col">Quality</th>
-                                            <th scope="col">Kilo per Bale</th>
+                                            <th scope="col">Kilo</th>
                                             <th scope="col">No. of Bales</th>
                                             <th scope="col">Total Weight</th>
-                                            <th scope="col" hidden>Bale Cost</th>
+                                            <th scope="col">Bale Cost</th>
+                                            <th scope="col">Overhead</th>
                                             <th scope="col">Remarks</th>
                                             <th scope="col">Recorded</th>
                                             <th scope="col">Status</th>
@@ -79,7 +76,6 @@ include 'include/navbar.php';
                                             ?>
                                         <tr>
                                             <td><?php echo $row['con_id']; ?></td>
-                                            <td><?php echo $row['container_no']; ?></td>
                                             <td><?php echo $row['van_no']; ?></td>
                                             <td><?php echo $row['withdrawal_date']; ?></td>
                                             <td><?php echo $row['quality']; ?></td>
@@ -92,6 +88,8 @@ include 'include/navbar.php';
                                             <td class="number-cell">
                                                 <?php echo number_format($row['total_bale_weight'], 0, '.', ','); ?> kg
                                             </td>
+                                            <td>₱ <?php echo $row['cost']; ?></td>
+                                            <td>₱ <?php echo $row['overhead']; ?></td>
                                             <td><?php echo $row['remarks']; ?></td>
                                             <td><?php echo $row['recorded_by']; ?></td>
                                             <td> <span class="badge <?php echo $status_color; ?>">

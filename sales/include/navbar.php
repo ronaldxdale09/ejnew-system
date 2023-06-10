@@ -9,11 +9,10 @@
 
     <br>
 
-    <a class='nav-link' href='dashboard.php'>
+    <a class='nav-link' href='dashboard.php' hidden>
         <i class='fa-solid fa-house'></i> <span class='nav-text'>Home</span>
     </a>
 
-    <hr style='color:gray'>
 
     <a class='nav-link' href='bale_sale_record.php'>
         <i class='fa-solid fa-book'></i> <span class='nav-text'>Rubber Bale Sale</span>

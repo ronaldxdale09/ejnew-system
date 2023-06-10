@@ -43,18 +43,16 @@ include 'include/navbar.php';
                                     id='recording_table-receiving'>
                                     <thead class="table-dark text-center" style="font-size: 14px !important">
                                         <tr>
-                                            <th scope="col">Ref No.</th>
-                                            <th scope="col">Container No.</th>
-                                            <th scope="col">Van No.</th>
-                                            <th scope="col">Withdrawal Date</th>
-                                            <th scope="col">Quality</th>
-                                            <th scope="col">Kilo per Bale</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Shipping ID</th>
+                                            <th scope="col">Type</th>
+                                            <th scope="col">Destination</th>
+                                            <th scope="col">Source</th>
+                                            <th scope="col">Remarks</th>
                                             <th scope="col">No. of Bales</th>
                                             <th scope="col">Total Weight</th>
-                                            <th scope="col" hidden>Bale Cost</th>
-                                            <th scope="col">Remarks</th>
-                                            <th scope="col">Recorded</th>
-                                            <th scope="col">Status</th>
+                                            <th scope="col">No. of Containers</th>
+                                            <th scope="col">Shipping Expense</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
@@ -78,26 +76,25 @@ include 'include/navbar.php';
                                             
                                             ?>
                                         <tr>
+                                            <td> <span class="badge <?php echo $status_color; ?>">
+                                                    <?php echo $row['status']?>
+                                                </span>
+                                            </td>
                                             <td><?php echo $row['con_id']; ?></td>
                                             <td><?php echo $row['container_no']; ?></td>
                                             <td><?php echo $row['van_no']; ?></td>
                                             <td><?php echo $row['withdrawal_date']; ?></td>
                                             <td><?php echo $row['quality']; ?></td>
                                             <td class="number-cell">
-                                                <?php echo $row['kilo_bale']; ?> kg
-                                            </td>
-                                            <td class="number-cell">
                                                 <?php echo number_format($row['num_bales'], 0, '.', ','); ?> pcs
                                             </td>
                                             <td class="number-cell">
-                                                <?php echo number_format($row['total_bale_weight'], 0, '.', ','); ?> kg
+                                                <?php echo $row['kilo_bale']; ?> kg
                                             </td>
-                                            <td><?php echo $row['remarks']; ?></td>
-                                            <td><?php echo $row['recorded_by']; ?></td>
-                                            <td> <span class="badge <?php echo $status_color; ?>">
-                                                    <?php echo $row['status']?>
-                                                </span>
+                                            <td class="number-cell">
+                                                <?php echo number_format($row['total_bale_weight'], 0, '.', ','); ?>
                                             </td>
+                                            <td>₱ <?php echo $row['remarks']; ?></td>
                                             <td class="text-center">
                                                 <button type="button" class="btn btn-success btn-sm btnViewRecord"
                                                     data-status="<?php echo $row['status']; ?>">
