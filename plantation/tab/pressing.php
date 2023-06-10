@@ -16,7 +16,7 @@
                 <th scope="col"> Total Weight</th>
                 <th scope="col"> DRC</th>
                 <th scope="col">Expense</th>
-                <th scope="col">Overhead</th>
+                <!-- <th scope="col">Overhead</th> -->
 
                 <th scope="col" class="text-center">Action</th>
             </tr>
@@ -34,7 +34,7 @@
                 <td class="number-cell"> <?php echo number_format($row['produce_total_weight'], 0, '.', ',')?> kg</td>
                 <td class="number-cell"><?php echo $row['drc']? number_format($row['drc'], 2)  : '-' ?> %</td>
                 <td class="number-cell">₱ <?php echo number_format($row['production_expense'], 0, '.', ',')?></td>
-                <td class="number-cell">₱ <?php echo number_format($row['mill_cost'], 0, '.', ',')?></td>
+                <!-- <td class="number-cell">₱ <?php echo number_format($row['mill_cost'], 0, '.', ',')?></td> -->
 
 
                 <td class="text-center">

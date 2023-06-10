@@ -146,60 +146,7 @@ input.invalid-input {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col">
-                                                    <label style='font-size:15px' class="col-md-12">Van
-                                                        No.</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='van_no'
-                                                            id='ship_destination' autocomplete='off'
-                                                            style="width: 100px;" required />
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <label style='font-size:15px' class="col-md-12">Withdrawal
-                                                        Date</label>
-                                                    <div class="col-md-12">
-                                                        <input type="date" class='form-control' id="withdrawal_date"
-                                                            name="withdrawal_date" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <label style='font-size:15px' class="col-md-12">Bale Quality</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='quality'
-                                                            id='quality' autocomplete='off' style="width: 100px;"
-                                                            required />
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <!-- if and only if one kilo per bale -->
-                                                    <label style='font-size:15px' class="col-md-12">Kilo per
-                                                        Bale</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='kilo_bale'
-                                                            id='kilo_bale' autocomplete='off' style="width: 100px;"
-                                                            required />
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <label style='font-size:15px' class="col-md-12">Particulars</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='remarks'
-                                                            id='remarks' autocomplete='off' style="width: 100px;" />
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <label style='font-size:15px' class="col-md-12">Recorded
-                                                        by</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='recorded_by'
-                                                            value="<?php echo $name;?>" id='recorded_by'
-                                                            autocomplete='off' style="width: 100px;" required />
-                                                    </div>
-                                                </div>
-                                            </div>
+                                               
 
                                         </div>
                                     </div>
@@ -249,72 +196,7 @@ input.invalid-input {
                     </p>
 
 
-                    <div class="row">
-                        <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Ref No.</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='ref_no' id='ref_no'
-                                    value='<?php echo $id?>' readonly style="width: 100px;" />
-                            </div>
-                        </div>
-                        <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Container
-                                No.</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='container_no' id='container_no'
-                                    autocomplete='off' style="width: 100px;" required />
-                            </div>
-                        </div>
-                        <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Van
-                                No.</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='van_no' id='ship_destination'
-                                    autocomplete='off' style="width: 100px;" required />
-                            </div>
-                        </div>
-                        <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Withdrawal
-                                Date</label>
-                            <div class="col-md-12">
-                                <input type="date" class='form-control' id="withdrawal_date" name="withdrawal_date"
-                                    required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Bale Quality</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='quality' id='quality' autocomplete='off'
-                                    style="width: 100px;" required />
-                            </div>
-                        </div>
-                        <div class="col">
-                            <!-- if and only if one kilo per bale -->
-                            <label style='font-size:15px' class="col-md-12">Kilo per
-                                Bale</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='kilo_bale' id='kilo_bale'
-                                    autocomplete='off' style="width: 100px;" required />
-                            </div>
-                        </div>
-                        <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Particulars</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='remarks' id='remarks' autocomplete='off'
-                                    style="width: 100px;" />
-                            </div>
-                        </div>
-                        <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Recorded
-                                by</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='recorded_by' value="<?php echo $name;?>"
-                                    id='recorded_by' autocomplete='off' style="width: 100px;" required />
-                            </div>
-                        </div>
-                    </div>
+                   
 
 
                 </div>

@@ -44,7 +44,7 @@
                 <th>Excess</th>
                 <th>Bale Weight</th>
                 <th>DRC</th>
-                <th>Overhead</th>
+                <!-- <th>Overhead</th> -->
                 <th>Description</th>
                 <!-- <th>Cost</th> -->
                 <th class="text-center">Action</th>
@@ -85,7 +85,7 @@
                 <td class="number-cell"> <?php echo number_format($row['bales_excess'], 0, '.', ',')?> kg</td>
                 <td class="number-cell"> <?php echo number_format($row['rubber_weight'], 0, '.', ',')?> kg</td>
                 <td class="number-cell"><?php echo number_format($row['drc'],2)?> %</td>
-                <td class="number-cell">₱ <?php echo number_format($row['mill_cost'],2)?></td>
+                <!-- <td class="number-cell">₱ <?php echo number_format($row['mill_cost'],2)?></td> -->
                 <td><?php echo $row['description']?></td>
                 <td class="text-center">
                     <button type="button" data-recording_id='<?php echo $row['recording_id']?>'
