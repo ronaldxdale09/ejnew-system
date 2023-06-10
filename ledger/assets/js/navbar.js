@@ -44,7 +44,7 @@ function retractNav() {
 
 // Function to check the window size and retract the navbar
 function checkWindowSize() {
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth <= 1064) {
         retractNav();
         toggle = false;
     } else {
