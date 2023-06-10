@@ -9,22 +9,24 @@
 
     <br>
 
-    <a class='nav-link' href='dashboard.php' hidden>
+    <a class='nav-link' href='dashboard.php'>
         <i class='fa-solid fa-house'></i> <span class='nav-text'>Home</span>
     </a>
 
+    <hr style='color:gray'>
 
     <a class='nav-link' href='bale_sale_record.php'>
         <i class='fa-solid fa-book'></i> <span class='nav-text'>Rubber Bale Sale</span>
     </a>
 
-<a class='nav-link' href='container_record.php'>
-    <i class='fa-solid fa-book'></i> <span class='nav-text'>Bale Container</span>
-</a>
+    <a class='nav-link' href='container_record.php'>
+        <i class='fa-solid fa-book'></i> <span class='nav-text'>Bale Container</span>
+    </a>
 
     <a class='nav-link' href='bale_shipment_record.php'>
         <i class='fa-solid fa-ship'></i> <span class='nav-text'>Bale Shipment</span>
     </a>
+
     <hr style='color:gray'>
 
     <a class='nav-link' href='cuplump_sale_record.php'>

@@ -56,21 +56,12 @@ include "include/navbar.php";
                                         <hr>
                                         <form method='POST' id='transaction_form'>
                                             <div class="row">
-                                                <div class="col">
+                                                <div class="col-2">
                                                     <label style='font-size:15px' class="col-md-12">Ref No.</label>
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" name='ship_id'
                                                             id='ship_id' value='<?php echo $id?>' readonly
                                                             autocomplete='off' style="width: 100px;" />
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <label style='font-size:15px' class="col-md-12">Container
-                                                        No.</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='ship_destination'
-                                                            id='ship_destination' tabindex="7" autocomplete='off'
-                                                            style="width: 100px;" />
                                                     </div>
                                                 </div>
                                                 <div class="col">
@@ -90,20 +81,7 @@ include "include/navbar.php";
                                                             value="<?php echo $today; ?>" name="ship_date">
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
                                                 <div class="col">
-                                                    <label style='font-size:15px;font-weight:bold'
-                                                        class="col-md-12">Total
-                                                        Weight</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='ship_info_lading'
-                                                            id='ship_info_lading' tabindex="7" autocomplete='off'
-                                                            style="width: 100px;" readonly />
-                                                                <span class="input-group-text"> kg</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6">
                                                     <label style='font-size:15px' class="col-md-12">Remarks</label>
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" name='ship_remarks'
@@ -128,8 +106,8 @@ include "include/navbar.php";
 
                                 <div class="card">
                                     <div class="card-body d-flex justify-content-between align-items-center">
-                                        <h4>Cuplump</h4>
-                                        <button id="add-row-btn" class="btn btn-success">+ Add Cuplump</button>
+                                        <h4>Cuplump Inventory</h4>
+                                        <button id="add-row-btn" class="btn btn-success">+ Add Inventory</button>
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
@@ -204,6 +182,38 @@ include "include/navbar.php";
                                                     </tr>
                                                 </tbody>
                                             </table>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <label style='font-size:15px' class="col-md-12">Total Cuplump
+                                                    Weight</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">₱</span>
+                                                    <input type="text" class="form-control" name='ship_remarks'
+                                                        id='ship_remarks' tabindex="7" autocomplete='off'
+                                                        style="width: 100px;" readonly />
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <label style='font-size:15px' class="col-md-12">Total Cuplump
+                                                    Cost</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">₱</span>
+                                                    <input type="text" class="form-control" name='ship_user'
+                                                        id='ship_user' tabindex="7" autocomplete='off'
+                                                        style="width: 100px;" readonly />
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <label style='font-size:15px' class="col-md-12">Average Cuplump
+                                                    Cost</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">₱</span>
+                                                    <input type="text" class="form-control" name='ship_user'
+                                                        id='ship_user' tabindex="7" autocomplete='off'
+                                                        style="width: 100px;" readonly />
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
