@@ -73,6 +73,8 @@ input.invalid-input {
                                                 class="fas fa-check"></span> Complete</button>
                                         <button type="button" class="btn btn-warning btnDraft"><span
                                                 class="fas fa-info-circle"></span> Save as Draft</button>
+                                        <button type="button" class="btn btn-danger btnVoid"> <span
+                                                class="fas fa-times"></span> Void Container</button>
                                     </div>
                                 </div>
 
@@ -114,18 +116,20 @@ input.invalid-input {
                                                         <label style='font-size:15px' class="col-md-12">Recorded
                                                             by</label>
                                                         <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" name='recorded_by' value="<?php echo $name;?>"
-                                                                id='recorded_by' autocomplete='off'
-                                                                style="width: 100px;" required />
+                                                            <input type="text" class="form-control" name='recorded_by'
+                                                                value="<?php echo $name;?>" id='recorded_by'
+                                                                autocomplete='off' style="width: 100px;" required />
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <label style='font-size:15px' class="col-md-12">Bale Quality</label>
+                                                        <label style='font-size:15px' class="col-md-12">Bale
+                                                            Quality</label>
                                                         <div class="input-group mb-3">
                                                             <input type="text" class="form-control" name='quality'
-                                                                id='quality' autocomplete='off' style="width: 100px;" required />
+                                                                id='quality' autocomplete='off' style="width: 100px;"
+                                                                required />
                                                         </div>
                                                     </div>
                                                     <div class="col">
@@ -133,8 +137,8 @@ input.invalid-input {
                                                             Bale</label>
                                                         <div class="input-group mb-3">
                                                             <input type="text" class="form-control" name='kilo_bale'
-                                                                id='kilo_bale' autocomplete='off'
-                                                                style="width: 100px;" required />
+                                                                id='kilo_bale' autocomplete='off' style="width: 100px;"
+                                                                required />
                                                         </div>
                                                     </div>
                                                     <div class="col-6">
@@ -146,7 +150,7 @@ input.invalid-input {
                                                         </div>
                                                     </div>
                                                 </div>
-                                               
+
 
                                         </div>
                                     </div>
@@ -196,7 +200,7 @@ input.invalid-input {
                     </p>
 
 
-                   
+
 
 
                 </div>
@@ -260,6 +264,40 @@ input.invalid-input {
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="voidModal" tabindex="-1" aria-labelledby="draftModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="draftModalLabel">
+                    <i class="fas fa-file-alt"></i> Void Container
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="function/container.php" method="POST" id='transaction_form'>
+                <div class="modal-body">
+                    <input type="text" name='id' id='void_id' hidden>
+                    <p>
+                        <i class="fas fa-info-circle"></i>
+                        Are you sure you want to void this container?
+                    </p>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button type="submit" class="btn btn-danger" name='void'>
+                        <i class="fas fa-trash"></i> Proceed
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 
 
 
@@ -355,6 +393,22 @@ $('.btnDraft').on('click', function() {
     $('#draft_id').val(id);
 
     $('#draftModal').modal('show');
+
+});
+
+
+$('.btnVoid').on('click', function() {
+    $tr = $(this).closest('tr');
+
+    var data = $tr.children("td").map(function() {
+        return $(this).text();
+    }).get();
+
+    var id = <?php echo  $id ?>;
+
+    $('#void_id').val(id);
+
+    $('#voidModal').modal('show');
 
 });
 

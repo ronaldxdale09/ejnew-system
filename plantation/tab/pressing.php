@@ -16,7 +16,7 @@
                 <th scope="col"> Total Weight</th>
                 <th scope="col"> DRC</th>
                 <th scope="col">Expense</th>
-                <!-- <th scope="col">Overhead</th> -->
+                <th scope="col">Overhead</th>
 
                 <th scope="col" class="text-center">Action</th>
             </tr>
@@ -34,7 +34,7 @@
                 <td class="number-cell"> <?php echo number_format($row['produce_total_weight'], 0, '.', ',')?> kg</td>
                 <td class="number-cell"><?php echo $row['drc']? number_format($row['drc'], 2)  : '-' ?> %</td>
                 <td class="number-cell">₱ <?php echo number_format($row['production_expense'], 0, '.', ',')?></td>
-                <!-- <td class="number-cell">₱ <?php echo number_format($row['mill_cost'], 0, '.', ',')?></td> -->
+                <td class="number-cell">₱ <?php echo number_format($row['milling_cost'], 0, '.', ',')?></td>
 
 
                 <td class="text-center">
@@ -77,7 +77,8 @@ $('.btnPressUpdate').on('click', function() {
 
     $('#press_u_drc').val(data[8]);
     $('#press_u_total_weight').val(data[7]);
-
+    $('#press_u_mill_cost').val(data[10].match(/\d+/g));
+    
     var crumbed = $(this).data('crumbed');
     var dry = $(this).data('dry');
 
@@ -88,6 +89,8 @@ $('.btnPressUpdate').on('click', function() {
     if (numericalData !== null) {
         $('#u_expense').val(parseFloat(numericalData.join('')));
     }
+
+
 
 
     $('#press_u_crumbed_weight').val(crumbed ? crumbed : '0 ');

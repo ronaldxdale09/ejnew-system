@@ -38,7 +38,7 @@
                                         planta_recording.location, planta_recording.lot_num, planta_recording.weight, planta_recording.reweight,
                                         planta_recording.crumbed_weight, planta_recording.dry_weight, planta_recording.produce_total_weight,
                                         planta_recording.drc, planta_recording.driver, planta_recording.truck_num, planta_recording.receiving_date, 
-                                        planta_recording.milling_date, planta_recording.drying_date, planta_recording.production_date,
+                                        planta_recording.milling_date, planta_recording.drying_date, planta_recording.production_date, planta_recording.production_expense, planta_recording.milling_cost,
                                         rubber_transaction.date as purchased_date,rubber_transaction.net_weight as wet_net_weight
                                         FROM planta_recording
                                         LEFT JOIN rubber_transaction ON planta_recording.purchased_id = rubber_transaction.id
@@ -51,8 +51,8 @@
                                                     <th scope="col">Lot No.</th>
                                                     <th scope="col">Cuplump</th>
                                                     <th scope="col">Reweight</th>
-                                                    <th scope="col">Crumbs</th>
-                                                    <th scope="col">Blanket</th>
+                                                    <th scope="col" hidden>Crumbs</th>
+                                                    <th scope="col" hidden>Blanket</th>
                                                     <th scope="col">Bale Weight</th>
                                                     <th scope="col">DRC</th>
                                                     <th scope="col">Expense</th>
@@ -104,10 +104,10 @@
                                                     <td class="number-cell">
                                                         <?php echo number_format($row['reweight'], 0, '.', ','); ?> kg
                                                     </td>
-                                                    <td class="number-cell">
+                                                    <td class="number-cell"hidden>
                                                         <?php echo number_format($row['crumbed_weight'], 0, '.', ','); ?>
                                                         kg</td>
-                                                    <td class="number-cell">
+                                                    <td class="number-cell"hidden>
                                                         <?php echo number_format($row['dry_weight'], 0, '.', ','); ?> kg
                                                     </td>
                                                     <td class="number-cell">
@@ -118,7 +118,7 @@
                                                     <td class="number-cell">₱ 
                                                         <?php echo number_format($row['production_expense'], 0, '.', ','); ?></td>
                                                     <td class="number-cell">₱ 
-                                                        <?php echo number_format($row['mill_cost'], 2, '.', ','); ?></td>
+                                                        <?php echo number_format($row['milling_cost'], 2, '.', ','); ?></td>
 
                                                     <td>
                                                         <button type="button" data-driver='<?php echo $row['driver'];?>'

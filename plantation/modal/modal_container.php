@@ -35,7 +35,7 @@ $today = date('Y-m-d');
                     </div>
                     <div class="row">
                         <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Particulars</label>
+                            <label style='font-size:15px' class="col-md-12">Particulars (Buyer)</label>
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" name='remarks' id='n_remarks' tabindex="7"
                                     autocomplete='off' style="width: 100px;" />

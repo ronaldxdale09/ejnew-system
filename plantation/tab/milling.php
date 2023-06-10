@@ -22,7 +22,7 @@
                     <span class="badge bg-secondary"> <?php echo $row['status']?> </span>
                 </td>
                 <td> <?php echo $row['recording_id']?> </td>
-                <td> <?php echo $row['milling_date']?> </td>
+                <td><?php echo date('M d, Y', strtotime($row['milling_date'])); ?></td>
                 <td> <?php echo $row['supplier']?> </td>
                 <td> <?php echo $row['location']?> </td>
                 <td> <?php echo $row['lot_num']?> </td>

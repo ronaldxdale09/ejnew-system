@@ -66,7 +66,7 @@
    
         echo "Total weight: " . $total_weight;
         $rubber_drc = (floatval($total_weight) / floatval($entry_weight)) * 100;
-
+        $mill_cost = preg_replace("/[^0-9\.]/", "", str_replace(',', '', $_POST['mill_cost']));
         
 
 
@@ -84,8 +84,8 @@
             echo "Error: Query did not return a result.";
         }
 
-        $query = "UPDATE `planta_recording` SET `drc`='$rubber_drc', `produce_total_weight`='$total_weight',`production_expense`='$expense',`prod_expense_desc`='$expense_desc',
-        `total_production_cost` = '$total_production_cost'
+        $query = "UPDATE `planta_recording` SET `drc`='$rubber_drc', `produce_total_weight`='$total_weight',`production_expense`='$expense',
+        `prod_expense_desc`='$expense_desc',  `total_production_cost` = '$total_production_cost', `milling_cost` = '$mill_cost'
         WHERE recording_id='$id'";
        $result = mysqli_query($con, $query);
     

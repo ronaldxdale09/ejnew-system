@@ -81,7 +81,7 @@
                             <label class="form-label">Itemized Expenses</label>
                             <div class="input-group">
                                 <input type="text" style='font-size:19px' class="form-control text-center"
-                                name='expense_desc'  id="u_expense_desc" placeholder='Expense Description' >
+                                    name='expense_desc' id="u_expense_desc" placeholder='Expense Description'>
                             </div>
                         </div>
                         <div class="col">
@@ -90,7 +90,15 @@
                                 <span class="input-group-text">₱</span>
                                 <input type="text" style='font-size:19px' class="form-control text-center"
                                     id="u_expense" name='expense' onkeypress="return CheckNumeric()"
-                                    onkeyup="FormatCurrency(this)" >
+                                    onkeyup="FormatCurrency(this)">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Milling Cost</label>
+                            <div class="input-group">
+                                <span class="input-group-text">₱</span>
+                                <input type="text" style='font-size:19px' class="form-control text-center"
+                                    id="press_u_mill_cost" name='mill_cost' >
                             </div>
                         </div>
                     </div>
@@ -187,7 +195,7 @@
                             <label class="form-label">Itemized Expenses</label>
                             <div class="input-group">
                                 <input type="text" style='font-size:19px' class="form-control text-center"
-                                    id="t_expense_desc" placeholder='Description' readonly >
+                                    id="t_expense_desc" placeholder='Description' readonly>
                             </div>
                         </div>
                         <div class="col">
@@ -195,7 +203,7 @@
                             <div class="input-group">
                                 <span class="input-group-text">₱</span>
                                 <input type="text" style='font-size:19px' class="form-control text-center"
-                                id="t_expense" readonly>
+                                    id="t_expense" readonly>
                             </div>
                         </div>
                         <div class="col">
@@ -203,7 +211,7 @@
                             <div class="input-group">
                                 <span class="input-group-text">₱</span>
                                 <input type="text" style='font-size:19px' class="form-control text-center"
-                                id="mill_cost" readonly>
+                                    id="mill_cost" readonly>
                             </div>
                         </div>
                     </div>
