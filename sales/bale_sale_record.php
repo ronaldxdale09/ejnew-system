@@ -75,22 +75,7 @@
                                             <td class="number-cell">
                                                 <?php echo number_format($row['reweight'], 0, '.', ',')?>
                                                 kg</td>
-                                            <td class="number-cell">₱
-                                                <?php echo number_format(($row['total_amount']/ $row['net_weight']), 2, '.', ',')?>
-                                            </td>
-                                            <td> <?php echo $row['lot_num']?> </td>
-                                            <td class="number-cell">₱
-                                                <?php echo number_format(($row['total_amount']), 2, '.', ',')?></td>
-                                                <td class="number-cell">₱
-                                                <?php echo number_format(($row['total_amount']), 2, '.', ',')?></td>
-                                                <td class="text-center">
-                                                <button type="button" class="btn btn-warning btn-sm btnReceivingView">
-                                                    <i class="fas fa-money"></i>
-                                                </button>
-                                                <button type="button" class="btn btn-success btn-sm btnReceivingView">
-                                                    <i class="fas fa-book"></i>
-                                                </button>
-                                            </td>
+                                          
 
 
 
