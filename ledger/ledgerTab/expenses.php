@@ -82,7 +82,6 @@ while ($array = mysqli_fetch_array($res)) {
 <div class="row" style="display: flex; align-items: center;">
 
     <div class="col-sm-4">
-
         <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#addExpense">
             <i class="fa fa-plus" aria-hidden="true"></i> ADD EXPENSE
         </button>
@@ -91,8 +90,9 @@ while ($array = mysqli_fetch_array($res)) {
         </button>
     </div>
 
-    <div class="col-sm-2">
+    
 
+    <div class="col-sm-2">
         <div class="dropdown">
             <button class="btn btn-primary dropdown-toggle" type="button" id="dateDropdown" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
@@ -106,15 +106,13 @@ while ($array = mysqli_fetch_array($res)) {
         </div>
     </div>
 
-
     <div class="col-sm-2">
-
-        <select class='form-select' name='category' id='category_filter' style="flex: 1; width: auto;">
-            <option disabled="disabled" selected>Select Category</option>
-            <option value=''>All</option>
-            <?php echo $category ?>
-            <!--PHP echo-->
-        </select>
+            <select class='form-select' name='category' id='category_filter' style="flex: 1; width: auto;">
+                <option disabled="disabled" selected>Select Category</option>
+                <option value=''>All</option>
+                <?php echo $category ?>
+                <!--PHP echo-->
+            </select>
     </div>
 
     <div class="col-sm-4">

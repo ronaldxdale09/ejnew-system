@@ -56,12 +56,13 @@ $side = mysqli_query($con, "SELECT category,year(date) as year,month(date) as mo
             <div class="card-body">
                 <!-- CONTENT -->
                 <div class="row">
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         <button type="button" class="btn btn-success text-white" data-toggle="modal"
                             data-target="#purchase-modal">
                             <i class="fa fa-plus" aria-hidden="true"></i> ADD PURCHASE
                         </button>
                     </div>
+                    
                     <div class="col-sm-2">
                         <div class="dropdown">
                             <button class="btn btn-primary dropdown-toggle" type="button" id="dateDropdown"
@@ -85,7 +86,7 @@ $side = mysqli_query($con, "SELECT category,year(date) as year,month(date) as mo
                             </select>
                         </div>
                     </div>
-                    <div class="col-sm-5">
+                    <div class="col-sm-4">
                         <div class="row">
                             <div class="col">
                                 <input type="text" id="min" name="min" class="form-control" placeholder="From Date:"
