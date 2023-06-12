@@ -1,13 +1,45 @@
-<?php 
-$id = '';
-if (isset($_GET['id'])) {
-    $id = filter_var($_GET['id']);
-}
-?>
 
 <?php 
 include('include/header.php');
 include "include/navbar.php";
+
+
+
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $id=  preg_replace('~\D~', '', $id);
+
+    $sql = "SELECT * FROM sales_cuplump_container WHERE container_id = $id";
+    $result = $con->query($sql);
+
+    if ($result->num_rows > 0) {
+        // Output data of each row
+        $record = $result->fetch_assoc();
+        
+        $container_no = isset($record['container_no']) ? $record['container_no'] : '';
+        $date = isset($record['loading_date']) ? $record['loading_date'] : '';
+        $remarks = isset($record['remarks']) ? $record['remarks'] : '';
+        $recorded_by = isset($record['recorded_by']) ? $record['recorded_by'] : '';
+
+
+        echo "
+            <script>
+                $(document).ready(function() {
+                    $('#id').val('" . $id . "');
+                    $('#container_no').val('" . $container_no . "');
+                    $('#remarks').val('" . $remarks . "');
+                    $('#date').val('" . $date . "');
+                    $('#recorded_by').val('" . $recorded_by . "');
+
+                  
+
+                });
+                </script>
+            ";
+        }
+    }
+
+
 ?>
 
 
@@ -59,17 +91,16 @@ include "include/navbar.php";
                                                 <div class="col-2">
                                                     <label style='font-size:15px' class="col-md-12">Ref No.</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='ship_id'
-                                                            id='ship_id' value='<?php echo $id?>' readonly
+                                                        <input type="text" class="form-control" name='id'
+                                                            id='id' readonly
                                                             autocomplete='off' style="width: 100px;" />
                                                     </div>
                                                 </div>
                                                 <div class="col">
-                                                    <label style='font-size:15px' class="col-md-12">Van
-                                                        No.</label>
+                                                    <label style='font-size:15px' class="col-md-12">Container No.</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='ship_destination'
-                                                            id='ship_destination' tabindex="7" autocomplete='off'
+                                                        <input type="text" class="form-control" name='container_no'
+                                                            id='container_no' tabindex="7" autocomplete='off'
                                                             style="width: 100px;" />
                                                     </div>
                                                 </div>
@@ -77,23 +108,23 @@ include "include/navbar.php";
                                                     <label style='font-size:15px' class="col-md-12">Loading
                                                         Date</label>
                                                     <div class="col-md-12">
-                                                        <input type="date" class='form-control' id="ship_date"
-                                                            value="<?php echo $today; ?>" name="ship_date">
+                                                        <input type="date" class='form-control' id="date"
+                                                            value="<?php echo $today; ?>" name="date">
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <label style='font-size:15px' class="col-md-12">Remarks</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='ship_remarks'
-                                                            id='ship_remarks' tabindex="7" autocomplete='off'
+                                                        <input type="text" class="form-control" name='remarks'
+                                                            id='remarks' tabindex="7" autocomplete='off'
                                                             style="width: 100px;" />
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <label style='font-size:15px' class="col-md-12">Recorded by</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='ship_user'
-                                                            id='ship_user' tabindex="7" autocomplete='off'
+                                                        <input type="text" class="form-control" name='recorded_by'
+                                                            id='recorded_by' tabindex="7" autocomplete='off'
                                                             style="width: 100px;" />
                                                     </div>
                                                 </div>
