@@ -15,10 +15,10 @@ if (!$result) {
 
 $output = '
 <div class="table-responsive">  <!-- Add responsive class -->
-    <table class="table table-bordered table-striped table-hover" id="bales-inventory">  <!-- Add striped and hover classes -->
+    <table class="table table-bordered table-striped table-hover" id="bales-inventory" width="100%">  <!-- Add striped and hover classes -->
     <thead class="table-dark">
             <tr>
-            <th scope="col">BALE ID</th>
+            <th scope="col" >BALE ID</th>
             <th scope="col">Status</th>
             <th scope="col">Type</th>
             <th scope="col">Kilo Bale</th>
@@ -28,7 +28,7 @@ $output = '
             <th hidden scope="col">DRC</th>
             <th scope="col">Bales Available</th>
             <th scope="col" hidden></th>
-            <th scope="col" width="10%"></th>
+            <th scope="col"></th>
             <th scope="col"></th>
         </tr>
     </thead>
@@ -39,7 +39,7 @@ if(mysqli_num_rows($result) > 0) {
 
         $output .= '
         <tr >
-             <td>'.$arr["bales_prod_id"].'</td>
+             <td width="5%">'.$arr["bales_prod_id"].'</td>
             <td> <span class="badge bg-primary">'.$arr["status"].'</span></td>
             <td>'.$arr["bales_type"].'</td>
             <td>'.$arr["kilo_per_bale"].' kg</td>
@@ -49,8 +49,8 @@ if(mysqli_num_rows($result) > 0) {
             <td hidden>'.($arr['drc'] ? number_format($arr['drc'], 2) : '-').' %</td>
             <td><b>'.number_format($arr['remaining_bales'], 0, '.', ',').' pcs </b></td>
             <td hidden>'.$arr["recording_id"].'</td>
-            <td class="keyvalue" > <input type="number" class="form-control num_bales"   id="num_bales" name="num_bales"></td>
-            <td><button type="button" id="addInventory" class="btn btn-warning btn-sm addInventory"><i
+            <td class="keyvalue" width="12%"> <input type="number" class="form-control num_bales"   id="num_bales" name="num_bales"></td>
+            <td><button type="button""  id="addInventory" class="btn btn-warning btn-sm addInventory"><i
             class="fa fa-plus-circle"></i></button> </td>
         </tr>';
     }
@@ -133,8 +133,8 @@ $('.addInventory').on('click', function() {
 
 
 
-// var table = $('#bales-inventory').DataTable({
-//     dom: "frltip",
+var table = $('#bales-inventory').DataTable({
+    dom: "frltip",
 
-// });
+});
 </script>

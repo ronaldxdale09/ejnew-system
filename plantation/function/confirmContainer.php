@@ -14,6 +14,10 @@
     $num_bales = preg_replace("/[^0-9\.]/", "", $_POST['num_bales']);
     $kilo_bale = preg_replace("/[^0-9\.]/", "", str_replace(',', '', $_POST['kilo_bale']));
 
+    $total_bale_cost = preg_replace("/[^0-9\.]/", "", $_POST['total_bale_cost']);
+    $total_milling_cost = preg_replace("/[^0-9\.]/", "", $_POST['total_milling_cost']);
+
+
     $query = "UPDATE container_record SET 
               container_no = '$container_no', 
               van_no = '$van_no', 
@@ -24,6 +28,8 @@
               recorded_by = '$recorded_by', 
               num_bales = '$num_bales', 
               total_bale_weight = '$total_bale_weight' ,
+              total_bale_cost = '$total_bale_cost' ,
+              total_milling_cost = '$total_milling_cost',
               status = 'Awaiting Shipment' 
               WHERE container_id  = '$ref_no'";
 

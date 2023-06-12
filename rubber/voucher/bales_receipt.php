@@ -238,17 +238,17 @@ Address: <?php echo  $data['address'] ?> <br>
     <tbody style='text-align: center;'>
         <tr>
             <td><b>TOTAL AMOUNT</td>
-            <td> <b> <?php echo  '₱ '.number_format($_SESSION['print_total'],2) ?></td>
+            <td> <b> <?php echo  '₱ '.number_format($data['total_amount'],2) ?></td>
         </tr>
         <tr>
             <td> <b>CASH ADVANCE</td>
-            <td> <b> <?php echo  '₱ '.number_format($_SESSION['print_less'],2) ?></td>
+            <td> <b> <?php echo  '₱ '.number_format($data['less'],2) ?></td>
         </tr>
 
 
         <tr>
             <td> <b>TOTAL AMOUNT PAYABLE</td>
-            <td> <b> <?php echo  '₱ '.number_format($_SESSION['print_paid'],2) ?></td>
+            <td> <b> <?php echo  '₱ '.number_format($data['amount_paid'],2) ?></td>
         </tr>
     </tbody>
 </table>
@@ -365,25 +365,24 @@ Address: <?php echo  $data['address'] ?> <br>
             </table>
 </center>
 
-
 <table class="totalTable">
     <tbody style='text-align: center;'>
         <tr>
             <td><b>TOTAL AMOUNT</td>
-            <td> <b> <?php echo  '₱ '.number_format($_SESSION['print_total'],2) ?></td>
+            <td> <b> <?php echo  '₱ '.number_format($data['total_amount'],2) ?></td>
         </tr>
         <tr>
             <td> <b>CASH ADVANCE</td>
-            <td> <b> <?php echo  '₱ '.number_format($_SESSION['print_less'],2) ?></td>
+            <td> <b> <?php echo  '₱ '.number_format($data['less'],2) ?></td>
         </tr>
 
 
         <tr>
             <td> <b>TOTAL AMOUNT PAYABLE</td>
-            <td> <b> <?php echo  '₱ '.number_format($_SESSION['print_paid'],2) ?></td>
+            <td> <b> <?php echo  '₱ '.number_format($data['amount_paid'],2) ?></td>
         </tr>
     </tbody>
-</table>
+</table>s
 
 <br>
 <table class="lastTable">

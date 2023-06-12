@@ -25,7 +25,7 @@ include "include/navbar.php";
                     $(document).ready(function() {
                         $('#ref_no').val('" . $id . "');
                         $('#container_no').val('" . $container_no . "');
-                        $('#ship_destination').val('" . $van_no . "');
+                        $('#van_no').val('" . $van_no . "');
                         $('#withdrawal_date').val('" . $withdrawal_date . "');
                         $('#quality').val('" . $quality . "');
                         $('#kilo_bale').val('" . $kilo_bale . "');
@@ -73,6 +73,8 @@ input.invalid-input {
                                                 class="fas fa-check"></span> Complete</button>
                                         <button type="button" class="btn btn-warning btnDraft"><span
                                                 class="fas fa-info-circle"></span> Save as Draft</button>
+                                        <button type="button" class="btn btn-danger btnVoid"> <span
+                                                class="fas fa-times"></span> Void Container</button>
                                     </div>
                                 </div>
 
@@ -98,7 +100,7 @@ input.invalid-input {
                                                             No.</label>
                                                         <div class="input-group mb-3">
                                                             <input type="text" class="form-control" name='van_no'
-                                                                id='ship_destination' autocomplete='off'
+                                                                id='van_no' autocomplete='off'
                                                                 style="width: 100px;" required />
                                                         </div>
                                                     </div>
@@ -114,18 +116,20 @@ input.invalid-input {
                                                         <label style='font-size:15px' class="col-md-12">Recorded
                                                             by</label>
                                                         <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" name='recorded_by' value="<?php echo $name;?>"
-                                                                id='recorded_by' autocomplete='off'
-                                                                style="width: 100px;" required />
+                                                            <input type="text" class="form-control" name='recorded_by'
+                                                                value="<?php echo $name;?>" id='recorded_by'
+                                                                autocomplete='off' style="width: 100px;" required />
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <label style='font-size:15px' class="col-md-12">Bale Quality</label>
+                                                        <label style='font-size:15px' class="col-md-12">Bale
+                                                            Quality</label>
                                                         <div class="input-group mb-3">
                                                             <input type="text" class="form-control" name='quality'
-                                                                id='quality' autocomplete='off' style="width: 100px;" required />
+                                                                id='quality' autocomplete='off' style="width: 100px;"
+                                                                required />
                                                         </div>
                                                     </div>
                                                     <div class="col">
@@ -133,8 +137,8 @@ input.invalid-input {
                                                             Bale</label>
                                                         <div class="input-group mb-3">
                                                             <input type="text" class="form-control" name='kilo_bale'
-                                                                id='kilo_bale' autocomplete='off'
-                                                                style="width: 100px;" required />
+                                                                id='kilo_bale' autocomplete='off' style="width: 100px;"
+                                                                required />
                                                         </div>
                                                     </div>
                                                     <div class="col-6">
@@ -146,8 +150,6 @@ input.invalid-input {
                                                         </div>
                                                     </div>
                                                 </div>
-                                               
-
                                         </div>
                                     </div>
 
@@ -155,7 +157,7 @@ input.invalid-input {
 
                                     <div class="card">
                                         <div class="card-body d-flex justify-content-between align-items-center">
-                                            <h4>Bale Inventory</h4>
+                                            <h4>Container Bales</h4>
                                             <button type="button" class="btn btn-dark text-white btnSelectTrans"
                                                 id='receiptBtn'>
                                                 <span class="fa fa-book"></span> Select Inventory</button>
@@ -187,16 +189,99 @@ input.invalid-input {
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="function/confirmContainer.php" method="POST" id='transaction_form'>
+            <form action="function/draftContainer.php" method="POST" id='transaction_form'>
                 <div class="modal-body">
                     <input type="text" name='id' id='draft_id' hidden>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h4>Save as Draft</h4>
+                            <hr>
+                            <form method='POST' id='transaction_form'>
+                                <div class="row">
+
+                                    <div class="col">
+                                        <label style='font-size:15px' class="col-md-12">Van
+                                            No.</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" name='van_no'
+                                                id='u_van_no' autocomplete='off' style="width: 100px;"
+                                                readonly />
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <label style='font-size:15px' class="col-md-12">Withdrawal
+                                            Date</label>
+                                        <div class="col-md-12">
+                                            <input type="date" class='form-control' id="u_withdrawal_date"
+                                                name="withdrawal_date" readonly>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col">
+                                    <label style='font-size:15px' class="col-md-12">Recorded
+                                        by</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" name='recorded_by'
+                                            value="<?php echo $name;?>" id='u_recorded_by' autocomplete='off'
+                                            style="width: 100px;" readonly />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label style='font-size:15px' class="col-md-12">Bale
+                                            Quality</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" name='quality' id='u_quality'
+                                                autocomplete='off' style="width: 100px;" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <label style='font-size:15px' class="col-md-12">Kilo per
+                                            Bale</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" name='kilo_bale' id='u_kilo_bale'
+                                                autocomplete='off' style="width: 100px;" readonly />
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-12">
+                                    <label style='font-size:15px' class="col-md-12">Particulars</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" name='remarks' id='u_remarks'
+                                            autocomplete='off' style="width: 100px;" readonly />
+                                    </div>
+                                </div>
+
+                                <br>
+                                <div class="row">
+                                    <div class="col">
+                                        <label style="font-size:15px" class="col-md-12">No. of Bales</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" name="num_bales" id="u_num_bales"
+                                                autocomplete="off" style="width: 100px;" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <label style="font-size:15px" class="col-md-12">Total Bale
+                                            Weight</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" name="total_bale_weight"
+                                                id="u_total_bale_weight" autocomplete="off" style="width: 100px;"
+                                                readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div> <br>
+
                     <p>
                         <i class="fas fa-info-circle"></i>
                         Do you want to save your progress and continue editing later?
                     </p>
-
-
-                   
 
 
                 </div>
@@ -261,6 +346,40 @@ input.invalid-input {
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="voidModal" tabindex="-1" aria-labelledby="draftModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="draftModalLabel">
+                    <i class="fas fa-file-alt"></i> Void Container
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="function/container.php" method="POST" id='transaction_form'>
+                <div class="modal-body">
+                    <input type="text" name='id' id='void_id' hidden>
+                    <p>
+                        <i class="fas fa-info-circle"></i>
+                        Are you sure you want to void this container?
+                    </p>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button type="submit" class="btn btn-danger" name='void'>
+                        <i class="fas fa-trash"></i> Proceed
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
 
 
 <script>
@@ -298,7 +417,7 @@ $('.btnSelectTrans').on('click', function() {
 
 
 document.getElementById("confirmButton").addEventListener("click", function(e) {
-    var fields = ['ref_no', 'container_no', 'ship_destination', 'withdrawal_date', 'quality', 'kilo_bale',
+    var fields = ['ref_no', 'container_no', 'van_no', 'withdrawal_date', 'quality', 'kilo_bale',
         'recorded_by'
     ];
     var isEmpty = false;
@@ -352,9 +471,48 @@ $('.btnDraft').on('click', function() {
 
     var id = <?php echo  $id ?>;
 
+    var vanNo = $('#van_no').val();
+    var withdrawalDate = $('#withdrawal_date').val();
+    var quality = $('#quality').val();
+    var kiloBale = $('#kilo_bale').val();
+    var remarks = $('#remarks').val();
+    var recordedBy = $('#recorded_by').val();
+
+
+    var num_bales = $('#num_bales').val();
+    var total_bale_weight = $('#total_bale_weight').val();
+
+
+    $('#u_van_no').val(vanNo);
+    $('#u_withdrawal_date').val(withdrawalDate);
+    $('#u_quality').val(quality);
+    $('#u_kilo_bale').val(kiloBale);
+    $('#u_remarks').val(remarks);
+    $('#u_recorded_by').val(recordedBy);
+
+    $('#u_num_bales').val(num_bales);
+    $('#u_total_bale_weight').val(total_bale_weight);
+
+
     $('#draft_id').val(id);
 
     $('#draftModal').modal('show');
+
+});
+
+
+$('.btnVoid').on('click', function() {
+    $tr = $(this).closest('tr');
+
+    var data = $tr.children("td").map(function() {
+        return $(this).text();
+    }).get();
+
+    var id = <?php echo  $id ?>;
+
+    $('#void_id').val(id);
+
+    $('#voidModal').modal('show');
 
 });
 

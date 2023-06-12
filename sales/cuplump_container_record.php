@@ -42,24 +42,25 @@ include 'include/navbar.php';
                                     id='recording_table-receiving'>
                                     <thead class="table-dark text-center" style="font-size: 14px !important">
                                         <tr>
+                                            <th scope="col">Status</th>
                                             <th scope="col">Ref No.</th>
-                                            <th scope="col">Container No.</th>
-                                            <th scope="col">Van No.</th>
                                             <th scope="col">Loading Date</th>
+                                            <th scope="col">Van No.</th>
                                             <th scope="col">Total Weight</th>
-                                            <th scope="col" >Total Cost</th>
+                                            <th scope="col">Cuplump Cost</th>
                                             <th scope="col">Remarks</th>
-                                            <th scope="col">Recorded</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php while ($row = mysqli_fetch_array($results)) { ?>
                                         <tr>
+                                            <td class="text-center">
+                                               
+                                            </td>
                                             <td><?php echo $row['container_id']; ?></td>
-                                            <td><?php echo $row['container_no']; ?></td>
-                                            <td><?php echo $row['van_no']; ?></td>
                                             <td><?php echo $row['load_date']; ?></td>
+                                            <td><?php echo $row['van_no']; ?></td>
                                             <td class="number-cell">
                                                 <?php echo number_format($row['total_weight'], 2, '.', ','); ?> kg
                                             </td>
@@ -67,9 +68,9 @@ include 'include/navbar.php';
                                                 <?php echo number_format($row['container_cost'], 2, '.', ','); ?>
                                             </td>
                                             <td><?php echo $row['remarks']; ?></td>
-                                            <td><?php echo $row['user']; ?></td>
                                             <td class="text-center">
-                                                <button type="button" class="btn btn-success btn-sm btnViewRecord">
+                                                <button type="button" class="btn btn-success btn-sm btnViewRecord"
+                                                    data-status="<?php echo $row['status']; ?>">
                                                     <i class="fas fa-book"></i>
                                                 </button>
                                             </td>

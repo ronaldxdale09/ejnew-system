@@ -37,6 +37,7 @@ include 'include/navbar.php';
                                 <?php
        $results  = mysqli_query($con, "SELECT *, container_record.container_id as con_id from container_record 
        LEFT JOIN container_bales_selection ON container_bales_selection.container_id =  container_record.container_id
+        where status !='Void'
        GROUP BY container_record.container_id");
 
 
@@ -45,17 +46,17 @@ include 'include/navbar.php';
                                     id='recording_table-receiving'>
                                     <thead class="table-dark text-center" style="font-size: 14px !important">
                                         <tr>
+                                            <th scope="col">Status</th>
                                             <th scope="col">Ref No.</th>
-                                            <th scope="col">Van No.</th>
                                             <th scope="col">Withdrawal Date</th>
-                                            <th scope="col">Quality</th>
-                                            <th scope="col">Kilo</th>
+                                            <th scope="col">Van No.</th>
+                                            <th scope="col">Bale Quality</th>
+                                            <th scope="col">Kilo per Bale</th>
                                             <th scope="col">No. of Bales</th>
                                             <th scope="col">Total Weight</th>
-                                            <th scope="col" hidden>Bale Cost</th>
+                                            <th scope="col">Bale Cost</th>
+                                            <th scope="col">Milling Cost</th>
                                             <th scope="col">Particulars</th>
-                                            <th scope="col">User</th>
-                                            <th scope="col">Status</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
@@ -79,9 +80,13 @@ include 'include/navbar.php';
                                             
                                             ?>
                                         <tr>
+                                            <td> <span class="badge <?php echo $status_color; ?>">
+                                                    <?php echo $row['status']?>
+                                                </span>
+                                            </td>
                                             <td><?php echo $row['con_id']; ?></td>
-                                            <td><?php echo $row['van_no']; ?></td>
                                             <td><?php echo date('M d, Y', strtotime($row['withdrawal_date'])); ?></td>
+                                            <td><?php echo $row['van_no']; ?></td>
                                             <td><?php echo $row['quality']; ?></td>
                                             <td class="number-cell">
                                                 <?php echo $row['kilo_bale']; ?>
@@ -92,12 +97,13 @@ include 'include/navbar.php';
                                             <td class="number-cell">
                                                 <?php echo number_format($row['total_bale_weight'], 0, '.', ','); ?> kg
                                             </td>
-                                            <td><?php echo $row['remarks']; ?></td>
-                                            <td><?php echo $row['recorded_by']; ?></td>
-                                            <td> <span class="badge <?php echo $status_color; ?>">
-                                                    <?php echo $row['status']?>
-                                                </span>
+                                            <td class="number-cell"> ₱
+                                                <?php echo number_format($row['total_bale_cost'], 0, '.', ','); ?>
                                             </td>
+                                            <td class="number-cell"> ₱
+                                                <?php echo number_format($row['total_milling_cost'], 0, '.', ','); ?>
+                                            </td>
+                                            <td><?php echo $row['remarks']; ?></td>
                                             <td class="text-center">
                                                 <button type="button" class="btn btn-success btn-sm btnViewRecord"
                                                     data-status="<?php echo $row['status']; ?>">
@@ -151,14 +157,15 @@ include 'include/navbar.php';
             return $(this).text();
         }).get();
 
-        $('#v_id').val(data[0]);
+        
+        $('#v_id').val(data[1]);
 
-        $('#v_van').val(data[1]);
         $('#v_date').val(data[2]);
-        $('#v_remarks').val(data[3]);
-        $('#v_recorded').val(data[4]);
-        $('#v_quality').val(data[5]);
-        $('#v_kilo').val(data[6]);
+        $('#v_van').val(data[3]);
+        $('#v_quality').val(data[4]);
+        $('#v_kilo').val(data[5]);
+        $('#v_remarks').val(data[8]);
+        $('#v_recorded').val(data[9]);
 
         var status = $(this).data('status');
 
