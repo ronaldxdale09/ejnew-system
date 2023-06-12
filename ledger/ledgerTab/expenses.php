@@ -82,37 +82,42 @@ while ($array = mysqli_fetch_array($res)) {
 <div class="row" style="display: flex; align-items: center;">
 
     <div class="col-sm-4">
-        <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#addExpense">
-            <i class="fa fa-plus" aria-hidden="true"></i> ADD EXPENSE
-        </button>
-        <button type="button" class="btn btn-dark text-white" data-toggle="modal" data-target="#categoryModal">
-            <i class="fa fa-book" aria-hidden="true"></i> CATEGORY
-        </button>
-    </div>
-
-    
-
-    <div class="col-sm-2">
-        <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" id="dateDropdown" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                Select Date Range
+        <div class="btn-group">
+            <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#addExpense">
+                <i class="fa fa-plus" aria-hidden="true"></i> ADD EXPENSE
             </button>
-            <div class="dropdown-menu" aria-labelledby="dateDropdown">
-                <button class="dropdown-item" id="today">Today</button>
-                <button class="dropdown-item" id="this-week">This Week</button>
-                <button class="dropdown-item" id="this-month">This Month</button>
-            </div>
+            <button type="button" class="btn btn-dark text-white" data-toggle="modal" data-target="#categoryModal">
+                <i class="fa fa-book" aria-hidden="true"></i> CATEGORY
+            </button>
         </div>
     </div>
 
-    <div class="col-sm-2">
-            <select class='form-select' name='category' id='category_filter' style="flex: 1; width: auto;">
-                <option disabled="disabled" selected>Select Category</option>
-                <option value=''>All</option>
-                <?php echo $category ?>
-                <!--PHP echo-->
-            </select>
+    <div class="col-sm-4">
+        <div class="row">
+            <div class="col">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dateDropdown"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 157px;">
+                        Select Date
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dateDropdown">
+                        <button class="dropdown-item" id="today">Today</button>
+                        <button class="dropdown-item" id="this-week">This Week</button>
+                        <button class="dropdown-item" id="this-month">This Month</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="dropdown">
+                    <select class="form-select" name="category" id="category_filter" style="width: 157px;">
+                        <option disabled="disabled" selected>Select Category</option>
+                        <option value="">All</option>
+                        <?php echo $category ?>
+                        <!--PHP echo-->
+                    </select>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="col-sm-4">

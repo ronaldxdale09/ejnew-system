@@ -51,58 +51,59 @@ $side = mysqli_query($con, "SELECT category,year(date) as year,month(date) as mo
 </div>
 
 <div class="row" style="display: flex; align-items: center;">
-    <div class="col-sm-12">
-        <div class="card">
-            <div class="card-body">
-                <!-- CONTENT -->
-                <div class="row">
-                    <div class="col-sm-4">
-                        <button type="button" class="btn btn-success text-white" data-toggle="modal"
-                            data-target="#purchase-modal">
-                            <i class="fa fa-plus" aria-hidden="true"></i> ADD PURCHASE
+    <!-- CONTENT -->
+    <div class="row">
+        <div class="col-sm-4">
+            <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#purchase-modal">
+                <i class="fa fa-plus" aria-hidden="true"></i> ADD PURCHASE
+            </button>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="row">
+                <div class="col">
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dateDropdown"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 155px;">
+                            Select Date
                         </button>
-                    </div>
-                    
-                    <div class="col-sm-2">
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" id="dateDropdown"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Select Date Range
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dateDropdown">
-                                <button class="dropdown-item" id="today">Today</button>
-                                <button class="dropdown-item" id="this-week">This Week</button>
-                                <button class="dropdown-item" id="this-month">This Month</button>
-                            </div>
+                        <div class="dropdown-menu" aria-labelledby="dateDropdown">
+                            <button class="dropdown-item" id="today">Today</button>
+                            <button class="dropdown-item" id="this-week">This Week</button>
+                            <button class="dropdown-item" id="this-month">This Month</button>
                         </div>
                     </div>
-                    <div class="col-sm-2">
-                        <div class="form-group">
-                            <select class="form-select" name="category" id="category_filter">
-                                <option disabled selected>Select Category</option>
-                                <option value="">All</option>
-                                <?php echo $purCatList ?>
-                                <!--PHP echo-->
-                            </select>
-                        </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <select class="form-select" name="category" id="category_filter" style="width: 155px;">
+                            <option disabled selected>Select Category</option>
+                            <option value="">All</option>
+                            <?php echo $purCatList ?>
+                            <!--PHP echo-->
+                        </select>
                     </div>
-                    <div class="col-sm-4">
-                        <div class="row">
-                            <div class="col">
-                                <input type="text" id="min" name="min" class="form-control" placeholder="From Date:"
-                                    style="width: 150px;">
-                            </div>
-                            <div class="col">
-                                <input type="text" id="max" name="max" class="form-control" placeholder="To Date:"
-                                    style="width: 150px;">
-                            </div>
-                        </div>
-                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-sm-4">
+            <div class="row">
+                <div class="col">
+                    <input type="text" id="min" name="min" class="form-control" placeholder="From Date:"
+                        style="width: 150px;">
+                </div>
+                <div class="col">
+                    <input type="text" id="max" name="max" class="form-control" placeholder="To Date:"
+                        style="width: 150px;">
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 <hr>
 <?php $results = mysqli_query($con, "SELECT * from ledger_purchase ORDER BY id DESC"); ?>
