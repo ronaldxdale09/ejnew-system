@@ -1,5 +1,4 @@
-
-<?php 
+<?php
 include('include/header.php');
 include "include/navbar.php";
 
@@ -7,7 +6,7 @@ include "include/navbar.php";
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    $id=  preg_replace('~\D~', '', $id);
+    $id = preg_replace('~\D~', '', $id);
 
     $sql = "SELECT * FROM sales_cuplump_container WHERE container_id = $id";
     $result = $con->query($sql);
@@ -15,7 +14,7 @@ if (isset($_GET['id'])) {
     if ($result->num_rows > 0) {
         // Output data of each row
         $record = $result->fetch_assoc();
-        
+
         $container_no = isset($record['container_no']) ? $record['container_no'] : '';
         $date = isset($record['loading_date']) ? $record['loading_date'] : '';
         $remarks = isset($record['remarks']) ? $record['remarks'] : '';
@@ -36,8 +35,8 @@ if (isset($_GET['id'])) {
                 });
                 </script>
             ";
-        }
     }
+}
 
 
 ?>
@@ -91,13 +90,13 @@ if (isset($_GET['id'])) {
                                                 <div class="col-2">
                                                     <label style='font-size:15px' class="col-md-12">Ref No.</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='id'
-                                                            id='id' readonly
-                                                            autocomplete='off' style="width: 100px;" />
+                                                        <input type="text" class="form-control" name='id' id='id'
+                                                            readonly autocomplete='off' style="width: 100px;" />
                                                     </div>
                                                 </div>
                                                 <div class="col">
-                                                    <label style='font-size:15px' class="col-md-12">Container No.</label>
+                                                    <label style='font-size:15px' class="col-md-12">Container
+                                                        No.</label>
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" name='container_no'
                                                             id='container_no' tabindex="7" autocomplete='off'
@@ -182,14 +181,14 @@ if (isset($_GET['id'])) {
                                                             <div class="input-group">
                                                                 <span class="input-group-text">₱</span>
                                                                 <input type="text" class="form-control"
-                                                                    name="kilo_cost_wet" required>
+                                                                    name="kilo_cost_wet" id="kilo_cost_wet" required>
                                                             </div>
                                                         </td>
                                                         <td class="number-cell">
                                                             <div class="input-group">
                                                                 <span class="input-group-text">₱</span>
                                                                 <input type="text" class="form-control"
-                                                                    name="kilo_cost_dry" required>
+                                                                    name="kilo_cost_dry" id="kilo_cost_dry" required>
                                                             </div>
                                                         </td>
                                                         <td class="number-cell">
@@ -258,3 +257,17 @@ if (isset($_GET['id'])) {
     </div>
     <br>
 </body>
+
+<script>
+  const costTypeSelect = document.getElementById('cost_type');
+  const wetCostInput = document.getElementById('kilo_cost_wet');
+  const dryCostInput = document.getElementById('kilo_cost_dry');
+
+  costTypeSelect.addEventListener('input', function() {
+    if (costTypeSelect.value === 'WET') {
+        dryCostInput.disabled = true;
+    } else {
+      wetCostInput.disabled = true;
+    }
+  });
+</script>

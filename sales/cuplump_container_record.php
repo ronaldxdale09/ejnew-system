@@ -35,7 +35,7 @@ include 'include/navbar.php';
                             <hr>
                             <div class="table-responsive">
                                 <?php
-                        $results  = mysqli_query($con, "SELECT * from rubber_containers "); 
+                        $results  = mysqli_query($con, "SELECT * from sales_cuplump_container "); 
                                     
                                     ?>
                                 <table class="table table-bordered table-hover table-striped"
@@ -45,7 +45,7 @@ include 'include/navbar.php';
                                             <th scope="col">Status</th>
                                             <th scope="col">Ref No.</th>
                                             <th scope="col">Loading Date</th>
-                                            <th scope="col">Van No.</th>
+                                            <th scope="col">Container No.</th>
                                             <th scope="col">Total Weight</th>
                                             <th scope="col">Cuplump Cost</th>
                                             <th scope="col">Remarks</th>
@@ -55,17 +55,13 @@ include 'include/navbar.php';
                                     <tbody>
                                         <?php while ($row = mysqli_fetch_array($results)) { ?>
                                         <tr>
-                                            <td class="text-center">
-                                               
-                                            </td>
+                                            <td class="text-center"><?php echo $row['status']; ?></td>
                                             <td><?php echo $row['container_id']; ?></td>
-                                            <td><?php echo $row['load_date']; ?></td>
-                                            <td><?php echo $row['van_no']; ?></td>
-                                            <td class="number-cell">
-                                                <?php echo number_format($row['total_weight'], 2, '.', ','); ?> kg
-                                            </td>
-                                            <td class="number-cell" hidden>₱
-                                                <?php echo number_format($row['container_cost'], 2, '.', ','); ?>
+                                            <td><?php echo $row['loading_date']; ?></td>
+                                            <td><?php echo $row['container_no']; ?></td>
+                                            <td class="number-cell"><?php echo number_format($row['total_cuplump_weight'], 2, '.', ','); ?> kg</td>
+                                            <td class="number-cell">₱
+                                                <?php echo number_format($row['total_cuplump_cost'], 2, '.', ','); ?>
                                             </td>
                                             <td><?php echo $row['remarks']; ?></td>
                                             <td class="text-center">
