@@ -25,7 +25,7 @@
                         <br>
                         <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
                             <button type="button" class="btn btn-success text-white" data-toggle="modal"
-                                data-target="#newWetExport">NEW PRODUCT</button>
+                                data-target="#newWetExport">NEW BRAND</button>
                             <hr>
                             <div class="table-responsive">
                                 <?php
