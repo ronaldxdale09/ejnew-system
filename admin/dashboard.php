@@ -5,6 +5,7 @@
 error_reporting(0); // Suppress all warnings
 
 
+
 $sql = mysqli_query($con, "SELECT SUM(reweight) as inventory from  planta_recording where status='Field'   "); 
 $cuplumps = mysqli_fetch_array($sql);
 
@@ -16,11 +17,17 @@ $sql = mysqli_query($con, "SELECT SUM(dry_weight) as inventory from  planta_reco
 $drying = mysqli_fetch_array($sql);
 
 
-$sql = mysqli_query($con, "SELECT SUM(produce_total_weight) as inventory from  planta_recording where status='For Sale' or status='Purchase'  "); 
+$sql = mysqli_query($con, "SELECT SUM(remaining_bales * kilo_per_bale) as inventory,planta_recording.status as planta_status  from  planta_bales_production
+LEFT JOIN planta_recording on planta_bales_production.recording_id = planta_recording.recording_id
+ where planta_bales_production.remaining_bales !=0  "); 
 $bales = mysqli_fetch_array($sql);
 
-$sql = mysqli_query($con, "SELECT SUM(number_bales) as inventory from  planta_bales_production where status !='Sold'   "); 
+
+$sql = mysqli_query($con, "SELECT SUM(remaining_bales) as inventory from  planta_bales_production 
+  LEFT JOIN planta_recording on planta_bales_production.recording_id = planta_recording.recording_id
+where  planta_bales_production.remaining_bales !=0 "); 
 $balesCount = mysqli_fetch_array($sql);
+
 
 
    $loc = ''; // Please replace with your location value
