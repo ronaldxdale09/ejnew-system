@@ -15,8 +15,13 @@
     <input type='hidden' id='selected-cart' value=''>
     <div class='main-content' style='position:relative; height:100%;'>
         <div class="text-center mb-4">
-            <h2 class="display-4 mb-1">Sales Report</h2>
-            <p class="text-muted mt-0">Detailed view of all sales within reporting period.</p>
+                        <h2 class="page-title">
+                            <b>
+                                <font color="#0C0070">SALES </font>
+                                <font color="#046D56"> REPORT </font>
+                            </b>
+                        </h2>
+            <h6 class="text-muted mt-0">Detailed view of annual sales per product category within the reporting period.</h6>
             <p class="text-muted mt-1"><?php echo $_SESSION['loc']?></p>
         </div>
 

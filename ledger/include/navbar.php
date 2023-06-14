@@ -25,8 +25,8 @@
     <a class='nav-link' href='coffee_list.php'>
     <i class='fa-solid fa-book'></i> <span class='nav-text'>Product List</span> </a>
    
-    <a class='nav-link' href='coffee_expense.php'>
-    <i class='fa-solid fa-book'></i> <span class='nav-text'>Coffee Expense</span> </a>
+    <a class='nav-link' href='coffee_customer.php'>
+    <i class='fa-solid fa-book'></i> <span class='nav-text'>Manage Customer</span> </a>
     
     <a class='nav-link' href='coffee_sale_report.php'>
     <i class='fa-solid fa-book'></i> <span class='nav-text'>Sale Report</span> </a>

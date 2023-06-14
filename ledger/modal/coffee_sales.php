@@ -1,4 +1,3 @@
-
 <div class="modal fade" id="newCoffeeSale" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -268,23 +267,27 @@ $(document).ready(function() {
     $('#newCoffeeSaleForm').on('submit', function(e) {
         e.preventDefault();
         $.ajax({
-            url: 'newCoffeeSale.php', // Replace with the path to your PHP file
+            url: 'function/newCoffeeSale.php',
             method: 'POST',
             data: $(this).serialize(),
             success: function(response) {
-                alert(response);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: response,
+                    onClose: function() {
+                        location.reload();
+                    }
+                });
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'An error occurred while submitting the form.',
+                });
             }
         });
     });
 });
-
-$.ajax({
-    url: 'js/newCoffeeSale.php', // Replace with the path to your newCoffeeSale.php file
-    method: 'POST',
-    data: $(this).serialize(),
-    success: function(response) {
-        alert(response);
-    }
-});
-
 </script>
