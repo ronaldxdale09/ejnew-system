@@ -6,7 +6,6 @@
     height: 2rem;
     color: black;
     vertical-align: middle;
-    -webkit-appearance: none;
     background: none;
     border: 1;
     outline: 0;
