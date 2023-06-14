@@ -57,6 +57,7 @@ include 'include/navbar.php';
                                             <th scope="col">Bale Cost</th>
                                             <th scope="col">Milling Cost</th>
                                             <th scope="col">Particulars</th>
+                                            <th scope="col" hidden>Recorded By</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
@@ -104,6 +105,7 @@ include 'include/navbar.php';
                                                 <?php echo number_format($row['total_milling_cost'], 0, '.', ','); ?>
                                             </td>
                                             <td><?php echo $row['remarks']; ?></td>
+                                            <td hidden><?php echo $row['recorded_by']; ?></td>
                                             <td class="text-center">
                                                 <button type="button" class="btn btn-success btn-sm btnViewRecord"
                                                     data-status="<?php echo $row['status']; ?>">
@@ -164,8 +166,10 @@ include 'include/navbar.php';
         $('#v_van').val(data[3]);
         $('#v_quality').val(data[4]);
         $('#v_kilo').val(data[5]);
-        $('#v_remarks').val(data[8]);
-        $('#v_recorded').val(data[9]);
+        $('#v_remarks').val(data[10]);
+        $('#v_recorded').val(data[11]);
+
+
 
         var status = $(this).data('status');
 
@@ -180,7 +184,7 @@ include 'include/navbar.php';
 
         function fetch_table() {
 
-            var container_id = (data[0]);
+            var container_id = (data[1]);
             $.ajax({
                 url: "table/contaner_bales_record.php",
                 method: "POST",

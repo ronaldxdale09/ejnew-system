@@ -13,12 +13,6 @@ if ( mysqli_connect_errno() ) {
 }
 
 
-// Report all PHP errors
-error_reporting(E_ALL);
-
-// Display errors
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
 
 
 ?>

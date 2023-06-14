@@ -6,7 +6,8 @@
     $van_no = $_POST['van_no'];
     $withdrawal_date = $_POST['withdrawal_date'];
     $quality = $_POST['quality'];
-  
+
+    
     $remarks = $_POST['remarks'];
     $recorded_by = $_POST['recorded_by'];
 
@@ -16,7 +17,7 @@
 
     $total_bale_cost = preg_replace("/[^0-9\.]/", "", $_POST['total_bale_cost']);
     $total_milling_cost = preg_replace("/[^0-9\.]/", "", $_POST['total_milling_cost']);
-
+    $average_cost = preg_replace("/[^0-9\.]/", "", $_POST['average_cost']);
 
     $query = "UPDATE container_record SET 
               container_no = '$container_no', 
@@ -30,6 +31,7 @@
               total_bale_weight = '$total_bale_weight' ,
               total_bale_cost = '$total_bale_cost' ,
               total_milling_cost = '$total_milling_cost',
+              average_kilo_cost  '$average_cost',
               status = 'Awaiting Shipment' 
               WHERE container_id  = '$ref_no'";
 

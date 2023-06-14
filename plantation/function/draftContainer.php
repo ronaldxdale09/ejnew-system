@@ -15,8 +15,9 @@
 
     $total_bale_cost = preg_replace("/[^0-9\.]/", "", $_POST['total_bale_cost']);
     $total_milling_cost = preg_replace("/[^0-9\.]/", "", $_POST['total_milling_cost']);
+    $average_cost = preg_replace("/[^0-9\.]/", "", $_POST['average_cost']);
 
-    var_dump($ref_no, $van_no, $withdrawal_date, $quality, $remarks, $recorded_by, $total_bale_weight, $num_bales, $kilo_bale,$total_bale_cost,$total_milling_cost);
+    var_dump($ref_no, $van_no, $withdrawal_date, $quality, $remarks, $recorded_by, $total_bale_weight, $num_bales, $kilo_bale,$total_bale_cost,$total_milling_cost,$average_kilo_cost);
     // $query = "UPDATE container_record SET 
     //           van_no = '$van_no', 
     //           withdrawal_date = '$withdrawal_date', 
@@ -28,8 +29,10 @@
     //           total_bale_weight = '$total_bale_weight' ,
     //           total_bale_cost = '$total_bale_cost' ,
     //           total_milling_cost = '$total_milling_cost',
+    //                average_kilo_cost  '$average_cost',
     //           status = 'In Progress' 
     //           WHERE container_id  = '$ref_no'";
+    
 
     // $results = mysqli_query($con, $query);
 

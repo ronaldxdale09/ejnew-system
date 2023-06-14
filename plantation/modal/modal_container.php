@@ -96,7 +96,7 @@ document.getElementById("proceedButton").addEventListener("click", function() {
 <!-- Add  Container Modal -->
 <div class="modal fade" id="viewContainer" tabindex="-1" role="dialog" aria-labelledby="newContainerLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="newContainerLabel"> Container Details</h5>
@@ -157,6 +157,8 @@ document.getElementById("proceedButton").addEventListener("click", function() {
                             </div>
                         </div>
                     </div>
+
+                    
 
                     <div id='container_record'> </div>
                 </div>
