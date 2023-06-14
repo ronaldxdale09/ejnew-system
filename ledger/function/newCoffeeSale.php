@@ -1,7 +1,11 @@
 <?php
+include('db.php');
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
-    // Include the necessary database connection file
-    include('include/db_connection.php');
+    // Ensure the database connection is successful
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
 
     // Get the values from the form and sanitize them
     $coffee_no = mysqli_real_escape_string($conn, $_POST['coffee_no']);

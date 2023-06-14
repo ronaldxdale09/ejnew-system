@@ -1,27 +1,3 @@
-<?php
-include('include/header.php');
-include('include/navbar.php');
-
-// Ensure the database connection is successful
-if (!$con) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
-$results = mysqli_query($con, "SELECT 
-    coffee_id,
-    coffee_status,
-    coffee_no,
-    coffee_date,
-    coffee_customer,
-    coffee_total_amount,
-    coffee_paid,
-    coffee_balance
-FROM coffee_sale");
-
-include "modal/coffee_sales.php"; // Include the modal file
-
-?>
-
 <!DOCTYPE html>
 <html>
 
@@ -35,6 +11,29 @@ include "modal/coffee_sales.php"; // Include the modal file
 </head>
 
 <body>
+    <?php
+    include('include/header.php');
+    include('include/navbar.php');
+
+    // Ensure the database connection is successful
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+
+    $results = mysqli_query($con, "SELECT 
+        coffee_id,
+        coffee_status,
+        coffee_no,
+        coffee_date,
+        coffee_customer,
+        coffee_total_amount,
+        coffee_paid,
+        coffee_balance
+    FROM coffee_sale");
+
+    include "modal/coffee_sales.php"; // Include the modal file
+    ?>
+
     <div class='main-content' style='min-height:100vh;'>
         <div class="container home-section h-100" style="max-width:95%;">
             <div class="page-wrapper">
@@ -55,41 +54,41 @@ include "modal/coffee_sales.php"; // Include the modal file
                                 <?php
                                 if ($results) {
                                 ?>
-                                <table class="table table-bordered table-hover table-striped" id='recording_table-receiving'>
-                                    <thead class="table-dark text-center" style="font-size: 14px !important">
-                                        <tr>
-                                            <th scope="col" hidden>ID</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col">Ref No.</th>
-                                            <th scope="col">Date</th>
-                                            <th scope="col">Customer Name</th>
-                                            <th scope="col">Total Amount</th>
-                                            <th scope="col">Balance</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        while ($row = mysqli_fetch_array($results)) {
+                                    <table class="table table-bordered table-hover table-striped" id='recording_table-receiving'>
+                                        <thead class="table-dark text-center" style="font-size: 14px !important">
+                                            <tr>
+                                                <th scope="col" hidden>ID</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Ref No.</th>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Customer Name</th>
+                                                <th scope="col">Total Amount</th>
+                                                <th scope="col">Balance</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            while ($row = mysqli_fetch_array($results)) {
                                             ?>
-                                        <tr>
-                                            <td hidden><?php echo $row['coffee_id']; ?></td>
-                                            <td><?php echo $row['coffee_status']; ?></td>
-                                            <td><?php echo $row['coffee_no']; ?></td>
-                                            <td><?php echo $row['coffee_date']; ?></td>
-                                            <td><?php echo $row['coffee_customer']; ?></td>
-                                            <td class="number-cell">₱ <?php echo $row['coffee_total_amount']; ?></td>
-                                            <td class="number-cell">₱ <?php echo $row['coffee_paid']; ?></td>
-                                            <td class="number-cell">₱ <?php echo $row['coffee_balance']; ?></td>
-                                            <td class="text-center">
-                                                <button type="button" class="btn btn-success btn-sm btnViewRecord">Update</button>
-                                            </td>
-                                        </tr>
-                                        <?php
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
+                                                <tr>
+                                                    <td hidden><?php echo $row['coffee_id']; ?></td>
+                                                    <td><?php echo $row['coffee_status']; ?></td>
+                                                    <td><?php echo $row['coffee_no']; ?></td>
+                                                    <td><?php echo $row['coffee_date']; ?></td>
+                                                    <td><?php echo $row['coffee_customer']; ?></td>
+                                                    <td class="number-cell">₱ <?php echo $row['coffee_total_amount']; ?></td>
+                                                    <td class="number-cell">₱ <?php echo $row['coffee_paid']; ?></td>
+                                                    <td class="number-cell">₱ <?php echo $row['coffee_balance']; ?></td>
+                                                    <td class="text-center">
+                                                        <button type="button" class="btn btn-success btn-sm btnViewRecord">Update</button>
+                                                    </td>
+                                                </tr>
+                                            <?php
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
                                 <?php
                                 } else {
                                     echo "Error: " . mysqli_error($con);
@@ -103,11 +102,13 @@ include "modal/coffee_sales.php"; // Include the modal file
         </div>
     </div>
 
+    <!-- Add the SweetAlert2 and jQuery libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -125,6 +126,34 @@ include "modal/coffee_sales.php"; // Include the modal file
                 orderCellsTop: true,
                 paging: false,
                 info: false,
+            });
+        });
+
+        $(document).ready(function() {
+            $('#newCoffeeSaleForm').on('submit', function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: 'function/newCoffeeSale.php',
+                    method: 'POST',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: response,
+                            onClose: function() {
+                                location.reload();
+                            }
+                        });
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'An error occurred while submitting the form.',
+                        });
+                    }
+                });
             });
         });
     </script>
