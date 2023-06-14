@@ -1,26 +1,26 @@
-<?php 
+<?php
 include('include/header.php');
 include "include/navbar.php";
-    if (isset($_GET['id'])) {
-        $id = $_GET['id'];
-        $id=  preg_replace('~\D~', '', $id);
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $id =  preg_replace('~\D~', '', $id);
 
-        $sql = "SELECT * FROM container_record WHERE container_id = $id";
-        $result = $con->query($sql);
+    $sql = "SELECT * FROM container_record WHERE container_id = $id";
+    $result = $con->query($sql);
 
-        if ($result->num_rows > 0) {
-            // Output data of each row
-            $record = $result->fetch_assoc();
-            
-            $container_no = isset($record['container_no']) ? $record['container_no'] : '';
-            $van_no = isset($record['van_no']) ? $record['van_no'] : '';
-            $withdrawal_date = isset($record['withdrawal_date']) ? $record['withdrawal_date'] : '';
-            $quality = isset($record['quality']) ? $record['quality'] : '';
-            $kilo_bale = isset($record['kilo_bale']) ? $record['kilo_bale'] : '';
-            $remarks = isset($record['remarks']) ? $record['remarks'] : '';
-            $recorded_by = isset($record['recorded_by']) ? $record['recorded_by'] : '';
+    if ($result->num_rows > 0) {
+        // Output data of each row
+        $record = $result->fetch_assoc();
 
-            echo "
+        $container_no = isset($record['container_no']) ? $record['container_no'] : '';
+        $van_no = isset($record['van_no']) ? $record['van_no'] : '';
+        $withdrawal_date = isset($record['withdrawal_date']) ? $record['withdrawal_date'] : '';
+        $quality = isset($record['quality']) ? $record['quality'] : '';
+        $kilo_bale = isset($record['kilo_bale']) ? $record['kilo_bale'] : '';
+        $remarks = isset($record['remarks']) ? $record['remarks'] : '';
+        $recorded_by = isset($record['recorded_by']) ? $record['recorded_by'] : '';
+
+        echo "
                 <script>
                     $(document).ready(function() {
                         $('#ref_no').val('" . $id . "');
@@ -34,13 +34,13 @@ include "include/navbar.php";
                     });
                 </script>
             ";
-        }
     }
+}
 ?>
 <style>
-input.invalid-input {
-    border: 2px solid red !important;
-}
+    input.invalid-input {
+        border: 2px solid red !important;
+    }
 </style>
 
 <body>
@@ -69,12 +69,9 @@ input.invalid-input {
                                         </a>
 
 
-                                        <button type="button" class="btn btn-primary confirmSales"><span
-                                                class="fas fa-check"></span> Complete</button>
-                                        <button type="button" class="btn btn-warning btnDraft"><span
-                                                class="fas fa-info-circle"></span> Save as Draft</button>
-                                        <button type="button" class="btn btn-danger btnVoid"> <span
-                                                class="fas fa-times"></span> Void Container</button>
+                                        <button type="button" class="btn btn-primary confirmSales"><span class="fas fa-check"></span> Complete</button>
+                                        <button type="button" class="btn btn-warning btnDraft"><span class="fas fa-info-circle"></span> Save as Draft</button>
+                                        <button type="button" class="btn btn-danger btnVoid"> <span class="fas fa-times"></span> Void Container</button>
                                     </div>
                                 </div>
 
@@ -90,35 +87,28 @@ input.invalid-input {
                                                     <div class="col">
                                                         <label style='font-size:15px' class="col-md-12">Ref No.</label>
                                                         <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" name='ref_no'
-                                                                id='ref_no' value='<?php echo $id?>' readonly
-                                                                style="width: 100px;" />
+                                                            <input type="text" class="form-control" name='ref_no' id='ref_no' value='<?php echo $id ?>' readonly style="width: 100px;" />
                                                         </div>
                                                     </div>
                                                     <div class="col">
                                                         <label style='font-size:15px' class="col-md-12">Van
                                                             No.</label>
                                                         <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" name='van_no'
-                                                                id='van_no' autocomplete='off'
-                                                                style="width: 100px;" required />
+                                                            <input type="text" class="form-control" name='van_no' id='van_no' autocomplete='off' style="width: 100px;" required />
                                                         </div>
                                                     </div>
                                                     <div class="col">
                                                         <label style='font-size:15px' class="col-md-12">Withdrawal
                                                             Date</label>
                                                         <div class="col-md-12">
-                                                            <input type="date" class='form-control' id="withdrawal_date"
-                                                                name="withdrawal_date" required>
+                                                            <input type="date" class='form-control' id="withdrawal_date" name="withdrawal_date" required>
                                                         </div>
                                                     </div>
                                                     <div class="col">
                                                         <label style='font-size:15px' class="col-md-12">Recorded
                                                             by</label>
                                                         <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" name='recorded_by'
-                                                                value="<?php echo $name;?>" id='recorded_by'
-                                                                autocomplete='off' style="width: 100px;" required />
+                                                            <input type="text" class="form-control" name='recorded_by' value="<?php echo $name; ?>" id='recorded_by' autocomplete='off' style="width: 100px;" required />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -127,26 +117,20 @@ input.invalid-input {
                                                         <label style='font-size:15px' class="col-md-12">Bale
                                                             Quality</label>
                                                         <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" name='quality'
-                                                                id='quality' autocomplete='off' style="width: 100px;"
-                                                                required />
+                                                            <input type="text" class="form-control" name='quality' id='quality' autocomplete='off' style="width: 100px;" required />
                                                         </div>
                                                     </div>
                                                     <div class="col">
                                                         <label style='font-size:15px' class="col-md-12">Kilo per
                                                             Bale</label>
                                                         <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" name='kilo_bale'
-                                                                id='kilo_bale' autocomplete='off' style="width: 100px;"
-                                                                required />
+                                                            <input type="text" class="form-control" name='kilo_bale' id='kilo_bale' autocomplete='off' style="width: 100px;" required />
                                                         </div>
                                                     </div>
                                                     <div class="col-6">
-                                                        <label style='font-size:15px'
-                                                            class="col-md-12">Particulars</label>
+                                                        <label style='font-size:15px' class="col-md-12">Particulars</label>
                                                         <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" name='remarks'
-                                                                id='remarks' autocomplete='off' style="width: 100px;" />
+                                                            <input type="text" class="form-control" name='remarks' id='remarks' autocomplete='off' style="width: 100px;" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -158,8 +142,7 @@ input.invalid-input {
                                     <div class="card">
                                         <div class="card-body d-flex justify-content-between align-items-center">
                                             <h4>Container Bales</h4>
-                                            <button type="button" class="btn btn-dark text-white btnSelectTrans"
-                                                id='receiptBtn'>
+                                            <button type="button" class="btn btn-dark text-white btnSelectTrans" id='receiptBtn'>
                                                 <span class="fa fa-book"></span> Select Inventory</button>
                                         </div>
                                         <div class="card-body">
@@ -204,17 +187,14 @@ input.invalid-input {
                                         <label style='font-size:15px' class="col-md-12">Van
                                             No.</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control" name='van_no'
-                                                id='u_van_no' autocomplete='off' style="width: 100px;"
-                                                readonly />
+                                            <input type="text" class="form-control" name='van_no' id='u_van_no' autocomplete='off' style="width: 100px;" readonly />
                                         </div>
                                     </div>
                                     <div class="col">
                                         <label style='font-size:15px' class="col-md-12">Withdrawal
                                             Date</label>
                                         <div class="col-md-12">
-                                            <input type="date" class='form-control' id="u_withdrawal_date"
-                                                name="withdrawal_date" readonly>
+                                            <input type="date" class='form-control' id="u_withdrawal_date" name="withdrawal_date" readonly>
                                         </div>
                                     </div>
 
@@ -223,9 +203,7 @@ input.invalid-input {
                                     <label style='font-size:15px' class="col-md-12">Recorded
                                         by</label>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='recorded_by'
-                                            value="<?php echo $name;?>" id='u_recorded_by' autocomplete='off'
-                                            style="width: 100px;" readonly />
+                                        <input type="text" class="form-control" name='recorded_by' value="<?php echo $name; ?>" id='u_recorded_by' autocomplete='off' style="width: 100px;" readonly />
                                     </div>
                                 </div>
                                 <div class="row">
@@ -233,16 +211,14 @@ input.invalid-input {
                                         <label style='font-size:15px' class="col-md-12">Bale
                                             Quality</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control" name='quality' id='u_quality'
-                                                autocomplete='off' style="width: 100px;" readonly />
+                                            <input type="text" class="form-control" name='quality' id='u_quality' autocomplete='off' style="width: 100px;" readonly />
                                         </div>
                                     </div>
                                     <div class="col">
                                         <label style='font-size:15px' class="col-md-12">Kilo per
                                             Bale</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control" name='kilo_bale' id='u_kilo_bale'
-                                                autocomplete='off' style="width: 100px;" readonly />
+                                            <input type="text" class="form-control" name='kilo_bale' id='u_kilo_bale' autocomplete='off' style="width: 100px;" readonly />
                                         </div>
                                     </div>
 
@@ -251,8 +227,7 @@ input.invalid-input {
                                 <div class="col-12">
                                     <label style='font-size:15px' class="col-md-12">Particulars</label>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='remarks' id='u_remarks'
-                                            autocomplete='off' style="width: 100px;" readonly />
+                                        <input type="text" class="form-control" name='remarks' id='u_remarks' autocomplete='off' style="width: 100px;" readonly />
                                     </div>
                                 </div>
 
@@ -261,22 +236,42 @@ input.invalid-input {
                                     <div class="col">
                                         <label style="font-size:15px" class="col-md-12">No. of Bales</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control" name="num_bales" id="u_num_bales"
-                                                autocomplete="off" style="width: 100px;" readonly />
+                                            <input type="text" class="form-control" name="num_bales" id="u_num_bales" autocomplete="off" style="width: 100px;" readonly />
                                         </div>
                                     </div>
                                     <div class="col">
                                         <label style="font-size:15px" class="col-md-12">Total Bale
                                             Weight</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control" name="total_bale_weight"
-                                                id="u_total_bale_weight" autocomplete="off" style="width: 100px;"
-                                                readonly />
+                                            <input type="text" class="form-control" name="total_bale_weight" id="u_total_bale_weight" autocomplete="off" style="width: 100px;" readonly />
                                         </div>
                                     </div>
                                 </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label style="font-size:15px" class="col-md-12">Total Bale Cost</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" name="total_bale_cost" id="u_total_bale_cost" autocomplete="off" style="width: 100px;" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <label style="font-size:15px" class="col-md-12">Average Kilo Cost</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" name="average_cost" id="u_average_cost" autocomplete="off" style="width: 100px;" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <label style="font-size:15px" class="col-md-12">Total Milling Cost</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" name="total_milling_cost" id="u_total_milling_cost" autocomplete="off" style="width: 100px;" readonly />
+                                        </div>
+                                    </div>
+
+                                </div>
                         </div>
-                    </div> <br>
+                    </div>
 
                     <p>
                         <i class="fas fa-info-circle"></i>
@@ -301,8 +296,7 @@ input.invalid-input {
 
 
 
-<div class="modal fade" id="modal_produced_record" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="modal_produced_record" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header bg-dark text-white">
@@ -383,154 +377,159 @@ input.invalid-input {
 
 
 <script>
-$('.btnSelectTrans').on('click', function() {
-    $tr = $(this).closest('tr');
+    $('.btnSelectTrans').on('click', function() {
+        $tr = $(this).closest('tr');
 
-    var data = $tr.children("td").map(function() {
-        return $(this).text();
-    }).get();
+        var data = $tr.children("td").map(function() {
+            return $(this).text();
+        }).get();
 
 
-    var container_id = <?php echo  $id ?>;
-    console.log(container_id);
+        var container_id = <?php echo  $id ?>;
+        console.log(container_id);
 
-    function fetch_record() {
+        function fetch_record() {
 
+            $.ajax({
+                url: "table/container_bales_inventory.php",
+                method: "POST",
+                data: {
+                    container_id: container_id,
+
+                },
+                success: function(data) {
+                    $('#produced_modal_table').html(data);
+
+
+                }
+            });
+        }
+        fetch_record();
+        $('#modal_produced_record').modal('show');
+
+    });
+
+
+    document.getElementById("confirmButton").addEventListener("click", function(e) {
+        var fields = ['ref_no', 'container_no', 'van_no', 'withdrawal_date', 'quality', 'kilo_bale',
+            'recorded_by'
+        ];
+        var isEmpty = false;
+
+        fields.forEach(function(field) {
+            var inputElement = document.getElementById(field);
+            if (!inputElement.value) {
+                inputElement.classList.add('invalid-input');
+                isEmpty = true;
+            } else {
+                inputElement.classList.remove('invalid-input');
+            }
+        });
+
+        if (isEmpty) {
+            e.preventDefault(); // Stop form submission
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please fill all the required fields!',
+            });
+        } else {
+            document.getElementById("transaction_form").submit();
+        }
+    });
+
+
+
+    $('.confirmSales').on('click', function() {
+        $tr = $(this).closest('tr');
+
+        var data = $tr.children("td").map(function() {
+            return $(this).text();
+        }).get();
+
+
+        var container_id = <?php echo  $id ?>;
+
+        $('#confirmModal').modal('show');
+
+    });
+
+
+
+    $('.btnDraft').on('click', function() {
+        $tr = $(this).closest('tr');
+
+        var data = $tr.children("td").map(function() {
+            return $(this).text();
+        }).get();
+
+        var id = <?php echo  $id ?>;
+
+        var vanNo = $('#van_no').val();
+        var withdrawalDate = $('#withdrawal_date').val();
+        var quality = $('#quality').val();
+        var kiloBale = $('#kilo_bale').val();
+        var remarks = $('#remarks').val();
+        var recordedBy = $('#recorded_by').val();
+
+
+        var num_bales = $('#num_bales').val();
+        var total_bale_weight = $('#total_bale_weight').val();
+
+
+        $('#u_van_no').val(vanNo);
+        $('#u_withdrawal_date').val(withdrawalDate);
+        $('#u_quality').val(quality);
+        $('#u_kilo_bale').val(kiloBale);
+        $('#u_remarks').val(remarks);
+        $('#u_recorded_by').val(recordedBy);
+
+        $('#u_num_bales').val(num_bales);
+        $('#u_total_bale_weight').val(total_bale_weight);
+
+
+        $('#u_total_bale_cost').val(num_bales);
+        $('#u_average_cost').val(total_bale_weight);
+        $('#u_total_milling_cost').val(total_bale_weight);
+
+
+        $('#draft_id').val(id);
+
+        $('#draftModal').modal('show');
+
+    });
+
+
+    $('.btnVoid').on('click', function() {
+        $tr = $(this).closest('tr');
+
+        var data = $tr.children("td").map(function() {
+            return $(this).text();
+        }).get();
+
+        var id = <?php echo  $id ?>;
+
+        $('#void_id').val(id);
+
+        $('#voidModal').modal('show');
+
+    });
+
+
+
+    function fetch_data() {
+        var container_id = $('#ref_no').val();
         $.ajax({
-            url: "table/container_bales_inventory.php",
+            url: "table/contaner_selectedList.php",
             method: "POST",
             data: {
                 container_id: container_id,
-
             },
             success: function(data) {
-                $('#produced_modal_table').html(data);
-
+                $('#selected_inventory').html(data);
 
             }
         });
     }
-    fetch_record();
-    $('#modal_produced_record').modal('show');
-
-});
-
-
-document.getElementById("confirmButton").addEventListener("click", function(e) {
-    var fields = ['ref_no', 'container_no', 'van_no', 'withdrawal_date', 'quality', 'kilo_bale',
-        'recorded_by'
-    ];
-    var isEmpty = false;
-
-    fields.forEach(function(field) {
-        var inputElement = document.getElementById(field);
-        if (!inputElement.value) {
-            inputElement.classList.add('invalid-input');
-            isEmpty = true;
-        } else {
-            inputElement.classList.remove('invalid-input');
-        }
-    });
-
-    if (isEmpty) {
-        e.preventDefault(); // Stop form submission
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Please fill all the required fields!',
-        });
-    } else {
-        document.getElementById("transaction_form").submit();
-    }
-});
-
-
-
-$('.confirmSales').on('click', function() {
-    $tr = $(this).closest('tr');
-
-    var data = $tr.children("td").map(function() {
-        return $(this).text();
-    }).get();
-
-
-    var container_id = <?php echo  $id ?>;
-
-    $('#confirmModal').modal('show');
-
-});
-
-
-
-$('.btnDraft').on('click', function() {
-    $tr = $(this).closest('tr');
-
-    var data = $tr.children("td").map(function() {
-        return $(this).text();
-    }).get();
-
-    var id = <?php echo  $id ?>;
-
-    var vanNo = $('#van_no').val();
-    var withdrawalDate = $('#withdrawal_date').val();
-    var quality = $('#quality').val();
-    var kiloBale = $('#kilo_bale').val();
-    var remarks = $('#remarks').val();
-    var recordedBy = $('#recorded_by').val();
-
-
-    var num_bales = $('#num_bales').val();
-    var total_bale_weight = $('#total_bale_weight').val();
-
-
-    $('#u_van_no').val(vanNo);
-    $('#u_withdrawal_date').val(withdrawalDate);
-    $('#u_quality').val(quality);
-    $('#u_kilo_bale').val(kiloBale);
-    $('#u_remarks').val(remarks);
-    $('#u_recorded_by').val(recordedBy);
-
-    $('#u_num_bales').val(num_bales);
-    $('#u_total_bale_weight').val(total_bale_weight);
-
-
-    $('#draft_id').val(id);
-
-    $('#draftModal').modal('show');
-
-});
-
-
-$('.btnVoid').on('click', function() {
-    $tr = $(this).closest('tr');
-
-    var data = $tr.children("td").map(function() {
-        return $(this).text();
-    }).get();
-
-    var id = <?php echo  $id ?>;
-
-    $('#void_id').val(id);
-
-    $('#voidModal').modal('show');
-
-});
-
-
-
-function fetch_data() {
-    var container_id = $('#ref_no').val();
-    $.ajax({
-        url: "table/contaner_selectedList.php",
-        method: "POST",
-        data: {
-            container_id: container_id,
-        },
-        success: function(data) {
-            $('#selected_inventory').html(data);
-
-        }
-    });
-}
-fetch_data();
+    fetch_data();
 </script>

@@ -17,6 +17,7 @@ $milling_cost =0;
 $total_milling_cost =0;
 
 $overall_milling_cost =0;
+$average_kilo_cost = 0;
 $result = mysqli_query($con, $sql);  
 if (!$result) {
     die('Error in query: ' . mysqli_error($con));
@@ -79,6 +80,7 @@ if(mysqli_num_rows($result) > 0) {
         $unit_cost = $arr['total_production_cost'] / $arr['produce_total_weight'];
         $total_unit_cost = $unit_cost * $weight;
         $total_bale_cost += $total_unit_cost;
+        $average_kilo_cost = $total_bale_cost / $total_weight;
 
         $milling_cost = $arr['milling_cost'];
         $total_milling_cost = $arr['milling_cost'] * $weight ;
@@ -118,13 +120,13 @@ $output .= '
                 style="width: 100px;" readonly />
         </div>
     </div>
-    // <div class="col">
-    //     <label style="font-size:15px" class="col-md-12">Average Kilo Cost</label>
-    //     <div class="input-group mb-3">
-    //         <input type="text" class="form-control" name="total_milling_cost" id="total_milling_cost" autocomplete="off"
-    //             style="width: 100px;" readonly />
-    //     </div>
-    // </div>
+     <div class="col">
+        <label style="font-size:15px" class="col-md-12">Average Kilo Cost</label>
+        <div class="input-group mb-3">
+             <input type="text" class="form-control" name="average_cost" id="average_cost" autocomplete="off"
+                style="width: 100px;" readonly />
+         </div>
+    </div>
     <div class="col">
         <label style="font-size:15px" class="col-md-12">Total Milling Cost</label>
         <div class="input-group mb-3">
@@ -142,6 +144,7 @@ $output .= '
 
     document.getElementById("total_bale_cost").value = "₱ ' . number_format($total_bale_cost,2) . '";
     document.getElementById("total_milling_cost").value = "₱ ' . number_format($overall_milling_cost,2) . '";
+    document.getElementById("average_cost").value = "₱ ' . number_format($average_kilo_cost ,2) . '";
 </script>
 ';
 

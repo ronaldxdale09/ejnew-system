@@ -73,7 +73,8 @@
                      
                                     $ru_driver = $_POST['ru_driver'];
                                     $ru_truck_num = $_POST['ru_truck_num'];
-
+                                    
+                                    $ru_date = $_POST['ru_date'];
 
                                     $total_cost = str_replace(',', '', $_POST['total_cost']);
                                     $ru_weight = str_replace(',', '', $_POST['ru_weight']);
@@ -82,6 +83,7 @@
                                     // Construct the update query
                                     $query = "UPDATE planta_recording 
                                               SET supplier = '$ru_supplier',
+                                              receiving_date = '$ru_date',
                                               purchase_cost = '$total_cost',
                                                   location = '$ru_location',
                                                   lot_num = '$ru_lot_num',

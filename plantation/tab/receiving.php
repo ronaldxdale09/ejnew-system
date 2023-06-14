@@ -79,12 +79,18 @@ $('.btnUpdateReceiving').on('click', function() {
         return $(this).text();
     }).get();
     $('#ru_recording_id').val(data[1]);
+
     var date = data[2];
-    var TformatDate = date.replace(" ", "T").substring(0, 16); // Adjusted this line
+    var d = new Date(date);
+    var formattedDate = d.getFullYear() + '-' + (d.getMonth()+1).toString().padStart(2, '0') + '-' + d.getDate().toString().padStart(2, '0') + 
+        ' ' + d.getHours().toString().padStart(2, '0') + ':' + d.getMinutes().toString().padStart(2, '0') + ':' + d.getSeconds().toString().padStart(2, '0');
     // Now TformatDate should be something like '2023-05-12T08:45'
     var total_cost = $(this).data('total_cost');
     console.log(date);
-    $('#ru_date').val(date);
+
+
+    console.log(formattedDate);
+    $('#ru_date').val(formattedDate);
     $('#ru_supplier').val(data[3]);
     $('#ru_location').val(data[4]);
     $('#ru_lot_num').val(data[5]);
