@@ -42,6 +42,7 @@
                                         rubber_transaction.date as purchased_date,rubber_transaction.net_weight as wet_net_weight
                                         FROM planta_recording
                                         LEFT JOIN rubber_transaction ON planta_recording.purchased_id = rubber_transaction.id
+                                        WHERE status != 'Complete'
                                         GROUP BY planta_recording.recording_id"); ?>
                                             <thead class="table-dark">
                                                 <tr>
@@ -65,8 +66,11 @@
                                                     <?php
                                                         $status_color = '';
                                                         switch($row['status']){
-                                                            case "Field":
+                                                            case "Complete":
                                                                 $status_color = 'bg-success';
+                                                                break;
+                                                            case "Field":
+                                                                $status_color = 'bg-info';
                                                                 break;
                                                             case "Milling":
                                                                 $status_color = 'bg-secondary';
@@ -81,15 +85,16 @@
                                                                 $status_color = 'bg-primary';
                                                                 break;
                                                             case "Sold":
-                                                                $status_color = 'bg-info';
+                                                                $status_color = 'bg-dark text-white';
                                                                 break;
                                                             case "For Sale":
-                                                                $status_color = 'bg-primary';
+                                                                $status_color = 'bg-dark text-light';
                                                                 break;
                                                             case "Purchase":
-                                                                $status_color = 'bg-light text-dark';
+                                                                $status_color = 'bg-orange'; // Assuming you have an orange class defined in your CSS
                                                                 break;
                                                         }
+                                                        
                                                     ?>
                                                     <td> <span class="badge <?php echo $status_color; ?>">
                                                             <?php echo $row['status']?>
