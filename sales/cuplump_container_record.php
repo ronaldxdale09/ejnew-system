@@ -49,6 +49,7 @@ include 'include/navbar.php';
                                             <th scope="col">Total Weight</th>
                                             <th scope="col">Cuplump Cost</th>
                                             <th scope="col">Remarks</th>
+                                            <th scope="col">Recorded By</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
@@ -64,6 +65,7 @@ include 'include/navbar.php';
                                                 <?php echo number_format($row['total_cuplump_cost'], 2, '.', ','); ?>
                                             </td>
                                             <td><?php echo $row['remarks']; ?></td>
+                                            <td><?php echo $row['recorded_by']; ?></td>
                                             <td class="text-center">
                                                 <button type="button" class="btn btn-success btn-sm btnViewRecord"
                                                     data-status="<?php echo $row['status']; ?>">
@@ -103,6 +105,46 @@ include 'include/navbar.php';
             info: false,
         });
     });
+
+    
+        $('.btnViewRecord').on('click', function() {
+            $tr = $(this).closest('tr');
+
+            var data = $tr.children("td").map(function() {
+                return $(this).text();
+            }).get();
+
+            $('#v_id').val(data[1]);
+            $('#v_date').val(data[2]);
+            $('#v_container_no').val(data[3]);
+
+            $('#v_remarks').val(data[6]);
+            $('#v_recorded_by').val(data[7]);
+
+       
+            function fetch_table() {
+
+                var container_id = (data[1]);
+                $.ajax({
+                    url: "table/cuplump_container_listing.php",
+                    method: "POST",
+                    data: {
+                        container_id: container_id,
+
+                    },
+                    success: function(data) {
+                        $('#container_details').html(data);
+                    }
+                });
+            }
+            fetch_table();
+
+            $('#viewContainer').modal('show');
+
+
+        });
+
+
     </script>
 </body>
 
