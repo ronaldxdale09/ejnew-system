@@ -6,7 +6,7 @@
                 <h5 class="modal-title"> NEW | COFFEE SALE</h5>
                 <button type="button" class="btn btn-success" onclick="addItemLine()">+ ITEM LINE</button>
             </div>
-            <form id="newCoffeeSaleForm">
+            <form action='function/newCoffeeSale.php' method='POST'>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col">
@@ -15,11 +15,11 @@
                         </div>
                         <div class="col-5">
                             <label>Customer Name</label>
-                            <input type="text" class="form-control" name="coffee_customer">
+                            <input type="text" class="form-control" name="coffee_customer" required>
                         </div>
                         <div class="col-4">
                             <label>Transaction Date</label>
-                            <input type="date" class="form-control" name="coffee_date">
+                            <input type="date" class="form-control" name="coffee_date" required>
                         </div>
                     </div>
                     <br>
@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="col">Amount
                                 </div>
-                        
+
                             </div>
                         </div>
                     </div>
@@ -191,32 +191,5 @@ function updateRemainingBalance() {
     balanceField.value = balance.toFixed(2);
 }
 
-$(document).ready(function() {
-    $('#newCoffeeSaleForm').on('submit', function(e) {
-        e.preventDefault();
-        $.ajax({
-            url: 'function/newCoffeeSale.php',
-            method: 'POST',
-            data: $(this).serialize(),
-            success: function(response) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: response,
-                    onClose: function() {
-                        location.reload();
-                    }
-                });
-            },
-            error: function(xhr, ajaxOptions, thrownError) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'An error occurred while submitting the form.',
-                });
-            }
-        });
-    });
-});
 
 </script>

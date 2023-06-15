@@ -64,13 +64,14 @@
                                             <th scope="col">Date</th>
                                             <th scope="col">Customer Name</th>
                                             <th scope="col">Total Amount</th>
+                                            <th scope="col" hidden>Amount Paid</th>
                                             <th scope="col">Balance</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                            while ($row = mysqli_fetch_array($results)) {
+                                        while ($row = mysqli_fetch_array($results)) {
                                             ?>
                                         <tr>
                                             <td hidden><?php echo $row['coffee_id']; ?></td>
@@ -79,7 +80,7 @@
                                             <td><?php echo date('M d, Y', strtotime($row['coffee_date'])); ?></td>
                                             <td><?php echo $row['coffee_customer']; ?></td>
                                             <td class="number-cell">₱ <?php echo $row['coffee_total_amount']; ?></td>
-                                            <td class="number-cell">₱ <?php echo $row['coffee_paid']; ?></td>
+                                            <td class="number-cell" hidden>₱ <?php echo $row['coffee_paid']; ?></td>
                                             <td class="number-cell">₱ <?php echo $row['coffee_balance']; ?></td>
                                             <td class="text-center">
                                                 <button type="button"
@@ -87,8 +88,8 @@
                                             </td>
                                         </tr>
                                         <?php
-                                            }
-                                            ?>
+                                        }
+                                        ?>
                                     </tbody>
                                 </table>
                                 <?php
@@ -103,7 +104,6 @@
             </div>
         </div>
     </div>
-
     <!-- Add the SweetAlert2 and jQuery libraries -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -113,7 +113,6 @@
     <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
 
     <script>
-
     $(document).ready(function() {
         var table = $('#recording_table-receiving').DataTable({
             dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
@@ -137,12 +136,13 @@
                 url: 'newCoffeeSale.php',
                 method: 'POST',
                 data: $(this).serialize(),
+                dataType: 'json', // Expect JSON response from the server
                 success: function(response) {
                     Swal.fire({
                         icon: 'success',
                         title: 'Success',
-                        text: response,
-                        onClose: function() {
+                        text: response.message,
+                        didClose: function() {
                             location.reload();
                         }
                     });
@@ -157,17 +157,6 @@
             });
         });
     });
-
-    Swal.fire({
-    icon: 'success',
-    title: 'Success',
-    text: response,
-    didClose: function() {
-        location.reload();
-    }
-});
-
-
     </script>
 
 
