@@ -13,7 +13,7 @@ if (isset($_POST['add'])) {
     $results = mysqli_query($con, $query);
     
     if ($results) {
-        header("Location: ../coffee_list.php");
+        header("Location: ../coffee_customer.php");
         $_SESSION['seller'] = "successful";
         exit();
     } else {

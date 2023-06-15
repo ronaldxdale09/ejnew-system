@@ -12,11 +12,24 @@
                         <div class="col">
                             <label>Invoice No.</label>
                             <input type="text" class="form-control" name="coffee_no">
-                        </div>
-                        <div class="col-5">
-                            <label>Customer Name</label>
-                            <input type="text" class="form-control" name="coffee_customer" required>
-                        </div>
+                        </div><div class="col-5">
+    <label>Customer Name</label>
+    <select class="form-control" name="coffee_customer" required>
+        <option value="" selected disabled hidden>Select...</option>
+        <?php
+        // Retrieve customer names from the coffee_customer table
+        $sql = "SELECT cof_customer_name FROM coffee_customer";
+        $result = mysqli_query($con, $sql);
+        if ($result) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $customerName = $row['cof_customer_name'];
+                echo "<option value='$customerName'>$customerName</option>";
+            }
+        }
+        ?>
+    </select>
+</div>
+
                         <div class="col-4">
                             <label>Transaction Date</label>
                             <input type="date" class="form-control" name="coffee_date" required>
@@ -190,6 +203,4 @@ function updateRemainingBalance() {
 
     balanceField.value = balance.toFixed(2);
 }
-
-
 </script>

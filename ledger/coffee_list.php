@@ -1,165 +1,163 @@
 <?php
-    include('include/header.php');
-    include('include/navbar.php');
+ob_start();
+session_start();
+
+include('function/db.php');
+
+if (isset($_POST['add'])) {
+    $cof_customer_name = $_POST['cof_customer_name'];
+    $cof_customer_address = $_POST['cof_customer_address'];
+    $cof_customer_contact = $_POST['cof_customer_contact'];
+    $loc = $_SESSION['loc'];
+    
+    $query = "INSERT INTO coffee_customer (cof_customer_name, cof_customer_address, cof_customer_contact, loc) 
+              VALUES ('$cof_customer_name', '$cof_customer_address', '$cof_customer_contact', '$loc')";
+              
+    $results = mysqli_query($con, $query);
+    
+    if ($results) {
+        $_SESSION['new_customer_added'] = true;
+        header("Location: coffee_list.php");
+        exit();
+    } else {
+        echo "ERROR: Could not execute $query. " . mysqli_error($con);
+    }
+}
+
+if (!$con) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// Prepare SQL statement
+$sql = "SELECT * FROM coffee_customer";
+$results = mysqli_query($con, $sql);
+
+// Check for SQL errors
+if (!$results) {
+    die("SQL error: " . mysqli_error($con));
+}
 ?>
 
-<style>
-.number-cell {
-    text-align: right;
-}
-</style>
+<!DOCTYPE html>
+<html>
 
 <body>
-    <link rel='stylesheet' href='css/statistic-card.css'>
-    <div class='main-content' style='min-height:100vh;'>
+    <?php 
+    include('include/header.php');
+    include('include/navbar.php');
+    ?>
+
+    <div class='main-content' style='position:relative; height:100%;'>
         <div class="container home-section h-100" style="max-width:95%;">
             <div class="page-wrapper">
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-12">
+                        <br>
                         <h2 class="page-title">
                             <b>
-                                <font color="#0C0070">PRODUCT </font>
-                                <font color="#046D56"> LIST </font>
+                                <font color="#0C0070">COFFEE </font>
+                                <font color="#046D56"> PRODUCTS </font>
                             </b>
                         </h2>
                         <br>
-                        <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
-                            <button type="button" class="btn btn-success text-white" data-toggle="modal"
-                                data-target="#newWetExport">NEW BRAND</button>
-                            <hr>
-                            <div class="table-responsive">
-                                <?php
-                                    $results = mysqli_query($con, "SELECT 
-                                        id,
-                                        en_sale_contract_no,
-                                        buyer_purchase_contract_no,
-                                        wet_sale_type,
-                                        wet_ship_date,
-                                        wet_sale_buyer,
-                                        shipping_date,
-                                        wet_quantity,
-                                        wet_price,
-                                        sale_destination,
-                                        info_lading,
-                                        container,
-                                        packing,
-                                        contact_information,
-                                        destination,
-                                        remarks
-                                    FROM sales_contract");
+                        <div class="card">
+                            <div class="card-body">
+                                <button type="button" class="btn btn-success text-white" data-toggle="modal"
+                                    data-target="#add_customer">
+                                    <i class="fa fa-add" aria-hidden="true"></i> NEW CUSTOMER
+                                </button>
+                                <hr>
 
-                                    if ($results) {
+                                <?php
+                                if (isset($_SESSION['new_customer_added'])) {
+                                    echo '<div class="alert alert-success">New customer added successfully!</div>';
+                                    unset($_SESSION['new_customer_added']);
+                                }
                                 ?>
-                                <table class="table table-bordered table-hover table-striped"
-                                    id='recording_table-receiving'>
-                                    <thead class="table-dark text-center" style="font-size: 14px !important">
-                                        <tr>
-                                            <th scope="col">Category</th>
-                                            <th scope="col">Product Name</th>
-                                            <th scope="col">Varieties</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
+
+                                <div class="table-responsive">
+                                    <table class="table" id='customerTable'>
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th scope="col">ID</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Address</th>
+                                                <th scope="col">Contact</th>
+                                                <th scope="col">Balance</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php 
                                             while ($row = mysqli_fetch_array($results)) {
-                                        ?>
-                                        <tr>
-                                            <td><?php echo $row['wet_ship_date']; ?></td>
-                                            <td><?php echo $row['en_sale_contract_no']; ?></td>
-                                            <td><?php echo $row['buyer_purchase_contract_no']; ?></td>
-                                            <td class="text-center">
-                                                <button type="button"
-                                                    class="btn btn-success btn-sm btnViewRecord">Update</button>
-                                            </td>
-                                        </tr>
-                                        <?php
-                                            }
-                                        ?>
-                                    </tbody>
-                                </table>
-                                <?php
-                                    }
-                                    else {
-                                        echo "Error: " . mysqli_error($con);
-                                    }
-                                ?>
+                                                echo "<tr>";
+                                                echo "<td>".$row['cof_customer_id']."</td>";
+                                                echo "<td>".$row['cof_customer_name']."</td>";
+                                                echo "<td>".$row['cof_customer_address']."</td>";
+                                                echo "<td>".$row['cof_customer_contact']."</td>";
+                                                echo "<td>₱ " . number_format($row['cof_customer_balance'], 2) . "</td>";
+                                                echo "<td> <button class='btn btn-primary' onclick='viewTransactions(".$row['cof_customer_id'].")'>View Transactions</button> </td>";
+                                                echo "</tr>";
+                                            } 
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                            <?php include "modal/coffee_sales.php"; ?>
-
-                            <script>
-                            var table = $('#recording_table-receiving').DataTable({
-                                dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
-                                order: [
-                                    [0, 'desc']
-                                ],
-                                buttons: ['excelHtml5', 'pdfHtml5', 'print'],
-                                columnDefs: [{
-                                    orderable: false,
-                                    targets: -1
-                                }],
-                                lengthChange: false,
-                                orderCellsTop: true,
-                                paging: false,
-                                info: false,
-                            });
-                            </script>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</body>
 
-</html>
-
-<script>
-$(document).ready(function() {
-    $('.btnViewRecord').on('click', function() {
-        $tr = $(this).closest('tr');
-        var data = $tr.children("td").map(function() {
-            return $(this).text();
-        }).get();
-
-        var en_sale_contract_no = data[1]; // Index 1 contains the EN Sale Contract No.
-        console.log(en_sale_contract_no);
-
-        // Fetch additional data using AJAX
-        $.ajax({
-            url: 'fetch/fetch_sales_contract.php',
-            type: 'POST',
-            data: {
-                en_sale_contract_no: en_sale_contract_no
-            },
-            dataType: 'JSON',
-            success: function(data) {
-                console.log(data);
-
-                // Fill in the modal with the data from the table row and additional data
-                document.getElementById('m_en_sale_contract_no').value = data
-                    .en_sale_contract_no;
-                document.getElementById('m_buyer_purchase_contract_no').value = data
-                    .buyer_purchase_contract_no;
-                document.getElementById('m_wet_sale_type').value = data.wet_sale_type;
-                document.getElementById('m_wet_ship_date').value = data.wet_ship_date;
-                document.getElementById('m_wet_sale_buyer').value = data.wet_sale_buyer;
-                document.getElementById('m_shipping_date').value = data.shipping_date;
-                document.getElementById('m_wet_quantity').value = data.wet_quantity;
-                document.getElementById('m_wet_price').value = data.wet_price;
-                document.getElementById('m_sale_destination').value = data.sale_destination;
-                document.getElementById('m_info_lading').value = data.info_lading;
-                document.getElementById('m_container').value = data.container;
-                document.getElementById('m_packing').value = data.packing;
-                document.getElementById('m_contact_information').value = data
-                    .contact_information;
-                document.getElementById('m_destination').value = data.destination;
-                document.getElementById('m_remarks').value = data.remarks;
-
-                $('#modalSalesRecord').modal('show');
+    <script>
+    function viewTransactions(customerId) {
+        // Redirect or perform any desired action
+        window.location.href = "transactions.php?customer_id=" + customerId;
+    }
+    $(document).ready(function() {
+        var table = $('#customerTable').DataTable({
+            dom: '<"top"<"left-col"B><"center-col"f>>rti<"bottom"p><"clear">',
+            order: [
+                [0, 'desc']
+            ],
+            buttons: [{
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                    }
+                },
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                    }
+                }
+            ],
+            lengthMenu: [
+                [-1],
+                ["All"]
+            ],
+            orderCellsTop: true,
+            paging: false, // Disable pagination
+            infoCallback: function(settings, start, end, max, total, pre) {
+                return total + ' entries';
             }
         });
     });
+    </script>
 
-});
-</script>
+    <?php 
+    include "modal/coffee_product.php";
+    ?>
+
+</body>
+
+</html>
