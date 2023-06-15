@@ -112,7 +112,7 @@ function addItemLine() {
             </div>
             <div class="col-2">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" name="unit[]" style="width: 100px;">
+                    <input type="number" class="form-control" name="unit[]" style="width: 100px;">
                 </div>
             </div>
             <div class="col">
