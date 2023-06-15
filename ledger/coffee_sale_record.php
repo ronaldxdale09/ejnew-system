@@ -56,7 +56,7 @@
                                     <table class="table table-bordered table-hover table-striped" id='recording_table-receiving'>
                                         <thead class="table-dark text-center" style="font-size: 14px !important">
                                             <tr>
-                                                <th scope="col" hidden>ID</th>
+                                                <th scope="col" >ID</th>
                                                 <th scope="col">Status</th>
                                                 <th scope="col">Ref No.</th>
                                                 <th scope="col">Date</th>
@@ -72,7 +72,7 @@
                                             while ($row = mysqli_fetch_array($results)) {
                                             ?>
                                                 <tr>
-                                                    <td hidden><?php echo $row['coffee_id']; ?></td>
+                                                    <td ><?php echo $row['coffee_id']; ?></td>
                                                     <td><?php echo $row['coffee_status']; ?></td>
                                                     <td><?php echo $row['coffee_no']; ?></td>
                                                     <td><?php echo date('M d, Y', strtotime($row['coffee_date'])); ?></td>

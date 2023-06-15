@@ -10,7 +10,7 @@ include 'include/navbar.php';
 }
 </style>
 
-<?php include 'sales_modal/modal_container.php'; ?>
+<?php include 'sales_modal/bale_container.php'; ?>
 
 <body>
     <link rel='stylesheet' href='css/statistic-card.css'>
@@ -32,8 +32,10 @@ include 'include/navbar.php';
                         <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
                             <div class="table-responsive">
                                 <?php
-                                    $results  = mysqli_query($con, "SELECT *,container_record.container_id as con_id  from container_record 
-                                    LEFT JOIN container_bales_selection ON container_bales_selection.container_id =  container_record.container_id "); 
+                                   $results  = mysqli_query($con, "SELECT container_record.*, container_bales_selection.*, container_record.container_id as con_id 
+                                   FROM container_record 
+                                   LEFT JOIN container_bales_selection ON container_bales_selection.container_id = container_record.container_id
+                                   GROUP BY container_record.container_id");
                                     
                                     ?>
                                 <table class="table table-bordered table-hover table-striped"
@@ -86,10 +88,10 @@ include 'include/navbar.php';
                                                 <?php echo number_format($row['num_bales'], 0, '.', ','); ?> pcs
                                             </td>
                                             <td class="number-cell">
-                                                <?php echo number_format($row['total_bale_weight'], 0, '.', ','); ?> kg
+                                                <?php echo number_format($row['total_bale_weight'],2); ?> kg
                                             </td>
-                                            <td>₱ <?php echo $row['cost']; ?></td>
-                                            <td>₱ <?php echo $row['overhead']; ?></td>
+                                            <td>₱ <?php echo $row['total_bale_cost']; ?></td>
+                                            <td>₱ <?php echo $row['total_milling_cost']; ?></td>
                                             <td><?php echo $row['remarks']; ?></td>
                                             <td><?php echo $row['recorded_by']; ?></td>
                                             <td> <span class="badge <?php echo $status_color; ?>">
@@ -114,7 +116,6 @@ include 'include/navbar.php';
         </div>
     </div>
 
-    <?php include 'modal/modal_container.php'; ?>
 
     <script>
     $(document).ready(function() {
@@ -159,16 +160,6 @@ include 'include/navbar.php';
         $('#v_remarks').val(data[8]);
         $('#v_recorded').val(data[9]);
 
-        var status = $(this).data('status');
-
-        if (status == "Awaiting Shipment") {
-            $('#releaseButton').show();
-        } else if (status == 'Released') {
-            $('#editButton').hide();
-            $('#releaseButton').hide();
-        } else {
-            $('#releaseButton').hide();
-        }
 
         function fetch_table() {
 

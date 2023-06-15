@@ -2,18 +2,10 @@
 $today = date('Y-m-d');
 ?>
 
-<!-- 
-<script>
-document.getElementById("proceedButton").addEventListener("click", function() {
-    window.location.href = "container.php";
-});
-</script> -->
 
-
-<!-- Add New Container Modal -->
 <div class="modal fade" id="viewContainer" tabindex="-1" role="dialog" aria-labelledby="newContainerLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="newContainerLabel"> Container Details</h5>
@@ -95,8 +87,7 @@ document.getElementById("proceedButton").addEventListener("click", function() {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary " id='releaseButton' name='released'> <i
-                            class="fas fa-shipping-fast"></i> Release</button>
+              
                 </div>
             </form>
         </div>
