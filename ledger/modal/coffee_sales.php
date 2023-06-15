@@ -19,7 +19,7 @@
                         </div>
                         <div class="col-4">
                             <label>Transaction Date</label>
-                            <input type="date" class="form-control" name="coffee_date" value="<?php echo $today; ?>">
+                            <input type="date" class="form-control" name="coffee_date">
                         </div>
                     </div>
                     <br>

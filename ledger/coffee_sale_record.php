@@ -4,9 +4,9 @@
 <head>
     <link rel='stylesheet' href='css/statistic-card.css'>
     <style>
-        .number-cell {
-            text-align: right;
-        }
+    .number-cell {
+        text-align: right;
+    }
     </style>
 </head>
 
@@ -54,41 +54,43 @@
                                 <?php
                                 if ($results) {
                                 ?>
-                                    <table class="table table-bordered table-hover table-striped" id='recording_table-receiving'>
-                                        <thead class="table-dark text-center" style="font-size: 14px !important">
-                                            <tr>
-                                                <th scope="col" hidden>ID</th>
-                                                <th scope="col">Status</th>
-                                                <th scope="col">Ref No.</th>
-                                                <th scope="col">Date</th>
-                                                <th scope="col">Customer Name</th>
-                                                <th scope="col">Total Amount</th>
-                                                <th scope="col">Balance</th>
-                                                <th scope="col">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
+                                <table class="table table-bordered table-hover table-striped"
+                                    id='recording_table-receiving'>
+                                    <thead class="table-dark text-center" style="font-size: 14px !important">
+                                        <tr>
+                                            <th scope="col" hidden>ID</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Ref No.</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Customer Name</th>
+                                            <th scope="col">Total Amount</th>
+                                            <th scope="col">Balance</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
                                             while ($row = mysqli_fetch_array($results)) {
                                             ?>
-                                                <tr>
-                                                    <td hidden><?php echo $row['coffee_id']; ?></td>
-                                                    <td><?php echo $row['coffee_status']; ?></td>
-                                                    <td><?php echo $row['coffee_no']; ?></td>
-                                                    <td><?php echo $row['coffee_date']; ?></td>
-                                                    <td><?php echo $row['coffee_customer']; ?></td>
-                                                    <td class="number-cell">₱ <?php echo $row['coffee_total_amount']; ?></td>
-                                                    <td class="number-cell">₱ <?php echo $row['coffee_paid']; ?></td>
-                                                    <td class="number-cell">₱ <?php echo $row['coffee_balance']; ?></td>
-                                                    <td class="text-center">
-                                                        <button type="button" class="btn btn-success btn-sm btnViewRecord">Update</button>
-                                                    </td>
-                                                </tr>
-                                            <?php
+                                        <tr>
+                                            <td hidden><?php echo $row['coffee_id']; ?></td>
+                                            <td><?php echo $row['coffee_status']; ?></td>
+                                            <td><?php echo $row['coffee_no']; ?></td>
+                                            <td><?php echo date('M d, Y', strtotime($row['coffee_date'])); ?></td>
+                                            <td><?php echo $row['coffee_customer']; ?></td>
+                                            <td class="number-cell">₱ <?php echo $row['coffee_total_amount']; ?></td>
+                                            <td class="number-cell">₱ <?php echo $row['coffee_paid']; ?></td>
+                                            <td class="number-cell">₱ <?php echo $row['coffee_balance']; ?></td>
+                                            <td class="text-center">
+                                                <button type="button"
+                                                    class="btn btn-success btn-sm btnViewRecord">Update</button>
+                                            </td>
+                                        </tr>
+                                        <?php
                                             }
                                             ?>
-                                        </tbody>
-                                    </table>
+                                    </tbody>
+                                </table>
                                 <?php
                                 } else {
                                     echo "Error: " . mysqli_error($con);
@@ -111,52 +113,64 @@
     <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
 
     <script>
-        $(document).ready(function() {
-            var table = $('#recording_table-receiving').DataTable({
-                dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
-                order: [
-                    [0, 'desc']
-                ],
-                buttons: ['excelHtml5', 'pdfHtml5', 'print'],
-                columnDefs: [{
-                    orderable: false,
-                    targets: -1
-                }],
-                lengthChange: false,
-                orderCellsTop: true,
-                paging: false,
-                info: false,
-            });
+
+    $(document).ready(function() {
+        var table = $('#recording_table-receiving').DataTable({
+            dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
+            order: [
+                [0, 'desc']
+            ],
+            buttons: ['excelHtml5', 'pdfHtml5', 'print'],
+            columnDefs: [{
+                orderable: false,
+                targets: -1
+            }],
+            lengthChange: false,
+            orderCellsTop: true,
+            paging: false,
+            info: false,
         });
 
-        $(document).ready(function() {
-            $('#newCoffeeSaleForm').on('submit', function(e) {
-                e.preventDefault();
-                $.ajax({
-                    url: 'function/newCoffeeSale.php',
-                    method: 'POST',
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success',
-                            text: response,
-                            onClose: function() {
-                                location.reload();
-                            }
-                        });
-                    },
-                    error: function(xhr, ajaxOptions, thrownError) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'An error occurred while submitting the form.',
-                        });
-                    }
-                });
+        $('#newCoffeeSaleForm').on('submit', function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: 'newCoffeeSale.php',
+                method: 'POST',
+                data: $(this).serialize(),
+                success: function(response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: response,
+                        onClose: function() {
+                            location.reload();
+                        }
+                    });
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'An error occurred while submitting the form.',
+                    });
+                }
             });
         });
+    });
+
+    Swal.fire({
+    icon: 'success',
+    title: 'Success',
+    text: response,
+    didClose: function() {
+        location.reload();
+    }
+});
+
+
     </script>
+
+
 </body>
 
 </html>

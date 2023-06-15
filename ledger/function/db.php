@@ -1,5 +1,8 @@
 <?php
-session_start(); 
+if (!isset($_SESSION)) {
+    session_start();
+}
+
 // Change this to your connection info.
 // $DATABASE_HOST = 'localhost';
 // $DATABASE_USER = 'u607598273_ejn';

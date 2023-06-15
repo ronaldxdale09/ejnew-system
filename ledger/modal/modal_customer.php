@@ -1,108 +1,52 @@
 <?php
-  $loc = $_SESSION['loc'];
- $get = mysqli_query($con, "SELECT  COUNT(*) from rubber_seller where loc='$loc'  "); 
- $sellerCount = mysqli_fetch_array($get);
+// Check if form is submitted
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $name = $_POST['cof_customer_name'];
+    $address = $_POST['cof_customer_address'];
+    $contact = $_POST['cof_customer_contact'];
 
-  $generate= sprintf("%'03d", $sellerCount[0]+1);
-  $today = date("Y");
-  $code = $today .'-'. $generate;
- ?>
+    // SQL query
+    $sql = "INSERT INTO coffee_customer (cof_customer_name, cof_customer_address, cof_customer_contact) VALUES ('$name', '$address', '$contact')";
 
-<div class="modal fade" id="add_seller" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
+    // Execute query
+    if (mysqli_query($con, $sql)) {
+        // Redirect back to the customer list page
+        header("Location: coffee_customer.php");
+        exit();
+    } else {
+        echo "Error: " . mysqli_error($con);
+    }
+}
+?>
+
+<!-- Add Customer Modal -->
+<div class="modal fade" id="add_customer" tabindex="-1" role="dialog" aria-labelledby="newCoffeeCustomerForm" aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">NEW SUPPLIER</h5>
-                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title" id="newCoffeeCustomerForm">New | Coffee Customer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="function/newCustomer.php" method="POST">
-                    <!-- ... START -->
-                    <center>
-                        <div class="form-group">
-                            <label class="col-md-12">ID</label>
-                            <div class="col-md-8">
-                                <input type="text" value="<?php echo $generate; ?>" name='code'
-                                    class="form-control form-control-line" readonly>
-                            </div>
-                            <br>
-                            <div class="form-group">
-                                <label class="col-md-12">Supplier Name</label>
-                                <div class="col-md-8">
-                                    <input type="text" name='name' class="form-control form-control-line">
-                                </div>
-                                <br>
-                                <div class="form-group">
-                                    <label class="col-md-12">Address</label>
-                                    <div class="col-md-8">
-                                        <input type="text" name='address' class="form-control form-control-line">
-                                    </div>
-                                    <br>
-                                    <div class="form-group">
-                                        <label class="col-md-12">Contact No.</label>
-                                        <div class="col-md-8">
-                                            <input type="text" name='contact' class="form-control form-control-line">
-                                        </div>
-                    </center>
-                    <!-- END -->
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" name='add' class="btn btn-success text-white">Submit</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- transaction -->
-
-<div class="modal fade" id="add_seller1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">NEW SELLER</h5>
-                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="function/transaction_new.php" method="POST">
-                    <!-- ... START -->
-                    <center>
-                        <div class="form-group">
-                            <label class="col-md-12">CODE</label>
-                            <div class="col-md-8">
-                                <input type="text" value="<?php echo $generate; ?>" name='code'
-                                    class="form-control form-control-line" readonly>
-                            </div>
-                            <br>
-                            <div class="form-group">
-                                <label class="col-md-12">Name</label>
-                                <div class="col-md-8">
-                                    <input type="text" name='name' class="form-control form-control-line">
-                                </div>
-                                <br>
-                                <div class="form-group">
-                                    <label class="col-md-12">Address</label>
-                                    <div class="col-md-8">
-                                        <input type="text" name='address' class="form-control form-control-line">
-                                    </div>
-                                    <br>
-                                    <div class="form-group">
-                                        <label class="col-md-12">Contact No.</label>
-                                        <div class="col-md-8">
-                                            <input type="text" name='contact' class="form-control form-control-line">
-                                        </div>
-                    </center>
-                    <!-- END -->
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" name='new_seller' class="btn btn-success text-white">Submit</button>
+                <form action="coffee_customer.php" method="post">
+                    <div class="form-group">
+                        <label for="customer-name" class="col-form-label">Name:</label>
+                        <input type="text" class="form-control" id="customer-name" name="cof_customer_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-address" class="col-form-label">Address:</label>
+                        <input type="text" class="form-control" id="customer-address" name="cof_customer_address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-contact" class="col-form-label">Contact:</label>
+                        <input type="text" class="form-control" id="customer-contact" name="cof_customer_contact" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                    </div>
                 </form>
             </div>
         </div>
