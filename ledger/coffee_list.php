@@ -5,18 +5,20 @@ session_start();
 include('function/db.php');
 
 if (isset($_POST['add'])) {
-    $cof_customer_name = $_POST['cof_customer_name'];
-    $cof_customer_address = $_POST['cof_customer_address'];
-    $cof_customer_contact = $_POST['cof_customer_contact'];
-    $loc = $_SESSION['loc'];
+    $coffee_product_name = $_POST['coffee_product_name'];
+    $coffee_product_description = $_POST['coffee_product_description'];
+    $coffee_product_unit = $_POST['coffee_product_unit'];
+    $coffee_product_price = $_POST['coffee_product_price'];
+    $coffee_product_stock = $_POST['coffee_product_stock'];
+    $coffee_product_cost = $_POST['coffee_product_cost'];
     
-    $query = "INSERT INTO coffee_customer (cof_customer_name, cof_customer_address, cof_customer_contact, loc) 
-              VALUES ('$cof_customer_name', '$cof_customer_address', '$cof_customer_contact', '$loc')";
+    $query = "INSERT INTO coffee_products (coffee_product_name, coffee_product_description, coffee_product_unit, coffee_product_price, coffee_product_stock, coffee_product_cost) 
+              VALUES ('$coffee_product_name', '$coffee_product_description', '$coffee_product_unit', '$coffee_product_price', '$coffee_product_stock', '$coffee_product_cost')";
               
     $results = mysqli_query($con, $query);
     
     if ($results) {
-        $_SESSION['new_customer_added'] = true;
+        $_SESSION['new_product_added'] = true;
         header("Location: coffee_list.php");
         exit();
     } else {
@@ -29,7 +31,7 @@ if (!$con) {
 }
 
 // Prepare SQL statement
-$sql = "SELECT * FROM coffee_customer";
+$sql = "SELECT * FROM coffee_products";
 $results = mysqli_query($con, $sql);
 
 // Check for SQL errors
@@ -63,40 +65,44 @@ if (!$results) {
                         <div class="card">
                             <div class="card-body">
                                 <button type="button" class="btn btn-success text-white" data-toggle="modal"
-                                    data-target="#add_customer">
-                                    <i class="fa fa-add" aria-hidden="true"></i> NEW CUSTOMER
+                                    data-target="#add_coffee_product">
+                                    <i class="fa fa-add" aria-hidden="true"></i> NEW PRODUCT
                                 </button>
                                 <hr>
 
                                 <?php
-                                if (isset($_SESSION['new_customer_added'])) {
-                                    echo '<div class="alert alert-success">New customer added successfully!</div>';
-                                    unset($_SESSION['new_customer_added']);
+                                if (isset($_SESSION['new_product_added'])) {
+                                    echo '<div class="alert alert-success">New product added successfully!</div>';
+                                    unset($_SESSION['new_product_added']);
                                 }
                                 ?>
 
                                 <div class="table-responsive">
-                                    <table class="table" id='customerTable'>
+                                    <table class="table" id='productTable'>
                                         <thead class="table-dark">
                                             <tr>
                                                 <th scope="col">ID</th>
-                                                <th scope="col">Name</th>
-                                                <th scope="col">Address</th>
-                                                <th scope="col">Contact</th>
-                                                <th scope="col">Balance</th>
-                                                <th scope="col">Action</th>
+                                                <th scope="col">Category</th>
+                                                <th scope="col">Product Name</th>
+                                                <th scope="col">Unit</th>
+                                                <th scope="col" hidden>Description</th>
+                                                <th scope="col">Price</th>
+                                                <th scope="col">Stock</th>
+                                                <th scope="col">Cost</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php 
                                             while ($row = mysqli_fetch_array($results)) {
                                                 echo "<tr>";
-                                                echo "<td>".$row['cof_customer_id']."</td>";
-                                                echo "<td>".$row['cof_customer_name']."</td>";
-                                                echo "<td>".$row['cof_customer_address']."</td>";
-                                                echo "<td>".$row['cof_customer_contact']."</td>";
-                                                echo "<td>₱ " . number_format($row['cof_customer_balance'], 2) . "</td>";
-                                                echo "<td> <button class='btn btn-primary' onclick='viewTransactions(".$row['cof_customer_id'].")'>View Transactions</button> </td>";
+                                                echo "<td>".$row['coffee_product_id']."</td>";
+                                                echo "<td>".$row['coffee_product_category']."</td>";
+                                                echo "<td>".$row['coffee_product_name']."</td>";
+                                                echo "<td>".$row['coffee_product_unit']."</td>";
+                                                echo "<td hidden>".$row['coffee_product_description']."</td>";
+                                                echo "<td>₱ " . number_format($row['coffee_product_price'], 2) . "</td>";
+                                                echo "<td>".$row['coffee_product_stock']."</td>";
+                                                echo "<td>₱ " . number_format($row['coffee_product_cost'], 2) . "</td>";
                                                 echo "</tr>";
                                             } 
                                             ?>
@@ -112,12 +118,8 @@ if (!$results) {
     </div>
 
     <script>
-    function viewTransactions(customerId) {
-        // Redirect or perform any desired action
-        window.location.href = "transactions.php?customer_id=" + customerId;
-    }
     $(document).ready(function() {
-        var table = $('#customerTable').DataTable({
+        var table = $('#productTable').DataTable({
             dom: '<"top"<"left-col"B><"center-col"f>>rti<"bottom"p><"clear">',
             order: [
                 [0, 'desc']

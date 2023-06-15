@@ -1,206 +1,220 @@
-<div class="modal fade" id="newCoffeeSale" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"> NEW | COFFEE SALE</h5>
-                <button type="button" class="btn btn-success" onclick="addItemLine()">+ ITEM LINE</button>
+    <div class="modal fade" id="newCoffeeSale" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> NEW | COFFEE SALE</h5>
+                    <button type="button" class="btn btn-success" onclick="addItemLine()">+ ITEM LINE</button>
+                </div>
+                <form action='function/newCoffeeSale.php' method='POST'>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col">
+                                <label>Invoice No.</label>
+                                <input type="text" class="form-control" name="coffee_no">
+                            </div>
+                            <div class="col-5">
+                                <label>Customer Name</label>
+                                <select class="form-control" name="coffee_customer" required>
+                                    <option value="" selected disabled hidden>Select...</option>
+                                    <?php
+                                        // Retrieve customer names from the coffee_customer table
+                                        $sql = "SELECT cof_customer_name FROM coffee_customer";
+                                        $result = mysqli_query($con, $sql);
+                                        if ($result) {
+                                            while ($row = mysqli_fetch_assoc($result)) {
+                                                $customerName = $row['cof_customer_name'];
+                                                echo "<option value='$customerName'>$customerName</option>";
+                                            }
+                                        }
+                                        ?>
+                                </select>
+                            </div>
+
+                            <div class="col-4">
+                                <label>Transaction Date</label>
+                                <input type="date" class="form-control" name="coffee_date" required>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row" id="itemLines">
+                                    <div class="col-5">
+                                        Product
+                                        <div class="input-group mb-3">
+                                            <select class="form-select" name="product[]" style="width: 100px;">
+                                                <option>Select...</option>
+                                                <?php
+                            $sql = "SELECT coffee_product_description, coffee_product_price FROM coffee_products";
+                            $result = mysqli_query($con, $sql);
+                            if ($result) {
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    $productDescription = $row['coffee_product_description'];
+                                    $productPrice = $row['coffee_product_price'];
+                                    echo "<option value='$productDescription'>$productDescription</option>";
+                                }
+                            }
+                            ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        Price
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text">₱</span>
+                                            <input type="text" class="form-control" name="price[]" style="width: 100px;"
+                                                value="<?php echo $productPrice; ?>" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        Unit
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" name="unit[]" style="width: 100px;">
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        Amount
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text">₱</span>
+                                            <input type="text" class="form-control" name="amount[]" style="width: 100px;"
+                                                readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                                <label>Total Amount Due</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">₱</span>
+                                    <input type="text" class="form-control" name="coffee_total_amount" readonly>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label>Amount Paid</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">₱</span>
+                                    <input type="text" class="form-control" name="coffee_paid">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label>Remaining Balance</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">₱</span>
+                                    <input type="text" class="form-control" name="coffee_balance" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" name="confirm" class="btn btn-primary">Confirm</button>
+                    </div>
+                </form>
             </div>
-            <form action='function/newCoffeeSale.php' method='POST'>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col">
-                            <label>Invoice No.</label>
-                            <input type="text" class="form-control" name="coffee_no">
-                        </div><div class="col-5">
-    <label>Customer Name</label>
-    <select class="form-control" name="coffee_customer" required>
-        <option value="" selected disabled hidden>Select...</option>
-        <?php
-        // Retrieve customer names from the coffee_customer table
-        $sql = "SELECT cof_customer_name FROM coffee_customer";
-        $result = mysqli_query($con, $sql);
-        if ($result) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                $customerName = $row['cof_customer_name'];
-                echo "<option value='$customerName'>$customerName</option>";
-            }
-        }
-        ?>
-    </select>
-</div>
-
-                        <div class="col-4">
-                            <label>Transaction Date</label>
-                            <input type="date" class="form-control" name="coffee_date" required>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row" id="itemLines">
-
-                                <div class="col-4">Product
-                                </div>
-                                <div class="col-2">Qty
-                                </div>
-                                <div class="col">Price
-                                </div>
-                                <div class="col">Amount
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col">
-                            <label>Total Amount Due</label>
-                            <div class="input-group">
-                                <span class="input-group-text">₱</span>
-                                <input type="text" class="form-control" name="coffee_total_amount" readonly>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <label>Amount Paid</label>
-                            <div class="input-group">
-                                <span class="input-group-text">₱</span>
-                                <input type="text" class="form-control" name="coffee_paid">
-                            </div>
-                        </div>
-                        <div class="col">
-                            <label>Remaining Balance</label>
-                            <div class="input-group">
-                                <span class="input-group-text">₱</span>
-                                <input type="text" class="form-control" name="coffee_balance" readonly>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" name="confirm" class="btn btn-primary">Confirm</button>
-                </div>
-            </form>
         </div>
     </div>
-</div>
 
 
 
-<script>
-function addItemLine() {
-    const itemLine = document.createElement('div');
-    itemLine.classList.add('item-line');
-    itemLine.innerHTML = `
-        <div class="row">
-            <div class="col-4">
-                <div class="input-group mb-3">
-                    <select class="form-select" name="product[]" style="width: 100px;">
-                    <option>Select...</option>
-                    <option value="LC_W_CASE">LC Powder - Wholesale (1 Case)</option>
-                    <option value="LC_W_KG">LC Powder - Wholesale (1 KG)</option>
-                    <option value="LC_R">LC Powder - Retail (1KG)</option>
-                    <option value="LC_W_HALF_KG">LC Powder - Retail (1/2 KG)</option>
-                    <option value="LC_W_QUARTER_KG">LC Powder - Retail (1/4 KG)</option>
-                    <option value="HB_W_CASE">HB Roasted - Wholesale (1 Case)</option>
-                    <option value="HB_W_KG">HB Roasted - Wholesale (1 KG)</option>
-                    <option value="HB_W_KG">HB Roasted - Retail (1 KG)</option>
-                    <option value="HB_W_HALF_KG">HB Roasted - Retail (1/2 KG)</option>
-                    <option value="HB_W_QUARTER_KG">HB Roasted - Retail (1/4 KG)</option>
-                    <option value="HB_A">HB Roasted - Arabica (1 KG)</option>
-                    <option value="HB_E">HB Roasted - Excelsa (1 KG)</option>
-                    <option value="HB_O">HB Roasted - Robusta (1 KG)</option>
-                    <option value="HB_U">HB Roasted - Arabusta (1 KG)</option>
-                    <option value="KK_A">Kalunkopi - Arabica (1 KILO)</option>
-                    <option value="KK_H">Kalunkopi - House Blend (1 KILO)</option>
-                    <option value="KK_R">Kalunkopi - Robusta (1 KILO)</option>
-                    <option value="KK_U">Kalunkopi - Arabusta (1 KILO)</option>
-                    <option value="KK_A_250G">Kalunkopi - Arabica (250G)</option>
-                    <option value="KK_H_250G">Kalunkopi - House Blend (250G)</option>
-                    <option value="KK_R_250G">Kalunkopi - Robusta (250G)</option>
-                    <option value="KK_U_250G">Kalunkopi - Arabusta (250G)</option>
-                    </select>
+    <script>
+        function addItemLine() {
+            const itemLine = document.createElement('div');
+            itemLine.classList.add('item-line');
+            itemLine.innerHTML = `
+                <div class="row">
+                    <div class="col-5">
+                        <div class="input-group mb-3">
+                            <select class="form-select product-select" name="product[]" style="width: 100px;">
+                                <option>Select...</option>
+                                <?php
+                                $sql = "SELECT coffee_product_description, coffee_product_price FROM coffee_products";
+                                $result = mysqli_query($con, $sql);
+                                if ($result) {
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        $productDescription = $row['coffee_product_description'];
+                                        $productPrice = $row['coffee_product_price'];
+                                        echo "<option value='$productDescription' data-price='$productPrice'>$productDescription</option>";
+                                    }
+                                }                            
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">₱</span>
+                            <input type="text" class="form-control price-field" name="price[]" style="width: 100px;" readonly>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name="unit[]" style="width: 100px;">
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">₱</span>
+                            <input type="text" class="form-control" name="amount[]" style="width: 100px;" readonly>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-2">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" name="unit[]" style="width: 100px;">
-                </div>
-            </div>
-            <div class="col">
-                <div class="input-group mb-3">
-                    <span class="input-group-text">₱</span>
-                    <input type="text" class="form-control" name="price[]" style="width: 100px;">
-                </div>
-            </div>
-            <div class="col">
-                <div class="input-group mb-3">
-                    <span class="input-group-text">₱</span>
-                    <input type="text" class="form-control" name="amount[]" style="width: 100px;" readonly>
-                </div>
-            </div>
-        </div>
-    `;
+            `;
 
-    const itemLines = document.getElementById('itemLines');
-    itemLines.appendChild(itemLine);
+            const itemLines = document.getElementById('itemLines');
+            itemLines.appendChild(itemLine);
 
-    const unitField = itemLine.querySelector('input[name="unit[]"]');
-    const priceField = itemLine.querySelector('input[name="price[]"]');
-    const amountField = itemLine.querySelector('input[name="amount[]"]');
+            const productSelect = itemLine.querySelector('.product-select');
+            const priceField = itemLine.querySelector('.price-field');
+            const unitField = itemLine.querySelector('input[name="unit[]"]');
 
-    unitField.addEventListener('input', recalculateLine);
-    priceField.addEventListener('input', recalculateLine);
+            productSelect.addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            const price = selectedOption.getAttribute('data-price');
+            priceField.value = price;
+            unitField.value = '';
+            recalculateLine.call(unitField);
+        });
 
-    updateTotalAmountDue();
-}
+        unitField.addEventListener('input', function() {
+            recalculateLine.call(this);
+        });
 
-document.addEventListener('DOMContentLoaded', () => {
-    const itemLines = document.querySelectorAll('.item-line');
+        updateTotalAmountDue();
+    }
 
-    itemLines.forEach(itemLine => {
-        const unitField = itemLine.querySelector('input[name="unit[]"]');
-        const priceField = itemLine.querySelector('input[name="price[]"]');
+    function recalculateLine() {
+        const itemLine = this.closest('.item-line');
+        const qty = parseFloat(this.value) || 0;
+        const priceField = itemLine.querySelector('.price-field');
         const amountField = itemLine.querySelector('input[name="amount[]"]');
 
-        unitField.addEventListener('input', recalculateLine);
-        priceField.addEventListener('input', recalculateLine);
-    });
+        const price = parseFloat(priceField.value) || 0;
+        const amount = qty * price;
+        amountField.value = amount.toFixed(2);
 
-    const paidField = document.querySelector('input[name="coffee_paid"]');
-    paidField.addEventListener('input', updateRemainingBalance);
+        updateTotalAmountDue();
+    }
 
-    updateTotalAmountDue();
-});
+        function updateTotalAmountDue() {
+            const amountFields = Array.from(document.querySelectorAll('input[name="amount[]"]'));
+            const totalAmountField = document.querySelector('input[name="coffee_total_amount"]');
+            const totalAmount = amountFields.reduce((total, field) => total + (parseFloat(field.value) || 0), 0);
 
-function recalculateLine() {
-    const itemLine = this.closest('.item-line');
-    const qty = parseFloat(itemLine.querySelector('input[name="unit[]"]').value) || 0;
-    const price = parseFloat(itemLine.querySelector('input[name="price[]"]').value) || 0;
+            totalAmountField.value = totalAmount.toFixed(2);
+            updateRemainingBalance();
+        }
 
-    const amountField = itemLine.querySelector('input[name="amount[]"]');
-    const amount = qty * price;
-    amountField.value = amount.toFixed(2);
+        function updateRemainingBalance() {
+            const totalAmount = parseFloat(document.querySelector('input[name="coffee_total_amount"]').value) || 0;
+            const amountPaid = parseFloat(document.querySelector('input[name="coffee_paid"]').value) || 0;
+            const balanceField = document.querySelector('input[name="coffee_balance"]');
+            const balance = totalAmount - amountPaid;
 
-    updateTotalAmountDue();
-}
-
-function updateTotalAmountDue() {
-    const amountFields = Array.from(document.querySelectorAll('input[name="amount[]"]'));
-    const totalAmountField = document.querySelector('input[name="coffee_total_amount"]');
-    const totalAmount = amountFields.reduce((total, field) => total + (parseFloat(field.value) || 0), 0);
-
-    totalAmountField.value = totalAmount.toFixed(2);
-    updateRemainingBalance();
-}
-
-function updateRemainingBalance() {
-    const totalAmount = parseFloat(document.querySelector('input[name="coffee_total_amount"]').value) || 0;
-    const amountPaid = parseFloat(document.querySelector('input[name="coffee_paid"]').value) || 0;
-    const balanceField = document.querySelector('input[name="coffee_balance"]');
-    const balance = totalAmount - amountPaid;
-
-    balanceField.value = balance.toFixed(2);
-}
-</script>
+            balanceField.value = balance.toFixed(2);
+        }
+    </script>
