@@ -12,7 +12,6 @@
                         <div class="col-sm">
                             <div class="row">
                                 <div class="col"></div>
-                                <h5> Date Filter </h5>
                                 <div class="col">
                                     <b></b>
                                     <input type="text" id="min" name="min" class="form-control"

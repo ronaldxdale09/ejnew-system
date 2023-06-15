@@ -24,7 +24,7 @@
                                 <div class="col">
 
                                 </div>
-                                <h5> Date Filter </h5>
+                                
                                 <div class="col"><b></b><input type="text" id="min" name="min" class="form-control"
                                         placeholder="From Date" /> </div>
                                 <div class="col"><input type="text" id="max" name="max" class="form-control"
