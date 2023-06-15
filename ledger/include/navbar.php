@@ -8,14 +8,32 @@
         <div class='nav-title' style='font-weight:bold;'>
             <img src='assets/img/logo.png' alt='Q-cart Logo' width='35' height='35' style='margin-right:5px;'> <span class='nav-text'>General Ledger</span>
         </div>";
-     if($_SESSION['type'] == 'finance'){
-    echo "
-             <hr style='color:white'>
+        if($_SESSION['type'] == 'finance'){
+            echo "
+             
+    <hr style='color:gray'>
+             
         <a class='nav-link' href='dashboard.php'>
              <i class='fa-solid fa-home'></i> <span class='nav-text'>Dashboard</span>
          </a>
+
          <hr style='color:white'>
-        <a class='nav-link' href='ledger-expense.php'>
+         
+    <a class='nav-link' href='coffee_sale_record.php'>
+    <i class='fa-solid fa-book'></i> <span class='nav-text'>Coffee Sale</span> </a>
+
+    <a class='nav-link' href='coffee_list.php'>
+    <i class='fa-solid fa-book'></i> <span class='nav-text'>Product List</span> </a>
+   
+    <a class='nav-link' href='coffee_customer.php'>
+    <i class='fa-solid fa-book'></i> <span class='nav-text'>Manage Customer</span> </a>
+    
+    <a class='nav-link' href='coffee_sale_report.php'>
+    <i class='fa-solid fa-book'></i> <span class='nav-text'>Sale Report</span> </a>
+     
+<hr style='color:white'>
+
+         <a class='nav-link' href='ledger-expense.php'>
             <i class='fa-solid fa-money'></i> <span class='nav-text'>Expenses</span>
         </a>
 
