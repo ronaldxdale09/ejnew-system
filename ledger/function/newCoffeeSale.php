@@ -1,25 +1,30 @@
 <?php
 include('db.php');
 
-if (isset($_POST['add'])) {
-    $coffee_product_name = $_POST['coffee_product_name'];
-    $coffee_product_description = $_POST['coffee_product_description'];
-    $coffee_product_unit = $_POST['coffee_product_unit'];
-    $coffee_product_price = $_POST['coffee_product_price'];
-    $coffee_product_stock = $_POST['coffee_product_stock'];
-    $coffee_product_cost = $_POST['coffee_product_cost'];
+if (isset($_POST['coffee_no'])) {
+    $coffee_no = $_POST['coffee_no'];
+    $coffee_customer = $_POST['coffee_customer'];
+    $coffee_date = $_POST['coffee_date'];
+    $coffee_total_amount = $_POST['coffee_total_amount'];
+    $coffee_paid = $_POST['coffee_paid'];
+
+    // Calculate the coffee_balance
+    $coffee_balance = $coffee_total_amount - $coffee_paid;
+
+    // Insert the new sale record into the coffee_sale table
+    $query = "INSERT INTO coffee_sale (coffee_status, coffee_no, coffee_date, coffee_customer, coffee_total_amount, coffee_paid, coffee_balance) 
+              VALUES ('', '$coffee_no', '$coffee_date', '$coffee_customer', '$coffee_total_amount', '$coffee_paid', '$coffee_balance')";
     
-    $query = "INSERT INTO coffee_products (coffee_product_name, coffee_product_description, coffee_product_unit, coffee_product_price, coffee_product_stock, coffee_product_cost) 
-              VALUES ('$coffee_product_name', '$coffee_product_description', '$coffee_product_unit', '$coffee_product_price', '$coffee_product_stock', '$coffee_product_cost')";
-              
-    $results = mysqli_query($con, $query);
-    
-    if ($results) {
-        header("Location: ../coffee_list.php");
-        $_SESSION['new_product_added'] = true;
+    $result = mysqli_query($con, $query);
+
+    if ($result) {
+        $response = array('status' => 'success', 'message' => 'Sale record added successfully.');
+        echo json_encode($response);
         exit();
     } else {
-        echo "ERROR: Could not execute $query. " . mysqli_error($con);
+        $response = array('status' => 'error', 'message' => 'Failed to add the sale record.');
+        echo json_encode($response);
+        exit();
     }
 }
 ?>

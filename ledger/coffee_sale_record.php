@@ -34,11 +34,11 @@
     include "modal/coffee_sales.php"; // Include the modal file
     ?>
 
-    <div class='main-content' style='min-height:100vh;'>
+    <div class='main-content' style='position:relative; height:100%;'>
         <div class="container home-section h-100" style="max-width:95%;">
             <div class="page-wrapper">
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-12">
                         <h2 class="page-title">
                             <b>
                                 <font color="#0C0070">COFFEE </font>
@@ -46,57 +46,79 @@
                             </b>
                         </h2>
                         <br>
-                        <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
-                            <button type="button" class="btn btn-success text-white" data-toggle="modal"
-                                data-target="#newCoffeeSale">NEW SALE</button>
-                            <hr>
-                            <div class="table-responsive">
-                                <?php
-                                if ($results) {
-                                ?>
-                                <table class="table table-bordered table-hover table-striped"
-                                    id='recording_table-receiving'>
-                                    <thead class="table-dark text-center" style="font-size: 14px !important">
-                                        <tr>
-                                            <th scope="col" hidden>ID</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col">Ref No.</th>
-                                            <th scope="col">Date</th>
-                                            <th scope="col">Customer Name</th>
-                                            <th scope="col">Total Amount</th>
-                                            <th scope="col" hidden>Amount Paid</th>
-                                            <th scope="col">Balance</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
+                        <div class="card">
+                            <div class="card-body">
+                                <button type="button" class="btn btn-success text-white" data-toggle="modal"
+                                    data-target="#newCoffeeSale">
+                                    <i class="fa fa-add" aria-hidden="true"></i> NEW SALE</button>
+                                <button type="button" class="btn btn-secondary text-white" data-toggle="modal"
+                                    data-target="coffee_list.php">View Products</button>
+                                <button type="button" class="btn btn-secondary text-white" data-toggle="modal"
+                                    data-target="#newCoffeeSale">View Customers</button>
+                                <hr>
+                                <div class="table-responsive">
+                                    <?php
+                                    if ($results) {
+                                    ?>
+                                    <table class="table table-bordered table-hover table-striped"
+                                        id='recording_table-receiving'>
+                                        <thead class="table-dark text-center" style="font-size: 14px !important">
+                                            <tr>
+                                                <th scope="col" hidden>ID</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Ref No.</th>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Customer Name</th>
+                                                <th scope="col">Total Amount</th>
+                                                <th scope="col" hidden>Amount Paid</th>
+                                                <th scope="col">Balance</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
                                         while ($row = mysqli_fetch_array($results)) {
                                             ?>
-                                        <tr>
-                                            <td hidden><?php echo $row['coffee_id']; ?></td>
-                                            <td><?php echo $row['coffee_status']; ?></td>
-                                            <td><?php echo $row['coffee_no']; ?></td>
-                                            <td><?php echo date('M d, Y', strtotime($row['coffee_date'])); ?></td>
-                                            <td><?php echo $row['coffee_customer']; ?></td>
-                                            <td class="number-cell">₱ <?php echo $row['coffee_total_amount']; ?></td>
-                                            <td class="number-cell" hidden>₱ <?php echo $row['coffee_paid']; ?></td>
-                                            <td class="number-cell">₱ <?php echo $row['coffee_balance']; ?></td>
-                                            <td class="text-center">
-                                                <button type="button"
-                                                    class="btn btn-success btn-sm btnViewRecord">Update</button>
-                                            </td>
-                                        </tr>
-                                        <?php
+                                            <tr>
+                                                <td hidden><?php echo $row['coffee_id']; ?></td>
+                                                <td class="text-center">
+                                                    <?php
+                                                    $balance = $row['coffee_balance'];
+                                                    if ($balance <= 0) {
+                                                        echo '<i class="fas fa-check-circle text-success"></i> Complete ';
+                                                    } else {
+                                                        echo '<i class="fas fa-exclamation-circle text-warning"></i> On Account';
+                                                    }
+                                                ?>
+                                                </td>
+
+                                                <td class="text-center"><?php echo $row['coffee_no']; ?></td>
+                                                <td class="text-center">
+                                                    <?php echo date('M d, Y', strtotime($row['coffee_date'])); ?></td>
+                                                <td><?php echo $row['coffee_customer']; ?></td>
+                                                <td class="number-cell">₱
+                                                    <?php echo number_format($row['coffee_total_amount'], 2, '.', ','); ?>
+                                                </td>
+                                                <td class="number-cell" hidden>₱
+                                                    <?php echo number_format($row['coffee_paid'], 2, '.', ','); ?></td>
+                                                <td class="number-cell">₱
+                                                    <?php echo number_format($row['coffee_balance'], 2, '.', ','); ?>
+                                                </td>
+
+                                                <td class="text-center">
+                                                    <button type="button"
+                                                        class="btn btn-primary btn-sm btnViewRecord">Update</button>
+                                                </td>
+                                            </tr>
+                                            <?php
                                         }
                                         ?>
-                                    </tbody>
-                                </table>
-                                <?php
-                                } else {
-                                    echo "Error: " . mysqli_error($con);
-                                }
-                                ?>
+                                        </tbody>
+                                    </table>
+                                    <?php
+                                    } else {
+                                        echo "Error: " . mysqli_error($con);} ?>
+                                </div>
                             </div>
                         </div>
                     </div>

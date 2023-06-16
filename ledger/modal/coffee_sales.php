@@ -39,9 +39,11 @@
                         <br>
                         <div class="card">
                             <div class="card-body">
+                                <h6 class="modal-title">PRODUCTS</h6>
+                                <hr>
                                 <div class="row" id="itemLines">
                                     <div class="col-4">
-                                        Product
+                                        Name
                                         <div class="input-group mb-3">
                                             <select class="form-select" name="product[]" style="width: 100px;">
                                                 <option>Select...</option>
@@ -67,7 +69,7 @@
                                         </div>
                                     </div>
                                     <div class="col-2">
-                                        Unit
+                                        Unit (Qty)
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control" name="unit[]" style="width: 100px;">
                                         </div>

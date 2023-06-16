@@ -32,16 +32,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="modal-body">
                 <form action="coffee_customer.php" method="post">
                     <div class="form-group">
-                        <label for="customer-name" class="col-form-label">Name:</label>
+                        <label for="customer-name" class="col-form-label">Complete Name:</label>
                         <input type="text" class="form-control" id="customer-name" name="cof_customer_name" required>
                     </div>
                     <div class="form-group">
-                        <label for="customer-address" class="col-form-label">Address:</label>
-                        <input type="text" class="form-control" id="customer-address" name="cof_customer_address" required>
+                        <label for="customer-address" class="col-form-label">Address (Optional):</label>
+                        <input type="text" class="form-control" id="customer-address" name="cof_customer_address">
                     </div>
                     <div class="form-group">
-                        <label for="customer-contact" class="col-form-label">Contact:</label>
-                        <input type="text" class="form-control" id="customer-contact" name="cof_customer_contact" required>
+                        <label for="customer-contact" class="col-form-label">Contact (Optional):</label>
+                        <input type="text" class="form-control" id="customer-contact" name="cof_customer_contact">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

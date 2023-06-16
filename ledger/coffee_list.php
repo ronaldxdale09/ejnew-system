@@ -54,7 +54,6 @@ if (!$results) {
             <div class="page-wrapper">
                 <div class="row">
                     <div class="col-12">
-                        <br>
                         <h2 class="page-title">
                             <b>
                                 <font color="#0C0070">COFFEE </font>
