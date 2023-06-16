@@ -51,29 +51,33 @@ th {
                             $results  = mysqli_query($con, "SELECT * from ledger_purchase ORDER BY id DESC"); ?>
                         <thead class="table-dark">
                             <tr>
+                                <th>VOUCHER</th>
                                 <th>DATE</th>
                                 <th>CATEGORY</th>
-                                <th>VOUCHER #</th>
-                                <th>CUSTOMER NAME</th>
+                                <th>SUPPLIER NAME</th>
                                 <th>NET KILOS</th>
                                 <th>PRICE</th>
-                                
+
                                 <th>TOTAL AMOUNT</th>
                                 <th>ACTION</th>
                             </tr>
                         </thead>
                         <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
-                                <td> <?php echo $row['date']?> </td>
-                                <td> <?php echo $row['category']?> </td>
                                 <td> <?php echo $row['voucher']?> </td>
-                                <td> <?php echo $row['customer_name']?> </td>
-                                <td> <?php echo empty(floatval($row['net_kilos'])) ? "0" : number_format(floatval($row['net_kilos']));?> KG
+                                <td>
+                                    <?php 
+                                        $date = new DateTime($row['date']);
+                                        echo $date->format('F j, Y'); // Outputs date as "May 14, 2023"
+                                    ?>
                                 </td>
-                                <td> <?php echo empty($row['price']) ? "0" : number_format($row['price']);?> </td>
-                              
+                                <td> <?php echo $row['category']?> </td>
+                                <td> <?php echo $row['customer_name']?> </td>
+                                <td> <?php echo empty(floatval($row['net_kilos'])) ? "0" : number_format(floatval($row['net_kilos']));?>
+                                    kg</td>
+                                <td>₱ <?php echo empty($row['price']) ? "0" : number_format($row['price']);?> </td>
                                 <td>₱ <?php echo number_format(floatval($row['total_amount']))?> </td>
                                 <td>
-                                    <button type="button" class="btn btn-secondary text-white" data-bs-toggle="modal"
+                                    <button type="button" class="btn-sm btn-primary text-white" data-bs-toggle="modal"
                                         data-bs-target="#updatePurchase" data-bs-id="<?php echo $row['id']?>"
                                         data-bs-date="<?php echo $row['date']?>"
                                         data-bs-category="<?php echo $row['category']?>"
@@ -88,7 +92,7 @@ th {
                                         data-bs-total_amount="<?php echo $row['total_amount']?>">
                                         <span class="fa fa-edit"></span>
                                     </button>
-                                    <button type="button" class="btn btn-danger text-white" data-bs-toggle="modal"
+                                    <button type="button" class="btn-sm btn-danger text-white" data-bs-toggle="modal"
                                         data-bs-target="#removePurchase" data-bs-id="<?php echo $row['id']?>">
                                         <span class="fa fa-trash"></span>
                                     </button>
@@ -102,73 +106,27 @@ th {
                             <th></th>
                             <th></th>
                             <th></th>
-                           
+
                             <th></th>
                             <th></th>
 
                         </tfoot>
-
-
                     </table>
                 </div>
             </div>
         </div>
-
     </div>
 
     <div class="col-sm-3">
 
-        <div class="top-bar">
-            <h4>Purchases</h4>
-
-        </div>
-        <small><?php echo date('F Y'); ?></small>
-        <?php 
-                        $month = date('m');
-                        $year = date('Y');
-                        $side = mysqli_query($con, "SELECT category,year(date) as year,month(date) as month,sum(total_amount) as month_total from ledger_purchase 
-                        where month(date)='$month' and  year(date)='$year' 
-                        group by year(date), month(date), category ORDER BY id ASC");?>
-
-        <table class="table">
-            <thead class="table-dark">
-                <tr>
-                    <th>Category</th>
-                    <th>Total </th>
-                </tr>
-            </thead>
-            <?php  if(mysqli_num_rows($side) > 0)  
-                                        {  
-                            while ($row = mysqli_fetch_array($side)) { ?>
-            <tbody>
-                <tr>
-                    <td><?php echo $row['category']?></td>
-                    <td>P <?php echo number_format((float)$row['month_total'], 2, '.', ','); ?></td>
-                </tr>
-                <?php } }
-                                
-                                else  
-                                    {  
-                                        echo '<tr>  
-                                                            <td colspan="4">No records found </td>  
-                                                        </tr>';  
-                                    }  ?>
-
-            </tbody>
-
-        </table>
-
-
-
-
         <div class="stat-card">
             <div class="stat-card__content">
-                <p class="text-uppercase mb-1 text-muted">PURCHASED TODAY</p>
+                <p class="text-uppercase mb-1 text-muted">PURCHASE TODAY</p>
                 <h2><i class="text-danger font-weight-bold mr-1"></i>
                     ₱ <?php  echo number_format($purchase_today['total_amount']) ?>
                 </h2>
                 <div>
-                    <span class="text-muted"><?php echo "Today is " . date("Y-m-d") . "<br>"; ?>
+                    <span class="text-muted"><?php echo "Today is " . date("F d, Y") . "<br>"; ?>
                     </span>
                 </div>
             </div>
@@ -182,7 +140,7 @@ th {
 
         <div class="stat-card">
             <div class="stat-card__content">
-                <p class="text-uppercase mb-1 text-muted">EXPENSES THIS MONTH</p>
+                <p class="text-uppercase mb-1 text-muted">PURCHASE THIS MONTH</p>
                 <h2><i class="text-danger font-weight-bold mr-1"></i>
                     ₱ <?php  echo number_format($purchase_month['month_total']) ?>
                 </h2>
@@ -198,6 +156,40 @@ th {
             </div>
         </div>
 
+
+        <p class="text-uppercase mb-1 text-muted"><?php echo date('F Y'); ?> PURCHASE</p>
+        <?php 
+                $month = date('m');
+                $year = date('Y');
+                $side = mysqli_query($con, "SELECT category,year(date) as year,month(date) as month,sum(total_amount) as month_total from ledger_purchase 
+                where month(date)='$month' and  year(date)='$year' 
+                group by year(date), month(date), category ORDER BY id ASC");
+            ?>
+
+        <table class="table">
+            <thead class="table-dark">
+                <tr>
+                    <th>CATEGORY</th>
+                    <th>TOTAL </th>
+                </tr>
+            </thead>
+            <?php  if(mysqli_num_rows($side) > 0)  
+                    {  
+                    while ($row = mysqli_fetch_array($side)) {
+                ?>
+            <tbody>
+                <tr>
+                    <td><?php echo $row['category']?></td>
+                    <td>₱ <?php echo number_format((float)$row['month_total'], 0, '.', ','); ?></td>
+                </tr>
+                <?php } }      
+                    else  
+                        {  echo '<tr>  
+                        <td colspan="4">No records found </td>  
+                        </tr>';  } 
+                ?>
+            </tbody>
+        </table>
 
 
     </div>

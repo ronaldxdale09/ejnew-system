@@ -13,26 +13,35 @@
    }
    
 
-   ?> 
-   
-   <body>
-  <link rel='stylesheet' href='css/statistic-card.css'>
-  <link rel='stylesheet' href='css/tab.css'>
-  <input type='hidden' id='selected-cart' value=''>
-  <div class='main-content' style='position:relative; height:100%;'>
-        <center>
-            <h2>MALOONG TOPPERS</h2>
-        </center>
-    <div class="container home-section h-100" style="max-width:95%;">
-      <div class="p-5 bg-white rounded shadow mb-5">
-     <?php include('ledgerTab/ejn-maloong.php')?>
-      </div>
-      <!-- ============================================================== -->
+   ?>
+
+<body>
+    <link rel='stylesheet' href='css/statistic-card.css'>
+    <link rel='stylesheet' href='css/tab.css'>
+    <input type='hidden' id='selected-cart' value=''>
+    <div class='main-content' style='position:relative; height:100%;'>
+        <div class="container home-section h-100" style="max-width:95%;">
+            <div class="page-wrapper">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="page-title">
+                            <b>
+                                <font color="#0C0070">MALOONG </font>
+                                <font color="#046D56"> TOPPERS </font>
+                            </b>
+                        </h2>
+                        <br>
+                        <?php include('ledgerTab/ejn-maloong.php')?>
+                    </div>
+                    <!-- ============================================================== -->
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </body>
+
 </html>
 <script src="ledgerTab/js/ejn-maloong.js"></script>
 <?php
 include('modal/modal_maloong.php');
-?> 
+?>

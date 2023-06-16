@@ -49,7 +49,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="mb-3">
-                                <label for="p_name">Customer Name</label>
+                                <label for="p_name">Supplier Name</label>
                                 <input type="text" name='p_name' id='p_name' class="form-control" autocomplete='off'
                                     required>
                             </div>
@@ -248,7 +248,7 @@
                         <br>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-12">Customer Name</label>
+                        <label class="col-md-12">Supplier Name</label>
                         <div class="col-md-8">
                             <input type="text" name='p_name' id='update_p_name' class="form-control form-control-line"
                                 required>
