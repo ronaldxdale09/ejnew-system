@@ -96,8 +96,7 @@ while ($array = mysqli_fetch_array($res)) {
         <div class="row">
             <div class="col">
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="dateDropdown"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 157px;">
+                    <button class="btn btn-warning dropdown-toggle" type="button" id="dateDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 157px;">
                         Select Date
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dateDropdown">
@@ -123,12 +122,10 @@ while ($array = mysqli_fetch_array($res)) {
     <div class="col-sm-4">
         <div class="row">
             <div class="col">
-                <input type="text" class='form-control' id="min" name="min" style="width: 150px;"
-                    placeholder="From Date:">
+                <input type="text" class='form-control' id="min" name="min" style="width: 150px;" placeholder="From Date:">
             </div>
             <div class="col">
-                <input type="text" class='form-control' id="max" name="max" style="width: 150px;"
-                    placeholder="To Date:">
+                <input type="text" class='form-control' id="max" name="max" style="width: 150px;" placeholder="To Date:">
             </div>
         </div>
     </div>
@@ -142,6 +139,7 @@ $date = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d'); // set $date to th
 $results = mysqli_query($con, "SELECT * FROM ledger_expenses  ORDER BY id DESC");
 ?>
 <!-- expenses table -->
+<div id='total_expenses'> </div>
 <div class="table-responsive">
     <table class="table" id="expenses_table">
         <thead class="table-dark">
@@ -157,6 +155,7 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  ORDER BY id DESC")
             </tr>
         </thead>
         <tbody>
+
             <?php while ($row = mysqli_fetch_array($results)) { ?>
                 <tr>
                     <td>
@@ -184,19 +183,10 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  ORDER BY id DESC")
                         <?php echo $row['remarks'] ?>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-secondary text-white btnPressUpdate"
-                            data-id="<?php echo $row['id'] ?>" data-voucher_no="<?php echo $row['voucher_no'] ?>"
-                            data-particulars="<?php echo $row['particulars'] ?>" data-date="<?php echo $row['date'] ?>"
-                            data-type="<?php echo $row['type_expense'] ?>" data-amount="<?php echo $row['amount'] ?>"
-                            data-description="<?php echo $row['description'] ?>"
-                            data-mode_transact="<?php echo $row['mode_transact'] ?>"
-                            data-category="<?php echo $row['category'] ?>"
-                            data-date_payment="<?php echo $row['date_payment'] ?>"
-                            data-location="<?php echo $row['location'] ?>">
+                        <button type="button" class="btn btn-secondary text-white btnPressUpdate" data-id="<?php echo $row['id'] ?>" data-voucher_no="<?php echo $row['voucher_no'] ?>" data-particulars="<?php echo $row['particulars'] ?>" data-date="<?php echo $row['date'] ?>" data-type="<?php echo $row['type_expense'] ?>" data-amount="<?php echo $row['amount'] ?>" data-description="<?php echo $row['description'] ?>" data-mode_transact="<?php echo $row['mode_transact'] ?>" data-category="<?php echo $row['category'] ?>" data-date_payment="<?php echo $row['date_payment'] ?>" data-location="<?php echo $row['location'] ?>">
                             <span class="fa fa-edit"></span>
                         </button>
-                        <button type="button" class="btn btn-danger text-white btnExpenseDelete"
-                            data-id="<?php echo $row['id'] ?>">
+                        <button type="button" class="btn btn-danger text-white btnExpenseDelete" data-id="<?php echo $row['id'] ?>">
                             <span class="fa fa-trash"></span>
                         </button>
                     </td>
@@ -219,14 +209,22 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  ORDER BY id DESC")
 
 
 <script>
-    $('#addExpense').on('shown.bs.modal', function () {
+    $('#addExpense').on('shown.bs.modal', function() {
         $('.ex_category', this).chosen();
     });
 
-    $(document).ready(function () {
+    $(document).ready(function() {
+        $('.dropdown-item').click(function() {
+            var selected = $(this).text(); // gets the text of the clicked item
+            $('#dateDropdown').text(selected); // sets the button text
+        });
+    });
 
 
-        $('.btnPressUpdate').on('click', function () {
+    $(document).ready(function() {
+
+
+        $('.btnPressUpdate').on('click', function() {
             var id = $(this).attr('data-id');
             var voucher = $(this).attr('data-voucher_no');
             var date = $(this).attr('data-date');
@@ -253,7 +251,7 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  ORDER BY id DESC")
             $('#updateExpense').modal('show');
         });
 
-        $('.btnExpenseDelete').on('click', function () {
+        $('.btnExpenseDelete').on('click', function() {
             var del_id = $(this).data('id');
 
 
@@ -267,7 +265,7 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  ORDER BY id DESC")
 
 
         $.fn.dataTable.ext.search.push(
-            function (settings, data, dataIndex) {
+            function(settings, data, dataIndex) {
                 var min = $('#min').datepicker("getDate");
                 var max = $('#max').datepicker("getDate");
                 var startDate = new Date(data[0]);
@@ -291,28 +289,28 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  ORDER BY id DESC")
                 [0, 'desc']
             ],
             buttons: [{
-                extend: 'excelHtml5',
-                footer: true,
-                exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5]
+                    extend: 'excelHtml5',
+                    footer: true,
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5]
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    footer: true,
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5]
+                    }
+                },
+                {
+                    extend: 'print',
+                    footer: true,
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5]
+                    }
                 }
-            },
-            {
-                extend: 'pdfHtml5',
-                footer: true,
-                exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5]
-                }
-            },
-            {
-                extend: 'print',
-                footer: true,
-                exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5]
-                }
-            }
             ],
-            drawCallback: function () {
+            drawCallback: function() {
                 var api = this.api();
                 var sum = 0;
                 var formated = 0;
@@ -329,20 +327,20 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  ORDER BY id DESC")
                     minimumFractionDigits: 2
                 });
                 $(api.column(5).footer()).html(formated);
-
+                $('#total_expenses').html(formated);
 
             },
         });
 
         $("#min").datepicker({
-            onSelect: function () {
+            onSelect: function() {
                 table.draw();
             },
             changeMonth: true,
             changeYear: true
         });
         $("#max").datepicker({
-            onSelect: function () {
+            onSelect: function() {
                 table.draw();
             },
             changeMonth: true,
@@ -350,18 +348,18 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  ORDER BY id DESC")
         });
 
         // Event listener to the two range filtering inputs to redraw on input
-        $('#min, #max').change(function () {
+        $('#min, #max').change(function() {
             table.draw();
         });
 
         // Quick date filters
-        $('#today').on('click', function () {
+        $('#today').on('click', function() {
             var today = new Date();
             $('#min, #max').datepicker('setDate', today);
             table.draw();
         });
 
-        $('#this-week').on('click', function () {
+        $('#this-week').on('click', function() {
             var today = new Date();
             var firstDayOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today
                 .getDay());
@@ -370,7 +368,7 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  ORDER BY id DESC")
             table.draw();
         });
 
-        $('#this-month').on('click', function () {
+        $('#this-month').on('click', function() {
             var today = new Date();
             var firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
             $('#min').datepicker('setDate', firstDayOfMonth);
@@ -378,7 +376,7 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  ORDER BY id DESC")
             table.draw();
         });
 
-        $('#category_filter').on('change', function () {
+        $('#category_filter').on('change', function() {
             var tosearch = this.value;
             table.search(tosearch).draw();
         });

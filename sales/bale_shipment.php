@@ -190,8 +190,7 @@ if (isset($_GET['id'])) {
                                 <div class="card">
                                     <div class="card-body d-flex justify-content-between align-items-center">
                                         <h4>Containers</h4>
-                                        <button id="add-row-btn" class="btn btn-success selectContainer">Select
-                                            Container</button>
+                                        <button id="add-row-btn" class="btn btn-success selectContainer">Select Container</button>
                                     </div>
                                     <div class="card-body">
                                         <div id="selected_container_list"> </div>

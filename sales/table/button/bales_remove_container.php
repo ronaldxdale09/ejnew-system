@@ -13,9 +13,3 @@ $shipment_id = $_POST['shipment_id'];
 
   
  ?>
-
-
-
-
-
- 
