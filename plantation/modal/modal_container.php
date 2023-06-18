@@ -148,7 +148,7 @@ document.getElementById("proceedButton").addEventListener("click", function() {
 
 
 
-                    <div id='container_record'> </div>
+                    <div id='bales_container_record'> </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

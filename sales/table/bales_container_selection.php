@@ -1,12 +1,16 @@
+
+
+
 <?php
 include "../function/db.php";
 $output = '';
 
 $shipment_id = $_POST['shipment_id'];
 
-$result  = mysqli_query($con, "SELECT *,container_record.container_id as con_id  from container_record 
-LEFT JOIN container_bales_selection ON container_bales_selection.container_id =  container_record.container_id 
-  GROUP BY container_record.container_id");
+$result  = mysqli_query($con, "SELECT *,bales_container_record.container_id as con_id  from bales_container_record 
+LEFT JOIN bales_container_selection ON bales_container_selection.container_id =  bales_container_record.container_id 
+where bales_container_record.status ='Released'
+  GROUP BY bales_container_record.container_id");
 
 $total_cost = 0.0;
 $total_weight = 0.0;
@@ -14,6 +18,14 @@ $total_bales = 0.0;
 $cost_per_kilo = 0.0;
 
 $output .= '
+
+<style>
+.nowrap {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+</style>
     <table class="table table-bordered table-hover table-striped"
         id="recording_table-receiving">
         <thead class="table-dark text-center" style="font-size: 14px !important">
@@ -25,7 +37,8 @@ $output .= '
                 <th scope="col">Kilo per Bale</th>
                 <th scope="col">No. of Bales</th>
                 <th scope="col">Total Weight</th>
-                <th scope="col" hidden>Bale Cost</th>
+                <th scope="col">Bale Cost</th>
+                <th scope="col">Milling Cost</th>
                 <th scope="col">Remarks</th>
                 <th scope="col">Recorded</th>
                 <th scope="col">Status</th>
@@ -53,22 +66,24 @@ if (mysqli_num_rows($result) > 0) {
 
         $output .= '
         <tr>
-            <td>' . $row["con_id"] . '</td>
-            <td>' . $row["van_no"] . '</td>
-            <td>' . $row["withdrawal_date"] . '</td>
-            <td>' . $row["quality"] . '</td>
-            <td class="number-cell">' . $row["kilo_bale"] . ' kg</td>
-            <td class="number-cell">' . number_format($row["num_bales"], 0, ".", ",") . ' pcs</td>
-            <td class="number-cell">' . number_format($row["total_bale_weight"], 0, ".", ",") . ' kg</td>
-            <td>' . $row["remarks"] . '</td>
-            <td>' . $row["recorded_by"] . '</td>
-            <td><span class="badge ' . $status_color . '">' . $row["status"] . '</span></td>
-            <td class="text-center">
+            <td class="nowrap">' . $row["con_id"] . '</td>
+            <td class="nowrap">' . $row["van_no"] . '</td>
+            <td class="nowrap">' . $row["withdrawal_date"] . '</td>
+            <td class="nowrap">' . $row["quality"] . '</td>
+            <td class="nowrap number-cell">' . $row["kilo_bale"] . ' kg</td>
+            <td class="nowrap number-cell">' . number_format($row["num_bales"], 0, ".", ",") . ' pcs</td>
+            <td class="nowrap number-cell">' . number_format($row["total_bale_weight"], 0, ".", ",") . ' kg</td>
+            <td class="nowrap number-cell">' . number_format($row["total_bale_cost"], 2, ".", ",") . ' pcs</td>
+            <td class="nowrap number-cell">' . number_format($row["total_milling_cost"], 2, ".", ",") . ' kg</td>
+            <td class="nowrap">' . $row["remarks"] . '</td>
+            <td class="nowrap">' . $row["recorded_by"] . '</td>
+            <td class="nowrap"><span class="badge ' . $status_color . '">' . $row["status"] . '</span></td>
+            <td class="nowrap text-center">
                 <button type="button" class="btn btn-warning btn-sm addProduct" data-status="' . $row["status"] . '">
                     <i class="fas fa-plus"></i>
                 </button>
             </td>
-    </tr>
+        </tr>
         ';
     }
 } else {

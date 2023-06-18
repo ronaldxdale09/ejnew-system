@@ -10,7 +10,7 @@
         $recorded = $_POST['recorded'];
         $van_no = $_POST['van_no'];
         // Creating the SQL query
-        $query = "INSERT INTO container_record (container_no, withdrawal_date, quality, kilo_bale, remarks, recorded_by,status,van_no) 
+        $query = "INSERT INTO bales_container_record (container_no, withdrawal_date, quality, kilo_bale, remarks, recorded_by,status,van_no) 
                                 VALUES ('$container_no', '$withdrawal_date', '$quality', '$kilo_bale', '$remarks', '$recorded', 'Draft','$van_no')";
 
         // Executing the query
@@ -31,7 +31,7 @@
          $id = $_POST['id'];
          echo $id;
 
-        $sql = "UPDATE container_record SET 
+        $sql = "UPDATE bales_container_record SET 
         status = 'In Progress'
         WHERE container_id = '$id'";
         mysqli_query($con, $sql);
@@ -46,12 +46,12 @@
         $id = $_POST['id'];
         echo $id;
 
-       $sql = "UPDATE container_record SET 
+       $sql = "UPDATE bales_container_record SET 
        status = 'Void'
        WHERE container_id = '$id'";
        mysqli_query($con, $sql);
 
-       header("Location: ../container_record.php");  // Change this to your desired location
+       header("Location: ../bales_container_record.php");  // Change this to your desired location
            exit();
             
         }
@@ -62,7 +62,7 @@
     $id = $_POST['id'];
     echo $id;
 
-   $sql = "UPDATE container_record SET 
+   $sql = "UPDATE bales_container_record SET 
    status = 'Released'
    WHERE container_id = '$id'";
    mysqli_query($con, $sql);

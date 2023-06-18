@@ -2,7 +2,6 @@
 include('db.php');
 
 $ref_no = $_POST['ref_no'];
-$container_no = $_POST['container_no'];
 $van_no = $_POST['van_no'];
 $withdrawal_date = $_POST['withdrawal_date'];
 $quality = $_POST['quality'];
@@ -19,8 +18,7 @@ $total_bale_cost = preg_replace("/[^0-9\.]/", "", $_POST['total_bale_cost']);
 $total_milling_cost = preg_replace("/[^0-9\.]/", "", $_POST['total_milling_cost']);
 $average_cost = preg_replace("/[^0-9\.]/", "", $_POST['average_cost']);
 
-$query = "UPDATE container_record SET 
-              container_no = '$container_no', 
+$query = "UPDATE bales_container_record SET 
               van_no = '$van_no', 
               withdrawal_date = '$withdrawal_date', 
               quality = '$quality', 
@@ -31,7 +29,7 @@ $query = "UPDATE container_record SET
               total_bale_weight = '$total_bale_weight' ,
               total_bale_cost = '$total_bale_cost' ,
               total_milling_cost = '$total_milling_cost',
-              average_kilo_cost  '$average_cost',
+              average_kilo_cost = '$average_cost',
               status = 'Awaiting Shipment' 
               WHERE container_id  = '$ref_no'";
 
@@ -39,7 +37,7 @@ $results = mysqli_query($con, $query);
 
 if ($results) {
 
-    $query_select_bales = "SELECT bales_id,num_bales FROM container_bales_selection WHERE container_id  = '$ref_no'";
+    $query_select_bales = "SELECT bales_id,num_bales FROM bales_container_selection WHERE container_id  = '$ref_no'";
     $selected_bales = mysqli_query($con, $query_select_bales);
 
     while ($row = mysqli_fetch_assoc($selected_bales)) {

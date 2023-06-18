@@ -4,14 +4,14 @@ $output = '';
 
 $container_cuplump_id = $_POST['container_cuplump_id'];
 
-$result  = mysqli_query($con, "SELECT *,container_record.container_id as con_id  from container_record 
-LEFT JOIN container_bales_selection ON container_bales_selection.container_id =  container_record.container_id 
-  GROUP BY container_record.container_id");
+$result  = mysqli_query($con, "SELECT *,bales_container_record.container_id as con_id  from bales_container_record 
+LEFT JOIN bales_container_selection ON bales_container_selection.container_id =  bales_container_record.container_id 
+  GROUP BY bales_container_record.container_id");
 
-$total_cost = 0.0;
-$total_weight = 0.0;
-$total_bales = 0.0;
-$cost_per_kilo = 0.0;
+// $total_cost = 0.0;
+// $total_weight = 0.0;
+// $total_bales = 0.0;
+// $cost_per_kilo = 0.0;
 
 $output .= '
     <table class="table table-bordered table-hover table-striped"

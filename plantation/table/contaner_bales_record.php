@@ -2,8 +2,8 @@
 include('../function/db.php');
 
 $container_id = $_POST['container_id'];
-$sql  = "SELECT * FROM container_bales_selection 
-LEFT JOIN planta_bales_production ON container_bales_selection.bales_id = planta_bales_production.bales_prod_id
+$sql  = "SELECT * FROM bales_container_selection 
+LEFT JOIN planta_bales_production ON bales_container_selection.bales_id = planta_bales_production.bales_prod_id
 LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
  where container_id ='$container_id'"; 
 

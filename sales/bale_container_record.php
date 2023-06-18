@@ -32,10 +32,10 @@ include 'include/navbar.php';
                         <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
                             <div class="table-responsive">
                                 <?php
-                                   $results  = mysqli_query($con, "SELECT container_record.*, container_bales_selection.*, container_record.container_id as con_id 
-                                   FROM container_record 
-                                   LEFT JOIN container_bales_selection ON container_bales_selection.container_id = container_record.container_id
-                                   GROUP BY container_record.container_id");
+                                   $results  = mysqli_query($con, "SELECT bales_container_record.*, bales_container_selection.*, bales_container_record.container_id as con_id 
+                                   FROM bales_container_record 
+                                   LEFT JOIN bales_container_selection ON bales_container_selection.container_id = bales_container_record.container_id
+                                   GROUP BY bales_container_record.container_id");
                                     
                                     ?>
                                 <table class="table table-bordered table-hover table-striped"

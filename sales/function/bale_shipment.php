@@ -23,8 +23,8 @@
         $ship_cost_container = 0;
     
         // Creating the SQL query
-        $query = "INSERT INTO bale_shipment_record (type, ship_date, destination, source, vessel, bill_lading, remarks, recorded_by, freight, loading_unloading, processing_fee, trucking_expense, cranage_fee, miscellaneous, total_shipping_expense, no_containers, ship_cost_container) 
-                                VALUES ('$type', '$ship_date', '$destination', '$source', '$vessel', '$bill_lading', '$remarks', '$recorded_by', '$freight', '$loading_unloading', '$processing_fee', '$trucking_expense', '$cranage_fee', '$miscellaneous', '$total_shipping_expense', '$no_containers', '$ship_cost_container')";
+        $query = "INSERT INTO bale_shipment_record (status,type, ship_date, destination, source, vessel, bill_lading, remarks, recorded_by, freight, loading_unloading, processing_fee, trucking_expense, cranage_fee, miscellaneous, total_shipping_expense, no_containers, ship_cost_container) 
+                                VALUES ('In Progress','$type', '$ship_date', '$destination', '$source', '$vessel', '$bill_lading', '$remarks', '$recorded_by', '$freight', '$loading_unloading', '$processing_fee', '$trucking_expense', '$cranage_fee', '$miscellaneous', '$total_shipping_expense', '$no_containers', '$ship_cost_container')";
     
         // Executing the query
         $results = mysqli_query($con, $query);
@@ -38,50 +38,6 @@
         }
         exit();
     }
-
-//     if (isset($_POST['edit'])) {
-
-//          $id = $_POST['id'];
-//          echo $id;
-
-//         $sql = "UPDATE container_record SET 
-//         status = 'In Progress'
-//         WHERE container_id = '$id'";
-//         mysqli_query($con, $sql);
-
-//         header("Location: ../container.php?id=$id");  // Change this to your desired location
-//             exit();
-        
-//     }
-
-//     if (isset($_POST['draft'])) {
-
-//         $id = $_POST['id'];
-//         echo $id;
-
-//        $sql = "UPDATE container_record SET 
-//        status = 'In Progress'
-//        WHERE container_id = '$id'";
-//        mysqli_query($con, $sql);
-
-//        header("Location: ../container_record.php");  // Change this to your desired location
-//            exit();
-       
-//    }
-//    if (isset($_POST['released'])) {
-
-//     $id = $_POST['id'];
-//     echo $id;
-
-//    $sql = "UPDATE container_record SET 
-//    status = 'Released'
-//    WHERE container_id = '$id'";
-//    mysqli_query($con, $sql);
-
-//    header("Location: ../container_record.php");  // Change this to your desired location
-//        exit();
-   
-// }
 
    
 ?>

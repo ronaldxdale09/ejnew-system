@@ -40,36 +40,59 @@ include 'include/navbar.php';
                                 <table class="table table-bordered table-hover table-striped" id='recording_table-receiving'>
                                     <thead class="table-dark text-center" style="font-size: 14px !important">
                                         <tr>
+                                            <th scope="col">Status</th>
                                             <th scope="col">Shipping ID</th>
-                                            <th scope="col">Date</th>
                                             <th scope="col">Type</th>
+                                            <th scope="col">Date</th>
                                             <th scope="col">Destination</th>
                                             <th scope="col">Source</th>
-                                            <th scope="col">No. of Containers</th>
                                             <th scope="col">Shipping Expense</th>
+                                            <th scope="col">No. of Containers</th>
+                                            <th scope="col">Total Bale Weight</th>
+                                            <th scope="col">Total Bale Cost</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php while ($row = mysqli_fetch_array($results)) {
                                             $status_color = '';
-                                            // Add your logic to determine the status color based on the row['status'] value
+                                            switch ($row['status']) {
+                                                case "Draft":
+                                                    $status_color = 'bg-info';
+                                                    break;
+                                                case "In Progress":
+                                                    $status_color = 'bg-warning';
+                                                    break;
+                                                case "Awaiting Shipment":
+                                                    $status_color = 'bg-success';
+                                                    break;
+                                                case "Released":
+                                                    $status_color = 'bg-primary';
+                                                    break;
+                                            }
 
                                         ?>
                                             <tr>
-                                                
+
                                                 <td><?php echo $row['shipment_id']; ?></td>
-                                                <td><?php echo $row['ship_date']; ?></td>
                                                 <td><?php echo $row['type']; ?></td>
+                                                <td><?php echo $row['ship_date']; ?></td>
                                                 <td><?php echo $row['destination']; ?></td>
                                                 <td><?php echo $row['source']; ?></td>
-                                                <td class="number-cell">
-                                                    <?php echo $row['no_containers']; ?> containers
-                                                </td>
-                                          
                                                 <td class="number-cell">₱
                                                     <?php echo number_format($row['total_shipping_expense'], 2, '.', ','); ?>
                                                 </td>
-                                           
+                                                <td class="number-cell">
+                                                    <?php echo $row['no_containers']; ?> containers
+                                                </td>
+                                                <td class="number-cell">
+                                                    <?php echo number_format($row['total_bale_weight'], 0, '.', ','); ?> kg
+                                                </td>
+                                                <td class="number-cell">₱
+                                                    <?php echo number_format($row['total_bale_cost'], 2, '.', ','); ?>
+                                                </td>
+
+
                                             </tr>
                                         <?php } ?>
                                     </tbody>

@@ -224,32 +224,34 @@ include "include/navbar.php";
     <br>
 </body>
 
+<?php include "sales_modal/cuplump_shipment_modal.php"; ?>
+
 <script>
     // TABLE TO DISPLAY THE SELECTED CONTAINER
-    function fetch_cuplump_list() {
+    // function fetch_cuplump_list() {
 
-        var container_cuplump_id = <?php echo $id; ?>;
-        $.ajax({
-            url: "table/cuplump_shipment_container.php",
-            method: "POST",
-            data: {
-                container_cuplump_id: container_cuplump_id
-            },
-            success: function(data) {
-                $('#selected_cuplump_list').html(data);
-            }
-        });
-    }
-    fetch_cuplump_list();
+    //     var container_cuplump_id = <?php echo $id; ?>;
+    //     $.ajax({
+    //         url: "table/cuplump_shipment_container.php",
+    //         method: "POST",
+    //         data: {
+    //             container_cuplump_id: container_cuplump_id
+    //         },
+    //         success: function(data) {
+    //             $('#selected_cuplump_list').html(data);
+    //         }
+    //     });
+    // }
+    // fetch_cuplump_list();
 
 
     // BUTTON SCRIPT TO DISPLAY THE AVAILABLE BALES CONTAINER
     $('.selectCuplump').on('click', function() {
-        $tr = $(this).closest('tr');
+        // $tr = $(this).closest('tr');
 
-        var data = $tr.children("td").map(function() {
-            return $(this).text();
-        }).get();
+        // var data = $tr.children("td").map(function() {
+        //     return $(this).text();
+        // }).get();
 
         var container_cuplump_id = <?php echo $id ?>;
 

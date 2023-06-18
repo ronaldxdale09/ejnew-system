@@ -8,6 +8,10 @@
         background-color: rgb(245, 230, 236) !important;
         font-weight: bold;
     }
+
+    .bg-orange {
+        background-color: orange;
+    }
 </style>
 
 <div class="table-responsive">
@@ -51,37 +55,37 @@
             </tr>
         </thead>
         <tbody>
-                <?php while ($row = mysqli_fetch_array($results)) {
-                    switch ($row['status']) {
-                        case "Complete":
-                            $status_color = 'bg-success';
-                            break;
-                        case "Field":
-                            $status_color = 'bg-info';
-                            break;
-                        case "Milling":
-                            $status_color = 'bg-secondary';
-                            break;
-                        case "Drying":
-                            $status_color = 'bg-warning';
-                            break;
-                        case "Pressing":
-                            $status_color = 'bg-danger';
-                            break;
-                        case "Produced":
-                            $status_color = 'bg-primary';
-                            break;
-                        case "Sold":
-                            $status_color = 'bg-dark text-white';
-                            break;
-                        case "For Sale":
-                            $status_color = 'bg-dark text-light';
-                            break;
-                        case "Purchase":
-                            $status_color = 'bg-orange'; // Assuming you have an orange class defined in your CSS
-                            break;
-                    }
-                ?>
+            <?php while ($row = mysqli_fetch_array($results)) {
+                switch ($row['status']) {
+                    case "Complete":
+                        $status_color = 'bg-success';
+                        break;
+                    case "Field":
+                        $status_color = 'bg-info';
+                        break;
+                    case "Milling":
+                        $status_color = 'bg-secondary';
+                        break;
+                    case "Drying":
+                        $status_color = 'bg-warning';
+                        break;
+                    case "Pressing":
+                        $status_color = 'bg-danger';
+                        break;
+                    case "Produced":
+                        $status_color = 'bg-primary';
+                        break;
+                    case "Sold":
+                        $status_color = 'bg-dark text-white';
+                        break;
+                    case "For Sale":
+                        $status_color = 'bg-dark text-light';
+                        break;
+                    case "Purchase":
+                        $status_color = 'bg-orange'; // Assuming you have an orange class defined in your CSS
+                        break;
+                }
+            ?>
                 <tr>
                     <td> <span class="badge <?php echo $status_color; ?>">
                             <?php echo $row['status'] ?>
