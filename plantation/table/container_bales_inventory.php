@@ -99,6 +99,7 @@ echo $output;
 
             var bales_id = data[0];
             var planta_id = data[9];
+            var total_weight = data[6];
             var container_id = <?php echo $_POST['container_id'] ?>;
 
             console.log(num_bales);
@@ -111,7 +112,8 @@ echo $output;
                     container_id: container_id,
                     bales_id: bales_id,
                     num_bales: num_bales,
-                    planta_id: planta_id
+                    planta_id: planta_id,
+                    total_weight: total_weight
                 },
                 success: function(data) {
                     console.log(data);

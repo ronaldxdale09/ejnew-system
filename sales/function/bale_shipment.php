@@ -39,5 +39,21 @@
         exit();
     }
 
+    if (isset($_POST['edit'])) {
+        $ship_id = $_POST['ship_id'] ?? '';
+
+
+        $query = "UPDATE bale_shipment_record SET status='In Progress'
+          WHERE shipment_id  = '$ship_id'";
+    
+        // Executing the query
+        $results = mysqli_query($con, $query);
+
+
+        header("Location: ../bale_shipment.php?id=$ship_id");  // Change this to your desired location
+
+    }
+    
+
    
 ?>

@@ -6,6 +6,14 @@
   include "include/jquery.php"; 
 //   $loc = $_SESSION['loc'];
   
+if (!isset($_SESSION['user']) || empty($_SESSION['user'])) {
+    header('Location: function/logout.php'); // replace 'logout.php' with your logout script
+    exit();
+}
+
+
+$loc = $_SESSION['loc'];
+$name = 	$_SESSION["user"];
 ?>
 <html>
 

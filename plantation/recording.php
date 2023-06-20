@@ -2,37 +2,34 @@
    include('include/header.php');
    include "include/navbar.php";
 
-  
-
-
-
     $tab= '';
     if (isset($_GET['tab'])) {
         $tab = filter_var($_GET['tab']) ;
       }
 
 
+      $loc = $_SESSION['loc'];
 
-    $sql = mysqli_query($con, "SELECT SUM(reweight) as inventory from  planta_recording where status='Field'   "); 
+    $sql = mysqli_query($con, "SELECT SUM(reweight) as inventory from  planta_recording where status='Field' and planta_recording.source ='$loc'   "); 
     $cuplumps = mysqli_fetch_array($sql);
 
-    $sql = mysqli_query($con, "SELECT SUM(crumbed_weight) as inventory from  planta_recording where status='Milling'   "); 
+    $sql = mysqli_query($con, "SELECT SUM(crumbed_weight) as inventory from  planta_recording where status='Milling'  and planta_recording.source  ='$loc'   "); 
     $milling = mysqli_fetch_array($sql);
 
     
-    $sql = mysqli_query($con, "SELECT SUM(dry_weight) as inventory from  planta_recording where status='Drying'   "); 
+    $sql = mysqli_query($con, "SELECT SUM(dry_weight) as inventory from  planta_recording where status='Drying' and planta_recording.source  ='$loc'  "); 
     $drying = mysqli_fetch_array($sql);
 
 
     $sql = mysqli_query($con, "SELECT SUM(remaining_bales * kilo_per_bale) as inventory,planta_recording.status as planta_status  from  planta_bales_production
     LEFT JOIN planta_recording on planta_bales_production.recording_id = planta_recording.recording_id
-     where planta_bales_production.remaining_bales !=0  "); 
+     where planta_bales_production.remaining_bales !=0  and planta_recording.source  ='$loc' "); 
     $bales = mysqli_fetch_array($sql);
 
 
     $sql = mysqli_query($con, "SELECT SUM(remaining_bales) as inventory from  planta_bales_production 
       LEFT JOIN planta_recording on planta_bales_production.recording_id = planta_recording.recording_id
-    where  planta_bales_production.remaining_bales !=0 "); 
+    where  planta_bales_production.remaining_bales !=0  and planta_recording.source  ='$loc' "); 
     $balesCount = mysqli_fetch_array($sql);
     
 

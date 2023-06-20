@@ -1,6 +1,6 @@
 <div class="table-responsive">
     <table class="table table-bordered table-hover table-striped" id='recording_table-milling'> <?php
-        $results  = mysqli_query($con, "SELECT * from planta_recording WHERE status='Milling'"); ?>
+        $results  = mysqli_query($con, "SELECT * from planta_recording WHERE status='Milling' and planta_recording.source='$loc'"); ?>
         <thead class="table-dark">
             <tr>
 

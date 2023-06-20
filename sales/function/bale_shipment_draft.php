@@ -13,22 +13,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $ship_remarks = $_POST['ship_remarks'] ?? '';
     $ship_recorded = $_POST['ship_recorded'] ?? '';
 
-
-    $total_num_bales = $_POST['total_num_bales'] ?? '';
-    $total_bale_weight = $_POST['total_bale_weight'] ?? '';
-    $total_bale_cost = $_POST['total_bale_cost'] ?? '';
-
-
-    $freight = $_POST['freight'] ?? '';
-    $loading_expense = $_POST['loading_expense'] ?? '';
-    $ship_exp_processing = $_POST['ship_exp_processing'] ?? '';
-    $ship_exp_trucking = $_POST['ship_exp_trucking'] ?? '';
-    $ship_exp_cranage = $_POST['ship_exp_cranage'] ?? '';
-    $ship_exp_misc = $_POST['ship_exp_misc'] ?? '';
-    $total_ship_exp = $_POST['total_ship_exp'] ?? '';
-    $number_container = $_POST['number_container'] ?? '';
-    $ship_cost_per_container = $_POST['ship_cost_per_container'] ?? '';
-
+    $total_num_bales = isset($_POST['total_num_bales']) ? preg_replace("/[^0-9.]/", "", $_POST['total_num_bales']) : '';
+    $total_bale_weight = isset($_POST['total_bale_weight']) ? preg_replace("/[^0-9.]/", "", $_POST['total_bale_weight']) : '';
+    $total_bale_cost = isset($_POST['total_bale_cost']) ? preg_replace("/[^0-9.]/", "", $_POST['total_bale_cost']) : '';
+    
+    $freight = isset($_POST['freight']) ? preg_replace("/[^0-9.]/", "", $_POST['freight']) : '';
+    $loading_expense = isset($_POST['loading_expense']) ? preg_replace("/[^0-9.]/", "", $_POST['loading_expense']) : '';
+    $ship_exp_processing = isset($_POST['ship_exp_processing']) ? preg_replace("/[^0-9.]/", "", $_POST['ship_exp_processing']) : '';
+    $ship_exp_trucking = isset($_POST['ship_exp_trucking']) ? preg_replace("/[^0-9.]/", "", $_POST['ship_exp_trucking']) : '';
+    $ship_exp_cranage = isset($_POST['ship_exp_cranage']) ? preg_replace("/[^0-9.]/", "", $_POST['ship_exp_cranage']) : '';
+    $ship_exp_misc = isset($_POST['ship_exp_misc']) ? preg_replace("/[^0-9.]/", "", $_POST['ship_exp_misc']) : '';
+    $total_ship_exp = isset($_POST['total_ship_exp']) ? preg_replace("/[^0-9.]/", "", $_POST['total_ship_exp']) : '';
+    $number_container = isset($_POST['number_container']) ? preg_replace("/[^0-9.]/", "", $_POST['number_container']) : '';
+    $ship_cost_per_container = isset($_POST['ship_cost_per_container']) ? preg_replace("/[^0-9.]/", "", $_POST['ship_cost_per_container']) : '';
+    
     echo "<pre>";
     echo "Ship ID: " . $ship_id . "<br/>";
     echo "Type: " . $type . "<br/>";

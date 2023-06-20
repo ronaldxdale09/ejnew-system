@@ -34,7 +34,10 @@ include 'include/navbar.php';
                             <hr>
                             <div class="table-responsive">
                                 <?php
-                                $results  = mysqli_query($con, "SELECT *, bales_container_record.container_id as con_id from bales_container_record 
+                                $results  = mysqli_query($con, "SELECT *, bales_container_record.container_id as con_id,
+                                bales_container_record.num_bales as total_bales ,
+                                bales_container_record.total_bale_weight as total_weight 
+                                from bales_container_record
                                 LEFT JOIN bales_container_selection ON bales_container_selection.container_id =  bales_container_record.container_id
                                     where status !='Void'
                                 GROUP BY bales_container_record.container_id");
@@ -69,11 +72,14 @@ include 'include/navbar.php';
                                                 case "In Progress":
                                                     $status_color = 'bg-warning';
                                                     break;
-                                                case "Awaiting Shipment":
+                                                case "Awaiting Release":
                                                     $status_color = 'bg-success';
                                                     break;
                                                 case "Released":
                                                     $status_color = 'bg-primary';
+                                                    break;
+                                                case "Shipment":
+                                                    $status_color = 'bg-dark';
                                                     break;
                                             }
 
@@ -91,10 +97,10 @@ include 'include/navbar.php';
                                                     <?php echo $row['kilo_bale']; ?>
                                                 </td>
                                                 <td class="number-cell">
-                                                    <?php echo number_format($row['num_bales'], 0, '.', ','); ?> pcs
+                                                    <?php echo number_format($row['total_bales'], 0, '.', ','); ?> pcs
                                                 </td>
                                                 <td class="number-cell">
-                                                    <?php echo number_format($row['total_bale_weight'], 0, '.', ','); ?> kg
+                                                    <?php echo number_format($row['total_weight'], 0, '.', ','); ?> kg
                                                 </td>
                                                 <td class="number-cell"> ₱
                                                     <?php echo number_format($row['total_bale_cost'], 2, '.', ','); ?>
@@ -170,7 +176,7 @@ include 'include/navbar.php';
 
             var status = $(this).data('status');
 
-            if (status == "Awaiting Shipment") {
+            if (status == "Awaiting Release") {
                 $('#releaseButton').show();
                 $('#editButton').hide();
             } else if (status == 'Released') {

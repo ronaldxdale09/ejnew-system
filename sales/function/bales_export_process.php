@@ -32,7 +32,7 @@ if (isset($_POST["add_inventory"])) {
     // $contact = $_POST['contact'];
     // $loc = $_SESSION['loc'];
     $query = "INSERT INTO sales_cuplumps_rec (sales_date,recorded_by) 
-                            VALUES ('$date','$adrecorded_bydress')";
+                            VALUES ('$date','$recorded_by')";
     $results = mysqli_query($con, $query);
 
     if ($results) {

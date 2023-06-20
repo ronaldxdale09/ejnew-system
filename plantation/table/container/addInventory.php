@@ -4,6 +4,7 @@ include('../../function/db.php');
 $container_id = $_POST['container_id']; 
 $bales_id = $_POST['bales_id'];
 $planta_id = $_POST['planta_id'];
+$total_weight = $_POST['total_weight'];
 
 $num_bales = preg_replace('/[^\p{L}\p{N}\s]/u', '', $_POST['num_bales']);
 
@@ -18,7 +19,7 @@ if(mysqli_num_rows($check_result) > 0){
     echo 'Inventory Updated!';
 }else{
     // if it doesn't exist, then insert it
-    $insert_sql = "INSERT INTO bales_container_selection (container_id,bales_id,num_bales,planta_id) VALUES ('$container_id','$bales_id','$num_bales','$planta_id')";
+    $insert_sql = "INSERT INTO bales_container_selection (container_id,bales_id,num_bales,total_weight,planta_id) VALUES ('$container_id','$bales_id','$num_bales','$total_weight','$planta_id')";
     $results = mysqli_query($con, $insert_sql);
     echo 'Product Added!';
 }

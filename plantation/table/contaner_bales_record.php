@@ -79,7 +79,7 @@ if(mysqli_num_rows($result) > 0) {
         $unit_cost = $arr['total_production_cost'] / $arr['produce_total_weight'];
         $total_unit_cost = $unit_cost * $weight;
         $total_bale_cost += $total_unit_cost;
-        $average_kilo_cost = $total_bale_cost / $total_weight;
+     
 
         $milling_cost = $arr['milling_cost'];
         $total_milling_cost = $arr['milling_cost'] * $weight ;
@@ -102,6 +102,8 @@ if(mysqli_num_rows($result) > 0) {
             <td>₱ '.number_format($total_milling_cost,0).' </td>
         </tr>';
     }
+    $average_kilo_cost = ($total_bale_cost + $overall_milling_cost ) / $total_weight;
+
 }
 
 $output .= '

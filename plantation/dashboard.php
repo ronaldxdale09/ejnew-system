@@ -6,23 +6,25 @@
 
 error_reporting(0); // Suppress all warnings
 
+$loc = $_SESSION['loc'];
 
-$sql = mysqli_query($con, "SELECT SUM(reweight) as inventory from  planta_recording where status='Field'   "); 
+
+$sql = mysqli_query($con, "SELECT SUM(reweight) as inventory from  planta_recording where status='Field' and source='$loc'  "); 
 $cuplumps = mysqli_fetch_array($sql);
 
-$sql = mysqli_query($con, "SELECT SUM(crumbed_weight) as inventory from  planta_recording where status='Milling'   "); 
+$sql = mysqli_query($con, "SELECT SUM(crumbed_weight) as inventory from  planta_recording where status='Milling'  and source='$loc'   "); 
 $milling = mysqli_fetch_array($sql);
 
 
-$sql = mysqli_query($con, "SELECT SUM(dry_weight) as inventory from  planta_recording where status='Drying'   "); 
+$sql = mysqli_query($con, "SELECT SUM(dry_weight) as inventory from  planta_recording where status='Drying'   and source='$loc' "); 
 $drying = mysqli_fetch_array($sql);
 
 
-$sql = mysqli_query($con, "SELECT SUM(produce_total_weight) as inventory from  planta_recording where status='For Sale' or status='Purchase'  "); 
+$sql = mysqli_query($con, "SELECT SUM(produce_total_weight) as inventory from  planta_recording where (status='For Sale' or status='Purchase')  and source='$loc'  "); 
 $bales = mysqli_fetch_array($sql);
 
 
-$sql = mysqli_query($con, "SELECT SUM(number_bales) as inventory from  planta_bales_production where status !='Sold'   "); 
+$sql = mysqli_query($con, "SELECT SUM(number_bales) as inventory from  planta_bales_production where status !='Sold'  and source='$loc'  "); 
 $balesCount = mysqli_fetch_array($sql);
 
 
@@ -222,16 +224,16 @@ $balesCount = mysqli_fetch_array($sql);
 
 <?php
 
-$sql = mysqli_query($con, "SELECT SUM(reweight) as Cuplump from  planta_recording where status='Field'   "); 
+$sql = mysqli_query($con, "SELECT SUM(reweight) as Cuplump from  planta_recording where status='Field'  and source='$loc'   "); 
 $cuplump = mysqli_fetch_array($sql);
 
-$sql = mysqli_query($con, "SELECT SUM(crumbed_weight) as Crumb from  planta_recording where status='Milling'   "); 
+$sql = mysqli_query($con, "SELECT SUM(crumbed_weight) as Crumb from  planta_recording where status='Milling'  and source='$loc'   "); 
 $crumb = mysqli_fetch_array($sql);
 
-$sql = mysqli_query($con, "SELECT SUM(dry_weight) as Blanket from  planta_recording where status='Drying'   "); 
+$sql = mysqli_query($con, "SELECT SUM(dry_weight) as Blanket from  planta_recording where status='Drying'   and source='$loc'  "); 
 $blanket = mysqli_fetch_array($sql);
 
-$sql = mysqli_query($con, "SELECT SUM(produce_total_weight) as Bale from  planta_recording where status='For Sale' or status='Purchase'  "); 
+$sql = mysqli_query($con, "SELECT SUM(produce_total_weight) as Bale from  planta_recording where (status='For Sale' or status='Purchase')   and source='$loc'  "); 
 $bale = mysqli_fetch_array($sql);
 ?>
 
@@ -291,7 +293,7 @@ inventory_bales = document.getElementById("inventory_bales");
     $bales_type = mysqli_query($con, "SELECT bales_type,
             SUM(CASE WHEN kilo_per_bale BETWEEN 33.32 AND 33.34 THEN number_bales ELSE 0 END) as total_33_33,
             SUM(CASE WHEN kilo_per_bale BETWEEN 34.99 AND 35.01 THEN number_bales ELSE 0 END) as total_35
-     FROM planta_bales_production
+     FROM planta_bales_production where  source='$loc'
      GROUP BY bales_type;");
     
     if ($bales_type->num_rows > 0) {
@@ -363,7 +365,7 @@ new Chart(inventory_baleskilo, {
 
 <?php
 $milling_data = mysqli_query($con, "SELECT SUM(crumbed_weight) AS total_weight, MONTH(milling_date) AS month FROM planta_recording
-    WHERE status = 'Milling' GROUP BY MONTH(milling_date);");
+    WHERE status = 'Milling' and  source='$loc' GROUP BY MONTH(milling_date);");
 
 if ($milling_data && $milling_data->num_rows > 0) {
     $month_mill = [];
@@ -375,7 +377,7 @@ if ($milling_data && $milling_data->num_rows > 0) {
 }
 
 $Drying_data = mysqli_query($con, "SELECT SUM(dry_weight) AS total_weight, MONTH(drying_date) AS month FROM planta_recording
-    WHERE status = 'Drying' GROUP BY MONTH(drying_date);");
+    WHERE status = 'Drying' and  source='$loc' GROUP BY MONTH(drying_date);");
 
 if ($Drying_data && $Drying_data->num_rows > 0) {
     $month_dry = [];
@@ -387,7 +389,7 @@ if ($Drying_data && $Drying_data->num_rows > 0) {
 }
 
 $bale_prod = mysqli_query($con, "SELECT SUM(produce_total_weight) AS total_weight, MONTH(production_date) AS month FROM planta_recording
-    WHERE status = 'Pressing' GROUP BY MONTH(production_date);");
+    WHERE status = 'Pressing' and  source='$loc' GROUP BY MONTH(production_date);");
 
 if ($bale_prod && $bale_prod->num_rows > 0) {
     $month_produced = [];

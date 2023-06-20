@@ -16,7 +16,7 @@ $kilo_bale = preg_replace("/[^0-9\.]/", "", str_replace(',', '', $_POST['kilo_ba
 
 $total_bale_cost = preg_replace("/[^0-9\.]/", "", $_POST['total_bale_cost']);
 $total_milling_cost = preg_replace("/[^0-9\.]/", "", $_POST['total_milling_cost']);
-$average_cost = preg_replace("/[^0-9\.]/", "", $_POST['average_cost']);
+echo $average_cost = preg_replace("/[^0-9\.]/", "", $_POST['average_cost']);
 
 $query = "UPDATE bales_container_record SET 
               van_no = '$van_no', 
@@ -30,7 +30,7 @@ $query = "UPDATE bales_container_record SET
               total_bale_cost = '$total_bale_cost' ,
               total_milling_cost = '$total_milling_cost',
               average_kilo_cost = '$average_cost',
-              status = 'Awaiting Shipment' 
+              status = 'Awaiting Release' 
               WHERE container_id  = '$ref_no'";
 
 $results = mysqli_query($con, $query);
