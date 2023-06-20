@@ -12,15 +12,15 @@
     
   
         // Creating the SQL query
-        $query = "INSERT INTO bales_sales_record (status,sale_contract,buyer_contract,contract_quantity,remarks) 
-                                VALUES ('In Progress','$contract', '$purchase_contract', '$sale_type', '$sale_type','$sale_type','$sale_type')";
+        $query = "INSERT INTO bales_sales_record (transaction_date,status,sale_contract,buyer_contract,contract_quality,sale_type,remarks) 
+                                VALUES ('$date','In Progress','$contract', '$purchase_contract', '$quality', '$sale_type', '$remarks')";
     
         // Executing the query
         $results = mysqli_query($con, $query);
     
         if ($results) {
             $last_id = $con->insert_id;
-            header("Location: ../bale_shipment.php?id=$last_id");  // Change this to your desired location
+            header("Location: ../bale_sales.php?id=$last_id");  // Change this to your desired location
             exit();
         } else {
             echo "ERROR: Could not be able to execute the query. " . mysqli_error($con);

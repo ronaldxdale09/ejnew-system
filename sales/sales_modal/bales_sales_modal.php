@@ -1,3 +1,7 @@
+<?php
+$today = date('Y-m-d');
+?>
+
 <!-- create Table Row -->
 <div class="modal fade" id="newWetExport" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md  ">
@@ -12,7 +16,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="product_name" class="form-label">Date of Transaction</label>
-                                <input type="date" class="form-control" name="date" required placeholder="Date of Transaction">
+                                <input type="date" class="form-control" name="date"   value="<?php echo $today; ?>"required placeholder="Date of Transaction">
                             </div>
                         </div>
                         <div class="col-md-6">

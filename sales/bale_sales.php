@@ -3,9 +3,44 @@ include('include/header.php');
 include "include/navbar.php";
 
 
-$id = '';
+
 if (isset($_GET['id'])) {
-    $id = filter_var($_GET['id']);
+    $id = $_GET['id'];
+    $id =  preg_replace('~\D~', '', $id);
+
+    $sql = "SELECT * FROM bales_sales_record WHERE bales_sales_id = $id";
+    $result = $con->query($sql);
+    
+    if ($result->num_rows > 0) {
+        // Output data of each row
+        $record = $result->fetch_assoc();
+
+        $sale_contract = isset($record['sale_contract']) ? $record['sale_contract'] : '';
+        $buyer_contract = isset($record['buyer_contract']) ? $record['buyer_contract'] : '';
+        $sale_type = isset($record['sale_type']) ? $record['sale_type'] : '';
+        $contract_quality = isset($record['contract_quality']) ? $record['contract_quality'] : '';
+        $transaction_date = isset($record['transaction_date']) ? $record['transaction_date'] : '';
+        $recorded_by = isset($record['recorded_by']) ? $record['recorded_by'] : '';
+        $remarks = isset($record['remarks']) ? $record['remarks'] : '';
+
+        echo "
+            <script>
+                $(document).ready(function() {
+                    $('#sales_id').val('" . $id . "');
+                    $('#type').val('" . $type . "');
+                    $('#ship_destination').val('" . $ship_destination . "');
+                    $('#ship_source').val('" . $ship_source . "');
+                    $('#ship_date').val('" . $ship_date . "');
+                    $('#ship_vessel').val('" . $ship_vessel . "');
+                    $('#ship_info_lading').val('" . $ship_info_lading . "');
+                    $('#ship_remarks').val('" . $ship_remarks . "');
+                    $('#ship_recorded').val('" . $ship_recorded . "');
+                  
+
+                });
+                </script>
+            ";
+    }
 }
 ?>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -25,16 +60,7 @@ if (isset($_GET['id'])) {
                             <font color="#0C0070"> RUBBER BALE </font>
                             <font color="#046D56"> SALE </font>
                         </b></h2>
-                    <?php
-
-
-                    $id = '';
-                    if (isset($_GET['id'])) {
-                        $id = filter_var($_GET['id']);
-                    }
-
-
-                    ?>
+        
                     <div class="row">
                         <div class="col-12">
                             <button type="button" class="btn btn-primary confirmSales" id="someButton">Confirm Sales</button>
@@ -64,14 +90,14 @@ if (isset($_GET['id'])) {
                                 <div class="col-2">
                                     <label style='font-size:15px' class="col-md-12">EN Sale Contract</label>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='en_bale_contract' id='en_bale_contract' value='' autocomplete='off' style="width: 100px;">
+                                        <input type="text" class="form-control" name='sale_contract' id='sale_contract' value='' autocomplete='off' style="width: 100px;">
                                     </div>
                                 </div>
 
                                 <div class="col-2">
                                     <label style='font-size:15px' class="col-md-12">Buyer Purchase Contract</label>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='buyer_bale_contract' id='buyer_bale_contract' value='' style="width: 100px;" />
+                                        <input type="text" class="form-control" name='purchase_contract' id='purchase_contract' value='' style="width: 100px;" />
                                     </div>
                                 </div>
 
@@ -98,7 +124,7 @@ if (isset($_GET['id'])) {
                                 <div class="col-3">
                                     <label style='font-size:15px' class="col-md-12">Transaction Date </label>
                                     <div class="col-md-12">
-                                        <input type="date" class='form-control' id="bale_sale_date" value="<?php echo $today; ?>" name="bale_sale_date">
+                                        <input type="date" class='form-control' id="trans_date"  name="trans_date">
                                     </div>
                                 </div>
                             </div>
