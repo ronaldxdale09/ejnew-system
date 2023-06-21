@@ -129,34 +129,34 @@ echo $output;
                 console.log("total_weight:", total_weight);
                 console.log("Shipping Exp:", ship_exp);
                 console.log("remarks:", remarks);
-                // $.ajax({
-                //     method: "POST",
-                //     url: "table/button/bales_sales_add_container.php",
-                //     data: {
-                //         container_id: container_id,
-                //         sales_id: sales_id,
-                //         van_no: van_no,
-                //         quantity: quantity,
-                //         kilo_bale: kilo_bale,
-                //         num_bales: num_bales,
-                //         total_weight: total_weight,
-                //         ship_exp: ship_exp,
-                //         remarks: remarks
+                $.ajax({
+                    method: "POST",
+                    url: "table/button/bales_sales_add_container.php",
+                    data: {
+                        container_id: container_id,
+                        sales_id: sales_id,
+                        van_no: van_no,
+                        quantity: quantity,
+                        kilo_bale: kilo_bale,
+                        num_bales: num_bales,
+                        total_weight: total_weight,
+                        ship_exp: ship_exp,
+                        remarks: remarks
 
-                //     },
-                //     success: function(data) {
-                //         console.log('success');
-                //         console.log(data);
-                //         fetch_container_list();
-                //         Swal.fire({
-                //             position: 'center',
-                //             icon: 'success',
-                //             title: 'Inventory Added!',
-                //             showConfirmButton: false,
-                //             timer: 1000
-                //         })
-                //     }
-                // });
+                    },
+                    success: function(data) {
+                        console.log('success');
+                        console.log(data);
+                        fetch_container_list();
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Inventory Added!',
+                            showConfirmButton: false,
+                            timer: 1000
+                        })
+                    }
+                });
             });
 
 
