@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $num_bales = $row['num_bales'];
 
             $update = "UPDATE bales_container_record SET 
-            status = 'Shipment',shipping_expense='$ship_cost_per_container' WHERE container_id = '$container_id'";
+            status = 'Shipped Out',shipping_expense='$ship_cost_per_container' WHERE container_id = '$container_id'";
             mysqli_query($con, $update);
         }
 

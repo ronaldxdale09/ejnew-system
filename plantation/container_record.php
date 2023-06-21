@@ -78,7 +78,7 @@ include 'include/navbar.php';
                                                 case "Released":
                                                     $status_color = 'bg-primary';
                                                     break;
-                                                case "Shipment":
+                                                case "Shipped Out":
                                                     $status_color = 'bg-dark';
                                                     break;
                                             }
