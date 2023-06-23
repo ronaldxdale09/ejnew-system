@@ -128,7 +128,7 @@ if (isset($_GET['id'])) {
         <div class="card">
             <div class="card-body d-flex justify-content-between align-items-center">
                 <h4>Cuplump Inventory</h4>
-                <button type='button' id="addRow" class="btn btn-success">+ Add Inventory</button>
+              
             </div>
             <div class="card-body">
                 <div id='container_listing'> </div>
@@ -165,22 +165,22 @@ if (isset($_GET['id'])) {
 </div>
 
 <script>
-    $(document).ready(function() {
-        $('#btnConfirmContainer').click(function() {
-            // Show the confirmation modal
-            $('#confirmModal').modal('show');
-        });
+    // $(document).ready(function() {
+    //     $('#btnConfirmContainer').click(function() {
+    //         // Show the confirmation modal
+    //         $('#confirmModal').modal('show');
+    //     });
 
-        // When the user confirms, submit the form
-        $('#submitForm').click(function() {
-            $('#container_form').submit();
-        });
-    });
+    //     // When the user confirms, submit the form
+    //     $('#submitForm').click(function() {
+    //         $('#container_form').submit();
+    //     });
+    // });
 
     function fetch_container() {
 
         $.ajax({
-            url: "table/cuplump_container_listing.php",
+            url: "table/cuplump_container_record.php",
             method: "POST",
             data: {
                 container_id: <?php echo $id ?>,

@@ -147,7 +147,7 @@ echo $output;
                     success: function(data) {
                         console.log('success');
                         console.log(data);
-                        fetch_container_list();
+                        fetch_container();
                         Swal.fire({
                             position: 'center',
                             icon: 'success',

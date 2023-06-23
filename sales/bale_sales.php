@@ -42,9 +42,6 @@ if (isset($_GET['id'])) {
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <body>
-    <link rel='stylesheet' href='css/statistic-card.css'>
-    <link rel='stylesheet' href='css/record-tab.css'>
-    <input type='hidden' id='selected-cart' value=''>
     <div class='main-content' style='position:relative; height:100%;'>
         <div class="container home-section h-100" style="max-width:95%;">
 
@@ -80,20 +77,20 @@ if (isset($_GET['id'])) {
                                     <label style='font-size:15px' class="col-md-12"> Sales ID
                                     </label>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='sales_id' id='sales_id'readonly autocomplete='off' style="width: 100px;">
+                                        <input type="text" class="form-control" name='sales_id' id='sales_id' readonly autocomplete='off' style="width: 100px;">
                                     </div>
                                 </div>
                                 <div class="col-2">
                                     <label style='font-size:15px' class="col-md-12">EN Sale Contract</label>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='sale_contract' id='sale_contract'autocomplete='off' style="width: 100px;">
+                                        <input type="text" class="form-control" name='sale_contract' id='sale_contract' autocomplete='off' style="width: 100px;">
                                     </div>
                                 </div>
 
                                 <div class="col-2">
                                     <label style='font-size:15px' class="col-md-12">Buyer Purchase Contract</label>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='buyer_contract' id='buyer_contract'style="width: 100px;" />
+                                        <input type="text" class="form-control" name='buyer_contract' id='buyer_contract' style="width: 100px;" />
                                     </div>
                                 </div>
 
@@ -111,7 +108,7 @@ if (isset($_GET['id'])) {
                                 <div class="col">
                                     <label style='font-size:15px' class="col-md-12">Quality</label>
                                     <div class="input-group mb-3">
-                                        <select class="form-select" name="contract_quality"  id="contract_quality" tabindex="7" required>
+                                        <select class="form-select" name="contract_quality" id="contract_quality" tabindex="7" required>
                                             <option disabled selected>Select quality...</option>
                                             <option value="5L">5L</option>
                                             <option value="SPR5">SPR-5</option>
@@ -162,7 +159,7 @@ if (isset($_GET['id'])) {
                                 <div class="col">
                                     <label style='font-size:15px' class="col-md-12">Containers</label>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='containers' id='containers'tabindex="7" autocomplete='off' style="width: 100px;" />
+                                        <input type="text" class="form-control" name='containers' id='containers' tabindex="7" autocomplete='off' style="width: 100px;" />
                                     </div>
                                 </div>
                             </div>
@@ -172,7 +169,7 @@ if (isset($_GET['id'])) {
                                 <div class="col-3">
                                     <label style='font-size:15px' class="col-md-12">Quantity</label>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='contract_quantity'id='contract_quantity' tabindex="7" autocomplete='off' style="width: 100px;" />
+                                        <input type="text" class="form-control" name='contract_quantity' id='contract_quantity' tabindex="7" autocomplete='off' style="width: 100px;" />
                                         <span class="input-group-text"> kg</span>
                                     </div>
                                 </div>
@@ -192,14 +189,14 @@ if (isset($_GET['id'])) {
                                 <div class="col">
                                     <label style='font-size:15px' class="col-md-12">Price</label>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='price'id='price'>
+                                        <input type="text" class="form-control" name='price' id='price'>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <label style='font-size:15px' class="col-md-12">Other Terms
                                         (Optional)</label>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='other_terms'id='other_terms'>
+                                        <input type="text" class="form-control" name='other_terms' id='other_terms'>
                                     </div>
                                 </div>
                             </div>
@@ -230,19 +227,19 @@ if (isset($_GET['id'])) {
                                 <div class="col">
                                     <label style='font-size:15px' class="col-md-12">No. of Containers</label>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='price_per_kilo' id='price_per_kilo' style="width: 100px;" readonly />
+                                        <input type="text" class="form-control" name='number_container' id='number_container' style="width: 100px;" readonly />
                                     </div>
                                 </div>
                                 <div class="col">
                                     <label style='font-size:15px' class="col-md-12">Total No. of Bales</label>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='price_per_kilo' id='price_per_kilo' style="width: 100px;" readonly />
+                                        <input type="text" class="form-control" name='total_num_bales' id='total_num_bales' style="width: 100px;" readonly />
                                     </div>
                                 </div>
                                 <div class="col">
                                     <label style='font-size:15px' class="col-md-12">Total Bale Weight</label>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='price_per_kilo' id='price_per_kilo' style="width: 100px;" readonly />
+                                        <input type="text" class="form-control" name='total_bale_weight' id='total_bale_weight' style="width: 100px;" readonly />
                                     </div>
                                 </div>
                             </div>
@@ -253,7 +250,7 @@ if (isset($_GET['id'])) {
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">₱</span>
                                         </div>
-                                        <input type="text" class="form-control" name='peso_price' id='peso_price' style="width: 100px;" readonly />
+                                        <input type="text" class="form-control" name='total_bale_cost' id='total_bale_cost' style="width: 100px;" readonly />
                                     </div>
                                 </div>
                                 <div class="col">
@@ -262,7 +259,7 @@ if (isset($_GET['id'])) {
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">₱</span>
                                         </div>
-                                        <input type="text" class="form-control" name='peso_price' id='peso_price' style="width: 100px;" readonly />
+                                        <input type="text" class="form-control" name='total_ship_exp' id='total_ship_exp' style="width: 100px;" readonly />
                                     </div>
                                 </div>
                                 <div class="col">
@@ -271,7 +268,7 @@ if (isset($_GET['id'])) {
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">₱</span>
                                         </div>
-                                        <input type="text" class="form-control" name='peso_price' id='peso_price' style="width: 100px;" readonly />
+                                        <input type="text" class="form-control" name='overall_ave_kiloCost' id='overall_ave_kiloCost' style="width: 100px;" readonly />
                                     </div>
                                 </div>
                             </div>
@@ -286,7 +283,7 @@ if (isset($_GET['id'])) {
                             <div class="row">
                                 <div class="col-12 d-flex justify-content-between align-items-center">
                                     <h4>Payment and Sale Proceeds</h4>
-                                    <button id="printButton" class="btn btn-warning btnInventory">
+                                    <button id="printButton" class="btn btn-warning btnAddPayment">
                                         <i class="fas fa-money"></i> Add Payment
                                     </button>
                                 </div>
@@ -314,50 +311,8 @@ if (isset($_GET['id'])) {
                             </div>
 
                             <hr>
+                            <div id='payment_list_table'> </div>
 
-                            <div class="row">
-                                <div class="col-sm-2">
-                                    <label style='font-size:15px' class="col-md-12">Date of Payment </label>
-                                    <div class="col-md-12">
-                                        <input type="date" class='form-control' id="pay_date" value="<?php echo $today; ?>" name="pay_date">
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-4">
-                                    <label style='font-size:15px' class="col-md-12">Details</label>
-                                    <div class="input-group mb-3">
-
-                                        <input type="text" class="form-control" name='pay_details' id='pay_details' autocomplete='off' style="width: 100px;" />
-                                    </div>
-                                </div>
-
-                                <div class="col-2">
-                                    <label style='font-size:15px' class="col-md-12">Amount Paid</label>
-                                    <div class="input-group mb-3">
-
-                                        <div class="input-group-prepend">
-                                            <!-- <span class="input-group-text">symbol here</span> -->
-                                        </div>
-                                        <input type="text" class="form-control" name='paid_amount' id='paid_amount' onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off' style="width: 100px;" />
-                                    </div>
-                                </div>
-                                <div class="col-1">
-                                    <label style='font-size:15px' class="col-md-12">Rate</label>
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='paid_amount' id='paid_amount' onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off' style="width: 100px;" />
-                                    </div>
-                                </div>
-                                <div class="col-3">
-                                    <label style='font-size:15px' class="col-md-12">Peso Equivalent</label>
-                                    <div class="input-group mb-3">
-
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">₱</span>
-                                        </div>
-                                        <input readonly type="text" class="form-control" name='paid_amount' id='paid_amount' onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off' style="width: 100px;" />
-                                    </div>
-                                </div>
-                            </div>
                             <hr>
                             <div class="row">
                                 <div class="col">
@@ -405,36 +360,60 @@ if (isset($_GET['id'])) {
 
 <?php include "sales_modal/bale_sales.php"; ?>
 <script>
-    $(document).ready(function() {
+    function fetch_container() {
+        var sales_id = <?php echo $id ?>;
+
+        $.ajax({
+            url: "table/bales_sales_container.php",
+            method: "POST",
+            data: {
+                sales_id: sales_id,
+            },
+            success: function(data) {
+                $('#container_selected').html(data);
+            }
+        });
+    }
+    fetch_container();
 
 
+    function fetch_payment() {
+        var sales_id = <?php echo $id ?>;
+
+        $.ajax({
+            url: "table/bales_sales_payment.php",
+            method: "POST",
+            data: {
+                sales_id: sales_id,
+            },
+            success: function(data) {
+                $('#payment_list_table').html(data);
+            }
+        });
+    }
+    fetch_payment();
 
 
+    $('.btnContainer').on('click', function() {
 
-        $('.btnContainer').on('click', function() {
+        // TABLE TO DISPLAY THE SELECTED CONTAINER
+        function fetch_container_list() {
+            var sales_id = <?php echo $id ?>;
 
-            // TABLE TO DISPLAY THE SELECTED CONTAINER
-            function fetch_container_list() {
-                var sales_id = <?php echo $id ?>;
-
-                $.ajax({
-                    url: "table/bales_container_selection_sales.php",
-                    method: "POST",
-                    data: {
+            $.ajax({
+                url: "table/bales_sales_container_selection.php",
+                method: "POST",
+                data: {
                     sales_id: sales_id,
                 },
-                    success: function(data) {
-                        $('#container_selection_modal').html(data);
-                    }
-                });
-            }
-            fetch_container_list();
+                success: function(data) {
+                    $('#container_selection_modal').html(data);
+                }
+            });
+        }
+        fetch_container_list();
 
-            $('#containerListModal').modal('show');
-
-        });
-
-
+        $('#containerListModal').modal('show');
 
     });
 </script>

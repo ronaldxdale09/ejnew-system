@@ -36,47 +36,34 @@
                                 <table class="table table-bordered table-hover table-striped"
                                     id='recording_table-receiving'>
                                     <?php
-                                    $results  = mysqli_query($con, "SELECT DISTINCT planta_recording.*, rubber_transaction.total_amount as total_amount, rubber_transaction.net_weight as net_weight 
-                                    FROM planta_recording
-                                    LEFT JOIN rubber_transaction ON planta_recording.purchased_id = rubber_transaction.id
-                                    WHERE planta_recording.status = 'Field'");?>
+                                    $results  = mysqli_query($con, "SELECT  * FROM bales_sales_record");?>
                                     <thead class="table-dark text-center">
                                         <tr>
-
-                                            <th scope="col">No.</th>
-                                            <th scope="col">Date</th>
-                                            <th scope="col">Buyer</th>
-                                            <th scope="col">Destination</th>
-                                            <th scope="col">Source</th>
-                                            <th scope="col">Quality</th>
-                                            <th scope="col">Bales</th>
-                                            <th scope="col">Total Weight</th>
-                                            <th scope="col">Price per Kilo</th>
-                                            <th scope="col">Ave. Kilo Cost</th>
-                                            <th scope="col">Profit</th>
-                                            <th scope="col">Unpaid Balance</th>
-
-                                            <th scope="col">Action</th>
+                                          <th scope="col">Status</th>
+                                            <th scope="col">ID.</th>
+                                            <th scope="col">Trans Date</th>
+                                            <th scope="col">Type</th>
+                                            <th scope="col">Sale Contract</th>
+                                            <th scope="col">Buyer Contract</th>
+                                            <th scope="col">Contract Quality</th>
+                                            <th scope="col">Contract Quantity</th>
+                                            <th scope="col">Recorded By</th>
+                        
                                         </tr>
                                     </thead>
                                     <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?>
                                         <tr>
 
                                             <td> <?php echo $row['status']?> </td>
-                                            <td> <?php echo $row['recording_id']?> </td>
-                                            <td> <?php echo $row['receiving_date']?> </td>
-                                            <td> <?php echo $row['supplier']?> </td>
-                                            <td> <?php echo $row['receiving_date']?> </td>
-                                            <td> <?php echo $row['location']?> </td>
-                                            <td> <?php echo $row['lot_num']?> </td>
-                                            <td class="number-cell">
-                                                <?php echo number_format($row['weight'], 0, '.', ',')?>
-                                                kg</td>
-                                            <td class="number-cell">
-                                                <?php echo number_format($row['reweight'], 0, '.', ',')?>
-                                                kg</td>
-                                          
-
+                                            <td> <?php echo $row['bales_sales_id']?> </td>
+                                            <td> <?php echo $row['transaction_date']?> </td>
+                                            <td> <?php echo $row['sale_type']?> </td>
+                                            <td> <?php echo $row['sale_contract']?> </td>
+                                            <td> <?php echo $row['buyer_contract']?> </td>
+                                            <td> <?php echo $row['contract_quality']?> </td>
+                                            <td> <?php echo $row['contact_quantity']?> </td>
+                                            <td> <?php echo $row['recorded_by']?> </td>
+                                
 
 
                                         </tr> <?php } ?>
