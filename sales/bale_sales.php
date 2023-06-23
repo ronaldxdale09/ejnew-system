@@ -245,7 +245,7 @@ if (isset($_GET['id'])) {
                                     <label style='font-size:15px' class="col-md-12">Overall Average Cost per Kilo</label>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text">₱</span>
+                                            <span class="input-group-text">≈ ₱</span>
                                         </div>
                                         <input type="text" class="form-control" name='overall_ave_kiloCost' id='overall_ave_kiloCost' style="width: 100px;" readonly />
                                     </div>
@@ -260,7 +260,7 @@ if (isset($_GET['id'])) {
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <label style='font-size:15px' class="col-md-12">Total Production Cost</label>
+                                    <label style='font-size:15px' class="col-md-12">Total Milling/Production Cost</label>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">₱</span>

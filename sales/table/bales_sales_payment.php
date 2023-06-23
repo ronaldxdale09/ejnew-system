@@ -28,7 +28,7 @@ $output = '
             <th scope="col" width="15%">Date of Payment </th>
             <th scope="col" >Details</th>
             <th scope="col"> Amount Paid</th>
-            <th scope="col">Rate</th>
+            <th scope="col">Exchange Rate</th>
             <th scope="col">Peso Equivalent</th>
         </tr>
     </thead>
