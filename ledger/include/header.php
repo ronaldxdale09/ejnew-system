@@ -17,7 +17,6 @@
     <title>EJN General Ledger</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <?php 
@@ -26,5 +25,7 @@
 
 ?>
 <style>
-
+    .number-cell {
+        text-align: right;
+    }
 </style>

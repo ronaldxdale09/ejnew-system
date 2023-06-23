@@ -53,39 +53,11 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <div class="card">
                         <div class="card-body">
                             <div class="report-container">
-
-                                <?php 
-                                    $Currentmonth = date('n');
-                                    $CurrentYear = date('Y');
-
-                                    $SaleYear = (isset($_GET['year'])) ? $_GET['year'] : $CurrentYear; // set default 
-                                    $SaleMonth = (isset($_GET['month'])) ? $_GET['month'] : $Currentmonth; // set default 
-                                ?>
-
-                                <table id="table-expenses_all" class="table display nowrap" style="width:100%;">
-                                    <?php
-                                        $coffeesale = mysqli_query($con,"SELECT YEAR(date) AS year, category,
-                                        sum(CASE WHEN MONTHNAME(date) = 'January' THEN amount END) AS JAN,
-                                        sum(CASE WHEN MONTHNAME(date) = 'February' THEN amount END) AS FEB,
-                                        sum(CASE WHEN MONTHNAME(date) = 'March' THEN amount END) AS MAR,
-                                        sum(CASE WHEN MONTHNAME(date) = 'April' THEN amount END) AS APR,
-                                        sum(CASE WHEN MONTHNAME(date) = 'May' THEN amount END) AS MAY,
-                                        sum(CASE WHEN MONTHNAME(date) = 'June' THEN amount END) AS JUN,
-                                        sum(CASE WHEN MONTHNAME(date) = 'July' THEN amount END) AS JUL,
-                                        sum(CASE WHEN MONTHNAME(date) = 'August' THEN amount END) AS AUG,
-                                        sum(CASE WHEN MONTHNAME(date) = 'September' THEN amount END) AS SEP,
-                                        sum(CASE WHEN MONTHNAME(date) = 'October' THEN amount END) AS OCT,
-                                        sum(CASE WHEN MONTHNAME(date) = 'November' THEN amount END) AS NOV,
-                                        sum(CASE WHEN MONTHNAME(date) = 'December' THEN amount END) AS DECE,
-                                        SUM(amount) AS TOTAL
-                                        FROM coffee_sale_line WHERE YEAR(date) = $SaleYear
-                                        GROUP BY category");        
-                                    ?>
-
-                                    <thead class='table-dark' style="width:100%;font-size: 13px;">
+                                <table class="sales-table">
+                                    <thead>
                                         <tr>
-                                            <!-- <th>Year</th> -->
-                                            <th>CATEGORY</th>
+                                            <th>Category</th>
+                                            <th>Product</th>
                                             <th>Jan</th>
                                             <th>Feb</th>
                                             <th>Mar</th>
@@ -94,53 +66,31 @@ while ($row = mysqli_fetch_assoc($result)) {
                                             <th>Jun</th>
                                             <th>Jul</th>
                                             <th>Aug</th>
-                                            <th>Sept</th>
+                                            <th>Sep</th>
                                             <th>Oct</th>
                                             <th>Nov</th>
                                             <th>Dec</th>
-                                            <th>TOTAL</th>
                                         </tr>
                                     </thead>
-                                    <tbody style="width:100%;font-size: 14px;">
-                                        <?php while ($row = mysqli_fetch_array($coffeesale)) { ?>
-                                        <tr>
-                                            <!-- <td><?php echo $row['year']?> </td> -->
-                                            <td><?php echo $row['category']?> </td>
-                                            <td>₱ <?php echo number_format((float)$row['JAN'], 2, '.', ',');?></td>
-                                            <td>₱ <?php echo number_format((float)$row['FEB'], 2, '.', ',');?></td>
-                                            <td>₱ <?php echo number_format((float)$row['MAR'], 2, '.', ',');?></td>
-                                            <td>₱ <?php echo number_format((float)$row['APR'], 2, '.', ',');?></td>
-                                            <td>₱ <?php echo number_format((float)$row['MAY'], 2, '.', ',');?></td>
-                                            <td>₱ <?php echo number_format((float)$row['JUN'], 2, '.', ',');?></td>
-                                            <td>₱ <?php echo number_format((float)$row['JUL'], 2, '.', ',');?></td>
-                                            <td>₱ <?php echo number_format((float)$row['AUG'], 2, '.', ',');?></td>
-                                            <td>₱ <?php echo number_format((float)$row['SEP'], 2, '.', ',');?></td>
-                                            <td>₱ <?php echo number_format((float)$row['OCT'], 2, '.', ',');?></td>
-                                            <td>₱ <?php echo number_format((float)$row['NOV'], 2, '.', ',');?></td>
-                                            <td>₱ <?php echo number_format((float)$row['DECE'], 2, '.', ',');?></td>
-                                            <td>₱ <?php echo number_format((float)$row['TOTAL'], 2, '.', ',');?></td>
-
-
-                                        </tr>
-                                        <?php } ?>
+                                    <tbody>
+                                        <?php
+            // Iterate over the sales data and display the table rows
+            foreach ($salesData as $category => $products) {
+                echo "<tr>";
+                echo "<td rowspan='" . (count($products) + 1) . "'>$category</td>";
+                foreach ($products as $product => $sales) {
+                    echo "<tr>";
+                    echo "<td>$product</td>";
+                    for ($month = 1; $month <= 12; $month++) {
+                        $totalSales = $sales[$month];
+                        echo "<td>$totalSales</td>";
+                    }
+                    echo "</tr>";
+                }
+                echo "</tr>";
+            }
+            ?>
                                     </tbody>
-                                    <tfoot style=' font-weight: normal;'>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                    </tfoot>
                                 </table>
                             </div>
 

@@ -40,76 +40,71 @@
                         <div class="col-sm-3 offset-sm-0">
                             <div class="stat-card">
                                 <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted">EXPENSES</p>
-                                    <h2><i class="text-danger font-weight-bold mr-1"></i>
-                                        <?php echo number_format($sumExpense['month_total']); ?> KG
-                                    </h2>
-                                    <div>
-                                        <span class="text-muted"> <?php echo $today = date("F j, Y");  ; ?>
+                                    <p class="text-uppercase mb-1 text-muted">
+                                        <span class="text-muted"> <?php echo $today = date("F");  ; ?>
                                             <?php echo $sumExpense['year']; ?>
-                                        </span>
-                                    </div>
+                                        </span> EXPENSES
+                                    </p>
+                                    <h2><i class="text-danger font-weight-bold mr-1"></i>
+                                        <?php echo number_format($sumExpense['month_total']); ?> kg
+                                    </h2>
                                 </div>
-                                <div class="stat-card__icon stat-card__icon--success">
+                                <!-- <div class="stat-card__icon stat-card__icon--success">
                                     <div class="stat-card__icon-circle">
                                         <i class="fa fa-money" aria-hidden="true"></i>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="stat-card">
                                 <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted">AMOUNT PURCHASED</p>
-                                    <h2>₱ <?php echo number_format($sumAmountPurchased['month_total']) ; ?></h2>
-                                    <div>
-                                        <span class="text-muted"><?php echo $today = date("F j, Y");  ; ?>
+                                    <p class="text-uppercase mb-1 text-muted">
+                                        <span class="text-muted"><?php echo $today = date("F");  ; ?>
                                             <?php echo $sumAmountPurchased['year']; ?>
-                                        </span>
-                                    </div>
+                                        </span> PURCHASED
+                                    </p>
+                                    <h2>₱ <?php echo number_format($sumAmountPurchased['month_total']) ; ?></h2>
                                 </div>
-                                <div class="stat-card__icon stat-card__icon--primary">
+                                <!-- <div class="stat-card__icon stat-card__icon--primary">
                                     <div class="stat-card__icon-circle">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="stat-card">
                                 <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted">EJN Maloong</p>
-                                    <h2>₱ <?php echo number_format($maloong['month_total'])?></h2>
-                                    <div>
+                                    <p class="text-uppercase mb-1 text-muted">
                                         <span class="text-muted">
                                             <?php echo date('F  Y');  ?>
-                                        </span>
-                                    </div>
+                                        </span> EJN Maloong
+                                    </p>
+                                    <h2>₱ <?php echo number_format($maloong['month_total'])?></h2>
                                 </div>
-                                <div class="stat-card__icon stat-card__icon--primary">
+                                <!-- <div class="stat-card__icon stat-card__icon--primary">
                                     <div class="stat-card__icon-circle">
                                         <i class="fa fa-credit-card"></i>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
 
                         <div class="col-sm-3">
                             <div class="stat-card">
                                 <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted">EJN Buahan </p>
-                                    <h2>₱ <?php echo number_format($buahan['month_total']); ?> </h2>
-                                    <div>
-                                        <span class="text-muted"><?php echo $today = date("F j, Y");  ; ?>
+                                    <p class="text-uppercase mb-1 text-muted">
+                                        <span class="text-muted"><?php echo $today = date("F");  ; ?>
                                             <?php echo $buahan['year']; ?>
-                                        </span>
-                                    </div>
+                                        </span> EJN Buahan </p>
+                                    <h2>₱ <?php echo number_format($buahan['month_total']); ?> </h2>
                                 </div>
-                                <div class="stat-card__icon stat-card__icon--primary">
+                                <!-- <div class="stat-card__icon stat-card__icon--danger">
                                     <div class="stat-card__icon-circle">
                                         <i class="fa fa-credit-card"></i>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -122,12 +117,9 @@
                                 <div class="card-body">
 
                                     <div class="row">
-                                    <center>
-                                            <h4>EXPENSES TODAY</h4>
-                                            </center>
-                                        <div class="col-md-2">
-
-                                        </div>
+                                        <center>
+                                            <h5>EXPENSES TODAY</h5>
+                                        </center>
                                     </div>
                                     <hr>
                                     <div class="table-responsive">
@@ -137,8 +129,8 @@
                                     ?> <thead class="table-dark">
                                                 <tr>
                                                     <th scope="col">DATE</th>
+                                                    <th scope="col">VOC</th>
                                                     <th scope="col">PARTICULARS</th>
-                                                    <th scope="col">VOC#</th>
                                                     <th scope="col">CATEGORY</th>
                                                     <th scope="col">AMOUNT</th>
 
@@ -146,8 +138,8 @@
                                             </thead>
                                             <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
                                                     <td> <?php echo $row['date']?> </td>
-                                                    <td> <?php echo $row['particulars']?> </td>
                                                     <td> <?php echo $row['voucher_no']?> </td>
+                                                    <td> <?php echo $row['particulars']?> </td>
                                                     <td> <?php echo $row['category']?> </td>
                                                     <td>₱ <?php echo number_format($row['amount'])?> </td>
 
@@ -158,29 +150,24 @@
                                 </div>
                             </div>
                             <!-- end expense table -->
-                            <!-- cash advance pie -->
                             <div class="card">
                                 <div class="card-body">
-                                    <canvas id="ca_pie" style="position: relative; height:30vh; width:10vw">></canvas>
+                                    <canvas id="expenses_bar"
+                                        style="position: relative; height:40vh; width:80vw"></canvas>
                                 </div>
                             </div>
-                            <!-- end cash advance -->
-
-
                             <!-- end first column -->
                         </div>
+
                         <div class="col-sm-6">
                             <!--  second columnn-->
                             <div class="card">
                                 <div class="card-body">
 
                                     <div class="row">
-                                       <center>
-                                            <h4>SUBSCRIPTIONS</h4>
-                                            </center>
-                                        <div class="col-md-2">
-
-                                        </div>
+                                        <center>
+                                            <h5>SUBSCRIPTIONS</h5>
+                                        </center>
                                     </div>
                                     <hr>
                                     <div class="table-responsive">
@@ -191,21 +178,26 @@
                                     
                                     ?> <thead class="table-dark">
                                                 <tr>
-                                                    <th scope="col">VOC#</th>
+                                                    <th scope="col">VOC</th>
                                                     <th scope="col">NAME</th>
-                                                    <th scope="col">Date Last Paid</th>
-                                                    <th scope="col">Next Payment</th>
-                                                    <th scope="col">Amount</th>
+                                                    <th scope="col">LAST PAID</th>
+                                                    <th scope="col">NEXT PAYMENT</th>
+                                                    <th scope="col">AMOUNT</th>
 
                                                 </tr>
                                             </thead>
                                             <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
                                                     <td> <?php echo $row['voucher_no']?> </td>
                                                     <td> <?php echo $row['particulars']?> </td>
-                                                    <td><h5><span class="badge bg-success"> <?php echo $row['date']?> </span> </h5></td>
-                                                    <td> 
-                                                    <h5><span class="badge bg-danger"> <?php echo $date = date('Y-m-d', strtotime('+1 month', strtotime($row['date'])));?></span> </h5>    
-                                                     </td>
+                                                    <td>
+                                                        <h5><span class="badge bg-success"> <?php echo $row['date']?>
+                                                            </span> </h5>
+                                                    </td>
+                                                    <td>
+                                                        <h5><span class="badge bg-danger">
+                                                                <?php echo $date = date('Y-m-d', strtotime('+1 month', strtotime($row['date'])));?></span>
+                                                        </h5>
+                                                    </td>
                                                     <td>₱ <?php echo number_format($row['amount'])?> </td>
 
                                                 </tr> <?php }
@@ -214,20 +206,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card">
-                                <div class="card-body">
-                                    <canvas id="expenses_bar"
-                                        style="position: relative; height:40vh; width:80vw"></canvas>
-                                </div>
-                            </div>
+
                             <div class="card">
                                 <div class="card-body">
 
                                     <div class="row">
-                                    <center>
-                                            <h4>CASH ADVANCE TODAY</h4>
-                                            </center>
-                                 
+                                        <center>
+                                            <h5>CASH ADVANCE TODAY</h5>
+                                        </center>
+
                                     </div>
                                     <hr>
                                     <div class="table-responsive">
@@ -237,21 +224,21 @@
                                             <thead class="table-dark">
                                                 <tr>
                                                     <th>ID</th>
-                                                    <th>Voucher #</th>
-                                                    <th>Date</th>
-                                                    <th>Name</th>
-                                                    <th>Buying Station</th>
-                                                    <th>category</th>
-                                                    <th>Total</th>
+                                                    <th>VOC</th>
+                                                    <th>DATE</th>
+                                                    <th>CATEGORY</th>
+                                                    <th>NAME</th>
+                                                    <th>STATION</th>
+                                                    <th>TOTAL</th>
                                                 </tr>
                                             </thead>
                                             <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
                                                     <td> <?php echo $row['id']?> </td>
                                                     <td> <?php echo $row['voucher']?> </td>
                                                     <td> <?php echo $row['date']?> </td>
+                                                    <td> <?php echo $row['category']?> </td>
                                                     <td> <?php echo $row['customer']?> </td>
                                                     <td> <?php echo $row['buying_station']?> </td>
-                                                    <td> <?php echo $row['category']?> </td>
                                                     <td> <?php echo $row['amount']?> </td>
 
                                                 </tr> <?php } ?> </tbody>
@@ -259,6 +246,13 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- cash advance pie -->
+                            <div class="card">
+                                <div class="card-body">
+                                    <canvas id="ca_pie" style="position: relative; height:30vh; width:10vw">></canvas>
+                                </div>
+                            </div>
+                            <!-- end cash advance -->
                             <!-- end second column -->
                         </div>
                     </div>
@@ -333,7 +327,7 @@ new Chart(pie, {
         plugins: {
             title: {
                 display: true,
-                text: 'Cash Advance Chart',
+                text: 'Cash Advance',
             },
         },
     },
@@ -348,7 +342,7 @@ new Chart(pie, {
                 'rgb(255, 204, 0)',
                 'rgb(255, 0, 0)',
             ],
-            borderColor: 'black',
+            borderColor: 'white',
             fill: false, //Fills the curve under the line with the babckground color. It's true by default
         }]
     },

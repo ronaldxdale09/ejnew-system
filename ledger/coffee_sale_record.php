@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <link rel='stylesheet' href='css/statistic-card.css'>
-    <style>
-    .number-cell {
-        text-align: right;
-    }
-    </style>
-</head>
-
 <body>
     <?php
     include('include/header.php');
@@ -40,6 +31,7 @@
                 <div class="row">
                     <div class="col-12">
                         <h2 class="page-title">
+                            <br>
                             <b>
                                 <font color="#0C0070">COFFEE </font>
                                 <font color="#046D56"> SALE </font>
