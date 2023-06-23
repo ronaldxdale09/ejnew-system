@@ -56,7 +56,7 @@ if (isset($_GET['id'])) {
                                         <hr>
 
                                         <div class="row">
-                                          
+
                                             <div class="col">
                                                 <label style='font-size:15px' class="col-md-12">EN Sale Contract
                                                 </label>

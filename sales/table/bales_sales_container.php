@@ -9,6 +9,7 @@ Where sales_id = '$sales_id'  ");
 $total_bales = 0;
 $total_weight = 0;
 $total_bale_cost = 0;
+$total_production_cost = 0;
 $number_container = 0;
 $total_ship_exp = 0;
 $output .= '
@@ -38,19 +39,19 @@ if (mysqli_num_rows($result) > 0) {
         $total_bale_cost +=  preg_replace("/[^0-9\.]/", "", $row['total_bale_cost']);
         $total_weight += $row["total_weight"];
         $total_ship_exp += $row["ship_expense"];
-       
+        $total_production_cost += $row["total_milling_cost"];
         $number_container++;
         $output .= '
         <tr>
         <td class="nowrap">' . $row["container_id"] . '</td>
         <td class="nowrap">' . $row["van_no"] . '</td>
-        <td>' .  date("F j, Y", strtotime($row["withdrawal_date"])). '</td>
+        <td>' .  date("F j, Y", strtotime($row["withdrawal_date"])) . '</td>
         <td class="nowrap">' . $row["quality"] . '</td>
         <td class="nowrap number-cell">' . $row["kilo_bale"] . ' kg</td>
         <td class="nowrap number-cell">' . number_format($row["num_bales"], 0, ".", ",") . ' pcs</td>
         <td class="nowrap number-cell">' . number_format($row["total_bale_weight"], 0, ".", ",") . ' kg</td>
-        <td class="nowrap number-cell">≈ ₱ ' . number_format($row["average_kilo_cost"]-($row["total_milling_cost"]/$row["total_bale_weight"]), 2, ".", ",") . '</td>
-        <td class="nowrap number-cell">₱ ' .number_format($row["total_milling_cost"]/$row["total_bale_weight"], 2, ".", ","). ' </td>
+        <td class="nowrap number-cell">≈ ₱ ' . number_format($row["average_kilo_cost"] - ($row["total_milling_cost"] / $row["total_bale_weight"]), 2, ".", ",") . '</td>
+        <td class="nowrap number-cell">₱ ' . number_format($row["total_milling_cost"] / $row["total_bale_weight"], 2, ".", ",") . ' </td>
         <td class="nowrap number-cell">₱ ' . number_format($row["ship_expense"], 2, ".", ",") . ' </td>
         <td class="nowrap">' . $row["remarks"] . '</td>
         <td class="nowrap">' . $row["recorded_by"] . '</td>
@@ -64,7 +65,11 @@ if (mysqli_num_rows($result) > 0) {
      <td colspan="4">No row data</td>
  </tr>';
 }
-$ave_cost = ($total_bale_cost + $total_ship_exp) / $total_weight;
+if ($total_weight == 0) {
+    $ave_cost = 0;  // You can assign whatever value you think appropriate when the total weight is 0
+} else {
+    $ave_cost = ($total_bale_cost + $total_ship_exp) / $total_weight;
+}
 $output .= '</table>
 <hr>
     
@@ -72,11 +77,33 @@ $output .= '</table>
     <script>
     document.getElementById("total_num_bales").value = "' . number_format($total_bales) . ' ";
     document.getElementById("total_bale_weight").value = "' . number_format($total_weight) . ' ";
-    document.getElementById("total_bale_cost").value = " ' . number_format($total_bale_cost,2) . '";
-    document.getElementById("total_ship_exp").value = " ' . number_format($total_ship_exp,2) . '";
-    document.getElementById("overall_ave_kiloCost").value = " ' . number_format($ave_cost,2) . '";
+    document.getElementById("total_bale_cost").value = " ' . number_format($total_bale_cost, 2) . '";
+    document.getElementById("total_ship_exp").value = " ' . number_format($total_ship_exp, 2) . '";
+    document.getElementById("overall_ave_kiloCost").value = " ' . number_format($ave_cost, 2) . '";
+    document.getElementById("total_production_cost").value = " ' . number_format($total_production_cost, 2) . '";
+
+
 
     document.getElementById("number_container").value = "' . $number_container . '";
+
+
+    var contract_price = parseFloat(document.getElementById("contract_price").value.replace(/,/g, "")) || 0;
+    var total_bale_weight = parseFloat(document.getElementById("total_bale_weight").value.replace(/,/g, "")) || 0;
+
+    var total_sale = total_bale_weight * contract_price;
+
+    document.getElementById("total_sale").value = total_sale;
+
+
+    var total_bale_cost = parseFloat(document.getElementById("total_bale_cost").value.replace(/,/g, "")) || 0;
+    var total_ship_exp = parseFloat(document.getElementById("total_ship_exp").value.replace(/,/g, "")) || 0;
+
+    var overall_cost = total_bale_cost + total_ship_exp;
+    document.getElementById("over_all_cost").value = overall_cost.toLocaleString("en-US", {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+
+
+
 
     </script>
 

@@ -13,6 +13,12 @@ $remarks = $_POST['remarks'];
 $ship_exp = preg_replace("/[^0-9\.]/", "", $_POST['ship_exp']);
 
 
+
+$total_bale_cost = preg_replace("/[^0-9\.]/", "", $_POST['total_bale_cost']);
+$total_milling_cost = preg_replace("/[^0-9\.]/", "", $_POST['total_milling_cost']);
+
+
+
 $check = mysqli_query($con, "SELECT * FROM bales_sales_container WHERE container_id='$container_id' AND sales_id='$sales_id'");
 $arrCheck = mysqli_fetch_array($check);
 
@@ -29,8 +35,8 @@ if ($check->num_rows == 1) {
 
     $results = mysqli_query($con, $sql);
 } else {
-    $sql = "INSERT INTO bales_sales_container (container_id,sales_id, van_no, bale_quality, kilo_bale,num_bales,total_weight,ship_expense, remarks) 
-    VALUES ('$container_id','$sales_id','$van_no', '$quantity', '$kilo_bale', '$num_bales', '$total_weight', '$ship_exp', '$remarks')";
+    $sql = "INSERT INTO bales_sales_container (container_id,sales_id, van_no, bale_quality, kilo_bale,num_bales,total_weight,total_bale_cost,total_milling_cost,ship_expense, remarks) 
+    VALUES ('$container_id','$sales_id','$van_no', '$quantity', '$kilo_bale', '$num_bales', '$total_weight',  '$total_bale_cost',  '$total_milling_cost', '$ship_exp', '$remarks')";
     $results = mysqli_query($con, $sql);
 }
 

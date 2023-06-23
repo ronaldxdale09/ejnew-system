@@ -27,17 +27,17 @@ $output .= '
         id="recording_table-receiving">
         <thead class="table-dark text-center" style="font-size: 14px !important">
             <tr>
-                <th scope="col">Container ID.</th>
+                <th scope="col"> ID.</th>
                 <th scope="col">Van No.</th>
                 <th scope="col">Withdrawal Date</th>
                 <th scope="col">Quality</th>
                 <th scope="col">Kilo per Bale</th>
                 <th scope="col">No. of Bales</th>
                 <th scope="col">Total Weight</th>
-                <th scope="col"hidden>Bale Cost</th>
-                <th scope="col"hidden>Milling Cost</th>
                 <th scope="col">Bale Cost</th>
                 <th scope="col">Milling Cost</th>
+                <th scope="col" hidden>Bale Cost</th>
+                <th scope="col" hidden>Milling Cost</th>
                 <th scope="col">Shipping Exp.</th>
                 <th scope="col">Remarks</th>
                 <th scope="col">Status</th>
@@ -63,10 +63,10 @@ if (mysqli_num_rows($result) > 0) {
             <td class="nowrap number-cell">' . $row["kilo_bale"] . ' kg</td>
             <td class="nowrap number-cell">' . number_format($row["total_bales"], 0, ".", ",") . ' pcs</td>
             <td class="nowrap number-cell">' . number_format($row["total_bale_weight"], 0, ".", ",") . ' kg</td>
-            <td class="nowrap number-cell" hidden>₱ ' . number_format($row["total_bale_cost"], 2, ".", ",") . ' </td>
-            <td class="nowrap number-cell" hidden>₱ ' . number_format($row["total_milling_cost"], 2, ".", ",") . ' </td>
-            <td class="nowrap number-cell" >≈ ₱ ' . number_format($row["average_kilo_cost"] - ($row["total_milling_cost"] / $row["total_bale_weight"]), 2, ".", ",") . ' </td>
-            <td class="nowrap number-cell" >₱ ' . number_format($row["total_milling_cost"] / $row["total_bale_weight"], 2, ".", ",") . ' </td>
+            <td class="nowrap number-cell" >₱ ' . number_format($row["total_bale_cost"], 2, ".", ",") . ' </td>
+            <td class="nowrap number-cell" >₱ ' . number_format($row["total_milling_cost"], 2, ".", ",") . ' </td>
+            <td class="nowrap number-cell" hidden>≈ ₱ ' . number_format($row["average_kilo_cost"] - ($row["total_milling_cost"] / $row["total_bale_weight"]), 2, ".", ",") . ' </td>
+            <td class="nowrap number-cell" hidden>₱ ' . number_format($row["total_milling_cost"] / $row["total_bale_weight"], 2, ".", ",") . ' </td>
             <td class="nowrap number-cell" >₱ ' . number_format($row["shipping_expense"], 2, ".", ",") . ' </td>
             <td class="nowrap">' . $row["remarks"] . '</td>
             <td class="nowrap"><span class="badge ' . $status_color . '">' . $row["status"] . '</span></td>
@@ -116,6 +116,11 @@ echo $output;
                 var kilo_bale = data[4];
                 var num_bales = data[5];
                 var total_weight = data[6];
+
+                var total_bale_cost = data[7];
+                var total_milling_cost = data[8];
+
+
                 var ship_exp = data[11];
                 var remarks = data[12];
 
@@ -141,6 +146,8 @@ echo $output;
                         num_bales: num_bales,
                         total_weight: total_weight,
                         ship_exp: ship_exp,
+                        total_bale_cost:total_bale_cost,
+                        total_milling_cost:total_milling_cost,
                         remarks: remarks
 
                     },

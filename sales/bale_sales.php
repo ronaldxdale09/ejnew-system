@@ -126,7 +126,7 @@ if (isset($_GET['id'])) {
                                     </div>
                                 </div>
                             </div>
-                            <hr size="10" noshade />
+                            <hr>
 
                             <div class="row">
                                 <div class="col">
@@ -179,17 +179,17 @@ if (isset($_GET['id'])) {
                                     <div class="input-group mb-3">
                                         <select class="form-select" id="sale_currency" name="sale_currency" style="width: 100px;">
                                             <option selected>Choose...</option>
-                                            <option value="bales_local">PHP ₱</option>
-                                            <option value="bales_export">USD $</option>
+                                            <option value="₱">PHP ₱</option>
+                                            <option value="$">USD $</option>
                                         </select>
                                     </div>
                                 </div>
 
 
                                 <div class="col">
-                                    <label style='font-size:15px' class="col-md-12">Price</label>
+                                    <label style='font-size:15px' class="col-md-12">Price per Kilo</label>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='price' id='price'>
+                                        <input type="number" class="form-control contract_price" name='contract_price' id='contract_price'>
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -221,7 +221,6 @@ if (isset($_GET['id'])) {
 
                             <div id='container_selected'></div>
 
-                            <hr>
 
                             <div class="row">
                                 <div class="col">
@@ -242,15 +241,31 @@ if (isset($_GET['id'])) {
                                         <input type="text" class="form-control" name='total_bale_weight' id='total_bale_weight' style="width: 100px;" readonly />
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col">
-                                    <label style='font-size:15px' class="col-md-12">Total Bale and Production Cost</label>
+                                    <label style='font-size:15px' class="col-md-12">Overall Average Cost per Kilo</label>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">₱</span>
                                         </div>
+                                        <input type="text" class="form-control" name='overall_ave_kiloCost' id='overall_ave_kiloCost' style="width: 100px;" readonly />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label style='font-size:15px' class="col-md-12">Total Bale Cost</label>
+                                    <div class="input-group mb-3">
+                                            <span class="input-group-text">₱</span>
                                         <input type="text" class="form-control" name='total_bale_cost' id='total_bale_cost' style="width: 100px;" readonly />
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label style='font-size:15px' class="col-md-12">Total Production Cost</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">₱</span>
+                                        </div>
+                                        <input type="text" class="form-control" name='total_production_cost' id='total_production_cost' style="width: 100px;" readonly />
                                     </div>
                                 </div>
                                 <div class="col">
@@ -260,15 +275,6 @@ if (isset($_GET['id'])) {
                                             <span class="input-group-text">₱</span>
                                         </div>
                                         <input type="text" class="form-control" name='total_ship_exp' id='total_ship_exp' style="width: 100px;" readonly />
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <label style='font-size:15px' class="col-md-12">Overall Average Cost per Kilo</label>
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">₱</span>
-                                        </div>
-                                        <input type="text" class="form-control" name='overall_ave_kiloCost' id='overall_ave_kiloCost' style="width: 100px;" readonly />
                                     </div>
                                 </div>
                             </div>
@@ -283,9 +289,10 @@ if (isset($_GET['id'])) {
                             <div class="row">
                                 <div class="col-12 d-flex justify-content-between align-items-center">
                                     <h4>Payment and Sale Proceeds</h4>
-                                    <button id="printButton" class="btn btn-warning btnAddPayment">
+                                    <button type="button" id="addPayment" class="btn btn-warning addPayment">
                                         <i class="fas fa-money"></i> Add Payment
                                     </button>
+
                                 </div>
                             </div>
                             <hr>
@@ -293,19 +300,22 @@ if (isset($_GET['id'])) {
                                 <div class="col">
                                     <label style='font-size:15px' class="col-md-12">TOTAL SALES</label>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='amount_unpaid' id='amount_unpaid' readonly autocomplete='off' style="width: 100px;" />
+                                        <span class="input-group-text" id='currency_selected_sales'></span>
+                                        <input type="text" class="form-control" name='total_sale' id='total_sale' readonly autocomplete='off' style="width: 100px;" />
                                     </div>
                                 </div>
                                 <div class="col">
                                     <label style='font-size:15px' class="col-md-12">AMOUNT PAID</label>
                                     <div class="input-group mb-3">
+                                        <span class="input-group-text" id='currency_selected_paid'></span>
                                         <input type="text" class="form-control" name='amount_unpaid' id='amount_unpaid' readonly autocomplete='off' style="width: 100px;" />
                                     </div>
                                 </div>
                                 <div class="col">
                                     <label style='font-size:15px' class="col-md-12">UNPAID BALANCE</label>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='amount_unpaid' id='amount_unpaid' readonly autocomplete='off' style="width: 100px;" />
+                                        <span class="input-group-text" id='currency_selected_balance'></span>
+                                        <input type="text" class="form-control" name='unpaid_balance' id='unpaid_balance' readonly autocomplete='off' style="width: 100px;" />
                                     </div>
                                 </div>
                             </div>
@@ -317,42 +327,51 @@ if (isset($_GET['id'])) {
                             <div class="row">
                                 <div class="col">
                                     <!-- SUM OF ALL PESOS EQUIVALENT AMOUNT PAID -->
-                                    <label style='font-size:15px' class="col-md-12">SALE PROCEEDS</label>
+                                    <label style="font-size:15px" class="col-md-12">SALE PROCEEDS</label>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">₱</span>
                                         </div>
-                                        <input type="text" class="form-control" name='payment_sales' id='payment_sales' readonly style="width: 100px;" />
+                                        <input type="text" class="form-control" name="sales_proceeds" id="sales_proceeds" readonly style="width: 100px;" />
                                     </div>
                                 </div>
                                 <div class="col">
                                     <!-- SUM OF TOTAL BALE AND PRODUCTION COST AND TOTAL SHIPPING EXPENSE -->
-                                    <label style='font-size:15px' class="col-md-12">OVERALL COST</label>
+                                    <label style="font-size:15px" class="col-md-12">OVERALL COST</label>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">₱</span>
                                         </div>
-                                        <input type="text" class="form-control" name='payment_sales' id='payment_sales' readonly style="width: 100px;" />
+                                        <input type="text" class="form-control" name="over_all_cost" id="over_all_cost" readonly style="width: 100px;" />
                                     </div>
                                 </div>
                                 <div class="col">
                                     <!-- DIFFERENCE SALE PROCEEDS AND OVERALL COST -->
-                                    <label style='font-size:15px' class="col-md-12">GROSS PROFIT/LOSS</label>
+                                    <label style="font-size:15px" class="col-md-12">GROSS PROFIT/LOSS</label>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">₱</span>
                                         </div>
-                                        <input type="text" class="form-control" name='payment_sales' id='payment_sales' readonly style="width: 100px;" />
+                                        <input type="text" class="form-control" name="gross_profit" id="gross_profit" readonly style="width: 100px;" />
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                     </form>
                 </div>
             </div>
+
         </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
     </div>
+
 
 </body>
 
@@ -414,6 +433,27 @@ if (isset($_GET['id'])) {
         fetch_container_list();
 
         $('#containerListModal').modal('show');
+
+    });
+
+    $("#sale_currency").change(function() {
+        // Get selected value
+        var selectedCurrency = $(this).val();
+
+        // Update the span tag's content
+        $("#currency_selected_sales").text(selectedCurrency);
+        $("#currency_selected_paid").text(selectedCurrency);
+        $("#currency_selected_balance").text(selectedCurrency);
+    });
+
+
+    $(document).on("keyup", "#contract_price, #total_bale_weight", function() {
+        var contract_price = parseFloat($("#contract_price").val().replace(/,/g, "")) || 0;
+        var total_bale_weight = parseFloat($("#total_bale_weight").val().replace(/,/g, "")) || 0;
+        var total_sale = total_bale_weight * contract_price;
+        $("#total_sale").val(total_sale.toLocaleString('en-US', {
+            minimumFractionDigits: 2
+        }));
 
     });
 </script>
