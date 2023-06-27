@@ -96,7 +96,8 @@ while ($array = mysqli_fetch_array($res)) {
         <div class="row">
             <div class="col">
                 <div class="dropdown">
-                    <button class="btn btn-warning dropdown-toggle" type="button" id="dateDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 157px;">
+                    <button class="btn btn-warning dropdown-toggle" type="button" id="dateDropdown"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 157px;">
                         Select Date
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dateDropdown">
@@ -122,10 +123,12 @@ while ($array = mysqli_fetch_array($res)) {
     <div class="col-sm-4">
         <div class="row">
             <div class="col">
-                <input type="text" class='form-control' id="min" name="min" style="width: 150px;" placeholder="From Date:">
+                <input type="text" class='form-control' id="min" name="min" style="width: 150px;"
+                    placeholder="From Date:">
             </div>
             <div class="col">
-                <input type="text" class='form-control' id="max" name="max" style="width: 150px;" placeholder="To Date:">
+                <input type="text" class='form-control' id="max" name="max" style="width: 150px;"
+                    placeholder="To Date:">
             </div>
         </div>
     </div>
@@ -157,40 +160,49 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  ORDER BY id DESC")
         <tbody>
 
             <?php while ($row = mysqli_fetch_array($results)) { ?>
-                <tr>
-                    <td>
-                        <?php
-                        $date = new DateTime($row['date']);
-                        echo $date->format('F j, Y'); // Outputs date as "May 14, 2023"
-                        ?>
-                    </td>
-                    <td>
-                        <?php echo $row['particulars'] ?>
-                    </td>
-                    <td>
-                        <?php echo $row['voucher_no'] ?>
-                    </td>
-                    <td>
-                        <?php echo $row['category'] ?>
-                    </td>
-                    <td>
-                        <?php echo $row['type_expense'] ?>
-                    </td>
-                    <td>₱
-                        <?php echo number_format($row['amount']) ?>
-                    </td>
-                    <td>
-                        <?php echo $row['remarks'] ?>
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-secondary text-white btnPressUpdate" data-id="<?php echo $row['id'] ?>" data-voucher_no="<?php echo $row['voucher_no'] ?>" data-particulars="<?php echo $row['particulars'] ?>" data-date="<?php echo $row['date'] ?>" data-type="<?php echo $row['type_expense'] ?>" data-amount="<?php echo $row['amount'] ?>" data-description="<?php echo $row['description'] ?>" data-mode_transact="<?php echo $row['mode_transact'] ?>" data-category="<?php echo $row['category'] ?>" data-date_payment="<?php echo $row['date_payment'] ?>" data-location="<?php echo $row['location'] ?>">
-                            <span class="fa fa-edit"></span>
-                        </button>
-                        <button type="button" class="btn btn-danger text-white btnExpenseDelete" data-id="<?php echo $row['id'] ?>">
-                            <span class="fa fa-trash"></span>
-                        </button>
-                    </td>
-                </tr>
+            <tr>
+                <td data-sort="<?php echo strtotime($row['date']); ?>">
+                    <?php
+        $date = new DateTime($row['date']);
+        echo $date->format('F j, Y'); // Outputs date as "May 14, 2023"
+    ?>
+                </td>
+                <td>
+                    <?php echo $row['particulars'] ?>
+                </td>
+                <td>
+                    <?php echo $row['voucher_no'] ?>
+                </td>
+                <td>
+                    <?php echo $row['category'] ?>
+                </td>
+                <td>
+                    <?php echo $row['type_expense'] ?>
+                </td>
+                <td>₱
+                    <?php echo number_format($row['amount']) ?>
+                </td>
+                <td>
+                    <?php echo $row['remarks'] ?>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-secondary text-white btnPressUpdate"
+                        data-id="<?php echo $row['id'] ?>" data-voucher_no="<?php echo $row['voucher_no'] ?>"
+                        data-particulars="<?php echo $row['particulars'] ?>" data-date="<?php echo $row['date'] ?>"
+                        data-type="<?php echo $row['type_expense'] ?>" data-amount="<?php echo $row['amount'] ?>"
+                        data-description="<?php echo $row['description'] ?>"
+                        data-mode_transact="<?php echo $row['mode_transact'] ?>"
+                        data-category="<?php echo $row['category'] ?>"
+                        data-date_payment="<?php echo $row['date_payment'] ?>"
+                        data-location="<?php echo $row['location'] ?>">
+                        <span class="fa fa-edit"></span>
+                    </button>
+                    <button type="button" class="btn btn-danger text-white btnExpenseDelete"
+                        data-id="<?php echo $row['id'] ?>">
+                        <span class="fa fa-trash"></span>
+                    </button>
+                </td>
+            </tr>
             <?php } ?>
         </tbody>
         <tfoot>
@@ -209,178 +221,193 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  ORDER BY id DESC")
 
 
 <script>
-    $('#addExpense').on('shown.bs.modal', function() {
-        $('.ex_category', this).chosen();
+$('#addExpense').on('shown.bs.modal', function() {
+    $('.ex_category', this).chosen();
+});
+
+$(document).ready(function() {
+    $('.dropdown-item').click(function() {
+        var selected = $(this).text(); // gets the text of the clicked item
+        $('#dateDropdown').text(selected); // sets the button text
+    });
+});
+
+
+$(document).ready(function() {
+
+
+    $('.btnPressUpdate').on('click', function() {
+        var id = $(this).attr('data-id');
+        var voucher = $(this).attr('data-voucher_no');
+        var date = $(this).attr('data-date');
+        var type = $(this).attr('data-type');
+        var amount = $(this).attr('data-amount');
+        var description = $(this).attr('data-description');
+        var particulars = $(this).attr('data-particulars');
+        var category = $(this).attr('data-category'); // Added this line
+        var mode_transact = $(this).attr('data-mode_transact');
+        var date_payment = $(this).attr('data-date_payment');
+        var location = $(this).attr('data-location');
+
+        $('#update_id').val(id);
+        $('#u_date_transaction').val(date);
+        $('#u_date_payment').val(date_payment);
+        $('#u_location').val(location);
+        $('#u_voucher').val(voucher);
+        $('#u_type').val(type);
+        $('#u_particular').val(particulars);
+        $('#u_category').val(category); // Added this line
+        $('#u_mode_transaction').val(mode_transact);
+        $('#u_amount').val(amount);
+        $('#u_remarks').val(description);
+        $('#updateExpense').modal('show');
     });
 
-    $(document).ready(function() {
-        $('.dropdown-item').click(function() {
-            var selected = $(this).text(); // gets the text of the clicked item
-            $('#dateDropdown').text(selected); // sets the button text
-        });
+    $('.btnExpenseDelete').on('click', function() {
+        var del_id = $(this).data('id');
+
+
+        $('#del_id').val(del_id);
+
+        $('#removeExpenseModal').modal('show');
     });
 
 
-    $(document).ready(function() {
 
+    $("#min").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        onSelect: function() {
+            table.draw();
+        }
+    });
 
-        $('.btnPressUpdate').on('click', function() {
-            var id = $(this).attr('data-id');
-            var voucher = $(this).attr('data-voucher_no');
-            var date = $(this).attr('data-date');
-            var type = $(this).attr('data-type');
-            var amount = $(this).attr('data-amount');
-            var description = $(this).attr('data-description');
-            var particulars = $(this).attr('data-particulars');
-            var category = $(this).attr('data-category'); // Added this line
-            var mode_transact = $(this).attr('data-mode_transact');
-            var date_payment = $(this).attr('data-date_payment');
-            var location = $(this).attr('data-location');
+    $("#max").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        onSelect: function() {
+            table.draw();
+        }
+    });
 
-            $('#update_id').val(id);
-            $('#u_date_transaction').val(date);
-            $('#u_date_payment').val(date_payment);
-            $('#u_location').val(location);
-            $('#u_voucher').val(voucher);
-            $('#u_type').val(type);
-            $('#u_particular').val(particulars);
-            $('#u_category').val(category); // Added this line
-            $('#u_mode_transaction').val(mode_transact);
-            $('#u_amount').val(amount);
-            $('#u_remarks').val(description);
-            $('#updateExpense').modal('show');
-        });
+    // Event listener to the two range filtering inputs to redraw on input
+    $('#min, #max').change(function() {
+        table.draw();
+    });
 
-        $('.btnExpenseDelete').on('click', function() {
-            var del_id = $(this).data('id');
+    $.fn.dataTable.ext.search.push(
+        function(settings, data, dataIndex) {
+            var min = $('#min').datepicker("getDate");
+            var max = $('#max').datepicker("getDate");
 
+            // Get the actual DOM object of the row and extract our timestamp
+            var timestamp = table.row(dataIndex).node().cells[0].getAttribute('data-sort');
 
-            $('#del_id').val(del_id);
+            // Convert the timestamp to a Date object for comparison
+            var startDate = new Date(parseInt(timestamp));
 
-            $('#removeExpenseModal').modal('show');
-        });
-
-
-
-
-
-        $.fn.dataTable.ext.search.push(
-            function(settings, data, dataIndex) {
-                var min = $('#min').datepicker("getDate");
-                var max = $('#max').datepicker("getDate");
-                var startDate = new Date(data[0]);
-
-                if (min == null && max == null) return true;
-                if (min == null && startDate <= max) return true;
-                if (max == null && startDate >= min) return true;
-                if (startDate <= max && startDate >= min) return true;
-                return false;
-            }
-        );
+            if (min == null && max == null) return true;
+            if (min == null && startDate <= max) return true;
+            if (max == null && startDate >= min) return true;
+            if (startDate <= max && startDate >= min) return true;
+            return false;
+        }
+    );
 
 
 
+    var table = $('#expenses_table').DataTable({
+        dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
+        "pageLength": 50,
 
-        var table = $('#expenses_table').DataTable({
-            dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
-            "pageLength": 50,
-
-            order: [
-                [0, 'desc']
-            ],
-            buttons: [{
-                    extend: 'excelHtml5',
-                    footer: true,
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5]
-                    }
-                },
-                {
-                    extend: 'pdfHtml5',
-                    footer: true,
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5]
-                    }
-                },
-                {
-                    extend: 'print',
-                    footer: true,
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5]
-                    }
+        order: [
+            [0, 'desc']
+        ],
+        columnDefs: [{
+            targets: 0,
+            render: function(data, type, row, meta) {
+                if (type === 'sort' || type === 'type') {
+                    var timestamp = new Date(data).getTime();
+                    return timestamp;
                 }
-            ],
-            drawCallback: function() {
-                var api = this.api();
-                var sum = 0;
-                var formated = 0;
-                //to show first th
-                $(api.column(4).footer()).html('Total');
-
-
-                sum = api.column(5, {
-                    page: 'current'
-                }).data().sum();
-
-                //to format this sum
-                formated = parseFloat(sum).toLocaleString(undefined, {
-                    minimumFractionDigits: 2
-                });
-                $(api.column(5).footer()).html(formated);
-                $('#total_expenses').html(formated);
-
+                return data;
+            }
+        }],
+        buttons: [{
+                extend: 'excelHtml5',
+                footer: true,
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5]
+                }
             },
-        });
-
-        $("#min").datepicker({
-            onSelect: function() {
-                table.draw();
+            {
+                extend: 'pdfHtml5',
+                footer: true,
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5]
+                }
             },
-            changeMonth: true,
-            changeYear: true
-        });
-        $("#max").datepicker({
-            onSelect: function() {
-                table.draw();
-            },
-            changeMonth: true,
-            changeYear: true
-        });
-
-        // Event listener to the two range filtering inputs to redraw on input
-        $('#min, #max').change(function() {
-            table.draw();
-        });
-
-        // Quick date filters
-        $('#today').on('click', function() {
-            var today = new Date();
-            $('#min, #max').datepicker('setDate', today);
-            table.draw();
-        });
-
-        $('#this-week').on('click', function() {
-            var today = new Date();
-            var firstDayOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today
-                .getDay());
-            $('#min').datepicker('setDate', firstDayOfWeek);
-            $('#max').datepicker('setDate', today);
-            table.draw();
-        });
-
-        $('#this-month').on('click', function() {
-            var today = new Date();
-            var firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-            $('#min').datepicker('setDate', firstDayOfMonth);
-            $('#max').datepicker('setDate', today);
-            table.draw();
-        });
-
-        $('#category_filter').on('change', function() {
-            var tosearch = this.value;
-            table.search(tosearch).draw();
-        });
+            {
+                extend: 'print',
+                footer: true,
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5]
+                }
+            }
+        ],
+        drawCallback: function() {
+            var api = this.api();
+            var sum = 0;
+            var formated = 0;
+            //to show first th
+            $(api.column(4).footer()).html('Total');
 
 
+            sum = api.column(5, {
+                page: 'current'
+            }).data().sum();
+
+            //to format this sum
+            formated = parseFloat(sum).toLocaleString(undefined, {
+                minimumFractionDigits: 2
+            });
+            $(api.column(5).footer()).html(formated);
+            $('#total_expenses').html(formated);
+
+        },
     });
+
+
+
+    // Quick date filters
+    $('#today').on('click', function() {
+        var today = new Date();
+        $('#min, #max').datepicker('setDate', today);
+        table.draw();
+    });
+
+    $('#this-week').on('click', function() {
+        var today = new Date();
+        var firstDayOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today
+            .getDay());
+        $('#min').datepicker('setDate', firstDayOfWeek);
+        $('#max').datepicker('setDate', today);
+        table.draw();
+    });
+
+    $('#this-month').on('click', function() {
+        var today = new Date();
+        var firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+        $('#min').datepicker('setDate', firstDayOfMonth);
+        $('#max').datepicker('setDate', today);
+        table.draw();
+    });
+
+    $('#category_filter').on('change', function() {
+        var tosearch = this.value;
+        table.search(tosearch).draw();
+    });
+
+
+});
 </script>
