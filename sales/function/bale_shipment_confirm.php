@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "Ship Cost per Container: " . $ship_cost_per_container . "<br/>";
     echo "</pre>";
     // // Your SQL update query
-    $query = "UPDATE bale_shipment_record SET status='Awaiting Sales',type = '$type', ship_date = '$ship_date', 
+    $query = "UPDATE bale_shipment_record SET status='Complete',type = '$type', ship_date = '$ship_date', 
     destination = '$ship_destination', source = '$ship_source', vessel = '$ship_vessel', bill_lading = '$ship_info_lading',
      remarks = '$ship_remarks', recorded_by = '$ship_recorded', total_num_bales = '$total_num_bales', total_bale_weight = '$total_bale_weight', 
      total_bale_cost = '$total_bale_cost', freight = '$freight', loading_unloading = '$loading_expense', processing_fee = '$ship_exp_processing', 
@@ -77,6 +77,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         header("Location: ../bale_shipment_record.php");  // Change this to your desired location
+
+
 
 
 

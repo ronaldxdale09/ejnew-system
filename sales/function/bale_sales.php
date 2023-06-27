@@ -9,11 +9,12 @@
         $sale_type = $_POST['sale_type'];
         $quality = $_POST['quality'];
         $remarks = $_POST['remarks'];
+        $sale_buyer = $_POST['sale_buyer'];
     
-  
+        
         // Creating the SQL query
-        $query = "INSERT INTO bales_sales_record (transaction_date,status,sale_contract,buyer_contract,contract_quality,sale_type,remarks) 
-                                VALUES ('$date','In Progress','$contract', '$purchase_contract', '$quality', '$sale_type', '$remarks')";
+        $query = "INSERT INTO bales_sales_record (buyer_name,transaction_date,status,sale_contract,purchase_contract,contract_quality,sale_type,remarks,recorded_by) 
+                                VALUES ('$sale_buyer','$date','In Progress','$contract', '$purchase_contract', '$quality', '$sale_type','$remarks', '$recorded_by')";
     
         // Executing the query
         $results = mysqli_query($con, $query);
@@ -27,6 +28,8 @@
         }
         exit();
     }
+
+
 
 
    

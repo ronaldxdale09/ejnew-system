@@ -98,6 +98,6 @@ $name = 	$_SESSION["user"];
     border-top: none;
 }
 </style>
-<button id="refreshButton" class="floating-refresh-button" onclick="refreshPage()">
+<!-- <button id="refreshButton" class="floating-refresh-button" onclick="refreshPage()">
     <i class="fas fa-sync-alt"></i>
-</button>
+</button> -->

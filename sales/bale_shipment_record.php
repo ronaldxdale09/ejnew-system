@@ -65,8 +65,8 @@ include 'include/navbar.php';
                                                 case "In Progress":
                                                     $status_color = 'bg-warning';
                                                     break;
-                                                case "Awaiting Sales":
-                                                    $status_color = 'bg-primary';
+                                                case "Complete":
+                                                    $status_color = 'bg-success';
                                                     break;
                                             }
 
@@ -186,7 +186,7 @@ include 'include/navbar.php';
 
             var status = $(this).data('status');
 
-            if (status == "Awaiting Sales") {
+            if (status == "Complete") {
                 $('#editButton').hide();
             } else if (status == 'Draft') {
                 $('#editButton').show();

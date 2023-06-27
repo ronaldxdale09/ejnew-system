@@ -73,13 +73,17 @@ include 'include/navbar.php';
                                                     $status_color = 'bg-warning';
                                                     break;
                                                 case "Awaiting Release":
-                                                    $status_color = 'bg-success';
+                                                    $status_color = 'bg-secondary';
                                                     break;
                                                 case "Released":
                                                     $status_color = 'bg-primary';
                                                     break;
                                                 case "Shipped Out":
                                                     $status_color = 'bg-dark';
+                                                    break;
+
+                                                case "Sold":
+                                                    $status_color = 'bg-success';
                                                     break;
                                             }
 

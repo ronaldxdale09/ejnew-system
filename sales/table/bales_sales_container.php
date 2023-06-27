@@ -16,9 +16,9 @@ $output .= '
 <table class="table table-bordered table-hover table-striped" id="recording_table-receiving">
            <thead class="table-dark" style="font-size: 12px !important" >
            <tr>
-           <th scope="col">Ref No.</th>
+           <th scope="col">ID</th>
            <th scope="col">Van No.</th>
-           <th scope="col">Withdrawal Date</th>
+           <th scope="col" hidden>Withdrawal Date</th>
            <th scope="col">Quality</th>
            <th scope="col">Kilo per Bale</th>
            <th scope="col">No. of Bales</th>
@@ -47,7 +47,7 @@ if (mysqli_num_rows($result) > 0) {
         <tr>
         <td class="nowrap">' . $row["container_id"] . '</td>
         <td class="nowrap">' . $row["van_no"] . '</td>
-        <td>' .  date("F j, Y", strtotime($row["withdrawal_date"])) . '</td>
+        <td hidden>' .  date("F j, Y", strtotime($row["withdrawal_date"])) . '</td>
         <td class="nowrap">' . $row["quality"] . '</td>
         <td class="nowrap number-cell">' . $row["kilo_bale"] . ' kg</td>
         <td class="nowrap number-cell">' . number_format($row["num_bales"], 0, ".", ",") . ' pcs</td>
@@ -71,8 +71,7 @@ if (mysqli_num_rows($result) > 0) {
 }
 
 $output .= '</table>
-<hr>
-    
+
 
     <script>
     document.getElementById("total_num_bales").value = "' . number_format($total_bales) . ' ";

@@ -30,30 +30,35 @@ include 'include/navbar.php';
                         <br>
 
                         <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
+
+                            <hr>
                             <div class="table-responsive">
                                 <?php
-                                $results  = mysqli_query($con, "SELECT bales_container_record.*, bales_container_selection.*, bales_container_record.container_id as con_id 
-                                   FROM bales_container_record 
-                                   LEFT JOIN bales_container_selection ON bales_container_selection.container_id = bales_container_record.container_id
-                                   where status !='Void'
-                                   GROUP BY bales_container_record.container_id");
+                                $results  = mysqli_query($con, "SELECT *, bales_container_record.container_id as con_id,
+                                bales_container_record.num_bales as total_bales ,
+                                bales_container_record.total_bale_weight as total_weight 
+                                from bales_container_record
+                                LEFT JOIN bales_container_selection ON bales_container_selection.container_id =  bales_container_record.container_id
+                                    where status !='Void'
+                                GROUP BY bales_container_record.container_id");
+
 
                                 ?>
                                 <table class="table table-bordered table-hover table-striped" id='recording_table-receiving'>
                                     <thead class="table-dark text-center" style="font-size: 14px !important">
                                         <tr>
+                                            <th scope="col">Status</th>
                                             <th scope="col">Ref No.</th>
-                                            <th scope="col">Van No.</th>
                                             <th scope="col">Withdrawal Date</th>
-                                            <th scope="col">Quality</th>
-                                            <th scope="col">Kilo</th>
+                                            <th scope="col">Van No.</th>
+                                            <th scope="col">Bale Quality</th>
+                                            <th scope="col">Kilo per Bale</th>
                                             <th scope="col">No. of Bales</th>
                                             <th scope="col">Total Weight</th>
                                             <th scope="col">Bale Cost</th>
-                                            <th scope="col">Overhead</th>
-                                            <th scope="col">Remarks</th>
-                                            <th scope="col">Recorded</th>
-                                            <th scope="col">Status</th>
+                                            <th scope="col">Milling Cost</th>
+                                            <th scope="col">Particulars</th>
+                                            <th scope="col" hidden>Recorded By</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
@@ -67,14 +72,18 @@ include 'include/navbar.php';
                                                 case "In Progress":
                                                     $status_color = 'bg-warning';
                                                     break;
-                                                case "Awaiting Release":
-                                                    $status_color = 'bg-success';
+                                                case "Complete":
+                                                    $status_color = 'bg-secondary';
                                                     break;
                                                 case "Released":
                                                     $status_color = 'bg-primary';
                                                     break;
                                                 case "Shipped Out":
                                                     $status_color = 'bg-dark';
+                                                    break;
+
+                                                case "Sold":
+                                                    $status_color = 'bg-success';
                                                     break;
                                             }
 
@@ -85,26 +94,28 @@ include 'include/navbar.php';
                                                     </span>
                                                 </td>
                                                 <td><?php echo $row['con_id']; ?></td>
+                                                <td><?php echo date('M d, Y', strtotime($row['withdrawal_date'])); ?></td>
                                                 <td><?php echo $row['van_no']; ?></td>
-                                                <td><?php echo $row['withdrawal_date']; ?></td>
                                                 <td><?php echo $row['quality']; ?></td>
                                                 <td class="number-cell">
-                                                    <?php echo $row['kilo_bale']; ?> kg
+                                                    <?php echo $row['kilo_bale']; ?>
                                                 </td>
                                                 <td class="number-cell">
-                                                    <?php echo number_format($row['num_bales'], 0, '.', ','); ?> pcs
+                                                    <?php echo number_format($row['total_bales'], 0, '.', ','); ?> pcs
                                                 </td>
                                                 <td class="number-cell">
-                                                    <?php echo number_format($row['total_bale_weight'], 2); ?> kg
+                                                    <?php echo number_format($row['total_weight'], 0, '.', ','); ?> kg
                                                 </td>
-                                                <td>₱ <?php echo $row['total_bale_cost']; ?></td>
-                                                <td>₱ <?php echo $row['total_milling_cost']; ?></td>
+                                                <td class="number-cell"> ₱
+                                                    <?php echo number_format($row['total_bale_cost'], 2, '.', ','); ?>
+                                                </td>
+                                                <td class="number-cell"> ₱
+                                                    <?php echo number_format($row['total_milling_cost'], 2, '.', ','); ?>
+                                                </td>
                                                 <td><?php echo $row['remarks']; ?></td>
-                                                <td><?php echo $row['recorded_by']; ?></td>
-
+                                                <td hidden><?php echo $row['recorded_by']; ?></td>
                                                 <td class="text-center">
-                                                    <button type="button" class="btn btn-success btn-sm btnViewRecord" 
-                                                    data-status="<?php echo $row['status']; ?>">
+                                                    <button type="button" class="btn btn-success btn-sm btnViewRecord" data-status="<?php echo $row['status']; ?>">
                                                         <i class="fas fa-book"></i>
                                                     </button>
                                                 </td>
@@ -120,6 +131,7 @@ include 'include/navbar.php';
         </div>
     </div>
 
+    <?php include 'modal/modal_container.php'; ?>
 
     <script>
         $(document).ready(function() {
@@ -154,23 +166,23 @@ include 'include/navbar.php';
                 return $(this).text();
             }).get();
 
-            $('#v_id').val(data[0]);
 
-            $('#v_container_no').val(data[1]);
-            $('#v_van').val(data[2]);
-            $('#v_date').val(data[3]);
+            $('#v_id').val(data[1]);
+
+            $('#v_date').val(data[2]);
+            $('#v_van').val(data[3]);
             $('#v_quality').val(data[4]);
             $('#v_kilo').val(data[5]);
-            $('#v_remarks').val(data[8]);
-            $('#v_recorded').val(data[9]);
+            $('#v_remarks').val(data[10]);
+            $('#v_recorded').val(data[11]);
 
 
-            
+
 
 
             function fetch_table() {
 
-                var container_id = (data[0]);
+                var container_id = (data[1]);
                 $.ajax({
                     url: "table/contaner_bales_record.php",
                     method: "POST",
@@ -179,7 +191,7 @@ include 'include/navbar.php';
 
                     },
                     success: function(data) {
-                        $('#container_record').html(data);
+                        $('#bales_container_record').html(data);
                     }
                 });
             }

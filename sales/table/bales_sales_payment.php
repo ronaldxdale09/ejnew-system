@@ -35,6 +35,7 @@ $output = '
     <tbody>';
 
 // Fetch the data from the database and output each row
+
 while ($row = mysqli_fetch_assoc($result)) {
     $output .= '
     <tr>
@@ -42,22 +43,18 @@ while ($row = mysqli_fetch_assoc($result)) {
     <td><input type="text"  class="form-control weight" name="pay_details[]"  value="' . $row["details"] . '"></td>
     <td>
        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-             <span class="input-group-text" id="currency_selected_sales"></span>
-          </div>
-          <input type="number"  class="form-control weight payAmount" name="pay_amount[]"  value="' . $row["amount_paid"] . '">
+             <span class="input-group-text" >' . $row["currency"] . '</span>
+          
+          <input type="text"  class="form-control weight payAmount" name="pay_amount[]"  value="' . $row["amount_paid"] . '">
        </div>
     </td>
     <td><input type="text"  class="form-control weight" name="pay_rate[]"  value="' . $row["rate"] . '"></td>
     <td>
        <div class="input-group mb-3">
-          <div class="input-group-prepend">
              <span class="input-group-text">₱</span>
-          </div>
           <input type="text"  class="form-control weight" name="peso_equivalent[]"  value="' . $row["pesos_equivalent"] . '">
     </td>
-    <td><button type="button" id="removeContainer" class="btn btn-danger btn-sm removeContainer"><i class="fa fa-trash"></i></button> 
-    </div>
+    <td><button class="btn btn-danger removePayment" id="removePayment"><i class="fas fa-trash"></i></button></td>
     </td>
  </tr>
     ';
@@ -69,26 +66,26 @@ $output .= '
 <br>
 
 
-<script>
+        <script>
 
-function formatNumber(num) {
-    return num.toLocaleString("en-US", {minimumFractionDigits: 2});
-}
-
-
-
-var sales_proceeds = parseFloat(document.getElementById("sales_proceeds").value.replace(/,/g, "")) || 0;
-
-gross_profit =  sales_proceeds - overall_cost;
-
-document.getElementById("gross_profit").value = formatNumber(gross_profit);
+        function formatNumber(num) {
+            return num.toLocaleString("en-US", {minimumFractionDigits: 2});
+        }
 
 
+
+        var sales_proceeds = parseFloat(document.getElementById("sales_proceeds").value.replace(/,/g, "")) || 0;
+
+        gross_profit =  sales_proceeds - overall_cost;
+
+        document.getElementById("gross_profit").value = formatNumber(gross_profit);
 
 
 
 
-</script>
+
+
+        </script>
 ';
 
 echo $output;
@@ -178,7 +175,7 @@ echo $output;
         <input type="text" class="form-control cuplump_cost" name="peso_equivalent[]" readonly></td>
 
         </div>
-        <td><button class="btn btn-danger removeRow"><i class="fas fa-trash"></i></button></td>
+        <td><button class="btn btn-danger removePayment"><i class="fas fa-trash"></i></button></td>
     </tr>
      `);
             counter++;
@@ -195,7 +192,7 @@ echo $output;
         // Call computeSalesProceeds after table is populated
         computeSalesProceeds();
 
-        $(document).on("click", ".removeRow", function() {
+        $(document).on("click", ".removePayment", function() {
             event.preventDefault();
 
             var row = $(this).closest("tr");
