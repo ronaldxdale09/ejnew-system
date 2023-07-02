@@ -86,20 +86,25 @@ if (isset($_GET['id'])) {
                                     <hr>
 
                                     <div class="row">
-                                        <div class="col-2">
+                                        <div class="col-1">
                                             <label style='font-size:15px' class="col-md-12">Ref No.</label>
                                             <div class="input-group mb-3">
                                                 <input type="text" class="form-control" name='container_id' id='container_id' readonly autocomplete='off' style="width: 100px;" />
                                             </div>
                                         </div>
-                                        <div class="col">
-                                            <label style='font-size:15px' class="col-md-12">Container
-                                                No.</label>
+                                        <div class="col-2">
+                                            <label style='font-size:15px' class="col-md-12">Van No.</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" name='container_no' id='container_no' tabindex="7" autocomplete='off' style="width: 100px;" />
+                                                <input type="text" class="form-control" name='container_no' id='container_no' autocomplete='off' style="width: 100px;" />
                                             </div>
                                         </div>
-                                        <div class="col">
+                                        <div class="col-2">
+                                            <label style='font-size:15px' class="col-md-12">Location</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" autocomplete='off' style="width: 100px;" />
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
                                             <label style='font-size:15px' class="col-md-12">Loading
                                                 Date</label>
                                             <div class="col-md-12">
@@ -112,7 +117,7 @@ if (isset($_GET['id'])) {
                                                 <input type="text" class="form-control" name='remarks' id='remarks' tabindex="7" autocomplete='off' style="width: 100px;" />
                                             </div>
                                         </div>
-                                        <div class="col">
+                                        <div class="col-2">
                                             <label style='font-size:15px' class="col-md-12">Recorded by</label>
                                             <div class="input-group mb-3">
                                                 <input type="text" class="form-control" name='recorded_by' id='recorded_by' tabindex="7" autocomplete='off' style="width: 100px;" />
@@ -128,7 +133,7 @@ if (isset($_GET['id'])) {
         <div class="card">
             <div class="card-body d-flex justify-content-between align-items-center">
                 <h4>Cuplump Inventory</h4>
-              
+              <hr>
             </div>
             <div class="card-body">
                 <div id='container_listing'> </div>

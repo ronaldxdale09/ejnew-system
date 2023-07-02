@@ -51,7 +51,7 @@
        WHERE container_id = '$id'";
        mysqli_query($con, $sql);
 
-       header("Location: ../bales_container_record.php");  // Change this to your desired location
+       header("Location: ../container_record.php");  // Change this to your desired location
            exit();
             
         }

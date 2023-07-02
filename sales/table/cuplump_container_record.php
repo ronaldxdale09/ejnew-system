@@ -27,12 +27,14 @@ $output = '
     <thead style="font-weight: normal;">
         <tr style="font-weight: normal;">
             <th scope="col" width="15%">Supplier</th>
+            <th scope="col">Location</th>
             <th scope="col" >Loading Weight</th>
-            <th scope="col"width="12%"> Type</th>
-            <th scope="col">Wet Cost</th>
-            <th scope="col">Dry Cost</th>
+            <th scope="col"width="8%"> Type</th>
+            <th scope="col">Wet Cost (₱)</th>
+            <th scope="col">Dry Cost (₱)</th>
             <th scope="col">DRC</th>
-            <th scope="col">Cuplump Cost</th>
+            <th scope="col">Total Cost (₱)</th>
+            <th scope="col">Amount Paid (₱)</th>
         </tr>
     </thead>
     <tbody>';
@@ -42,7 +44,13 @@ while ($row = mysqli_fetch_assoc($result)) {
     $output .= "<tr>";
 
     $output .= '<td><input type="text" class="form-control " name="supplier[]" readonly value="' . $row['supplier'] . '"></td>';
-    $output .= '<td><input type="text" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"class="form-control weight" name="loading_weight[]"  value="' . $row['loading_weight'] . '"></td>';
+    $output .= '<td><input type="text" class="form-control " name="location[]" readonly value="' . $row['location'] . '"></td>';
+    $output .= '<td>
+    <div class="input-group">
+    <input type="text" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"class="form-control weight" name="loading_weight[]"  value="' . $row['loading_weight'] . '">
+    <span class="input-group-text">kg</span>
+    </div>
+    </td>';
     $output .= '<td><select class="form-control kilo_bale" name="cost_type[]">';
     $costType = ['WET', 'DRY'];
     foreach ($costType as $type) {
@@ -63,6 +71,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             </div>
         </td>';
     $output .= '<td><input type="text" class="form-control cuplump_cost" name="cuplump_cost[]" value="' . $row['cuplump_cost'] . '"></td>';
+    $output .= '<td><input type="text" class="form-control amount_paid" name="amount_paid[]" value="' . $row['amount_paid'] . '"></td>';
     $output .= '<td><button class="btn btn-danger removeRow"><i class="fas fa-trash"></i></button></td>';
 
     $output .= "</tr>";
@@ -77,9 +86,9 @@ $output .= '
     <label style="font-size:15px" class="col-md-12">Total Cuplump
         Weight</label>
     <div class="input-group mb-3">
-        <span class="input-group-text">₱</span>
         <input type="text" class="form-control" name="total_cuplump_weight" id="total-cuplump-weight" tabindex="7" autocomplete="off" style="width: 100px;" readonly />
-    </div>
+        <span class="input-group-text">kg</span>
+        </div>
 </div>
 <div class="col">
     <label style="font-size:15px" class="col-md-12">Total Cuplump
@@ -114,10 +123,16 @@ echo $output;
         $("#addRow").on("click", function() {
             var newRow = $('<tr>' +
                 '<td><input type="text" class="form-control " name="supplier[]" ></td>' +
-                '<td><input type="text"  onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"  class="form-control weight" name="loading_weight[]" ></td>' +
+                '<td><input type="text" class="form-control " name="location[]" ></td>' +
+                '<td>' +
+                '<div class="input-group">' +
+                '<input type="text"  onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"  class="form-control weight" name="loading_weight[]" >'+
+                '<span class="input-group-text">kg</span>' +
+                '</div>' +
+                '</td>' +
                 '<td>' +
                 '<select class="form-control type" name="cost_type[]">' +
-                '<option selected="selected" disabled value="">Choose Type</option>' +
+                '<option selected="selected" disabled value="">Select...</option>' +
                 '<option value="WET">WET</option>' +
                 '<option value="DRY">DRY</option>' +
                 '</select>' +
@@ -131,6 +146,7 @@ echo $output;
                 '</div>' +
                 '</td>' +
                 '<td><input type="text" class="form-control cuplump_cost" name="cuplump_cost[]" readonly></td>' +
+                '<td><input type="text" class="form-control amount_paid" name="amount_paid[]" ></td>' +
                 '<td><button class="btn btn-danger removeRow"><i class="fas fa-trash"></i></button></td>' +
                 '</tr>');
             counter++;

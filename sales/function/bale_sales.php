@@ -30,7 +30,16 @@
     }
 
 
+    if (isset($_POST['edit'])) {
+        $sales_id = $_POST['sales_id'] ?? '';
 
 
-   
-?>
+        $query = "UPDATE bales_sales_record SET status='In Progress'
+          WHERE bales_sales_id  = '$sales_id'";
+    
+        // Executing the query
+        $results = mysqli_query($con, $query);
+
+        header("Location: ../bale_sales.php?id=$sales_id"); 
+
+    }

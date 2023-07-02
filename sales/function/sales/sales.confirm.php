@@ -109,6 +109,7 @@ $query = "UPDATE `bales_sales_record`
             `sale_contract`='$sale_contract',
             `purchase_contract`='$purchase_contract',
             `buyer_name`='$sale_buyer',
+            `currency`='$sale_currency',
             `sale_type`='$sale_type',
             `contract_quality`='$contract_quality',
             `transaction_date`='$trans_date',

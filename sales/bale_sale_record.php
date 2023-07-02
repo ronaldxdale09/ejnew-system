@@ -10,6 +10,7 @@ include "include/navbar.php";
 </style>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 <body>
     <link rel='stylesheet' href='css/statistic-card.css'>
     <div class='main-content' style='min-height:100vh;'>
@@ -33,21 +34,17 @@ include "include/navbar.php";
                             <hr>
                             <div class="table-responsive">
 
-                                <table class="table table-bordered table-hover table-striped" id='recording_table-receiving'>
+                                <table class="table table-bordered table-hover table-striped" id='sales_rec_table'>
                                     <?php
                                     $results  = mysqli_query($con, "SELECT  * FROM bales_sales_record"); ?>
                                     <thead class="table-dark text-center">
                                         <tr>
                                             <th scope="col">Status</th>
-                                            <th scope="col">ID.</th>
-                                            <th scope="col">Trans Date</th>
-                                            <th scope="col">Type</th>
-                                            <th scope="col">Sale Contract</th>
-                                            <th scope="col">Purchase Contract </th>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Contract No.</th>
                                             <th scope="col">Buyer </th>
-                                            <th scope="col">Contract Quality</th>
-                                            <th scope="col">Contract Kilo</th>
-                                            <th scope="col">Recorded By</th>
+                                            <th scope="col">Bale Quality</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -75,13 +72,10 @@ include "include/navbar.php";
                                                     </span>
                                                 </td>
                                                 <td> <?php echo $row['bales_sales_id'] ?> </td>
-                                                <td> <?php echo $row['transaction_date'] ?> </td>
-                                                <td> <?php echo $row['sale_type'] ?> </td>
-                                                <td> <?php echo $row['sale_contract'] ?> </td>
-                                                <td> <?php echo $row['purchase_contract'] ?> </td>
-                                                <td> <?php echo $row['contract_quality'] ?> </td>
-                                                <td> <?php echo number_format($row['contract_quantity'],0) ?> kg</td>
-                                                <td> <?php echo $row['recorded_by'] ?> </td>
+                                                <td><?php echo date('M d, Y', strtotime($row['transaction_date'])); ?></td>
+                                                <td><?php echo $row['sale_contract'] ?> | <?php echo $row['purchase_contract'] ?> </td>
+                                                <td> <?php echo $row['sale_type'] ?> | <?php echo $row['buyer_name'] ?> </td>
+                                                <td> <?php echo $row['contract_quality'] ?> @ <?php echo number_format($row['contract_quantity'], 0) ?> kg</td>
                                                 <td class="text-center">
                                                     <button type="button" class="btn btn-success btn-sm btnViewRecord" data-status="<?php echo $row['status']; ?>" data-bale='<?php echo json_encode($row); ?>'>
                                                         <i class="fas fa-book"></i>
@@ -89,16 +83,17 @@ include "include/navbar.php";
                                                 </td>
 
 
-                                            </tr> <?php } ?>
+                                            </tr>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
 
                             <script>
-                                var table = $('#recording_table-receiving').DataTable({
+                                var table = $('#sales_rec_table').DataTable({
                                     dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
                                     order: [
-                                        [0, 'desc']
+                                        [1, 'desc']
                                     ],
                                     buttons: [
                                         'excelHtml5',
@@ -156,6 +151,15 @@ include "include/navbar.php";
         $('#sale_currency').val(bale.currency);
         $('#contract_price').val(bale.contract_price);
         $('#other_terms').val(bale.other_terms);
+
+
+        var status = $(this).data('status');
+
+        if (status == "Draft" || status == "In Progress" ) {
+            $('#editBtn').show();
+        } else {
+            $('#editBtn').hide();
+        }
 
 
 

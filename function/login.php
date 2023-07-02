@@ -24,9 +24,8 @@
 			$userType = $user['type'];
 			$_SESSION["type"] = $userType;
 			$_SESSION["id"] = $user['id'];
+			$_SESSION["full_name"] = $user['name'];
 			$_SESSION["user"] = $username;
-			$_SESSION["username"] = $username;
-			$_SESSION["pass"] = $password;
 			$_SESSION["loc"] = $user['loc'];
 			$_SESSION["source"] = $user['loc'];
 			if ($userType =='copra'){

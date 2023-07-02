@@ -59,6 +59,10 @@ $average_kilo_cost = ($data['total_bale_cost'] + $data['overall_milling_cost']) 
     .bg-orange {
         background-color: orange;
     }
+
+    .new-recording-id {
+        border-top: 2px solid #dee2e6 !important;
+    }
 </style>
 
 <body>
@@ -139,42 +143,46 @@ $average_kilo_cost = ($data['total_bale_cost'] + $data['overall_milling_cost']) 
                             </div>
                         </div>
 
-                        
+
                         <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
-                        <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#purchaseModal">+ OUTSIDE PURCHASE </button>
+                            <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#purchaseModal">NEW OUTSIDE PURCHASE </button>
                             <br> <br>
                             <div class="table-responsive">
-                                <table class="table table-bordered table-hover table-striped table-responsive" style='width:100%' id="recording_table-produced">
+                            <table class="table table-hover" style='width:100%' id="recording_table-produced">
 
                                     <?php
                                     $results = mysqli_query($con, "SELECT * FROM planta_bales_production 
-                                   LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
-                                   WHERE planta_bales_production.status='Produced' and (rubber_weight !='0' or rubber_weight !=null)
-                                   ORDER BY planta_bales_production.recording_id ASC ");
+                                        LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
+                                        WHERE planta_bales_production.status='Produced' and (rubber_weight !='0' or rubber_weight !=null)
+                                        ORDER BY planta_bales_production.recording_id ASC ");
                                     ?>
-
 
                                     <thead class="table-dark" style='font-size:13px'>
                                         <tr>
-                                            <th>Status</th>
+                                            <th>Inventory Status</th>
+                                            <th>Rec. ID</th>
                                             <th>Bale ID</th>
                                             <th>Date Produced</th>
                                             <th>Supplier</th>
                                             <th>Lot No.</th>
                                             <th>Quality</th>
-                                            <th>Kilo</th>
-                                            <th>Produced Bales</th>
-                                            <th>Remaining Bales</th>
-                                            <th>Cuplump Weight</th>
-                                            <th>Bale Weight</th>
-                                            <th>DRC</th>
+                                            <th>Kilograms per Bale</th>
+                                            <th>Produced Bales (pcs)</th>
+                                            <th>Remaining Bales (pcs)</th>
+                                            <th>Cuplump Weight (kg)</th>
+                                            <th>Bale Weight (kg)</th>
+                                            <th>DRC (%)</th>
                                             <th>Description</th>
-                                            <th>Mill Cost</th>
-                                            <th>Unit Cost</th>
+                                            <th>Milling Cost (₱)</th>
+                                            <th>Unit Cost (₱/kg)</th>
+                                            <th>Prod. Type</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php while ($row = mysqli_fetch_array($results)) { ?>
+                                        <?php
+                                        $previous_recording_id = null;
+                                        while ($row = mysqli_fetch_array($results)) {
+                                        ?>
                                             <tr>
                                                 <td>
                                                     <?php if ($row['status'] == 'For Sale') : ?>
@@ -183,36 +191,54 @@ $average_kilo_cost = ($data['total_bale_cost'] + $data['overall_milling_cost']) 
                                                         <span class="badge bg-danger"><?php echo $row['status'] ?></span>
                                                     <?php elseif ($row['status'] == 'Purchase') : ?>
                                                         <span class="badge bg-info"><?php echo $row['status'] ?></span>
+                                                    <?php elseif ($row['status'] == 'Complete') : ?>
+                                                        <span class="badge bg-success"><?php echo $row['status'] ?></span>
                                                     <?php else : ?>
                                                         <span class="badge"><?php echo $row['status'] ?></span>
                                                     <?php endif; ?>
                                                 </td>
+                                                <td ><?php echo $row['recording_id'] ?></td>
                                                 <td>
                                                     <span class="badge bg-secondary"><?php echo $row['bales_prod_id'] ?></span>
                                                 </td>
                                                 <td><?php echo date('M d, Y', strtotime($row['production_date'])); ?></td>
                                                 <td><?php echo $row['supplier'] ?></td>
-                                                <td> <?php echo $row['lot_num'] ?> </td>
+                                                <td><?php echo $row['lot_num'] ?></td>
                                                 <td><?php echo $row['bales_type'] ?></td>
-                                                <td class="number-cell"> <?php echo $row['kilo_per_bale'] ?> kg</td>
-                                                <td class="number-cell bales-column"> <?php echo number_format($row['number_bales'], 0, '.', ',') ?> pcs </td>
-                                                <td class="number-cell remaining-column"> <?php echo number_format($row['remaining_bales'], 0, '.', ',') ?> pcs </td>
-                                                <td class="number-cell">
-                                                    <?php echo number_format($row['reweight'], 0, '.', ',') ?> kg</td>
-                                                <td class="number-cell">
-                                                    <?php echo number_format($row['rubber_weight'], 0, '.', ',') ?> kg</td>
+                                                <td class="number-cell nowrap"><?php echo $row['kilo_per_bale'] ?> kg</td>
+                                                <td class="number-cell bales-column"><?php echo number_format($row['number_bales'], 0, '.', ',') ?> pcs </td>
+                                                <td class="number-cell remaining-column"><?php echo number_format($row['remaining_bales'], 0, '.', ',') ?> pcs </td>
 
-                                                <td class="number-cell"><?php echo number_format($row['drc'], 2) ?> %</td>
+                                                <td class="number-cell">
+                                                    <?php if ($row['trans_type'] == 'OUTSOURCE') : ?>
+                                                        -
+                                                    <?php else : ?>
+                                                        <?php echo number_format($row['reweight'], 0, '.', ',') ?> kg
+                                                    <?php endif; ?>
+                                                </td>
+
+
+                                                <td class="number-cell">
+                                                    <?php echo number_format($row['rubber_weight'], 0, '.', ',') ?> kg
+                                                </td>
+                                                <td class="number-cell nowrap"><?php echo number_format($row['drc'], 2) ?> %</td>
                                                 <td><?php echo $row['description'] ?></td>
-                                                <td> ₱
-                                                    <?php echo number_format($row['milling_cost']) ?>
-                                                </td>
-                                                <td> ₱
-                                                    <?php echo number_format($row['total_production_cost'] / $row['produce_total_weight'], 2) ?>
-                                                </td>
+                                                <td>₱<?php echo number_format($row['milling_cost']) ?></td>
+                                                <td>₱<?php echo number_format($row['total_production_cost'] / $row['produce_total_weight'], 2) ?></td>
 
+                                                <td>
+                                                    <?php if ($row['trans_type'] == 'OUTSOURCE') : ?>
+                                                        <span class="badge bg-primary">Outsourced</span>
+                                                    <?php else : ?>
+                                                        <span class="badge bg-warning text-dark">Produced</span>
+                                                    <?php endif; ?>
+                                                </td>
                                             </tr>
-                                        <?php } ?>
+                                        <?php
+                                            $previous_recording_id = $row['recording_id'];
+                                        }
+                                        mysqli_free_result($results);
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -224,9 +250,10 @@ $average_kilo_cost = ($data['total_bale_cost'] + $data['overall_milling_cost']) 
     </div>
     <script>
         $(document).ready(function() {
+
             var table = $('#recording_table-produced').DataTable({
                 "order": [
-                    [1, 'asc']
+                    [1, 'desc']
                 ],
                 "pageLength": -1,
                 "dom": "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
