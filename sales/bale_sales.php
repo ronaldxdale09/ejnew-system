@@ -23,6 +23,8 @@ if (isset($_GET['id'])) {
         $recorded_by = isset($record['recorded_by']) ? $record['recorded_by'] : '';
         $remarks = isset($record['remarks']) ? $record['remarks'] : '';
 
+        $kilo_bale = isset($record['contract_kiloPerBale']) ? $record['contract_kiloPerBale'] : '';
+
 
         $sale_buyer = isset($record['buyer_name']) ? htmlspecialchars($record['buyer_name'], ENT_QUOTES, 'UTF-8') : '';
         $shipping_date = isset($record['shipping_date']) ? htmlspecialchars($record['shipping_date'], ENT_QUOTES, 'UTF-8') : '';
@@ -52,6 +54,7 @@ if (isset($_GET['id'])) {
                     $('#sale_destination').val('" . $sale_destination . "');
                     $('#contract_contaier').val('" . $contract_container_num . "');
                     $('#contract_quantity').val('" . $contract_quantity . "');
+                    $('#contract_kilo').val('" . $kilo_bale . "');
                     $('#contract_price').val('" . $contract_price . "');
                     $('#other_terms').val('" . $other_terms . "');
                     $('#total_sale').val('" . number_format($total_sales, 2) . "');
@@ -651,7 +654,7 @@ if (isset($_GET['id'])) {
                     // Disable all buttons inside the form
                     // Temporarily hide the buttons
                     $("#print_content button").hide();
-                    $('#confirmModal').modal('hide');
+                    $('#draftModal').modal('hide');
                 } else {
                     Swal.fire({
                         icon: 'error',

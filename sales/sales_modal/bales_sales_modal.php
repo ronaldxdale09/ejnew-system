@@ -80,7 +80,7 @@ $today = date('Y-m-d');
                         <div class="col">
                             <label style='font-size:15px' class="col-md-12">Kilo per Bale</label>
                             <div class="input-group mb-3">
-                                <select class="form-select" name="kilo" style="width: 100px;">
+                                <select class="form-select" name="kilo_bale" style="width: 100px;">
                                     <option selected disabled>Select...</option>
                                     <option value="35">35.00 kg</option>
                                     <option value="33.33">33.33 kg</option>

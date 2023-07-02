@@ -1,7 +1,7 @@
 <?php 
    include('include/header.php');
    include "include/navbar.php";
-
+   $loc = str_replace(' ', '', $_SESSION['loc']);
    ?>
 <?php include('modal/modal_rubber_report.php'); ?>
 
@@ -42,7 +42,7 @@
                                         rubber_transaction.date as purchased_date,rubber_transaction.net_weight as wet_net_weight
                                         FROM planta_recording
                                         LEFT JOIN rubber_transaction ON planta_recording.purchased_id = rubber_transaction.id
-                                        WHERE status != 'Complete' and trans_type !='OUTSOURCE'
+                                        WHERE (status != 'Complete' and trans_type !='OUTSOURCE') and source ='$loc'
                                         GROUP BY planta_recording.recording_id"); ?>
                                             <thead class="table-dark">
                                                 <tr>

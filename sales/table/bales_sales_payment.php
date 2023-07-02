@@ -155,7 +155,7 @@ echo $output;
             var selectedCurrency = $("#sale_currency").val();
 
             var newRow = $(`
-    <tr>
+          <tr>
         <td><input type="date" class="form-control " name="pay_date[]"></td>
         <td><input type="text"  class="form-control weight" name="pay_details[]"></td>
         <td>

@@ -6,7 +6,7 @@
 
 error_reporting(0); // Suppress all warnings
 
-$loc = $_SESSION['loc'];
+$loc = str_replace(' ', '', $_SESSION['loc']);
 
 
 $sql = mysqli_query($con, "SELECT SUM(reweight) as inventory from  planta_recording where status='Field' and source='$loc'  "); 
@@ -224,16 +224,22 @@ $balesCount = mysqli_fetch_array($sql);
 
 <?php
 
-$sql = mysqli_query($con, "SELECT SUM(reweight) as Cuplump from  planta_recording where status='Field'  and source='$loc'   "); 
+$loc = str_replace(' ', '', $_SESSION['loc']);
+
+$sql = mysqli_query($con, "SELECT SUM(reweight) as Cuplump from  planta_recording 
+where status='Field'  and source='$loc'   "); 
 $cuplump = mysqli_fetch_array($sql);
 
-$sql = mysqli_query($con, "SELECT SUM(crumbed_weight) as Crumb from  planta_recording where status='Milling'  and source='$loc'   "); 
+$sql = mysqli_query($con, "SELECT SUM(crumbed_weight) as Crumb from  planta_recording
+ where status='Milling'  and source='$loc'   "); 
 $crumb = mysqli_fetch_array($sql);
 
-$sql = mysqli_query($con, "SELECT SUM(dry_weight) as Blanket from  planta_recording where status='Drying'   and source='$loc'  "); 
+$sql = mysqli_query($con, "SELECT SUM(dry_weight) as Blanket from  planta_recording
+ where status='Drying'   and source='$loc'  "); 
 $blanket = mysqli_fetch_array($sql);
 
-$sql = mysqli_query($con, "SELECT SUM(produce_total_weight) as Bale from  planta_recording where (status='For Sale' or status='Purchase')   and source='$loc'  "); 
+$sql = mysqli_query($con, "SELECT SUM(produce_total_weight) as Bale from  planta_recording 
+where (status='For Sale' or status='Purchase')   and source='$loc'  "); 
 $bale = mysqli_fetch_array($sql);
 ?>
 

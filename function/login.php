@@ -42,7 +42,10 @@
 				header('Location: ../rubber/dry_receiving_record.php');
 			}
 			elseif  ($userType =='planta'){
-				header('Location: ../plantation/dashboard.php');
+
+					header('Location: ../plantation/dashboard.php');
+			
+			
 			}
 			elseif  ($userType =='sales'){
 				header('Location: ../sales/dashboard.php');
@@ -51,4 +54,3 @@
 	}
 	//echo "Error: Could not be able to execute $sql. " .mysqli_error($link);
 	mysqli_close($con);
-?>
