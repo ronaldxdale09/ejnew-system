@@ -1,7 +1,7 @@
 <?php 
    include('include/header.php');
    include "include/navbar.php";
-   $loc = str_replace(' ', '', $_SESSION['loc']);
+   $loc = $_SESSION['loc'];
 
 
 ?>

@@ -11,7 +11,7 @@ include('../function/db.php');
 $container_id = $_POST['container_id'];
 
 // Query to get the bale info from the database
-$query = "SELECT * FROM sales_cuplump_inventory WHERE sales_cuplump_id = '$container_id'";
+$query = "SELECT * FROM sales_cuplump_container_inv WHERE sales_cuplump_id = '$container_id'";
 $result = mysqli_query($con, $query);
 
 // Check if the query was successful
@@ -52,11 +52,11 @@ while ($row = mysqli_fetch_assoc($result)) {
     }
     $output .= '</select></td>';
 
-    $output .= '<td><input type="text" readonly onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" class="form-control wetInput" readonly value="' . $row['wet_cost'] . '"></td>';
+    $output .= '<td><input type="text" readonly onkeypress="return CheckNumeric()"  onkeyup="FormatCurrency(this)" class="form-control wetInput" readonly value="' . $row['wet_cost'] . '"></td>';
     $output .= '<td><input type="text"  readonly onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" class="form-control dryInput" value="' . $row['dry_cost'] . '"></td>';
     $output .= '<td>
             <div class="input-group">
-                <input type="text" readonly  onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" class="form-control drcInput"  value="' . $row['drc'] . '">
+                <input type="text" readonly  onkeypress="return CheckNumeric()"  onkeyup="FormatCurrency(this)" class="form-control drcInput"  value="' . $row['drc'] . '">
                 <span class="input-group-text">%</span>
             </div>
         </td>';

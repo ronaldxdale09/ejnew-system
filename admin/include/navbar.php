@@ -20,7 +20,11 @@
         <i class='fas fa-cash-register'></i> <span class='nav-text'>Purchase Report</span>
     </a>
 
+    <hr style='color:gray'>
 
+    <a class='nav-link' href='bale_sale_record.php'>
+        <i class='fas fa-chart-line'></i> <span class='nav-text'>Bales Sales Record</span>
+    </a>
     <hr style='color:gray'>
 
 

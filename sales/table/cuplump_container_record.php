@@ -1,7 +1,9 @@
 <style>
     #rubber-table th,
-    #rubber-table td {
-        font-weight: normal;
+    #rubber-table td,
+    #rubber-table input,
+    #rubber-table select {
+        font-weight: normal !important;
     }
 </style>
 
@@ -11,7 +13,7 @@ include('../function/db.php');
 $container_id = $_POST['container_id'];
 
 // Query to get the bale info from the database
-$query = "SELECT * FROM sales_cuplump_inventory WHERE sales_cuplump_id = '$container_id'";
+$query = "SELECT * FROM sales_cuplump_container_inv WHERE sales_cuplump_id = '$container_id'";
 $result = mysqli_query($con, $query);
 
 // Check if the query was successful
@@ -24,7 +26,7 @@ $output = '
 
 <button type="button" id="addRow" class="btn btn-success">+ Add Inventory</button>
 <table class="table"  id="rubber-table" >
-    <thead style="font-weight: normal;">
+    <thead style="font-weight: normal !important;">
         <tr style="font-weight: normal;">
             <th scope="col" width="15%">Supplier</th>
             <th scope="col">Location</th>
@@ -37,7 +39,7 @@ $output = '
             <th scope="col">Amount Paid (₱)</th>
         </tr>
     </thead>
-    <tbody>';
+    <tbody   style="font-weight: normal !important;">';
 
 // Fetch the data from the database and output each row
 while ($row = mysqli_fetch_assoc($result)) {
@@ -126,7 +128,7 @@ echo $output;
                 '<td><input type="text" class="form-control " name="location[]" ></td>' +
                 '<td>' +
                 '<div class="input-group">' +
-                '<input type="text"  onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"  class="form-control weight" name="loading_weight[]" >'+
+                '<input type="text"  onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"  class="form-control weight" name="loading_weight[]" >' +
                 '<span class="input-group-text">kg</span>' +
                 '</div>' +
                 '</td>' +
@@ -146,7 +148,7 @@ echo $output;
                 '</div>' +
                 '</td>' +
                 '<td><input type="text" class="form-control cuplump_cost" name="cuplump_cost[]" readonly></td>' +
-                '<td><input type="text" class="form-control amount_paid" name="amount_paid[]" ></td>' +
+                '<td><input type="text" class="form-control amount_paid"   onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"  name="amount_paid[]" ></td>' +
                 '<td><button class="btn btn-danger removeRow"><i class="fas fa-trash"></i></button></td>' +
                 '</tr>');
             counter++;
@@ -205,10 +207,7 @@ echo $output;
 
             // Update the total and average fields
             // Update the total and average fields
-            $('#total-cuplump-weight').val(totalWeight.toLocaleString('en-US', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            }));
+            $('#total-cuplump-weight').val(totalWeight.toLocaleString('en-US'));
             $('#total-cuplump-cost').val(totalCost.toLocaleString('en-US', {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
@@ -245,12 +244,20 @@ echo $output;
         console.log(dryCost)
         console.log(drc)
         if (type == 'WET') {
-            cuplumpCostInput.val(weight * wetCost);
+            let cost = weight * wetCost;
+            cuplumpCostInput.val(cost.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }));
             console.log(weight * wetCost)
 
 
         } else if (type == 'DRY') {
-            cuplumpCostInput.val((weight * dryCost) * (drc / 100));
+            let cost = (weight * dryCost) * (drc / 100);
+            cuplumpCostInput.val(cost.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }));
             console.log(weight * dryCost) * (drc / 100);
         }
     }
