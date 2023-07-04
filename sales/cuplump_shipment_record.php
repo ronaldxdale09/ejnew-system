@@ -40,7 +40,7 @@
                                     <thead class="table-dark text-center" style="font-size: 14px !important">
                                         <tr>
                                             <th scope="col">Status</th>
-                                            <th scope="col">Shipping ID</th>
+                                            <th scope="col">ID</th>
                                             <th scope="col">Type</th>
                                             <th scope="col">Date</th>
                                             <th scope="col">Source</th>
@@ -82,7 +82,7 @@
                                                     <?php echo number_format($row['total_shipping_expense'], 2, '.', ','); ?>
                                                 </td>
                                                 <td class="number-cell">
-                                                    <?php echo $row['no_containers']; ?> containers
+                                                    <?php echo $row['no_containers']; ?> container/s
                                                 </td>
                                                 <td class="number-cell">
                                                     <?php echo number_format($row['total_num_bales'], 0, '.', ','); ?> pcs

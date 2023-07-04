@@ -25,7 +25,7 @@ $output = '
     <thead style="font-weight: normal;">
         <tr style="font-weight: normal;">
             <th scope="col" width="15%">Supplier</th>
-            <th scope="col" >Loading Weight</th>
+            <th scope="col" >Weight</th>
             <th scope="col"width="12%"> Type</th>
             <th scope="col">Wet Cost</th>
             <th scope="col">Dry Cost</th>
@@ -74,8 +74,8 @@ $output .= '
     <label style="font-size:15px" class="col-md-12">Total Cuplump
         Weight</label>
     <div class="input-group mb-3">
-        <span class="input-group-text">₱</span>
         <input type="text" class="form-control" id="total-cuplump-weight" tabindex="7" autocomplete="off" style="width: 100px;" readonly />
+        <span class="input-group-text">kg</span>
     </div>
 </div>
 <div class="col">

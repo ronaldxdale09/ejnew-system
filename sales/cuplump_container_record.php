@@ -41,13 +41,14 @@ include 'include/navbar.php';
                                     <thead class="table-dark text-center" style="font-size: 14px !important">
                                         <tr>
                                             <th scope="col">Status</th>
-                                            <th scope="col">Ref No.</th>
+                                            <th scope="col">ID</th>
                                             <th scope="col">Loading Date</th>
-                                            <th scope="col">Container No.</th>
+                                            <th scope="col">Van No.</th>
                                             <th scope="col">Total Weight</th>
-                                            <th scope="col">Cuplump Cost</th>
+                                            <th scope="col">Total Cuplump Cost</th>
+                                            <th scope="col">Average Cost</th>
                                             <th scope="col">Remarks</th>
-                                            <th scope="col">Recorded By</th>
+                                            <th scope="col">Recorded by</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
@@ -56,11 +57,14 @@ include 'include/navbar.php';
                                             <tr>
                                                 <td class="text-center"><?php echo $row['status']; ?></td>
                                                 <td><?php echo $row['container_id']; ?></td>
-                                                <td><?php echo $row['loading_date']; ?></td>
+                                                <td><?php echo date('M j, Y', strtotime($row['loading_date'])); ?></td>
                                                 <td><?php echo $row['van_no']; ?></td>
-                                                <td class="number-cell"><?php echo number_format($row['total_cuplump_weight'], 2, '.', ','); ?> kg</td>
+                                                <td class="number-cell"><?php echo number_format($row['total_cuplump_weight'], 0, '.', ','); ?> kg</td>
                                                 <td class="number-cell">₱
-                                                    <?php echo number_format($row['total_cuplump_cost'], 2, '.', ','); ?>
+                                                    <?php echo number_format($row['total_cuplump_cost'], 0, '.', ','); ?>
+                                                </td>
+                                                <td class="number-cell">₱
+                                                    <?php echo number_format($row['total_cuplump_cost']/$row['total_cuplump_weight'], 2, '.', ','); ?>
                                                 </td>
                                                 <td><?php echo $row['remarks']; ?></td>
                                                 <td><?php echo $row['recorded_by']; ?></td>
@@ -115,8 +119,8 @@ include 'include/navbar.php';
             $('#v_date').val(data[2]);
             $('#v_van_no').val(data[3]);
 
-            $('#v_remarks').val(data[6]);
-            $('#v_recorded_by').val(data[7]);
+            $('#v_remarks').val(data[7]);
+            $('#v_recorded_by').val(data[8]);
 
             var status = $(this).data('status');
 

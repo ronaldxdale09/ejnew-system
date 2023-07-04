@@ -67,8 +67,8 @@ $today = date('Y-m-d');
             <form action="function/cuplump_container.php" method='POST'>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Container ID.</label>
+                        <div class="col-3">
+                            <label style='font-size:15px' class="col-md-12">Container ID</label>
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" id='v_id' name='id' tabindex="7" autocomplete='off' style="width: 100px;" readonly />
                             </div>
@@ -95,7 +95,7 @@ $today = date('Y-m-d');
                             </div>
                         </div>
                         <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Recorded by:</label>
+                            <label style='font-size:15px' class="col-md-12">Recorded by</label>
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" id='v_recorded_by' tabindex="7" autocomplete='off' style="width: 100px;" readonly />
                             </div>

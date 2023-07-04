@@ -65,8 +65,7 @@
                             <label style='font-size:15px' class="col-md-12">Shipping
                                 Date</label>
                             <div class="col-md-12">
-                                <input type="date" class='form-control' id="shipping_date" value="<?php echo $today; ?>"
-                                    name="shipping_date">
+                                <input type="text" class='form-control' id="shipping_date" name="shipping_date">
                             </div>
                         </div>
 
