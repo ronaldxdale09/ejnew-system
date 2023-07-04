@@ -21,7 +21,7 @@ include 'include/navbar.php';
                     <div class="col-sm-12">
 
                         <h2 class="page-title">
-                            <b>
+                            <b> 
                                 <font color="#0C0070">BALE </font>
                                 <font color="#046D56"> CONTAINER </font>
                             </b>
