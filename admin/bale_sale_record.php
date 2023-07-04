@@ -82,10 +82,10 @@ include "include/navbar.php";
                                                 <td> <?php echo $row['sale_type'] ?> | <?php echo $row['buyer_name'] ?> </td>
                                                 <td> <?php echo $row['contract_quality'] ?> @ <?php echo number_format($row['contract_quantity'], 0) ?> kg</td>
                                                 <td><?php echo $row['contract_container_num'] ?>/<?php echo $row['no_containers'] ?> </td>
-                                                <td><?php echo $row['currency'] ?> <?php echo number_format($row['contract_price'],2 )?> </td>
-                                                <td><?php echo number_format($row['total_sales'],2 )?> </td>
-                                                <td><?php echo number_format($row['overall_cost'],2 )?> </td>
-                                                <td><?php echo number_format($row['gross_profit'],2 )?> </td>
+                                                <td><?php echo $row['currency'] ?> <?php echo number_format($row['contract_price'], 2) ?> </td>
+                                                <td><?php echo number_format($row['total_sales'], 2) ?> </td>
+                                                <td><?php echo number_format($row['overall_cost'], 2) ?> </td>
+                                                <td><?php echo number_format($row['gross_profit'], 2) ?> </td>
                                                 <td class="text-center">
                                                     <button type="button" class="btn btn-success btn-sm btnViewRecord" data-status="<?php echo $row['status']; ?>" data-bale='<?php echo json_encode($row); ?>'>
                                                         <i class="fas fa-book"></i>
@@ -165,7 +165,7 @@ include "include/navbar.php";
 
         var status = $(this).data('status');
 
-        if (status == "Draft" || status == "In Progress" ) {
+        if (status == "Draft" || status == "In Progress") {
             $('#editBtn').show();
         } else {
             $('#editBtn').hide();
@@ -264,4 +264,4 @@ include "include/navbar.php";
     });
 </script>
 
-<?php include "sales_modal/bales_sales_modal.php"; ?>
+<?php include "modal/bales_sales_modal.php"; ?>

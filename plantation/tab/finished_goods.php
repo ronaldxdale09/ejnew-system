@@ -16,12 +16,17 @@
 
 <div class="table-responsive">
     <br>
-    <div id="datatable_filter">
-        <label>From: <input type="text" class='form-control' id="min" name="min"></label>
-        <label>To: <input type="text" class='form-control' id="max" name="max"></label>
-        <button class='btn btn-primary' id="today">Today</button>
-        <button class='btn btn-secondary' id="this-week">This Week</button>
-        <button class='btn btn-dark' id="this-month">This Month</button>
+
+    <div class="card-body d-flex justify-content-between align-items-center">
+        <div id="datatable_filter">
+            <label>From: <input type="text" class='form-control' id="min" name="min"></label>
+            <label>To: <input type="text" class='form-control' id="max" name="max"></label>
+            <button class='btn btn-primary' id="today">Today</button>
+            <button class='btn btn-secondary' id="this-week">This Week</button>
+            <button class='btn btn-dark' id="this-month">This Month</button>
+        </div>
+        <button type="button" class="btn btn-warning text-dark btnSelectTrans" id='receiptBtn'  data-toggle="modal" data-target="#balesExcess">
+            <span class="fa fa-cubes"></span> Bale Excess</button>
     </div>
     <hr>
     <table class="table table-bordered table-hover table-striped table-responsive" style='width:100%' id="recording_table-produced">

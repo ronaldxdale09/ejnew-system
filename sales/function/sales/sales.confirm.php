@@ -109,6 +109,7 @@ $query = "UPDATE `bales_sales_record`
             `sale_contract`='$sale_contract',
             `purchase_contract`='$purchase_contract',
             `buyer_name`='$sale_buyer',
+            `currency`='$sale_currency',
             `sale_type`='$sale_type',
             `contract_quality`='$contract_quality',
             `transaction_date`='$trans_date',
@@ -137,6 +138,39 @@ $query = "UPDATE `bales_sales_record`
 
 if (mysqli_query($con, $query)) {
 
+    if (isset($_POST["pay_date"])) {
+
+         $pay_date = $_POST['pay_date'];
+        if (!empty($pay_date)) {
+            $deleteSql = "DELETE FROM bales_sales_payment WHERE sales_id = '$sales_id'";
+            if (!mysqli_query($con, $deleteSql)) {
+                die('Error deleting old data: ' . mysqli_error($con));
+            }
+
+            $pay_details = $_POST['pay_details'];
+            $pay_amount = $_POST['pay_amount'];
+            $pay_rate = $_POST['pay_rate'];
+            $peso_equivalent = $_POST['peso_equivalent'];
+
+
+            foreach ($pay_details as $index => $details) {
+                $date = isset($pay_date[$index]) ? $pay_date[$index] : '';
+                $amount = isset($pay_amount[$index]) ? floatval(str_replace(',', '', $pay_amount[$index])) : 0;
+                $rate = isset($pay_rate[$index]) ? floatval(str_replace(',', '', $pay_rate[$index])) : 0;
+                $equivalent = isset($peso_equivalent[$index]) ? floatval(str_replace(',', '', $peso_equivalent[$index])) : 0;
+
+                $insert_query = "INSERT INTO bales_sales_payment (sales_id, currency, date, details, amount_paid, rate, pesos_equivalent) 
+        VALUES ('$sales_id', '$sale_currency', '$date', '$details', '$amount', '$rate', '$equivalent')";
+
+                if (!mysqli_query($con, $insert_query)) {
+                    die('Insert Query Failed: ' . mysqli_error($con));
+                }
+            }
+        }
+    }
+
+
+
 
     // SQL to get all container_id for a given sales_id
     $sql = "SELECT sales_id,container_id FROM bales_sales_container WHERE sales_id = '$sales_id'";
@@ -159,34 +193,3 @@ if (mysqli_query($con, $query)) {
     echo 'Update query failed: ' . mysqli_error($con);
     exit();
 }
-
-
-
-
-
-    // // Executing the query
-    // $results = mysqli_query($con, $query);
-
-    // if ($results) {
-
-    //     $sql = "SELECT shipment_id,container_id FROM bales_shipment_container WHERE shipment_id  = '$ship_id'";
-    //     $selected_container = mysqli_query($con, $sql);
-
-    //     while ($row = mysqli_fetch_assoc($selected_container)) {
-    //         $container_id = $row['container_id'];
-    //         $num_bales = $row['num_bales'];
-
-    //         $update = "UPDATE bales_container_record SET 
-    //         status = 'Shipped Out',shipping_expense='$ship_cost_per_container' WHERE container_id = '$container_id'";
-    //         mysqli_query($con, $update);
-    //     }
-
-    //     header("Location: ../bale_shipment_record.php");  // Change this to your desired location
-
-
-
-    //     exit();
-    // } else {
-    //     echo "ERROR: Could not be able to execute the query. " . mysqli_error($con);
-    // }
-    // exit();

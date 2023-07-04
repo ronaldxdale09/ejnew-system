@@ -51,7 +51,7 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $sql = "SELECT * FROM dry_price_transfer ORDER BY dry_id desc";
+                                        $sql = "SELECT * FROM dry_price_transfer WHERE loc='$loc' ORDER BY dry_id desc";
                                         $result = mysqli_query($con, $sql);
                                         if (mysqli_num_rows($result) > 0) {
                                             while($row = mysqli_fetch_assoc($result)) {

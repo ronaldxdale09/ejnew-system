@@ -8,7 +8,7 @@
       }
 
 
-      $loc = $_SESSION['loc'];
+      $loc = str_replace(' ', '', $_SESSION['loc']);
 
     $sql = mysqli_query($con, "SELECT SUM(reweight) as inventory from  planta_recording where status='Field' and planta_recording.source ='$loc'   "); 
     $cuplumps = mysqli_fetch_array($sql);

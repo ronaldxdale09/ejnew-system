@@ -2,6 +2,8 @@
 include('db.php');
 
 if (isset($_POST['add'])) {
+    $source = $_SESSION['loc'];
+
     $supplier = $_POST['supplier'];
     $location = $_POST['loc'];
     $date = $_POST['date'];
@@ -19,8 +21,8 @@ if (isset($_POST['add'])) {
     $recorded_by = $_POST['recorded_by'];
     
 
-    $query = "INSERT INTO ejn_rubber_transfer (type,date,supplier, location, total_buying_weight, total_purchase_cost, ave_kiloCost, remarks, recorded_by,planta_status) 
-              VALUES ('EJN','$date','$supplier', '$location', '$total_buying_weight', '$total_purchase_cost', '$ave_kiloCost', '$remarks', '$recorded_by','1')";
+    $query = "INSERT INTO ejn_rubber_transfer (type,date,supplier, location, total_buying_weight, total_purchase_cost, ave_kiloCost, remarks, recorded_by,planta_status,source) 
+              VALUES ('EJN','$date','$supplier', '$location', '$total_buying_weight', '$total_purchase_cost', '$ave_kiloCost', '$remarks', '$recorded_by','1','$source')";
     $results = mysqli_query($con, $query);
 
     if ($results) {

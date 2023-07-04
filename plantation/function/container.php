@@ -1,7 +1,7 @@
 <?php 
     include('db.php');
     if (isset($_POST['new'])) {
-
+        $loc = str_replace(' ', '', $_SESSION['loc']);
         $container_no = $_POST['container_no'];
         $withdrawal_date = $_POST['n_date'];
         $quality = $_POST['quality'];
@@ -10,8 +10,8 @@
         $recorded = $_POST['recorded'];
         $van_no = $_POST['van_no'];
         // Creating the SQL query
-        $query = "INSERT INTO bales_container_record (container_no, withdrawal_date, quality, kilo_bale, remarks, recorded_by,status,van_no) 
-                                VALUES ('$container_no', '$withdrawal_date', '$quality', '$kilo_bale', '$remarks', '$recorded', 'Draft','$van_no')";
+        $query = "INSERT INTO bales_container_record (container_no, withdrawal_date, quality, kilo_bale, remarks, recorded_by,status,van_no,source) 
+                                VALUES ('$container_no', '$withdrawal_date', '$quality', '$kilo_bale', '$remarks', '$recorded', 'Draft','$van_no','$loc')";
 
         // Executing the query
         $results = mysqli_query($con, $query);
@@ -51,7 +51,7 @@
        WHERE container_id = '$id'";
        mysqli_query($con, $sql);
 
-       header("Location: ../bales_container_record.php");  // Change this to your desired location
+       header("Location: ../container_record.php");  // Change this to your desired location
            exit();
             
         }

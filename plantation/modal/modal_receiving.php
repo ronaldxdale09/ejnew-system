@@ -1,11 +1,12 @@
 <?php
+$loc = str_replace(' ', '', $_SESSION['loc']); 
 
 $sql = "
-(SELECT id, seller, type, net_weight as weight FROM rubber_transaction WHERE planta_status = 1 AND supplier_type = 0)
+(SELECT id, seller, type, net_weight as weight FROM rubber_transaction WHERE planta_status = 1 AND supplier_type = 0 AND loc = '$loc')
 UNION ALL
-(SELECT ejn_id as id, supplier as seller, type, total_buying_weight as weight FROM ejn_rubber_transfer WHERE planta_status = 1)
+(SELECT ejn_id as id, supplier as seller, type, total_buying_weight as weight FROM ejn_rubber_transfer WHERE planta_status = 1 AND source = '$loc')
 UNION ALL
-(SELECT dry_id as id, seller as seller, type, net as weight FROM dry_price_transfer WHERE planta_status = 1)
+(SELECT dry_id as id, seller as seller, type, net as weight FROM dry_price_transfer WHERE planta_status = 1 AND loc = '$loc')
 ORDER BY id;
 ";
 

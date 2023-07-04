@@ -1,6 +1,5 @@
 <?php
-  $loc = $_SESSION['loc'];
- $get = mysqli_query($con, "SELECT  COUNT(*) from rubber_seller where loc='$loc'  "); 
+  $loc = str_replace(' ', '', $_SESSION['loc']); $get = mysqli_query($con, "SELECT  COUNT(*) from rubber_seller where loc='$loc'  "); 
  $sellerCount = mysqli_fetch_array($get);
 
   $generate= sprintf("%'03d", $sellerCount[0]+1);

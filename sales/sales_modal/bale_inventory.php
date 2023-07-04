@@ -13,7 +13,7 @@ $rubberTypes = ['5L', 'SPR-5', 'SPR-10', 'SPR-20', 'Off Color'];
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="function/bale_shipment.php" method="POST">
+            <form action="function/balePurchase.php" method="POST">
 
                 <div class="modal-body">
 
@@ -34,15 +34,15 @@ $rubberTypes = ['5L', 'SPR-5', 'SPR-10', 'SPR-20', 'Off Color'];
                         <div class="col">
                             <label style='font-size:15px' class="col-md-12">Recorded by:</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='recorded_by' autocomplete='off' style="width: 100px;" />
+                                <input type="text" class="form-control" name='recorded_by' value='<?php echo $name?>'autocomplete='off' style="width: 100px;" />
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-7">
+                        <div class="col">
                             <label style='font-size:15px' class="col-md-12">Supplier</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='destination' autocomplete='off' style="width: 100px;" required />
+                                <input type="text" class="form-control" name='supplier' autocomplete='off' style="width: 100px;" required />
                             </div>
                         </div>
 
@@ -69,10 +69,6 @@ $rubberTypes = ['5L', 'SPR-5', 'SPR-10', 'SPR-20', 'Off Color'];
                             </div>
                         </div>
                     </div>
-
-
-
-
                     <button class="btn btn-warning" type="button" id="addRow">+ Add Bale</button> <br> <br>
                     <table class="table table-bordered" id="rubber-table">
                         <thead>
@@ -81,7 +77,7 @@ $rubberTypes = ['5L', 'SPR-5', 'SPR-10', 'SPR-20', 'Off Color'];
                                 <th scope="col" width="15%">Kilo Per Bale</th>
                                 <th scope="col">Weight (kg)</th>
                                 <th scope="col">No. of Bale</th>
-                                <th scope="col" width="22%">Remarks</th>
+                                <th scope="col" width="25%">Remarks</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -95,42 +91,40 @@ $rubberTypes = ['5L', 'SPR-5', 'SPR-10', 'SPR-20', 'Off Color'];
                             <label class="form-label">Purchase Cost</label>
                             <div class="input-group">
                                 <span class="input-group-text">₱</span>
-                                <input type="text" style='font-size:19px' class="form-control text-center" id="purchase_cost" required>
+                                <input type="text" style='font-size:19px' class="form-control text-center" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" name="purchase_cost" required>
                             </div>
                         </div>
                         <div class="col">
                             <label class="form-label">Total Weight</label>
                             <div class="input-group">
-                                <input type="text" style='font-size:19px' class="form-control text-center" id="p_u_total_weight" readonly>
+                                <input type="text" style='font-size:19px' class="form-control text-center" name='total_weight' id="total_weight" readonly>
                                 <span class="input-group-text">kg</span>
                             </div>
                         </div>
-
                     </div>
-                    <br>
+
                     <div class="row mb-3">
                         <div class="col">
-                            <label class="form-label">Itemized Expenses</label>
+                            <label class="form-label">List of Expenses</label>
                             <div class="input-group">
-                                <input type="text" style='font-size:19px' class="form-control text-center" name='expense_desc' id="u_expense_desc" placeholder='Expense Description'>
+                                <input type="text" style='font-size:19px' class="form-control text-center" name='expense_desc'>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-3">
                             <label class="form-label">Expense Amount</label>
                             <div class="input-group">
                                 <span class="input-group-text">₱</span>
-                                <input type="text" style='font-size:19px' class="form-control text-center" id="u_expense" name='expense' onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
+                                <input type="text" style='font-size:19px' class="form-control text-center" name='expense' onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
                             </div>
                         </div>
-
-                    </div>
-                    <div class="col">
-                        <label style='font-size:15px' class="col-md-12">Remarks:</label>
-                        <div class="input-group mb-3">
-                            <textarea type="text" name="remarks" rows="5" class="form-control"></textarea>
+                        <div class="col-3">
+                            <label class="form-label">Average Kilo Cost</label>
+                            <div class="input-group">
+                                <span class="input-group-text">₱</span>
+                                <input type="text" style='font-size:19px' readonly class="form-control text-center" name='expense' onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
+                            </div>
                         </div>
                     </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -155,14 +149,14 @@ $rubberTypes = ['5L', 'SPR-5', 'SPR-10', 'SPR-20', 'Off Color'];
             var newRow = $('<tr>' +
                 '<td>' +
                 '<select class="form-control type" name="type[]" autocomplete="off" step="any" style="font-weight:normal;">' +
-                '<option selected="selected" disabled value="" style="font-weight:normal;">Choose Quality </option>' +
+                '<option selected="selected" disabled value="" style="font-weight:normal;">Select...</option>' +
                 selectOptions + '</select>' +
                 '</td>' +
                 '<td>' +
                 '<div class="input-group">' +
                 '<select class="form-control kilo_bale" name="kilo_bale[]" id="kilo_bale_new' + counter + '" style="font-weight:normal;">' +
-                '<option selected="selected" disabled value="" style="font-weight:normal;">Choose Kilo</option>' +
-                '<option value="35">35 kg</option>' +
+                '<option selected="selected" disabled value="" style="font-weight:normal;">Select...</option>' +
+                '<option value="35">35.00 kg</option>' +
                 '<option value="33.33">33.33 kg</option>' +
                 '</select>' +
                 '</div>' +
@@ -238,7 +232,7 @@ $rubberTypes = ['5L', 'SPR-5', 'SPR-10', 'SPR-20', 'Off Color'];
         });
 
         // Update the corresponding fields with the calculated values
-        $("#p_u_total_weight").val(totalWeight.toLocaleString("en-US", {
+        $("#total_weight").val(totalWeight.toLocaleString("en-US", {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
         }));

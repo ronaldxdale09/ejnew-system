@@ -1,7 +1,7 @@
 <?php
 include 'include/header.php';
 include 'include/navbar.php';
-
+$loc = str_replace(' ', '', $_SESSION['loc']);
 ?>
 
 <style>
@@ -39,7 +39,7 @@ include 'include/navbar.php';
                                 bales_container_record.total_bale_weight as total_weight 
                                 from bales_container_record
                                 LEFT JOIN bales_container_selection ON bales_container_selection.container_id =  bales_container_record.container_id
-                                    where status !='Void'
+                                    where status !='Void' and source = '$loc'
                                 GROUP BY bales_container_record.container_id");
 
 

@@ -2,17 +2,17 @@
 $today = date('Y-m-d');
 ?>
 <!-- Add New Container Modal -->
-<div class="modal fade" id="newCuplumpShipment" tabindex="-1" role="dialog" aria-labelledby="newContainerLabel"
+<div class="modal fade" id="newShipment" tabindex="-1" role="dialog" aria-labelledby="newContainerLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="newContainerLabel">New Bales Shipment</h5>
+                <h5 class="modal-title" id="newContainerLabel">New Cuplump Shipment</h5>
                 <button type="button" class="btn text-white close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="function/bale_shipment.php" method="POST">
+            <form action="function/cuplump_shipment.php" method="POST">
 
                 <div class="modal-body">
       
@@ -82,7 +82,7 @@ $today = date('Y-m-d');
                             <label style='font-size:15px' class="col-md-12">Recorded by:</label>
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" name='recorded_by'
-                                    autocomplete='off' style="width: 100px;" />
+                                    autocomplete='off' value='<?php echo $name?>' style="width: 100px;" />
                             </div>
                         </div>
                     </div>

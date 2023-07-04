@@ -30,8 +30,7 @@ include 'include/navbar.php';
                         <br>
 
                         <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
-                            <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#newContainer">NEW CONTAINER</button>
-                            <hr>
+                           
                             <div class="table-responsive">
                                 <?php
                                 $results  = mysqli_query($con, "SELECT *, bales_container_record.container_id as con_id,

@@ -9,8 +9,7 @@
     exit();
 }
 
-$loc = $_SESSION['loc'];
-$user_name = $_SESSION["username"];
+$loc = str_replace(' ', '', $_SESSION['loc']);$user_name = $_SESSION["full_name"];
 ?>
 <html>
 

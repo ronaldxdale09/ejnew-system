@@ -5,8 +5,7 @@
                    
                             $date = $_POST['date'];
                             $recorded_by = $_POST['recorded_by'];
-                            $loc = $_SESSION['loc'];
-
+                            $loc = str_replace(' ', '', $_SESSION['loc']);
                                 $query = "INSERT INTO rubber_transaction (date,recorded_by,loc) 
                                         VALUES ('$date','$recorded_by','$loc')";
                                 $results = mysqli_query($con, $query);
