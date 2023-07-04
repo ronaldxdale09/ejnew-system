@@ -41,16 +41,15 @@ include 'include/navbar.php';
                                     <thead class="table-dark text-center" style="font-size: 14px !important">
                                         <tr>
                                             <th scope="col">Status</th>
-                                            <th scope="col">Shipping ID</th>
-                                            <th scope="col">Type</th>
+                                            <th scope="col">Ship. ID</th>
                                             <th scope="col">Date</th>
+                                            <th scope="col">Type</th>
                                             <th scope="col">Source</th>
                                             <th scope="col">Destination</th>
-
                                             <th scope="col">Shipping Expense</th>
-                                            <th scope="col">No. of Containers</th>
-                                            <th scope="col">Number of Bales</th>
-                                            <th scope="col">Total Bale Weight</th>
+                                            <th scope="col">Containers</th>
+                                            <th scope="col">No. of Bales</th>
+                                            <th scope="col">Bale Weight</th>
                                             <th scope="col">Remarks</th>
                                             <th scope="col"></th>
                                         </tr>
@@ -74,16 +73,16 @@ include 'include/navbar.php';
                                             <tr>
                                                 <td> <span class="badge <?php echo $status_color; ?>">
                                                         <?php echo $row['status'] ?>
-                                                <td><?php echo $row['shipment_id']; ?></td>
-                                                <td><?php echo $row['type']; ?></td>
+                                                <td class="text-center"><?php echo $row['shipment_id']; ?></td>
                                                 <td><?php echo date('F j, Y', strtotime($row['ship_date'])); ?></td>
+                                                <td><?php echo $row['type']; ?></td>
                                                 <td><?php echo $row['source']; ?></td>
                                                 <td><?php echo $row['destination']; ?></td>
                                                 <td class="number-cell">₱
                                                     <?php echo number_format($row['total_shipping_expense'], 2, '.', ','); ?>
                                                 </td>
-                                                <td class="number-cell">
-                                                    <?php echo $row['no_containers']; ?> containers
+                                                <td class="text-center">
+                                                    <?php echo $row['no_containers']; ?>
                                                 </td>
                                                 <td class="number-cell">
                                                     <?php echo number_format($row['total_num_bales'], 0, '.', ','); ?> pcs
@@ -144,9 +143,8 @@ include 'include/navbar.php';
             }).get();
 
             $('#v_ship_id').val(data[1]);
-
-            $('#v_type').val(data[2]);
-            $('#v_date').val(data[3]);
+            $('#v_type').val(data[3]);
+            $('#v_date').val(data[2]);
             $('#v_source').val(data[4]);
             $('#v_destination').val(data[5]);
 

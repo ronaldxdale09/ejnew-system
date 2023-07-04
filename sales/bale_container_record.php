@@ -48,11 +48,10 @@ include 'include/navbar.php';
                                     <thead class="table-dark text-center" style="font-size: 14px !important">
                                         <tr>
                                             <th scope="col">Status</th>
-                                            <th scope="col">Ref No.</th>
+                                            <th scope="col">Contr ID</th>
                                             <th scope="col">Withdrawal Date</th>
                                             <th scope="col">Van No.</th>
                                             <th scope="col">Bale Quality</th>
-                                            <th scope="col">Kilo per Bale</th>
                                             <th scope="col">No. of Bales</th>
                                             <th scope="col">Total Weight</th>
                                             <th scope="col">Bale Cost</th>
@@ -93,13 +92,10 @@ include 'include/navbar.php';
                                                         <?php echo $row['status'] ?>
                                                     </span>
                                                 </td>
-                                                <td><?php echo $row['con_id']; ?></td>
-                                                <td><?php echo date('M d, Y', strtotime($row['withdrawal_date'])); ?></td>
+                                                <td class="text-center"><?php echo $row['con_id']; ?></td>
+                                                <td><?php echo date('M j, Y', strtotime($row['withdrawal_date'])); ?></td>
                                                 <td><?php echo $row['van_no']; ?></td>
-                                                <td><?php echo $row['quality']; ?></td>
-                                                <td class="number-cell">
-                                                    <?php echo $row['kilo_bale']; ?>
-                                                </td>
+                                                <td><?php echo $row['quality']; ?> @ <?php echo $row['kilo_bale']; ?> kg</td>
                                                 <td class="number-cell">
                                                     <?php echo number_format($row['total_bales'], 0, '.', ','); ?> pcs
                                                 </td>
@@ -107,10 +103,10 @@ include 'include/navbar.php';
                                                     <?php echo number_format($row['total_weight'], 0, '.', ','); ?> kg
                                                 </td>
                                                 <td class="number-cell"> ₱
-                                                    <?php echo number_format($row['total_bale_cost'], 2, '.', ','); ?>
+                                                    <?php echo number_format($row['total_bale_cost'], 0, '.', ','); ?>
                                                 </td>
                                                 <td class="number-cell"> ₱
-                                                    <?php echo number_format($row['total_milling_cost'], 2, '.', ','); ?>
+                                                    <?php echo number_format($row['total_milling_cost'], 0, '.', ','); ?>
                                                 </td>
                                                 <td><?php echo $row['remarks']; ?></td>
                                                 <td hidden><?php echo $row['recorded_by']; ?></td>
@@ -172,9 +168,9 @@ include 'include/navbar.php';
             $('#v_date').val(data[2]);
             $('#v_van').val(data[3]);
             $('#v_quality').val(data[4]);
-            $('#v_kilo').val(data[5]);
-            $('#v_remarks').val(data[10]);
-            $('#v_recorded').val(data[11]);
+            $('#v_kilo').val(data[4]);
+            $('#v_remarks').val(data[9]);
+            $('#v_recorded').val(data[10]);
 
 
 

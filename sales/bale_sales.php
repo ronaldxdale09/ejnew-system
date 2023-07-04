@@ -118,11 +118,10 @@ if (isset($_GET['id'])) {
                     <button type="button" class="btn trans-btn btn-secondary btnReturn">
                         <span class="fas fa-arrow-left"></span> Return
                     </button>
-                    <button type="button" class="btn trans-btn btn-warning btnDraft"><span
-                            class="fas fa-info-circle"></span> Save as Draft</button>
-
                     <button type="button" class="btn trans-btn btn-danger btnVoid"> <span class="fas fa-times"></span>
                         Void</button>
+                    <button type="button" class="btn trans-btn btn-warning btnDraft"><span
+                            class="fas fa-info-circle"></span> Save as Draft</button>
                     <button type="button" class="btn trans-btn btn-primary confirmSales" id="confirmSales"><span
                             class="fas fa-check"></span>
                         Confirm
@@ -209,7 +208,7 @@ if (isset($_GET['id'])) {
                                 <div class="col-2">
                                     <label style='font-size:15px' class="col-md-12">Transaction Date </label>
                                     <div class="col-md-12">
-                                        <input type="date" class='form-control' id="trans_date" name="trans_date">
+                                        <input type="date" class='form-control' id="trans_date" name="trans_date" required>
                                     </div>
                                 </div>
                             </div>
@@ -220,7 +219,7 @@ if (isset($_GET['id'])) {
                                     <label style='font-size:15px' class="col-md-12">Buyer Name</label>
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control" name='sale_buyer' id='sale_buyer'
-                                            tabindex="7" autocomplete='off' style="width: 100px;" />
+                                            tabindex="7" autocomplete='off' style="width: 100px;" required />
                                     </div>
                                 </div>
 
@@ -236,7 +235,7 @@ if (isset($_GET['id'])) {
                                     <label style='font-size:15px' class="col-md-12">Source</label>
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control" name='sale_source' id='sale_source'
-                                            tabindex="7" autocomplete='off' style="width: 100px;" />
+                                            tabindex="7" autocomplete='off' style="width: 100px;" required />
                                     </div>
                                 </div>
                                 <div class="col">
@@ -258,7 +257,7 @@ if (isset($_GET['id'])) {
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control" name='contract_contaier'
                                             id='contract_contaier' tabindex="7" autocomplete='off'
-                                            style="width: 100px;" />
+                                            style="width: 100px;" required />
                                     </div>
                                 </div>
                                 <div class="col-2">
@@ -275,7 +274,7 @@ if (isset($_GET['id'])) {
                                     <label style='font-size:15px' class="col-md-12">Currency</label>
                                     <div class="input-group mb-3">
                                         <select class="form-select" id="sale_currency" name="sale_currency"
-                                            style="width: 100px;">
+                                            style="width: 100px;" required>
                                             <option selected disabled>Choose...</option>
                                             <option value="PHP">PHP ₱</option>
                                             <option value="USD">USD $</option>
@@ -288,7 +287,7 @@ if (isset($_GET['id'])) {
                                     <label style='font-size:15px' class="col-md-12">Price per Kilo</label>
                                     <div class="input-group mb-3">
                                         <input type="number" class="form-control contract_price" name='contract_price'
-                                            id='contract_price'>
+                                            id='contract_price' required>
                                     </div>
                                 </div>
                                 <div class="col">
@@ -445,6 +444,17 @@ if (isset($_GET['id'])) {
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="col-4">
+                                    <!-- SUM OF TOTAL BALE AND PRODUCTION COST AND TOTAL SHIPPING EXPENSE -->
+                                    <label style="font-size:15px" class="col-md-12">OVERALL COST</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">₱</span>
+                                        </div>
+                                        <input type="text" class="form-control" name="over_all_cost" id="over_all_cost"
+                                            readonly style="width: 100px;" />
+                                    </div>
+                                </div>
                                 <div class="col">
                                     <label style='font-size:15px' class="col-md-12">Total Bale Cost</label>
                                     <div class="input-group mb-3">
@@ -473,18 +483,8 @@ if (isset($_GET['id'])) {
                                             id='total_ship_exp' style="width: 100px;" readonly />
                                     </div>
                                 </div>
-                                <div class="col-4">
-                                    <!-- SUM OF TOTAL BALE AND PRODUCTION COST AND TOTAL SHIPPING EXPENSE -->
-                                    <label style="font-size:15px" class="col-md-12">OVERALL COST</label>
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">₱</span>
-                                        </div>
-                                        <input type="text" class="form-control" name="over_all_cost" id="over_all_cost"
-                                            readonly style="width: 100px;" />
-                                    </div>
-                                </div>
                             </div>
+                            <hr>
                             <div class="row justify-content-center">
                                 <div class="col-6">
                                     <!-- DIFFERENCE SALE PROCEEDS AND OVERALL COST -->
@@ -500,16 +500,11 @@ if (isset($_GET['id'])) {
                             </div>
                         </div>
                     </div>
+                    <br>
                 </div>
             </form>
         </div>
     </div>
-
-    <br>
-    <br>
-    <br>
-    <br>
-
 </body>
 
 </html>
