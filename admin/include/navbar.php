@@ -1,8 +1,7 @@
 <nav id='navbar'>
     <div id='toggle-nav-btn'>
         <div class='nav-title' style='font-weight:bold;'>
-            <img src='assets/img/logo.png' alt='Q-cart Logo' width='35' height='35' style='margin-right:5px;'> <span
-                class='nav-text'>EJN RUBBER</span>
+            <img src='assets/img/logo.png' alt='Q-cart Logo' width='35' height='35' style='margin-right:5px;'> <span class='nav-text'>EJN RUBBER</span>
         </div>
     </div>
 
@@ -25,22 +24,22 @@
     <a class='nav-link' href='bale_sale_record.php'>
         <i class='fas fa-chart-line'></i> <span class='nav-text'>Bales Sales Record</span>
     </a>
+    <a class='nav-link' href='bale_shipment_record.php'>
+        <i class='fa-solid fa-ship'></i> <span class='nav-text'>Bale Shipment</span>
+    </a>
     <hr style='color:gray'>
 
-
-    <a>Basilan Rubber</a>
-    <a class='nav-link' href='inv_bale.php' style='margin-left: 20px; font-size: 18px;'> <i class='fas fa-cube'></i>
+    <a class='nav-link' href='inv_bale.php'> <i class='fas fa-cube'></i>
         <span class='nav-text'>Bale Inventory</span>
     </a>
-    <a class='nav-link' href='inv_cuplump.php' style='margin-left: 20px; font-size: 18px;'> <i class='fas fa-tree'></i>
+    <a class='nav-link' href='inv_cuplump.php'> <i class='fas fa-tree'></i>
         <span class='nav-text'>Cuplump Inventory</span>
     </a>
 
-    <a class='nav-link' href='container_record.php' style='margin-left: 20px; font-size: 18px;'> <i class='fas fa-shipping-fast'></i>
+    <a class='nav-link' href='container_record.php'> <i class='fas fa-shipping-fast'></i>
         <span class='nav-text'>Container Record</span>
     </a>
-    <a class='nav-link' href='record_allrubber.php' style='margin-left: 20px; font-size: 18px;'><i
-            class='fas fa-file-alt'></i>
+    <a class='nav-link' href='record_allrubber.php'><i class='fas fa-file-alt'></i>
         <span class='nav-text'>Transaction Record</span>
     </a>
 

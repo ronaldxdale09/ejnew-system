@@ -186,6 +186,9 @@ $loc = str_replace(' ', '', $_SESSION['loc']);
             } else if (status == 'Released') {
                 $('#editButton').hide();
                 $('#releaseButton').hide();
+            } else if (status == 'Sold') {
+                $('#editButton').hide();
+                $('#releaseButton').hide();
             } else {
                 $('#releaseButton').hide();
             }

@@ -38,14 +38,10 @@
 
                     <td class="text-center">
                         <div style="display: flex;">
-                            <button type="button" data-crumbed='<?php echo $row['crumbed_weight']?>'
-                                    data-expense_desc='<?php echo $row['prod_expense_desc']?>'
-                                    data-dry='<?php echo $row['dry_weight']?>' 
-                                    class="btn btn-success btn-sm btnPressUpdate">
+                            <button type="button" data-crumbed='<?php echo $row['crumbed_weight'] ?>' data-expense_desc='<?php echo $row['prod_expense_desc'] ?>' data-dry='<?php echo $row['dry_weight'] ?>' class="btn btn-success btn-sm btnPressUpdate">
                                 <i class="fas fa-book"></i>
                             </button>
-                            <button type="button" data-expense_desc='<?php echo $row['prod_expense_desc']?>'
-                                    class="btn btn-warning btn-sm btnCompletePressing">
+                            <button type="button" data-expense_desc='<?php echo $row['prod_expense_desc'] ?>' class="btn btn-warning btn-sm btnCompletePressing">
                                 <i class="fas fa-chevron-right"> </i>
                             </button>
                         </div>
@@ -232,5 +228,39 @@
         $('#modal_dry_record').modal('show');
 
 
+    });
+
+
+
+
+    var table = $('#recording_table-pressing').DataTable({
+        dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
+        order: [
+            [0, 'desc']
+        ],
+        buttons: [{
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                }
+            },
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                }
+            },
+
+        ],
+        lengthChange: false,
+        orderCellsTop: true,
+        paging: false,
+        info: false,
     });
 </script>

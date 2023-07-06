@@ -17,6 +17,7 @@
         $type = $_POST['type'];
         $expense_desc = $_POST['expense_desc'];
         $expense = $_POST['expense'];
+        $expense = preg_replace("/[^0-9.]/", "", $expense);
     
         $entry_weight = str_replace(',', '', $_POST['entry_weight']);
     

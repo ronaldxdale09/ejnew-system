@@ -25,8 +25,9 @@
             <button class='btn btn-secondary' id="this-week">This Week</button>
             <button class='btn btn-dark' id="this-month">This Month</button>
         </div>
-        <button type="button" class="btn btn-warning text-dark btnSelectTrans" id='receiptBtn'  data-toggle="modal" data-target="#balesExcess">
-            <span class="fa fa-cubes"></span> Bale Excess</button>
+        <button type="button" class="btn btn-warning text-dark btnExcess" id='btnExcess'>
+            <span class="fa fa-cubes"></span> Bale Excess
+        </button>
     </div>
     <hr>
     <table class="table table-bordered table-hover table-striped table-responsive" style='width:100%' id="recording_table-produced">
@@ -249,5 +250,16 @@
         fetch_record();
 
 
+    });
+
+
+    $('.btnExcess').on('click', function() {
+        Swal.fire({
+            position: 'center',
+            icon: 'info',
+            title: 'Under Development!',
+            showConfirmButton: false,
+            timer: 1500
+        })
     });
 </script>
