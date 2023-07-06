@@ -19,8 +19,8 @@ $today = date('Y-m-d');
                         <div class="col">
                             <label style='font-size:15px' class="col-md-12">Type</label>
                             <div class="input-group mb-3">
-                                <select class="form-select" name="type" style="width: 100px;">
-                                    <option>Select</option>
+                                <select class="form-select" name="type" style="width: 100px;" required>
+                                    <option select disabled>Select</option>
                                     <option value="EXPORT">Export</option>
                                     <option value="LOCAL">Local</option>
                                 </select>
@@ -30,7 +30,7 @@ $today = date('Y-m-d');
                             <label style='font-size:15px' class="col-md-12">Shipment Date
                                 Date</label>
                             <div class="col-md-12">
-                                <input type="date" class='form-control' value="<?php echo $today; ?>" name="n_date" require>
+                                <input type="date" class='form-control' value="<?php echo $today; ?>" name="n_date" required>
                             </div>
                         </div>
                     </div>
@@ -38,13 +38,13 @@ $today = date('Y-m-d');
                         <div class="col">
                             <label style='font-size:15px' class="col-md-12">Destination</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='destination' autocomplete='off' style="width: 100px;" />
+                                <input type="text" class="form-control" name='destination' autocomplete='off' style="width: 100px;" required/>
                             </div>
                         </div>
                         <div class="col">
                             <label style='font-size:15px' class="col-md-12">Source</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='source' autocomplete='off' style="width: 100px;" />
+                                <input type="text" class="form-control" name='source' autocomplete='off' style="width: 100px;" required />
                             </div>
                         </div>
                     </div>
@@ -52,7 +52,7 @@ $today = date('Y-m-d');
                         <div class="col">
                             <label style='font-size:15px' class="col-md-12">Vessel</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='vessel' autocomplete='off' style="width: 100px;" />
+                                <input type="text" class="form-control" name='vessel' autocomplete='off' style="width: 100px;" required/>
                             </div>
                         </div>
                         <div class="col">
@@ -72,9 +72,9 @@ $today = date('Y-m-d');
                             </div>
                         </div>
                         <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Recorded by:</label>
+                            <label style='font-size:15px' class="col-md-12">Recorded by</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='recorded_by' autocomplete='off' style="width: 100px;" />
+                                <input type="text" class="form-control" name='recorded_by' autocomplete='off' style="width: 100px;" required />
                             </div>
                         </div>
                     </div>
@@ -136,15 +136,15 @@ $today = date('Y-m-d');
                             </div>
                         </div>
                         <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Destination</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" id='v_destination' autocomplete='off' style="width: 100px;" readonly />
-                            </div>
-                        </div>
-                        <div class="col">
                             <label style='font-size:15px' class="col-md-12">Source</label>
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" id='v_source' autocomplete='off' style="width: 100px;" readonly />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label style='font-size:15px' class="col-md-12">Destination</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id='v_destination' autocomplete='off' style="width: 100px;" readonly />
                             </div>
                         </div>
                         <div class="col">
@@ -162,8 +162,7 @@ $today = date('Y-m-d');
                             </div>
                         </div>
                         <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Bill of
-                                Lading</label>
+                            <label style='font-size:15px' class="col-md-12">Bill of Lading</label>
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" id='v_bill_lading' autocomplete='off' style="width: 100px;" readonly />
                             </div>

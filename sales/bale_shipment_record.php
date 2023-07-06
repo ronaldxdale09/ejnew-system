@@ -51,6 +51,7 @@ include 'include/navbar.php';
                                             <th scope="col">No. of Bales</th>
                                             <th scope="col">Bale Weight</th>
                                             <th scope="col">Remarks</th>
+                                            <th scope="col" hidden>Recorded by</th>
                                             <th scope="col"></th>
                                         </tr>
                                     </thead>
@@ -91,6 +92,7 @@ include 'include/navbar.php';
                                                     <?php echo number_format($row['total_bale_weight'], 0, '.', ','); ?> kg
                                                 </td>
                                                 <td><?php echo $row['remarks']; ?></td>
+                                                <td hidden><?php echo $row['recorded_by']; ?></td>
                                                 <td>
                                                     <button type="button" class="btn btn-success btn-sm btnViewRecord" data-status="<?php echo $row['status']; ?>" data-vessel="<?php echo $row['vessel']; ?>" data-bill_lading="<?php echo $row['bill_lading']; ?>" data-recorded="<?php echo $row['recorded_by']; ?>" data-freight="<?php echo $row['freight']; ?>" data-loading="<?php echo $row['loading_unloading']; ?>" data-processing="<?php echo $row['processing_fee']; ?>" data-trucking="<?php echo $row['trucking_expense']; ?>" data-cranage="<?php echo $row['cranage_fee']; ?>" data-misc="<?php echo $row['miscellaneous']; ?>" data-total_expense="<?php echo $row['total_shipping_expense']; ?>" data-num_containers="<?php echo $row['no_containers']; ?>" data-cost_per_container="<?php echo $row['ship_cost_container']; ?>">
                                                         <i class="fas fa-book"></i>
@@ -149,6 +151,7 @@ include 'include/navbar.php';
             $('#v_destination').val(data[5]);
 
             $('#v_remarks').val(data[10]);
+            $('#v_recorded_by').val(data[11]);
 
 
             var vessel = $(this).data('vessel');

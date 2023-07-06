@@ -47,11 +47,13 @@ include "include/navbar.php";
                                             <th scope="col">Buyer </th>
                                             <th scope="col">Bale Quality</th>
                                             <th scope="col">No. of Bales</th>
-                                            <th scope="col">No. of Containers</th>
+                                            <th scope="col" hidden>No. of Containers</th>
                                             <th scope="col">Kilo Price</th>
-                                            <th scope="col">Sale Proceed</th>
-                                            <th scope="col">Overall Cost </th>
-                                            <th scope="col">Profit/Loss</th>
+                                            <th scope="col">Kilo Cost</th>
+                                            <th scope="col" hidden>Sale Proceed</th>
+                                            <th scope="col" hidden>Overall Cost </th>
+                                            <th scope="col">Balance</th>
+                                            <th scope="col" hidden>Profit/Loss</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -85,15 +87,17 @@ include "include/navbar.php";
                                             <td> <?php echo $row['sale_type'] ?> | <?php echo $row['buyer_name'] ?>
                                             </td>
                                             <td> <?php echo $row['contract_quality'] ?> @
-                                                <?php echo number_format($row['contract_kiloPerBale'], 2) ?> kg</td>
+                                                <?php echo $row['contract_kiloPerBale'] ?> kg</td>
                                             <td> <?php echo $row['total_num_bales'] ?> pcs</td>
-                                            <td class="text-center"><?php echo $row['contract_container_num'] ?>/<?php echo $row['no_containers'] ?>
+                                            <td class="text-center" hidden><?php echo $row['contract_container_num'] ?>/<?php echo $row['no_containers'] ?>
                                             </td>
                                             <td><?php echo $row['currency'] ?>
                                                 <?php echo number_format($row['contract_price'],2 )?> </td>
-                                            <td>₱ <?php echo number_format($row['total_sales'],0 )?> </td>
-                                            <td>₱ <?php echo number_format($row['overall_cost'],0 )?> </td>
-                                            <td>₱ <?php echo number_format($row['gross_profit'],0 )?> </td>
+                                            <td hidden>₱ <?php echo number_format($row['total_sales'],0 )?> </td>
+                                            <td hidden>₱ <?php echo number_format($row['overall_cost'],0 )?> </td>
+                                            <td><i>Updating</i></td>
+                                            <td><i>Updating</i></td>
+                                            <td hidden>₱ <?php echo number_format($row['gross_profit'],0 )?> </td>
                                             <td class="text-center">
                                                 <button type="button" class="btn btn-success btn-sm btnViewRecord"
                                                     data-status="<?php echo $row['status']; ?>"

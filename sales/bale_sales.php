@@ -253,7 +253,7 @@ if (isset($_GET['id'])) {
 
                             <div class="row">
                                 <div class="col-2">
-                                    <label style='font-size:15px' class="col-md-12">No. of Containers</label>
+                                    <label style='font-size:15px' class="col-md-12">No. of Expected Containers</label>
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control" name='contract_contaier'
                                             id='contract_contaier' tabindex="7" autocomplete='off'
@@ -261,7 +261,7 @@ if (isset($_GET['id'])) {
                                     </div>
                                 </div>
                                 <div class="col-2">
-                                    <label style='font-size:15px' class="col-md-12">Quantity (e.g 21,000)</label>
+                                    <label style='font-size:15px' class="col-md-12">Kilo Quantity (e.g 21,000)</label>
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control" name='contract_quantity'
                                             id='contract_quantity' tabindex="7" autocomplete='off'
@@ -290,7 +290,7 @@ if (isset($_GET['id'])) {
                                             id='contract_price' required>
                                     </div>
                                 </div>
-                                <div class="col">
+                                <div class="col-5">
                                     <label style='font-size:15px' class="col-md-12">Other Terms
                                         (Optional)</label>
                                     <div class="input-group mb-3">
@@ -321,7 +321,7 @@ if (isset($_GET['id'])) {
 
 
                             <div class="row">
-                                <div class="col">
+                                <div class="col" hidden>
                                     <label style='font-size:15px' class="col-md-12">No. of Containers</label>
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control" name='number_container'

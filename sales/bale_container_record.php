@@ -54,8 +54,8 @@ include 'include/navbar.php';
                                             <th scope="col">Bale Quality</th>
                                             <th scope="col">No. of Bales</th>
                                             <th scope="col">Total Weight</th>
-                                            <th scope="col">Bale Cost</th>
-                                            <th scope="col">Milling Cost</th>
+                                            <th scope="col" hidden>Bale Cost</th>
+                                            <th scope="col" hidden>Milling Cost</th>
                                             <th scope="col">Particulars</th>
                                             <th scope="col" hidden>Recorded By</th>
                                             <th scope="col">Action</th>
@@ -93,8 +93,8 @@ include 'include/navbar.php';
                                                     </span>
                                                 </td>
                                                 <td class="text-center"><?php echo $row['con_id']; ?></td>
-                                                <td><?php echo date('M j, Y', strtotime($row['withdrawal_date'])); ?></td>
-                                                <td><?php echo $row['van_no']; ?></td>
+                                                <td class="text-center"><?php echo date('M j, Y', strtotime($row['withdrawal_date'])); ?></td>
+                                                <td class="text-center"><?php echo $row['van_no']; ?></td>
                                                 <td><?php echo $row['quality']; ?> @ <?php echo $row['kilo_bale']; ?> kg</td>
                                                 <td class="number-cell">
                                                     <?php echo number_format($row['total_bales'], 0, '.', ','); ?> pcs
@@ -102,10 +102,10 @@ include 'include/navbar.php';
                                                 <td class="number-cell">
                                                     <?php echo number_format($row['total_weight'], 0, '.', ','); ?> kg
                                                 </td>
-                                                <td class="number-cell"> ₱
+                                                <td class="number-cell" hidden> ₱
                                                     <?php echo number_format($row['total_bale_cost'], 0, '.', ','); ?>
                                                 </td>
-                                                <td class="number-cell"> ₱
+                                                <td class="number-cell" hidden> ₱
                                                     <?php echo number_format($row['total_milling_cost'], 0, '.', ','); ?>
                                                 </td>
                                                 <td><?php echo $row['remarks']; ?></td>
