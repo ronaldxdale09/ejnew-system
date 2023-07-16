@@ -85,6 +85,9 @@ $loc = str_replace(' ', '', $_SESSION['loc']);
                                                 case "Sold":
                                                     $status_color = 'bg-success';
                                                     break;
+                                                case "Sold-Update":
+                                                    $status_color = 'bg-success';
+                                                    break;
                                             }
 
                                         ?>
@@ -138,7 +141,7 @@ $loc = str_replace(' ', '', $_SESSION['loc']);
             var table = $('#recording_table-receiving').DataTable({
                 dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
                 order: [
-                    [0, 'desc']
+                    [1, 'desc']
                 ],
                 buttons: [
                     'excelHtml5',
@@ -182,12 +185,12 @@ $loc = str_replace(' ', '', $_SESSION['loc']);
 
             if (status == "Awaiting Release") {
                 $('#releaseButton').show();
-                $('#editButton').hide();
+                //  $('#editButton').hide();
             } else if (status == 'Released') {
-                $('#editButton').hide();
+                //  $('#editButton').hide();
                 $('#releaseButton').hide();
             } else if (status == 'Sold') {
-                $('#editButton').hide();
+                //   $('#editButton').hide();
                 $('#releaseButton').hide();
             } else {
                 $('#releaseButton').hide();

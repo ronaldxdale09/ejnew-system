@@ -95,8 +95,8 @@ include "include/navbar.php";
                                                 <?php echo number_format($row['contract_price'],2 )?> </td>
                                             <td hidden>₱ <?php echo number_format($row['total_sales'],0 )?> </td>
                                             <td hidden>₱ <?php echo number_format($row['overall_cost'],0 )?> </td>
-                                            <td><i>Updating</i></td>
-                                            <td><i>Updating</i></td>
+                                            <td >₱ <?php echo number_format($row['overall_ave_cost_kilo'],2 )?> </td>
+                                            <td >₱ <?php echo number_format($row['unpaid_balance'],2 )?> </td>
                                             <td hidden>₱ <?php echo number_format($row['gross_profit'],0 )?> </td>
                                             <td class="text-center">
                                                 <button type="button" class="btn btn-success btn-sm btnViewRecord"
@@ -177,6 +177,8 @@ $('.btnViewRecord').on('click', function() {
     $('#other_terms').val(bale.other_terms);
 
 
+    $('#other_terms').val(bale.other_terms);
+    
     var status = $(this).data('status');
 
     if (status == "Draft" || status == "In Progress") {

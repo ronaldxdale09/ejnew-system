@@ -119,7 +119,7 @@ if ($result) {
                             <div class="form-group">
                                 <center style="margin: 0px 60px;">
                                     <div class="row no-gutters">
-                                        <div class="col" hidden>
+                                        <div class="col" >
                                             <div class="input-group mb-12">
                                                 <label class="col-md-12">Total Purchase Cost</label>
                                                 <span class="input-group-text">₱</span>

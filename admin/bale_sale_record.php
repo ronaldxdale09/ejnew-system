@@ -30,7 +30,7 @@ include "include/navbar.php";
 
 
                         <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
-                            <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#newWetExport">NEW SALE </button>
+                            
                             <hr>
                             <div class="table-responsive">
 
@@ -45,10 +45,10 @@ include "include/navbar.php";
                                             <th scope="col">Contract No.</th>
                                             <th scope="col">Buyer </th>
                                             <th scope="col">Bale Quality</th>
-                                            <th scope="col">No. Container</th>
+                                            <th scope="col">Containers</th>
                                             <th scope="col">Kilo Price</th>
-                                            <th scope="col">Total Sale </th>
-                                            <th scope="col">Overall Cost </th>
+                                            <th scope="col">Sale Proceeds</th>
+                                            <th scope="col">Overall Cost</th>
                                             <th scope="col">Gross Profit </th>
                                             <th></th>
                                         </tr>
@@ -80,12 +80,12 @@ include "include/navbar.php";
                                                 <td><?php echo date('M d, Y', strtotime($row['transaction_date'])); ?></td>
                                                 <td><?php echo $row['sale_contract'] ?> | <?php echo $row['purchase_contract'] ?> </td>
                                                 <td> <?php echo $row['sale_type'] ?> | <?php echo $row['buyer_name'] ?> </td>
-                                                <td> <?php echo $row['contract_quality'] ?> @ <?php echo number_format($row['contract_quantity'], 0) ?> kg</td>
-                                                <td><?php echo $row['contract_container_num'] ?>/<?php echo $row['no_containers'] ?> </td>
+                                                <td> <?php echo $row['contract_quality'] ?> @ <?php echo number_format($row['contract_kiloPerBale'], 0) ?> kg</td>
+                                                <td class='text-center'><?php echo $row['contract_container_num'] ?>/<?php echo $row['no_containers'] ?> </td>
                                                 <td><?php echo $row['currency'] ?> <?php echo number_format($row['contract_price'], 2) ?> </td>
-                                                <td><?php echo number_format($row['total_sales'], 2) ?> </td>
-                                                <td><?php echo number_format($row['overall_cost'], 2) ?> </td>
-                                                <td><?php echo number_format($row['gross_profit'], 2) ?> </td>
+                                                <td>₱ <?php echo number_format($row['sales_proceed'], 0) ?> </td>
+                                                <td>₱ <?php echo number_format($row['overall_cost'],0) ?> </td>
+                                                <td>₱ <?php echo $row['gross_profit'] ?> </td>
                                                 <td class="text-center">
                                                     <button type="button" class="btn btn-success btn-sm btnViewRecord" data-status="<?php echo $row['status']; ?>" data-bale='<?php echo json_encode($row); ?>'>
                                                         <i class="fas fa-book"></i>

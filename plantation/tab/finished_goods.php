@@ -25,7 +25,7 @@
             <button class='btn btn-secondary' id="this-week">This Week</button>
             <button class='btn btn-dark' id="this-month">This Month</button>
         </div>
-        <button type="button" class="btn btn-warning text-dark btnExcess" id='btnExcess'>
+        <button type="button" class="btn btn-warning text-dark btnExcess" id='btnExecess'>
             <span class="fa fa-cubes"></span> Bale Excess
         </button>
     </div>
@@ -166,7 +166,7 @@
 
         var table = $('#recording_table-produced').DataTable({
             "order": [
-                [1, 'asc']
+                [1, 'desc']
             ],
             "pageLength": 50,
             "dom": "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
@@ -254,12 +254,27 @@
 
 
     $('.btnExcess').on('click', function() {
-        Swal.fire({
-            position: 'center',
-            icon: 'info',
-            title: 'Under Development!',
-            showConfirmButton: false,
-            timer: 1500
-        })
+
+        function fetch_record() {
+
+            $.ajax({
+                url: "table/bales_excess_select.php",
+                method: "POST",
+                success: function(data) {
+                    $('#table_bales_excess').html(data);
+                    $('#baleExcessModal').modal('show');
+
+                }
+            });
+        }
+        fetch_record();
+        // Swal.fire({
+        //     icon: 'info',
+        //     title: 'Under Development!',
+        //     showConfirmButton: false,
+        //     timer: 1500
+        // })
+
+
     });
 </script>

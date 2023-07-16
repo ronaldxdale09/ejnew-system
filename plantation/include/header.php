@@ -77,19 +77,4 @@ $name = 	$_SESSION["user"];
     margin-right: 0.5rem;
 }
 
-.location-badge {
-    position: absolute;
-    top: auto;
-    top: 10px;
-    right: 10px;
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: darkblue;
-    color: #fff;
-    border-radius: 5px;
-    z-index: -99999;
-}
 </style>
-<div class="location-badge">
-    <?php echo $_SESSION['loc'];?>
-</div>

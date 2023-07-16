@@ -143,21 +143,34 @@ if (isset($_POST['press_transfer'])) {
     $id = $_POST['recording_id'];
 
     // Fetch the prod_type for the given recording_id
-    $query_fetch = "SELECT prod_type FROM planta_recording WHERE recording_id='$id'";
+    $query_fetch = "SELECT prod_type,produce_total_weight,production_expense,purchase_cost FROM planta_recording WHERE recording_id='$id'";
     $result = mysqli_query($con, $query_fetch);
 
     if ($result) {
         $row = mysqli_fetch_assoc($result);
         $prod_type = $row['prod_type'];
+        $unit_cost=0;
+      
 
         // Based on prod_type, decide the status to set
         $status = 'For Sale';  // Default status
         if ($prod_type == 'PURCHASE') {
             $status = 'Purchase';
+        }else{
+
+            $produce_total_weight = $row['produce_total_weight'];
+            $expenses = $row['production_expense'];
+            $purchase_cost = $row['purchase_cost'];
+
+            $total_prod_cost = $purchase_cost + $expenses;
+            $unit_cost = $total_prod_cost / $produce_total_weight;
+
+            $status = 'For Sale';    
         }
 
         // Update the status
-        $query_update = "UPDATE `planta_recording` SET `status`='$status' WHERE recording_id='$id'";
+        $query_update = "UPDATE `planta_recording` SET 
+        bales_average_cost='$unit_cost',`status`='$status' WHERE recording_id='$id'";
 
         if (mysqli_query($con, $query_update)) {
             header("Location: ../recording.php?tab=5");

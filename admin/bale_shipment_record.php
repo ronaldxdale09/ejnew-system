@@ -79,7 +79,7 @@ include 'include/navbar.php';
                                                 <td><?php echo $row['source']; ?></td>
                                                 <td><?php echo $row['destination']; ?></td>
                                                 <td class="number-cell">₱
-                                                    <?php echo number_format($row['total_shipping_expense'], 2, '.', ','); ?>
+                                                    <?php echo number_format($row['total_shipping_expense'],0, '.', ','); ?>
                                                 </td>
                                                 <td class="text-center">
                                                     <?php echo $row['no_containers']; ?>

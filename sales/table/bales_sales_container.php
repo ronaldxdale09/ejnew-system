@@ -91,7 +91,9 @@ $output .= '</table>
 
     var total_sale = total_bale_weight * contract_price;
 
-    document.getElementById("total_sale").value = total_sale;
+    document.getElementById("total_sale").value = Number(total_sale.toFixed(2)).toLocaleString("en");
+
+
 
 
     var total_bale_cost = parseFloat(document.getElementById("total_bale_cost").value.replace(/,/g, "")) || 0;

@@ -73,7 +73,13 @@
 
         $('#press_u_drc').val(data[8]);
         $('#press_u_total_weight').val(data[7]);
-        $('#press_u_mill_cost').val(data[10].match(/\d+/g));
+
+        $mill_cost = data[10].match(/\d+/g);
+        if ($mill_cost == 0 || $mill_cost == "" || $mill_cost == null) {
+            $('#press_u_mill_cost').val(12);
+        } else {
+            $('#press_u_mill_cost').val(data[10].match(/\d+/g));
+        }
 
         var crumbed = $(this).data('crumbed');
         var dry = $(this).data('dry');
@@ -134,6 +140,8 @@
         $('#press_trans_supplier').val(data[3]);
         $('#press_trans_loc').val(data[4]);
         $('#press_trans_lot').val(data[5]);
+
+        $('#mill_cost').val(data[10]);
 
 
         $('#press_trans_entry').val((data[6]));

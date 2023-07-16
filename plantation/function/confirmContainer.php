@@ -18,20 +18,33 @@ $total_bale_cost = preg_replace("/[^0-9\.]/", "", $_POST['total_bale_cost']);
 $total_milling_cost = preg_replace("/[^0-9\.]/", "", $_POST['total_milling_cost']);
 echo $average_cost = preg_replace("/[^0-9\.]/", "", $_POST['average_cost']);
 
+// Query the current status
+$query_status = "SELECT status FROM bales_container_record WHERE container_id = '$ref_no'";
+$result_status = mysqli_query($con, $query_status);
+$record_status = mysqli_fetch_assoc($result_status);
+
+$currentStatus = $record_status['status'];
+
+if ($currentStatus === 'Sold-Update') {
+    $newStatus = 'Sold';
+} else {
+    $newStatus = 'Awaiting Release';
+}
+
 $query = "UPDATE bales_container_record SET 
-              van_no = '$van_no', 
-              withdrawal_date = '$withdrawal_date', 
-              quality = '$quality', 
-              kilo_bale = '$kilo_bale', 
-              remarks = '$remarks', 
-              recorded_by = '$recorded_by', 
-              num_bales = '$num_bales', 
-              total_bale_weight = '$total_bale_weight' ,
-              total_bale_cost = '$total_bale_cost' ,
-              total_milling_cost = '$total_milling_cost',
-              average_kilo_cost = '$average_cost',
-              status = 'Awaiting Release' 
-              WHERE container_id  = '$ref_no'";
+    van_no = '$van_no', 
+    withdrawal_date = '$withdrawal_date', 
+    quality = '$quality', 
+    kilo_bale = '$kilo_bale', 
+    remarks = '$remarks', 
+    recorded_by = '$recorded_by', 
+    num_bales = '$num_bales', 
+    total_bale_weight = '$total_bale_weight',
+    total_bale_cost = '$total_bale_cost',
+    total_milling_cost = '$total_milling_cost',
+    average_kilo_cost = '$average_cost',
+    status = '$newStatus' 
+WHERE container_id  = '$ref_no'";
 
 $results = mysqli_query($con, $query);
 
@@ -44,10 +57,10 @@ if ($results) {
         $bales_id = $row['bales_id'];
         $num_bales = $row['num_bales'];
 
-        $sql = "SELECT number_bales FROM planta_bales_production WHERE bales_prod_id  = '$bales_id'";
+        $sql = "SELECT remaining_bales,number_bales,recording_id FROM planta_bales_production WHERE bales_prod_id  = '$bales_id'";
         $res = mysqli_query($con, $sql);
         $data = mysqli_fetch_assoc($res);
-        $prev_bales = $data['number_bales'];
+        $prev_bales = $data['remaining_bales'];
         $planta_id = $data['recording_id'];
 
 
@@ -82,7 +95,7 @@ if ($results) {
     }
 
 
-    header("Location: ../container_record.php");
+   header("Location: ../container_record.php");
     $_SESSION['contract'] = "Update successful";
     exit();
 } else {

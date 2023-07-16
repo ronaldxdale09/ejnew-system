@@ -25,6 +25,7 @@ $output = '
 <table class="table"  id="payment-table" >
     <thead style="font-weight: normal;">
         <tr style="font-weight: normal;">
+        <th scope="col" hidden></th>
             <th scope="col" width="15%">Date of Payment </th>
             <th scope="col" >Details</th>
             <th scope="col"> Amount Paid</th>
@@ -39,6 +40,7 @@ $output = '
 while ($row = mysqli_fetch_assoc($result)) {
     $output .= '
     <tr>
+    <td hidden><input type="text"  class="form-control payment_id" name="payment_id[]" value="' . $row['payment_id'] . '" ></td>
     <td><input type="date" class="form-control " name="pay_date[]"  value="' . $row["date"] . '"></td>
     <td><input type="text"  class="form-control weight" name="pay_details[]"  value="' . $row["details"] . '"></td>
     <td>
@@ -75,9 +77,7 @@ $output .= '
 
 
         var sales_proceeds = parseFloat(document.getElementById("sales_proceeds").value.replace(/,/g, "")) || 0;
-
         gross_profit =  sales_proceeds - overall_cost;
-
         document.getElementById("gross_profit").value = formatNumber(gross_profit);
 
 
@@ -156,6 +156,7 @@ echo $output;
 
             var newRow = $(`
           <tr>
+        <td hidden ><input type="text"  class="form-control payment_id" name="payment_id[]" " ></td>' 
         <td><input type="date" class="form-control " name="pay_date[]"></td>
         <td><input type="text"  class="form-control weight" name="pay_details[]"></td>
         <td>

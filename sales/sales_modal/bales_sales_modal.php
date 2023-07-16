@@ -398,7 +398,7 @@ $today = date('Y-m-d');
                                         <label style='font-size:15px' class="col-md-12">TOTAL SALES</label>
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id='currency_selected_sales'></span>
-                                            <input type="text" class="form-control" name='total_sale' id='total_sale'
+                                            <input type="text" class="form-control" id='total_sale'
                                                 readonly autocomplete='off' style="width: 100px;" />
                                         </div>
                                     </div>
@@ -406,8 +406,7 @@ $today = date('Y-m-d');
                                         <label style='font-size:15px' class="col-md-12">AMOUNT PAID</label>
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id='currency_selected_paid'></span>
-                                            <input type="text" class="form-control" name='amount_unpaid'
-                                                id='amount_unpaid' readonly autocomplete='off' style="width: 100px;" />
+                                            <input type="text" class="form-control" id='amount_unpaid' readonly autocomplete='off' style="width: 100px;" />
                                         </div>
                                     </div>
                                     <div class="col">

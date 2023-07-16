@@ -53,7 +53,7 @@ if (mysqli_num_rows($result) > 0) {
             <td>' . $arr["bales_type"] . '</td>
             <td>' . $arr["kilo_per_bale"] . ' kg</td>
             <td>' . $arr["supplier"] . '</td>
-            <td>' . $arr["lot_num"] . '</td>
+            <td style="font-weight:bold">' . $arr["lot_num"] . '</td>
             <td>' . number_format($arr['produce_total_weight'], 0, '.', ',') . ' kg</td>
             <td hidden>' . ($arr['drc'] ? number_format($arr['drc'], 2) : '-') . ' %</td>
             <td><b>' . number_format($arr['remaining_bales'], 0, '.', ',') . ' pcs </b></td>
