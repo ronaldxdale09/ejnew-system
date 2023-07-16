@@ -1,10 +1,3 @@
-<style>
-    #rubber-table th,
-    #rubber-table td {
-        font-weight: normal;
-    }
-</style>
-
 <?php
 include('../function/db.php');
 
@@ -22,15 +15,16 @@ if (!$result) {
 
 $output = '
 
-<table class="table"  id="payment-table" >
-    <thead style="font-weight: normal;">
+<table class="table "  id="payment-table" >
+<thead class="table-success text-center" style="font-size: 14px !important" >
         <tr style="font-weight: normal;">
-        <th scope="col" hidden></th>
+            <th scope="col" hidden></th>
             <th scope="col" width="15%">Date of Payment </th>
             <th scope="col" >Details</th>
             <th scope="col"> Amount Paid</th>
             <th scope="col">Exchange Rate</th>
             <th scope="col">Peso Equivalent</th>
+            <th scope="col" ></th>
         </tr>
     </thead>
     <tbody>';
@@ -46,15 +40,15 @@ while ($row = mysqli_fetch_assoc($result)) {
     <td>
        <div class="input-group mb-3">
              <span class="input-group-text" >' . $row["currency"] . '</span>
-          
-          <input type="text"  class="form-control weight payAmount" name="pay_amount[]"  value="' . $row["amount_paid"] . '">
+          <input type="text"  class="form-control weight payAmount" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" name="pay_amount[]" 
+           value="' . number_format($row["amount_paid"],2) . '">
        </div>
     </td>
-    <td><input type="text"  class="form-control weight" name="pay_rate[]"  value="' . $row["rate"] . '"></td>
+    <td><input type="text"  class="form-control weight payRate" name="pay_rate[]"  value="' . $row["rate"] . '"></td>
     <td>
        <div class="input-group mb-3">
              <span class="input-group-text">₱</span>
-          <input type="text"  class="form-control weight" name="peso_equivalent[]"  value="' . $row["pesos_equivalent"] . '">
+          <input type="text"  class="form-control weight pesoEquivalent" name="peso_equivalent[]"  value="' . number_format($row["pesos_equivalent"],2) . '">
     </td>
     <td><button class="btn btn-danger removePayment" id="removePayment"><i class="fas fa-trash"></i></button></td>
     </td>
@@ -90,31 +84,26 @@ $output .= '
 
 echo $output;
 ?>
-
 <script>
     $(document).ready(function() {
         var counter = 0;
 
         function formatNumber(num) {
-            return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+            return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
         }
 
-        // Run this function after your table is populated
         function computeSalesProceeds() {
             var totalPaid = 0;
             var sales_proceeds = 0;
 
             $("#payment-table tbody tr").each(function() {
-                var amountPaidValue = $(this).find("td:eq(2) input").val();
+                var amountPaidValue = $(this).find(".payAmount").val();
                 var amountPaid = parseFloat(amountPaidValue.replace(/,/g, ''));
 
-                var rateValue = $(this).find("td:eq(3) input").val();
-                var rate = parseFloat(rateValue.replace(/,/g, ''));
+                var pesoEquivalentValue = $(this).find(".pesoEquivalent").val();
+                var pesoEquivalent = parseFloat(pesoEquivalentValue.replace(/,/g, ''));
 
-                if (!isNaN(amountPaid) && !isNaN(rate)) {
-                    var pesoEquivalent = amountPaid * rate;
-                    $(this).find("td:eq(4) input").val(pesoEquivalent.toFixed(2));
-
+                if (!isNaN(amountPaid) && !isNaN(pesoEquivalent)) {
                     totalPaid += amountPaid;
                     sales_proceeds += pesoEquivalent;
                 }
@@ -130,76 +119,58 @@ echo $output;
 
             document.getElementById("amount_unpaid").value = formatNumber(totalPaid.toFixed(2));
 
-
             var total_sale = parseFloat(document.getElementById("total_sale").value.replace(/,/g, "")) || 0;
             var amount_unpaid = parseFloat(document.getElementById("amount_unpaid").value.replace(/,/g, "")) || 0;
             var unpaid_balance = total_sale - amount_unpaid;
             document.getElementById("unpaid_balance").value = formatNumber(unpaid_balance.toFixed(2));
         }
 
-        $("#addPayment").on("click", function() {
-            // check if 'total_sale' or 'contract_price' is empty, zero or null
-            var total_sale = parseFloat(document.getElementById("total_sale").value.replace(/,/g, "")) || 0;
-            var contract_price = parseFloat(document.getElementById("contract_price").value.replace(/,/g, "")) || 0;
+        $("#payment-table").on('input', '.payAmount, .payRate', function() {
+            var $row = $(this).closest("tr");
+            var amountPaid = parseFloat($row.find(".payAmount").val().replace(/,/g, '')) || 0;
+            var payRate = parseFloat($row.find(".payRate").val().replace(/,/g, '')) || 0;
+            var pesoEquivalent = amountPaid * payRate;
 
-            if (total_sale <= 0 || contract_price <= 0) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Oops...',
-                    text: 'Both "Total Sale" and "Contract Price" must have valid values!',
-                })
-                return; // exit the function
-            }
+            $row.find(".pesoEquivalent").val(formatNumber(pesoEquivalent.toFixed(2)));
 
-            // Get the currently selected currency
-            var selectedCurrency = $("#sale_currency").val();
-
-            var newRow = $(`
-          <tr>
-        <td hidden ><input type="text"  class="form-control payment_id" name="payment_id[]" " ></td>' 
-        <td><input type="date" class="form-control " name="pay_date[]"></td>
-        <td><input type="text"  class="form-control weight" name="pay_details[]"></td>
-        <td>
-        <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text">${selectedCurrency}</span>
-        </div>
-        <input type="text"  onkeypress="return CheckNumeric()" placeholder="0.00" onkeyup="FormatCurrency(this)" class="form-control payAmount" name="pay_amount[]">
-        </div>
-        </td>
-        <td><input type="text"  onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" value="1"  class="form-control payRate" name="pay_rate[]"></td>
-        <td>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text">₱</span>
-            </div>
-        <input type="text" class="form-control cuplump_cost" name="peso_equivalent[]" readonly></td>
-
-        </div>
-        <td><button class="btn btn-danger removePayment"><i class="fas fa-trash"></i></button></td>
-    </tr>
-     `);
-            counter++;
-            $("#payment-table tbody").append(newRow);
-
-            setTimeout(function() {
-                newRow.find('.payAmount, .payRate').on('input', computeSalesProceeds);
-            }, 0);
+            computeSalesProceeds();
         });
 
-        // Attach the 'input' event to the existing 'pay_amount' fields
-        $("#payment-table").on('input', '.payAmount, .payRate', computeSalesProceeds);
-
-        // Call computeSalesProceeds after table is populated
         computeSalesProceeds();
 
-        $(document).on("click", ".removePayment", function() {
-            event.preventDefault();
+        $("#addPayment").click(function() {
+            counter++;
+            // Get the selected currency
+            var selectedCurrency = $("#sale_currency").val();
 
+            // Append the row
+            var newRow = `
+                <tr>
+                    <td hidden><input type="text" class="form-control payment_id" name="payment_id[]"></td>
+                    <td><input type="date" class="form-control" name="pay_date[]"></td>
+                    <td><input type="text" class="form-control weight" name="pay_details[]"></td>
+                    <td>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text payment-currency-symbol">${selectedCurrency}</span>
+                            <input type="text" class="form-control weight payAmount"  onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" name="pay_amount[]">
+                        </div>
+                    </td>
+                    <td><input type="text"  class="form-control weight payRate" name="pay_rate[]"></td>
+                    <td>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">₱</span>
+                            <input type="text" class="form-control weight pesoEquivalent" name="peso_equivalent[]">
+                        </div>
+                    </td>
+                    <td><button class="btn btn-danger removePayment" id="removePayment"><i class="fas fa-trash"></i></button></td>
+                </tr>
+                `;
+            $("#payment-table tbody").append(newRow);
+        });
+        $(document).on("click", ".removePayment", function(event) {
+            event.preventDefault();
             var row = $(this).closest("tr");
             row.remove();
-
-            // Recalculate sales proceeds after a row is removed
             computeSalesProceeds();
         });
     });

@@ -28,7 +28,7 @@ include 'include/navbar.php';
                         </h2>
 
                         <br>
-
+                        <div style="background-color: #2452af; height: 6px;"></div><!-- This is the blue bar -->
                         <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
                             <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#newShipment">NEW SHIPMENT</button>
                             <hr>

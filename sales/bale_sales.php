@@ -38,6 +38,8 @@ if (isset($_GET['id'])) {
 
 
         $total_sales = isset($record['total_sales']) ? htmlspecialchars($record['total_sales'], ENT_QUOTES, 'UTF-8') : '0';
+        $tax_rate = isset($record['tax_rate']) ? htmlspecialchars($record['tax_rate'], ENT_QUOTES, 'UTF-8') : '1';
+        $tax_amount = isset($record['tax_amount']) ? htmlspecialchars($record['tax_amount'], ENT_QUOTES, 'UTF-8') : '';
 
         echo "
             <script>
@@ -59,6 +61,11 @@ if (isset($_GET['id'])) {
                     $('#other_terms').val('" . $other_terms . "');
                     $('#total_sale').val('" . number_format($total_sales, 2) . "');
 
+                    $('#tax_rate').val('" . number_format($tax_rate, 2) . "');
+                    $('#tax_amount').val('" . number_format($tax_amount, 2) . "');
+
+
+
                     $('#sale_currency').val('" . $sale_currency . "');
 
 
@@ -68,7 +75,8 @@ if (isset($_GET['id'])) {
                     $('#currency_selected_sales').text(selectedCurrency);
                     $('#currency_selected_paid').text(selectedCurrency);
                     $('#currency_selected_balance').text(selectedCurrency);
-                
+                    $('#currency_selected_price').text(selectedCurrency);
+                    
 
                     
 
@@ -101,7 +109,17 @@ if (isset($_GET['id'])) {
 .fas {
     margin-right: 10px;
 }
+
+.payment-table thead {
+        font-weight: normal;
+        background-color: red !important;
+       
+    }
 </style>
+
+>
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <body>
@@ -139,6 +157,7 @@ if (isset($_GET['id'])) {
             <form id="salesForm" action="" method="post">
                 <div id='print_content'>
                     <div class="card">
+                    <div style="background-color: #2452af; height: 6px;"></div><!-- This is the blue bar -->
                         <div class="card-body">
                             <h4>Sale Contract</h4>
                             <hr size="10" noshade />
@@ -286,6 +305,7 @@ if (isset($_GET['id'])) {
                                 <div class="col">
                                     <label style='font-size:15px' class="col-md-12">Price per Kilo</label>
                                     <div class="input-group mb-3">
+                                    <span class="input-group-text" id='currency_selected_price'></span>
                                         <input type="number" class="form-control contract_price" name='contract_price'
                                             id='contract_price' required>
                                     </div>
@@ -429,8 +449,8 @@ if (isset($_GET['id'])) {
                                 <div class="col">
                                     <label style="font-size:15px" class="col-md-12">Tax Rate</label>
                                     <div class="input-group mb-3">
-                                        <!-- <input type="text" class="form-control" name="sales_proceeds"
-                                            id="sales_proceeds" style="width: 100px;" /> -->
+                                        <input type="text" class="form-control" name="tax_rate"
+                                            id="tax_rate" style="width: 100px;" />
                                         <span class="input-group-text">%</span>
                                     </div>
                                 </div>
@@ -438,8 +458,8 @@ if (isset($_GET['id'])) {
                                     <label style="font-size:15px" class="col-md-12">Withholding Tax Amount</label>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">₱</span>
-                                        <!-- <input type="text" class="form-control" name="sales_proceeds"
-                                            id="sales_proceeds" style="width: 100px;" /> -->
+                                        <input type="text" class="form-control" name="tax_amount" readonly
+                                            id="tax_amount" style="width: 100px;" />
                                     </div>
                                 </div>
                             </div>
@@ -499,12 +519,15 @@ if (isset($_GET['id'])) {
                                 </div>
                             </div>
                         </div>
+                        <div style="background-color: #2452af; height: 6px;"></div><!-- This is the blue bar -->
                     </div>
                     <br>
                 </div>
             </form>
         </div>
+     
     </div>
+    
 </body>
 
 </html>
@@ -790,21 +813,35 @@ $("#sale_currency").change(function() {
     var selectedCurrency = $(this).val();
 
     // Update the span tag's content
+    
+    
+    $("#currency_selected_sales").text(selectedCurrency);
     $("#currency_selected_sales").text(selectedCurrency);
     $("#currency_selected_paid").text(selectedCurrency);
     $("#currency_selected_balance").text(selectedCurrency);
+
+    // Update currency symbol in each payment row
+    $(".payment-currency-symbol").text(selectedCurrency);
 });
 
 
-$(document).on("keyup", "#contract_price, #total_bale_weight", function() {
+$(document).on("keyup", "#contract_price, #total_bale_weight, #tax_rate", function() {
     var contract_price = parseFloat($("#contract_price").val().replace(/,/g, "")) || 0;
     var total_bale_weight = parseFloat($("#total_bale_weight").val().replace(/,/g, "")) || 0;
+    var tax_rate = parseFloat($("#tax_rate").val().replace(/,/g, "")) || 0;
     var total_sale = total_bale_weight * contract_price;
+    var tax_amount = total_sale * (tax_rate / 100); // computed tax amount, tax rate should be in percentage.
+
     $("#total_sale").val(total_sale.toLocaleString('en-US', {
         minimumFractionDigits: 2
     }));
 
+    // Update the tax amount field
+    $("#tax_amount").val(tax_amount.toLocaleString('en-US', {
+        minimumFractionDigits: 2
+    }));
 });
+
 
 $(document).on('click', '.btnPrint', function(e) {
     // Check if 'sale_buyer' input is readonly

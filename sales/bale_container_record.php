@@ -28,7 +28,7 @@ include 'include/navbar.php';
                         </h2>
 
                         <br>
-
+                        <div style="background-color: #2452af; height: 6px;"></div><!-- This is the blue bar -->
                         <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
 
                             <hr>
@@ -71,7 +71,7 @@ include 'include/navbar.php';
                                                 case "In Progress":
                                                     $status_color = 'bg-warning';
                                                     break;
-                                                case "Complete":
+                                                case "Awaiting Release":
                                                     $status_color = 'bg-secondary';
                                                     break;
                                                 case "Released":
@@ -82,6 +82,9 @@ include 'include/navbar.php';
                                                     break;
 
                                                 case "Sold":
+                                                    $status_color = 'bg-success';
+                                                    break;
+                                                case "Sold-Update":
                                                     $status_color = 'bg-success';
                                                     break;
                                             }
