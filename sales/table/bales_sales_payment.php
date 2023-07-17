@@ -71,7 +71,9 @@ $output .= '
 
 
         var sales_proceeds = parseFloat(document.getElementById("sales_proceeds").value.replace(/,/g, "")) || 0;
-        gross_profit =  sales_proceeds - overall_cost;
+        var tax_amount = parseFloat(document.getElementById("tax_amount").value.replace(/,/g, "")) || 0;
+
+        gross_profit =  (sales_proceeds - overall_cost) - tax_amount;
         document.getElementById("gross_profit").value = formatNumber(gross_profit);
 
 
@@ -123,6 +125,7 @@ echo $output;
             var amount_unpaid = parseFloat(document.getElementById("amount_unpaid").value.replace(/,/g, "")) || 0;
             var unpaid_balance = total_sale - amount_unpaid;
             document.getElementById("unpaid_balance").value = formatNumber(unpaid_balance.toFixed(2));
+            changeGrossProfitColor();
         }
 
         $("#payment-table").on('input', '.payAmount, .payRate', function() {

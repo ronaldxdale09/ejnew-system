@@ -41,6 +41,35 @@ if (isset($_GET['id'])) {
 
 ?>
 
+<style>
+    .trans-btn {
+        border-radius: 25px;
+        padding: 10px 20px;
+        font-size: 14px;
+        text-transform: uppercase;
+        transition: all 0.3s ease 0s;
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .trans-btn:hover {
+        background-color: #2c3e50;
+        box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+        color: #fff;
+        transform: translateY(-7px);
+    }
+
+    /* For the font awesome icons */
+    .fas {
+        margin-right: 10px;
+    }
+
+    .payment-table thead {
+        font-weight: normal;
+        background-color: red !important;
+
+    }
+</style>
+
 
 <body>
 
@@ -59,27 +88,22 @@ if (isset($_GET['id'])) {
                 </h2>
 
                 <br>
-                <form method='POST' action='function/cuplump_inventory.php' id='container_form'>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="row">
-                                <div class="col-12">
-                                    <button type="button" class="btn btn-secondary text-white vouchBtn" onclick="goBack()">
-                                        <span class="fas fa-arrow-left"></span> Return
-                                    </button>
-                                    <button type="button" class="btn btn-dark text-white printBtn" id='printBtn'>
-                                        <span class="fa fa-print"></span> Print
-                                    </button>
-                                    <button type="button" class="btn btn-dark text-white pdfBtn" id='pdftBtn'>
-                                        <span class="fa fa-file"></span> PDF
-                                    </button>
-                                    <button type="button" class="btn btn-primary confirmContainer" id="btnConfirmContainer"><span class="fas fa-check"></span>
-                                        Complete</button>
-                                </div>
-                            </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="col-8">
+                            <button type="button" class="btn trans-btn btn-secondary btnReturn">
+                                <span class="fas fa-arrow-left"></span> Return
+                            </button>
+                            <button type="button" class="btn trans-btn btn-danger btnVoid"> <span class="fas fa-times"></span>
+                                Void</button>
+                            <button type="button" class="btn trans-btn btn-warning btnDraft"><span class="fas fa-info-circle"></span> Save as Draft</button>
+                            <button type="button" class="btn trans-btn btn-primary confirmContainer" id="confirmContainer"><span class="fas fa-check"></span>
+                                Confirm
+                                Container</button>
+                        </div>
+                        <br>
 
-                            <br>
-
+                        <form method='POST' action='function/cuplump_container/container.confirm.php' id='container_form'>
                             <div class="card">
                                 <div style="background-color: #2452af; height: 5px;"></div><!-- This is the blue bar -->
                                 <div class="card-body">
@@ -102,7 +126,7 @@ if (isset($_GET['id'])) {
                                         <div class="col-12 col-md-2">
                                             <label style='font-size:15px'>Location</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" name='container_loc' id='container_loc'  autocomplete='off' />
+                                                <input type="text" class="form-control" name='container_loc' id='container_loc' autocomplete='off' />
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-2">
@@ -140,8 +164,8 @@ if (isset($_GET['id'])) {
                                     <div id='container_listing'> </div>
                                 </div>
                             </div>
-                        </div>
                     </div>
+                </div>
                 </form>
             </div>
         </div>
@@ -169,10 +193,66 @@ if (isset($_GET['id'])) {
     </div>
 </div>
 
+
+<!-- Draft Modal -->
+<div class="modal fade" id="draftModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-warning text-dark">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <i class="fas fa-save me-2"></i>Store Container as Draft?
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-center">
+                    <i class="fas fa-question-circle fa-4x mb-3 animate__animated animate__wobble"></i>
+                </p>
+                <p class="text-center">
+                    Are you sure you want to save the current state as a draft?
+                </p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    <i class="fas fa-times me-2"></i>Cancel
+                </button>
+                <button type="submit" class="btn btn-warning saveDraftBtn" id="saveDraftBtn">
+                    <i class="fas fa-check me-2"></i>Yes, Save Draft
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Return Modal -->
+<div class="modal" tabindex="-1" role="dialog" id="confirmReturnModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to return?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="confirmReturn">Yes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
 <script>
-    $(document).on('click', '.confirmContainer', function(e) {
+    $(document).on('click', '.confirmContainer, .btnDraft, .btnVoid', function(e) {
         // Check if 'sale_buyer' input is readonly
-        if ($('#sale_buyer').prop('readonly')) {
+        if ($('#van_no').prop('readonly')) {
             // If readonly, show alert and return
             Swal.fire({
                 icon: 'warning',
@@ -195,9 +275,16 @@ if (isset($_GET['id'])) {
         } else if ($(this).hasClass('btnDraft')) {
             $('#draftModal').modal('show');
         }
-
+        // add similar if conditions for other buttons if needed
     });
 
+    //RETURN JS
+    $('.btnReturn').on('click', function() {
+        $('#confirmReturnModal').modal('show');
+    });
+    $('#confirmReturn').on('click', function() {
+        window.location.href = "cuplump_container_record.php";
+    })
 
     $(document).on('click', '#confirmButton', function(e) {
         // Prevent the default form submission
@@ -222,6 +309,7 @@ if (isset($_GET['id'])) {
                     // Set all inputs to readonly
                     $('#container_form input').prop('readonly', true);
                     $('#container_form textarea').prop('readonly', true);
+                    $('#container_form button').prop('hidden', true);
                     $('#container_form select').prop('disabled', true); //use 'disabled' for select elements
                     // Disable all buttons inside the form
                     // Temporarily hide the buttons
@@ -246,6 +334,57 @@ if (isset($_GET['id'])) {
             }
         });
     });
+
+
+    $(document).on('click', '#saveDraftBtn', function(e) {
+        // Prevent the default form submission
+        e.preventDefault();
+
+        // Set the form action to the desired URL
+        $('#container_form').attr('action', 'function/cuplump_container/container.draft.php');
+
+        // Submit the form asynchronously using AJAX
+        $.ajax({
+            type: "POST",
+            url: $('#container_form').attr('action'),
+            data: $('#container_form').serialize(),
+            success: function(response) {
+                if (response.trim() === 'success') {
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Draft Saved',
+                        text: 'Your cuplump container draft has been saved!',
+                    });
+
+                    // Set all inputs to readonly
+                    $('#container_form input').prop('readonly', true);
+                    $('#container_form textarea').prop('readonly', true);
+                    $('#container_form button').prop('hidden', true);
+                    $('#container_form select').prop('disabled', true); //use 'disabled' for select elements
+                    // Disable all buttons inside the form
+                    // Temporarily hide the buttons
+                    $("#print_content button").hide();
+                    $('#draftModal').modal('hide');
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: response,
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
+                // Handle the error response
+                // Display SweetAlert error popup
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Form submission failed!',
+                });
+            }
+        });
+    });
+
 
 
 

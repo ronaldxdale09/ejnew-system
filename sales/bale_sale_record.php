@@ -27,8 +27,68 @@ include "include/navbar.php";
                             </b>
                         </h2>
 
-                        <br>
-
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="stat-card">
+                                    <div class="stat-card__content">
+                                        <p class="text-uppercase mb-1 text-muted"><b>ACTIVE</b> SALES</p>
+                                        <h3>
+                                            <i class="text-danger font-weight-bold mr-1"></i>
+                                            <i> Updating </i>
+                                        </h3>
+                                        <div>
+                                            <span class="text-muted">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="stat-card__icon stat-card__icon--primary">
+                                        <div class="stat-card__icon-circle">
+                                            <i class="fa fa-money"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="stat-card">
+                                    <div class="stat-card__content">
+                                        <p class="text-uppercase mb-1 text-muted"><b>TOTAL </b> SALES </p>
+                                        <h3>
+                                            <i class="text-danger font-weight-bold mr-1"></i>
+                                            <i> Updating </i>
+                                        </h3>
+                                        <div>
+                                            <span class="text-muted">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="stat-card__icon stat-card__icon--success">
+                                        <div class="stat-card__icon-circle">
+                                            <i class="fa fa-credit-card"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="stat-card">
+                                    <div class="stat-card__content">
+                                        <p class="text-uppercase mb-1 text-muted"><b>TOTAL </b>BALANCE </p>
+                                        <h3>
+                                            <i class="text-success font-weight-bold mr-1"></i>
+                                            <i> Updating </i>
+                                        </h3>
+                                        <div>
+                                            <span class="text-muted">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="stat-card__icon stat-card__icon--warning">
+                                        <div class="stat-card__icon-circle">
+                                            <i class="fa fa-wallet "></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div style="background-color: #2452af; height: 6px;"></div><!-- This is the blue bar -->
                         <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
                             

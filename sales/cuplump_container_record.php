@@ -26,8 +26,70 @@ include 'include/navbar.php';
                                 <font color="#046D56"> CONTAINER </font>
                             </b>
                         </h2>
-
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="stat-card">
+                                    <div class="stat-card__content">
+                                        <p class="text-uppercase mb-1 text-muted"><b>CONTAINER</b> COMPLETED</p>
+                                        <h3>
+                                            <i class="text-danger font-weight-bold mr-1"></i>
+                                            <i> Updating </i>
+                                        </h3>
+                                        <div>
+                                            <span class="text-muted">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="stat-card__icon stat-card__icon--primary">
+                                        <div class="stat-card__icon-circle">
+                                            <i class="fa fa-truck"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="stat-card">
+                                    <div class="stat-card__content">
+                                        <p class="text-uppercase mb-1 text-muted"><b>CONTAINER</b> IN PROGRESS </p>
+                                        <h3>
+                                            <i class="text-danger font-weight-bold mr-1"></i>
+                                            <i> Updating </i>
+                                        </h3>
+                                        <div>
+                                            <span class="text-muted">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="stat-card__icon stat-card__icon--success">
+                                        <div class="stat-card__icon-circle">
+                                            <i class="fa fa-cube"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="stat-card">
+                                    <div class="stat-card__content">
+                                        <p class="text-uppercase mb-1 text-muted"><b>CONTAINER</b>SHIPPED </p>
+                                        <h3>
+                                            <i class="text-success font-weight-bold mr-1"></i>
+                                            <i> Updating </i>
+                                        </h3>
+                                        <div>
+                                            <span class="text-muted">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="stat-card__icon stat-card__icon--warning">
+                                        <div class="stat-card__icon-circle">
+                                            <i class="fa fa-ship"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <br>
+                        <div style="background-color: #2452af; height: 6px;"></div><!-- This is the blue bar -->
 
                         <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
                             <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#newContainer">NEW CONTAINER</button>
@@ -53,9 +115,44 @@ include 'include/navbar.php';
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php while ($row = mysqli_fetch_array($results)) { ?>
+                                        <?php while ($row = mysqli_fetch_array($results)) {
+
+                                            $status_color = '';
+                                            switch ($row['status']) {
+                                                case "Draft":
+                                                    $status_color = 'bg-info';
+                                                    break;
+                                                case "In Progress":
+                                                    $status_color = 'bg-warning';
+                                                    break;
+                                                case "Awaiting Sale":
+                                                    $status_color = 'bg-secondary';
+                                                    break;
+                                                case "Released":
+                                                    $status_color = 'bg-primary';
+                                                    break;
+                                                case "Shipped Out":
+                                                    $status_color = 'bg-dark';
+                                                    break;
+
+                                                case "Sold":
+                                                    $status_color = 'bg-success';
+                                                    break;
+                                                case "Sold-Update":
+                                                    $status_color = 'bg-success';
+                                                    break;
+                                                case "Complete":
+                                                    $status_color = 'bg-success';
+                                                    break;
+                                            }
+
+
+                                        ?>
                                             <tr>
-                                                <td class="text-center"><?php echo $row['status']; ?></td>
+                                                <td> <span class="badge <?php echo $status_color; ?>">
+                                                        <?php echo $row['status'] ?>
+                                                    </span>
+                                                </td>
                                                 <td><?php echo $row['container_id']; ?></td>
                                                 <td><?php echo date('M j, Y', strtotime($row['loading_date'])); ?></td>
                                                 <td><?php echo $row['van_no']; ?></td>
@@ -64,7 +161,14 @@ include 'include/navbar.php';
                                                     <?php echo number_format($row['total_cuplump_cost'], 0, '.', ','); ?>
                                                 </td>
                                                 <td class="number-cell">₱
-                                                    <?php echo number_format($row['total_cuplump_cost']/$row['total_cuplump_weight'], 2, '.', ','); ?>
+                                                    <?php
+                                                    if ($row['total_cuplump_weight'] != 0) {
+                                                        echo number_format($row['total_cuplump_cost'] / $row['total_cuplump_weight'], 2, '.', ',');
+                                                    } else {
+                                                        echo "0";
+                                                    }
+
+                                                    ?>
                                                 </td>
                                                 <td><?php echo $row['remarks']; ?></td>
                                                 <td><?php echo $row['recorded_by']; ?></td>

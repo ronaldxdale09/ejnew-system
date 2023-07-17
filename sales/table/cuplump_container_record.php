@@ -28,6 +28,7 @@ $output = '
 <table class="table"  id="rubber-table" >
     <thead style="font-weight: normal !important;">
         <tr style="font-weight: normal;">
+        <th scope="col" hidden></th>
             <th scope="col" width="15%">Supplier</th>
             <th scope="col">Location</th>
             <th scope="col" >Loading Weight</th>
@@ -45,8 +46,9 @@ $output = '
 while ($row = mysqli_fetch_assoc($result)) {
     $output .= "<tr>";
 
-    $output .= '<td><input type="text" class="form-control " name="supplier[]" readonly value="' . $row['supplier'] . '"></td>';
-    $output .= '<td><input type="text" class="form-control " name="location[]" readonly value="' . $row['location'] . '"></td>';
+    $output .= '<td hidden><input type="text"  readonly class="form-control  " name="inventory_id[]" readonly value="' . $row['cuplump_inventory_id'] . '"></td>';
+    $output .= '<td><input type="text" class="form-control " name="supplier[]"  value="' . $row['supplier'] . '"></td>';
+    $output .= '<td><input type="text" class="form-control " name="location[]"  value="' . $row['location'] . '"></td>';
     $output .= '<td>
     <div class="input-group">
     <input type="text" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"class="form-control weight" name="loading_weight[]"  value="' . $row['loading_weight'] . '">
@@ -64,11 +66,11 @@ while ($row = mysqli_fetch_assoc($result)) {
     }
     $output .= '</select></td>';
 
-    $output .= '<td><input type="text" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" class="form-control wetInput" name="wet_cost[]" readonly value="' . $row['wet_cost'] . '"></td>';
-    $output .= '<td><input type="text" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" class="form-control dryInput" name="dry_cost[]" value="' . $row['dry_cost'] . '"></td>';
+    $output .= '<td><input type="text" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" class="form-control wetInput" name="wet_cost[]" readonly value="' . $row['wet_cost'] . '" ' . ($row['cost_type'] == 'DRY' ? 'readonly' : '') . '></td>';
+    $output .= '<td><input type="text" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" class="form-control dryInput" name="dry_cost[]" value="' . $row['dry_cost'] . '" ' . ($row['cost_type'] == 'WET' ? 'readonly' : '') . '></td>';
     $output .= '<td>
             <div class="input-group">
-                <input type="text" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" class="form-control drcInput" name="drc[]" value="' . $row['drc'] . '">
+                <input type="text" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" class="form-control drcInput" name="drc[]" value="' . $row['drc'] . '" ' . ($row['cost_type'] == 'WET' ? 'readonly' : '') . '>
                 <span class="input-group-text">%</span>
             </div>
         </td>';
@@ -124,6 +126,7 @@ echo $output;
 
         $("#addRow").on("click", function() {
             var newRow = $('<tr>' +
+                '<td hidden><input type="text" class="form-control inventory_id" name="inventory_id[]"></td>'+
                 '<td><input type="text" class="form-control " name="supplier[]" ></td>' +
                 '<td><input type="text" class="form-control " name="location[]" ></td>' +
                 '<td>' +

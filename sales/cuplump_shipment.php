@@ -14,65 +14,124 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $id =  preg_replace('~\D~', '', $id);
 
-    $sql = "SELECT * FROM bale_shipment_record WHERE shipment_id = $id";
+    $sql = "SELECT * FROM sales_cuplump_shipment WHERE shipment_id = $id";
     $result = $con->query($sql);
 
     if ($result->num_rows > 0) {
         // Output data of each row
         $record = $result->fetch_assoc();
 
-        $ship_id = isset($record['shipment_id']) ? $record['shipment_id'] : '';
-        $type = isset($record['type']) ? $record['type'] : '';
-        $ship_destination = isset($record['destination']) ? $record['destination'] : '';
-        $ship_source = isset($record['source']) ? $record['source'] : '';
-        $ship_date = isset($record['ship_date']) ? $record['ship_date'] : '';
-        $ship_vessel = isset($record['vessel']) ? $record['vessel'] : '';
-        $ship_info_lading = isset($record['bill_lading']) ? $record['bill_lading'] : '';
-        $ship_remarks = isset($record['remarks']) ? $record['remarks'] : '';
-        $ship_recorded = isset($record['recorded_by']) ? $record['recorded_by'] : '';
+        // Fetch and set the record fields to variables
+        $ship_id = $record['shipment_id'];
+        $type = $record['type'];
+        $status = $record['status'];
+        $ship_date = $record['ship_date'];
+        $ship_destination = $record['destination'];
+        $ship_source = $record['source'];
+        $ship_vessel = $record['vessel'];
+        $ship_info_lading = $record['bill_lading'];
+        $freight = $record['freight'];
+        $loading_expense = $record['loading_unloading'];
+        $ship_exp_processing = $record['processing_fee'];
+        $ship_exp_trucking = $record['trucking_expense'];
+        $ship_exp_cranage = $record['cranage_fee'];
+        $ship_exp_misc = $record['miscellaneous'];
+        $total_ship_exp = $record['total_shipping_expense'];
+        $number_container = $record['no_containers'];
+        $ship_cost_per_container = $record['ship_cost_container'];
+        $ship_remarks = $record['remarks'];
+        $ship_recorded = $record['recorded_by'];
+        $total_cuplump_weight = $record['total_cuplump_weight'];
+        $total_cuplump_cost = $record['total_cuplump_cost'];
+        $average_cuplump_cost = $record['ave_cuplump_cost'];
 
-        // Assuming you have default values for the following fields
-        $ship_exp_freight = isset($record['freight']) ? $record['freight'] : '';
-        $ship_exp_loading = isset($record['loading_unloading']) ? $record['loading_unloading'] : '';
-        $ship_exp_processing = isset($record['processing_fee']) ? $record['processing_fee'] : '';
-        $ship_exp_trucking = isset($record['trucking_expense']) ? $record['trucking_expense'] : '';
-        $ship_exp_cranage = isset($record['cranage_fee']) ? $record['cranage_fee'] : '';
-        $ship_exp_misc = isset($record['miscellaneous']) ? $record['miscellaneous'] : '';
-        $total_ship_exp = isset($record['total_shipping_expense']) ? $record['total_shipping_expense'] : '';
-        $ship_no_container = isset($record['no_containers']) ? $record['no_containers'] : '';
-        $container_ship_exp = isset($record['ship_cost_container']) ? $record['ship_cost_container'] : '';
-
+        // Fill form inputs
         echo "
             <script>
                 $(document).ready(function() {
                     $('#ship_id').val('" . $ship_id . "');
                     $('#type').val('" . $type . "');
+                    $('#status').val('" . $status . "');
+                    $('#ship_date').val('" . $ship_date . "');
                     $('#ship_destination').val('" . $ship_destination . "');
                     $('#ship_source').val('" . $ship_source . "');
-                    $('#ship_date').val('" . $ship_date . "');
                     $('#ship_vessel').val('" . $ship_vessel . "');
                     $('#ship_info_lading').val('" . $ship_info_lading . "');
+                    $('#ship_exp_freight').val('" . $freight . "');
+                    $('#ship_exp_loading').val('" . $loading_expense . "');
+                    $('#ship_exp_processing').val('" . $ship_exp_processing . "');
+                    $('#ship_exp_trucking').val('" . $ship_exp_trucking . "');
+                    $('#ship_exp_cranage').val('" . $ship_exp_cranage . "');
+                    $('#ship_exp_misc').val('" . $ship_exp_misc . "');
+                    $('#total_ship_exp').val('" . $total_ship_exp . "');
+                    $('#number_container').val('" . $number_container . "');
+                    $('#ship_cost_per_container').val('" . $ship_cost_per_container . "');
                     $('#ship_remarks').val('" . $ship_remarks . "');
                     $('#ship_recorded').val('" . $ship_recorded . "');
-                    if($ship_exp_freight) $('#ship_exp_freight').val($ship_exp_freight);
-                    if($ship_exp_loading) $('#ship_exp_loading').val($ship_exp_loading);
-                    if($ship_exp_processing) $('#ship_exp_processing').val($ship_exp_processing);
-                    if($ship_exp_trucking) $('#ship_exp_trucking').val($ship_exp_trucking);
-                    if($ship_exp_cranage) $('#ship_exp_cranage').val($ship_exp_cranage);
-                    if($ship_exp_misc) $('#ship_exp_misc').val($ship_exp_misc);
-                    if($total_ship_exp) $('#total_ship_exp').val($total_ship_exp);
-                    if($ship_no_container) $('#ship_no_container').val($ship_no_container);
-                    if($container_ship_exp) $('#ship_cost_per_container').val($container_ship_exp);
-                  
-
+                    $('#total_cuplump_weight').val('" . $total_cuplump_weight . "');
+                    $('#total_cuplump_cost').val('" . $total_cuplump_cost . "');
+                    $('#average_cuplump_cost').val('" . $average_cuplump_cost . "');
                 });
-                </script>
-            ";
+            </script>
+        ";
     }
 }
 
 
 ?>
+<style>
+    .trans-btn {
+        border-radius: 25px;
+        padding: 10px 20px;
+        font-size: 14px;
+        text-transform: uppercase;
+        transition: all 0.3s ease 0s;
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .trans-btn:hover {
+        background-color: #2c3e50;
+        box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+        color: #fff;
+        transform: translateY(-7px);
+    }
+
+    /* For the font awesome icons */
+    .fas {
+        margin-right: 10px;
+    }
+
+    .payment-table thead {
+        font-weight: normal;
+        background-color: red !important;
+
+    }
+
+    .modal-content {
+        border-radius: 15px !important;
+        /* rounded corners */
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.15) !important;
+        /* add shadow */
+    }
+
+    .modal-header {
+        background-color: #007bff;
+        /* match the header color to primary button color */
+        color: #ffffff;
+        /* white text */
+    }
+
+    .modal-title {
+        font-weight: 600;
+        /* make the title bold */
+    }
+
+    .modal-footer {
+        border-top: 0;
+        /* remove border */
+    }
+</style>
+
 
 
 <body>
@@ -95,27 +154,26 @@ if (isset($_GET['id'])) {
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <button type="button" class="btn btn-secondary text-white vouchBtn" onclick="goBack()">
-                                            <span class="fas fa-arrow-left"></span> Return
-                                        </button>
-                                        <button type="button" class="btn btn-warning btnDraft"><span class="fas fa-info-circle"></span> Save as Draft</button>
-
-                                        <button type="button" class="btn btn-danger btnVoid"> <span class="fas fa-times"></span> Void Shipment</button>
-                                        <button type="button" class="btn btn-primary confirmShipment" id="confirmShipment"><span class="fas fa-check"></span>
-                                            Confirm
-                                            Shipment</button>
-                                    </div>
+                                <div class="col-8">
+                                    <button type="button" class="btn trans-btn btn-secondary btnReturn">
+                                        <span class="fas fa-arrow-left"></span> Return
+                                    </button>
+                                    <button type="button" class="btn trans-btn btn-danger btnVoid"> <span class="fas fa-times"></span>
+                                        Void</button>
+                                    <button type="button" class="btn trans-btn btn-warning btnDraft"><span class="fas fa-info-circle"></span> Save as Draft</button>
+                                    <button type="button" class="btn trans-btn btn-primary confirmShipment" id="confirmShipment"><span class="fas fa-check"></span>
+                                        Confirm
+                                        Shipment</button>
                                 </div>
 
-                                <br>
+                                <br>  <form method='POST' action='function/cuplump_container/container.confirm.php' id='shipment_form'>
 
                                 <div class="card">
+                                    <div style="background-color: #2452af; height: 6px;"></div><!-- This is the blue bar -->
                                     <div class="card-body">
                                         <h4>Shipment Information</h4>
                                         <hr>
-                                        <form id="shipmentForm" action="" method="post">
+                                      
                                             <div class="row">
                                                 <div class="col">
                                                     <label style='font-size:15px' class="col-md-12">Shipping ID</label>
@@ -334,31 +392,36 @@ if (isset($_GET['id'])) {
     <br>
 </body>
 
-<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+
+
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Confirm Shipment Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="confirmModalLabel">Confirm Submission</h5>
+                <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
-                Are you sure you want to complete the shipment record?
+                Are you sure you want to submit the form?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-primary" id="confirmButton">Yes, Proceed</button>
+                <button type="button" class="btn btn-primary" id="confirmButton">Submit</button>
             </div>
         </div>
     </div>
 </div>
 
 
+<!-- Draft Modal -->
 <div class="modal fade" id="draftModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-warning text-dark">
                 <h5 class="modal-title" id="exampleModalLabel">
-                    <i class="fas fa-save me-2"></i>Save Shipment Draft
+                    <i class="fas fa-save me-2"></i>Store Container as Draft?
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -382,11 +445,170 @@ if (isset($_GET['id'])) {
     </div>
 </div>
 
+<!-- Return Modal -->
+<div class="modal" tabindex="-1" role="dialog" id="confirmReturnModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to return?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="confirmReturn">Yes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
 
 
 <script>
     // Handle Form Submission
+    $(document).on('click', '.confirmShipment, .btnDraft, .btnVoid', function(e) {
+        // Check if 'sale_buyer' input is readonly
+        if ($('#ship_destination').prop('readonly')) {
+            // If readonly, show alert and return
+            Swal.fire({
+                icon: 'warning',
+                title: 'Form Completed',
+                text: 'This action is not allowed after the form is completed.',
+            });
+            return;
+        }
+
+        $tr = $(this).closest('tr');
+
+        var data = $tr.children("td").map(function() {
+            return $(this).text();
+        }).get();
+
+        var sales_id = <?php echo  $id ?>;
+
+        if ($(this).hasClass('confirmShipment')) {
+            $('#confirmModal').modal('show');
+        } else if ($(this).hasClass('btnDraft')) {
+            $('#draftModal').modal('show');
+        }
+        // add similar if conditions for other buttons if needed
+    });
+
+    //RETURN JS
+    $('.btnReturn').on('click', function() {
+        $('#confirmReturnModal').modal('show');
+    });
+    $('#confirmReturn').on('click', function() {
+        window.location.href = "cuplump_shipment_record.php";
+    })
+
+    $(document).on('click', '#confirmButton', function(e) {
+        // Prevent the default form submission
+        e.preventDefault();
+
+        // Set the form action to the desired URL
+        $('#shipment_form').attr('action', 'function/cuplump_shipment_confirm.php');
+
+        // Submit the form asynchronously using AJAX
+        $.ajax({
+            type: "POST",
+            url: $('#shipment_form').attr('action'),
+            data: $('#shipment_form').serialize(),
+            success: function(response) {
+                if (response.trim() === 'success') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Sale transaction completed!',
+                    });
+
+                    // Set all inputs to readonly
+                    $('#shipment_form input').prop('readonly', true);
+                    $('#shipment_form textarea').prop('readonly', true);
+                    $('#shipment_form button').prop('hidden', true);
+                    $('#shipment_form select').prop('disabled', true); //use 'disabled' for select elements
+                    // Disable all buttons inside the form
+                    // Temporarily hide the buttons
+                    $("#print_content button").hide();
+                    $('#confirmModal').modal('hide');
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: response,
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
+                // Handle the error response
+                // Display SweetAlert error popup
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Form submission failed!',
+                });
+            }
+        });
+    });
+
+
+    $(document).on('click', '#saveDraftBtn', function(e) {
+        // Prevent the default form submission
+        e.preventDefault();
+
+        // Set the form action to the desired URL
+        $('#shipment_form').attr('action', 'function/cuplump_shipment_draft.php');
+
+        // Submit the form asynchronously using AJAX
+        $.ajax({
+            type: "POST",
+            url: $('#shipment_form').attr('action'),
+            data: $('#shipment_form').serialize(),
+            success: function(response) {
+                if (response.trim() === 'success') {
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Draft Saved',
+                        text: 'Your cuplump container draft has been saved!',
+                    });
+
+                    // Set all inputs to readonly
+                    $('#shipment_form input').prop('readonly', true);
+                    $('#shipment_form textarea').prop('readonly', true);
+                    $('#shipment_form button').prop('hidden', true);
+                    $('#shipment_form select').prop('disabled', true); //use 'disabled' for select elements
+                    // Disable all buttons inside the form
+                    // Temporarily hide the buttons
+                    $("#print_content button").hide();
+                    $('#draftModal').modal('hide');
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: response,
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
+                // Handle the error response
+                // Display SweetAlert error popup
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Form submission failed!',
+                });
+            }
+        });
+    });
+
+
 
     $(document).on('click', '#saveDraftBtn', function(e) {
         // Set the form action to the desired url
@@ -413,7 +635,7 @@ if (isset($_GET['id'])) {
 
         var shipment_id = <?php echo $id; ?>;
         $.ajax({
-            url: "table/bales_shipment_container.php",
+            url: "table/cuplump_shipment_container_record.php",
             method: "POST",
             data: {
                 shipment_id: shipment_id
@@ -453,34 +675,6 @@ if (isset($_GET['id'])) {
 
     });
 
-    $('.confirmShipment').on('click', function() {
-        $tr = $(this).closest('tr');
-
-        var data = $tr.children("td").map(function() {
-            return $(this).text();
-        }).get();
-
-
-        var container_id = <?php echo  $id ?>;
-
-        $('#confirmModal').modal('show');
-
-    });
-
-
-    $('.btnDraft').on('click', function() {
-        $tr = $(this).closest('tr');
-
-        var data = $tr.children("td").map(function() {
-            return $(this).text();
-        }).get();
-
-
-        var container_id = <?php echo  $id ?>;
-
-        $('#draftModal').modal('show');
-
-    });
 
 
 
