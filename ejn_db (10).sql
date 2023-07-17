@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 20, 2023 at 10:49 PM
+-- Generation Time: Jul 17, 2023 at 11:45 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -29,7 +29,6 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `bales_container_record` (
   `container_id` int(11) NOT NULL,
-  `status` varchar(255) DEFAULT NULL,
   `container_no` varchar(255) DEFAULT NULL,
   `withdrawal_date` varchar(255) DEFAULT NULL,
   `quality` varchar(255) DEFAULT NULL,
@@ -40,6 +39,7 @@ CREATE TABLE `bales_container_record` (
   `num_bales` float NOT NULL,
   `total_bale_weight` float NOT NULL,
   `total_bale_cost` decimal(10,2) NOT NULL,
+  `status` varchar(255) DEFAULT NULL,
   `total_milling_cost` decimal(10,2) NOT NULL,
   `average_kilo_cost` decimal(10,2) NOT NULL,
   `shipping_expense` decimal(10,2) NOT NULL,
@@ -50,15 +50,17 @@ CREATE TABLE `bales_container_record` (
 -- Dumping data for table `bales_container_record`
 --
 
-INSERT INTO `bales_container_record` (`container_id`, `status`, `container_no`, `withdrawal_date`, `quality`, `kilo_bale`, `remarks`, `recorded_by`, `van_no`, `num_bales`, `total_bale_weight`, `total_bale_cost`, `total_milling_cost`, `average_kilo_cost`, `shipping_expense`, `source`) VALUES
-(11, 'Void', 'PSAU311069-5', '2023-06-07', 'SPR10', '33.33', 'SHOWA', 'JEANNE', 'PSAU311069-5        ', 600, 19998, 1021346.34, 239976.00, 51.07, 0.00, 'Basilan'),
-(14, 'Void', '', '2023-06-18', 'SPR10', '35', 'SHOWA', 'planta', '49922', 170, 5916.6, 170.00, 5916.60, 5916.60, 0.00, 'Basilan'),
-(15, 'Shipment', '', '2023-06-18', 'SPR10', '35', 'DEC', 'planta', 'ABC', 325, 11375, 580076.89, 136500.00, 51.00, 0.00, 'Basilan'),
-(16, 'Shipment', '', '2023-06-18', 'SPR20', '35', 'DUNLOP', 'planta', 'SDFSF34R2', 568, 19880, 1046920.00, 238560.00, 52.66, 0.00, 'Basilan'),
-(17, 'Shipment', '', '2023-06-19', 'SPR10', '33.33', 'JAYSON', 'planta', 'ACASDC', 234, 8190, 422853.86, 98280.00, 51.63, 0.00, 'Basilan'),
-(18, 'Shipment', '', '2023-06-19', 'SPR10', '35', 'ABC', 'planta', 'ASDAD3434', 144, 5040, 255605.00, 60480.00, 62.72, 3721.00, 'Basilan'),
-(19, 'Shipment', '', '2023-06-19', 'SPR10', '35', 'ABCW', 'planta', 'ASDSAD32', 212, 7420, 367737.72, 89040.00, 61.56, 3721.00, 'Basilan'),
-(20, 'Released', '', '2023-06-19', 'SPR20', '35', 'SHOWA', 'planta', '2323A', 454, 15890, 818545.00, 120540.00, 59.10, 0.00, NULL);
+INSERT INTO `bales_container_record` (`container_id`, `container_no`, `withdrawal_date`, `quality`, `kilo_bale`, `remarks`, `recorded_by`, `van_no`, `num_bales`, `total_bale_weight`, `total_bale_cost`, `status`, `total_milling_cost`, `average_kilo_cost`, `shipping_expense`, `source`) VALUES
+(11, 'PSAU311069-5', '2023-06-07', 'SPR10', '33.33', 'SHOWA', 'JEAN', 'PSAU311069-5        ', 600, 19998, 1021346.34, 'Sold', 239976.00, 51.07, 72973.49, 'Basilan'),
+(13, '', '2023-06-10', 'SPR20', '35', 'CROWN', 'JEAN', 'ASLU 125039-01', 300, 10500, 574125.03, 'Sold', 121380.00, 66.24, 43500.86, 'Basilan'),
+(14, '', '2023-06-17', 'SPR20', '35', 'MANHATTAN', 'JEAN', 'PSAU 313101-8', 600, 21000, 1091067.12, 'Sold', 207480.00, 61.84, 72535.49, 'Basilan'),
+(15, '', '2023-06-23', 'SPR20', '35', 'EXPORT', 'JEAN', '0051275', 600, 21000, 1084713.19, 'Sold', 252000.00, 63.65, 99308.33, 'Basilan'),
+(16, '', '2023-06-24', 'SPR20', '35', 'EXPORT', 'JEAN', '396079-9', 600, 21000, 1097442.29, 'Sold', 210000.00, 62.26, 99308.33, 'Basilan'),
+(17, '', '2023-06-26', 'SPR20', '35', 'MANHATTAN', 'JEAN', '2538272', 592, 20720, 1078324.50, 'Shipped Out', 248640.00, 64.04, 72535.49, 'Basilan'),
+(18, '', '2023-06-26', 'SPR10', '35', 'EXPORT ', 'JEAN', '270239-6', 600, 21000, 1110507.65, 'Sold', 252000.00, 64.88, 99308.33, 'Basilan'),
+(19, '', '2023-07-05', 'SPR20', '35', 'MANHATTAN', 'JEAN', '316112-0', 600, 21000, 1077542.44, 'Awaiting Release', 252000.00, 63.31, 0.00, 'Basilan'),
+(20, '', '2023-07-05', 'SPR10', '33.33', 'SHOWA', 'JEAN', '310920-4', 528, 18134.3, 907069.46, 'Awaiting Release', 217611.72, 62.02, 0.00, 'Basilan'),
+(21, '', '2023-07-15', 'SPR5', '35', 'N/A', 'planta', '123HJHS', 49, 1715, 89425.00, 'Awaiting Release', 20580.00, 64.14, 0.00, 'Basilan');
 
 -- --------------------------------------------------------
 
@@ -80,37 +82,124 @@ CREATE TABLE `bales_container_selection` (
 --
 
 INSERT INTO `bales_container_selection` (`selected_id`, `container_id`, `bales_id`, `num_bales`, `total_weight`, `planta_id`) VALUES
-(1, 15, 1, 100, 0, 1),
-(2, 15, 2, 79, 0, 1),
-(3, 15, 6, 29, 0, 4),
-(4, 15, 7, 35, 0, 4),
-(5, 15, 13, 82, 0, 6),
-(6, 16, 14, 128, 0, 6),
-(7, 16, 22, 212, 0, 13),
-(8, 16, 23, 21, 0, 13),
-(9, 16, 29, 207, 0, 2),
-(11, 17, 25, 5, 0, 7),
-(12, 17, 28, 80, 0, 2),
-(13, 17, 31, 13, 0, 9),
-(14, 17, 33, 24, 0, 11),
-(15, 17, 34, 31, 0, 21),
-(16, 17, 35, 81, 0, 17),
-(17, 18, 36, 50, 0, 17),
-(18, 18, 37, 28, 0, 52),
-(19, 18, 38, 13, 0, 52),
-(20, 18, 42, 12, 0, 53),
-(21, 18, 57, 15, 0, 23),
-(22, 18, 58, 26, 0, 23),
-(23, 19, 59, 22, 0, 10),
-(24, 19, 60, 30, 0, 10),
-(25, 19, 62, 22, 0, 14),
-(26, 19, 66, 82, 0, 24),
-(27, 19, 68, 56, 0, 57),
-(28, 20, 71, 130, 0, 18),
-(29, 20, 72, 27, 0, 60),
-(30, 20, 81, 130, 0, 16),
-(31, 20, 88, 127, 0, 66),
-(32, 20, 89, 40, 0, 66);
+(23, 11, 5, 129, 0, 3),
+(24, 11, 32, 99, 0, 11),
+(25, 11, 41, 131, 0, 12),
+(26, 11, 70, 7, 0, 18),
+(27, 11, 24, 6, 0, 7),
+(28, 11, 30, 25, 0, 9),
+(29, 11, 8, 34, 0, 5),
+(30, 11, 61, 62, 0, 14),
+(32, 11, 74, 6, 0, 8),
+(33, 11, 43, 42, 0, 53),
+(34, 11, 82, 59, 0, 16),
+(35, 13, 81, 130, 0, 16),
+(36, 13, 42, 12, 0, 53),
+(37, 13, 73, 8, 0, 8),
+(40, 13, 91, 139, 0, 15),
+(42, 13, 88, 7, 0, 66),
+(43, 13, 90, 4, 0, 67),
+(44, 14, 29, 53, 0, 2),
+(45, 14, 2, 79, 0, 1),
+(46, 14, 7, 35, 0, 4),
+(47, 14, 14, 115, 0, 6),
+(48, 14, 22, 212, 0, 13),
+(51, 14, 112, 40, 0, 83),
+(52, 14, 109, 66, 0, 82),
+(53, 15, 25, 5, 0, 7),
+(54, 15, 31, 13, 0, 9),
+(55, 15, 66, 13, 0, 24),
+(56, 15, 60, 30, 0, 10),
+(57, 15, 57, 15, 0, 23),
+(58, 15, 99, 9, 0, 19),
+(59, 15, 103, 44, 0, 37),
+(60, 15, 101, 20, 0, 25),
+(61, 15, 105, 30, 0, 55),
+(62, 15, 113, 279, 0, 22),
+(63, 15, 114, 13, 0, 54),
+(64, 15, 123, 77, 0, 32),
+(65, 15, 127, 25, 0, 44),
+(66, 16, 28, 80, 0, 2),
+(67, 16, 1, 100, 0, 1),
+(68, 16, 13, 69, 0, 6),
+(69, 16, 91, 70, 0, 15),
+(70, 16, 33, 24, 0, 11),
+(71, 16, 36, 50, 0, 17),
+(72, 16, 99, 78, 0, 19),
+(73, 16, 6, 29, 0, 4),
+(76, 15, 119, 27, 0, 47),
+(77, 16, 136, 48, 0, 88),
+(78, 16, 138, 52, 0, 89),
+(79, 17, 91, 126, 0, 15),
+(80, 17, 100, 13, 0, 19),
+(81, 17, 93, 55, 0, 50),
+(82, 17, 104, 39, 0, 51),
+(83, 17, 102, 14, 0, 25),
+(84, 17, 106, 36, 0, 55),
+(86, 17, 124, 127, 0, 32),
+(87, 17, 116, 26, 0, 45),
+(88, 17, 120, 20, 0, 47),
+(89, 17, 108, 40, 0, 33),
+(90, 17, 126, 50, 0, 72),
+(91, 17, 129, 46, 0, 43),
+(92, 18, 107, 13, 0, 33),
+(93, 18, 125, 19, 0, 72),
+(94, 18, 127, 12, 0, 44),
+(95, 18, 128, 41, 0, 43),
+(96, 18, 130, 31, 0, 36),
+(97, 18, 132, 176, 0, 49),
+(98, 18, 66, 33, 0, 24),
+(99, 18, 71, 20, 0, 18),
+(100, 18, 68, 56, 0, 57),
+(101, 18, 59, 22, 0, 10),
+(102, 18, 58, 26, 0, 23),
+(103, 18, 92, 20, 0, 15),
+(104, 18, 91, 119, 0, 15),
+(105, 18, 140, 12, 0, 46),
+(106, 19, 129, 34, 4, 43),
+(107, 19, 131, 48, 2, 36),
+(108, 19, 133, 83, 9, 49),
+(109, 19, 140, 65, 6, 46),
+(110, 19, 150, 169, 12, 41),
+(112, 19, 152, 79, 2, 56),
+(113, 19, 159, 13, 1, 77),
+(114, 19, 166, 38, 7, 63),
+(115, 19, 164, 57, 2, 61),
+(116, 20, 142, 137, 4, 70),
+(117, 20, 149, 190, 12, 41),
+(118, 20, 170, 5, 405, 76),
+(119, 20, 174, 8, 641, 75),
+(120, 20, 151, 57, 1, 58),
+(121, 20, 158, 30, 1, 77),
+(122, 19, 173, 8, 540, 74),
+(124, 20, 144, 101, 3, 48),
+(125, 19, 171, 6, 405, 76),
+(126, 21, 13, 15, 7, 6),
+(127, 21, 14, 13, 7, 6),
+(128, 21, 23, 21, 8, 13);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bales_outsource_purchase`
+--
+
+CREATE TABLE `bales_outsource_purchase` (
+  `outsource_recording_id` int(11) NOT NULL,
+  `prod_type` varchar(255) NOT NULL,
+  `trans_type` varchar(255) NOT NULL,
+  `trans_date` date NOT NULL,
+  `supplier` varchar(255) NOT NULL,
+  `location` varchar(255) NOT NULL,
+  `driver` varchar(255) NOT NULL,
+  `truck_num` varchar(255) NOT NULL,
+  `purchase_cost` decimal(10,2) NOT NULL,
+  `total_weight` float NOT NULL,
+  `expense_desc` varchar(255) NOT NULL,
+  `expense` decimal(10,2) NOT NULL,
+  `remarks` varchar(255) NOT NULL,
+  `recorded_by` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -185,10 +274,75 @@ INSERT INTO `bales_purchase_inventory` (`id`, `purchase_id`, `bales_id`, `type`,
 (101, 46, 89, 'SPR-10', 35, 40, 1416, 16),
 (102, 46, 90, 'SPR-20', 35, 38, 1356, 26),
 (103, 47, 90, 'SPR-20', 35, 38, 1356, 26),
-(104, 48, 91, 'SPR-10', 35, 56, 1960, 0),
-(105, 48, 92, 'SPR-20', 33, 23, 767, 0),
-(106, 50, 95, 'SPR-20', 35, 56, 1980, 20),
-(107, 50, 96, 'SPR-10', 35, 40, 1345, 12);
+(104, 49, 93, 'SPR-20', 35, 55, 1955, 30),
+(105, 50, 96, 'SPR-10', 35, 127, 4445, 0),
+(106, 51, 93, 'SPR-20', 35, 55, 1955, 30),
+(107, 54, 104, 'SPR-20', 35, 39, 1382, 17),
+(108, 55, 105, 'SPR-10', 35, 30, 1050, 0),
+(109, 55, 106, 'SPR-20', 35, 36, 1284, 24),
+(110, 56, 99, 'SPR-10', 35, 79, 2765, 0),
+(111, 56, 100, 'SPR-20', 35, 21, 737, 2),
+(112, 57, 99, 'SPR-10', 35, 79, 2765, 0),
+(113, 57, 100, 'SPR-20', 35, 21, 737, 2),
+(114, 58, 99, 'SPR-10', 35, 79, 2765, 0),
+(115, 58, 100, 'SPR-20', 35, 21, 737, 2),
+(116, 61, 107, 'SPR-10', 35, 13, 455, 0),
+(117, 61, 108, 'SPR-20', 35, 40, 1406, 6),
+(118, 62, 107, 'SPR-10', 35, 13, 455, 0),
+(119, 62, 108, 'SPR-20', 35, 40, 1406, 6),
+(120, 63, 115, 'SPR-10', 35, 132, 4620, 0),
+(121, 65, 123, 'SPR-10', 35, 77, 2695, 0),
+(122, 65, 124, 'SPR-20', 35, 127, 4463, 18),
+(123, 66, 132, 'SPR-10', 35, 176, 6160, 0),
+(124, 66, 133, 'SPR-20', 35, 83, 2913, 8),
+(125, 67, 125, 'SPR-10', 35, 19, 665, 0),
+(126, 67, 126, 'SPR-20', 35, 50, 1758, 8),
+(127, 68, 130, 'SPR-10', 35, 31, 1085, 0),
+(128, 68, 131, 'SPR-20', 35, 48, 1682, 2),
+(129, 69, 127, 'SPR-10', 35, 37, 1298, 3),
+(130, 71, 130, 'SPR-10', 35, 31, 1085, 0),
+(131, 71, 131, 'SPR-20', 35, 48, 1682, 2),
+(132, 74, 119, 'SPR-10', 35, 27, 945, 0),
+(133, 74, 120, 'SPR-20', 35, 20, 712, 12),
+(134, 76, 119, 'SPR-10', 35, 27, 945, 0),
+(135, 76, 120, 'SPR-20', 35, 20, 712, 12),
+(136, 80, 140, 'SPR-10', 35, 77, 2695, 0),
+(137, 80, 141, 'SPR-20', 35, 100, 3515, 15),
+(138, 81, 142, 'SPR-10', 33, 137, 4566, 0),
+(139, 84, 152, 'SPR-20', 35, 79, 2780, 15),
+(140, 85, 151, 'SPR-10', 33, 57, 1901, 1),
+(141, 88, 168, 'SPR-20', 35, 25, 883, 8),
+(142, 89, 164, 'SPR-20', 35, 61, 2138, 3),
+(143, 90, 165, 'SPR-10', 33, 67, 2233, 0),
+(144, 90, 166, 'SPR-20', 35, 100, 3500, 0),
+(145, 90, 167, 'SPR-20', 35, 60, 2122, 22),
+(146, 91, 169, 'SPR-10', 35, 114, 4013, 23),
+(147, 93, 182, 'SPR-20', 35, 121, 4235, 0),
+(148, 93, 183, 'SPR-20', 35, 26, 916, 6),
+(149, 94, 195, 'SPR-20', 35, 75, 2625, 0),
+(150, 94, 196, 'SPR-20', 35, 56, 1971, 11),
+(151, 95, 172, 'SPR-10', 33, 7, 233, 0),
+(152, 95, 173, 'SPR-20', 35, 8, 307, 27),
+(153, 95, 182, 'SPR-20', 35, 121, 4235, 0),
+(154, 95, 183, 'SPR-20', 35, 26, 916, 6),
+(155, 97, 182, 'SPR-20', 35, 121, 4235, 0),
+(156, 97, 183, 'SPR-20', 35, 26, 916, 6),
+(157, 99, 180, 'SPR-20', 35, 36, 1260, 0),
+(158, 99, 181, 'SPR-20', 35, 30, 1074, 24),
+(159, 100, 215, 'SPR-20', 35, 50, 1750, 0),
+(160, 100, 216, 'SPR-20', 35, 30, 1067, 17),
+(161, 100, 180, 'SPR-20', 35, 36, 1260, 0),
+(162, 100, 181, 'SPR-20', 35, 30, 1074, 24),
+(163, 101, 218, 'SPR-20', 35, 49, 1715, 0),
+(164, 101, 219, 'SPR-20', 35, 20, 705, 5),
+(165, 102, 213, 'SPR-20', 35, 50, 1750, 0),
+(166, 102, 214, 'SPR-20', 35, 23, 822, 17),
+(167, 103, 218, 'SPR-20', 35, 49, 1715, 0),
+(168, 103, 219, 'SPR-20', 35, 20, 705, 5),
+(169, 103, 180, 'SPR-20', 35, 36, 1260, 0),
+(170, 103, 181, 'SPR-20', 35, 30, 1074, 24),
+(171, 104, 180, 'SPR-20', 35, 36, 1260, 0),
+(172, 104, 181, 'SPR-20', 35, 30, 1074, 24);
 
 -- --------------------------------------------------------
 
@@ -198,16 +352,55 @@ INSERT INTO `bales_purchase_inventory` (`id`, `purchase_id`, `bales_id`, `type`,
 
 CREATE TABLE `bales_sales_container` (
   `sales_container_id` int(11) NOT NULL,
-  `shipment_id` int(11) NOT NULL,
+  `sales_id` int(11) NOT NULL,
   `container_id` int(11) NOT NULL,
   `van_no` varchar(255) NOT NULL,
   `bale_quality` varchar(255) NOT NULL,
   `kilo_bale` varchar(255) NOT NULL,
   `num_bales` int(11) NOT NULL,
+  `total_bale_cost` float NOT NULL,
+  `total_milling_cost` float NOT NULL,
   `total_weight` float NOT NULL,
   `ship_expense` float NOT NULL,
   `remarks` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `bales_sales_container`
+--
+
+INSERT INTO `bales_sales_container` (`sales_container_id`, `sales_id`, `container_id`, `van_no`, `bale_quality`, `kilo_bale`, `num_bales`, `total_bale_cost`, `total_milling_cost`, `total_weight`, `ship_expense`, `remarks`) VALUES
+(1, 5, 11, 'PSAU311069-5        ', 'SPR10', '33.33', 600, 1021350, 239976, 19998, 72973.5, 'SHOWA'),
+(2, 6, 17, '2538272', 'SPR20', '35', 600, 1092450, 248640, 21000, 72535.5, 'MANHATTAN'),
+(3, 7, 14, 'PSAU 313101-8', 'SPR20', '35', 600, 1091070, 207480, 21000, 72535.5, 'MANHATTAN'),
+(4, 8, 13, 'ASLU 125039-01', 'SPR20', '35', 300, 574125, 121380, 10500, 43500.9, 'CROWN'),
+(5, 10, 15, '0051275', 'SPR20', '35', 600, 1084710, 252000, 21000, 99308.3, 'EXPORT'),
+(6, 10, 16, '396079-9', 'SPR20', '35', 600, 1097440, 210000, 21000, 99308.3, 'EXPORT'),
+(7, 10, 18, '270239-6', 'SPR10', '35', 600, 1110510, 252000, 21000, 99308.3, 'EXPORT ');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bales_sales_payment`
+--
+
+CREATE TABLE `bales_sales_payment` (
+  `payment_id` int(11) NOT NULL,
+  `sales_id` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `details` varchar(255) NOT NULL,
+  `amount_paid` decimal(10,2) NOT NULL,
+  `currency` varchar(5) NOT NULL,
+  `rate` decimal(10,2) NOT NULL,
+  `pesos_equivalent` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `bales_sales_payment`
+--
+
+INSERT INTO `bales_sales_payment` (`payment_id`, `sales_id`, `date`, `details`, `amount_paid`, `currency`, `rate`, `pesos_equivalent`) VALUES
+(7, 10, '2023-07-16', 'test 2', 3000.00, 'USD', 51.00, 153000.00);
 
 -- --------------------------------------------------------
 
@@ -219,24 +412,30 @@ CREATE TABLE `bales_sales_record` (
   `bales_sales_id` int(11) NOT NULL,
   `status` varchar(255) NOT NULL,
   `sale_contract` varchar(255) NOT NULL,
-  `buyer_contract` varchar(255) NOT NULL,
+  `purchase_contract` varchar(255) NOT NULL,
+  `buyer_name` varchar(255) DEFAULT NULL,
   `sale_type` varchar(255) NOT NULL,
-  `contract_quality` int(11) NOT NULL,
-  `contact_quantity` int(11) NOT NULL,
+  `contract_quality` varchar(255) NOT NULL,
+  `contract_quantity` int(11) NOT NULL,
+  `contract_kiloPerBale` varchar(11) NOT NULL,
+  `contract_container_num` int(11) NOT NULL,
+  `contract_price` decimal(10,2) NOT NULL,
   `transaction_date` date NOT NULL,
   `shipping_date` varchar(255) NOT NULL,
-  `contract_container_num` int(11) NOT NULL,
+  `source` varchar(255) NOT NULL,
   `destination` varchar(255) NOT NULL,
-  `currency` varchar(3) NOT NULL,
-  `contract_price` decimal(10,2) NOT NULL,
+  `currency` varchar(5) NOT NULL,
   `other_terms` text DEFAULT NULL,
   `no_containers` int(11) NOT NULL,
   `total_num_bales` int(11) NOT NULL,
   `total_bale_weight` decimal(10,2) NOT NULL,
+  `total_bale_cost` decimal(10,2) NOT NULL,
   `total_bale_prod_cost` decimal(10,2) NOT NULL,
   `total_ship_expense` decimal(10,2) NOT NULL,
   `overall_ave_cost_kilo` decimal(10,2) NOT NULL,
   `total_sales` decimal(10,2) NOT NULL,
+  `tax_rate` float NOT NULL,
+  `tax_amount` decimal(10,2) NOT NULL,
   `amount_paid` decimal(10,2) NOT NULL,
   `unpaid_balance` decimal(10,2) NOT NULL,
   `sales_proceed` decimal(10,2) NOT NULL,
@@ -250,8 +449,13 @@ CREATE TABLE `bales_sales_record` (
 -- Dumping data for table `bales_sales_record`
 --
 
-INSERT INTO `bales_sales_record` (`bales_sales_id`, `status`, `sale_contract`, `buyer_contract`, `sale_type`, `contract_quality`, `contact_quantity`, `transaction_date`, `shipping_date`, `contract_container_num`, `destination`, `currency`, `contract_price`, `other_terms`, `no_containers`, `total_num_bales`, `total_bale_weight`, `total_bale_prod_cost`, `total_ship_expense`, `overall_ave_cost_kilo`, `total_sales`, `amount_paid`, `unpaid_balance`, `sales_proceed`, `overall_cost`, `gross_profit`, `recorded_by`, `remarks`) VALUES
-(1, 'In Progress', 'ADAS23', '232A', 'EXPORT', 0, 0, '0000-00-00', '', 0, '', '', 0.00, NULL, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, '', 'TEST REMARK');
+INSERT INTO `bales_sales_record` (`bales_sales_id`, `status`, `sale_contract`, `purchase_contract`, `buyer_name`, `sale_type`, `contract_quality`, `contract_quantity`, `contract_kiloPerBale`, `contract_container_num`, `contract_price`, `transaction_date`, `shipping_date`, `source`, `destination`, `currency`, `other_terms`, `no_containers`, `total_num_bales`, `total_bale_weight`, `total_bale_cost`, `total_bale_prod_cost`, `total_ship_expense`, `overall_ave_cost_kilo`, `total_sales`, `tax_rate`, `tax_amount`, `amount_paid`, `unpaid_balance`, `sales_proceed`, `overall_cost`, `gross_profit`, `recorded_by`, `remarks`) VALUES
+(5, 'In Progress', 'N/A', '2300518', 'SHOWA POLYMERS PROCESS', 'LOCAL', 'SPR20', 19998, '33.33', 1, 72.00, '2023-06-13', 'JUNE 07, 2023', 'MALO-ONG, LAMITAN CITY', 'MANILA ', 'PHP', '', 1, 600, 19998.00, 1021346.34, 239976.00, 72973.50, 66.72, 1439856.00, 0, 0.00, 0.00, 1439856.00, 0.00, 1334295.84, 1334295.84, 'Raquel Bais', ''),
+(6, 'In Progress', '', '', 'MANHATTAN', 'LOCAL', 'SPR20', 21000, '35', 1, 66.00, '2023-06-26', '', 'MALO-ONG, LAMITAN CITY', 'MANILA', 'PHP', '', 1, 600, 21000.00, 1092451.07, 248640.00, 72535.50, 67.32, 1386000.00, 0, 0.00, 0.00, 0.00, 0.00, 1413626.57, 0.00, 'Raquel Bais', ''),
+(7, 'In Progress', '', '', 'MANHATTAN', 'LOCAL', 'SPR20', 21000, '35', 1, 66.00, '2023-06-17', '', 'MALO-ONG, LAMITAN CITY', 'MANILA', 'PHP', '', 1, 600, 21000.00, 1091067.12, 207480.00, 72535.50, 65.29, 1386000.00, 0, 0.00, 0.00, 0.00, 0.00, 1371082.62, 0.00, 'Raquel Bais', ''),
+(8, 'In Progress', '', '', 'CROWN RUBBER CORP.', 'LOCAL', 'SPR20', 10500, '35', 1, 68.00, '2023-06-10', '', 'MALO-ONG, LAMITAN CITY', 'CEBU', 'PHP', '', 1, 300, 10500.00, 574125.03, 121380.00, 43500.90, 70.38, 714000.00, 0, 0.00, 0.00, 0.00, 0.00, 739005.93, 0.00, 'Raquel Bais', ''),
+(9, 'In Progress', '', '', 'TIONG HUAT RUBBER ', 'EXPORT', 'SPR20', 0, '35', 0, 0.00, '2023-07-01', '', '', '', '', NULL, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 'Raquel Bais', ''),
+(10, 'Draft', 'ABCD', 'EDFC', 'TIONG HUAT RUBBER ', 'EXPORT', 'SPR20', 63000, '35', 3, 2.52, '2023-06-26', 'JUNE 26, 2023', 'MALO-ONG, LAMITAN CITY', 'PENANG, MALAYSIA', 'USD', '', 3, 1800, 63000.00, 3292663.13, 714000.00, 297924.90, 68.33, 158760.00, 1, 1587.60, 3000.00, 155760.00, 153000.00, 4304588.03, 4151588.03, 'Raquel Bais', '');
 
 -- --------------------------------------------------------
 
@@ -276,11 +480,13 @@ CREATE TABLE `bales_shipment_container` (
 --
 
 INSERT INTO `bales_shipment_container` (`bs_id`, `shipment_id`, `container_id`, `van_no`, `bale_quality`, `kilo_bale`, `num_bales`, `total_weight`, `remarks`) VALUES
-(4, 1, 15, 'ABC', 'SPR10', '35', 100, 11375, '580,076.89 pcs'),
-(5, 1, 16, 'SDFSF34R2', 'SPR20', '35', 128, 19880, '1,046,920.00 pcs'),
-(6, 2, 17, 'ACASDC', 'SPR10', '33.33', 5, 8190, '422,853.86 pcs'),
-(7, 3, 19, 'ASDSAD32', 'SPR10', '35', 212, 7420, '₱ 367,737.72 '),
-(8, 3, 18, 'ASDAD3434', 'SPR10', '35', 144, 5040, '₱ 255,605.00 ');
+(11, 7, 11, 'PSAU311069-5        ', 'SPR10', '33.33', 600, 19998, '₱ 1,021,346.34 '),
+(12, 8, 15, '0051275', 'SPR20', '35', 600, 21000, '₱ 1,084,713.19 '),
+(13, 8, 16, '396079-9', 'SPR20', '35', 600, 21000, '₱ 1,097,442.29 '),
+(14, 8, 18, '270239-6', 'SPR10', '35', 600, 21000, '₱ 1,110,507.65 '),
+(15, 9, 14, 'PSAU 313101-8', 'SPR20', '35', 600, 21000, '₱ 1,091,067.12 '),
+(18, 12, 13, 'ASLU 125039-01', 'SPR20', '35', 300, 10500, '₱ 574,125.03 '),
+(19, 10, 17, '2538272', 'SPR20', '35', 592, 20720, '₱ 1,078,324.50 ');
 
 -- --------------------------------------------------------
 
@@ -322,28 +528,53 @@ CREATE TABLE `bales_transaction` (
 --
 
 INSERT INTO `bales_transaction` (`id`, `invoice`, `production_id`, `seller`, `address`, `date`, `contract`, `delivery_date`, `lot_code`, `entry`, `total_net_weight`, `total_bales_pcs`, `excess`, `drc`, `price_1`, `price_2`, `first_total`, `second_total`, `net_total_1`, `net_total_2`, `total_amount`, `less`, `amount_paid`, `words_amount`, `loc`, `recorded_by`) VALUES
-(2, '2', 6, 'TATA HALAL', 'BULINGAN, LAMITAN CITY', '2023-06-03', 'SPOT', '0000-00-00', '3', 12335.00, 7365.00, 210, 15, 59.71, 51.50, 0.00, 379297.50, NULL, 0, 0, 379297.50, 270000.00, 109297.50, 'One Hundred Nine Thousand Two Hundred Ninety Seven Peso/s And Five Centavo/s ', NULL, 'rubber'),
-(8, '8', 3, 'CHARLIE CAWLEY', 'LAMITAN CITY', '2023-05-25', 'SPOT', '0000-00-00', 'D', 8585.00, 4299.57, 129, 0, 50.08, 52.00, 0.00, 223577.64, 0.00, 0, 0, 223577.64, 130000.00, 93577.64, 'Ninety Three Thousand Five Hundred Seventy Seven Peso/s And Sixty Four Centavo/s ', NULL, 'JANE'),
-(11, '11', 4, 'LOUIE DELOS REYES', 'PANUNSULAN, ISABELA CITY', '2023-05-26', 'SPOT', '0000-00-00', 'M', 4095.00, 2258.00, 64, 18, 55.14, 52.00, 0.00, 117416.00, 0.00, 0, 0, 117416.00, 81433.20, 35982.80, 'Thirty Five Thousand Nine Hundred Eighty Two Peso/s And Eight Centavo/s ', NULL, 'JANE'),
-(15, '15', 0, 'LONG2X SAN JUAN', 'LAMITAN CITY', '2023-06-05', 'SPOT', '0000-00-00', '', 17500.00, 10057.00, 287, 12, 57.47, 53.00, 0.00, 533021.00, 0.00, 0, 0, 533021.00, 568523.00, -35502.00, 'Undefined Hundred Thirty Five Thousand Five Hundred Two Peso/s ', NULL, 'JANE'),
-(16, '16', 13, 'LONG2X SAN JUAN', 'LAMITAN CITY', '2023-06-05', 'SPOT', '0000-00-00', '19', 14085.00, 8179.00, 233, 24, 58.07, 53.00, 0.00, 433487.00, 0.00, 0, 0, 433487.00, 421968.00, 11519.00, 'Eleven Thousand Five Hundred Nineteen Peso/s ', NULL, 'JANE'),
-(17, '17', 11, 'CHARLIE CAWLEY', 'LAMITAN CITY', '2023-06-05', 'SPOT', '0000-00-00', 'E', 8315.00, 4139.67, 123, 0, 49.79, 52.00, 0.00, 215262.84, 0.00, 0, 0, 215262.84, 150000.00, 65262.84, 'Sixty Five Thousand Two Hundred Sixty Two Peso/s And Eighty Four Centavo/s ', NULL, 'JANE'),
-(20, '20', 17, 'JARWIN GARCIA', 'CALVARIO, LAMITAN CITY', '2023-06-05', 'SPOT', '0000-00-00', '8', 8200.00, 4602.00, 131, 17, 56.12, 51.00, 0.00, 234702.00, 0.00, 0, 0, 234702.00, 209100.00, 25602.00, 'Twenty Five Thousand Six Hundred Two Peso/s ', NULL, 'JANE'),
-(21, '21', 21, 'RUBEN RAMOS', '6KM. ISABELA CITY', '2023-06-05', 'SPOT', '0000-00-00', 'X', 2113.00, 1108.00, 31, 23, 52.44, 51.00, 0.00, 56508.00, 0.00, 0, 0, 56508.00, 20000.00, 36508.00, 'Thirty Six Thousand Five Hundred Eight Peso/s ', NULL, 'JANE'),
-(23, '23', 52, 'RUBEN RAMOS', '6KM. ISABELA CITY', '2023-06-05', 'SPOT', '0000-00-00', 'w', 2558.00, 1439.00, 41, 4, 56.25, 51.00, 0.00, 73389.00, 0.00, 0, 0, 73389.00, 70000.00, 3389.00, 'Three Thousand Three Hundred Eighty Nine Peso/s ', NULL, 'JANE'),
-(25, '25', 53, 'EPIGIL MOLEJE', 'MALOONG SAN JOSE, LAMITAN CITY', '2023-06-06', 'SPOT', '0000-00-00', 'A', 3498.00, 1832.86, 54, 13, 52.40, 51.00, 0.00, 93475.86, 0.00, 0, 0, 93475.86, 0.00, 93475.86, 'Ninety Three Thousand Four Hundred Seventy Five Peso/s And Eighty Six Centavo/s ', NULL, 'JANE'),
-(30, '30', 12, 'CHARLIE CAWLEY', 'LAMITAN CITY', '2023-06-06', 'SPOT', '0000-00-00', 'F', 8775.00, 4366.23, 131, 0, 49.76, 50.73, 0.00, 221498.85, 0.00, 0, 0, 221498.85, 0.00, 221498.85, 'Two Hundred Twenty One Thousand Four Hundred Ninety Eight Peso/s And Eighty Five Centavo/s ', NULL, 'jane'),
-(31, '31', 23, 'DANNY BARANDINO', 'ISABELA CITY', '2023-06-07', 'SPOT', '0000-00-00', '3', 2685.00, 1449.00, 41, 14, 53.97, 50.00, 0.00, 72450.00, 0.00, 0, 0, 72450.00, 70566.80, 1883.20, 'One Thousand Eight Hundred Eighty Three Peso/s And Two Centavo/s ', NULL, 'JANE'),
-(34, '34', 0, 'JARWIN GARCIA', 'CALVARIO, LAMITAN CITY', '2023-06-07', 'SPOT', '0000-00-00', '', 8340.00, 4953.31, 141, 30, 59.39, 51.00, 0.00, 252618.81, 0.00, 0, 0, 252618.81, 212670.00, 39948.81, 'Thirty Nine Thousand Nine Hundred Forty Eight Peso/s And Eighty One Centavo/s ', NULL, 'JANE'),
-(37, '37', 57, 'LOUIE DELOS REYES', 'PANUNSULAN, ISABELA CITY', '2023-06-07', 'SPOT', '0000-00-00', 'N', 3355.00, 1983.00, 56, 23, 59.11, 52.00, 0.00, 103116.00, 0.00, 0, 0, 103116.00, 86387.00, 16729.00, 'Sixteen Thousand Seven Hundred Twenty Nine Peso/s ', NULL, 'rubber'),
-(38, '38', 24, 'JIMROY MCCLINTOCK', 'MALOONG, LAMITAN CITY', '2023-06-07', 'SPOT', '0000-00-00', 'C', 5504.00, 2874.00, 82, 4, 52.22, 51.00, 0.00, 146574.00, 0.00, 0, 0, 146574.00, 140000.00, 6574.00, 'Six Thousand Five Hundred Seventy Four Peso/s ', NULL, 'rubber'),
-(40, '40', 60, 'DANNY BARANDINO', 'ISABELA CITY', '2023-06-07', 'SPOT', '0000-00-00', '2', 1730.00, 946.00, 27, 1, 54.68, 50.00, 0.00, 47300.00, 0.00, 0, 0, 47300.00, 50457.00, -3157.00, 'Undefined Three Thousand One Hundred Fifty Seven Peso/s ', NULL, 'rubber'),
-(43, '43', 0, 'LONG2X SAN JUAN', 'LAMITAN CITY', '2023-06-08', 'SPOT', '0000-00-00', '', 12410.00, 6536.47, 189, 20, 52.67, 53.00, 0.00, 346432.91, 0.00, 0, 0, 346432.91, 450319.50, -103886.59, 'Undefined Million One Hundred Three Thousand Eight Hundred Eighty Six Peso/s And Fifty Nine Centavo/s ', NULL, 'rubber'),
-(46, '46', 66, 'JARWIN GARCIA', 'CALVARIO, LAMITAN CITY', '2023-06-13', 'SPOT', '0000-00-00', '7', 9885.00, 5861.00, 167, 16, 59.29, 51.00, 0.00, 298911.00, 0.00, 0, 0, 298911.00, 247124.00, 51787.00, 'Fifty One Thousand Seven Hundred Eighty Seven Peso/s ', NULL, 'jane'),
-(47, '47', 67, 'JERRY ARIERO', 'ULAMI, LAMITAN CITY', '2023-06-13', 'SPOT', '0000-00-00', '3', 2075.00, 1356.00, 38, 26, 65.35, 50.00, 0.00, 67800.00, 0.00, 0, 0, 67800.00, 25000.00, 42800.00, 'Forty Two Thousand Eight Hundred Peso/s ', NULL, 'rubber'),
-(48, '48', 69, 'RONIE VILDAD', 'MALOONG, LAMITAN CITY', '2023-06-18', 'SPOT', '0000-00-00', '34', 5000.00, 2726.59, 79, 0, 54.53, 52.00, 0.00, 141782.68, 0.00, 0, 0, 141782.68, 0.00, 141782.68, 'One Hundred Forty One Thousand Seven Hundred Eighty Two Peso/s And Sixty Eight Centavo/s ', NULL, 'rubber'),
-(49, '', NULL, NULL, NULL, '2023-06-19', NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, 'rubber'),
-(50, '50', 70, 'NENETH COSTAN', 'TABIAWAN, ISABELA CITY', '2023-06-19', 'SPOT', '0000-00-00', 'D', 5000.00, 3325.20, 96, 32, 66.50, 50.00, 0.00, 166260.00, 0.00, 0, 0, 166260.00, 0.00, 166260.00, 'One Hundred Sixty Six Thousand Two Hundred Sixty Peso/s ', NULL, 'rubber');
+(2, '2', 6, 'TATA HALAL', 'BULINGAN, LAMITAN CITY', '2023-06-03', 'SPOT', '0000-00-00', '3', 12335.00, 7365.00, 210, 15, 59.71, 51.50, 0.00, 379297.50, NULL, 0, 0, 379297.50, 270000.00, 109297.50, 'One Hundred Nine Thousand Two Hundred Ninety Seven Peso/s And Five Centavo/s ', 'Basilan', 'rubber'),
+(8, '8', 3, 'CHARLIE CAWLEY', 'LAMITAN CITY', '2023-05-25', 'SPOT', '0000-00-00', 'D', 8585.00, 4299.57, 129, 0, 50.08, 52.00, 0.00, 223577.64, 0.00, 0, 0, 223577.64, 130000.00, 93577.64, 'Ninety Three Thousand Five Hundred Seventy Seven Peso/s And Sixty Four Centavo/s ', 'Basilan', 'JANE'),
+(11, '11', 4, 'LOUIE DELOS REYES', 'PANUNSULAN, ISABELA CITY', '2023-05-26', 'SPOT', '0000-00-00', 'M', 4095.00, 2258.00, 64, 18, 55.14, 52.00, 0.00, 117416.00, 0.00, 0, 0, 117416.00, 81433.20, 35982.80, 'Thirty Five Thousand Nine Hundred Eighty Two Peso/s And Eight Centavo/s ', 'Basilan', 'JANE'),
+(15, '15', 0, 'LONG2X SAN JUAN', 'LAMITAN CITY', '2023-06-05', 'SPOT', '0000-00-00', '', 17500.00, 10057.00, 287, 12, 57.47, 53.00, 0.00, 533021.00, 0.00, 0, 0, 533021.00, 568523.00, -35502.00, 'Undefined Hundred Thirty Five Thousand Five Hundred Two Peso/s ', 'Basilan', 'JANE'),
+(16, '16', 13, 'LONG2X SAN JUAN', 'LAMITAN CITY', '2023-06-05', 'SPOT', '0000-00-00', '19', 14085.00, 8179.00, 233, 24, 58.07, 53.00, 0.00, 433487.00, 0.00, 0, 0, 433487.00, 421968.00, 11519.00, 'Eleven Thousand Five Hundred Nineteen Peso/s ', 'Basilan', 'JANE'),
+(17, '17', 11, 'CHARLIE CAWLEY', 'LAMITAN CITY', '2023-06-05', 'SPOT', '0000-00-00', 'E', 8315.00, 4139.67, 123, 0, 49.79, 52.00, 0.00, 215262.84, 0.00, 0, 0, 215262.84, 150000.00, 65262.84, 'Sixty Five Thousand Two Hundred Sixty Two Peso/s And Eighty Four Centavo/s ', 'Basilan', 'JANE'),
+(20, '20', 17, 'JARWIN GARCIA', 'CALVARIO, LAMITAN CITY', '2023-06-05', 'SPOT', '0000-00-00', '8', 8200.00, 4602.00, 131, 17, 56.12, 51.00, 0.00, 234702.00, 0.00, 0, 0, 234702.00, 209100.00, 25602.00, 'Twenty Five Thousand Six Hundred Two Peso/s ', 'Basilan', 'JANE'),
+(21, '21', 21, 'RUBEN RAMOS', '6KM. ISABELA CITY', '2023-06-05', 'SPOT', '0000-00-00', 'X', 2113.00, 1108.00, 31, 23, 52.44, 51.00, 0.00, 56508.00, 0.00, 0, 0, 56508.00, 20000.00, 36508.00, 'Thirty Six Thousand Five Hundred Eight Peso/s ', 'Basilan', 'JANE'),
+(23, '23', 52, 'RUBEN RAMOS', '6KM. ISABELA CITY', '2023-06-05', 'SPOT', '0000-00-00', 'w', 2558.00, 1439.00, 41, 4, 56.25, 51.00, 0.00, 73389.00, 0.00, 0, 0, 73389.00, 70000.00, 3389.00, 'Three Thousand Three Hundred Eighty Nine Peso/s ', 'Basilan', 'JANE'),
+(25, '25', 53, 'EPIGIL MOLEJE', 'MALOONG SAN JOSE, LAMITAN CITY', '2023-06-06', 'SPOT', '0000-00-00', 'A', 3498.00, 1832.86, 54, 13, 52.40, 51.00, 0.00, 93475.86, 0.00, 0, 0, 93475.86, 0.00, 93475.86, 'Ninety Three Thousand Four Hundred Seventy Five Peso/s And Eighty Six Centavo/s ', 'Basilan', 'JANE'),
+(30, '30', 12, 'CHARLIE CAWLEY', 'LAMITAN CITY', '2023-06-06', 'SPOT', '0000-00-00', 'F', 8775.00, 4366.23, 131, 0, 49.76, 50.73, 0.00, 221498.85, 0.00, 0, 0, 221498.85, 0.00, 221498.85, 'Two Hundred Twenty One Thousand Four Hundred Ninety Eight Peso/s And Eighty Five Centavo/s ', 'Basilan', 'jane'),
+(31, '31', 23, 'DANNY BARANDINO', 'ISABELA CITY', '2023-06-07', 'SPOT', '0000-00-00', '3', 2685.00, 1449.00, 41, 14, 53.97, 50.00, 0.00, 72450.00, 0.00, 0, 0, 72450.00, 70566.80, 1883.20, 'One Thousand Eight Hundred Eighty Three Peso/s And Two Centavo/s ', 'Basilan', 'JANE'),
+(34, '34', 0, 'JARWIN GARCIA', 'CALVARIO, LAMITAN CITY', '2023-06-07', 'SPOT', '0000-00-00', '', 8340.00, 4953.31, 141, 30, 59.39, 51.00, 0.00, 252618.81, 0.00, 0, 0, 252618.81, 212670.00, 39948.81, 'Thirty Nine Thousand Nine Hundred Forty Eight Peso/s And Eighty One Centavo/s ', 'Basilan', 'JANE'),
+(37, '37', 57, 'LOUIE DELOS REYES', 'PANUNSULAN, ISABELA CITY', '2023-06-07', 'SPOT', '0000-00-00', 'N', 3355.00, 1983.00, 56, 23, 59.11, 52.00, 0.00, 103116.00, 0.00, 0, 0, 103116.00, 86387.00, 16729.00, 'Sixteen Thousand Seven Hundred Twenty Nine Peso/s ', 'Basilan', 'rubber'),
+(38, '38', 24, 'JIMROY MCCLINTOCK', 'MALOONG, LAMITAN CITY', '2023-06-07', 'SPOT', '0000-00-00', 'C', 5504.00, 2874.00, 82, 4, 52.22, 51.00, 0.00, 146574.00, 0.00, 0, 0, 146574.00, 140000.00, 6574.00, 'Six Thousand Five Hundred Seventy Four Peso/s ', 'Basilan', 'rubber'),
+(40, '40', 60, 'DANNY BARANDINO', 'ISABELA CITY', '2023-06-07', 'SPOT', '0000-00-00', '2', 1730.00, 946.00, 27, 1, 54.68, 50.00, 0.00, 47300.00, 0.00, 0, 0, 47300.00, 50457.00, -3157.00, 'Undefined Three Thousand One Hundred Fifty Seven Peso/s ', 'Basilan', 'rubber'),
+(43, '43', 0, 'LONG2X SAN JUAN', 'LAMITAN CITY', '2023-06-08', 'SPOT', '0000-00-00', '', 12410.00, 6536.47, 189, 20, 52.67, 53.00, 0.00, 346432.91, 0.00, 0, 0, 346432.91, 450319.50, -103886.59, 'Undefined Million One Hundred Three Thousand Eight Hundred Eighty Six Peso/s And Fifty Nine Centavo/s ', 'Basilan', 'rubber'),
+(46, '46', 66, 'JARWIN GARCIA', 'CALVARIO, LAMITAN CITY', '2023-06-13', 'SPOT', '0000-00-00', '7', 9885.00, 5861.00, 167, 16, 59.29, 51.00, 0.00, 298911.00, 0.00, 0, 0, 298911.00, 247124.00, 51787.00, 'Fifty One Thousand Seven Hundred Eighty Seven Peso/s ', 'Basilan', 'jane'),
+(47, '47', 67, 'JERRY ARIERO', 'ULAMI, LAMITAN CITY', '2023-06-13', 'SPOT', '0000-00-00', '3', 2075.00, 1356.00, 38, 26, 65.35, 50.00, 0.00, 67800.00, 0.00, 0, 0, 67800.00, 25000.00, 42800.00, 'Forty Two Thousand Eight Hundred Peso/s ', 'Basilan', 'rubber'),
+(50, '50', 0, 'CHARLIE CAWLEY', 'LAMITAN CITY', '2023-06-16', 'SPOT', '0000-00-00', '', 8855.00, 4445.00, 127, 0, 50.20, 50.00, 0.00, 222250.00, 0.00, 0, 0, 222250.00, 130000.00, 92250.00, 'Ninety Two Thousand Two Hundred Fifty Peso/s ', 'Basilan', 'rubber'),
+(51, '51', 50, 'JERRY ARIERO', 'ULAMI, LAMITAN CITY', '2023-06-16', 'SPOT', '0000-00-00', '4', 3393.00, 1955.00, 55, 30, 57.62, 51.00, 0.00, 99705.00, 0.00, 0, 0, 99705.00, 90000.00, 9705.00, 'Nine Thousand Seven Hundred Five Peso/s ', 'Basilan', 'rubber'),
+(54, '54', 51, 'JERRY ARIERO', 'ULAMI, LAMITAN CITY', '2023-06-19', 'SPOT', '0000-00-00', '5', 2515.00, 1382.00, 39, 17, 54.95, 51.00, 0.00, 70482.00, 0.00, 0, 0, 70482.00, 25000.00, 45482.00, 'Forty Five Thousand Four Hundred Eighty Two Peso/s ', 'Basilan', 'rubber'),
+(55, '55', 55, 'LOUIE DELOS REYES', 'PANUNSULAN, ISABELA CITY', '2023-06-19', 'SPOT', '0000-00-00', 'O', 4175.00, 2334.00, 66, 24, 55.90, 52.00, 0.00, 121368.00, 0.00, 0, 0, 121368.00, 101461.00, 19907.00, 'Nineteen Thousand Nine Hundred Seven Peso/s ', 'Basilan', 'rubber'),
+(58, '58', 19, 'JARWIN GARCIA', 'CALVARIO, LAMITAN CITY', '2023-06-19', 'SPOT', '0000-00-00', '10', 6615.00, 3502.00, 100, 2, 52.94, 51.00, 0.00, 178602.00, 0.00, 0, 0, 178602.00, 168682.50, 9919.50, 'Nine Thousand Nine Hundred Nineteen Peso/s And Five Centavo/s ', 'Basilan', 'rubber'),
+(62, '62', 33, 'EPIGIL MOLEJE', 'MALOONG SAN JOSE, LAMITAN CITY', '2023-06-20', 'SPOT', '0000-00-00', 'B', 3800.00, 1861.00, 53, 6, 48.97, 51.00, 0.00, 94911.00, 0.00, 0, 0, 94911.00, 50000.00, 44911.00, 'Forty Four Thousand Nine Hundred Eleven Peso/s ', 'Basilan', 'rubber'),
+(63, '63', 59, 'CHARLIE CAWLEY', 'LAMITAN CITY', '2023-06-21', 'SPOT', '0000-00-00', 'H', 9090.00, 4620.00, 132, 0, 50.83, 50.00, 0.00, 231000.00, 0.00, 0, 0, 231000.00, 0.00, 231000.00, 'Two Hundred Thirty One Thousand Peso/s ', 'Basilan', 'rubber'),
+(65, '65', 0, 'JARWIN GARCIA', 'CALVARIO, LAMITAN CITY', '2023-06-21', 'SPOT', '0000-00-00', '', 12810.00, 7158.00, 204, 18, 55.88, 51.00, 0.00, 365058.00, 0.00, 0, 0, 365058.00, 326655.00, 38403.00, 'Thirty Eight Thousand Four Hundred Three Peso/s ', 'Basilan', 'rubber'),
+(66, '66', 49, 'TATA HALAL', 'BULINGAN, LAMITAN CITY', '2023-06-22', 'SPOT', '0000-00-00', '4', 14790.00, 9073.00, 259, 8, 61.35, 52.00, 0.00, 471796.00, 0.00, 0, 0, 471796.00, 350000.00, 121796.00, 'One Hundred Twenty One Thousand Seven Hundred Ninety Six Peso/s ', 'Basilan', 'rubber'),
+(67, '67', 72, 'TATA HALAL', 'BULINGAN, LAMITAN CITY', '2023-06-22', 'SPOT', '0000-00-00', '5', 4150.00, 2423.00, 69, 8, 58.39, 52.00, 0.00, 125996.00, 0.00, 0, 0, 125996.00, 101037.50, 24958.50, 'Twenty Four Thousand Nine Hundred Fifty Eight Peso/s And Five Centavo/s ', 'Basilan', 'rubber'),
+(69, '69', 44, 'RUBEN RAMOS', '6KM. ISABELA CITY', '2023-06-22', 'SPOT', '0000-00-00', 'Y', 2307.00, 1298.00, 37, 3, 56.26, 51.00, 0.00, 66198.00, 0.00, 0, 0, 66198.00, 0.00, 66198.00, 'Sixty Six Thousand One Hundred Ninety Eight Peso/s ', 'Basilan', 'rubber'),
+(71, '71', 36, 'LITO PURI', 'lamitan', '2023-06-22', 'SPOT', '0000-00-00', '15', 5005.00, 2767.00, 79, 2, 55.28, 52.00, 0.00, 143884.00, 0.00, 0, 0, 143884.00, 0.00, 143884.00, 'One Hundred Forty Three Thousand Eight Hundred Eighty Four Peso/s ', 'Basilan', 'rubber'),
+(76, '76', 47, 'HON. ARLEIGH EISMA', 'LAMITAN CITY', '2023-06-24', 'SPOT', '0000-00-00', '20', 2850.00, 1657.00, 47, 12, 58.14, 51.00, 0.00, 84507.00, 0.00, 0, 0, 84507.00, 0.00, 84507.00, 'Eighty Four Thousand Five Hundred Seven Peso/s ', 'Basilan', 'rubber'),
+(80, '80', 46, 'JARWIN GARCIA', 'CALVARIO, LAMITAN CITY', '2023-06-27', 'SPOT', '0000-00-00', '12', 10905.00, 6210.00, 177, 15, 56.95, 51.00, 0.00, 316710.00, 0.00, 0, 0, 316710.00, 278077.50, 38632.50, 'Thirty Eight Thousand Six Hundred Thirty Two Peso/s And Five Centavo/s ', 'Basilan', 'rubber'),
+(81, '81', 70, 'CHARLIE CAWLEY', 'LAMITAN CITY', '2023-06-27', 'SPOT', '0000-00-00', 'I', 8730.00, 4566.21, 137, 0, 52.30, 50.92, 0.00, 232511.41, 0.00, 0, 0, 232511.41, 0.00, 232511.41, 'Two Hundred Thirty Two Thousand Five Hundred Eleven Peso/s And Forty One Centavo/s ', 'Basilan', 'rubber'),
+(84, '84', 0, 'JIMROY MCCLINTOCK', 'MALOONG, LAMITAN CITY', '2023-06-30', 'SPOT', '0000-00-00', '', 4725.00, 2780.00, 79, 15, 58.84, 51.00, 0.00, 141780.00, 0.00, 0, 0, 141780.00, 140000.00, 1780.00, 'One Thousand Seven Hundred Eighty Peso/s ', 'Basilan', 'rubber'),
+(85, '85', 0, 'LOUIE DELOS REYES', 'PANUNSULAN, ISABELA CITY', '2023-06-30', 'SPOT', '0000-00-00', '', 3340.00, 1900.81, 57, 1, 56.91, 51.00, 0.00, 96941.31, 0.00, 0, 0, 96941.31, 59543.00, 37398.31, 'Thirty Seven Thousand Three Hundred Ninety Eight Peso/s And Thirty One Centavo/s ', 'Basilan', 'rubber'),
+(88, '88', 107, 'JERRY ARIERO', 'ULAMI, LAMITAN CITY', '2023-07-04', 'SPOT', '0000-00-00', '6', 1609.00, 883.00, 25, 8, 54.88, 51.00, 0.00, 45033.00, 0.00, 0, 0, 45033.00, 20000.00, 25033.00, 'Twenty Five Thousand Thirty Three Peso/s ', 'Basilan', 'Jane'),
+(89, '89', 61, 'EPIGIL MOLEJE', 'MALOONG SAN JOSE, LAMITAN CITY', '2023-07-04', 'SPOT', '0000-00-00', 'C', 4069.00, 2138.00, 61, 3, 52.54, 51.00, 0.00, 109038.00, 0.00, 0, 0, 109038.00, 0.00, 109038.00, 'One Hundred Nine Thousand Thirty Eight Peso/s ', 'Basilan', 'Jane'),
+(90, '90', 63, 'JARWIN GARCIA', 'CALVARIO, LAMITAN CITY', '2023-07-04', 'SPOT', '0000-00-00', ' 13 ', 13860.00, 7855.11, 227, 22, 56.67, 51.00, 0.00, 400610.61, 0.00, 0, 0, 400610.61, 353430.00, 47180.61, 'Forty Seven Thousand One Hundred Eighty Peso/s And Sixty One Centavo/s ', 'Basilan', 'Jane'),
+(91, '91', 86, 'CHARLIE CAWLEY', 'LAMITAN CITY', '2023-07-04', 'SPOT', '0000-00-00', ' J ', 7705.00, 4013.00, 114, 23, 52.08, 53.00, 0.00, 212689.00, 0.00, 0, 0, 212689.00, 0.00, 212689.00, 'Two Hundred Twelve Thousand Six Hundred Eighty Nine Peso/s ', 'Basilan', 'Jane'),
+(94, '94', 69, 'LOUIE DELOS REYES', 'PANUNSULAN, ISABELA CITY', '2023-07-05', 'SPOT', '0000-00-00', ' Q ', 8010.00, 4596.00, 131, 11, 57.38, 52.00, 0.00, 238992.00, 0.00, 0, 0, 238992.00, 182803.00, 56189.00, 'Fifty Six Thousand One Hundred Eighty Nine Peso/s ', 'Basilan', 'Jane'),
+(95, '95', 74, 'RUBEN RAMOS', '6KM. ISABELA CITY', '2023-07-05', 'SPOT', '0000-00-00', '  Z  ', 1099.00, 540.31, 15, 27, 49.16, 51.00, 0.00, 27555.81, 0.00, 0, 0, 27555.81, 0.00, 27555.81, 'Twenty Seven Thousand Five Hundred Fifty Five Peso/s And Eighty One Centavo/s ', 'Basilan', 'Jane'),
+(97, '97', 0, 'TATA HALAL', 'BULINGAN, LAMITAN CITY', '2023-07-05', 'SPOT', '0000-00-00', '', 9180.00, 5151.00, 147, 6, 56.11, 52.00, 0.00, 267852.00, 0.00, 0, 0, 267852.00, 200000.00, 67852.00, 'Sixty Seven Thousand Eight Hundred Fifty Two Peso/s ', 'Basilan', 'Jane'),
+(100, '100', 78, 'JIMROY MCCLINTOCK', 'MALOONG, LAMITAN CITY', '2023-07-10', 'SPOT', '0000-00-00', 'E', 4780.00, 2817.00, 80, 17, 58.93, 50.00, 0.00, 140850.00, 0.00, 0, 0, 140850.00, 130000.00, 10850.00, 'Ten Thousand Eight Hundred Fifty Peso/s ', 'Basilan', 'Jane'),
+(102, '102', 84, 'EPIGIL MOLEJE', 'MALOONG SAN JOSE, LAMITAN CITY', '2023-07-10', 'SPOT', '0000-00-00', ' D ', 4856.00, 2572.00, 73, 17, 52.97, 51.00, 0.00, 131172.00, 0.00, 0, 0, 131172.00, 50000.00, 81172.00, 'Eighty One Thousand One Hundred Seventy Two Peso/s ', 'Basilan', 'Jane'),
+(103, '103', 85, 'TATA HALAL', 'BULINGAN, LAMITAN CITY', '2023-07-10', 'SPOT', '0000-00-00', '  7  ', 4300.00, 2420.00, 69, 5, 56.28, 51.00, 0.00, 123420.00, 0.00, 0, 0, 123420.00, 100000.00, 23420.00, 'Twenty Three Thousand Four Hundred Twenty Peso/s ', 'Basilan', 'Jane'),
+(104, '104', 73, 'LOUIE DELOS REYES', 'PANUNSULAN, ISABELA CITY', '2023-07-10', 'SPOT', '0000-00-00', ' O ', 4175.00, 2334.00, 66, 24, 55.90, 52.00, 0.00, 121368.00, 0.00, 0, 0, 121368.00, 101461.00, 19907.00, 'Nineteen Thousand Nine Hundred Seven Peso/s ', 'Basilan', 'Jane');
 
 -- --------------------------------------------------------
 
@@ -381,9 +612,14 @@ CREATE TABLE `bale_shipment_record` (
 --
 
 INSERT INTO `bale_shipment_record` (`shipment_id`, `type`, `status`, `ship_date`, `destination`, `source`, `vessel`, `bill_lading`, `freight`, `loading_unloading`, `processing_fee`, `trucking_expense`, `cranage_fee`, `miscellaneous`, `total_shipping_expense`, `no_containers`, `ship_cost_container`, `remarks`, `recorded_by`, `total_num_bales`, `total_bale_weight`, `total_bale_cost`) VALUES
-(1, 'EXPORT', 'Awaiting Sales', '2023-06-18', 'ABC', 'Basilan', 'ERD', 'DSA', 123.00, 3345.00, 678.00, 11.00, 22.00, 33.00, 4212.00, 2, 2106.00, 'ERD', 'DSA', 893, 31255, 1626996.89),
-(2, 'EXPORT', 'Awaiting Sales', '2023-06-19', 'MANILA', 'Basilan', 'ALESON', '2,322', 123.00, 345.00, 678.00, 910.00, 1112.00, 1314.00, 4482.00, 1, 4482.00, 'TEST REMARKS', 'TEST RECORDED', 234, 8190, 422853.86),
-(3, 'EXPORT', 'Awaiting Sales', '2023-06-19', 'DAVAO', 'Basilan', 'ALESON', 'TEST ', 2333.00, 12.00, 321.00, 4332.00, 321.00, 123.00, 7442.00, 2, 3721.00, 'TEST 2', ' TEST 3', 356, 12460, 623342.72);
+(7, 'LOCAL', 'Complete', '2023-06-13', 'MANILA', 'MALO-ONG, LAMITAN CITY', 'PSAAC', '', 37535.49, 2000.00, 0.00, 33000.00, 0.00, 438.00, 72973.49, 1, 72973.49, '', 'ROGELEY', 600, 19998, 1021346.34),
+(8, 'EXPORT', 'Complete', '2023-07-01', 'MALAYSIA', 'MALO-ONG, LAMITAN CITY', 'EVERGREEN LINE', 'EGLV 06330000992', 241425.00, 6000.00, 5500.00, 45000.00, 0.00, 0.00, 297925.00, 3, 99308.33, '', 'ROGELEY RAMOS', 1800, 63000, 3292663.13),
+(9, 'LOCAL', 'Complete', '2023-06-20', 'MANILA', 'MALO-ONG, LAMITAN CITY', 'PSAAC', '23ZAM002754', 37535.49, 2000.00, 0.00, 33000.00, 0.00, 0.00, 72535.49, 1, 72535.49, '', 'ROGELEY RAMOS', 600, 21000, 1091067.12),
+(10, 'LOCAL', 'Draft', '2023-07-26', 'MANILA', 'MALO-ONG, LAMITAN CITY', 'PSAAC', '', 37535.49, 2000.00, 0.00, 33000.00, 0.00, 0.00, 72535.49, 1, 72535.49, '', 'ROGELEY RAMOS', 592, 20720, 1078324.50),
+(11, 'LOCAL', 'In Progress', '2023-06-10', 'CEBU', 'MALO-ONG, LAMITAN CITY', 'ALESON', '', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0.00, '', 'ROGELEY RAMOS', 0, 0, 0.00),
+(12, 'LOCAL', 'Complete', '2023-06-10', 'CEBU', 'MALO-ONG, LAMITAN CITY', 'ALESON', '', 27500.86, 1000.00, 0.00, 15000.00, 0.00, 0.00, 43500.86, 1, 43500.86, '', 'ROGELEY RAMOS', 300, 10500, 574125.03),
+(13, 'LOCAL', 'Draft', '2023-06-19', 'MANILA', 'MALO-ONG, LAMITAN CITY', 'PSAAC', '', 37535.49, 2000.00, 0.00, 33000.00, 0.00, 0.00, 72535.49, 0, 72535.49, 'the container is not yet posted. MANHATTAN', 'ROGELEY RAMOS', 0, 0, 0.00),
+(14, 'LOCAL', 'Draft', '2023-07-05', 'MANILA', 'TIONGCO, ZAMBOANGA CITY', 'PSAAC', '', 37535.49, 2000.00, 0.00, 33000.00, 0.00, 0.00, 72535.49, 0, 72535.49, 'NOT YET RECORDED AT THE BALE CONTAINER, ,MANHATTAN', 'ROGELEY RAMOS ', 0, 0, 0.00);
 
 -- --------------------------------------------------------
 
@@ -440,98 +676,10 @@ INSERT INTO `category_expenses` (`id`, `category`) VALUES
 (106, 'GASOLINE/FUEL/LUBRICANT EXP.'),
 (107, 'MANILA PCF'),
 (108, 'TRUCK EXPENSES'),
-(109, 'NTC expenses');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `coffee_customer`
---
-
-CREATE TABLE `coffee_customer` (
-  `cof_customer_id` int(11) NOT NULL,
-  `cof_customer_name` varchar(255) NOT NULL,
-  `cof_customer_address` varchar(255) NOT NULL,
-  `cof_customer_contact` varchar(50) NOT NULL,
-  `cof_customer_balance` decimal(10,2) NOT NULL DEFAULT 0.00
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `coffee_customer`
---
-
-INSERT INTO `coffee_customer` (`cof_customer_id`, `cof_customer_name`, `cof_customer_address`, `cof_customer_contact`, `cof_customer_balance`) VALUES
-(1, 'a', 'b', 'c', 0.00),
-(2, 'a', 'b', 'ca', 0.00),
-(3, 'abc', '12345', 'nkjgiyf', 0.00),
-(4, 'abc', '12345', 'nkjgiyf', 0.00),
-(5, 'qwertyu', 'sdfghj', 'xcvbnm', 0.00),
-(6, 'asdf', 'dfg', 'dfgq1', 0.00),
-(7, 'asdf', 'dfg', 'dfgq1', 0.00),
-(8, '12345', 'asdfghj', 'zxcvbnm', 0.00),
-(9, '1111', '22222222222', '33333333333333', 0.00),
-(10, '1111', '22222222222', '33333333333333', 0.00),
-(11, '1111', '22222222222', '33333333333333', 0.00),
-(12, '0000000000', '9999999999999', 'ooooooooooooooooooooo', 0.00),
-(13, '0000000000', '9999999999999', 'ooooooooooooooooooooo', 0.00),
-(14, '0000000000', '9999999999999', 'ooooooooooooooooooooo', 0.00),
-(15, 'l', 'l', 'l', 0.00),
-(16, 'l', 'l', 'l', 0.00),
-(17, 'name here', 'address sample', '1234567890', 0.00),
-(18, 'name here', 'address sample', '1234567890', 0.00),
-(19, 'name here', 'address sample', '1234567890', 0.00),
-(20, 'test', 'test', 'test', 0.00),
-(21, 'rd', 'lala', 'dale', 0.00),
-(22, 'abc', 'abc', 'abc', 0.00);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `coffee_sale`
---
-
-CREATE TABLE `coffee_sale` (
-  `coffee_id` int(11) NOT NULL,
-  `coffee_status` varchar(255) DEFAULT NULL,
-  `coffee_no` varchar(255) DEFAULT NULL,
-  `coffee_date` date DEFAULT NULL,
-  `coffee_customer` varchar(255) DEFAULT NULL,
-  `coffee_total_amount` decimal(15,2) DEFAULT NULL,
-  `coffee_paid` decimal(15,2) DEFAULT NULL,
-  `coffee_balance` decimal(15,2) GENERATED ALWAYS AS (`coffee_total_amount` - `coffee_paid`) VIRTUAL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `coffee_sale`
---
-
-INSERT INTO `coffee_sale` (`coffee_id`, `coffee_status`, `coffee_no`, `coffee_date`, `coffee_customer`, `coffee_total_amount`, `coffee_paid`) VALUES
-(10, 'On Account', 'ACV', '2023-06-15', 'RONALD', 384.00, 300.00),
-(11, 'Paid', '232', '2023-06-15', 'RONALD', 4600.00, 4600.00);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `coffee_sale_line`
---
-
-CREATE TABLE `coffee_sale_line` (
-  `line_id` int(11) NOT NULL,
-  `coffee_id` int(11) DEFAULT NULL,
-  `product` varchar(255) DEFAULT NULL,
-  `unit` int(11) DEFAULT NULL,
-  `price` decimal(15,2) DEFAULT NULL,
-  `amount` decimal(15,2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `coffee_sale_line`
---
-
-INSERT INTO `coffee_sale_line` (`line_id`, `coffee_id`, `product`, `unit`, `price`, `amount`) VALUES
-(7, 0, 'LC_R', 2, 23.00, 46.00),
-(8, 10, 'LC_W_KG', 12, 32.00, 384.00),
-(9, 11, 'LC_R', 23, 200.00, 4600.00);
+(109, 'NTC expenses'),
+(110, 'RENEWAL REGISTRATION'),
+(111, 'MEDICAL AND CONSULTATION'),
+(112, 'Repair and Maintainance');
 
 -- --------------------------------------------------------
 
@@ -670,7 +818,7 @@ INSERT INTO `dry_price_transfer` (`dry_id`, `seller`, `address`, `date`, `net`, 
 (83, 'CHARLIE CAWLEY', 'BAROY, LAMITAN CITY', '2023-05-24', 8775.00, 52.00, 0.00, 1, 'JANE', 'Basilan', 'DRY'),
 (84, 'CHARLIE CAWLEY', 'LAMITAN CITY', '2023-05-10', 8585.00, 52.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
 (85, 'JARWIN GARCIA', 'BALAGTASAN, LAMITAN CITY', '2023-05-25', 6615.00, 51.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
-(86, 'LOUIE DELOS REYES', 'PANUNSULAN, ISABELA CITY', '2023-05-26', 4175.00, 52.00, 0.00, 1, 'JANE', 'Basilan', 'DRY'),
+(86, 'LOUIE DELOS REYES', 'PANUNSULAN, ISABELA CITY', '2023-05-26', 4175.00, 52.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
 (88, 'CHARLIE CAWLEY', 'LAMITAN CITY', '2023-05-31', 8855.00, 52.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
 (89, 'EPIGIL MOLEJE', 'MALOONG SAN JOSE, LAMITAN CITY', '2023-05-31', 3800.00, 51.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
 (90, 'JARWIN GARCIA', 'CALVARIO, LAMITAN CITY', '2023-05-31', 12810.00, 51.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
@@ -681,17 +829,87 @@ INSERT INTO `dry_price_transfer` (`dry_id`, `seller`, `address`, `date`, `net`, 
 (100, 'JARWIN GARCIA', 'CALVARIO, LAMITAN CITY', '2023-06-03', 10905.00, 51.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
 (101, 'TATA HALAL', 'BULINGAN, LAMITAN CITY', '2023-06-03', 14790.00, 52.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
 (102, 'JERRY ARIERO', 'ULAMI, LAMITAN CITY', '2023-05-30', 2515.00, 51.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
-(103, 'TATA HALAL', 'BULINGAN, LAMITAN CITY', '2023-06-05', 4150.00, 52.00, 0.00, 1, 'JANE', 'Basilan', 'DRY'),
+(103, 'TATA HALAL', 'BULINGAN, LAMITAN CITY', '2023-06-05', 4150.00, 51.00, 0.00, 1, 'JANE', 'Basilan', 'DRY'),
 (104, 'JIMROY MCCLINTOCK', 'MALOONG, LAMITAN CITY', '2023-06-06', 4725.00, 51.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
 (105, 'LOUIE DELOS REYES', 'PANUNSULAN, ISABELA CITY', '2023-06-06', 3340.00, 51.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
 (106, 'CHARLIE CAWLEY', 'LAMITAN CITY', '2023-06-07', 9090.00, 50.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
 (107, 'EPIGIL MOLEJE', 'MALOONG SAN JOSE, LAMITAN CITY', '2023-06-07', 4069.00, 51.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
 (108, 'TATA HALAL', 'BULINGAN, LAMITAN CITY', '2023-06-13', 9180.00, 52.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
 (109, 'JARWIN GARCIA', 'CALVARIO, LAMITAN CITY', '2023-06-13', 13860.00, 51.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
-(110, 'JERRY ARIERO', 'ULAMI, LAMITAN CITY', '2023-06-13', 1906.00, 51.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
-(111, 'LOUIE DELOS REYES', 'PANUNSULAN, ISABELA CITY', '2023-06-13', 8010.00, 52.00, 0.00, 1, 'JANE', 'Basilan', 'DRY'),
-(112, 'RONIE VILDAD', 'MALOONG, LAMITAN CITY', '2023-06-18', 5000.00, 52.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
-(113, 'NENETH COSTAN', 'TABIAWAN, ISABELA CITY', '2023-06-19', 5000.00, 50.00, 0.00, 0, 'JANE', 'Basilan', 'DRY');
+(110, 'JERRY ARIERO', 'ULAMI, LAMITAN CITY', '2023-06-10', 1609.00, 51.00, 0.00, 1, 'JANE', 'Basilan', 'DRY'),
+(111, 'LOUIE DELOS REYES', 'PANUNSULAN, ISABELA CITY', '2023-06-13', 8010.00, 52.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
+(112, 'CHARLIE CAWLEY', 'LAMITAN CITY', '2023-06-14', 8730.00, 50.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
+(113, 'RUBEN RAMOS', '6KM. ISABELA CITY', '2023-06-15', 1099.00, 51.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
+(114, 'JIMROY MCCLINTOCK', 'MALOONG, LAMITAN CITY', '2023-06-16', 4780.00, 50.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
+(115, 'DANNY BARANDINO', 'ISABELA CITY', '2023-06-17', 2720.00, 50.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
+(116, 'JARWIN GARCIA', 'CALVARIO, LAMITAN CITY', '2023-06-17', 10185.00, 51.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
+(117, 'EPIGIL MOLEJE', 'MALOONG SAN JOSE, LAMITAN CITY', '2023-06-20', 4856.00, 51.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
+(118, 'TATA HALAL', 'BULINGAN, LAMITAN CITY', '2023-06-20', 4300.00, 51.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
+(119, 'CHARLIE CAWLEY', 'LAMITAN CITY', '2023-06-21', 7705.00, 53.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
+(120, 'JARWIN GARCIA', 'CALVARIO, LAMITAN CITY', '2023-06-24', 5080.00, 51.00, 0.00, 1, 'JANE', 'Basilan', 'DRY'),
+(121, 'JARWIN GARCIA', 'CALVARIO, LAMITAN CITY', '2023-06-25', 8770.00, 51.00, 0.00, 1, 'JANE', 'Basilan', 'DRY'),
+(122, 'JERRY ARIERO', 'ULAMI, LAMITAN CITY', '2023-06-26', 2514.00, 50.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
+(123, 'LOUIE DELOS REYES', 'PANUNSULAN, ISABELA CITY', '2023-06-27', 7050.00, 51.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
+(125, 'CHARLIE CAWLEY', 'LAMITAN CITY', '2023-06-28', 10235.00, 53.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
+(126, 'CHARLIE CAWLEY', 'LAMITAN CITY', '2023-06-28', 10235.00, 53.00, 0.00, 1, 'JANE', 'Basilan', 'DRY'),
+(127, 'RUBEN RAMOS', '6KM. ISABELA CITY', '2023-06-30', 1786.00, 50.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
+(128, 'RUBEN RAMOS', '6KM. ISABELA CITY', '2023-06-30', 1687.00, 50.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
+(129, 'JERRY ARIERO', 'ULAMI, LAMITAN CITY', '2023-07-01', 2996.00, 50.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
+(130, 'JARWIN GARCIA', 'CALVARIO, LAMITAN CITY', '2023-07-01', 15795.00, 52.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
+(131, 'LITO PURI', 'lamitan', '2023-07-01', 3940.00, 50.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
+(132, 'JIMROY MCCLINTOCK', 'MALOONG, LAMITAN CITY', '2023-07-03', 5110.00, 50.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
+(135, 'Lucero Jose', 'Makilala', '2023-06-19', 5750.00, 54.00, 0.00, 0, 'Rannie Peralta', 'Kidapawan', 'DRY'),
+(136, 'Lucero Jose', 'Makilala', '2023-06-19', 1590.00, 54.00, 0.00, 0, 'Rannie Peralta', 'Kidapawan', 'DRY'),
+(137, 'Sumabong Jerry', 'Mlang, Cotabato', '2023-06-24', 1190.00, 54.00, 0.00, 0, 'Rannie Peralta', 'Kidapawan', 'DRY'),
+(138, 'Lucero Jose', 'Makilala', '2023-06-19', 4660.00, 54.00, 0.00, 1, 'Rannie Peralta', 'Kidapawan', 'DRY'),
+(139, 'Lucero Jose', 'Makilala', '2023-07-26', 8870.00, 54.00, 0.00, 1, 'Rannie Peralta', 'Kidapawan', 'DRY'),
+(140, 'Lucero Jose', 'Makilala', '2023-06-28', 1540.00, 54.00, 0.00, 0, 'Rannie Peralta', 'Kidapawan', 'DRY'),
+(141, 'Dagatan, Edgardo', 'Mlang, Makilala North Cotabato', '2023-06-28', 5280.00, 54.00, 0.00, 0, 'Rannie Peralta', 'Kidapawan', 'DRY'),
+(142, 'Sumabong Jerry', 'Mlang Cotabato', '2023-06-28', 2270.00, 54.00, 0.00, 1, 'Rannie Peralta', 'Kidapawan', 'DRY'),
+(143, 'Lucero Jose', 'Makilala', '2023-06-28', 5780.00, 54.00, 0.00, 0, 'Rannie Peralta', 'Kidapawan', 'DRY'),
+(144, 'Lucero Jose', 'Makilala', '2023-06-29', 2790.00, 54.00, 0.00, 0, 'Rannie Peralta', 'Kidapawan', 'DRY'),
+(145, 'Lucero Jose', 'Makilala', '2023-06-30', 680.00, 54.00, 0.00, 0, 'Rannie Peralta', 'Kidapawan', 'DRY'),
+(146, 'Bobis Fausto', 'Mateo, Kidapawan ', '2023-06-30', 1090.00, 54.00, 0.00, 0, 'Rannie Peralta', 'Kidapawan', 'DRY'),
+(147, 'Lucero Jose', 'Makilala', '2023-06-30', 1410.00, 54.00, 0.00, 0, 'Rannie Peralta', 'Kidapawan', 'DRY'),
+(148, 'Lucero Jose', 'Makilala', '2023-07-01', 4130.00, 54.00, 0.00, 0, 'Rannie Peralta', 'Kidapawan', 'DRY'),
+(149, 'Dagatan, Edgardo', 'Mlang, Makilala North Cotabato', '2023-07-01', 4870.00, 54.00, 0.00, 0, 'Rannie Peralta', 'Kidapawan', 'DRY'),
+(150, 'Bobis Fausto', 'Mateo, Kidapawan ', '2023-07-01', 1380.00, 54.00, 0.00, 0, 'Rannie Peralta', 'Kidapawan', 'DRY'),
+(151, 'Lucero Jose', 'Makilala', '2023-07-01', 2040.00, 54.00, 66096.00, 0, 'Rannie Peralta', 'Kidapawan', 'DRY'),
+(152, 'Sumabong Jerry', 'Mlang Cotabato', '2023-07-02', 1240.00, 0.00, 0.00, 0, 'Rannie Peralta', 'Kidapawan', 'DRY'),
+(153, 'Sumabong Jerry', 'Mlang Cotabato', '2023-07-02', 4150.00, 54.00, 0.00, 0, 'Rannie Peralta', 'Kidapawan', 'DRY'),
+(154, 'Galicia Gemima', 'Mlang, Cotabato', '2023-07-02', 3130.00, 54.00, 0.00, 0, 'Rannie Peralta', 'Kidapawan', 'DRY'),
+(155, 'Lucero Jose', 'Makilala', '2023-07-03', 380.00, 50.00, 0.00, 0, 'Rannie Peralta', 'Kidapawan', 'DRY'),
+(156, 'Bobis Fausto', 'Mateo, Kidapawan ', '2023-07-03', 3110.00, 50.00, 0.00, 0, 'Rannie Peralta', 'Kidapawan', 'DRY'),
+(157, 'TATA HALAL', 'BULINGAN, LAMITAN CITY', '2023-07-04', 15705.00, 51.00, 0.00, 1, 'JANE', 'Basilan', 'DRY'),
+(159, 'Lucero Jose', 'Makilala', '2023-06-13', 7410.00, 54.00, 0.00, 0, 'Rannie ', 'Kidapawan', 'DRY'),
+(160, 'Lucero Jose', 'Makilala', '2023-06-15', 1560.00, 54.00, 0.00, 0, 'Rannie ', 'Kidapawan', 'DRY'),
+(161, 'Lucero Jose', 'Makilala', '2023-07-18', 930.00, 54.00, 0.00, 0, 'Rannie ', 'Kidapawan', 'DRY'),
+(162, 'Lucero Jose', 'Makilala', '2023-06-19', 4280.00, 54.00, 0.00, 1, 'Rannie ', 'Kidapawan', 'DRY'),
+(163, 'Lucero Jose', 'Makilala', '2023-06-18', 3510.00, 54.00, 0.00, 1, 'JANE', 'Kidapawan', 'DRY'),
+(164, 'CHARLIE CAWLEY', 'LAMITAN CITY', '2023-07-05', 9715.00, 53.00, 0.00, 1, 'JANE', 'Basilan', 'DRY'),
+(165, 'Bobis Fausto', 'Mateo, Kidapawan ', '2023-06-15', 1330.00, 54.00, 0.00, 0, 'Rannie ', 'Kidapawan', 'DRY'),
+(166, 'Bobis Fausto', 'Mateo, Kidapawan ', '2023-06-17', 1000.00, 54.00, 0.00, 0, 'Rannie ', 'Kidapawan', 'DRY'),
+(167, 'Bobis Fausto', 'Mateo, Kidapawan ', '2023-06-18', 2190.00, 54.00, 0.00, 0, 'Rannie ', 'Kidapawan', 'DRY'),
+(168, 'Bobis Fausto', 'Mateo, Kidapawan ', '2023-06-19', 1920.00, 54.00, 0.00, 0, 'Rannie ', 'Kidapawan', 'DRY'),
+(169, 'Bobis Fausto', 'Mateo, Kidapawan ', '2023-06-20', 1620.00, 54.00, 0.00, 0, 'Rannie ', 'Kidapawan', 'DRY'),
+(170, 'Galicia Gemima', 'Mlang, Cotabato', '2023-06-16', 960.00, 54.00, 0.00, 0, 'Rannie ', 'Kidapawan', 'DRY'),
+(171, 'Galicia Gemima', 'Mlang, Cotabato', '2023-06-17', 2430.00, 54.00, 0.00, 0, 'Rannie ', 'Kidapawan', 'DRY'),
+(172, 'Galicia Gemima', 'Mlang, Cotabato', '2023-06-23', 6750.00, 54.00, 0.00, 0, 'Rannie ', 'Kidapawan', 'DRY'),
+(173, 'Lucero Jose', 'Makilala', '2023-06-20', 4780.00, 54.00, 0.00, 0, 'Rannie ', 'Kidapawan', 'DRY'),
+(174, 'Lucero Jose', 'Makilala', '2023-06-23', 5030.00, 54.00, 0.00, 0, 'Rannie ', 'Kidapawan', 'DRY'),
+(175, 'Lucero Jose', 'Makilala', '2023-06-25', 300.00, 54.00, 0.00, 0, 'Rannie ', 'Kidapawan', 'DRY'),
+(176, 'Lucero Jose', 'Makilala', '2023-06-28', 8660.00, 54.00, 0.00, 0, 'Rannie ', 'Kidapawan', 'DRY'),
+(177, 'Lucero Jose', 'Makilala', '2023-06-27', 3930.00, 54.00, 0.00, 0, 'Rannie ', 'Kidapawan', 'DRY'),
+(178, 'Lucero Jose', 'Makilala', '2023-06-27', 10170.00, 54.00, 0.00, 0, 'Rannie ', 'Kidapawan', 'DRY'),
+(181, 'Lucero Jose', 'Makilala', '2023-07-05', 7680.00, 50.00, 0.00, 0, 'Rannie ', 'Kidapawan', 'DRY'),
+(182, 'Bobis Fausto', 'Mateo, Kidapawan ', '2023-07-04', 2490.00, 50.00, 0.00, 0, 'Rannie ', 'Kidapawan', 'DRY'),
+(183, 'Lucero Jose', 'Makilala', '2023-06-01', 8430.00, 54.00, 0.00, 0, 'Rannie ', 'Kidapawan', 'DRY'),
+(184, 'Lucero Jose', 'Makilala', '2023-06-02', 2870.00, 54.00, 0.00, 0, 'Rannie ', 'Kidapawan', 'DRY'),
+(185, 'Lucero Jose', 'Makilala', '2023-06-02', 8480.00, 54.00, 0.00, 0, 'Rannie ', 'Kidapawan', 'DRY'),
+(186, 'Lucero Jose', 'Makilala', '2023-06-04', 4370.00, 54.00, 0.00, 0, 'Rannie ', 'Kidapawan', 'DRY'),
+(187, 'EPIGIL MOLEJE', 'MALOONG SAN JOSE, LAMITAN CITY', '2023-07-06', 5989.00, 50.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
+(188, 'HON. ARLEIGH EISMA', 'LAMITAN CITY', '2023-07-07', 2795.00, 50.00, 0.00, 0, 'JANE', 'Basilan', 'DRY'),
+(189, 'LOUIE DELOS REYES', 'PANUNSULAN, ISABELA CITY', '2023-07-07', 5110.00, 51.00, 0.00, 0, 'JANE', 'Basilan', 'DRY');
 
 -- --------------------------------------------------------
 
@@ -710,16 +928,17 @@ CREATE TABLE `ejn_rubber_transfer` (
   `remarks` varchar(255) DEFAULT NULL,
   `planta_status` int(11) DEFAULT NULL,
   `recorded_by` varchar(255) DEFAULT NULL,
-  `type` varchar(255) DEFAULT NULL
+  `type` varchar(255) DEFAULT NULL,
+  `source` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ejn_rubber_transfer`
 --
 
-INSERT INTO `ejn_rubber_transfer` (`ejn_id`, `supplier`, `location`, `date`, `total_buying_weight`, `total_purchase_cost`, `ave_kiloCost`, `remarks`, `planta_status`, `recorded_by`, `type`) VALUES
-(2, 'EJN RUBBER', 'LAMITAN CITY', '2023-05-21', 1000.00, 32222.00, 32.22, 'Test', 0, 'JANE', 'EJN'),
-(3, ' EJN RUBBER ', ' LAMITAN CITY ', '2023-05-26', 22000.00, 233233.00, 10.60, '  ', 0, ' JANE ', 'EJN');
+INSERT INTO `ejn_rubber_transfer` (`ejn_id`, `supplier`, `location`, `date`, `total_buying_weight`, `total_purchase_cost`, `ave_kiloCost`, `remarks`, `planta_status`, `recorded_by`, `type`, `source`) VALUES
+(2, ' EJN RUBBER ', ' LAMITAN CITY ', '2023-06-14', 5854.00, 153618.35, 26.24, 'LOAD TO PROC.', 0, ' JANE ', 'EJN', 'Basilan'),
+(3, 'EJN RUBBER', 'LAMITAN CITY', '2023-07-10', 2991.00, 76270.50, 25.50, '', 0, 'JANE', 'EJN', 'Basilan');
 
 -- --------------------------------------------------------
 
@@ -1676,7 +1895,97 @@ INSERT INTO `ledger_cashadvance` (`id`, `date`, `voucher`, `customer`, `buying_s
 (862, '2023-06-12', '548', 'NENET COSTAN', 'CASH ADVANCE FOR STA CLARA', 'Customer', '200000'),
 (863, '2023-06-12', '550', 'RAYMUND SAN JUAN', 'CASH ADVANCE', 'Customer', '100000'),
 (864, '2023-06-12', '551', 'JARWIN GARCIA', 'CASH ADVANCEFOR RUBBER', 'Customer', '50000'),
-(865, '2023-06-12', '552', 'NENET COSTAN', 'CASH ADVANCE FOR RUBBER', 'Customer', '100000');
+(865, '2023-06-12', '552', 'NENET COSTAN', 'CASH ADVANCE FOR RUBBER', 'Customer', '100000'),
+(866, '2023-06-13', '41376', 'dayanara remigio', 'cash advance for salary', 'Employee', '4500'),
+(867, '2023-06-13', '41374', 'maleleel cero', 'cash advance for salary', 'Employee', '5000'),
+(868, '2023-06-13', '553', 'long2x san juan', 'cash advance for export rubber', 'Customer', '50000'),
+(869, '2023-06-14', '554', 'CHARLY CAWLEY', 'CASH ADVANCE FOR DRY PRICE', 'Customer', '130000'),
+(870, '2023-06-14', '639', 'TANY SULAYMAN', 'CASH ADVANCE FOR COPRA', 'Customer', '50000'),
+(871, '2023-06-14', '41380', 'ERIC MANUEL', 'CASH ADVANCE FOR SALARY', 'Employee', '6500'),
+(872, '2023-06-15', '41329', 'LANGUTAN EMELITO', 'CASH ADVANCE FOR SALARY', 'Employee', '2000'),
+(873, '2023-06-15', '41389', 'JOSEPH BENOSA', 'CASH ADVANCE FOR SALARY', 'Employee', '3200'),
+(874, '2023-06-17', '555', 'JIMROY MCLINTOCK', 'CASH advance for dry ptice', 'Customer', '50000'),
+(875, '2023-06-15', '27673', 'datu sabtilan', 'cash advance for copra', 'Customer', '50000'),
+(876, '2023-06-15', '41325', 'ernesto nalam', 'cash advance for salary', 'Employee', '1000'),
+(877, '2023-06-15', '41324', 'felipe borda', 'cash advance for salary', 'Employee', '3000'),
+(878, '2023-06-15', '41323', 'jimson  samsona', 'cash advance for salary', 'Employee', '1000'),
+(879, '2023-06-15', '41391', 'ireneo torres', 'cash advance for salary', 'Employee', '5000'),
+(880, '2023-06-15', '41392', 'rogelio adaya jr', 'cash advance for salary', 'Employee', '3000'),
+(881, '2023-06-15', '41319', 'brian albutra', 'cash advance for salary', 'Employee', '5000'),
+(882, '2023-06-15', '41318', 'g.a obongen', 'cash advance for salary', 'Employee', '2000'),
+(883, '2023-06-15', '41390', 'berto enriquez', 'cash advance for salary', 'Employee', '4500'),
+(884, '2023-06-15', '41388', 'rodjane quinol', 'cash advance for salary', 'Employee', '5000'),
+(885, '2023-06-15', '41313', 'jerry bapura', 'cash advance for salary', 'employee', '4200'),
+(886, '2023-06-15', '41386', 'mae angeles', 'cash advance for salary', 'Employee', '5000'),
+(887, '2023-06-15', '41387', 'raquel bais', 'cash advance for salary', 'Employee', '10000'),
+(888, '2023-06-15', '40992', 'samijon jovylyn', 'cash advance for salary', 'Employee', '4000'),
+(889, '2023-06-15', '40329', 'cristobal edmundo', 'cash advance for salary', 'Employee', '3000'),
+(890, '2023-06-15', '40325', 'cronelia albert', 'cash advance for salary', 'Employee', '3000'),
+(891, '2023-06-15', '40326', 'sualog cerilo', 'cash advance for salary', 'Employee', '3500'),
+(892, '2023-06-15', '40327', 'ramil peligrin', 'cash advance for salary', 'Employee', '3000'),
+(893, '2023-06-15', '40324', 'bonifacio alvin', 'cash advance for salary', 'Employee', '3000'),
+(894, '2023-06-15', '40995', 'ramillano samuel', 'cash advance for salary', 'Employee', '3500'),
+(895, '2023-06-15', '40991', 'abella jeanne', 'cash advance for salary', 'Employee', '8000'),
+(896, '2023-06-15', '40998', 'garcia jerry', 'cash advance for salary', 'Employee', '3000'),
+(897, '2023-06-15', '40997', 'abarquez raprap', 'cash advance for salary', 'Employee', '3000'),
+(898, '2023-06-15', '40996', 'ferer melvin', 'cash advance for salary', 'Employee', '4000'),
+(899, '2023-06-15', '40999', 'pentojo dindo', 'cash advance for salary', 'Employee', '4000'),
+(900, '2023-06-15', '40323', 'luang ederito', 'cash advance for salary', 'Employee', '3000'),
+(901, '2023-06-15', '41000', 'hipulan jayson', 'cash advance for salary', 'Employee', '3500'),
+(902, '2023-06-15', '40322', 'corpuz dennis', 'cash advance for salary', 'Employee', '3000'),
+(903, '2023-06-15', '40993', 'managuit jonathan', 'cash advance for salary', 'Employee', '9000'),
+(904, '2023-06-15', '40328', 'asilan edwin', 'cash advance for salary', 'Employee', '3500'),
+(905, '2023-06-15', '40994', 'matulac gregorio', 'cash advance for salary', 'Employee', '3500'),
+(906, '2023-06-15', '40321', 'vidad ronie', 'cash advance for salary', 'Employee', '4000'),
+(907, '2023-06-15', '40990', 'galano hereberto', 'cash advance for salary', 'Employee', '7000'),
+(908, '2023-06-15', '40330', 'daile peligrin', 'cash advance for salary', 'Employee', '4000'),
+(909, '2023-06-15', '40334', 'anthony castil', 'cash advance for salary', 'Employee', '5000'),
+(910, '2023-06-15', '40338', 'oscar ', 'cash advance toppers in maloong', 'Employee', '1000'),
+(911, '2023-06-15', '40339', 'jerome', 'cash advance toppers in maloong', 'Employee', '500'),
+(912, '2023-06-15', '40340', 'guilbert', 'cash advance for salary', 'Employee', '1000'),
+(916, '2023-06-16', '647', 'EPIGIL MOLEJE', 'CASH ADVANCE FOR DRY PRICE', 'Customer', '50000'),
+(917, '2023-06-16', '557', 'TATA HALAL', 'CASH ADVANCE FOR DRY PRICE', 'Customer', '50000'),
+(918, '2023-06-17', '563', 'jimroy McClintock', 'cash advance for dry price', 'Customer', '50000'),
+(919, '2023-06-17', '562', 'long san juan', 'cash advance for dry export', 'Customer', '100000'),
+(920, '2023-06-17', '41406', 'mila quidlia', 'cash advance for copra', 'Customer', '300'),
+(921, '2023-06-17', '560', 'nenet costan', 'cash advance for export', 'Customer', '50000'),
+(922, '2023-06-17', '561', 'danny barandino', 'cash advance for dry price', 'Customer', '80000'),
+(923, '2023-06-19', '567', 'lee brown', 'cash advance for wet rubber', 'Customer', '100000'),
+(924, '2023-06-19', '659', 'mudzkier abdurahman', 'cash advance for copra', 'Customer', '50000'),
+(925, '2023-06-20', '27676', 'tanny sulayman', 'tanny sulayman', 'Customer', '100000'),
+(926, '2023-06-20', '569', 'long2x san juan', 'cash advance for rubber', 'Customer', '100000'),
+(927, '2023-06-20', '41419', 'alih abdulla', 'copra ', 'Customer', '100000'),
+(928, '2023-06-21', '573', 'long2x san juan', 'cash advance for export rubber', 'Customer', '100000'),
+(929, '2023-06-21', '574', 'tata alfaro', 'cash advance for dry price', 'Customer', '100000'),
+(930, '2023-06-21', '41428', 'dayanara remigio', 'cash advance for salary', 'Employee', '7000'),
+(931, '2023-06-21', '41426', 'dale peligrin', 'cash advance for lot collateral', 'Employee', '35000'),
+(932, '2023-06-22', '577', 'LONG2X SAN SUAN', 'CASH ADVANCE FOR DRY PRICE LAM.', 'Customer', '100000'),
+(933, '2023-06-22', '579', 'JIMROY mCcLINTOCK', 'CASH ADAVNCE FOR DRY PRICE', 'Employee', '30000'),
+(934, '2023-06-23', '580', 'LONG2X SAN JUAN', 'CASH ADVANCE FOR EXPORT', 'Customer', '50000'),
+(935, '2023-06-23', '678', 'AMMAN AWALIN', 'CASH ADVANCE FOR COPRA', 'Customer', '50000'),
+(936, '2023-06-24', '41453', 'maloong contractual millers/crumbling/sec.depart/f', 'maloong contractual', 'Manpower maloong', '58000'),
+(937, '2023-06-24', '41349', 'dyelobert fernandez', 'cash advance for salary', 'Employee', '1000'),
+(938, '2023-06-24', '684', 'amman awalin', 'cash advance for copra', 'Customer', '50000'),
+(939, '2023-06-24', '582', 'jarwin garcia', 'cash advance for rubber', 'Customer', '50000'),
+(940, '2023-06-24', '581', 'long2x san juan', 'cash advance for export container', 'Customer', '50000'),
+(941, '2023-06-24', '41443', 'amante lequin', 'cash advance for salary', 'Customer', '1000'),
+(942, '2023-06-24', '41613', 'berto galano', 'cash advance for salary', 'Customer', '5000'),
+(943, '2023-06-24', '41442', 'ALIH ABDULLA', 'CASH ADVANCE FOR COPRA', 'Customer', '100000'),
+(944, '2023-06-28', '770', 'LONG2X SAN JUAN', 'CASH ADVANCE FOR RUBBER', 'Customer', '20000'),
+(945, '2023-06-28', '41616', 'TOTOH CASTIL', 'CASH ADVANCE FOR SALARY', 'Employee', '5000'),
+(946, '2023-06-28', '41666', 'ALVIN GULPERE', 'CASH ADVANCE FOR RUBBER', 'Customer', '10000'),
+(947, '2023-06-27', '41665', 'IBRAHIM', 'CASH ADVANCE FOR COPRA', 'Customer', '10000'),
+(948, '2023-06-27', '586', 'LONG2X SAN JUAN', 'CASH ADVANCE FOR WET EXPORT', 'Customer', '50000'),
+(949, '2023-06-27', '590', 'JERRY ARIERO', 'CASH ADVANCE FOR MILLING', 'Customer', '15000'),
+(950, '2023-06-27', '694', 'MUDZKIER ABDURAHMAN', 'CASH ADVANCE FOR COPRA', 'Customer', '50000'),
+(951, '2023-06-27', '588', 'JIMROY McClintock', 'cash advance for milling', 'Customer', '20000'),
+(952, '2023-06-27', '587', 'pura anjabin', 'cash advance for milling', 'Customer', '50000'),
+(953, '2023-06-26', '585', 'jerry ariero', 'cash advance for dry price', 'Customer', '30000'),
+(954, '2023-06-26', '690', 'norma dela cruz', 'cash advance for weoking capital in copra', 'Customer', '10000'),
+(955, '2023-06-26', '686', 'tany sulayman', 'cash advance for copra', 'Customer', '50000'),
+(956, '2023-06-26', '41652', 'jefjef alipio', 'cash advance for salary', 'Employee', '2000'),
+(957, '2023-06-26', '584', 'epigil moleje', 'cash advance for dry price', 'Customer', '50000'),
+(958, '2023-06-26', '583', 'jimroy McClintock', 'cash advance for rubber dry price', 'Customer', '30000');
 
 -- --------------------------------------------------------
 
@@ -1705,8 +2014,6 @@ CREATE TABLE `ledger_expenses` (
 --
 
 INSERT INTO `ledger_expenses` (`id`, `voucher_no`, `particulars`, `date`, `category`, `type_expense`, `amount`, `description`, `remarks`, `destination`, `mode_transact`, `date_payment`, `location`) VALUES
-(1, '1234', '', '2023-05-10', 'Philhealth', '', '2333', NULL, 'TEST', NULL, '', NULL, 'Basilan'),
-(3, '2333', 'ABC', '2023-05-11', 'Food and Snack', '', '1000', NULL, '', NULL, 'Cash Advance', NULL, 'Basilan'),
 (5, '40943', 'BREAD FOR OFFICE ', '2023-05-11', 'Food and Snack', 'Other Expenses', '60', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
 (6, '40943', 'OT ROASTING SNACK', '2023-05-11', 'LACAFE EXPENSES', 'Coffee Expenses', '100', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
 (7, '39852', 'EJN EMPLOYEE PHILHEALTH CONTRI FOR May 2023', '2023-05-11', 'Philhealth', 'Other Expenses', '18650.40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
@@ -2046,9 +2353,9 @@ INSERT INTO `ledger_expenses` (`id`, `voucher_no`, `particulars`, `date`, `categ
 (346, '40308', 'TOTO AND ANTHONY FOOD ALLOW.', '2023-05-27', 'MALOONG EXPENSES', 'Rubber Expenses', '1000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
 (347, '40312', 'MALOONG FIELD WORKER WEEKLE SALARY MAY 22 TO MAY 27', '2023-05-27', 'MALOONG EXPENSES', 'Rubber Expenses', '19750', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
 (348, '41204', 'MEDICINE AND VITAMINS CONSUMPTION ROSIR PHARMACY', '2023-05-27', 'Other Expense', 'Other Expenses', '4206', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
-(349, '41202', 'MKTG. BUDGET', '2023-05-27', 'MKTG. EXPENSES', 'Personal Expenses', '2540', NULL, '', NULL, 'Cash', NULL, 'Basilan');
+(349, '41202', 'MKTG. BUDGET', '2023-05-27', 'MKTG. EXPENSES', 'Personal Expenses', '2540', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(350, '41202', 'LALANG/JUNG2X AND TATA', '2023-05-27', 'OVERTIME EXPENSES', 'Other Expenses', '300', NULL, '', NULL, 'Cash', NULL, 'Basilan');
 INSERT INTO `ledger_expenses` (`id`, `voucher_no`, `particulars`, `date`, `category`, `type_expense`, `amount`, `description`, `remarks`, `destination`, `mode_transact`, `date_payment`, `location`) VALUES
-(350, '41202', 'LALANG/JUNG2X AND TATA', '2023-05-27', 'OVERTIME EXPENSES', 'Other Expenses', '300', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
 (351, '41202', 'MELVIN ELECTRICIAN 2DAYS', '2023-05-27', 'OVERTIME EXPENSES', 'Other Expenses', '500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
 (352, '41202', 'DIESEL FORTUNER', '2023-05-27', 'Other Expense', 'Personal Expenses', '2000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
 (353, '41202', 'ICE CREAM', '2023-05-27', 'Other Expense', 'Personal Expenses', '400', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
@@ -2168,7 +2475,7 @@ INSERT INTO `ledger_expenses` (`id`, `voucher_no`, `particulars`, `date`, `categ
 (470, '39841', 'joey ortega salary less: 1000', '2023-05-31', '  EJN SALARIES', 'Other Expenses', '4900', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
 (471, '2726', 'PRIMEMOVER ARMAN WET EXPORT', '2023-05-31', 'FREIGHT TO ZAMBO EXPENSES', 'Rubber Expenses', '8050', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
 (472, '2726', 'PRIMEMOVER ARMAN ', '2023-05-31', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '7216', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
-(473, '2727', 'PRIMEMOVER ERIC', '2023-05-31', 'FREIGHT TO ZAMBO EXPENSES', 'Rubber Expenses', '8050', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(473, '2727', 'PRIMEMOVER ERIC BALES 1WAY', '2023-05-31', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '8050', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
 (474, '2727', 'PRIMEMOVER ERIC', '2023-05-31', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '7216', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
 (475, '41064', 'packing lacafe 13pail @ 25', '2023-06-01', 'LACAFE EXPENSES', 'Coffee Expenses', '325', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
 (476, '41186', 'loading wet rubber export ', '2023-06-01', 'Pakyawan Salaries', 'Rubber Expenses', '4500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
@@ -2433,7 +2740,665 @@ INSERT INTO `ledger_expenses` (`id`, `voucher_no`, `particulars`, `date`, `categ
 (734, '41361', 'FARE TO NTC', '2023-06-12', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
 (735, '41361', 'sunday of G. A', '2023-06-12', '  EJN SALARIES', 'Other Expenses', '415', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
 (736, '41361', 'ALLOW. IN WET BUYING SUMISIP', '2023-06-12', 'ALLOWANCE FOR BUYING EXPENSES', 'Other Expenses', '150', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
-(737, '41503', 'CAMADA COPRA 50SACKS @ 5 / SACKING COPRA 250SACKS @ 5/ENTRADA COPRA 462@ 5', '2023-06-12', 'Pakyawan Salaries', 'Copra Expenses', '3810', NULL, '', NULL, 'Cash', NULL, 'Basilan');
+(737, '41503', 'CAMADA COPRA 50SACKS @ 5 / SACKING COPRA 250SACKS @ 5/ENTRADA COPRA 462@ 5', '2023-06-12', 'Pakyawan Salaries', 'Copra Expenses', '3810', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(738, '41368', 'T366 change tire 4pcs. ', '2023-06-13', 'TRUCK EXPENSES', 'Other Expenses', '450', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(739, '2743', 'PRIMEMOVER ERIC wet export', '2023-06-13', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '8050', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(740, '2743', 'PRIMEMOVER ERIC', '2023-06-13', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '7216', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(741, '2742', 'PRIMEMOVER ARMAN ', '2023-06-13', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '8050', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(742, '2742', 'PRIMEMOVER ARMAN ', '2023-06-13', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '7216', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(743, '41505', 'entrada copra 610sacks @ 5 and sacking copra 50sacks @ 5 less: 50', '2023-06-13', 'Pakyawan Salaries', 'Copra Expenses', '3250', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(744, '41504', 'louie wet rubber 8010kls@ .35', '2023-06-13', 'Pakyawan Salaries', 'Rubber Expenses', '2803', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(745, '41375', 'ph employee contribution for june 2023', '2023-06-13', 'Philhealth', 'Other Expenses', '20251', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(746, '41370', 'gcash for plane ticket to manila jbn katyhy alipio cp#09268754898', '2023-06-13', 'KATHY EXPENSES', 'Personal Expenses', '20025', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(747, '51051', 'royalty fee for 2 trucks', '2023-06-13', 'LDC EXPENSES', 'Other Expenses', '400', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(748, '41368', 'tip to bus driver', '2023-06-13', 'Other Expense', 'Other Expenses', '20', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(749, '41368', 'MKTG. BUDGET', '2023-06-13', 'MKTG. EXPENSES', 'Personal Expenses', '2500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(750, '41368', 'FARE TO OVAL MARKET', '2023-06-13', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(751, '41368', 'RBN PLANE TICKET ', '2023-06-13', 'RBN Expense', 'Personal Expenses', '13748', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(752, '41373', 'ramon gutang salary for 12days @ 310 june 1-12', '2023-06-13', '  EJN SALARIES', 'Other Expenses', '3720', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(753, '41371', '12days ruben pascual june 1-12, 2023', '2023-06-13', '  EJN SALARIES', 'Other Expenses', '6000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(754, '41372', 'delimer amento 12days @ 310 maloong plantation june 1-12', '2023-06-13', '  EJN SALARIES', 'Other Expenses', '3720', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(759, '41507', 'LOADING COPRA550SACKS @ 5/TRANSFER COPRA 50SACKS @ 5/ENTRADA COPRA 527SACKS @ 5 SACKING COPRA 10SACK', '2023-06-14', 'Pakyawan Salaries', 'Copra Expenses', '6085', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(760, '41507', 'LOADING/UNLOADING 5610KLD@ .16', '2023-06-14', 'Pakyawan Salaries', 'Rubber Expenses', '897', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(761, '41381', '10ROLLS ROCK WOOL USED IN MALOONG PROCESSING FOR POGON SEND CASH TO NOEL THRU CEBUANA', '2023-06-14', 'MALOONG EXPENSES', 'Rubber Expenses', '50500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(762, '41075', 'EXTRA PORDIA RENSIE', '2023-06-14', 'LACAFE EXPENSES', 'Coffee Expenses', '240', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(763, '2744', 'T139 adung copra to zamboanga 1way', '2023-06-14', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '7016', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(764, '2744', 'PRIMEMOVER ADUNG', '2023-06-14', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '6106', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(765, '41379', 'ADDITIONAL PETTY CASH FOR ZAMBOANGA', '2023-06-14', 'ZAMBOANGA PCF', 'Other Expenses', '30000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(766, '41377', 'OT ROASTING SNACK', '2023-06-14', 'LACAFE EXPENSES', 'Coffee Expenses', '100', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(767, '41377', 'GIGI OT LACAFE', '2023-06-14', 'LACAFE EXPENSES', 'Coffee Expenses', '300', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(768, '41377', 'MKTG. BUDGET', '2023-06-14', 'MKTG. EXPENSES', 'Personal Expenses', '2500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(769, '41377', 'FARE TO OVAL MARKET', '2023-06-14', 'Transportation Expenses', 'Personal Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(770, '41377', 'FARE RAQUEL and inspector', '2023-06-14', 'Transportation Expenses', 'Other Expenses', '140', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(771, '41377', 'H2O', '2023-06-14', 'Other Expense', 'Personal Expenses', '155', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(772, '41377', 'CASH SEND TO MICHAEL FOR RBN PLANE TICKET', '2023-06-14', 'RBN Expense', 'Personal Expenses', '11110', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(773, '0005', 'T250 VULCANIZING  1TIRE', '2023-06-14', 'TRUCK EXPENSES', 'Other Expenses', '200', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(774, '41506', 'UNLOADING DIESEL 21DRUMS@ 10', '2023-06-14', 'LOADING/UNLOADING EXPENSES', 'Other Expenses', '210', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(775, '41382', 'allow. and pasahe of joseph to zambo', '2023-06-15', 'Transportation Expenses', 'Other Expenses', '1000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(776, '41326', 'IRENEO TORRES SALARY', '2023-06-15', '  EJN SALARIES', 'Other Expenses', '1113', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(777, '41322', 'rogeley ramos', '2023-06-15', '  EJN SALARIES', 'Other Expenses', '4108', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(778, '41317', 'G.A OBONGEN SALARY', '2023-06-15', '  EJN SALARIES', 'Other Expenses', '2122', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(779, '41316', 'MICHAEL TUNACAO ', '2023-06-15', '  EJN SALARIES', 'Other Expenses', '6423', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(781, '41316', 'AZENIT VALLEDOR', '2023-06-15', '  EJN SALARIES', 'Other Expenses', '3850', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(782, '41316', 'RONIE VILDAD SALARY', '2023-06-15', '  EJN SALARIES', 'Other Expenses', '6838', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(783, '41316', 'ANTONIO ARMAN', '2023-06-15', '  EJN SALARIES', 'Other Expenses', '7650', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(784, '41316', 'ETHEL BETITA', '2023-06-15', '  EJN SALARIES', 'Other Expenses', '3924', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(785, '41394', 'CONCHITA DELOS REYES SALARY', '2023-06-15', '  EJN SALARIES', 'Other Expenses', '4500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(786, '41393', 'LINDA DEL ROSARIO  salary 6/1-15/23', '2023-06-15', '  EJN SALARIES', 'Other Expenses', '3000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(787, '41395', 'mercy palconit salary', '2023-06-15', '  EJN SALARIES', 'Other Expenses', '3000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(789, '41315', 'JERRY GARCIA SALARY', '2023-06-17', 'MALOONG EXPENSES', 'Rubber Expenses', '2130', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(790, '41314', 'JULIO ABALLA SALARY', '2023-06-15', 'MALOONG EXPENSES', 'Rubber Expenses', '4562', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(791, '41314', 'JR QUIMCO', '2023-06-15', 'MALOONG EXPENSES', 'Rubber Expenses', '2325', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(792, '41314', 'ALVIN BONIFACIO SALARY', '2023-06-15', 'MALOONG EXPENSES', 'Rubber Expenses', '140', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(793, '41314', 'CERILO SUALOG', '2023-06-15', 'MALOONG EXPENSES', 'Rubber Expenses', '550', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(794, '41314', 'ALBERT CORNELIA SALARY', '2023-06-15', 'MALOONG EXPENSES', 'Rubber Expenses', '1300', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(795, '40337', 'TOTOH castil salary LESS: 2,000', '2023-06-15', 'MALOONG EXPENSES', 'Rubber Expenses', '10100', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(796, '40336', 'ANTHONY CASTIL Salary less: 2,000', '2023-06-15', 'MALOONG EXPENSES', 'Rubber Expenses', '7700', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(797, '41330', 'ESTRELITO BRIEVA ', '2023-06-15', '  EJN SALARIES', 'Other Expenses', '3685', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(798, '41320', 'AMANTE LEQUIN SALARY', '2023-06-15', '  EJN SALARIES', 'Other Expenses', '6290', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(799, '41327', 'felipe borda', '2023-06-15', '  EJN SALARIES', 'Coffee Expenses', '900', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(800, '41327', 'NALAM , ERNESTO SALARY', '2023-06-15', '  EJN SALARIES', 'Coffee Expenses', '1850', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(801, '41327', 'LANGUTAN, EMELITO SALARY', '2023-06-15', '  EJN SALARIES', 'Coffee Expenses', '710', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(802, '41328', 'JOECRIS CLIMACO SALARY', '2023-06-15', '  EJN SALARIES', 'Other Expenses', '4050', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(803, '41385', 'arhakim abdurajak less: 500', '2023-06-15', '  EJN SALARIES', 'Other Expenses', '2580', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(804, '41321', 'felix albutra 21days @ 300 from june 01-15,2023', '2023-06-15', '  EJN SALARIES', 'Other Expenses', '4200', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(805, '41397', 'RYAN ATILANO  13DASY@ 235 june1-15,2023 LESS: 500', '2023-06-15', '  EJN SALARIES', 'Other Expenses', '2555', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(806, '41077', '16pail packing lacafe @ 25', '2023-06-15', 'LACAFE EXPENSES', 'Coffee Expenses', '400', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(807, '2745', 'primemover harnel wet export nenet to zambo', '2023-06-15', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '8050', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(808, '2745', 'prime harnel', '2023-06-15', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '7216', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(809, '41076', '13pail packing lacafe @ 25 ', '2023-06-15', 'LACAFE EXPENSES', 'Coffee Expenses', '325', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(810, '41377', 'G.A ALLOW NENET ', '2023-06-15', 'ALLOWANCE FOR BUYING EXPENSES', 'Other Expenses', '100', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(811, '41377', 'lalang langutan SUNDAY', '2023-06-15', '  EJN SALARIES', 'Other Expenses', '315', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(812, '41377', 'ARMAN ANTONIO SUNDAY', '2023-06-15', '  EJN SALARIES', 'Other Expenses', '650', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(813, '41377', 'MKTG. BUDGET', '2023-06-15', 'MKTG. EXPENSES', 'Personal Expenses', '2500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(814, '41377', 'FARE TO OVAL MARKET', '2023-06-15', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(815, '41377', 'FARE TO CHECKER/ FARE TO NTC', '2023-06-15', 'Transportation Expenses', 'Other Expenses', '60', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(816, '41384', '4PERSON OT ROASTING', '2023-06-15', 'LACAFE EXPENSES', 'Coffee Expenses', '1321', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(817, '41398', 'JOSEPH BENOSA 6/1-15/23 NTC BIR BOOKKEEPING', '2023-06-15', 'BIR EXPENSES', 'Other Expenses', '2500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(818, '51081', '3TRIPS ROYALTY FEE', '2023-06-15', 'LDC EXPENSES', 'Rubber Expenses', '600', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(819, '41384', 'TREAT FOR EMPLOYEE SIOPAO AND DRINKS', '2023-06-15', 'Food and Snack', 'Personal Expenses', '1016', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(820, '41396', 'MALOONG WIFI LOAD AND LABOR INSTALLATION CCTV', '2023-06-15', 'MALOONG EXPENSES', 'Rubber Expenses', '12700', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(821, '41508', 'ENTRADA COPRA 628SACKS @ 5 / TRUCKMAN COPRA QUIDILIA 73SACKS @ 5/SACKING COPRA 300SACKS @ 5', '2023-06-15', 'Pakyawan Salaries', 'Copra Expenses', '4955', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(822, '41509', 'loading copra 477sacks @ 5 / sacking copra 29sacks @ 5/ entrada copra 174sacks @ 5 less:50', '2023-06-16', 'Pakyawan Salaries', 'Copra Expenses', '3350', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(823, '41334', 'harnel daan 6/7-15/23', '2023-06-16', '  EJN SALARIES', 'Other Expenses', '3150', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(824, '41331', 'guilbert fernandez salary', '2023-06-16', '  EJN SALARIES', 'Other Expenses', '4720', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(825, '41402', 'REYMARK CABADING 13DAYS @ 225- june 1-10, 2023-less: 500', '2023-06-16', '  EJN SALARIES', 'Other Expenses', '2425', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(826, '41401', 'DYELOBERT FERNANDEZ less: 500', '2023-06-16', '  EJN SALARIES', 'Other Expenses', '2555', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(827, '41333', 'joey ortega salary less: 500', '2023-06-16', '  EJN SALARIES', 'Other Expenses', '4400', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(828, '41332', 'jefferson alipio less: rice /acct. less: 1,570', '2023-06-16', '  EJN SALARIES', 'Other Expenses', '3680', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(829, '41399', 'gcasht cp#09171424152', '2023-06-16', 'RBN Expense', 'Personal Expenses', '35025', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(831, '41337', 'rbn sss contri for march', '2023-06-16', 'SSS', 'Other Expenses', '1690', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(832, '41398', 'dayan pasahe', '2023-06-16', 'Transportation Expenses', 'Other Expenses', '100', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(833, '41398', 'FARE TO MARKET', '2023-06-16', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(834, '41398', 'mangoes', '2023-06-16', 'Other Expense', 'Personal Expenses', '100', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(835, '41398', 'FARE TO OVAL MARKET', '2023-06-16', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(836, '41398', 'MKTG. BUDGET', '2023-06-16', 'MKTG. EXPENSES', 'Personal Expenses', '2500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(837, '41398', 'jbn cash', '2023-06-16', 'JBN EXPENSES', 'Personal Expenses', '3000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(838, '41398', 'manga', '2023-06-16', 'Other Expense', 'Personal Expenses', '100', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(839, '41400', 'joecris T851', '2023-06-16', 'TRUCK EXPENSES', 'Other Expenses', '150', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(840, '41400', 'sprite', '2023-06-16', 'Other Expense', 'Personal Expenses', '100', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(841, '23335', 'SALARY ADJUSTMENT OF HARNEL DAANG', '2023-06-16', '  EJN SALARIES', 'Other Expenses', '2250', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(842, '41404', 'ARNEL TALAP 6DAYS @ 220 JUNE 10-15, 2023', '2023-06-16', '  EJN SALARIES', 'Other Expenses', '1320', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(843, '41078', '17PAIL PACKING LACAFE @ 25', '2023-06-16', 'LACAFE EXPENSES', 'Coffee Expenses', '425', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(844, '41079', '41079', '2023-06-16', 'LACAFE EXPENSES', 'Coffee Expenses', '475', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(845, '2748', 'T851 JOECRIS', '2023-06-16', ' FREIGHT TO ZAMBO EXPENSES ', 'Copra Expenses', '7016', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(846, '2748', 'T851 JOECRIS', '2023-06-16', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '6106', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(847, '2749', 'PRIMEMOVER ERIC', '2023-06-16', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '7750', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(848, '2749', '2749', '2023-06-16', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '7216', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(849, '2747', 'PRIMEMOVER ARMAN NENET', '2023-06-16', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '8050', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(850, '2747', 'PRIMEMOVER ARMAN ', '2023-06-16', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '7216', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(851, '2746', 'PRIMEMOVER HARNEL LONG2X WET EXPORT', '2023-06-16', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '8050', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(852, '2746', 'PRIMEMOVER HARNEL ', '2023-06-16', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '7216', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(853, '35208', 'BERTO GALANO OT', '2023-06-17', 'MALOONG EXPENSES', 'Rubber Expenses', '1658.53', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(854, '35208', 'RONIE VILDAD OT', '2023-06-17', 'MALOONG EXPENSES', 'Rubber Expenses', '410.70', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(855, '35208', 'JEANNE ABELLA OT', '2023-06-17', 'MALOONG EXPENSES', 'Rubber Expenses', '2523.85', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(856, '35208', 'JOVY SAMIJON OT', '2023-06-17', 'MALOONG EXPENSES', 'Rubber Expenses', '525', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(857, '35208', 'JAR AR QUIMCO OT', '2023-06-17', 'MALOONG EXPENSES', 'Rubber Expenses', '843.75', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(858, '35208', 'RAP RAP ABARQUEZ OT', '2023-06-17', 'MALOONG EXPENSES', 'Rubber Expenses', '206.25', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(859, '35208', 'JERRY GARCIA OT', '2023-06-17', 'MALOONG EXPENSES', 'Rubber Expenses', '806.25', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(860, '35208', 'SAMUEL RAMILANO OT', '2023-06-17', 'MALOONG EXPENSES', 'Rubber Expenses', '1462.50', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(861, '35208', 'GREGORIO MATULAC OT', '2023-06-17', 'MALOONG EXPENSES', 'Rubber Expenses', '371.88', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(862, '35208', 'DINDO PENTOJO OT', '2023-06-17', 'MALOONG EXPENSES', 'Rubber Expenses', '1968.75', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(863, '35208', 'PABLO HIPULAN OT', '2023-06-17', 'MALOONG EXPENSES', 'Rubber Expenses', '1203.13', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(864, '35208', 'DENNIS CORPUZ OT', '2023-06-17', 'MALOONG EXPENSES', 'Rubber Expenses', '1106.25', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(865, '35208', 'alvin bonifacio ot', '2023-06-17', 'MALOONG EXPENSES', 'Rubber Expenses', '1068.75', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(866, '35208', 'ederito luang ot', '2023-06-17', 'MALOONG EXPENSES', 'Rubber Expenses', '318.75', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(867, '35208', 'JULIO aballa OT', '2023-06-17', 'MALOONG EXPENSES', 'Rubber Expenses', '1725', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(868, '35208', 'RAMIL PELIGRIN OT', '2023-06-17', 'MALOONG EXPENSES', 'Rubber Expenses', '1068.75', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(869, '35208', 'ALBERT CORNELIA OT', '2023-06-17', 'MALOONG EXPENSES', 'Rubber Expenses', '2390.63', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(870, '41410', 'JOEBERT BALASUELA PORDIA 7DAYS @ 220 SAYUGAN HARDINERO- 6/11-17/2023-less: 500', '2023-06-17', '  EJN SALARIES', 'Other Expenses', '1040', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(871, '41409', 'lechon', '2023-06-17', 'Other Expense', 'Personal Expenses', '7000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(872, '41510', 'loading rubber bales 1container less: 50', '2023-06-17', 'Pakyawan Salaries', 'Rubber Expenses', '1950', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(873, '41510', 'entrada copra 236sacks@ 5', '2023-06-17', 'Pakyawan Salaries', 'Copra Expenses', '1180', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(874, '41409', 'gulay for pansit', '2023-06-17', 'Other Expense', 'Personal Expenses', '500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(875, '41409', 'harnel daang soldya inter cooler prime mover white', '2023-06-17', 'TRUCK EXPENSES', 'Other Expenses', '250', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(876, '41340', 'mae angeles sss maternity reimbursement', '2023-06-17', 'Other Expense', 'Other Expenses', '52500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(877, '41339', '5person brassing in maloong plantation for 6days @ 300', '2023-06-17', 'MALOONG PLANTATION EXP.', 'Other Expenses', '9000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(878, '41408', 'ruben pascual 6/13-17/23 maloong plantation 6days@ 500 ', '2023-06-17', 'MALOONG PLANTATION EXP.', 'Other Expenses', '2000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(879, '41408', 'delimer amento 12days @ 310 maloong plantation june 13-17', '2023-06-17', 'MALOONG PLANTATION EXP.', 'Other Expenses', '1550', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(880, '41408', 'ramon gutang salary for 12days @ 310 june 13-17', '2023-06-17', 'MALOONG PLANTATION EXP.', 'Other Expenses', '1550', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(881, '41405', 'maloong contractual payroll from june 2-15,2023 miller', '2023-06-17', 'MALOONG EXPENSES', 'Rubber Expenses', '119472', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(882, '41407', 'maloong payroll contractual operator/roller/secu', '2023-06-17', 'MALOONG EXPENSES', 'Rubber Expenses', '32466', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(883, '35204', 'toto castil  OT', '2023-06-17', 'MALOONG EXPENSES', 'Rubber Expenses', '3750', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(884, '35203', 'anthony castil OT', '2023-06-17', 'MALOONG EXPENSES', 'Rubber Expenses', '3000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(885, '35201', 'TRANSPO ALLOW. JEANE ABELLA ', '2023-06-17', 'MALOONG EXPENSES', 'Rubber Expenses', '300', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(886, '35202', 'ANTHONY CASTIL AND TOTO CASTIL FOOD ALLOW.', '2023-06-17', 'MALOONG EXPENSES', 'Rubber Expenses', '1000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(887, '35206', 'sunday work tapahan 6person 6/11/23', '2023-06-17', 'MALOONG EXPENSES', 'Rubber Expenses', '1500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(888, '35207', 'jayson lipayo salary JUNE 12 to 17, 2023 ', '2023-06-17', 'MALOONG EXPENSES', 'Rubber Expenses', '1500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(889, '35209', 'jojo deliverio brassing salary 13days @ 250 for 7person', '2023-06-17', 'MALOONG EXPENSES', 'Rubber Expenses', '22750', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(890, '41400', 'MKTG. BUDGET', '2023-06-17', 'MKTG. EXPENSES', 'Personal Expenses', '2500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(891, '41400', 'FARE TO OVAL MARKET', '2023-06-17', 'Other Expense', 'Copra Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(892, '41400', 'chinese cotton, tamboo for jbn bday decor', '2023-06-17', 'Other Expense', 'Personal Expenses', '1050', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(893, '41400', 'butong/rapa', '2023-06-17', 'Other Expense', 'Personal Expenses', '200', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(894, '41411', 'MKTG. BUDGET', '2023-06-19', 'MKTG. EXPENSES', 'Personal Expenses', '2000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(895, '41411', 'FARE TO OVAL MARKET', '2023-06-19', 'Transportation Expenses', 'Personal Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(896, '41411', 'church/pansalaw/hotdog and pasahe', '2023-06-19', 'Other Expense', 'Personal Expenses', '560', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(897, '51102', '3trip royakty fee 6/17/23 primemover 090810/1564/851', '2023-06-19', 'LDC EXPENSES', 'Rubber Expenses', '600', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(898, '41411', 'FARE TO NTC', '2023-06-19', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(899, '41411', 'FARE TO NTC', '2023-06-19', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(900, '41411', 'FARE TO NTC', '2023-06-19', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(901, '41411', 'FARE TO NTC', '2023-06-19', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(902, '41411', 'FARE TO NTC', '2023-06-19', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(903, '41411', 'FARE TO NTC', '2023-06-19', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(904, '41411', 'FARE TO NTC', '2023-06-19', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(905, '41411', 'FARE TO NTC', '2023-06-19', 'Transportation Expenses', 'Other Expenses', '30', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(906, '41411', '1case softdrink 1.5litrs', '2023-06-19', 'Other Expense', 'Personal Expenses', '705', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(907, '41411', 'VULCANIZING T851 1TIRE', '2023-06-19', 'TRUCK EXPENSES', 'Other Expenses', '200', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(908, '41414', '60bags adhessive for tiles ejn museleum', '2023-06-19', 'Other Expense', 'Personal Expenses', '30960', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(909, '41415', 'ADDITIONAL PETTY CASH FOR ZAMBOANGA', '2023-06-19', 'ZAMBOANGA PCF', 'Other Expenses', '30000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(910, '41416', '7DAYS PORDIA OF RONIE SADIO JUNE 13-19', '2023-06-19', 'SAYUGAN EXPENSES', 'Other Expenses', '1750', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(911, '41364', 'sayugan water consumption for JUNE 2023', '2023-06-19', 'Water', 'Other Expenses', '2870', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(912, '41417', 'G.A 2DAYS ALLOW. NENET AND LEE BROWN', '2023-06-19', 'ALLOWANCE FOR BUYING EXPENSES', 'Rubber Expenses', '250', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(913, '41417', 'SPRITE FOR JBN', '2023-06-19', 'Other Expense', 'Personal Expenses', '75', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(914, '41417', 'cash allow.', '2023-06-19', 'JBN EXPENSES', 'Personal Expenses', '1000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(915, '41511', 'LEE BROWN WET RUBBER 5275KLS@.35', '2023-06-19', 'Pakyawan Salaries', 'Rubber Expenses', '1846', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(916, '41511', 'LOADING COPRA/ENTRADA COPRA/SACKING COPRA/CAMADA COPRA', '2023-06-19', 'Pakyawan Salaries', 'Copra Expenses', '5205', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(917, '2750', 'T851 JOECRIS', '2023-06-19', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '7016', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(918, '2750', 'T851 JOECRIS', '2023-06-19', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '6106', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(919, '41418', 'OT ROASTING SNACK', '2023-06-20', 'LACAFE EXPENSES', 'Coffee Expenses', '100', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(920, '41418', 'CHANGE OF LACAFE DR#36225', '2023-06-20', 'LACAFE EXPENSES', 'Coffee Expenses', '25', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(921, '41513', 'loading rubber bales 300 LESS: ROGER 50', '2023-06-20', 'Pakyawan Salaries', 'Rubber Expenses', '1950', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(922, '41513', 'SACKING COPRA 100SACKS @ CAMADA COPRA 100SACKS@3 ENTRADA COPRA 672SACKS@5', '2023-06-20', 'Pakyawan Salaries', 'Copra Expenses', '3960', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(923, '41514', '5DRUMS DIESEL @ 20 16DRUMS EMPTY DRUM @ 5', '2023-06-20', 'LOADING/UNLOADING EXPENSES', 'Other Expenses', '180', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(924, '41421', 'T366 RENEWAL REGISTRATION', '2023-06-13', 'RENEWAL REGISTRATION', 'Other Expenses', '7742', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(925, '41420', 'ADDITIONAL PETTY CASH FOR ZAMBOANGA', '2023-06-20', 'ZAMBOANGA PCF', 'Other Expenses', '30000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(926, '41602', 'BASELO TIP TO BASELCO MALOONG CUT OUT', '2023-06-20', 'MALOONG EXPENSES', 'Rubber Expenses', '500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(927, '41601', 'JIMROY STORE ACCOUNT PAYMENT FOR MEAL AND SNACK BDAY TREAT BY JBN', '2023-06-20', 'MALOONG EXPENSES', 'Rubber Expenses', '2425', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(928, '41418', 'MKTG. BUDGET', '2023-06-20', 'MKTG. EXPENSES', 'Personal Expenses', '2500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(929, '41418', 'FARE TO OVAL MARKET', '2023-06-20', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(930, '41418', 'FOOD ALLOW OF JAYSON IN MALOONG', '2023-06-20', 'MALOONG EXPENSES', 'Rubber Expenses', '300', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(931, '41418', 'short payment to jean 6/17/23', '2023-06-20', 'MALOONG EXPENSES', 'Rubber Expenses', '1000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(932, '41512', '5DRUMS DIESEL @ 20', '2023-06-20', 'LOADING/UNLOADING EXPENSES', 'Other Expenses', '100', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(933, '2751', 'PRIMEMOVER ERIC BALES 1WAY', '2023-06-20', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '7750', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(934, '41427', 'FIESTA LOVE OFFERING ', '2023-06-21', 'Other Expense', 'Personal Expenses', '200', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(935, '41427', 'JBN TO MLA', '2023-06-21', 'JBN EXPENSES', 'Personal Expenses', '200000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(936, '41425', 'AROZ CALDO', '2023-06-21', 'Other Expense', 'Personal Expenses', '100', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(937, '41425', 'change of lacafe dr#36227 / DR#36228', '2023-06-21', 'LACAFE EXPENSES', 'Other Expenses', '30', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(938, '41425', 'DAYAN PASAHE YESTERDAY', '2023-06-21', 'Transportation Expenses', 'Other Expenses', '200', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(939, '41425', 'LBC coffee KELVIN NEW coffee order', '2023-06-21', 'Transportation Expenses', 'Other Expenses', '1005', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(940, '41425', 'donation', '2023-06-21', 'Other Expense', 'Personal Expenses', '100', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(941, '41344', 'payment to Parmor operation titing operator during repair aldn in maloong plantation', '2023-06-21', 'MALOONG PLANTATION EXP.', 'Other Expenses', '2500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(942, '51119', 'transforting fee T851 NEG 1564 6/20/23', '2023-06-21', 'LDC EXPENSES', 'Other Expenses', '400', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(943, '41422', 'LABOR HAULING LUMBER FOR EJN', '2023-06-21', 'Other Expense', 'Personal Expenses', '1000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(944, '41422', 'MKTG. BUDGET', '2023-06-21', 'MKTG. EXPENSES', 'Personal Expenses', '2500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(945, '41422', 'FARE TO OVAL MARKET', '2023-06-21', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(946, '41422', 'MINERAL WATER', '2023-06-21', 'Other Expense', 'Personal Expenses', '155', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(947, '41422', 'FEEDS FOR ROASTER W/FARE', '2023-06-21', 'ROOASTER EXPENSES', 'Other Expenses', '4245', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(948, '41422', '3PERSON ROASTING LACAFE', '2023-06-21', 'LACAFE EXPENSES', 'Coffee Expenses', '1072', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(949, '41424', '3MONTHS RENTAL ACME BODEGA @ 6000 APRIL TO JUNE', '2023-06-21', 'LACAFE EXPENSES', 'Coffee Expenses', '18000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(950, '519212', '8TRIPS transforting fee in wharf', '2023-06-21', 'TRANSPORTING FEE', 'Other Expenses', '800', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(951, '41081', '7pail packing lacafe @ 25', '2023-06-22', 'LACAFE EXPENSES', 'Coffee Expenses', '175', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(952, '41080', '19pail packing lacafe ', '2023-06-22', 'LACAFE EXPENSES', 'Coffee Expenses', '475', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(953, '41429', 'SAGING PRITO', '2023-06-22', 'Food and Snack', 'Other Expenses', '50', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(954, '41429', 'downey', '2023-06-22', 'Other Expense', 'Personal Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(955, '41516', 'entarda copra 178sacks@5 / sacking copra 250sacks @ 3/loading copra 500sacks @ 3/transfer copra 100s', '2023-06-22', 'Pakyawan Salaries', 'Copra Expenses', '3690', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(956, '41429', 'kahoy used in copra', '2023-06-22', 'Other Expense', 'Copra Expenses', '300', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(957, '41429', 'tip to bus driver', '2023-06-22', 'Other Expense', 'Other Expenses', '20', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(958, '41429', 'rubber traders TSHIRT AND TARPAULINE', '2023-06-22', 'Other Expense', 'Other Expenses', '3050', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(959, '41515', 'ENTRADA COPRA 651SACKSS@5/ SACKING COPRA 200SACKS @ 3 / CAMADA COPRA 100SACKS @ 3 LESS: 50', '2023-06-22', 'Pakyawan Salaries', 'Other Expenses', '4105', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(960, '41427', '2 SERVICE PASAHE KATHY AND JBN TO ZAMBO 1WAY', '2023-06-22', ' FREIGHT TO ZAMBO EXPENSES ', 'Other Expenses', '5000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(961, '41427', 'MKTG. BUDGET', '2023-06-22', 'MKTG. EXPENSES', 'Personal Expenses', '2500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(962, '41427', 'FARE TO OVAL MARKET', '2023-06-22', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(963, '41427', 'GIGI OT LACAFE', '2023-06-22', 'LACAFE EXPENSES', 'Coffee Expenses', '300', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(964, '41432', 'BUDGET FOR 2 PIG ALIVE RBN BY JEF JEF ALIPIO', '2023-06-22', 'Other Expense', 'Personal Expenses', '12000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(965, '2752', 'T139 COPRA PASAHE 1WAY TO ZAMBO', '2023-06-22', ' FREIGHT TO ZAMBO EXPENSES ', 'Copra Expenses', '7016', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(966, '2752', 'T139-adung', '2023-06-22', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '6106', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(967, '41433', 'MKTG. BUDGET', '2023-06-23', 'MKTG. EXPENSES', 'Personal Expenses', '2500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(968, '41433', 'FARE TO OVAL MARKET', '2023-06-23', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(969, '41433', 'MANTEL/MINERAL WATER/', '2023-06-23', 'Other Expense', 'Personal Expenses', '375', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(970, '41433', 'FOR ROGER GROUP snack loading rubber', '2023-06-23', 'Food and Snack', 'Other Expenses', '500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(971, '51140', 'T139-adung', '2023-06-23', 'LDC EXPENSES', 'Other Expenses', '200', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(972, '49990', 'gasul for kitchen', '2023-06-23', 'Other Expense', 'Personal Expenses', '1177', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(973, '41437', 'ar hazim abdurajak truckman Joecris 8days @ 220 from 6/16-23/23', '2023-06-23', '  EJN SALARIES', 'Other Expenses', '1760', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(974, '2756', 'JB TRUCK 848', '2023-06-23', ' FREIGHT TO ZAMBO EXPENSES ', 'Copra Expenses', '7016', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(975, '2754', 'PRIMEMOVER ERIC BALES 1WAY', '2023-06-23', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '7750', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(976, '2754', 'PRIMEMOVER ERIC', '2023-06-23', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '7216', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(977, '2753', 'PRIMEMOVER ARMAN WET EXPORT', '2023-06-23', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '8050', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(978, '2753', 'PRIMEMOVER ARMAN ', '2023-06-23', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '7216', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(979, '2755', 'PRIMEMOVER HARNEL  BALES', '2023-06-23', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '7750', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(980, '2755', 'PRIMEMOVER HARNEL ', '2023-06-23', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '7216', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(981, '41451', 'LUMBER FOR POGON USED IN MALOONG 20TRIPS @ 2500', '2023-06-23', 'MALOONG EXPENSES', 'Rubber Expenses', '50000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(982, '41439', 'CLINICA DE LAMITAN MEDICAL AND CONSULTATION', '2023-06-23', 'MEDICAL AND CONSULTATION', 'Other Expenses', '19621', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(983, '41517', 'LOADING COPRA 412SACKS @ 3 / ENTRADA COPRA 606SACKS @5/ SACKING COPRA 200SACKS @ 3 LESS:50', '2023-06-23', 'Pakyawan Salaries', 'Copra Expenses', '4816', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(984, '41440', 'RAQUEL BAIS BOOKKEEPING FROM EJN 6/16-30/23', '2023-06-23', 'BIR EXPENSES', 'Other Expenses', '2500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(985, '41518', 'LOADING RUBBER BALES EXPORT 1 CONTAINER', '2023-06-23', 'Pakyawan Salaries', 'Rubber Expenses', '4000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(986, '41083', '18PAIL PACKING LACAFE @25', '2023-06-23', 'LACAFE EXPENSES', 'Coffee Expenses', '450', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(987, '41082', '13pail packing lacafe @ 25 ', '2023-06-23', 'LACAFE EXPENSES', 'Coffee Expenses', '325', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(988, '41438', 'ADDITIONAL PETTY CASH FOR ZAMBOANGA', '2023-06-23', 'ZAMBOANGA PCF', 'Other Expenses', '30000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(989, '41433', 'SAGING PRITO', '2023-06-24', 'Transportation Expenses', 'Other Expenses', '50', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(990, '41433', 'joecris pasahe to zambo', '2023-06-24', 'Transportation Expenses', 'Other Expenses', '500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(991, '41433', 'MKTG. BUDGET', '2023-06-24', 'MKTG. EXPENSES', 'Personal Expenses', '2500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(992, '41433', 'FARE TO NTC', '2023-06-24', 'Transportation Expenses', 'Personal Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(993, '41433', 'BRIAN ALBUTRA sunday', '2023-06-24', '  EJN SALARIES', 'Other Expenses', '400', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(994, '41433', 'stiphen for church', '2023-06-24', 'Other Expense', 'Personal Expenses', '1000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(995, '41433', 'personal editha', '2023-06-24', 'Other Expense', 'Personal Expenses', '750', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(996, '41607', 'parmor operator santa clara payment to operator during repair land and vegetable', '2023-06-24', 'SALARIES EXPENSES', 'Rubber Expenses', '1500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(997, '41348', '5person brassing in maloong plantation for 6days @ 300', '2023-06-24', 'MALOONG PLANTATION EXP.', 'Other Expenses', '9000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(998, '41444', 'pashe of coal for 2truck via zambo to lamitan', '2023-06-24', 'TRUCK EXPENSES', 'Other Expenses', '15000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(999, '41441', 'rbn sss contri for april to dec.', '2023-06-24', 'SSS', 'Personal Expenses', '15120', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1000, '41609', 'weekly salary pordia 6/19-24/23', '2023-06-24', 'MALOONG EXPENSES', 'Rubber Expenses', '21250', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1002, '41604', 'TOTOH AND ANTHONY CASTIL', '2023-06-24', 'MALOONG EXPENSES', 'Rubber Expenses', '1000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1003, '41603', 'jeanne abella transpo allow. 6/26 to july  1', '2023-06-24', 'MALOONG EXPENSES', 'Rubber Expenses', '300', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1004, '41605', 'anthony castil OT', '2023-06-24', 'MALOONG EXPENSES', 'Rubber Expenses', '3600', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1005, '41612', 'RICO XAVIER OT 6/17 AND JUNE 18', '2023-06-24', 'MALOONG EXPENSES', 'Rubber Expenses', '618', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1006, '41610', 'jayson lipayo salary JUNE 19 to 23, 2023 ', '2023-06-24', 'MALOONG EXPENSES', 'Rubber Expenses', '1500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1007, '41615', 'JESS IGNACIO SALARY JUNE 12-23, 2023', '2023-06-24', 'MALOONG EXPENSES', 'Rubber Expenses', '3000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1008, '41606', 'TOTOH CASTIL OT', '2023-06-24', 'MALOONG EXPENSES', 'Rubber Expenses', '4500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1009, '41519', 'LOADING COPRA 385SACKS @ 3 / SACKING COPRA 450SACKS@3/CAMADA COPRA 150SACSK @ 3/ENTRADA COPRA 47SACK', '2023-06-24', 'Pakyawan Salaries', 'Copra Expenses', '3140', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1010, '41446', 'JOEBERT BALASUELA PORDIA 7DAYS @ 220 SAYUGAN HARDINERO less: 500', '2023-06-24', '  EJN SALARIES', 'Other Expenses', '1040', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1011, '41520', 'labor loading rubber bales', '2023-06-24', 'Pakyawan Salaries', 'Rubber Expenses', '2000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1012, '41452', 'beto galano', '2023-06-24', 'MALOONG EXPENSES', 'Rubber Expenses', '2343.58', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1013, '41452', 'RONIE VILDAD OT', '2023-06-24', 'MALOONG EXPENSES', 'Rubber Expenses', '574.98', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1014, '41452', 'JEANNE ABELLA OT', '2023-06-24', 'MALOONG EXPENSES', 'Rubber Expenses', '2343.58', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1015, '41452', 'JOVY SAMIJON OT', '2023-06-24', 'MALOONG EXPENSES', 'Rubber Expenses', '1137.50', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1016, '41452', 'JAY AR QUIMCO OT', '2023-06-24', 'MALOONG EXPENSES', 'Rubber Expenses', '1000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1017, '41452', 'RAP RAP ABARQUEZ OT', '2023-06-24', 'MALOONG EXPENSES', 'Rubber Expenses', '243.75', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1018, '41452', 'JERRY GARCIA OT', '2023-06-24', 'MALOONG EXPENSES', 'Rubber Expenses', '862.50', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1019, '41452', 'SAMUEL RAMILANO OT', '2023-06-24', 'MALOONG EXPENSES', 'Rubber Expenses', '1725', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1020, '41452', 'GREGORIO MATULAC OT', '2023-06-24', 'MALOONG EXPENSES', 'Rubber Expenses', '350', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1021, '41452', 'DINDO PENTOJO OT', '2023-06-24', 'SALARIES EXPENSES', 'Rubber Expenses', '2275', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1022, '41452', 'PABLO HIPULAN OT', '2023-06-24', 'MALOONG EXPENSES', 'Rubber Expenses', '1443.75', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1023, '41452', 'DENNIS CORPUZ OT', '2023-06-24', 'MALOONG EXPENSES', 'Rubber Expenses', '1500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1024, '41452', 'alvin bonifacio ot', '2023-06-24', 'MALOONG EXPENSES', 'Rubber Expenses', '1256.25', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1025, '41452', 'ederito luang ot', '2023-06-24', 'MALOONG EXPENSES', 'Rubber Expenses', '356.25', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1026, '41452', 'JULIO aballa OT', '2023-06-24', 'MALOONG EXPENSES', 'Rubber Expenses', '1750', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1027, '41452', 'RAMIL PELIGRIN OT', '2023-06-24', 'MALOONG EXPENSES', 'Rubber Expenses', '1237.5', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1028, '41452', 'ALBERT CORNELIA OT', '2023-06-24', 'MALOONG EXPENSES', 'Rubber Expenses', '2500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1029, '2760', 'T139-adung COPRA', '2023-06-24', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '7016', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1030, '2760', 'T139-adung', '2023-06-24', ' FREIGHT TO ZAMBO EXPENSES ', 'Other Expenses', '6106', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1031, '2759', 'PRIMEMOVER ARMAN  BALES', '2023-06-24', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '7750', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1032, '2759', 'PRIMEMOVER ARMAN ', '2023-06-24', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '7216', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1033, '2757', 'PRIMEMOVER ERIC BALES 1WAY', '2023-06-24', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '7750', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1034, '2757', 'PRIMEMOVER ERIC', '2023-06-24', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '7216', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1035, '2758', 'PRIMEMOVER HARNEL ', '2023-06-24', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '8050', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1036, '2758', 'prime harnel', '2023-06-24', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '7216', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1037, '41657', 'allow. of nenet loading mudz and nenet', '2023-06-26', 'ALLOWANCE FOR BUYING EXPENSES', 'Rubber Expenses', '300', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1038, '41657', 'sunday of G.A  6/25/23', '2023-06-26', '  EJN SALARIES', 'Other Expenses', '415', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1039, '41521', 'entrada copra 867sacks@5 / sacking copra 50sack@5 / camada copra 72sacks @ 5 less:50 roger', '2023-06-26', 'Pakyawan Salaries', 'Copra Expenses', '4895', NULL, '', NULL, 'Cash', NULL, 'Basilan');
+INSERT INTO `ledger_expenses` (`id`, `voucher_no`, `particulars`, `date`, `category`, `type_expense`, `amount`, `description`, `remarks`, `destination`, `mode_transact`, `date_payment`, `location`) VALUES
+(1040, '41449', 'pipe rocj for lavatory', '2023-06-26', 'Repair and Maintainance', 'Personal Expenses', '215', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1041, '41449', 'julio pasahe', '2023-06-26', 'Transportation Expenses', 'Other Expenses', '25', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1042, '41449', 'gasoline for danilo barandino get envelope in bus terminal', '2023-06-26', 'Other Expense', 'Other Expenses', '150', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1043, '41447', 'MKTG. BUDGET', '2023-06-26', 'MKTG. EXPENSES', 'Personal Expenses', '2500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1044, '41447', 'diesel for fortuner kelvin', '2023-06-26', 'Other Expense', 'Personal Expenses', '3000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1045, '41448', 'MKTG. BUDGET', '2023-06-26', 'MKTG. EXPENSES', 'Personal Expenses', '2500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1046, '41448', 'FARE TO OVAL MARKET', '2023-06-26', 'Transportation Expenses', 'Personal Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1047, '41448', 'loading rubber bales 1container ', '2023-06-26', 'Pakyawan Salaries', 'Rubber Expenses', '2000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1048, '41448', 'snack for laborer loading bales', '2023-06-26', 'Food and Snack', 'Rubber Expenses', '300', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1049, '41448', 'julio pasahe', '2023-06-26', 'Transportation Expenses', 'Other Expenses', '25', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1050, '41448', 'sunday of berto', '2023-06-26', '  EJN SALARIES', 'Other Expenses', '490', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1051, '41448', 'melvin sunday', '2023-06-26', '  EJN SALARIES', 'Other Expenses', '500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1052, '41448', 'julio sunday', '2023-06-26', '  EJN SALARIES', 'Other Expenses', '450', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1053, '41445', 'jemuel abella salary  4person in maloong  c.r', '2023-06-26', 'MALOONG EXPENSES', 'Rubber Expenses', '7000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1054, '0004', 'hardware', '2023-06-26', 'Repair and Maintainance', 'Personal Expenses', '115', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1055, '6362', 'termina fuse', '2023-06-26', 'Repair and Maintainance', 'Other Expenses', '68', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1056, '41655', 'mateo gasoline station fuel and lubricant may 01-31,2023', '2023-06-26', 'Other Expense', 'Other Expenses', '13800', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1057, '41656', '7days pordia of ronie sadio less: 500', '2023-06-26', '  EJN SALARIES', 'Other Expenses', '1250', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1058, '41651', 'full payment DOOR JAM for ejn bldg.', '2023-06-26', 'Other Expense', 'Personal Expenses', '9500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1059, '41449', 'MINERAL WATER', '2023-06-26', 'Pag-ibig', 'Personal Expenses', '155', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1060, '41449', 'brian sunday', '2023-06-26', '  EJN SALARIES', 'Personal Expenses', '400', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1061, '41449', 'snack banana chips', '2023-06-26', 'Food and Snack', 'Other Expenses', '50', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1062, '41449', 'payment to hostel room kabayo visitor', '2023-06-26', 'Other Expense', 'Personal Expenses', '1000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1063, '41449', 'budget for coal mktg.', '2023-06-26', 'Other Expense', 'Personal Expenses', '500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1064, '51143', 'LAMITAN DOCKHANDLERS  6/24-25/23', '2023-06-26', 'LDC EXPENSES', 'Other Expenses', '1400', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1065, '41464', '2keyway shafting 1sprocket reboring /1keywey rebor with sets shafting reface with keyway -butut ', '2023-06-26', 'MALOONG EXPENSES', 'Rubber Expenses', '14100', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1066, '41084', 'EXTRA PORDIA RENSIE', '2023-06-27', 'LACAFE EXPENSES', 'Coffee Expenses', '240', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1067, '41524', 'entrada copra 690sacks @ 5 / sacking copra 350sacks @ 5 / camada copra 100sacks @ 5 less:50', '2023-06-27', 'Pakyawan Salaries', 'Copra Expenses', '5650', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1068, '41523', 'unloading wet rubber  7050kls@ .10', '2023-06-27', 'Pakyawan Salaries', 'Rubber Expenses', '705', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1069, '41661', 'OT ROASTING SNACK', '2023-06-27', 'Food and Snack', 'Coffee Expenses', '100', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1070, '41663', 'CHANGE OF DR#36237', '2023-06-27', 'Other Expense', 'Coffee Expenses', '170', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1071, '41663', 'COAL PARTIAL PAYMENT MAYMONA BALDON', '2023-06-27', 'MALOONG EXPENSES', 'Rubber Expenses', '50000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1072, '41662', 'PASAHE OF COAL 2TRUCK VIA LAM TO ZAM.', '2023-06-27', 'MALOONG EXPENSES', 'Rubber Expenses', '12000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1073, '41522', 'TRANSFER COAL 280SACKS @ 2 /UNLOADING COAL 520SACKS @ 2', '2023-06-27', 'MALOONG EXPENSES', 'Rubber Expenses', '1600', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1074, '41664', 'ADDITIONAL PETTY CASH FOR ZAMBOANGA', '2023-06-27', 'ZAMBOANGA PCF', 'Other Expenses', '30000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1075, '41658', 'COAL MKTG BREAKFATS BUDGET', '2023-06-27', 'MALOONG EXPENSES', 'Rubber Expenses', '500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1076, '41657', 'KALAMANSO AND SPRITE', '2023-06-27', 'Other Expense', 'Personal Expenses', '50', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1077, '41657', 'GIGI OT LACAFE', '2023-06-27', 'Other Expense', 'Coffee Expenses', '300', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1078, '41657', 'MKTG. BUDGET', '2023-06-27', 'MKTG. EXPENSES', 'Personal Expenses', '2540', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1079, '41669', 'DALE TRAVEL ALLOW IN ZAMBO', '2023-06-28', 'Transportation Expenses', 'Other Expenses', '1500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1080, '41669', 'EMPLOYEE CONTRIBUTUION FROM APRIL TO JULY 2023', '2023-06-28', 'Pag-ibig', 'Other Expenses', '35200', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1081, '41617', 'JOJO DELIVERIO  FOR 21PERSON FOR 7PERSON @ 250', '2023-06-28', 'MALOONG EXPENSES', 'Rubber Expenses', '36750', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1082, '41668', '4PERSON OT ROASTING', '2023-06-28', 'LACAFE EXPENSES', 'Coffee Expenses', '1321', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1083, '41618', 'SNACK AND MEALS JEANNE IN STA CLARA', '2023-06-28', 'MALOONG EXPENSES', 'Rubber Expenses', '500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1084, '51169', 'LAMITAN DOCKHANDLERS  T848', '2023-06-28', 'LDC EXPENSES', 'Rubber Expenses', '200', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1085, '2761', 'PRIMEMOVER ARMAN  WET EXPORT', '2023-06-28', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '8050', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1086, '2761', 'PRIMEMOVER ARMAN ', '2023-06-28', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '7216', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1087, '2762', 'PRIMEMOVER ERIC wet export', '2023-06-28', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '8050', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1088, '2762', 'PRIMEMOVER ERIC', '2023-06-28', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '7216', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1089, '2765', 'T139-adung COPRA', '2023-06-30', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '7016', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1090, '2765', 'T139-adung', '2023-06-30', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '6106', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1091, '2763', 'PRIMEMOVER ARMAN  LAM-ZAM', '2023-06-30', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '7216', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1092, '2764', 'PRIMEMOVER ERIC LONG WET', '2023-06-30', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '8050', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1093, '2764', 'PRIMEMOVER ERIC LAM.TO ZAM.', '2023-06-30', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '7216', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1094, '41713', 'felipe borda', '2023-06-30', '  EJN SALARIES', 'Coffee Expenses', '300', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1095, '41713', 'NALAM , ERNESTO SALARY', '2023-06-30', '  EJN SALARIES', 'Coffee Expenses', '1887', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1096, '41713', 'LANGUTAN, EMELITO SALARY', '2023-06-30', '  EJN SALARIES', 'Coffee Expenses', '1180', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1097, '41673', 'SALARY ADJUSTMENT OF JECELYN ENRIQUEZ', '2023-06-30', 'NTC expenses', 'Other Expenses', '2000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1098, '41623', 'TOTO CASTIL salary', '2023-06-30', 'MALOONG EXPENSES', 'Rubber Expenses', '12100', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1099, '41622', 'ANTHONY CASTIL Salary less: 2,000', '2023-06-30', 'MALOONG EXPENSES', 'Rubber Expenses', '7700', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1100, '41679', 'RUBEN PASCUAL 13DAYS@ 500', '2023-06-30', 'MALOONG PLANTATION EXP.', 'Rubber Expenses', '6500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1101, '41679', 'ramon gutang salary 13DAYS@ 310', '2023-06-30', 'MALOONG PLANTATION EXP.', 'Other Expenses', '4030', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1102, '41679', 'delimer amento 13days @ 310', '2023-06-30', 'MALOONG PLANTATION EXP.', 'Other Expenses', '4030', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1103, '41681', 'reymar cabading', '2023-06-30', '  EJN SALARIES', 'Other Expenses', '2925', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1104, '41683', 'felix albutra14days @ 300 less: 2000', '2023-06-30', '', 'Other Expenses', '2200', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1105, '41684', 'ryan atilano truckman 15days @ 235 from june 16-30,2023 less: 500', '2023-06-30', '  EJN SALARIES', 'Other Expenses', '3025', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1106, '41695', 'mercy palconit salary 6/16-30/23', '2023-06-30', '  EJN SALARIES', 'Other Expenses', '3000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1107, '41694', 'LINDA DEL ROSARIO ', '2023-06-30', '  EJN SALARIES', 'Other Expenses', '3000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1108, '41702', 'RAFAEL RAMIREZ 11days @ 376.92 from june 16-30, 2023', '2023-06-30', '  EJN SALARIES', 'Other Expenses', '4146', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1109, '41086', '16packing lacafe @ 25 ', '2023-06-30', 'LACAFE EXPENSES', 'Coffee Expenses', '400', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1110, '41525', 'entrada copra 199sacks@ 5 and sacking copra 100sacks @ 5', '2023-06-30', 'Pakyawan Salaries', 'Copra Expenses', '1495', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1111, '41088', '12pail packing lacafe', '2023-06-30', 'LACAFE EXPENSES', 'Coffee Expenses', '300', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1112, '41087', '13pail packing lacafe @ 25 ', '2023-06-30', 'LACAFE EXPENSES', 'Coffee Expenses', '325', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1114, '41528', 'plantation wet rubber 18180kls@ .35', '2023-06-30', 'Pakyawan Salaries', 'Rubber Expenses', '6363', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1115, '41527', 'arevalo wet rubber  1916kls@ .25/loading/unloading wet rubber 1920kls@ .16/arco wet rubber 7610kls@ ', '2023-06-30', 'Pakyawan Salaries', 'Rubber Expenses', '3449', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1116, '41527', 'entrada copra 973sacks@ 5 less: 50', '2023-06-30', 'Pakyawan Salaries', 'Copra Expenses', '4815', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1117, '41670', 'ESTRELITO BRIEVA ', '2023-06-30', '  EJN SALARIES', 'Other Expenses', '4200', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1118, '41670', 'roger and company snack loading copra', '2023-06-30', 'Food and Snack', 'Copra Expenses', '200', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1119, '41870', 'mktg. budget and meat ', '2023-06-30', 'MKTG. EXPENSES', 'Personal Expenses', '4500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1120, '41870', 'FARE TO OVAL MARKET', '2023-06-30', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1121, '41710', 'GUILBERT FERNANDEZ salary 6/16-30/23', '2023-06-30', '  EJN SALARIES', 'Other Expenses', '4940', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1122, '41711', 'JOECRIS CLIMACO SALARY', '2023-06-30', '  EJN SALARIES', 'Other Expenses', '2500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1123, '41701', 'RONIE VILDAD SALARY', '2023-06-30', 'MALOONG EXPENSES', 'Rubber Expenses', '351', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1124, '41701', 'JULIO ABALLA SALARY', '2023-06-30', 'MALOONG EXPENSES', 'Rubber Expenses', '4750', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1125, '41701', 'JERRY GARCIA SALARY', '2023-06-30', 'SALARIES EXPENSES', 'Rubber Expenses', '2400', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1126, '41701', 'SAMUEL SALARY', '2023-06-30', 'MALOONG EXPENSES', 'Rubber Expenses', '500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1127, '41701', 'pablo hipulan salary', '2023-06-30', 'MALOONG EXPENSES', 'Rubber Expenses', '1330', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1128, '41701', 'wilfredo quimaco salary', '2023-06-30', 'MALOONG EXPENSES', 'Rubber Expenses', '2250', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1129, '41701', 'ALVIN SALARY', '2023-06-30', 'SALARIES EXPENSES', 'Rubber Expenses', '900', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1130, '41701', 'ALBERT CORNELIA SALARY', '2023-06-30', 'MALOONG EXPENSES', 'Rubber Expenses', '1450', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1131, '41708', 'RAP2X SALARY', '2023-06-30', 'MALOONG EXPENSES', 'Rubber Expenses', '5316', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1132, '41709', 'rogeley ramos', '2023-06-30', '  EJN SALARIES', 'Other Expenses', '4108', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1133, '41699', 'ar-hazim abdurajak 4days @ 220  june 24-30 less:500', '2023-06-30', '  EJN SALARIES', 'Other Expenses', '380', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1134, '41705', 'MICHAEL TUNACAO ', '2023-06-30', '  EJN SALARIES', 'Other Expenses', '6661', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1135, '41705', 'AZENIT VALLEDOR', '2023-06-30', '  EJN SALARIES', 'Other Expenses', '4155', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1136, '41705', 'RONIE TORIBIO', '2023-06-30', '  EJN SALARIES', 'Other Expenses', '6661', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1137, '41705', 'ANTONIO ARMAN', '2023-06-30', '  EJN SALARIES', 'Other Expenses', '7980', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1138, '41705', 'betita ethel', '2023-06-30', '  EJN SALARIES', 'Other Expenses', '3702', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1139, '41705', 'harnel daan ', '2023-06-30', '  EJN SALARIES', 'Other Expenses', '7800', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1140, '41698', 'DYELOBERT FERNANDEZ less: 500', '2023-06-30', '  EJN SALARIES', 'Other Expenses', '2790', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1141, '41700', 'G.A OBONGEN SALARY', '2023-06-30', '  EJN SALARIES', 'Other Expenses', '2750', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1142, '41700', 'G.A ALLOW. ARCO AND NENET', '2023-06-30', 'ALLOWANCE FOR BUYING EXPENSES', 'Other Expenses', '250', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1143, '41700', 'SUNDAY OF JOECRIS', '2023-06-30', '  EJN SALARIES', 'Other Expenses', '350', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1144, '41704', 'JEFERSON ALIPIO salary', '2023-06-30', '  EJN SALARIES', 'Other Expenses', '2900', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1145, '41703', 'RAFAEL RAMIREZ ', '2023-06-30', '  EJN SALARIES', 'Other Expenses', '5177', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1146, '41696', 'CONCHITA DELOS REYES SALARY', '2023-06-30', '  EJN SALARIES', 'Other Expenses', '4500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1147, '41085', '15pail packig lacafe amor', '2023-06-30', 'LACAFE EXPENSES', 'Coffee Expenses', '375', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1148, '41626', 'LOAD MALOONG PAYMENT TO AMANTE', '2023-06-30', 'MALOONG EXPENSES', 'Rubber Expenses', '1250', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1149, '41625', 'ALIH-1UNIT REBORING AND KEYWAY YELLOW MACHINE LEFT AND RIGTH /ADOP AND SHAFTING REPLACE', '2023-06-30', 'MALOONG EXPENSES', 'Rubber Expenses', '7500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1150, '41680', 'food allow. in maloong plantation maleleel cero and company for 7days ', '2023-06-30', 'MALOONG PLANTATION EXP.', 'Other Expenses', '2100', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1151, '41668', 'GULAY FOR FIESTA ', '2023-06-30', 'Other Expense', 'Personal Expenses', '500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1152, '41668', 'FARE TO OVAL MARKET', '2023-06-30', 'Transportation Expenses', 'Other Expenses', '20', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1153, '41668', 'TRAILER VULCAIZING ARMAN', '2023-06-30', 'TRUCK EXPENSES', 'Other Expenses', '350', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1154, '520208', 'sop to whart frage  june 22-25  for 8unit', '2023-06-30', 'TRANSPORTING FEE', 'Rubber Expenses', '800', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1155, '41678', 'JOSEPH BENOSA 6/16-30/23 NTC BIR BOOKKEEPING', '2023-06-30', 'BIR EXPENSES', 'Other Expenses', '2500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1156, '41678', 'mercy pasahe to ntc', '2023-06-30', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1157, '41678', 'mass offering for ejn 7/3-9/23', '2023-06-30', 'Other Expense', 'Personal Expenses', '1000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1158, '41678', 'FEEDS FOR ROASTER W/FARE', '2023-06-30', 'ROOASTER EXPENSES', 'Other Expenses', '4245', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1159, '41526', '21drums @ 10 unloading / loading /unloading diesel 5drums@ 20', '2023-06-30', 'LOADING/UNLOADING EXPENSES', 'Other Expenses', '310', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1160, '41697', 'ADDITIONAL PETTY CASH FOR ZAMBOANGA', '2023-06-30', 'ZAMBOANGA PCF', 'Other Expenses', '30000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1161, '51180', '3units royalty fee in wharf 6/29', '2023-06-30', 'LDC EXPENSES', 'Rubber Expenses', '600', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1162, '92970', 'kathy alipio medical check up  september  28,2022 ', '2023-06-30', 'KATHY EXPENSES', 'Other Expenses', '150000', NULL, '', NULL, 'Check', NULL, 'Basilan'),
+(1163, '92957', 'kathy alipio medical check up  september  16,2022 ', '2023-06-30', 'KATHY EXPENSES', 'Other Expenses', '150000', NULL, '', NULL, 'Check', NULL, 'Basilan'),
+(1164, '41762', 'orlando quimson retainers fee for june. 2023', '2023-07-01', 'MALOONG EXPENSES', 'Rubber Expenses', '5000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1165, '41758', 'change of lacafe dr#36242', '2023-07-01', 'Other Expense', 'Coffee Expenses', '25', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1166, '41758', 'edita labada ', '2023-07-01', '  EJN SALARIES', 'Personal Expenses', '750', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1167, '41758', 'FARE TO NTC', '2023-07-01', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1168, '41758', 'walis ting2x 4pcs.', '2023-07-01', 'Other Expense', 'Copra Expenses', '100', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1169, '41758', 'sualog cerilo salary', '2023-07-01', 'MALOONG EXPENSES', 'Rubber Expenses', '350', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1170, '41758', 'SAMUEL SALARY', '2023-07-01', 'MALOONG EXPENSES', 'Rubber Expenses', '400', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1171, '41758', 'SOP BASURA', '2023-07-01', 'Other Expense', 'Personal Expenses', '400', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1172, '41724', 'RONIE SADIO EXTRA GUARD JUNE 16 TO 30 FOR 6NIGTHS @ 250', '2023-07-01', '  EJN SALARIES', 'Other Expenses', '1500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1173, '41700', 'AMANTE LEQUIN SALARY', '2023-07-01', '  EJN SALARIES', 'Other Expenses', '5500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1174, '41723', 'joey ortega salary less:500', '2023-07-01', '  EJN SALARIES', 'Other Expenses', '2250', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1175, '51432', 'gasul for kitchen', '2023-07-01', 'Other Expense', 'Personal Expenses', '1177', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1176, '41722', 'joebert balasuela 7days @ 220 ', '2023-07-01', '  EJN SALARIES', 'Other Expenses', '1540', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1177, '41759', 'maloong contractual salary ', '2023-07-01', 'SALARIES EXPENSES', 'Rubber Expenses', '174956', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1178, '41760', 'arnel talap 13days pordia @ 220 from june 16-30, 2023', '2023-07-01', '  EJN SALARIES', 'Other Expenses', '2860', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1179, '2766', 'T851 JOECRIS copra to zambo', '2023-07-01', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '7016', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1180, '2766', 'T851 JOECRIS TO LAM', '2023-07-01', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '6106', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1181, '41721', 'ERVIN MAGNAYE 5PERSON BRASSING JUNE 26 TO JULY 1 FOR 28DAYS @ 300', '2023-07-01', 'MALOONG PLANTATION EXP.', 'Other Expenses', '8400', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1182, '41496', 'WEEKLY SALARY MALOOM FIELD WORKER', '2023-07-01', 'MALOONG EXPENSES', 'Rubber Expenses', '21750', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1183, '41494', 'jayson lipayo SALARY  JUNE 26-JULY 01', '2023-07-01', 'MALOONG EXPENSES', 'Rubber Expenses', '1750', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1184, '41489', 'jeanne abella transpo allow.', '2023-07-01', 'MALOONG EXPENSES', 'Rubber Expenses', '300', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1185, '41490', 'TOTO AND ANTHONY FOOD ALLOW.', '2023-07-01', 'MALOONG EXPENSES', 'Rubber Expenses', '1000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1186, '41491', 'BASELCO TIP CUT OUT ', '2023-07-01', 'MALOONG EXPENSES', 'Rubber Expenses', '500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1187, '41495', 'TOTO CASTIL OT ', '2023-07-01', 'MALOONG EXPENSES', 'Rubber Expenses', '3750', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1188, '41493', 'anthony castil OT', '2023-07-01', 'MALOONG EXPENSES', 'Rubber Expenses', '3000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1189, '41492', 'FOR REIMBURSEMENT ACCT TO BING BING STORE SNACK PRAMOR OPERATOR', '2023-07-01', 'MALOONG EXPENSES', 'Rubber Expenses', '345', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1190, '41532', 'ENTRADA COPRA 226SAKCS@5 LOADING COPRA 450SACKS @ 5 SACKING COPRA 50SACKS @ 5 LESS: ROGER 50', '2023-07-01', 'Pakyawan Salaries', 'Copra Expenses', '3580', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1191, '41531', 'LABOR WET RUBBER PLATATION 4670KLS@ .35', '2023-07-01', 'Pakyawan Salaries', 'Rubber Expenses', '1635', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1192, '41755', 'LOADING 1CONTAINER NENET FOR EXPORT', '2023-07-01', 'Other Expense', 'Rubber Expenses', '4500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1193, '41530', 'LOADING 5DRUMS DIESEL@ 10', '2023-07-01', 'LOADING/UNLOADING EXPENSES', 'Other Expenses', '50', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1194, '41752', 'KELVIN DIESEL ', '2023-07-01', 'Other Expense', 'Personal Expenses', '2000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1195, '41752', 'MKTG. BUDGET', '2023-07-01', 'MKTG. EXPENSES', 'Personal Expenses', '2500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1196, '41752', 'FARE TO OVAL MARKET', '2023-07-01', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1197, '41752', 'water ', '2023-07-01', 'Other Expense', 'Personal Expenses', '200', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1198, '41752', 'ULAM FOR CARGILL MANAGER', '2023-07-01', 'Other Expense', 'Personal Expenses', '200', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1199, '41754', 'EXPENSES FOR TRUCKING 3TRUCKS @ 15,000 LOADING COPRA FOR BOAT CARGILL GENSAN', '2023-07-01', 'Other Expense', 'Copra Expenses', '45000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1200, '41529', 'LOADING COPRA 450SACKS @ 5 AND TRANSFER COPRA 79SACKS @ 5', '2023-07-01', 'Other Expense', 'Copra Expenses', '2645', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1201, '41753', 'sop coastguard copra expenses in boat to cargill', '2023-07-01', 'Other Expense', 'Copra Expenses', '15000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1202, '41628', 'GALANO BERTO OT', '2023-07-01', 'MALOONG EXPENSES', 'Rubber Expenses', '2884', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1203, '41628', 'RONIE VILDAD OT', '2023-07-01', 'SALARIES EXPENSES', 'Rubber Expenses', '355.94', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1204, '41628', 'JEANNE ABELLA OT', '2023-07-01', 'MALOONG EXPENSES', 'Rubber Expenses', '2415.69', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1205, '41628', 'JOVY SAMIJON OT', '2023-07-01', 'MALOONG EXPENSES', 'Rubber Expenses', '546.88', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1206, '41628', 'JAR AR QUIMCO OT', '2023-07-01', 'MALOONG EXPENSES', 'Rubber Expenses', '812.50', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1207, '41628', 'JAR AR QUIMCO OT', '2023-07-01', 'MALOONG EXPENSES', 'Rubber Expenses', '812.50', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1208, '41628', 'RAP RAP ABARQUEZ OT', '2023-07-01', 'MALOONG EXPENSES', 'Rubber Expenses', '375', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1209, '41628', 'JERRY GARCIA OT', '2023-07-01', 'MALOONG EXPENSES', 'Rubber Expenses', '862.50', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1210, '41628', 'SAMUEL RAMILANO OT', '2023-07-01', 'MALOONG EXPENSES', 'Rubber Expenses', '1893.75', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1211, '41628', 'GREGORIO MATULAC OT', '2023-07-01', 'MALOONG EXPENSES', 'Rubber Expenses', '831.25', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1212, '41628', 'DINDO PENTOJO OT', '2023-07-01', 'MALOONG EXPENSES', 'Rubber Expenses', '2296.88', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1213, '41628', 'EDMUNDO CRISTOBAL ot', '2023-07-01', 'SALARIES EXPENSES', 'Rubber Expenses', '393.75', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1214, '41628', 'DENNIS CORPUZ OT', '2023-07-01', 'MALOONG EXPENSES', 'Rubber Expenses', '1368.75', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1215, '41628', 'alvin bonifacio ot', '2023-07-01', 'MALOONG EXPENSES', 'Rubber Expenses', '1125', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1216, '41628', 'ederito luang ot', '2023-07-01', 'MALOONG EXPENSES', 'Rubber Expenses', '225', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1217, '41628', 'ederito luang ot', '2023-07-01', 'MALOONG EXPENSES', 'Rubber Expenses', '225', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1218, '41628', 'RAMIL PELIGRIN OT', '2023-07-01', 'MALOONG EXPENSES', 'Rubber Expenses', '1650', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1219, '41628', 'ALBERT CORNELIA OT', '2023-07-01', 'MALOONG EXPENSES', 'Rubber Expenses', '2734.38', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1220, '41773', 'SAGING PRITO', '2023-07-03', 'Food and Snack', 'Other Expenses', '50', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1221, '41773', 'candle for prayer', '2023-07-03', 'Other Expense', 'Personal Expenses', '50', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1222, '41773', 'raquel pasahe to larbeco', '2023-07-03', 'Transportation Expenses', 'Other Expenses', '60', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1223, '41773', 'cocnut for maja blance', '2023-07-01', '', 'Other Expenses', '200', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1224, '41773', 'JULIO aballa  travel allow. for 26days via maloong to lam.@ 40 from june 16-30', '2023-07-03', '', 'Other Expenses', '1040', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1225, '568', 'shovel used in loaing copra in wharf', '2023-07-01', 'Other Expense', 'Copra Expenses', '770', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1226, '41776', 'ronie vildad allow. and load for 24days and 4weeks from july 3 to july 15', '2023-07-03', 'MALOONG EXPENSES', 'Rubber Expenses', '2608', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1227, '51195', 'prime neg 1564 , truck 851 and 139 royalty fee in wharf from july 1-3', '2023-07-03', 'LDC EXPENSES', 'Other Expenses', '600', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1228, '41774', 'ronie sadio 7days @ 250 jan.27 to july 3,2023 hardinero', '2023-07-03', 'SAYUGAN EXPENSES', 'Other Expenses', '1750', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1229, '41535', 'entrada copra 84sacks @ 5', '2023-07-03', 'Pakyawan Salaries', 'Copra Expenses', '420', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1230, '2767', 'PRIMEMOVER ARMAN bales to zambo', '2023-07-03', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '7750', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1231, '2767', 'PRIMEMOVER ARMAN ', '2023-07-03', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '7216', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1232, '35210', 'salary Jess Ignacio get kumpay july 02,  2023', '2023-07-03', 'MALOONG EXPENSES', 'Rubber Expenses', '2250', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1233, '35212', 'tip to basleco cut-out 7/1/23', '2023-07-03', 'MALOONG EXPENSES', 'Rubber Expenses', '500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1234, '41766', 'food allow to chooks to go 7/1/23 loading copra', '2023-07-03', 'Pag-ibig', 'Copra Expenses', '620', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1235, '41766', 'JULIO ABALLA sunday', '2023-07-03', 'MALOONG EXPENSES', 'Rubber Expenses', '450', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1236, '41766', 'jong2x sunday', '2023-07-03', '  EJN SALARIES', 'Other Expenses', '300', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1237, '41766', 'ernesto sunday', '2023-07-03', '  EJN SALARIES', 'Other Expenses', '275', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1238, '41766', 'ESTRELITO BRIEVA sunday', '2023-07-03', '  EJN SALARIES', 'Other Expenses', '350', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1239, '41766', 'berto sunday', '2023-07-03', '  EJN SALARIES', 'Other Expenses', '490', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1240, '41534', 'james tan wet rubber 18015kls@ .35', '2023-07-03', 'Pakyawan Salaries', 'Rubber Expenses', '6305', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1241, '41764', 'flowers for ejn', '2023-07-03', 'Other Expense', 'Personal Expenses', '300', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1242, '41764', 'MKTG. BUDGET', '2023-07-03', 'MKTG. EXPENSES', 'Personal Expenses', '3000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1243, '41764', 'FARE TO OVAL MARKET', '2023-07-03', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1244, '41764', 'kelvin sati', '2023-07-03', 'Other Expense', 'Personal Expenses', '200', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1245, '41533', 'james tan wet rubber 10905kls@ .35', '2023-07-03', 'Pakyawan Salaries', 'Rubber Expenses', '3816', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1246, '41766', 'MKTG. BUDGET', '2023-07-03', 'MKTG. EXPENSES', 'Personal Expenses', '2500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1247, '41766', 'FARE TO OVAL MARKET', '2023-07-03', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1248, '41766', 'mktg. for loading copra OT for cargill', '2023-07-03', 'Other Expense', 'Copra Expenses', '2500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1249, '41773', 'coconut for maja blanca', '2023-07-03', 'Other Expense', 'Personal Expenses', '200', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1250, '41773', 'FARE TO NTC', '2023-07-03', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1251, '41779', 'MKTG. BUDGET', '2023-07-04', 'MKTG. EXPENSES', 'Personal Expenses', '2500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1252, '41779', 'FARE TO OVAL MARKET', '2023-07-04', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1253, '41779', 'mktg. for loading copra cargill laborer', '2023-07-03', 'Other Expense', 'Copra Expenses', '2500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1254, '41779', 'GIGI OT LACAFE', '2023-07-04', 'Other Expense', 'Coffee Expenses', '300', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1255, '41536', 'LOADING BALES 1CONTAINER', '2023-07-04', 'Pakyawan Salaries', 'Rubber Expenses', '2000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1256, '41778', 'manok for loading copra cargill', '2023-07-04', 'Other Expense', 'Copra Expenses', '1000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1257, '41778', 'ppa tip for boat copra', '2023-07-04', 'Other Expense', 'Copra Expenses', '1000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1258, '41778', 'diesel for fortuner kelvin', '2023-07-04', 'Other Expense', 'Personal Expenses', '3000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1259, '41781', 'pcf for noel for july', '2023-07-04', 'MANILA PCF', 'Other Expenses', '10000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1260, '41537', 'LEE BROWN WET RUBBER 5665KLS@ .35', '2023-07-04', 'Pakyawan Salaries', 'Rubber Expenses', '1982', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1261, '5895', 'jerome and jef gasoline to maloong', '2023-07-04', 'Transportation Expenses', 'Other Expenses', '195', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1262, '41782', 'cebuana charges noel guanzon', '2023-07-04', 'Other Expense', 'Other Expenses', '250', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1263, '41782', 'FARE TO NTC', '2023-07-04', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1264, '41782', 'malagkit 2kls', '2023-07-04', 'Other Expense', 'Personal Expenses', '1000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1265, '41782', 'fish', '2023-07-04', 'MKTG. EXPENSES', 'Personal Expenses', '1000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1267, '41783', 'sayugan light consumption for june 2023', '2023-07-04', 'SAYUGAN EXPENSES', 'Rubber Expenses', '1474', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1268, '0005', 'meals DENR', '2023-07-04', 'Food and Snack', 'Personal Expenses', '1835', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1269, '41089', 'EXTRA PORDIA JORESH', '2023-07-04', 'Other Expense', 'Coffee Expenses', '240', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1270, '41782', 'SNACK LACAFE OT', '2023-07-04', 'Other Expense', 'Coffee Expenses', '100', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1271, '41782', 'SNACK FOR LOADING COPRA ', '2023-07-04', 'Other Expense', 'Copra Expenses', '300', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1272, '41784', 'TAX DECLARATION/CLEARANCE FOR EJN LOT  FOR 2024', '2023-07-04', 'Taxes and Licenses', 'Other Expenses', '2346', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1273, '2768', 'PRIMEMOVER ERIC BALES 1WAY', '2023-07-04', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '7750', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1274, '2768', 'PRIMEMOVER ERIC', '2023-07-04', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '7216', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1275, '2768', 'PRIMEMOVER ERIC BALES 1WAY', '2023-07-04', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '7750', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1276, '2768', 'PRIMEMOVER ERIC to lamitan', '2023-07-04', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '7216', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1277, '2769', 'PRMEMOVER HARNEL WET EXPORT', '2023-07-04', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '8050', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1278, '27469', 'PRIMEMOVER HARNEL ', '2023-07-04', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '7216', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1279, '41785', 'GIFT', '2023-07-05', 'Other Expense', 'Personal Expenses', '3000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1280, '41785', 'FARE TO NTC', '2023-07-05', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1281, '41785', 'MINERAL WATER', '2023-07-05', 'Other Expense', 'Personal Expenses', '155', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1282, '41785', '2CASE MISMO', '2023-07-05', 'Other Expense', 'Personal Expenses', '410', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1283, '41804', 'SACKING COPRA 150SACKS @ 5 AND ENTRADA COPRA 535SACKS @ 5 LESS: ROGER 50', '2023-07-05', 'Other Expense', 'Copra Expenses', '3375', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1284, '41728', '4PERSON OT ROASTING', '2023-07-05', 'LACAFE EXPENSES', 'Coffee Expenses', '1122', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1285, '41090', '16pail packing lacafe @ 25 LESS: 50-CORAZON', '2023-07-05', 'LACAFE EXPENSES', 'Coffee Expenses', '350', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1286, '41091', '16PAIL PACKING LACAFE JOSEPHINE', '2023-07-05', 'LACAFE EXPENSES', 'Coffee Expenses', '400', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1287, '41803', 'loading rubber bales showa', '2023-07-05', 'Pakyawan Salaries', 'Rubber Expenses', '2000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1288, '41785', 'change of lacafe dr#16485', '2023-07-05', 'LACAFE EXPENSES', 'Coffee Expenses', '125', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1289, '41785', 'MKTG. BUDGET', '2023-07-05', 'MKTG. EXPENSES', 'Personal Expenses', '2500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1290, '41785', 'mktg budget for copra labor cargill ', '2023-07-05', 'Other Expense', 'Copra Expenses', '2500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1291, '41785', 'FARE TO OVAL MARKET', '2023-07-05', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1292, '41785', 'JBN CHURCH', '2023-07-05', 'Other Expense', 'Personal Expenses', '100', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1293, '41785', 'bread for loading copra ', '2023-07-05', 'Other Expense', 'Copra Expenses', '150', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1294, '41785', 'solicit', '2023-07-05', 'Other Expense', 'Personal Expenses', '200', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1295, '41789', 'ADDITIONAL PETTY CASH FOR ZAMBOANGA', '2023-07-05', 'MKTG. EXPENSES', 'Other Expenses', '30000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1296, '41629', 'ejn uniform for employee maloong lamitan', '2023-07-05', 'MALOONG EXPENSES', 'Rubber Expenses', '14978', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1297, '41630', '12cubic gravel for halayan', '2023-07-05', 'MALOONG EXPENSES', 'Rubber Expenses', '7200', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1298, '41632', 'elyjane store snack for miller workers maloong 7/5/23', '2023-07-05', 'MALOONG EXPENSES', 'Rubber Expenses', '1540', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1299, '51210', 'ja7979 royalty fee in wharf', '2023-07-05', 'LDC EXPENSES', 'Rubber Expenses', '200', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1300, '41538', 'loading wet export  nenet 1container', '2023-07-05', 'Pakyawan Salaries', 'Rubber Expenses', '6000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1301, '41547', 'romel OT loading copra in pantalan', '2023-07-05', 'Pakyawan Salaries', 'Copra Expenses', '600', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1302, '41549', 'roger ot loading copra in wharf', '2023-07-05', 'Pakyawan Salaries', 'Copra Expenses', '333', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1303, '41546', 'dudung OT loading copra in wharf', '2023-07-05', 'Pakyawan Salaries', 'Copra Expenses', '302', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1304, '41545', 'jefrey ot loading copra in wharf', '2023-07-05', 'Pakyawan Salaries', 'Copra Expenses', '266', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1305, '41548', 'joseph OT loading copra in wharf', '2023-07-05', 'Pakyawan Salaries', 'Copra Expenses', '283', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1306, '41802', 'ernesto OT loading copra in wharf', '2023-07-05', 'Pakyawan Salaries', 'Copra Expenses', '340', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1307, '41801', 'jong2x ot loading copra in wharf', '2023-07-05', 'Pakyawan Salaries', 'Copra Expenses', '375', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1308, '41550', 'lalang OT loading copra in wharf', '2023-07-05', 'Pakyawan Salaries', 'Copra Expenses', '297', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1309, '41543', 'joseph truckman loading copra in wharf for 2days @ 250', '2023-07-05', 'Pakyawan Salaries', 'Copra Expenses', '500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1310, '41542', 'truckman loading copra in wharf for 2days romel', '2023-07-05', 'Pakyawan Salaries', 'Copra Expenses', '500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1311, '41541', 'jefrey loading copra in wharf pordia for 2days @ 250', '2023-07-05', 'Pakyawan Salaries', 'Copra Expenses', '500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1312, '41540', 'dudung pordia in wharf loading copra', '2023-07-05', 'Pakyawan Salaries', 'Copra Expenses', '500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1313, '41544', 'roger truckman loading copra for 2days @ 250', '2023-07-05', 'Pakyawan Salaries', 'Copra Expenses', '500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1314, '41791', 'PPA wharfrage 604,550kls@ 9 total 5,440.95 with 12%vat 652.91 and 2%cwt-108.82', '2023-07-05', 'Other Expense', 'Copra Expenses', '5985', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1315, '41093', '20PAIL PACKING LACAFE @ 25-corazon', '2023-07-06', 'LACAFE EXPENSES', 'Coffee Expenses', '500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1316, '2771', 'T139 adung copra to zamboanga 1way', '2023-07-06', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '7016', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1317, '2771', 'T139-adung', '2023-07-06', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '6106', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1318, '41806', 'LOADING COPRA 371SACKS @ 5 / ENTRADA COPRA 1151SACKS@5/ SACKING COPRA 350SACKS @ 5 LESS:50', '2023-07-06', 'Pakyawan Salaries', 'Copra Expenses', '9310', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1319, '41799', 'binuangan baselco isabela', '2023-07-06', 'Electricity', 'Other Expenses', '131', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1320, '41793', 'CHURCH ', '2023-07-06', 'Other Expense', 'Personal Expenses', '100', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1321, '41793', 'jayson maloong allow.', '2023-07-06', 'MALOONG EXPENSES', 'Rubber Expenses', '300', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1322, '41793', 'bryan flashligth', '2023-07-06', 'Other Expense', 'Other Expenses', '200', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1323, '41793', 'MKTG. BUDGET', '2023-07-06', 'MKTG. EXPENSES', 'Personal Expenses', '3000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1324, '41793', 'FARE TO OVAL MARKET', '2023-07-06', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1325, '41794', 'siopoa by jbn', '2023-07-06', 'Other Expense', 'Personal Expenses', '1000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1326, '41794', 'sangut for maloong jayson ', '2023-07-06', 'MALOONG EXPENSES', 'Rubber Expenses', '380', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1327, '41794', 'dayan fare', '2023-07-06', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1328, '41794', 'mismo', '2023-07-06', 'Other Expense', 'Personal Expenses', '20', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1329, '41795', 'labor copra 371sacks @ 1.50 wilmar delivery', '2023-07-06', 'Other Expense', 'Copra Expenses', '557', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1330, '41795', 'maleleel cero food allow. from july 7-13, 2023 for 7days @ 300', '2023-07-06', 'MALOONG PLANTATION EXP.', 'Personal Expenses', '2100', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1331, '41799', 'change of lacafe dr#35052', '2023-07-06', 'Other Expense', 'Coffee Expenses', '25', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1332, '41799', 'JBN', '2023-07-06', 'Other Expense', 'Personal Expenses', '1000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1333, '41794', 'FOOD ALLOW.IN JAMES TAN BUYING FOR 2DAYS', '2023-07-06', 'ALLOWANCE FOR BUYING EXPENSES', 'Rubber Expenses', '200', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1334, '41794', 'SUNDAY 7/2/23 G.A OBONGEN', '2023-07-06', '  EJN SALARIES', 'Other Expenses', '415', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1335, '41794', 'LOADING COPRA OT 7/3/23', '2023-07-06', 'Other Expense', 'Copra Expenses', '228', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1336, '41805', '12drums empty drum and 6drums diesel', '2023-07-06', 'LOADING/UNLOADING EXPENSES', 'Other Expenses', '180', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1337, '41788', 'BUS.OERMIT 2ND QTR 2023 NTC-43,482.77 EJN RUBBER SERVICES-9,140.63 COPRA-24,643.78', '2023-07-06', 'Taxes and Licenses', 'Other Expenses', '77267', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1338, '41856', 'STEEL MATTING 8X3 for 8pcs. diskargada for ejn maloong bldg.', '2023-07-07', 'MALOONG EXPENSES', 'Rubber Expenses', '24', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1339, '41854', 'starlink ethernet cables 4,800 tplink gap aoutdoor ac1200- 3,190 starlink load - 2,850 utp cable -30', '2023-07-07', 'Other Expense', 'Other Expenses', '11150', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1340, '41854', 'maloong wifi load', '2023-07-07', 'MALOONG EXPENSES', 'Rubber Expenses', '1200', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1341, '41852', 'cup cakes for prayer', '2023-07-07', 'Other Expense', 'Personal Expenses', '265', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1342, '41852', 'softdrinks coke mismo', '2023-07-07', 'Other Expense', 'Personal Expenses', '615', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1343, '41852', 'LABADA EDITHA ', '2023-07-07', 'Other Expense', 'Personal Expenses', '750', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1344, '41852', 'VULCANIZING T851-1TIRE joecris', '2023-07-07', 'TRUCK EXPENSES', 'Other Expenses', '200', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1345, '41807', 'louie wet rubber labor 5110kls.@ .35', '2023-07-07', 'RBN Expense', 'Rubber Expenses', '1788', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1346, '41094', '16packing lacafe @ 25 -corazon', '2023-07-07', 'LACAFE EXPENSES', 'Coffee Expenses', '400', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1347, '41852', 'MKTG. BUDGET', '2023-07-07', 'MKTG. EXPENSES', 'Personal Expenses', '2500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1348, '41852', 'FARE TO OVAL MARKET', '2023-07-07', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1349, '41852', 'fare to bus', '2023-07-07', 'Transportation Expenses', 'Other Expenses', '20', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1350, '41852', 'vitamins for rooster in sayugan', '2023-07-07', 'ROOASTER EXPENSES', 'Personal Expenses', '700', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1351, '41852', 'mercy pasahe to ntc', '2023-07-07', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1352, '51233', 'royalty fee T139 NEG1564 AND JAF1564', '2023-07-07', 'LDC EXPENSES', 'Other Expenses', '600', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1353, '2772', 'T851 copra to zambo', '2023-07-07', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '7016', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1354, '2772', 'T851 JOECRIS TO LAM', '2023-07-07', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '6106', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1355, '41857', 'JBN to church', '2023-07-08', 'Other Expense', 'Personal Expenses', '100', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1356, '41857', 'MKTG. BUDGET', '2023-07-08', 'MKTG. EXPENSES', 'Personal Expenses', '2500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1357, '41857', 'FARE TO OVAL MARKET', '2023-07-07', 'Other Expense', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1358, '41808', 'entrada copra 326sacks @ 5 sacking copra 300sacks@5 loading copra 351sacks @ 5 less:50', '2023-07-08', 'Pakyawan Salaries', 'Copra Expenses', '4835', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1359, '51544', 'gasul', '2023-07-08', 'Other Expense', 'Personal Expenses', '1147', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1362, '41636', 'toto castil  OT', '2023-07-08', 'MALOONG EXPENSES', 'Rubber Expenses', '4500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1363, '41497', 'jeanne abella transpo allow.', '2023-07-08', 'MALOONG EXPENSES', 'Rubber Expenses', '300', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1364, '41633', 'anthony castil OT', '2023-07-08', 'MALOONG EXPENSES', 'Rubber Expenses', '3600', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1365, '41639', 'rewind electiru motor dryer 1 ', '2023-07-08', 'SALARIES EXPENSES', 'Rubber Expenses', '10000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1366, '41640', 'jayson lipayo salary less: 250 from july 2-8', '2023-07-08', 'OVERTIME EXPENSES', 'Rubber Expenses', '1500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1367, '41638', 'weekly pordia july 03 to july 8', '2023-07-08', 'MALOONG EXPENSES', 'Rubber Expenses', '19000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1368, '41859', 'H2O', '2023-07-08', 'Other Expense', 'Personal Expenses', '185', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1369, '41859', 'SOP BASURA', '2023-07-08', 'Other Expense', 'Personal Expenses', '400', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1370, '41859', 'rice powder for tamal', '2023-07-08', 'Other Expense', 'Personal Expenses', '500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1371, '41859', 'jbn to isabela', '2023-07-08', 'Other Expense', 'Copra Expenses', '1000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1372, '41637', 'OT BERTO GALANO', '2023-07-08', 'MALOONG EXPENSES', 'Rubber Expenses', '937.43', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1373, '41637', 'RONNIE VILDAD OT', '2023-07-08', 'MALOONG EXPENSES', 'Rubber Expenses', '821.40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1374, '41637', 'JEANNE ABELLA OT', '2023-07-08', 'MALOONG EXPENSES', 'Rubber Expenses', '2812.29', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1375, '41637', 'JOVY SAMIJON OT', '2023-07-08', 'MALOONG EXPENSES', 'Rubber Expenses', '590.83', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1376, '41637', 'JAR AR QUIMCO OT', '2023-07-08', 'MALOONG EXPENSES', 'Rubber Expenses', '1000', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1377, '41637', 'RAP RAP ABARQUEZ OT', '2023-07-08', 'MALOONG EXPENSES', 'Rubber Expenses', '693.75', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1378, '41637', 'JERRY GARCIA OT', '2023-07-08', 'MALOONG EXPENSES', 'Rubber Expenses', '881.25', NULL, '', NULL, 'Cash', NULL, 'Basilan');
+INSERT INTO `ledger_expenses` (`id`, `voucher_no`, `particulars`, `date`, `category`, `type_expense`, `amount`, `description`, `remarks`, `destination`, `mode_transact`, `date_payment`, `location`) VALUES
+(1379, '41637', 'SAMUEL RAMILANO OT', '2023-07-08', 'MALOONG EXPENSES', 'Rubber Expenses', '1912.5', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1380, '41637', 'GREGORIO MATULAC OT', '2023-07-08', 'MALOONG EXPENSES', 'Rubber Expenses', '612.5', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1381, '41637', 'DINDO PENTOJO OT', '2023-07-08', 'MALOONG EXPENSES', 'Rubber Expenses', '2296.88', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1382, '41637', 'EDMUNDO CRISTOBAL ot', '2023-07-08', 'MALOONG EXPENSES', 'Rubber Expenses', '356.25', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1383, '41637', 'PABLO HIPULAN OT', '2023-07-08', 'MALOONG EXPENSES', 'Rubber Expenses', '1465.63', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1384, '41637', 'DENNIS CORPUZ OT', '2023-07-08', 'MALOONG EXPENSES', 'Rubber Expenses', '1500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1385, '41637', 'ALBERT bonifacio OT', '2023-07-08', 'MALOONG EXPENSES', 'Rubber Expenses', '1162.50', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1387, '41637', 'juilio aballa ot', '2023-07-08', 'MALOONG EXPENSES', 'Rubber Expenses', '1750', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1388, '41637', 'ALBERT CORNELIA OT', '2023-07-08', 'MALOONG EXPENSES', 'Rubber Expenses', '2515.63', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1389, '41661', 'MKTG. BUDGET', '2023-06-28', 'MKTG. EXPENSES', 'Personal Expenses', '2500', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1390, '41661', 'FARE TO OVAL MARKET', '2023-06-28', 'Other Expense', 'Personal Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1391, '41661', 'SLICE BREAD', '2023-06-28', 'Food and Snack', 'Other Expenses', '50', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1392, '2774', 'PRIMEMOVER ERIC to zambo wet', '2023-07-08', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '8050', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1393, '2774', 'PRIMEMOVER ERIC to lamitan', '2023-07-08', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '7216', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1394, '51544', 'gasul for kitchen', '2023-07-08', 'Other Expense', 'Personal Expenses', '1147', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1395, '2773', 'primemover harnel wet export nenet to zambo', '2023-07-08', ' FREIGHT TO ZAMBO EXPENSES ', 'Rubber Expenses', '8050', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1396, '2773', 'PRIMEMOVER HARNEL ', '2023-07-08', 'FREIGHT TO LAM EXPENSES', 'Other Expenses', '7216', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1397, '41810', 'entrada cora 350sacks @ 5/ sacking copra 350sacks @ 5 less: roger 50', '2023-07-08', 'Pakyawan Salaries', 'Copra Expenses', '3450', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1398, '41862', 'joebert balasuela sayugan hardinero 7days @ 220 less: 500', '2023-07-08', 'SAYUGAN EXPENSES', 'Other Expenses', '1040', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1399, '41859', 'amante loading wet allow. nenet  7/4/23', '2023-07-08', 'ALLOWANCE FOR BUYING EXPENSES', 'Other Expenses', '150', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1400, '41859', 'ROOSTER FEEDS FOR SAYUGAN', '2023-07-08', 'SAYUGAN EXPENSES', 'Other Expenses', '3895', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1401, '41809', '21drums diesel @ 10', '2023-07-08', 'LOADING/UNLOADING EXPENSES', 'Other Expenses', '210', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1402, '41859', 'MINERAL WATER', '2023-07-08', 'Other Expense', 'Other Expenses', '185', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1406, '41857', 'FARE TO OVAL MARKET', '2023-07-08', 'Transportation Expenses', 'Other Expenses', '40', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1407, '41637', 'ederito luang ot', '2023-07-08', 'MALOONG EXPENSES', 'Rubber Expenses', '375', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1408, '41637', 'RAMIL PELIGRIN OT', '2023-07-08', 'MALOONG EXPENSES', 'Rubber Expenses', '1050', NULL, '', NULL, 'Cash', NULL, 'Basilan'),
+(1409, '41810', '5DRUMS DIESEL @ 20', '2023-07-08', 'MALOONG EXPENSES', 'Rubber Expenses', '100', NULL, '', NULL, 'Cash', NULL, 'Basilan');
 
 -- --------------------------------------------------------
 
@@ -2518,7 +3483,11 @@ INSERT INTO `ledger_maloong` (`id`, `date`, `voucher`, `net_kilos`, `name`, `ejn
 (59, '2023-05-31', '2960', '118', 'MAYETO', '10', '1180', '10', '1180', '', '', '1180'),
 (60, '2023-05-31', '2956', '84', 'RENATO', '10', '840', '10', '840', '', '', '840'),
 (61, '2023-05-31', '2957', '170', 'GUILBERT', '10', '1700', '10', '1700', 'Cash Advance', '1000', '700'),
-(62, '2023-06-01', '41235', '812', 'JBN share in maloong processing', '10', '8120', '', '0', '', '', '0');
+(62, '2023-06-01', '41235', '812', 'JBN share in maloong processing', '10', '8120', '', '0', '', '', '0'),
+(63, '2023-06-22', '2969', '136', 'oscar', '', '0', '10', '1360', '', '1360', '0'),
+(64, '2023-06-15', '2967', '224', 'jerome', '', '0', '10', '2240', '', '680', '1560'),
+(65, '2023-06-15', '2968', '245', 'mayeto', '', '0', '10', '2450', '', '280', '2170'),
+(66, '2023-06-15', '2966', '120', 'guilbert', '', '0', '10', '1200', '', '1000', '200');
 
 -- --------------------------------------------------------
 
@@ -3152,9 +4121,94 @@ INSERT INTO `ledger_purchase` (`id`, `date`, `voucher`, `customer_name`, `net_ki
 (637, '2023-06-10', '625', 'IBRAHIM', '1283', '27', '', '346.41', '', '0', '34294.59', 'COPRA', 'Basilan'),
 (638, '2023-06-10', '626', 'ADHAM', '2371', '27', '', '640.17', '', '0', '63376.83', 'COPRA', 'Basilan'),
 (639, '2023-06-12', '713', 'IBRAHIM', '2012', '27', '', '543.24', '', '0', '53780.76', 'COPRA', 'Basilan'),
-(640, '2023-06-12', '', '5026.819', '5026', '28', '', '81107.28', '', '0', '59620.72', 'COPRA', 'Basilan'),
 (641, '2023-06-12', '41365', 'AMIN ABUBAKAR', '1605', '27', '', '', '', '0', '43335', 'WET RUBBER', 'Basilan'),
-(642, '2023-06-12', '41367', 'ALIH', '', '', '', '', '', '', '1359', 'COPRA', 'Basilan');
+(642, '2023-06-12', '41367', 'ALIH', '', '', '', '', '', '', '1359', 'COPRA', 'Basilan'),
+(643, '2023-06-13', '634', 'alih', '3918', '28', '', '1097.04', '', '0', '108606.96', 'COPRA', 'Basilan'),
+(644, '2023-06-13', '635', 'satal', '778', '27', '', '210.06', '', '0', '20795.94', 'COPRA', 'Basilan'),
+(645, '2023-06-13', '631', 'datu', '3518', '28.25', '', '50493.33', '', '0', '48890.17', 'COPRA', 'Basilan'),
+(646, '2023-06-13', '637', 'long2x san juan', '1563', '17', '', '', '', '0', '26571', 'COPRA', 'Basilan'),
+(647, '2023-06-13', '636', 'alih', '1789', '28', '', '501', '', '0', '49591', 'COPRA', 'Basilan'),
+(648, '2023-06-14', '643', 'NURUDDIN', '2571', '27.50', '', '707', '', '0', '69995.5', 'COPRA', 'Basilan'),
+(649, '2023-06-14', '625', 'MAJALIN', '260', '17', '', '44.20', '', '0', '4375.8', 'COPRA', 'Basilan'),
+(650, '2023-06-14', '642', 'DATU', '861', '28.25', '', '271', '', '0', '24052.25', 'COPRA', 'Basilan'),
+(651, '2023-06-14', '641', 'ONZ', '3727', '28', '', '1071', '', '0', '103285', 'COPRA', 'Basilan'),
+(652, '2023-06-14', '', 'SAYUGAN COPRA EJN PERSONAL', '215', '16.50', '', '36', '', '0', '3511.5', 'COPRA', 'Basilan'),
+(653, '2023-06-14', '640', 'DATU', '1625', '28.25', '', '487', '', '0', '45419.25', 'COPRA', 'Basilan'),
+(654, '2023-06-14', '638', 'ALIH', '872', '28', '', '244.16', '', '0', '24171.84', 'COPRA', 'Basilan'),
+(655, '2023-06-14', '41378', 'LONG2X SAN JUAN', '19650', '30', '', '570000', '', '0', '19500', 'WET RUBBER', 'Basilan'),
+(656, '2023-06-15', '644', 'alih', '1543', '28', '', '460', '', '0', '42744', 'COPRA', 'Basilan'),
+(657, '2023-06-15', '4285', 'mancom', '1208', '21', '', '10147.20', '', '0', '15220.8', 'WET RUBBER', 'Basilan'),
+(658, '2023-06-15', '41312', 'jbn maloong plantation share', '1208', '21', '', '15221', '', '0', '10147', 'WET RUBBER', 'Basilan'),
+(659, '2023-06-15', '153416', 'morados', '257', '25', '', '', '', '0', '6425', 'WET RUBBER', 'Basilan'),
+(660, '2023-06-16', '648', 'ALIH', '6655', '27.50', '', '1831.50', '', '0', '181181', 'COPRA', 'Basilan'),
+(661, '2023-06-16', '651', 'OMAR', '2283', '27', '', '616', '', '0', '61025', 'COPRA', 'Basilan'),
+(662, '2023-06-16', '650', 'IBRAHIM', '3624', '26', '', '968', '', '0', '93256', 'COPRA', 'Basilan'),
+(664, '2023-06-16', '649', 'QUIDILIA', '3029', '26.50', '', '46537', '', '0', '33731.5', 'COPRA', 'Basilan'),
+(665, '2023-06-16', '646', 'SULAYMAN TANI', '4534', '27.80', '', '50761.2', '', '0', '75284', 'COPRA', 'Basilan'),
+(666, '2023-06-16', '41336', 'NENET', '19770', '29', '', '550000', '', '0', '23330', 'WET RUBBER', 'Basilan'),
+(667, '2023-06-16', '559', 'JERRY ARIERO', '1955', '51', '', '90000', '', '0', '9705', 'BALES', 'Basilan'),
+(668, '2023-06-16', '556', '2480', '2480', '30', '', '', '', '0', '74400', 'WET RUBBER', 'Basilan'),
+(669, '2023-06-16', '558', 'HARI SABTAL', '12122', '50', '', '591570', '', '0', '14530', 'BALES', 'Basilan'),
+(670, '2023-06-16', '645', 'DATU', '3543', '28.25', '', '51001', '', '0', '49088.75', 'COPRA', 'Basilan'),
+(671, '2023-06-17', '654', 'alih', '5486', '28.25', '', '1550.5', '', '0', '153429', 'COPRA', 'Basilan'),
+(672, '2023-06-17', '41403', 'ibrahim', '3624', '2', '', '72.48', '', '0', '7175.52', 'COPRA', 'Basilan'),
+(673, '2023-06-17', '41338', 'sulayman tani', '4536', '.20', '', '', '', '0', '907.2', 'COPRA', 'Basilan'),
+(674, '2023-06-17', '652', 'aldaser', '366', '27', '', '98.82', '', '0', '9783.18', 'COPRA', 'Basilan'),
+(675, '2023-06-17', '653', 'jerry', '802', '27', '', '244', '', '0', '21410', 'COPRA', 'Basilan'),
+(676, '2023-06-19', '658', 'amin', '4074', '28.50', '', '11612', '', '0', '104497', 'COPRA', 'Basilan'),
+(677, '2023-06-19', '566', 'lee brown', '5310', '28', '', '100000', '', '0', '48680', 'WET RUBBER', 'Basilan'),
+(678, '2023-06-19', '565', 'louie delos reyes', '2334', '52', '', '101461', '', '0', '19907', 'BALES', 'Basilan'),
+(679, '2023-06-19', '41342', 'nenet costan', '20550', '29', '', '550000', '', '0', '45950', 'BALES', 'Basilan'),
+(680, '2023-06-19', '657', 'ibrahim', '686', '27', '', '212', '', '0', '18310', 'COPRA', 'Basilan'),
+(681, '2023-06-19', '655', 'alih', '3884', '28.25', '', '1098', '', '0', '108625', 'COPRA', 'Basilan'),
+(682, '2023-06-19', '41413', 'long2x', '', '', '', '', '', '', '49400', 'WET RUBBER', 'Basilan'),
+(683, '2023-06-19', '656', 'adham', '4128', '27.50', '', '1135.20', '', '0', '112384.8', 'COPRA', 'Basilan'),
+(684, '2023-06-20', '570', 'charly cawley', '4445', '50', '', '130000', '', '0', '92250', 'BALES', 'Basilan'),
+(685, '2023-06-20', '645', 'addelayda', '43', '17.50', '', '7.53', '', '0', '744.97', 'COPRA', 'Basilan'),
+(686, '2023-06-21', '41345', 'jarwin garcia', '10185', '25.5', '', '200000', '', '0', '59717.5', 'BALES', 'Basilan'),
+(687, '2023-06-21', '571', 'moleje', '1861', '51', '', '50000', '', '0', '44911', 'BALES', 'Basilan'),
+(688, '2023-06-21', '572', 'charly calwey', '4620', '50', '', '100000', '', '0', '131000', 'BALES', 'Basilan'),
+(689, '2023-06-21', '564', 'jerry ariero', '1382', '51', '', '25000', '', '0', '45482', 'BALES', 'Basilan'),
+(690, '2023-06-21', '568', 'jarwin garcia', '3502', '51', '', '168682.5', '', '0', '9919.5', 'BALES', 'Basilan'),
+(691, '2023-06-21', '576', 'jarwin garcia', '7158', '51', '', '326655', '', '0', '38403', 'BALES', 'Basilan'),
+(692, '2023-06-21', '668', 'sulayman', '4234', '28.50', '', '101206.690', '', '0', '19462.309999999998', 'COPRA', 'Basilan'),
+(693, '2023-06-21', '664', 'martin', '2949', '28', '', '1825.72', '', '0', '80746.28', 'COPRA', 'Basilan'),
+(694, '2023-06-21', '663', 'onz', '3448', '28', '', '966', '', '0', '95578', 'COPRA', 'Basilan'),
+(695, '2023-06-21', '666', 'martin', '3192', '28', '', '893.76', '', '0', '88482.24', 'COPRA', 'Basilan'),
+(696, '2023-06-21', '667', 'ibrahim', '768', '27.50', '', '211', '', '0', '20909', 'COPRA', 'Basilan'),
+(697, '2023-06-21', '660', 'alih', '8589', '28.25', '', '102426.40', '', '0', '140212.85', 'COPRA', 'Basilan'),
+(698, '2023-06-21', '665', 'mudz', '2380', '28', '', '50669.48', '', '0', '15970.519999999997', 'COPRA', 'Basilan'),
+(700, '2023-06-23', '41347', 'nenet costan', '986', '1', '', '9.76', '', '0', '976.24', 'COPRA', 'Basilan'),
+(701, '2023-06-23', '41347', 'nenet costan', '986', '1', '', '9.76', '', '0', '976.24', 'COPRA', 'Basilan'),
+(702, '2023-06-23', '41347', 'nenet costan', '986', '1', '', '9.76', '', '0', '976.24', 'COPRA', 'Basilan'),
+(703, '2023-06-23', '41347', 'nenet', '305', '1', '', '', '', '0', '305', 'WET RUBBER', 'Basilan'),
+(704, '2023-06-23', '41436', 'acalul', '305', '27', '', '', '', '0', '8235', 'WET RUBBER', 'Basilan'),
+(705, '2023-06-23', '673', 'satal', '2049', '27.50', '', '564.50', '', '0', '55783', 'COPRA', 'Basilan'),
+(706, '2023-06-23', '672', 'adham', '2769', '27.50', '', '761.5', '', '0', '75386', 'COPRA', 'Basilan'),
+(707, '2023-06-23', '676', 'abdulgapor', '1480', '27.50', '', '407', '', '0', '40293', 'COPRA', 'Basilan'),
+(708, '2023-06-23', '674', 'alih', '1674', '28.50', '', '477', '', '0', '47232', 'COPRA', 'Basilan'),
+(709, '2023-06-23', '675', 'akalul', '986', '27', '', '267', '', '0', '26355', 'COPRA', 'Basilan'),
+(710, '2023-06-23', '681', 'ibrahim', '1290', '27', '', '348', '', '0', '34482', 'COPRA', 'Basilan'),
+(711, '2023-06-12', '630', 'ALIH', '5026', '28', '', '81108', '', '0', '59620', 'COPRA', 'Basilan'),
+(712, '2023-06-24', '680', 'IBRAHIM', '4400', '28', '', '1232', '', '0', '121968', 'COPRA', 'Basilan'),
+(713, '2023-06-24', '685', 'IBRAHIM', '194', '27', '', '52.38', '', '0', '5185.62', 'COPRA', 'Basilan'),
+(714, '2023-06-24', '682', 'SATAL', '703', '27.50', '', '193.32', '', '0', '19139.18', 'COPRA', 'Basilan'),
+(715, '2023-06-28', '153417', 'ETENG', '483', '26', '', '', '', '0', '12558', 'WET RUBBER', 'Basilan'),
+(716, '2023-06-28', '0005', 'FALCASANTOS', '54', '17', '', '9.18', '', '0', '908.82', 'COPRA', 'Basilan'),
+(717, '2023-06-28', '699', 'IBRAHIM', '1698', '27', '', '1459', '', '0', '44387', 'COPRA', 'Basilan'),
+(718, '2023-06-27', '693', 'cawley', '1345', '28', '', '376.6', '', '0', '37283.4', 'COPRA', 'Basilan'),
+(719, '2023-06-27', '698', 'nurudin', '3786', '27.50', '', '1069', '', '0', '103046', 'COPRA', 'Basilan'),
+(720, '2023-06-27', '697', 'alih', '2263', '28.5', '', '646', '', '0', '63849.5', 'COPRA', 'Basilan'),
+(721, '2023-06-27', '696', 'julman', '3008', '28', '', '842.24', '', '0', '83381.76', 'COPRA', 'Basilan'),
+(722, '2023-06-27', '695', 'onz', '717', '28', '', '200.76', '', '0', '19875.24', 'COPRA', 'Basilan'),
+(723, '2023-06-27', '692', 'ahmad', '1425', '28', '', '400', '', '0', '39500', 'COPRA', 'Basilan'),
+(724, '2023-06-26', '41350', 'long2x san juan', '20838', '29', '', '550000', '', '0', '54302', 'WET RUBBER', 'Basilan'),
+(725, '2023-06-26', '691', 'adham', '2864', '27.50', '', '815', '', '0', '77945', 'COPRA', 'Basilan'),
+(726, '2023-06-26', '41654', 'amin', '1220', '27', '', '', '', '0', '32940', 'WET RUBBER', 'Basilan'),
+(727, '2023-06-26', '689', 'onz', '2663', '28', '', '774', '', '0', '73790', 'COPRA', 'Basilan'),
+(728, '2023-06-26', '688', 'hamja', '969', '27', '', '261.63', '', '0', '25901.37', 'COPRA', 'Basilan'),
+(729, '2023-06-26', '687', 'alih', '731', '28.50', '', '208.33', '', '0', '20625.17', 'COPRA', 'Basilan'),
+(730, '2023-06-26', '683', 'alih', '6445', '28.50', '', '101838', '', '0', '81844.5', 'COPRA', 'Basilan');
 
 -- --------------------------------------------------------
 
@@ -3412,6 +4466,7 @@ INSERT INTO `moisture_table` (`id`, `moisture_reading`, `discount_factor`) VALUE
 
 CREATE TABLE `planta_bales_production` (
   `bales_prod_id` int(11) NOT NULL,
+  `source_type` varchar(255) DEFAULT NULL,
   `recording_id` int(11) DEFAULT NULL,
   `bales_type` varchar(255) DEFAULT NULL,
   `kilo_per_bale` float DEFAULT NULL,
@@ -3429,58 +4484,146 @@ CREATE TABLE `planta_bales_production` (
 -- Dumping data for table `planta_bales_production`
 --
 
-INSERT INTO `planta_bales_production` (`bales_prod_id`, `recording_id`, `bales_type`, `kilo_per_bale`, `rubber_weight`, `number_bales`, `remaining_bales`, `bales_excess`, `status`, `date_produced`, `description`, `source`) VALUES
-(1, 1, 'SPR-10', 35, 3500, 100, 0, 0, 'Container', NULL, 'Export', 'Basilan'),
-(2, 1, 'SPR-20', 35, 2785, 79, 0, 20, 'Container', NULL, 'Manhattan', 'Basilan'),
-(5, 3, 'SPR-10', 33.33, 4299.57, 129, 0, 0, 'Container', NULL, 'SHOWA', 'Basilan'),
-(6, 4, 'SPR-10', 35, 1015, 29, 0, 0, 'Container', NULL, 'Export', 'Basilan'),
-(7, 4, 'SPR-20', 35, 1243, 35, 0, 18, 'Container', NULL, 'Manhattan', 'Basilan'),
-(8, 5, 'SPR-10', 33.33, 1151.22, 34, 0, 18, 'Container', NULL, 'Showa', 'Basilan'),
-(13, 6, 'SPR-10', 35, 2870, 82, 0, 0, 'Container', NULL, 'Export', 'Basilan'),
-(14, 6, 'SPR-20', 35, 4495, 128, 0, 15, 'Container', NULL, 'Manhattan', 'Basilan'),
-(22, 13, 'SPR-20', 35, 7420, 212, 0, 0, 'Container', NULL, 'MANHATTAN', 'Basilan'),
-(23, 13, 'SPR-20', 35, 759, 21, 0, 24, 'Container', NULL, 'MANHATTAN', 'Basilan'),
-(24, 7, 'SPR-10', 33.33, 199.98, 6, 0, 0, 'Container', NULL, 'SHOWA', 'Basilan'),
-(25, 7, 'SPR-20', 35, 179, 5, 0, 4, 'Container', NULL, 'EXPORT', 'Basilan'),
-(28, 2, 'SPR-10', 35, 2800, 80, 0, 0, 'Container', NULL, 'Export', 'Basilan'),
-(29, 2, 'SPR-20', 35, 7257, 207, 0, 12, 'Container', NULL, 'Manhattan', 'Basilan'),
-(30, 9, 'SPR-10', 33.33, 833.25, 25, 0, 0, 'Container', NULL, 'SHOWA', 'Basilan'),
-(31, 9, 'SPR-10', 35, 466, 13, 0, 11, 'Container', NULL, 'EXPORT', 'Basilan'),
-(32, 11, 'SPR-10', 33.33, 3299.67, 99, 0, 0, 'Container', NULL, 'SHOWA', 'Basilan'),
-(33, 11, 'SPR-20', 35, 840, 24, 0, 0, 'Container', NULL, 'EXPORT', 'Basilan'),
-(34, 21, 'SPR-20', 35, 1108, 31, 0, 23, 'Container', NULL, 'MANHATTAN', 'Basilan'),
-(35, 17, 'SPR-20', 35, 2835, 81, 0, 0, 'Container', NULL, 'MANHATTAN', 'Basilan'),
-(36, 17, 'SPR-10', 35, 1767, 50, 0, 17, 'Container', NULL, 'EXPORT', 'Basilan'),
-(37, 52, 'SPR-10', 35, 980, 28, 0, 0, 'Container', NULL, 'EXPORT', 'Basilan'),
-(38, 52, 'SPR-20', 35, 459, 13, 0, 4, 'Container', NULL, 'MANHATTAN', 'Basilan'),
-(41, 12, 'SPR-10', 33.33, 4366.23, 131, 0, 0, 'Container', NULL, 'SHOWA', 'Basilan'),
-(42, 53, 'SPR-10', 35, 420, 12, 0, 0, 'Container', NULL, 'MANHATTAN', 'Basilan'),
-(43, 53, 'SPR-20', 33.33, 1412.86, 42, 0, 13, 'Container', NULL, 'SHOWA', 'Basilan'),
-(57, 23, 'SPR-10', 35, 525, 15, 0, 0, 'Container', NULL, 'EXPORT', 'Basilan'),
-(58, 23, 'SPR-20', 35, 924, 26, 0, 14, 'Container', NULL, 'MANHATTAN', 'Basilan'),
-(59, 10, 'SPR-20', 35, 770, 22, 0, 0, 'Container', NULL, 'MANHATTAN', 'Basilan'),
-(60, 10, 'SPR-10', 35, 1051, 30, 0, 1, 'Container', NULL, 'EXPORT', 'Basilan'),
-(61, 14, 'SPR-10', 33.33, 2170, 62, 0, 0, 'Container', NULL, 'SHOWA', 'Basilan'),
-(62, 14, 'SPR-10', 35, 771, 22, 0, 1, 'Container', NULL, 'DUNLOP', 'Basilan'),
-(66, 24, 'SPR-20', 35, 2874, 82, 0, 4, 'Container', NULL, 'MANHATTAN', 'Basilan'),
-(68, 57, 'SPR-20', 35, 1983, 56, 0, 23, 'Container', NULL, 'MANHATTAN', 'Basilan'),
-(70, 18, 'SPR-10', 33.33, 233.31, 7, 0, 0, 'Container', NULL, 'SHOWA', 'Basilan'),
-(71, 18, 'SPR-20', 35, 4720, 134, 4, 30, 'Produced', NULL, 'MANHATTAN', 'Basilan'),
-(72, 60, 'SPR-20', 35, 946, 27, 0, 1, 'Container', NULL, 'MANHATTAN', 'Basilan'),
-(73, 8, 'SPR-20', 35, 280, 8, 8, 0, 'Produced', NULL, 'EXPORT', 'Basilan'),
-(74, 8, 'SPR-10', 33.33, 219.98, 6, 0, 20, 'Container', NULL, 'SHOWA', 'Basilan'),
-(81, 16, 'SPR-20', 35, 4550, 130, 0, 0, 'Container', NULL, 'MANHATTAN', 'Basilan'),
-(82, 16, 'SPR-10', 33.33, 1986.47, 59, 0, 20, 'Container', NULL, 'SHOWA', 'Basilan'),
-(85, 15, 'SPR-20', 35, 25130, 718, 718, 0, 'Produced', NULL, 'MANHATTAN', 'Basilan'),
-(86, 15, 'SPR-10', 35, 700, 20, 20, 0, 'Produced', NULL, 'EXPORT', 'Basilan'),
-(87, 19, 'SPR-10', 35, 315, 9, 9, 0, 'Produced', NULL, 'EXPORT', 'Basilan'),
-(88, 66, 'SPR-20', 35, 4445, 127, 0, 0, 'Container', NULL, 'MANHATTAN', 'Basilan'),
-(89, 66, 'SPR-10', 35, 1416, 40, 0, 16, 'Container', NULL, 'DUNLOP', 'Basilan'),
-(90, 67, 'SPR-20', 35, 1356, 38, 38, 26, 'Produced', NULL, 'MANHATTAN', 'Basilan'),
-(91, 69, 'SPR-10', 35, 1960, 56, 56, 0, 'Produced', NULL, 'SHOWA', 'Basilan'),
-(92, 69, 'SPR-20', 33.33, 766.59, 23, 23, 0, 'Produced', NULL, 'DUNLOP', 'Basilan'),
-(95, 70, 'SPR-20', 35, 1980, 56, 56, 20, 'Produced', NULL, '', NULL),
-(96, 70, 'SPR-10', 35, 1345.2, 40, 40, 12, 'Produced', NULL, '', NULL);
+INSERT INTO `planta_bales_production` (`bales_prod_id`, `source_type`, `recording_id`, `bales_type`, `kilo_per_bale`, `rubber_weight`, `number_bales`, `remaining_bales`, `bales_excess`, `status`, `date_produced`, `description`, `source`) VALUES
+(1, 'Produced', 1, 'SPR-10', 35, 3500, 100, 100, 0, 'Produced', NULL, 'Export', 'Basilan'),
+(2, 'Produced', 1, 'SPR-20', 35, 2785, 79, 0, 20, 'Container', NULL, 'Manhattan', 'Basilan'),
+(5, 'Produced', 3, 'SPR-10', 33.33, 4299.57, 129, 0, 0, 'Container', NULL, 'SHOWA', 'Basilan'),
+(6, 'Produced', 4, 'SPR-10', 35, 1015, 29, 29, 0, 'Produced', NULL, 'Export', 'Basilan'),
+(7, 'Produced', 4, 'SPR-20', 35, 1243, 35, 0, 18, 'Container', NULL, 'Manhattan', 'Basilan'),
+(8, 'Produced', 5, 'SPR-10', 33.33, 1151.22, 34, 0, 18, 'Container', NULL, 'Showa', 'Basilan'),
+(13, 'Produced', 6, 'SPR-10', 35, 2870, 82, 67, 0, 'Produced', NULL, 'Export', 'Basilan'),
+(14, 'Produced', 6, 'SPR-20', 35, 4495, 128, 0, 15, 'Container', NULL, 'Manhattan', 'Basilan'),
+(22, 'Produced', 13, 'SPR-20', 35, 7420, 212, 0, 0, 'Container', NULL, 'MANHATTAN', 'Basilan'),
+(23, 'Produced', 13, 'SPR-20', 35, 759, 21, 0, 24, 'Container', NULL, 'MANHATTAN', 'Basilan'),
+(24, 'Produced', 7, 'SPR-10', 33.33, 199.98, 6, 0, 0, 'Container', NULL, 'SHOWA', 'Basilan'),
+(25, 'Produced', 7, 'SPR-20', 35, 179, 5, 0, 4, 'Container', NULL, 'EXPORT', 'Basilan'),
+(28, 'Produced', 2, 'SPR-10', 35, 2800, 80, 80, 0, 'Produced', NULL, 'Export', 'Basilan'),
+(29, 'Produced', 2, 'SPR-20', 35, 7257, 207, 154, 12, 'Produced', NULL, 'Manhattan', 'Basilan'),
+(30, 'Produced', 9, 'SPR-10', 33.33, 833.25, 25, 0, 0, 'Container', NULL, 'SHOWA', 'Basilan'),
+(31, 'Produced', 9, 'SPR-10', 35, 466, 13, 0, 11, 'Container', NULL, 'EXPORT', 'Basilan'),
+(32, 'Produced', 11, 'SPR-10', 33.33, 3299.67, 99, 0, 0, 'Container', NULL, 'SHOWA', 'Basilan'),
+(33, 'Produced', 11, 'SPR-20', 35, 840, 24, 24, 0, 'Produced', NULL, 'EXPORT', 'Basilan'),
+(34, 'Produced', 21, 'SPR-20', 35, 1108, 31, 31, 23, 'Produced', NULL, 'MANHATTAN', 'Basilan'),
+(35, 'Produced', 17, 'SPR-20', 35, 2835, 81, 81, 0, 'Produced', NULL, 'MANHATTAN', 'Basilan'),
+(36, 'Produced', 17, 'SPR-10', 35, 1767, 50, 50, 17, 'Produced', NULL, 'EXPORT', 'Basilan'),
+(37, 'Produced', 52, 'SPR-10', 35, 980, 28, 28, 0, 'Produced', NULL, 'EXPORT', 'Basilan'),
+(38, 'Produced', 52, 'SPR-20', 35, 459, 13, 13, 4, 'Produced', NULL, 'MANHATTAN', 'Basilan'),
+(41, 'Produced', 12, 'SPR-10', 33.33, 4366.23, 131, 0, 0, 'Container', NULL, 'SHOWA', 'Basilan'),
+(42, 'Produced', 53, 'SPR-10', 35, 420, 12, 0, 0, 'Container', NULL, 'MANHATTAN', 'Basilan'),
+(43, 'Produced', 53, 'SPR-20', 33.33, 1412.86, 42, 0, 13, 'Container', NULL, 'SHOWA', 'Basilan'),
+(57, 'Produced', 23, 'SPR-10', 35, 525, 15, 0, 0, 'Container', NULL, 'EXPORT', 'Basilan'),
+(58, 'Produced', 23, 'SPR-20', 35, 924, 26, 0, 14, 'Container', NULL, 'MANHATTAN', 'Basilan'),
+(59, 'Produced', 10, 'SPR-20', 35, 770, 22, 0, 0, 'Container', NULL, 'MANHATTAN', 'Basilan'),
+(60, 'Produced', 10, 'SPR-10', 35, 1051, 30, 0, 1, 'Container', NULL, 'EXPORT', 'Basilan'),
+(61, 'Produced', 14, 'SPR-10', 33.33, 2170, 62, 0, 0, 'Container', NULL, 'SHOWA', 'Basilan'),
+(62, 'Produced', 14, 'SPR-10', 35, 771, 22, 22, 1, 'Produced', NULL, 'DUNLOP', 'Basilan'),
+(66, 'Produced', 24, 'SPR-20', 35, 2874, 82, 49, 4, 'Produced', NULL, 'MANHATTAN', 'Basilan'),
+(68, 'Produced', 57, 'SPR-20', 35, 1983, 56, 0, 23, 'Container', NULL, 'MANHATTAN', 'Basilan'),
+(70, 'Produced', 18, 'SPR-10', 33.33, 233.31, 7, 0, 0, 'Container', NULL, 'SHOWA', 'Basilan'),
+(71, 'Produced', 18, 'SPR-20', 35, 4720, 134, 114, 30, 'Produced', NULL, 'MANHATTAN', 'Basilan'),
+(72, 'Produced', 60, 'SPR-20', 35, 946, 27, 27, 1, 'Produced', NULL, 'MANHATTAN', 'Basilan'),
+(73, 'Produced', 8, 'SPR-20', 35, 280, 8, 0, 0, 'Container', NULL, 'EXPORT', 'Basilan'),
+(74, 'Produced', 8, 'SPR-10', 33.33, 219.98, 6, 0, 20, 'Container', NULL, 'SHOWA', 'Basilan'),
+(81, 'Produced', 16, 'SPR-20', 35, 4550, 130, 0, 0, 'Container', NULL, 'MANHATTAN', 'Basilan'),
+(82, 'Produced', 16, 'SPR-10', 33.33, 1986.47, 59, 0, 20, 'Container', NULL, 'SHOWA', 'Basilan'),
+(88, 'Produced', 66, 'SPR-20', 35, 4445, 127, 120, 0, 'Produced', NULL, 'MANHATTAN', 'Basilan'),
+(89, 'Produced', 66, 'SPR-10', 35, 1416, 40, 40, 16, 'Produced', NULL, 'DUNLOP', 'Basilan'),
+(90, 'Produced', 67, 'SPR-20', 35, 1356, 38, 34, 26, 'Produced', NULL, 'MANHATTAN', 'Basilan'),
+(91, 'Produced', 15, 'SPR-20', 35, 25200, 720, 671, 0, 'Produced', NULL, 'MANHATTAN', 'Basilan'),
+(92, 'Produced', 15, 'SPR-10', 35, 728, 20, 0, 28, 'Container', NULL, 'EXPORT', 'Basilan'),
+(93, 'Produced', 50, 'SPR-20', 35, 1955, 55, 0, 30, 'Container', NULL, 'MANHATTAN', 'Basilan'),
+(94, 'Produced', 29, 'SPR-10', 35, 338, 9, 9, 23, 'Produced', NULL, 'DUNLOP', 'Basilan'),
+(95, 'Produced', 39, 'SPR-10', 35, 471, 13, 13, 16, 'Produced', NULL, 'DUNLOP', 'Basilan'),
+(96, 'Produced', 35, 'SPR-10', 35, 4445, 127, 127, 0, 'Produced', NULL, 'DUNLOP', 'Basilan'),
+(99, 'Produced', 19, 'SPR-10', 35, 2765, 79, 79, 0, 'Produced', NULL, 'EXPORT', 'Basilan'),
+(100, 'Produced', 19, 'SPR-20', 35, 737, 21, 8, 2, 'Produced', NULL, 'MANHATTAN', 'Basilan'),
+(101, 'Produced', 25, 'SPR-10', 35, 700, 20, 0, 0, 'Container', NULL, 'EXPORT', 'Basilan'),
+(102, 'Produced', 25, 'SPR-20', 35, 490, 14, 0, 0, 'Container', NULL, '1', 'Basilan'),
+(103, 'Produced', 37, 'SPR-10', 35, 1565, 44, 0, 25, 'Container', NULL, 'EXPORT', 'Basilan'),
+(104, 'Produced', 51, 'SPR-20', 35, 1382, 39, 0, 17, 'Container', NULL, 'MANHATTAN', 'Basilan'),
+(105, 'Produced', 55, 'SPR-10', 35, 1050, 30, 0, 0, 'Container', NULL, 'EXPORT', 'Basilan'),
+(106, 'Produced', 55, 'SPR-20', 35, 1284, 36, 0, 24, 'Container', NULL, 'MANHATTAN', 'Basilan'),
+(107, 'Produced', 33, 'SPR-10', 35, 455, 13, 0, 0, 'Container', NULL, 'EXPORT', 'Basilan'),
+(108, 'Produced', 33, 'SPR-20', 35, 1406, 40, 0, 6, 'Container', NULL, 'MANHATTAN', 'Basilan'),
+(109, 'Produced', 82, 'SPR-20', 35, 4255, 121, 55, 20, 'Produced', NULL, 'MANHATTAN', 'Basilan'),
+(110, 'Produced', 83, 'SPR-20', 35, 5845, 167, 167, 0, 'Produced', NULL, 'MANHATTAN', 'Basilan'),
+(111, 'Produced', 83, 'SPR-10', 35, 3500, 100, 100, 0, 'Produced', NULL, 'EXPORT', 'Basilan'),
+(112, 'Produced', 83, 'SPR-10', 35, 1400, 40, 0, 0, 'Container', NULL, 'DUNLOP', 'Basilan'),
+(113, 'Produced', 22, 'SPR-10', 35, 9766, 279, 0, 1, 'Container', NULL, 'EXPORT', 'Basilan'),
+(114, 'Produced', 54, 'SPR-10', 35, 482, 13, 0, 27, 'Container', NULL, 'EXPORT', 'Basilan'),
+(115, 'Produced', 59, 'SPR-10', 35, 4620, 132, 132, 0, 'Produced', NULL, 'DUNLOP', 'Basilan'),
+(116, 'Produced', 45, 'SPR-20', 35, 939, 26, 0, 29, 'Container', NULL, 'MANHATTAN', 'Basilan'),
+(119, 'Produced', 47, 'SPR-10', 35, 945, 27, 0, 0, 'Container', NULL, 'EXPORT', 'Basilan'),
+(120, 'Produced', 47, 'SPR-20', 35, 712, 20, 0, 12, 'Container', NULL, 'MANHATTAN', 'Basilan'),
+(123, 'Produced', 32, 'SPR-10', 35, 2695, 77, 0, 0, 'Container', NULL, 'EXPORT', 'Basilan'),
+(124, 'Produced', 32, 'SPR-20', 35, 4463, 127, 0, 18, 'Container', NULL, 'MANHATTAN', 'Basilan'),
+(125, 'Produced', 72, 'SPR-10', 35, 665, 19, 0, 0, 'Container', NULL, 'EXPORT', 'Basilan'),
+(126, 'Produced', 72, 'SPR-20', 35, 1758, 50, 0, 8, 'Container', NULL, 'MANHATTAN', 'Basilan'),
+(127, 'Produced', 44, 'SPR-10', 35, 1298, 37, 25, 3, 'Produced', NULL, 'EXPORT', 'Basilan'),
+(128, 'Produced', 43, 'SPR-10', 35, 1435, 41, 0, 0, 'Container', NULL, 'EXPORT', 'Basilan'),
+(129, 'Produced', 43, 'SPR-20', 35, 2801, 80, 0, 1, 'Container', NULL, 'MANHATTAN', 'Basilan'),
+(130, 'Produced', 36, 'SPR-10', 35, 1085, 31, 0, 0, 'Container', NULL, 'EXPORT', 'Basilan'),
+(131, 'Produced', 36, 'SPR-20', 35, 1682, 48, 0, 2, 'Container', NULL, 'MANHATTAN', 'Basilan'),
+(132, 'Produced', 49, 'SPR-10', 35, 6160, 176, 0, 0, 'Container', NULL, 'EXPORT', 'Basilan'),
+(133, 'Produced', 49, 'SPR-20', 35, 2913, 83, 0, 8, 'Container', NULL, 'MANHATTAN', 'Basilan'),
+(136, 'Produced', 88, 'SPR-20', 35, 3692, 105, 105, 17, 'Produced', NULL, 'MANHATTAN', 'Basilan'),
+(140, 'Produced', 46, 'SPR-10', 35, 2695, 77, 0, 0, 'Container', NULL, 'EXPORT', 'Basilan'),
+(141, 'Produced', 46, 'SPR-20', 35, 3515, 100, 100, 15, 'Produced', NULL, 'MANHATTAN', 'Basilan'),
+(142, 'Produced', 70, 'SPR-10', 33.33, 4566.21, 137, 0, 0, 'Container', NULL, 'SHOWA', 'Basilan'),
+(144, 'Produced', 48, 'SPR-10', 35, 3545, 101, 0, 10, 'Container', NULL, 'SHOWA', 'Basilan'),
+(146, 'Produced', 62, 'SPR-10', 33.33, 1027.9, 30, 30, 28, 'Produced', NULL, 'SHOWA', 'Basilan'),
+(149, 'Produced', 41, 'SPR-10', 35, 6650, 190, 0, 0, 'Container', NULL, 'SHOWA', 'Basilan'),
+(150, 'Produced', 41, 'SPR-20', 35, 5915, 169, 0, 0, 'Container', NULL, 'MANHATTAN', 'Basilan'),
+(151, 'Produced', 58, 'SPR-10', 33.33, 1900.81, 57, 0, 1, 'Container', NULL, 'SHOWA', 'Basilan'),
+(152, 'Produced', 56, 'SPR-20', 35, 2780, 79, 0, 15, 'Container', NULL, 'MANHATTAN', 'Basilan'),
+(158, 'Produced', 77, 'SPR-10', 35, 999.9, 30, 0, 0, 'Container', NULL, 'SHOWA', 'Basilan'),
+(159, 'Produced', 77, 'SPR-20', 35, 461, 13, 0, 6, 'Container', NULL, 'MANHATTAN', 'Basilan'),
+(160, 'Produced', 89, 'SPR-20', 35, 1015, 29, 29, 0, 'Produced', NULL, 'EXPORT', 'Basilan'),
+(161, 'Produced', 89, 'SPR-20', 35, 4795, 137, 137, 0, 'Produced', NULL, 'MANHATTAN', 'Basilan'),
+(162, 'Produced', 89, 'SPR-10', 35, 4552, 130, 130, 2, 'Produced', NULL, 'DUNLOP', 'Basilan'),
+(164, 'Produced', 61, 'SPR-20', 35, 2138, 61, 4, 3, 'Produced', NULL, 'MANHATTAN', 'Basilan'),
+(165, 'Produced', 63, 'SPR-10', 33.33, 2233.11, 67, 67, 0, 'Produced', NULL, 'SHOWA', 'Basilan'),
+(166, 'Produced', 63, 'SPR-20', 35, 3500, 100, 62, 0, 'Produced', NULL, 'MANHATTAN', 'Basilan'),
+(167, 'Produced', 63, 'SPR-20', 35, 2122, 60, 60, 22, 'Produced', NULL, 'EXPORT', 'Basilan'),
+(168, 'Produced', 107, 'SPR-20', 35, 883, 25, 25, 8, 'Produced', NULL, 'MANHATTAN', 'Basilan'),
+(169, 'Produced', 86, 'SPR-10', 35, 4013, 114, 114, 23, 'Produced', NULL, 'DUNLOP', 'Basilan'),
+(170, 'Produced', 76, 'SPR-10', 33.33, 166.65, 5, 0, 0, 'Container', NULL, 'SHOWA', NULL),
+(171, 'Produced', 76, 'SPR-20', 35, 238, 6, 0, 28, 'Container', NULL, 'MANHATTAN', NULL),
+(172, 'Produced', 74, 'SPR-10', 33.33, 233.31, 7, 7, 0, 'Produced', NULL, 'SHOWA', NULL),
+(173, 'Produced', 74, 'SPR-20', 35, 307, 8, 0, 27, 'Container', NULL, 'MANHATTAN', NULL),
+(174, 'Produced', 75, 'SPR-10', 33.33, 266.64, 8, 0, 0, 'Container', NULL, 'SHOWA', NULL),
+(175, 'Produced', 75, 'SPR-20', 35, 374, 10, 10, 24, 'Produced', NULL, 'EXPORT', NULL),
+(180, 'Produced', 73, 'SPR-20', 35, 1260, 36, 36, 0, 'Produced', NULL, 'MANHATTAN', NULL),
+(181, 'Produced', 73, 'SPR-20', 35, 1074, 30, 30, 24, 'Produced', NULL, 'EXPORT', NULL),
+(182, 'Produced', 64, 'SPR-20', 35, 4235, 121, 121, 0, 'Produced', NULL, 'MANHATTAN', NULL),
+(183, 'Produced', 64, 'SPR-20', 35, 916, 26, 26, 6, 'Produced', NULL, 'EXPORT', NULL),
+(189, 'Produced', 79, 'SPR-20', 35, 2975, 85, 85, 0, 'Produced', NULL, 'MANHATTAN', NULL),
+(190, 'Produced', 79, 'SPR-20', 35, 2630, 75, 75, 5, 'Produced', NULL, 'EXPORT', NULL),
+(193, 'Produced', 68, 'SPR-20', 35, 5005, 143, 143, 0, 'Produced', NULL, 'MANHATTAN', NULL),
+(194, 'Produced', 68, 'SPR-20', 35, 3870, 110, 110, 20, 'Produced', NULL, 'EXPORT', NULL),
+(195, 'Produced', 69, 'SPR-20', 35, 2625, 75, 75, 0, 'Produced', NULL, 'MANHATTAN', NULL),
+(196, 'Produced', 69, 'SPR-20', 35, 1971, 56, 56, 11, 'Produced', NULL, 'EXPORT', NULL),
+(197, 'Produced', 81, 'SPR-10', 35, 3086, 88, 88, 6, 'Produced', NULL, 'DUNLOP', NULL),
+(205, 'Produced', 195, 'SPR-10', 35, 4882.94, 139, 139, 17.94, 'Produced', NULL, 'DUNLOP', NULL),
+(206, 'Produced', 198, 'SPR-10', 35, 2436.33, 69, 69, 21.33, 'Produced', NULL, 'DUNLOP', NULL),
+(210, 'Produced', 196, 'SPR-10', 35, 1726.62, 49, 49, 11.62, 'Produced', NULL, 'DUNLOP', NULL),
+(211, 'Produced', 197, 'SPR-10', 35, 5101.67, 145, 145, 26.67, 'Produced', NULL, 'DUNLOP', NULL),
+(212, 'Produced', 71, 'SPR-20', 35, 3220, 92, 92, 0, 'Produced', NULL, 'MANHATTAN', NULL),
+(213, 'Produced', 84, 'SPR-20', 35, 1750, 50, 50, 0, 'Produced', NULL, 'MANHATTAN', NULL),
+(214, 'Produced', 84, 'SPR-20', 35, 822, 23, 23, 17, 'Produced', NULL, 'EXPORT', NULL),
+(215, 'Produced', 78, 'SPR-20', 35, 1750, 50, 50, 0, 'Produced', NULL, 'MANHATTAN', NULL),
+(216, 'Produced', 78, 'SPR-20', 35, 1067, 30, 30, 17, 'Produced', NULL, 'EXPORT', NULL),
+(217, 'Produced', 80, 'SPR-20', 35, 1482, 42, 42, 12, 'Produced', NULL, 'EXPORT', NULL),
+(218, 'Produced', 85, 'SPR-20', 35, 1715, 49, 49, 0, 'Produced', NULL, 'MANHATTAN', NULL),
+(219, 'Produced', 85, 'SPR-20', 35, 705, 20, 20, 5, 'Produced', NULL, 'EXPORT', NULL),
+(220, 'Produced', 87, 'SPR-20', 35, 2240, 64, 64, 0, 'Produced', NULL, 'MANHATTAN', NULL),
+(221, 'Produced', 87, 'SPR-20', 35, 528, 15, 15, 3, 'Produced', NULL, 'EXPORT', NULL),
+(222, 'Produced', 90, 'SPR-20', 35, 245, 7, 7, 0, 'Produced', NULL, 'MANHATTAN', NULL),
+(223, 'Produced', 90, 'SPR-20', 35, 210, 6, 6, 0, 'Produced', NULL, 'EXPORT', NULL),
+(224, 'Excess', 207, 'SPR-10', 35, 805, 23, 23, 0, 'Produced', NULL, '', 'Basilan'),
+(225, 'Excess', 208, 'SPR-5', 35, 70, 2, 2, 0, 'Produced', NULL, '', 'Basilan'),
+(226, 'Excess', 209, 'SPR-10', 35, 1785, 51, 51, 0, 'Produced', NULL, '', ''),
+(227, 'Excess', 210, 'SPR-10', 35, 1785, 51, 51, 0, 'Produced', NULL, '', 'Basilan');
 
 -- --------------------------------------------------------
 
@@ -3490,6 +4633,8 @@ INSERT INTO `planta_bales_production` (`bales_prod_id`, `recording_id`, `bales_t
 
 CREATE TABLE `planta_recording` (
   `recording_id` int(11) NOT NULL,
+  `source` varchar(255) DEFAULT NULL,
+  `status` varchar(255) NOT NULL,
   `purchased_id` int(11) DEFAULT NULL,
   `trans_type` varchar(255) DEFAULT NULL,
   `prod_type` varchar(255) DEFAULT NULL,
@@ -3500,12 +4645,14 @@ CREATE TABLE `planta_recording` (
   `truck_num` varchar(255) DEFAULT NULL,
   `weight` int(11) DEFAULT NULL,
   `reweight` int(11) DEFAULT NULL,
-  `cuplump_remaining_weight` decimal(10,2) DEFAULT NULL,
+  `crumbed_weight` int(11) NOT NULL,
+  `dry_weight` int(11) DEFAULT NULL,
   `purchase_cost` decimal(10,2) DEFAULT NULL,
+  `produce_total_weight` float DEFAULT NULL,
   `production_expense` decimal(10,2) DEFAULT NULL,
   `prod_expense_desc` varchar(255) DEFAULT NULL,
   `total_production_cost` decimal(10,2) DEFAULT NULL,
-  `status` varchar(255) NOT NULL,
+  `bales_average_cost` decimal(10,2) NOT NULL,
   `lot_num` varchar(255) DEFAULT NULL,
   `milling_date` date DEFAULT NULL,
   `drying_date` date DEFAULT NULL,
@@ -3513,81 +4660,214 @@ CREATE TABLE `planta_recording` (
   `production_date` datetime DEFAULT NULL,
   `completion_date` datetime DEFAULT NULL,
   `selling_date` datetime DEFAULT NULL,
-  `crumbed_weight` int(11) NOT NULL,
-  `produce_total_weight` float DEFAULT NULL,
-  `cost_ave` float DEFAULT NULL,
-  `dry_weight` int(11) DEFAULT NULL,
-  `drc` float DEFAULT NULL,
+  `cuplump_remaining_weight` decimal(10,2) DEFAULT NULL,
+  `milling_cost` decimal(10,2) NOT NULL,
   `wet_inventory_sold` int(11) DEFAULT NULL,
-  `source` varchar(255) DEFAULT NULL,
-  `milling_cost` decimal(10,2) NOT NULL
+  `drc` float DEFAULT NULL,
+  `recorded_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `planta_recording`
 --
 
-INSERT INTO `planta_recording` (`recording_id`, `purchased_id`, `trans_type`, `prod_type`, `supplier`, `receiving_date`, `location`, `driver`, `truck_num`, `weight`, `reweight`, `cuplump_remaining_weight`, `purchase_cost`, `production_expense`, `prod_expense_desc`, `total_production_cost`, `status`, `lot_num`, `milling_date`, `drying_date`, `pressing_date`, `production_date`, `completion_date`, `selling_date`, `crumbed_weight`, `produce_total_weight`, `cost_ave`, `dry_weight`, `drc`, `wet_inventory_sold`, `source`, `milling_cost`) VALUES
-(1, 4, 'SALE', 'SALE', 'KENNYBELL FLOREZ', '2023-05-29 01:42:35', 'LI-MOOK, LAMITAN CITY', 'RAFAEL', '250', 10739, 10739, NULL, 316800.00, 0.00, '', 316800.00, 'Complete', '2', '2023-05-29', NULL, '2023-05-29', '2023-05-29 01:46:53', NULL, NULL, 0, 6285, NULL, NULL, 58.525, NULL, 'Basilan', 12.00),
-(2, 41, 'DRY', 'PURCHASE', 'LONG2X SAN JUAN', '2023-05-29 01:53:25', 'LAMITAN CITY', 'RAFAEL', '250', 17500, 17500, NULL, 533021.00, 0.00, '', 533021.00, 'Complete', '18', '2023-05-29', NULL, '2023-05-29', '2023-05-29 01:53:37', NULL, NULL, 0, 10057, NULL, NULL, 57.4686, NULL, 'Basilan', 12.00),
-(3, 84, 'DRY', 'PURCHASE', 'CHARLIE CAWLEY', '2023-05-29 02:04:05', 'LAMITAN CITY', 'CAWLEY TRUCK', 'N/A', 8585, 8585, NULL, 223577.64, 0.00, '', 223577.64, 'Complete', 'D', '2023-05-29', NULL, '2023-05-29', '2023-05-29 02:04:19', NULL, NULL, 0, 4299.57, NULL, NULL, 50.0824, NULL, 'Basilan', 12.00),
-(4, 53, 'DRY', 'PURCHASE', 'LOUIE DELOS REYES', '2023-05-29 02:07:52', 'PANUNSULAN, ISABELA CITY', 'KULING', '366', 4095, 4095, NULL, 117416.00, 0.00, '', 117416.00, 'Complete', 'M', '2023-05-29', NULL, '2023-05-29', '2023-05-29 02:08:04', NULL, NULL, 0, 2258, NULL, NULL, 55.1404, NULL, 'Basilan', 12.00),
-(5, 5, 'SALE', 'SALE', 'JOEL AMAHAN', '2023-05-29 02:13:52', 'BOHE SAPA', 'RAFAEL', '250', 2069, 2055, NULL, 55863.00, 0.00, '', 55863.00, 'Complete', '6', '2023-05-29', NULL, '2023-05-29', '2023-05-29 02:14:04', NULL, NULL, 0, 1151.22, NULL, NULL, 55.6414, NULL, 'Basilan', 12.00),
-(6, 13, 'DRY', 'PURCHASE', 'TATA HALAL', '2023-05-29 02:19:03', 'BULINGAN, LAMITAN CITY', 'RAFAEL ', '250', 12335, 12335, NULL, 379297.50, 0.00, '', 379297.50, 'Complete', '3', '2023-05-29', NULL, '2023-05-29', '2023-05-29 02:19:26', NULL, NULL, 0, 7365, NULL, NULL, 59.7081, NULL, 'Basilan', 12.00),
-(7, 35, 'SALE', 'SALE', 'EJN PERSONAL', '2023-05-29 06:23:15', 'MALOONG PROCESSING', 'N/A', 'N/A', 719, 719, NULL, 14380.00, 0.00, '', 14380.00, 'Complete', '14', '2023-05-29', NULL, '2023-05-29', '2023-05-29 06:32:09', NULL, NULL, 0, 378.98, NULL, NULL, 52.7093, NULL, 'Basilan', 12.00),
-(8, 36, 'SALE', 'SALE', 'MANCOM', '2023-05-29 06:24:59', 'maloong plantation', 'JERRY', '407', 890, 890, NULL, 18690.00, 0.00, '', 18690.00, 'For Sale', '13', '2023-05-29', NULL, '2023-06-05', '2023-05-29 06:32:30', NULL, NULL, 0, 499.98, NULL, NULL, 56.1775, NULL, 'Basilan', 12.00),
-(9, 34, 'SALE', 'SALE', 'NONONG FURIGAY', '2023-05-29 06:25:56', 'LAMITAN CITY', 'NONONG TRUCK', 'n/a', 2195, 2195, NULL, 69142.00, 0.00, '', 69142.00, 'Complete', '13', '2023-05-29', NULL, '2023-05-31', '2023-05-29 06:34:09', NULL, NULL, 0, 1299.25, NULL, NULL, 59.1913, NULL, 'Basilan', 12.00),
-(10, 23, 'SALE', 'SALE', 'DONGGA/ERIC ENRIQUEZ', '2023-05-29 06:30:33', 'BUAHAN, LAMITAN CITY', 'RAFAEL ', '250', 3064, 3064, NULL, 81196.00, 0.00, '', 81196.00, 'Complete', '10', '2023-05-29', NULL, '2023-06-06', '2023-05-29 06:34:38', NULL, NULL, 0, 1821, NULL, NULL, 59.4321, NULL, 'Basilan', 12.00),
-(11, 72, 'DRY', 'PURCHASE', 'CHARLIE CAWLEY', '2023-05-29 06:37:01', 'BAROY, LAMITAN CITY', 'CAWLEY TRUCK', 'N/a', 8315, 8315, NULL, 215262.84, 0.00, '', 215262.84, 'Complete', 'E', '2023-05-29', NULL, '2023-05-31', '2023-05-29 06:37:21', NULL, NULL, 0, 4139.67, NULL, NULL, 49.7856, NULL, 'Basilan', 12.00),
-(12, 83, 'DRY', 'PURCHASE', 'CHARLIE CAWLEY', '2023-05-29 06:38:21', 'BAROY, LAMITAN CITY', 'CAWLEY TRUCK', 'N/A', 8775, 8775, NULL, 221498.85, 0.00, '', 221498.85, 'Complete', 'F', '2023-05-29', NULL, '2023-06-06', '2023-05-29 06:38:44', NULL, NULL, 0, 4366.23, NULL, NULL, 49.7576, NULL, 'Basilan', 12.00),
-(13, 39, 'DRY', 'PURCHASE', 'LONG2X SAN JUAN', '2023-05-29 06:46:27', 'LAMITAN CITY', 'RAFAEL ', '250', 14085, 14085, NULL, 433487.00, 0.00, '', 433487.00, 'Complete', '19', '2023-05-29', NULL, '2023-05-31', '2023-05-29 06:46:44', NULL, NULL, 0, 8179, NULL, NULL, 58.0689, NULL, 'Basilan', 12.00),
-(14, 37, 'SALE', 'SALE', 'LEE BROWN', '2023-05-29 06:53:33', 'PANUNSULAN, ISABELA CITY', 'RAFAEL ', '250', 5224, 5224, NULL, 146272.00, 0.00, '', 146272.00, 'Complete', '13', '2023-05-29', NULL, '2023-06-06', '2023-05-29 06:53:51', NULL, NULL, 0, 2941, NULL, NULL, 56.2979, NULL, 'Basilan', 12.00),
-(15, 40, 'SALE', 'SALE', 'hj. Patah', '2023-05-29 06:55:28', 'Bungos, Lamitan City', 'KULING', '366', 46177, 46177, NULL, 1500750.00, 0.00, '', 1500750.00, 'Pressing', '1', '2023-05-29', NULL, '2023-06-06', '2023-05-29 08:43:14', NULL, NULL, 0, 25830, NULL, NULL, 55.9369, NULL, 'Basilan', 12.00),
-(16, 38, 'DRY', 'PURCHASE', 'LONG2X SAN JUAN', '2023-05-29 06:56:45', 'LAMITAN CITY', 'RAFAEL ', '250', 12410, 12410, NULL, 346432.91, 0.00, '', 346432.91, 'Complete', '20', '2023-05-29', NULL, '2023-06-05', '2023-05-29 06:57:03', NULL, NULL, 0, 6536.47, NULL, NULL, 52.671, NULL, 'Basilan', 12.00),
-(17, 6, 'DRY', 'PURCHASE', 'JARWIN GARCIA', '2023-05-29 06:58:07', 'CALVARIO, LAMITAN CITY', 'JARWIN TRUCK', 'N/A', 8200, 8200, NULL, 234702.00, 0.00, '', 234702.00, 'Complete', '8', '2023-05-29', NULL, '2023-06-05', '2023-05-29 06:58:29', NULL, NULL, 0, 4602, NULL, NULL, 56.122, NULL, 'Basilan', 12.00),
-(18, 7, 'DRY', 'PURCHASE', 'JARWIN GARCIA', '2023-05-29 06:59:25', 'CALVARIO, LAMITAN CITY', 'JARWIN TRUCK', 'N/A', 8340, 8340, NULL, 252618.81, 0.00, '', 252618.81, 'For Sale', '9', '2023-05-29', NULL, '2023-06-05', '2023-05-29 07:00:00', NULL, NULL, 0, 4953.31, NULL, NULL, 59.3922, NULL, 'Basilan', 12.00),
-(19, 85, 'DRY', 'PURCHASE', 'JARWIN GARCIA', '2023-05-29 08:42:31', 'BALAGTASAN, LAMITAN CITY', 'JARWIN TRUCK', 'N/A', 6615, 6615, NULL, 0.00, 0.00, '', 0.00, 'Pressing', '10', '2023-05-29', NULL, '2023-06-11', '2023-05-29 08:42:49', NULL, NULL, 0, 315, NULL, NULL, 4.7619, NULL, 'Basilan', 12.00),
-(21, 24, 'DRY', 'PURCHASE', 'RUBEN RAMOS', '2023-05-29 08:49:05', '6KM. ISABELA CITY', 'RUBEN TRUCK', 'N/A', 2113, 2113, NULL, 56508.00, 0.00, '', 56508.00, 'Complete', 'X', '2023-05-29', NULL, '2023-05-31', '2023-05-29 08:49:19', NULL, NULL, 0, 1108, NULL, NULL, 52.4373, NULL, 'Basilan', 12.00),
-(22, 39, 'SALE', 'SALE', 'PLANTATION', '2023-05-29 09:04:35', 'MALOONG CANAL', 'KULING', '366', 16864, 16864, NULL, 522784.00, NULL, NULL, NULL, 'Drying', 'A', '2023-06-06', '2023-06-19', NULL, '2023-06-07 00:23:00', NULL, NULL, 0, NULL, NULL, 5000, NULL, NULL, 'Basilan', 12.00),
-(23, 1, 'DRY', 'PURCHASE', 'DANNY BARANDINO', '2023-05-29 09:09:16', 'ISABELA CITY', 'RAFAEL ', '250', 2685, 2685, NULL, 72450.00, 0.00, '', 72450.00, 'Complete', '3', '2023-05-29', NULL, '2023-06-06', '2023-05-29 09:09:29', NULL, NULL, 0, 1449, NULL, NULL, 53.9665, NULL, 'Basilan', 12.00),
-(24, 75, 'DRY', 'PURCHASE', 'JIMROY MCCLINTOCK', '2023-05-29 09:19:08', 'MALOONG, LAMITAN CITY', 'RAFAEL ', '250', 5504, 4955, NULL, 146574.00, 0.00, '', 146574.00, 'Complete', 'C', '2023-05-29', NULL, '2023-06-06', '2023-05-29 09:19:23', NULL, NULL, 0, 2874, NULL, NULL, 52.2166, NULL, 'Basilan', 12.00),
-(25, 44, 'SALE', 'SALE', 'JR CATALLA', '2023-05-30 01:35:06', 'MALOONG CANAL', 'kuling', '366', 2349, 2305, NULL, 65772.00, NULL, NULL, NULL, 'Drying', '1', '2023-06-07', NULL, NULL, '2023-06-07 00:25:45', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Basilan', 12.00),
-(29, 46, 'SALE', 'SALE', 'AREVALO', '2023-05-30 02:50:51', 'COLONIA, LAMITAN CITY', 'rafael ', '250', 660, 660, NULL, 18480.00, NULL, NULL, NULL, 'Drying', '10', '2023-06-07', NULL, NULL, '2023-06-07 00:26:09', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Basilan', 12.00),
-(32, 90, 'DRY', 'PURCHASE', 'JARWIN GARCIA', '2023-05-31 23:42:50', 'CALVARIO, LAMITAN CITY', 'JARWIN TRUCK', 'N/A', 12810, 12810, NULL, 0.00, NULL, NULL, NULL, 'Drying', '11', '2023-06-07', NULL, NULL, '2023-06-07 00:24:19', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Basilan', 12.00),
-(33, 89, 'DRY', 'PURCHASE', 'EPIGIL MOLEJE', '2023-05-31 23:45:20', 'MALOONG SAN JOSE, LAMITAN CITY', 'JERRY', '407', 3800, 3800, NULL, 0.00, NULL, NULL, NULL, 'Drying', 'B', '2023-06-07', NULL, NULL, '2023-06-07 00:21:29', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Basilan', 12.00),
-(35, 88, 'DRY', 'PURCHASE', 'CHARLIE CAWLEY', '2023-06-03 05:10:41', 'LAMITAN CITY', 'CAWLEY DRIVER', 'N/A', 8855, 8855, NULL, 0.00, NULL, NULL, NULL, 'Drying', 'G', '2023-06-07', NULL, NULL, '2023-06-07 00:19:23', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Basilan', 12.00),
-(36, 93, 'DRY', 'PURCHASE', 'LITO PURI', '2023-06-03 05:19:52', 'lamitan', 'LITO PURI TRUCK', 'N/A', 5005, 5005, NULL, 0.00, NULL, NULL, NULL, 'Drying', '15', '2023-06-07', NULL, NULL, '2023-06-08 00:55:14', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Basilan', 12.00),
-(37, 48, 'SALE', 'SALE', 'NONONG FURIGAY', '2023-06-03 05:21:16', 'LAMITAN CITY', 'NONONG FURIGAY TRUCK', 'N/A', 2615, 2615, NULL, 78450.00, NULL, NULL, NULL, 'Drying', '14', '2023-06-06', NULL, NULL, '2023-06-06 08:20:52', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Basilan', 12.00),
-(39, 54, 'SALE', 'SALE', 'EJN PERSONAL', '2023-06-03 06:25:36', 'MALOONG PROCESSING', 'JERRY TRUCK', '499', 812, 812, NULL, 16240.00, NULL, NULL, NULL, 'Drying', '15', '2023-06-06', NULL, NULL, '2023-06-06 08:20:09', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Basilan', 12.00),
-(41, 57, 'SALE', 'SALE', 'JAMES TAN', '2023-06-03 06:35:27', 'ISABELA CITY', 'KULING', '366', 22142, 21250, NULL, 664260.00, NULL, NULL, NULL, 'Milling', '13', '2023-06-19', NULL, NULL, NULL, NULL, NULL, 2000, NULL, NULL, NULL, NULL, NULL, 'Basilan', 12.00),
-(43, 47, 'SALE', 'SALE', 'ARCO', '2023-06-04 08:27:45', 'ARCO, LAMITAN CITY', 'KULING', '366', 7788, 7788, NULL, 221958.00, NULL, NULL, NULL, 'Drying', '10', '2023-06-07', NULL, NULL, '2023-06-08 00:55:01', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Basilan', 12.00),
-(44, 99, 'DRY', 'PURCHASE', 'RUBEN RAMOS', '2023-06-04 08:29:17', '6KM. ISABELA CITY', 'RUBEN TRUCK', 'N/A', 2307, 2307, NULL, 0.00, NULL, NULL, NULL, 'Drying', 'Y', '2023-06-07', NULL, NULL, '2023-06-07 00:21:53', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Basilan', 12.00),
-(45, 53, 'SALE', 'SALE', 'EJN BUAHAN', '2023-06-04 08:34:46', 'BUAHAN, LAMITAN CITY', 'RAFAEL ', '250', 1564, 1564, NULL, 31280.00, NULL, NULL, NULL, 'Drying', '15', '2023-06-07', NULL, NULL, '2023-06-07 00:26:47', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Basilan', 12.00),
-(46, 100, 'DRY', 'PURCHASE', 'JARWIN GARCIA', '2023-06-04 08:39:40', 'CALVARIO, LAMITAN CITY', 'JARWIN TRUCK', 'N/A', 10905, 10905, NULL, 0.00, NULL, NULL, NULL, 'Drying', '12', '2023-06-08', NULL, NULL, '2023-06-09 23:36:31', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Basilan', 12.00),
-(47, 97, 'DRY', 'PURCHASE', 'HON. ARLEIGH EISMA', '2023-06-04 08:47:16', 'LAMITAN CITY', 'EISMA TRUCK', 'N/A', 2850, 2850, NULL, 0.00, NULL, NULL, NULL, 'Drying', '20', '2023-06-07', NULL, NULL, '2023-06-07 00:22:18', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Basilan', 12.00),
-(48, 52, 'SALE', 'SALE', 'LEE BROWN', '2023-06-04 08:49:28', 'PANUNSULAN, ISABELA CITY', 'RAFAEL ', '250', 6183, 6183, NULL, 173124.00, NULL, NULL, NULL, 'Drying', '14', '2023-06-09', NULL, NULL, '2023-06-10 08:38:14', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Basilan', 12.00),
-(49, 101, 'DRY', 'PURCHASE', 'TATA HALAL', '2023-06-05 00:00:57', 'BULINGAN, LAMITAN CITY', 'ADUNG', '139', 14790, 14790, NULL, 0.00, NULL, NULL, NULL, 'Drying', '4', '2023-06-07', NULL, NULL, '2023-06-08 23:38:38', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Basilan', 12.00),
-(50, 91, 'DRY', 'PURCHASE', 'JERRY ARIERO', '2023-06-05 01:14:34', 'ULAMI, LAMITAN CITY', 'JERRY TRUCK', 'N/A', 3393, 3393, NULL, 0.00, NULL, NULL, NULL, 'Drying', '4', '2023-06-07', NULL, NULL, '2023-06-07 00:24:49', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Basilan', 12.00),
-(51, 102, 'DRY', 'PURCHASE', 'JERRY ARIERO', '2023-06-05 01:16:39', 'ULAMI, LAMITAN CITY', 'JERRY TRUCK', 'n/a', 2515, 2515, NULL, 0.00, NULL, NULL, NULL, 'Drying', '5', '2023-06-07', NULL, NULL, '2023-06-07 00:25:13', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Basilan', 12.00),
-(52, 23, 'DRY', 'PURCHASE', 'RUBEN RAMOS', '2023-06-05 06:21:02', '6KM. ISABELA CITY', 'RUBEN TRUCK', 'N/A', 2558, 2558, NULL, 73389.00, 0.00, '', 73389.00, 'Complete', 'w', '2023-06-05', NULL, '2023-06-05', '2023-06-05 06:21:27', NULL, NULL, 0, 1439, NULL, NULL, 56.2549, NULL, 'Basilan', 12.00),
-(53, 51, 'DRY', 'PURCHASE', 'EPIGIL MOLEJE', '2023-06-05 23:47:29', 'MALOONG SAN JOSE, LAMITAN CITY', 'JERRY TRUCK', '407', 3498, 3498, NULL, 93475.86, 0.00, '', 93475.86, 'Complete', 'A', '2023-06-05', NULL, '2023-06-05', '2023-06-05 23:47:53', NULL, NULL, 0, 1832.86, NULL, NULL, 52.3974, NULL, 'Basilan', 12.00),
-(54, 55, 'SALE', 'SALE', 'MANCOM', '2023-06-06 01:07:24', 'maloong plantation', 'JERRY TRUCK', '407', 910, 910, NULL, 19110.00, NULL, NULL, NULL, 'Drying', '14', '2023-06-07', NULL, NULL, '2023-06-07 01:14:43', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Basilan', 12.00),
-(55, 86, 'DRY', 'PURCHASE', 'LOUIE DELOS REYES', '2023-06-07 00:36:59', 'PANUNSULAN, ISABELA CITY', 'RAFAEL ', '250', 4175, 4175, NULL, 0.00, NULL, NULL, NULL, 'Drying', 'O', '2023-06-07', NULL, NULL, '2023-06-07 01:44:43', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Basilan', 12.00),
-(56, 104, 'DRY', 'PURCHASE', ' JIMROY MCCLINTOCK ', '2023-06-07 00:43:52', ' MALOONG, LAMITAN CITY ', ' RAFAEL  ', ' 250 ', 4725, 4725, NULL, 0.00, NULL, NULL, NULL, 'Milling', ' D ', '2023-06-19', NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Basilan', 12.00),
-(57, 52, 'DRY', 'PURCHASE', 'LOUIE DELOS REYES', '2023-06-07 01:08:49', 'PANUNSULAN, ISABELA CITY', 'RAFAEL ', '250', 3355, 3355, NULL, 103116.00, 0.00, '', 103116.00, 'Complete', 'N', '2023-06-07', NULL, '2023-06-07', '2023-06-07 01:09:58', NULL, NULL, 0, 1983, NULL, NULL, 59.1058, NULL, 'Basilan', 12.00),
-(58, 105, 'DRY', 'PURCHASE', 'LOUIE DELOS REYES', '2023-06-07 02:30:57', 'PANUNSULAN, ISABELA CITY', 'RAFAEL ', '250', 3340, 3340, NULL, 0.00, NULL, NULL, NULL, 'Field', 'P', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Basilan', 12.00),
-(59, 106, 'DRY', 'PURCHASE', 'CHARLIE CAWLEY', '2023-06-07 07:04:22', 'LAMITAN CITY', 'CAWLEY TRUCK', 'N/A', 9090, 9090, NULL, 0.00, NULL, NULL, NULL, 'Drying', 'H', '2023-06-07', NULL, NULL, '2023-06-07 16:01:08', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Basilan', 12.00),
-(60, 2, 'DRY', 'PURCHASE', 'DANNY BARANDINO', '2023-06-07 07:39:59', 'ISABELA CITY', 'KULING', '366', 1730, 1730, NULL, 47300.00, 0.00, '', 47300.00, 'Complete', '2', '2023-06-07', NULL, '2023-06-07', '2023-06-07 07:40:18', NULL, NULL, 0, 946, NULL, NULL, 54.6821, NULL, 'Basilan', 12.00),
-(61, 107, 'DRY', 'PURCHASE', 'EPIGIL MOLEJE', '2023-06-08 00:54:46', 'MALOONG SAN JOSE, LAMITAN CITY', 'JERRY TRUCK', '407', 4069, 4069, NULL, 0.00, NULL, NULL, NULL, 'Milling', 'C', '2023-06-19', NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Basilan', 12.00),
-(62, 60, 'SALE', 'SALE', ' JOEL AMAHAN ', '2023-06-10 04:40:37', ' BOHE SAPA ', ' RAFAEL ', ' 250 ', 1904, 1920, NULL, 0.00, NULL, NULL, NULL, 'Field', ' 7 ', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Basilan', 12.00),
-(63, 109, 'DRY', 'PURCHASE', 'JARWIN GARCIA', '2023-06-13 00:24:54', 'CALVARIO, LAMITAN CITY', 'JARWIN TRUCK', 'N/A', 13860, 13860, NULL, 0.00, NULL, NULL, NULL, 'Field', '13', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Basilan', 0.00),
-(64, 108, 'DRY', 'PURCHASE', 'TATA HALAL', '2023-06-13 00:25:42', 'BULINGAN, LAMITAN CITY', 'RAFAEL ', '250', 9180, 9180, NULL, 0.00, NULL, NULL, NULL, 'Field', '6', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Basilan', 0.00),
-(65, 110, 'DRY', 'PURCHASE', 'JERRY ARIERO', '2023-06-13 00:31:28', 'ULAMI, LAMITAN CITY', 'JERRY TRUCK', 'N/A', 1906, 1906, NULL, 0.00, NULL, NULL, NULL, 'Field', '6', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Basilan', 0.00),
-(66, 5, 'DRY', 'PURCHASE', 'JARWIN GARCIA', '2023-06-13 05:57:29', 'CALVARIO, LAMITAN CITY', 'JARWIN TRUCK', 'NA', 9885, 9885, NULL, 298911.00, 0.00, '', 298911.00, 'Complete', '7', '2023-06-13', NULL, '2023-06-13', '2023-06-13 05:57:51', NULL, NULL, 0, 5861, NULL, NULL, 59.2919, NULL, 'Basilan', 0.00),
-(67, 40, 'DRY', 'PURCHASE', 'JERRY ARIERO', '2023-06-13 06:09:22', 'ULAMI, LAMITAN CITY', 'JERRY TRUCK', 'N/A', 2075, 2075, NULL, 67800.00, 0.00, '', 67800.00, 'For Sale', '3', '2023-06-13', NULL, '2023-06-13', '2023-06-13 06:09:42', NULL, NULL, 0, 1356, NULL, NULL, 65.3494, NULL, 'Basilan', 0.00),
-(68, 62, 'SALE', 'SALE', 'EJN STA. CLARA', '2023-06-13 07:10:52', 'STA. CLARA, LAMITAN CITY', 'RAFAEL ', '250', 17116, 17116, NULL, 436458.00, NULL, NULL, NULL, 'Field', '1', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Basilan', 0.00),
-(69, 112, 'DRY', 'PURCHASE', 'RONIE VILDAD', '2023-06-18 09:09:43', 'MALOONG, LAMITAN CITY', 'JAYSON', 'N/A', 5000, 4999, NULL, 141782.68, 200.00, 'LABOR', 141982.68, 'For Sale', '34', '2023-06-18', NULL, '2023-06-18', '2023-06-18 09:10:24', NULL, NULL, 0, 2726.59, NULL, NULL, 54.5318, NULL, 'Basilan', 12.00),
-(70, 113, 'DRY', 'PURCHASE', 'NENETH COSTAN', '2023-06-19 14:24:49', 'TABIAWAN, ISABELA CITY', 'ABC', 'CDE', 5000, 5000, NULL, 166260.00, 2.00, 'Labor, diesel (25L@Php10)', 166262.00, 'For Sale', 'D', '2023-06-19', NULL, '2023-06-19', '2023-06-19 14:27:24', NULL, NULL, 5000, 3325.2, NULL, NULL, 66.504, NULL, 'Basilan', 12.00);
+INSERT INTO `planta_recording` (`recording_id`, `source`, `status`, `purchased_id`, `trans_type`, `prod_type`, `supplier`, `receiving_date`, `location`, `driver`, `truck_num`, `weight`, `reweight`, `crumbed_weight`, `dry_weight`, `purchase_cost`, `produce_total_weight`, `production_expense`, `prod_expense_desc`, `total_production_cost`, `bales_average_cost`, `lot_num`, `milling_date`, `drying_date`, `pressing_date`, `production_date`, `completion_date`, `selling_date`, `cuplump_remaining_weight`, `milling_cost`, `wet_inventory_sold`, `drc`, `recorded_by`) VALUES
+(1, 'Basilan', 'Complete', 4, 'SALE', 'SALE', 'KENNYBELL FLOREZ', '2023-05-29 01:42:35', 'LI-MOOK, LAMITAN CITY', 'RAFAEL', '250', 10739, 10739, 0, NULL, 316800.00, 6285, 0.00, '', 316800.00, 50.41, '2', '2023-05-29', NULL, '2023-05-29', '2023-05-29 01:46:53', NULL, NULL, NULL, 12.00, NULL, 58.525, 0),
+(2, 'Basilan', 'For Sale', 41, 'DRY', 'PURCHASE', 'LONG2X SAN JUAN', '2023-05-29 01:53:25', 'LAMITAN CITY', 'RAFAEL', '250', 17500, 17500, 0, NULL, 533021.00, 10057, 0.00, '', 533021.00, 53.00, '18', '2023-05-29', NULL, '2023-05-29', '2023-05-29 01:53:37', NULL, NULL, NULL, 12.00, NULL, 57.4686, 0),
+(3, 'Basilan', 'Complete', 84, 'DRY', 'PURCHASE', 'CHARLIE CAWLEY', '2023-05-29 02:04:05', 'LAMITAN CITY', 'CAWLEY TRUCK', 'N/A', 8585, 8585, 0, NULL, 223577.64, 4299.57, 0.00, '', 223577.64, 52.00, 'D', '2023-05-29', NULL, '2023-05-29', '2023-05-29 02:04:19', NULL, NULL, NULL, 12.00, NULL, 50.0824, 0),
+(4, 'Basilan', 'Complete', 53, 'DRY', 'PURCHASE', 'LOUIE DELOS REYES', '2023-05-29 02:07:52', 'PANUNSULAN, ISABELA CITY', 'KULING', '366', 4095, 4095, 0, NULL, 117416.00, 2258, 0.00, '', 117416.00, 52.00, 'M', '2023-05-29', NULL, '2023-05-29', '2023-05-29 02:08:04', NULL, NULL, NULL, 12.00, NULL, 55.1404, 0),
+(5, 'Basilan', 'Complete', 5, 'SALE', 'SALE', 'JOEL AMAHAN', '2023-05-29 02:13:52', 'BOHE SAPA', 'RAFAEL', '250', 2069, 2055, 0, NULL, 55863.00, 1151.22, 0.00, '', 55863.00, 48.53, '6', '2023-05-29', NULL, '2023-05-29', '2023-05-29 02:14:04', NULL, NULL, NULL, 12.00, NULL, 55.6414, 0),
+(6, 'Basilan', 'For Sale', 13, 'DRY', 'PURCHASE', 'TATA HALAL', '2023-05-29 02:19:03', 'BULINGAN, LAMITAN CITY', 'RAFAEL ', '250', 12335, 12335, 0, NULL, 379297.50, 7365, 0.00, '', 379297.50, 51.50, '3', '2023-05-29', NULL, '2023-05-29', '2023-05-29 02:19:26', NULL, NULL, NULL, 12.00, NULL, 59.7081, 0),
+(7, 'Basilan', 'Complete', 35, 'SALE', 'SALE', 'EJN PERSONAL', '2023-05-29 06:23:15', 'MALOONG PROCESSING', 'N/A', 'N/A', 719, 719, 0, NULL, 14380.00, 378.98, 0.00, '', 14380.00, 37.94, '14', '2023-05-29', NULL, '2023-05-29', '2023-05-29 06:32:09', NULL, NULL, NULL, 12.00, NULL, 52.7093, 0),
+(8, 'Basilan', 'Complete', 36, 'SALE', 'SALE', 'MANCOM', '2023-05-29 06:24:59', 'maloong plantation', 'JERRY', '407', 890, 890, 0, NULL, 18690.00, 499.98, 0.00, '', 18690.00, 37.38, '13', '2023-05-29', NULL, '2023-06-05', '2023-05-29 06:32:30', NULL, NULL, NULL, 12.00, NULL, 56.1775, 0),
+(9, 'Basilan', 'Complete', 34, 'SALE', 'SALE', 'NONONG FURIGAY', '2023-05-29 06:25:56', 'LAMITAN CITY', 'NONONG TRUCK', 'n/a', 2195, 2195, 0, NULL, 69142.00, 1299.25, 0.00, '', 69142.00, 53.22, '13', '2023-05-29', NULL, '2023-05-31', '2023-05-29 06:34:09', NULL, NULL, NULL, 12.00, NULL, 59.1913, 0),
+(10, 'Basilan', 'Complete', 23, 'SALE', 'SALE', 'DONGGA/ERIC ENRIQUEZ', '2023-05-29 06:30:33', 'BUAHAN, LAMITAN CITY', 'RAFAEL ', '250', 3064, 3064, 0, NULL, 81196.00, 1821, 0.00, '', 81196.00, 44.59, '10', '2023-05-29', NULL, '2023-06-06', '2023-05-29 06:34:38', NULL, NULL, NULL, 12.00, NULL, 59.4321, 0),
+(11, 'Basilan', 'Complete', 72, 'DRY', 'PURCHASE', 'CHARLIE CAWLEY', '2023-05-29 06:37:01', 'BAROY, LAMITAN CITY', 'CAWLEY TRUCK', 'N/a', 8315, 8315, 0, NULL, 215262.84, 4139.67, 0.00, '', 215262.84, 52.00, 'E', '2023-05-29', NULL, '2023-05-31', '2023-05-29 06:37:21', NULL, NULL, NULL, 12.00, NULL, 49.7856, 0),
+(12, 'Basilan', 'Complete', 83, 'DRY', 'PURCHASE', 'CHARLIE CAWLEY', '2023-05-29 06:38:21', 'BAROY, LAMITAN CITY', 'CAWLEY TRUCK', 'N/A', 8775, 8775, 0, NULL, 221498.85, 4366.23, 0.00, '', 221498.85, 50.73, 'F', '2023-05-29', NULL, '2023-06-06', '2023-05-29 06:38:44', NULL, NULL, NULL, 12.00, NULL, 49.7576, 0),
+(13, 'Basilan', 'Complete', 39, 'DRY', 'PURCHASE', 'LONG2X SAN JUAN', '2023-05-29 06:46:27', 'LAMITAN CITY', 'RAFAEL ', '250', 14085, 14085, 0, NULL, 433487.00, 8179, 0.00, '', 433487.00, 53.00, '19', '2023-05-29', NULL, '2023-05-31', '2023-05-29 06:46:44', NULL, NULL, NULL, 12.00, NULL, 58.0689, 0),
+(14, 'Basilan', 'For Sale', 37, 'SALE', 'SALE', 'LEE BROWN', '2023-05-29 06:53:33', 'PANUNSULAN, ISABELA CITY', 'RAFAEL ', '250', 5224, 5224, 0, NULL, 146272.00, 2941, 0.00, '', 146272.00, 49.74, '13', '2023-05-29', NULL, '2023-06-06', '2023-05-29 06:53:51', NULL, NULL, NULL, 12.00, NULL, 56.2979, 0),
+(15, 'Basilan', 'For Sale', 40, 'SALE', 'SALE', 'hj. Patah', '2023-05-29 06:55:28', 'Bungos, Lamitan City', 'KULING', '366', 46177, 46177, 0, NULL, 1500750.00, 25928, 0.00, '', 1500750.00, 57.88, '1', '2023-05-29', NULL, '2023-06-06', '2023-05-29 08:43:14', NULL, NULL, NULL, 12.00, NULL, 56.1492, 0),
+(16, 'Basilan', 'Complete', 38, 'DRY', 'PURCHASE', 'LONG2X SAN JUAN', '2023-05-29 06:56:45', 'LAMITAN CITY', 'RAFAEL ', '250', 12410, 12410, 0, NULL, 346432.91, 6536.47, 0.00, '', 346432.91, 53.00, '20', '2023-05-29', NULL, '2023-06-05', '2023-05-29 06:57:03', NULL, NULL, NULL, 12.00, NULL, 52.671, 0),
+(17, 'Basilan', 'For Sale', 6, 'DRY', 'PURCHASE', 'JARWIN GARCIA', '2023-05-29 06:58:07', 'CALVARIO, LAMITAN CITY', 'JARWIN TRUCK', 'N/A', 8200, 8200, 0, NULL, 234702.00, 4602, 0.00, '', 234702.00, 51.00, '8', '2023-05-29', NULL, '2023-06-05', '2023-05-29 06:58:29', NULL, NULL, NULL, 12.00, NULL, 56.122, 0),
+(18, 'Basilan', 'For Sale', 7, 'DRY', 'PURCHASE', 'JARWIN GARCIA', '2023-05-29 06:59:25', 'CALVARIO, LAMITAN CITY', 'JARWIN TRUCK', 'N/A', 8340, 8340, 0, NULL, 252618.81, 4953.31, 0.00, '', 252618.81, 51.00, '9', '2023-05-29', NULL, '2023-06-05', '2023-05-29 07:00:00', NULL, NULL, NULL, 12.00, NULL, 59.3922, 0),
+(19, 'Basilan', 'For Sale', 85, 'DRY', 'PURCHASE', 'JARWIN GARCIA', '2023-05-29 08:42:31', 'BALAGTASAN, LAMITAN CITY', 'JARWIN TRUCK', 'N/A', 6615, 6615, 0, NULL, 178602.00, 3502, 0.00, '', 178602.00, 51.00, '10', '2023-05-29', NULL, '2023-06-11', '2023-05-29 08:42:49', NULL, NULL, NULL, 12.00, NULL, 52.9403, 0),
+(21, 'Basilan', 'For Sale', 24, 'DRY', 'PURCHASE', 'RUBEN RAMOS', '2023-05-29 08:49:05', '6KM. ISABELA CITY', 'RUBEN TRUCK', 'N/A', 2113, 2113, 0, NULL, 56508.00, 1108, 0.00, '', 56508.00, 51.00, 'X', '2023-05-29', NULL, '2023-05-31', '2023-05-29 08:49:19', NULL, NULL, NULL, 12.00, NULL, 52.4373, 0),
+(22, 'Basilan', 'Complete', 39, 'SALE', 'SALE', 'PLANTATION', '2023-05-29 09:04:35', 'MALOONG CANAL', 'KULING', '366', 16864, 16864, 0, NULL, 522784.00, 9766, 0.00, '', 522784.00, 53.53, 'A', '2023-06-06', NULL, '2023-06-15', '2023-06-07 00:23:00', NULL, NULL, NULL, 12.00, NULL, 57.9103, 0),
+(23, 'Basilan', 'Complete', 1, 'DRY', 'PURCHASE', 'DANNY BARANDINO', '2023-05-29 09:09:16', 'ISABELA CITY', 'RAFAEL ', '250', 2685, 2685, 0, NULL, 72450.00, 1449, 0.00, '', 72450.00, 50.00, '3', '2023-05-29', NULL, '2023-06-06', '2023-05-29 09:09:29', NULL, NULL, NULL, 12.00, NULL, 53.9665, 0),
+(24, 'Basilan', 'For Sale', 75, 'DRY', 'PURCHASE', 'JIMROY MCCLINTOCK', '2023-05-29 09:19:08', 'MALOONG, LAMITAN CITY', 'RAFAEL ', '250', 5504, 4955, 0, NULL, 146574.00, 2874, 0.00, '', 146574.00, 51.00, 'C', '2023-05-29', NULL, '2023-06-06', '2023-05-29 09:19:23', NULL, NULL, NULL, 12.00, NULL, 52.2166, 0),
+(25, 'Basilan', 'Complete', 44, 'SALE', 'SALE', 'JR CATALLA', '2023-05-30 01:35:06', 'MALOONG CANAL', 'kuling', '366', 2349, 2305, 0, NULL, 65772.00, 1190, 0.00, '', 65772.00, 55.27, '1', '2023-06-07', NULL, '2023-06-15', '2023-06-07 00:25:45', NULL, NULL, NULL, 12.00, NULL, 50.6599, 0),
+(29, 'Basilan', 'For Sale', 46, 'SALE', 'SALE', 'AREVALO', '2023-05-30 02:50:51', 'COLONIA, LAMITAN CITY', 'rafael ', '250', 660, 660, 0, NULL, 18480.00, 338, 0.00, '', 18480.00, 54.67, '10', '2023-06-07', NULL, '2023-06-15', '2023-06-07 00:26:09', NULL, NULL, NULL, 12.00, NULL, 51.2121, 0),
+(32, 'Basilan', 'Complete', 90, 'DRY', 'PURCHASE', 'JARWIN GARCIA', '2023-05-31 23:42:50', 'CALVARIO, LAMITAN CITY', 'JARWIN TRUCK', 'N/A', 12810, 12810, 0, NULL, 365058.00, 7158, 0.00, '', 365058.00, 51.00, '11', '2023-06-07', NULL, '2023-06-20', '2023-06-07 00:24:19', NULL, NULL, NULL, 12.00, NULL, 55.8782, 0),
+(33, 'Basilan', 'Complete', 89, 'DRY', 'PURCHASE', 'EPIGIL MOLEJE', '2023-05-31 23:45:20', 'MALOONG SAN JOSE, LAMITAN CITY', 'JERRY', '407', 3800, 3800, 0, NULL, 94911.00, 1861, 0.00, '', 94911.00, 51.00, 'B', '2023-06-07', NULL, '2023-06-20', '2023-06-07 00:21:29', NULL, NULL, NULL, 12.00, NULL, 48.9737, 0),
+(35, 'Basilan', 'For Sale', 88, 'DRY', 'PURCHASE', 'CHARLIE CAWLEY', '2023-06-03 05:10:41', 'LAMITAN CITY', 'CAWLEY DRIVER', 'N/A', 8855, 8855, 0, NULL, 222250.00, 4445, 0.00, '', 222250.00, 50.00, 'G', '2023-06-07', NULL, '2023-06-15', '2023-06-07 00:19:23', NULL, NULL, NULL, 12.00, NULL, 50.1976, 0),
+(36, 'Basilan', 'Complete', 93, 'DRY', 'PURCHASE', 'LITO PURI', '2023-06-03 05:19:52', 'lamitan', 'LITO PURI TRUCK', 'N/A', 5005, 5005, 0, NULL, 143884.00, 2767, 0.00, '', 143884.00, 52.00, '15', '2023-06-07', NULL, '2023-06-21', '2023-06-08 00:55:14', NULL, NULL, NULL, 12.00, NULL, 55.2847, 0),
+(37, 'Basilan', 'Complete', 48, 'SALE', 'SALE', 'NONONG FURIGAY', '2023-06-03 05:21:16', 'LAMITAN CITY', 'NONONG FURIGAY TRUCK', 'N/A', 2615, 2615, 0, NULL, 78450.00, 1565, 0.00, '', 78450.00, 50.13, '14', '2023-06-06', NULL, '2023-06-15', '2023-06-06 08:20:52', NULL, NULL, NULL, 12.00, NULL, 59.847, 0),
+(39, 'Basilan', 'For Sale', 54, 'SALE', 'SALE', 'EJN PERSONAL', '2023-06-03 06:25:36', 'MALOONG PROCESSING', 'JERRY TRUCK', '499', 812, 812, 0, NULL, 16240.00, 471, 0.00, '', 16240.00, 34.48, '15', '2023-06-06', NULL, '2023-06-15', '2023-06-06 08:20:09', NULL, NULL, NULL, 12.00, NULL, 58.0049, 0),
+(41, 'Basilan', 'Complete', 57, 'SALE', 'SALE', 'JAMES TAN', '2023-06-03 06:35:27', 'ISABELA CITY', 'KULING', '366', 22142, 21250, 0, NULL, 664260.00, 12565, 0.00, '', 664260.00, 52.87, '13', '2023-06-11', NULL, '2023-06-27', '2023-06-15 07:59:34', NULL, NULL, NULL, 12.00, NULL, 56.7474, 0),
+(43, 'Basilan', 'Complete', 47, 'SALE', 'SALE', 'ARCO', '2023-06-04 08:27:45', 'ARCO, LAMITAN CITY', 'KULING', '366', 7788, 7788, 0, NULL, 221958.00, 4236, 0.00, '', 221958.00, 52.40, '10', '2023-06-07', NULL, '2023-06-21', '2023-06-08 00:55:01', NULL, NULL, NULL, 12.00, NULL, 54.3914, 0),
+(44, 'Basilan', 'For Sale', 99, 'DRY', 'PURCHASE', 'RUBEN RAMOS', '2023-06-04 08:29:17', '6KM. ISABELA CITY', 'RUBEN TRUCK', 'N/A', 2307, 2307, 0, NULL, 66198.00, 1298, 0.00, '', 66198.00, 51.00, 'Y', '2023-06-07', NULL, '2023-06-21', '2023-06-07 00:21:53', NULL, NULL, NULL, 12.00, NULL, 56.2635, 0),
+(45, 'Basilan', 'Complete', 53, 'SALE', 'SALE', 'EJN BUAHAN', '2023-06-04 08:34:46', 'BUAHAN, LAMITAN CITY', 'RAFAEL ', '250', 1564, 1564, 0, NULL, 31280.00, 939, 0.00, '', 31280.00, 33.31, '15', '2023-06-07', NULL, '2023-06-20', '2023-06-07 00:26:47', NULL, NULL, NULL, 12.00, NULL, 60.0384, 0),
+(46, 'Basilan', 'For Sale', 100, 'DRY', 'PURCHASE', 'JARWIN GARCIA', '2023-06-04 08:39:40', 'CALVARIO, LAMITAN CITY', 'JARWIN TRUCK', 'N/A', 10905, 10905, 0, NULL, 316710.00, 6210, 0.00, '', 316710.00, 51.00, '12', '2023-06-08', NULL, '2023-06-21', '2023-06-09 23:36:31', NULL, NULL, NULL, 12.00, NULL, 56.9464, 0),
+(47, 'Basilan', 'Complete', 97, 'DRY', 'PURCHASE', 'HON. ARLEIGH EISMA', '2023-06-04 08:47:16', 'LAMITAN CITY', 'EISMA TRUCK', 'N/A', 2850, 2850, 0, NULL, 84507.00, 1657, 0.00, '', 84507.00, 51.00, '20', '2023-06-07', NULL, '2023-06-20', '2023-06-07 00:22:18', NULL, NULL, NULL, 12.00, NULL, 58.1404, 0),
+(48, 'Basilan', 'Complete', 52, 'SALE', 'SALE', 'LEE BROWN', '2023-06-04 08:49:28', 'PANUNSULAN, ISABELA CITY', 'RAFAEL ', '250', 6183, 6183, 0, NULL, 173124.00, 3545, 0.00, '', 173124.00, 48.84, '14', '2023-06-09', NULL, '2023-06-27', '2023-06-10 08:38:14', NULL, NULL, NULL, 12.00, NULL, 57.3346, 0),
+(49, 'Basilan', 'Complete', 101, 'DRY', 'PURCHASE', 'TATA HALAL', '2023-06-05 00:00:57', 'BULINGAN, LAMITAN CITY', 'ADUNG', '139', 14790, 14790, 0, NULL, 471796.00, 9073, 0.00, '', 471796.00, 52.00, '4', '2023-06-07', NULL, '2023-06-21', '2023-06-08 23:38:38', NULL, NULL, NULL, 12.00, NULL, 61.3455, 0),
+(50, 'Basilan', 'Complete', 91, 'DRY', 'PURCHASE', 'JERRY ARIERO', '2023-06-05 01:14:34', 'ULAMI, LAMITAN CITY', 'JERRY TRUCK', 'N/A', 3393, 3393, 0, NULL, 99705.00, 1955, 0.00, '', 99705.00, 51.00, '4', '2023-06-07', NULL, '2023-06-15', '2023-06-07 00:24:49', NULL, NULL, NULL, 12.00, NULL, 57.6186, 0),
+(51, 'Basilan', 'Complete', 102, 'DRY', 'PURCHASE', 'JERRY ARIERO', '2023-06-05 01:16:39', 'ULAMI, LAMITAN CITY', 'JERRY TRUCK', 'n/a', 2515, 2515, 0, NULL, 70482.00, 1382, 0.00, '', 70482.00, 51.00, '5', '2023-06-07', NULL, '2023-06-15', '2023-06-07 00:25:13', NULL, NULL, NULL, 12.00, NULL, 54.9503, 0),
+(52, 'Basilan', 'For Sale', 23, 'DRY', 'PURCHASE', 'RUBEN RAMOS', '2023-06-05 06:21:02', '6KM. ISABELA CITY', 'RUBEN TRUCK', 'N/A', 2558, 2558, 0, NULL, 73389.00, 1439, 0.00, '', 73389.00, 51.00, 'w', '2023-06-05', NULL, '2023-06-05', '2023-06-05 06:21:27', NULL, NULL, NULL, 12.00, NULL, 56.2549, 0),
+(53, 'Basilan', 'Complete', 51, 'DRY', 'PURCHASE', 'EPIGIL MOLEJE', '2023-06-05 23:47:29', 'MALOONG SAN JOSE, LAMITAN CITY', 'JERRY TRUCK', '407', 3498, 3498, 0, NULL, 93475.86, 1832.86, 0.00, '', 93475.86, 51.00, 'A', '2023-06-05', NULL, '2023-06-05', '2023-06-05 23:47:53', NULL, NULL, NULL, 12.00, NULL, 52.3974, 0),
+(54, 'Basilan', 'Complete', 55, 'SALE', 'SALE', 'MANCOM', '2023-06-06 01:07:24', 'maloong plantation', 'JERRY TRUCK', '407', 910, 910, 0, 0, 19110.00, 482, 0.00, '', 19110.00, 39.65, '14', '2023-06-07', '2023-06-20', '2023-06-20', '2023-06-07 01:14:43', NULL, NULL, NULL, 12.00, NULL, 52.967, 0),
+(55, 'Basilan', 'Complete', 86, 'DRY', 'PURCHASE', 'LOUIE DELOS REYES', '2023-06-07 00:36:59', 'PANUNSULAN, ISABELA CITY', 'RAFAEL ', '250', 4175, 4175, 0, NULL, 121368.00, 2334, 0.00, '', 121368.00, 52.00, 'O', '2023-06-07', NULL, '2023-06-15', '2023-06-07 01:44:43', NULL, NULL, NULL, 12.00, NULL, 55.9042, 0),
+(56, 'Basilan', 'Complete', 104, 'DRY', 'PURCHASE', ' JIMROY MCCLINTOCK ', '2023-06-07 00:43:52', ' MALOONG, LAMITAN CITY ', ' RAFAEL  ', ' 250 ', 4725, 4725, 0, NULL, 141780.00, 2780, 0.00, '', 141780.00, 51.00, ' D ', '2023-06-15', NULL, '2023-06-28', '2023-06-16 03:34:39', NULL, NULL, NULL, 12.00, NULL, 58.836, 0),
+(57, 'Basilan', 'Complete', 52, 'DRY', 'PURCHASE', 'LOUIE DELOS REYES', '2023-06-07 01:08:49', 'PANUNSULAN, ISABELA CITY', 'RAFAEL ', '250', 3355, 3355, 0, NULL, 103116.00, 1983, 0.00, '', 103116.00, 52.00, 'N', '2023-06-07', NULL, '2023-06-07', '2023-06-07 01:09:58', NULL, NULL, NULL, 12.00, NULL, 59.1058, 0),
+(58, 'Basilan', 'Complete', 105, 'DRY', 'PURCHASE', 'LOUIE DELOS REYES', '2023-06-07 02:30:57', 'PANUNSULAN, ISABELA CITY', 'RAFAEL ', '250', 3340, 3340, 0, NULL, 96941.31, 1900.81, 0.00, '', 96941.31, 51.00, 'P', '2023-06-16', NULL, '2023-06-28', '2023-06-16 03:34:48', NULL, NULL, NULL, 12.00, NULL, 56.9105, 0),
+(59, 'Basilan', 'For Sale', 106, 'DRY', 'PURCHASE', 'CHARLIE CAWLEY', '2023-06-07 07:04:22', 'LAMITAN CITY', 'CAWLEY TRUCK', 'N/A', 9090, 9090, 0, NULL, 231000.00, 4620, 0.00, '', 231000.00, 50.00, 'H', '2023-06-07', NULL, '2023-06-20', '2023-06-07 16:01:08', NULL, NULL, NULL, 12.00, NULL, 50.8251, 0),
+(60, 'Basilan', 'For Sale', 2, 'DRY', 'PURCHASE', 'DANNY BARANDINO', '2023-06-07 07:39:59', 'ISABELA CITY', 'KULING', '366', 1730, 1730, 0, NULL, 47300.00, 946, 0.00, '', 47300.00, 50.00, '2', '2023-06-07', NULL, '2023-06-07', '2023-06-07 07:40:18', NULL, NULL, NULL, 12.00, NULL, 54.6821, 0),
+(61, 'Basilan', 'For Sale', 107, 'DRY', 'PURCHASE', 'EPIGIL MOLEJE', '2023-06-08 00:54:46', 'MALOONG SAN JOSE, LAMITAN CITY', 'JERRY TRUCK', '407', 4069, 4069, 0, NULL, 109038.00, 2138, 0.00, '', 109038.00, 51.00, 'C', '2023-06-16', NULL, '2023-06-28', '2023-06-16 08:42:37', NULL, NULL, NULL, 12.00, NULL, 52.5436, 0),
+(62, 'Basilan', 'For Sale', 60, 'SALE', 'SALE', ' JOEL AMAHAN ', '2023-06-10 04:40:37', ' BOHE SAPA ', ' RAFAEL ', ' 250 ', 1904, 1920, 0, NULL, 0.00, 1027.9, 0.00, '', 0.00, 0.00, ' 7 ', '2023-06-14', NULL, '2023-06-27', '2023-06-14 23:34:40', NULL, NULL, NULL, 12.00, NULL, 53.9863, 0),
+(63, 'Basilan', 'For Sale', 109, 'DRY', 'PURCHASE', ' JARWIN GARCIA ', '2023-06-12 15:24:00', ' CALVARIO, LAMITAN CITY ', ' JARWIN TRUCK ', ' N/A ', 13860, 13860, 0, NULL, 400610.61, 7855.11, 0.00, '', 400610.61, 51.00, ' 13 ', '2023-06-16', NULL, '2023-07-01', '2023-06-20 01:04:06', NULL, NULL, NULL, 12.00, NULL, 56.6747, 0),
+(64, 'Basilan', 'For Sale', 108, 'DRY', 'PURCHASE', ' TATA HALAL ', '2023-06-10 17:30:00', ' BULINGAN, LAMITAN CITY ', ' RAFAEL  ', ' 250 ', 9180, 9180, 0, NULL, 267852.00, 5151, 0.00, '', 267852.00, 52.00, ' 6 ', '2023-06-20', NULL, '2023-07-01', '2023-06-20 23:26:18', NULL, NULL, NULL, 12.00, NULL, 56.1111, 0),
+(66, 'Basilan', 'For Sale', 5, 'DRY', 'PURCHASE', 'JARWIN GARCIA', '2023-06-13 05:57:29', 'CALVARIO, LAMITAN CITY', 'JARWIN TRUCK', 'NA', 9885, 9885, 0, NULL, 298911.00, 5861, 0.00, '', 298911.00, 51.00, '7', '2023-06-13', NULL, '2023-06-13', '2023-06-13 05:57:51', NULL, NULL, NULL, 12.00, NULL, 59.2919, 0),
+(67, 'Basilan', 'For Sale', 40, 'DRY', 'PURCHASE', 'JERRY ARIERO', '2023-06-13 06:09:22', 'ULAMI, LAMITAN CITY', 'JERRY TRUCK', 'N/A', 2075, 2075, 0, NULL, 67800.00, 1356, 0.00, '', 67800.00, 50.00, '3', '2023-06-13', NULL, '2023-06-13', '2023-06-13 06:09:42', NULL, NULL, NULL, 12.00, NULL, 65.3494, 0),
+(68, 'Basilan', 'For Sale', 62, 'SALE', 'SALE', ' EJN STA. CLARA ', '2023-06-12 18:00:00', ' STA. CLARA, LAMITAN CITY ', ' RAFAEL  ', ' 250 ', 17116, 17116, 0, 17, 0.00, 8875, 0.00, '', 0.00, 0.00, ' 1 ', '2023-06-20', '2023-07-03', '2023-07-03', '2023-06-22 06:14:53', NULL, NULL, NULL, 12.00, NULL, 51.8521, 0),
+(69, 'Basilan', 'For Sale', 111, 'DRY', 'PURCHASE', ' LOUIE DELOS REYES ', '2023-06-13 14:40:00', ' PANUNSULAN, ISABELA CITY ', ' RAFAEL ', ' 250 ', 8010, 8010, 0, NULL, 238992.00, 4596, 0.00, '', 238992.00, 52.00, ' Q ', '2023-06-22', NULL, '2023-07-04', '2023-06-23 01:22:44', NULL, NULL, NULL, 12.00, NULL, 57.3783, 0),
+(70, 'Basilan', 'Complete', 112, 'DRY', 'PURCHASE', 'CHARLIE CAWLEY', '2023-06-14 05:41:34', 'LAMITAN CITY', 'CAWLEY TRUCK', 'NA', 8730, 8730, 0, NULL, 232511.41, 4566.21, 0.00, '', 232511.41, 50.92, 'I', '2023-06-14', NULL, '2023-06-26', '2023-06-14 08:12:45', NULL, NULL, NULL, 12.00, NULL, 52.3048, 0),
+(71, 'Basilan', 'For Sale', 2, 'EJN', 'EJN', '  EJN RUBBER  ', '2023-06-14 17:58:00', '  LAMITAN CITY  ', ' RAFAEL ', ' 250 ', 5854, 5610, 0, 5610, 0.00, 3220, 0.00, '', 0.00, 0.00, ' 8 ', '2023-06-23', NULL, '2023-07-09', '2023-06-24 01:58:58', NULL, NULL, NULL, 12.00, NULL, 55.0051, 0),
+(72, 'Basilan', 'Complete', 103, 'DRY', 'PURCHASE', 'TATA HALAL', '2023-06-14 06:04:53', 'BULINGAN, LAMITAN CITY', 'RAFAEL', '250', 4150, 4150, 0, NULL, 125996.00, 2423, 0.00, '', 125996.00, 52.00, '5', '2023-06-14', NULL, '2023-06-21', '2023-06-14 06:05:37', NULL, NULL, NULL, 12.00, NULL, 58.3855, 0),
+(73, 'Basilan', 'For Sale', 86, 'DRY', 'PURCHASE', ' LOUIE DELOS REYES ', '2023-05-26 06:12:00', ' PANUNSULAN, ISABELA CITY ', ' RAFAEL ', ' 250 ', 4175, 4175, 0, NULL, 121368.00, 2334, 0.00, '', 121368.00, 52.00, ' O ', '2023-06-14', NULL, '2023-07-04', '2023-06-14 06:13:03', NULL, NULL, NULL, 12.00, NULL, 55.9042, 0),
+(74, 'Basilan', 'For Sale', 113, 'DRY', 'PURCHASE', '  RUBEN RAMOS  ', '2023-06-15 12:29:00', '  6KM. ISABELA CITY  ', '  RUBEN TRUCK  ', '  210  ', 1099, 1099, 0, NULL, 27555.81, 540.31, 0.00, '', 27555.81, 51.00, '  Z  ', '2023-06-20', NULL, '2023-06-28', '2023-06-20 01:05:05', NULL, NULL, NULL, 12.00, NULL, 49.1638, 0),
+(75, 'Basilan', 'For Sale', 64, 'SALE', 'SALE', ' MANCOM ', '2023-06-15 11:32:00', ' maloong plantation ', ' JERRY GARCIA ', ' 499 ', 1208, 1208, 0, NULL, 25368.00, 640.64, 0.00, '', 0.00, 0.00, ' 15 ', '2023-06-16', NULL, '2023-06-28', '2023-06-16 03:34:57', NULL, NULL, NULL, 12.00, NULL, 53.0331, 0),
+(76, 'Basilan', 'Complete', 65, 'SALE', 'SALE', ' EJN PERSONAL ', '2023-06-15 11:33:00', ' MALOONG PROCESSING ', ' JERRY GARCIA ', ' 499 ', 725, 725, 0, NULL, 0.00, 404.65, 0.00, '', 0.00, 0.00, ' 16 ', '2023-06-16', NULL, '2023-06-28', '2023-06-16 03:35:05', NULL, NULL, NULL, 12.00, NULL, 55.8138, 0),
+(77, 'Basilan', 'Complete', 66, 'SALE', 'SALE', 'NONONG FURIGAY', '2023-06-16 03:38:36', 'LAMITAN CITY', 'N, FURIGAY  TRUCK', 'N/A', 2480, 2480, 0, NULL, 74400.00, 1460.9, 0.00, '', 74400.00, 50.93, '15', '2023-06-16', NULL, '2023-06-28', '2023-06-16 23:11:23', NULL, NULL, NULL, 12.00, NULL, 58.9073, 0),
+(78, 'Basilan', 'For Sale', 114, 'DRY', 'PURCHASE', 'JIMROY MCCLINTOCK', '2023-06-16 08:42:20', 'MALOONG, LAMITAN CITY', 'RHAP2X', '250', 4780, 4780, 0, 4780, 140850.00, 2817, 0.00, '', 140850.00, 50.00, 'E', '2023-06-24', NULL, '2023-07-09', '2023-06-24 05:07:18', NULL, NULL, NULL, 12.00, NULL, 58.9331, 0),
+(79, 'Basilan', 'Purchase', 116, 'DRY', 'PURCHASE', ' JARWIN GARCIA ', '2023-06-15 10:06:00', ' CALVARIO, LAMITAN CITY ', ' JARWIN TRUCK ', ' N/A ', 10185, 10185, 0, NULL, 0.00, 5605, 0.00, '', 0.00, 0.00, ' 14 ', '2023-06-22', NULL, '2023-07-04', '2023-06-23 07:03:34', NULL, NULL, NULL, 12.00, NULL, 55.0319, 0),
+(80, 'Basilan', 'Purchase', 115, 'DRY', 'PURCHASE', ' DANNY BARANDINO ', '2023-06-17 10:11:00', ' ISABELA CITY ', ' RAFAEL ', ' 250 ', 2720, 2720, 0, 2720, 0.00, 1482, 0.00, '', 0.00, 0.00, ' 4 ', '2023-06-24', NULL, '2023-07-09', '2023-06-24 05:07:27', NULL, NULL, NULL, 12.00, NULL, 54.4853, 0),
+(81, 'Basilan', 'For Sale', 68, 'SALE', 'SALE', ' LEE BROWN ', '2023-06-19 13:14:00', ' PANUNSULAN, ISABELA CITY ', ' RAFAEL ', ' 250 ', 5310, 5275, 0, NULL, 0.00, 3086, 0.00, '', 0.00, 0.00, ' 15 ', '2023-06-23', NULL, '2023-07-04', '2023-06-23 07:03:44', NULL, NULL, NULL, 12.00, NULL, 58.1168, 0),
+(82, 'Basilan', 'For Sale', 25, 'SALE', 'SALE', 'ARCO', '2023-06-20 01:27:21', 'ARCO, LAMITAN CITY', 'KULING', '366', 7548, 7548, 0, NULL, 211344.00, 4255, 0.00, '', 211344.00, 49.67, '8', '2023-06-20', NULL, '2023-06-20', '2023-06-20 01:34:01', NULL, NULL, NULL, 12.00, NULL, 56.3725, 0),
+(83, 'Basilan', 'For Sale', 18, 'SALE', 'SALE', 'JAMES TAN', '2023-06-20 01:33:45', 'ISABELA CITY', 'RAFAEL ', '250', 19033, 19033, 0, NULL, 570990.00, 10745, 0.00, '', 570990.00, 53.14, '12', '2023-06-20', NULL, '2023-06-20', '2023-06-20 01:37:09', NULL, NULL, NULL, 12.00, NULL, 56.4546, 0),
+(84, 'Basilan', 'For Sale', 117, 'DRY', 'PURCHASE', ' EPIGIL MOLEJE ', '2023-06-20 12:50:00', ' MALOONG SAN JOSE, LAMITAN CITY ', ' MOLEJE JEEP ', ' N/A ', 4856, 4856, 0, 4856, 131172.00, 2572, 0.00, '', 131172.00, 51.00, ' D ', '2023-06-24', NULL, '2023-07-09', '2023-06-24 08:31:19', NULL, NULL, NULL, 12.00, NULL, 52.9654, 0),
+(85, 'Basilan', 'For Sale', 118, 'DRY', 'PURCHASE', '  TATA HALAL  ', '2023-06-20 14:53:00', '  BULINGAN, LAMITAN CITY  ', '  RAFAEL  ', '  250  ', 4300, 4300, 0, 4300, 123420.00, 2420, 0.00, '', 123420.00, 51.00, '  7  ', '2023-06-24', NULL, '2023-07-09', '2023-06-26 02:16:58', NULL, NULL, NULL, 12.00, NULL, 56.2791, 0),
+(86, 'Basilan', 'For Sale', 119, 'DRY', 'PURCHASE', ' CHARLIE CAWLEY ', '2023-06-21 13:00:00', ' LAMITAN CITY ', ' CAWLEY TRUCK ', ' N/A ', 7705, 7705, 0, NULL, 212689.00, 4013, 0.00, '', 212689.00, 53.00, ' J ', '2023-06-21', NULL, '2023-07-01', '2023-06-21 08:01:28', NULL, NULL, NULL, 12.00, NULL, 52.0831, 0),
+(87, 'Basilan', 'Purchase', 120, 'DRY', 'PURCHASE', 'JARWIN GARCIA', '2023-06-24 05:05:45', 'CALVARIO, LAMITAN CITY', 'JARWIN TRUCK', 'N/A', 5080, 5080, 0, 5080, 0.00, 2768, 0.00, '', 0.00, 0.00, '15', '2023-06-25', NULL, '2023-07-09', '2023-06-26 08:21:46', NULL, NULL, NULL, 12.00, NULL, 54.4882, 0),
+(88, 'Basilan', 'For Sale', 3, 'SALE', 'SALE', 'ARCO', '2023-06-24 05:07:23', 'ARCO, LAMITAN CITY', 'KULING', '366', 6915, 6665, 0, NULL, 197077.00, 3692, 0.00, '', 197077.00, 53.38, '9', '2023-06-24', NULL, '2023-06-24', '2023-06-24 05:16:18', NULL, NULL, NULL, 12.00, NULL, 53.3912, 0),
+(89, 'Basilan', 'For Sale', 39, 'SALE', 'SALE', 'PLANTATION', '2023-06-24 05:15:47', 'MALOONG CANAL', 'KULING', '366', 16864, 16480, 0, NULL, 522784.00, 10362, 0.00, '', 522784.00, 50.45, '6', '2023-06-24', NULL, '2023-06-24', '2023-06-24 05:39:26', NULL, NULL, NULL, 12.00, NULL, 61.4445, 0),
+(90, 'Basilan', 'Pressing', 121, 'DRY', 'PURCHASE', ' JARWIN GARCIA ', '2023-06-25 15:16:00', ' CALVARIO, LAMITAN CITY ', ' JARWIN TRUCK ', ' N/A ', 8770, 8770, 0, 8770, 0.00, 455, 0.00, '', 0.00, 0.00, ' 16 ', '2023-06-26', NULL, '2023-07-09', '2023-06-26 23:30:18', NULL, NULL, NULL, 12.00, NULL, 5.18814, 0),
+(91, 'Basilan', 'Pressing', 122, 'DRY', 'PURCHASE', 'JERRY ARIERO', '2023-06-26 08:20:45', 'ULAMI, LAMITAN CITY', 'JERRY ARIELO', 'N/A', 2514, 2514, 0, 2514, 0.00, NULL, NULL, NULL, NULL, 0.00, '7', '2023-06-26', NULL, '2023-07-15', '2023-06-26 23:31:55', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(92, 'Basilan', 'Drying', 123, 'DRY', 'PURCHASE', ' LOUIE DELOS REYES ', '2023-06-27 16:16:00', ' PANUNSULAN, ISABELA CITY ', ' NONOY/KULING ', ' 366 ', 7050, 7050, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' R ', '2023-06-27', NULL, NULL, '2023-06-28 05:25:06', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(93, 'Basilan', 'Drying', 69, 'SALE', 'SALE', 'EJN STA. CLARA', '2023-06-28 05:22:22', 'STA. CLARA, LAMITAN CITY', 'RAFAEL', '250', 2597, 2425, 0, NULL, 59731.00, NULL, NULL, NULL, NULL, 0.00, '2', '2023-06-28', NULL, NULL, '2023-06-29 23:33:31', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(94, 'Basilan', 'Drying', 125, 'DRY', 'PURCHASE', ' CHARLIE CAWLEY ', '2023-06-28 13:00:00', ' LAMITAN CITY ', ' CAWLEY TRUCK ', ' N/A ', 10235, 10235, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' K ', '2023-06-28', NULL, NULL, '2023-06-28 08:13:13', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(95, 'Basilan', 'Drying', 70, 'SALE', 'SALE', 'EJN BUAHAN', '2023-06-30 05:46:49', 'BUAHAN, LAMITAN CITY', 'JERRY GARCIA', '407', 2223, 2223, 0, NULL, 44460.00, NULL, NULL, NULL, NULL, 0.00, '16', '2023-06-30', NULL, NULL, '2023-06-30 05:47:04', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(96, 'Basilan', 'Drying', 71, 'SALE', 'SALE', ' AREVALO ', '2023-06-30 10:17:00', ' COLONIA, LAMITAN CITY ', ' RAFAEL ', ' 250 ', 1916, 1916, 0, NULL, 51732.00, NULL, NULL, NULL, NULL, 0.00, ' 11 ', '2023-06-30', NULL, NULL, '2023-06-30 09:07:00', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(98, 'Basilan', 'Drying', 127, 'DRY', 'PURCHASE', 'RUBEN RAMOS', '2023-06-30 06:12:20', 'TABIAWAN', 'RUBEN TRUCK', '210', 1786, 1786, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, 'A', '2023-06-30', NULL, NULL, '2023-06-30 06:12:40', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(99, 'Basilan', 'Drying', 128, 'DRY', 'PURCHASE', 'RUBEN RAMOS', '2023-06-30 06:14:29', 'PANUNSULAN, ISABELA CITY', 'RUBEN TRUCK', '210', 1687, 1687, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, 'B', '2023-06-30', NULL, NULL, '2023-06-30 09:07:08', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(100, 'Basilan', 'Drying', 74, 'SALE', 'SALE', 'ARCO', '2023-06-30 09:03:55', 'ARCO, LAMITAN CITY', 'NONOY/KULING', '366', 7891, 7891, 0, NULL, 220948.00, NULL, NULL, NULL, NULL, 0.00, '11', '2023-06-30', NULL, NULL, '2023-07-01 08:00:34', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(101, 'Basilan', 'Drying', 73, 'SALE', 'SALE', 'EJN PERSONAL', '2023-06-30 09:05:22', 'MALOONG PROCESSING', 'JERRY GARCIA', '499', 1005, 1005, 0, NULL, 20100.00, NULL, NULL, NULL, NULL, 0.00, '17', '2023-06-30', NULL, NULL, '2023-06-30 09:07:17', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(102, 'Basilan', 'Drying', 72, 'SALE', 'SALE', 'MANCOM', '2023-06-30 09:06:08', 'maloong plantation', 'JERRY GARCIA', '499', 1458, 1458, 0, NULL, 30618.00, NULL, NULL, NULL, NULL, 0.00, '16', '2023-06-30', NULL, NULL, '2023-06-30 09:07:26', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(103, 'Basilan', 'Drying', 76, 'SALE', 'SALE', ' PLANTATION ', '2023-06-30 18:10:00', ' MALOONG CANAL ', ' JOECRISS ', ' 851 ', 23724, 22850, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 8 ', '2023-07-01', NULL, NULL, '2023-07-03 09:05:26', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(104, 'Basilan', 'Drying', 130, 'DRY', 'PURCHASE', ' JARWIN GARCIA ', '2023-07-01 16:26:00', ' CALVARIO, LAMITAN CITY ', ' JARWIN TRUCK ', ' N/A ', 15795, 15795, 15795, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 17 ', '2023-07-05', NULL, NULL, '2023-07-06 04:03:38', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(105, 'Basilan', 'Drying', 129, 'DRY', 'PURCHASE', ' JERRY ARIERO ', '2023-07-01 16:27:00', ' ULAMI, LAMITAN CITY ', ' JERRY ARIELO ', ' N/A ', 2996, 2996, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 8 ', '2023-07-03', NULL, NULL, '2023-07-03 09:06:35', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(106, 'Basilan', 'Drying', 131, 'DRY', 'PURCHASE', ' LITO PURI ', '2023-07-01 16:29:00', ' lamitan ', ' LITO PURI TRUCK ', ' N/A ', 3940, 3940, 3940, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 16 ', '2023-07-05', NULL, NULL, '2023-07-05 23:02:04', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(107, 'Basilan', 'For Sale', 110, 'DRY', 'PURCHASE', 'JERRY ARIERO', '2023-07-03 01:48:28', 'ULAMI, LAMITAN CITY', 'JERRY TRUCK', 'N/A', 1609, 1609, 0, NULL, 45033.00, 883, 0.00, '', 45033.00, 51.00, '6', '2023-07-03', NULL, '2023-07-03', '2023-07-03 01:50:12', NULL, NULL, NULL, 12.00, NULL, 54.8788, 0),
+(108, 'Basilan', 'Drying', 78, 'SALE', 'SALE', ' JAMES TAN ', '2023-07-02 11:18:00', ' ISABELA CITY ', ' NONOY/KULING ', ' 366 ', 29632, 28920, 28920, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 14 ', '2023-07-05', NULL, NULL, '2023-07-07 23:50:17', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(109, 'Basilan', 'Drying', 77, 'SALE', 'SALE', 'EJN STA. CLARA', '2023-07-03 06:22:52', 'STA. CLARA, LAMITAN CITY', 'RAFAEL', '250', 19178, 18510, 18510, NULL, 441094.00, NULL, NULL, NULL, NULL, 0.00, '3', '2023-07-03', NULL, NULL, '2023-07-05 08:15:11', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(110, 'Basilan', 'Drying', 132, 'DRY', 'PURCHASE', 'JIMROY MCCLINTOCK', '2023-07-03 06:24:26', 'MALOONG, LAMITAN CITY', 'RAFAEL', '250', 5110, 5110, 5110, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, 'F', '2023-07-07', NULL, NULL, '2023-07-07 23:50:43', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(111, 'Kidapawan', 'Milling', 133, 'DRY', 'PURCHASE', 'Lucero Jose', '2023-07-03 07:52:14', 'Makilala', 'Lucero', '192', 2040, 2040, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, '00-1049', '2023-07-06', NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(112, 'Kidapawan', 'Drying', 134, 'DRY', 'PURCHASE', ' Lucero Jose ', '2023-06-17 01:35:00', ' Makilala ', ' Jose ', ' 701 ', 1450, 1450, 1010, 1010, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-998 ', '2023-07-06', '2023-07-06', NULL, '2023-07-06 00:34:57', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(113, 'Kidapawan', 'Drying', 135, 'DRY', 'PURCHASE', ' Lucero Jose ', '2023-06-19 03:45:00', ' Makilala ', ' Jose ', ' 089 ', 5750, 5750, 3360, 3360, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1006 ', '2023-07-07', '2023-07-07', NULL, '2023-07-07 04:37:47', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(114, 'Kidapawan', 'Drying', 136, 'DRY', 'PURCHASE', ' Lucero Jose ', '2023-06-19 05:59:00', ' Makilala ', ' Jose ', ' 701 ', 1590, 1590, 3360, 3360, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1007 ', '2023-07-07', '2023-07-07', NULL, '2023-07-07 04:37:53', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(115, 'Kidapawan', 'Drying', 137, 'DRY', 'PURCHASE', ' Sumabong Jerry ', '2023-06-24 10:20:00', ' Mlang, Cotabato ', ' Jerry Sumabong ', ' 299 ', 1190, 1190, 2721, 2721, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1017 ', '2023-07-07', '2023-07-07', NULL, '2023-07-07 04:40:45', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(116, 'Kidapawan', 'Drying', 138, 'DRY', 'PURCHASE', ' Lucero Jose ', '2023-06-25 21:30:00', ' Makilala ', ' Jose ', ' 279 ', 4660, 4660, 5564, 5564, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1024 ', '2023-07-07', '2023-07-07', NULL, '2023-07-07 03:01:41', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(117, 'Kidapawan', 'Drying', 139, 'DRY', 'PURCHASE', ' Lucero Jose ', '2023-06-26 16:15:00', ' Makilala ', ' Jose ', ' 089 ', 8870, 8870, 5563, 5563, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1025 ', '2023-07-07', '2023-07-07', NULL, '2023-07-07 03:01:47', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(118, 'Kidapawan', 'Field', 140, 'DRY', 'PURCHASE', ' Lucero Jose ', '2023-06-28 03:46:00', ' Makilala ', ' Jose ', ' 089 ', 1540, 1540, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1030 ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(119, 'Kidapawan', 'Drying', 141, 'DRY', 'PURCHASE', ' Dagatan, Edgardo ', '2023-06-28 16:49:00', ' Mlang, Makilala North Cotabato ', ' Dodong ', ' 805 ', 5280, 5280, 3238, 5054, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1031 ', '2023-07-05', '2023-07-07', NULL, '2023-07-05 08:31:43', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(120, 'Kidapawan', 'Drying', 142, 'DRY', 'PURCHASE', '  Sumabong Jerry  ', '2023-06-28 06:55:00', '  Mlang Cotabato  ', '  Jerry Sumabong  ', '  721  ', 2270, 2270, 1577, 1577, 0.00, NULL, NULL, NULL, NULL, 0.00, '  00-1033  ', '2023-07-07', '2023-07-07', NULL, '2023-07-07 04:38:49', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(121, 'Kidapawan', 'Field', 143, 'DRY', 'PURCHASE', ' Lucero Jose ', '2023-06-28 21:21:00', ' Makilala ', ' Jose ', ' 729 ', 5780, 5780, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1034 ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(122, 'Kidapawan', 'Field', 144, 'DRY', 'PURCHASE', ' Lucero Jose ', '2023-06-29 18:35:00', ' Makilala ', ' Jose ', ' 279 ', 2790, 2790, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1036 ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(123, 'Kidapawan', 'Field', 145, 'DRY', 'PURCHASE', ' Lucero Jose ', '2023-06-30 02:51:00', ' Makilala ', ' Jose ', ' 402 ', 680, 680, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1037 ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(124, 'Kidapawan', 'Drying', 146, 'DRY', 'PURCHASE', ' Bobis Fausto ', '2023-06-30 15:56:00', ' Mateo, Kidapawan  ', ' Dongkoy ', ' 402 ', 1090, 1090, 898, 898, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1038 ', '2023-07-07', '2023-07-07', NULL, '2023-07-07 04:43:48', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(125, 'Kidapawan', 'Field', 147, 'DRY', 'PURCHASE', ' Lucero Jose ', '2023-06-30 19:53:00', ' Makilala ', ' Jose ', ' 422 ', 1410, 1410, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1041 ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(126, 'Kidapawan', 'Drying', 148, 'DRY', 'PURCHASE', ' Lucero Jose ', '2023-07-01 04:09:00', ' Makilala ', ' Jose ', ' 089 ', 4130, 4130, 5563, 5563, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1043 ', '2023-07-07', '2023-07-07', NULL, '2023-07-07 03:01:53', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(127, 'Kidapawan', 'Drying', 149, 'DRY', 'PURCHASE', ' Dagatan, Edgardo ', '2023-07-01 14:19:00', ' Mlang, Makilala North Cotabato ', ' Dodong ', ' 805 ', 4870, 4870, 3238, 5054, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1044 ', '2023-07-05', '2023-07-07', NULL, '2023-07-05 08:31:50', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(128, 'Kidapawan', 'Drying', 150, 'DRY', 'PURCHASE', ' Bobis Fausto ', '2023-07-01 15:31:00', ' Mateo, Kidapawan  ', ' Dongkoy ', ' 435 ', 1380, 1380, 898, 898, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1045 ', '2023-07-07', '2023-07-07', NULL, '2023-07-07 04:43:54', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(129, 'Kidapawan', 'Field', 151, 'DRY', 'PURCHASE', ' Lucero Jose ', '2023-07-01 13:10:00', ' Makilala ', ' Jose ', ' 089 ', 2040, 2040, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1049 ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(130, 'Kidapawan', 'Drying', 152, 'DRY', 'PURCHASE', '  Sumabong Jerry  ', '2023-07-02 19:13:00', '  Mlang Cotabato  ', '  Jerry Sumabong  ', '  469  ', 1240, 1240, 1577, 1577, 0.00, NULL, NULL, NULL, NULL, 0.00, '  00-1050  ', '2023-07-07', '2023-07-07', NULL, '2023-07-07 04:38:57', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(131, 'Kidapawan', 'Drying', 153, 'DRY', 'PURCHASE', ' Sumabong Jerry ', '2023-07-02 18:10:00', ' Mlang Cotabato ', ' Jerry Sumabong ', ' 721 ', 4150, 4150, 2722, 2722, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1051 ', '2023-07-07', '2023-07-07', NULL, '2023-07-07 04:40:51', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(132, 'Kidapawan', 'Field', 154, 'DRY', 'PURCHASE', ' Galicia Gemima ', '2023-07-02 08:54:00', ' Mlang, Cotabato ', ' Roy Roy ', ' 693 ', 3130, 3130, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1052 ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(133, 'Kidapawan', 'Field', 155, 'DRY', 'PURCHASE', '  Lucero Jose  ', '2023-07-03 15:30:00', '  Makilala  ', '  Jose  ', '  279  ', 380, 380, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, '  00-1053  ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(134, 'Kidapawan', 'Drying', 156, 'DRY', 'PURCHASE', ' Bobis Fausto ', '2023-07-03 11:59:00', ' Mateo, Kidapawan  ', ' Dongkoy ', ' 456 ', 3110, 3110, 899, 899, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1054 ', '2023-07-07', '2023-07-07', NULL, '2023-07-07 04:44:00', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(135, 'Kidapawan', 'Field', 79, 'SALE', 'SALE', ' Dayaday, Virginia ', '2023-06-23 14:05:00', ' Paco, Kidapawan City ', ' Unknown ', ' 371 ', 350, 350, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1015 ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(136, 'Kidapawan', 'Field', 80, 'SALE', 'SALE', ' Lucero Jose ', '2023-06-24 02:37:00', ' Makilala ', ' Jose ', ' 089 ', 1110, 1110, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1018 ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(137, 'Kidapawan', 'Field', 81, 'SALE', 'SALE', ' Lucero Jose ', '2023-06-24 16:18:00', ' Makilala ', ' Dodong', ' 422 ', 1640, 1640, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1019 ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(138, 'Kidapawan', 'Field', 82, 'SALE', 'SALE', ' Lucero Jose ', '2023-06-24 19:17:00', ' Makilala ', ' Dodong ', ' 279 ', 1910, 1910, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1020 ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(139, 'Kidapawan', 'Field', 83, 'SALE', 'SALE', ' Lucero Jose ', '2023-06-24 20:10:00', ' Makilala ', ' Jose ', ' 422 ', 850, 850, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1021 ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(140, 'Kidapawan', 'Field', 84, 'SALE', 'SALE', '  Dayaday, Virginia  ', '2023-06-25 06:36:00', '  Paco, Kidapawan City  ', '  Tan Tan  ', '  781  ', 1520, 1520, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, '  00-1023', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(141, 'Kidapawan', 'Field', 85, 'SALE', 'SALE', '  Dayaday, Virginia  ', '2023-06-27 19:07:00', '  Paco, Kidapawan City  ', '  Tan Tan  ', '  781  ', 3740, 3740, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, '  00-1028  ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(142, 'Kidapawan', 'Field', 86, 'SALE', 'SALE', ' Galicia Gemima ', '2023-06-28 17:22:00', ' Mlang, Cotabato ', ' Roy Roy ', ' 693 ', 1680, 1680, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1032 ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(143, 'Kidapawan', 'Field', 87, 'SALE', 'SALE', ' Dayaday, Virginia ', '2023-06-29 15:29:00', ' Paco, Kidapawan City ', ' Tan Tan ', ' 371 ', 1880, 1880, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1035 ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(144, 'Kidapawan', 'Field', 88, 'SALE', 'SALE', ' Dagatan, Edgardo ', '2023-06-30 16:31:00', ' Los Village Mlang, Cotabato ', ' Dodong ', ' 805 ', 3160, 3160, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1039 ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(145, 'Kidapawan', 'Field', 90, 'SALE', 'SALE', ' Dayaday, Virginia ', '2023-06-30 18:03:00', ' Paco, Kidapawan City ', ' Tan Tan ', ' 279 ', 2680, 2680, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1040 ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(146, 'Kidapawan', 'Field', 91, 'SALE', 'SALE', ' Galicia Gemima ', '2023-06-30 20:44:00', ' Mlang, Cotabato ', ' Roy Roy ', ' 693 ', 2150, 2150, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1042 ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(147, 'Kidapawan', 'Field', 92, 'SALE', 'SALE', ' Lucero Jose ', '2023-07-01 15:45:00', ' Makilala ', ' Jose ', ' 279 ', 1800, 1800, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1046 ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(148, 'Kidapawan', 'Field', 93, 'SALE', 'SALE', '  Lucero Jose  ', '2023-07-01 18:43:00', '  Makilala  ', '  Jose  ', '  279  ', 2630, 2630, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, '  00-1047  ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(149, 'Kidapawan', 'Field', 94, 'SALE', 'SALE', ' Lucero Jose ', '2023-07-01 21:07:00', ' Makilala ', ' Jose ', ' 279 ', 2090, 2090, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1048 ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(151, 'Basilan', 'Drying', 89, 'SALE', 'SALE', 'LEE BROWN', '2023-07-04 08:03:56', 'PANUNSULAN, ISABELA CITY', 'RAFAEL', '250', 5725, 5665, 5665, NULL, 154575.00, NULL, NULL, NULL, NULL, 0.00, '16', '2023-07-08', NULL, NULL, '2023-07-10 06:21:28', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(152, 'Kidapawan', 'Drying', 95, 'SALE', 'SALE', ' Lucero Jose ', '2023-06-03 16:09:00', ' Makilala ', ' Jose ', ' 089 ', 2120, 2120, 930, 930, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-957 ', '2023-07-05', '2023-07-05', NULL, '2023-07-05 02:29:10', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(153, 'Kidapawan', 'Drying', 96, 'SALE', 'SALE', ' Lucero Jose ', '2023-06-03 06:32:00', ' Makilala ', ' Dodong ', ' 701 ', 1530, 1530, 930, 930, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-958 ', '2023-07-05', '2023-07-05', NULL, '2023-07-05 02:29:29', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(154, 'Kidapawan', 'Drying', 97, 'SALE', 'SALE', ' Lucero Jose ', '2023-06-03 06:40:00', ' Makilala ', ' Dodong ', ' 089 ', 1670, 1670, 931, 931, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-959 ', '2023-07-05', '2023-07-05', NULL, '2023-07-05 02:29:36', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(155, 'Kidapawan', 'Drying', 98, 'SALE', 'SALE', ' Dagatan, Edgardo ', '2023-06-07 04:23:00', ' Los Village Mlang, Cotabato ', ' Dodong ', ' 805 ', 2720, 2720, 931, 931, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-968 ', '2023-07-05', '2023-07-05', NULL, '2023-07-05 02:29:43', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(156, 'Kidapawan', 'Drying', 159, 'DRY', 'PURCHASE', ' Lucero Jose ', '2023-06-13 18:51:00', ' Makilala ', ' Jose ', ' 089 ', 7410, 7410, 3092, 3159, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-987 ', '2023-07-05', '2023-07-05', NULL, '2023-07-05 03:06:37', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(157, 'Kidapawan', 'Drying', 160, 'DRY', 'PURCHASE', ' Lucero Jose ', '2023-06-15 18:50:00', ' Makilala ', ' Dodong ', ' 701 ', 1560, 1560, 3091, 3159, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-992 ', '2023-07-05', '2023-07-05', NULL, '2023-07-05 03:07:03', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(158, 'Kidapawan', 'Drying', 161, 'DRY', 'PURCHASE', ' Lucero Jose ', '2023-06-18 17:51:00', ' Makilala ', ' Jose ', ' 701 ', 930, 930, 3091, 3159, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1004 ', '2023-07-05', '2023-07-05', NULL, '2023-07-05 03:07:30', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(159, 'Kidapawan', 'Drying', 162, 'DRY', 'PURCHASE', ' Lucero Jose ', '2023-06-19 18:53:00', ' Makilala ', ' Jose ', ' 089 ', 4690, 4280, 3091, 3158, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1009 ', '2023-07-05', '2023-07-05', NULL, '2023-07-05 03:07:44', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(160, 'Kidapawan', 'Drying', 163, 'DRY', 'PURCHASE', ' Lucero Jose ', '2023-06-16 22:43:00', ' Makilala ', ' Jose ', ' 701 ', 3510, 3510, 3300, 3300, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-996 ', '2023-07-05', '2023-07-05', NULL, '2023-07-05 04:49:13', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(161, 'Kidapawan', 'Drying', 100, 'SALE', 'SALE', ' Galicia Gemima ', '2023-06-10 17:38:00', ' Mlang, Cotabato ', ' Roy Roy ', ' 693 ', 470, 470, 2060, 2060, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-977 ', '2023-07-05', '2023-07-05', NULL, '2023-07-05 06:22:51', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(162, 'Kidapawan', 'Drying', 101, 'SALE', 'SALE', ' Lucero Jose ', '2023-06-10 17:40:00', ' Makilala ', ' Jose ', ' 701 ', 1690, 1690, 2022, 2022, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-978 ', '2023-07-05', '2023-07-05', NULL, '2023-07-05 06:23:04', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(163, 'Kidapawan', 'Drying', 102, 'SALE', 'SALE', ' Dagatan, Edgardo ', '2023-06-10 17:43:00', ' Los Village Mlang, Cotabato ', ' Jose ', ' 805 ', 2710, 2710, 2020, 2020, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-979 ', '2023-07-05', '2023-07-05', NULL, '2023-07-05 06:23:14', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(164, 'Kidapawan', 'Drying', 103, 'SALE', 'SALE', '  Lucero Jose  ', '2023-06-10 22:48:00', '  Makilala  ', '  Jose  ', '  089  ', 2120, 2120, 2020, 2020, 0.00, NULL, NULL, NULL, NULL, 0.00, '  00-980  ', '2023-07-05', '2023-07-05', NULL, '2023-07-05 06:23:31', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(165, 'Kidapawan', 'Drying', 104, 'SALE', 'SALE', ' Lucero Jose ', '2023-06-10 09:48:00', ' Makilala ', ' Jose ', ' 701 ', 1330, 1330, 2020, 2020, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-981 ', '2023-07-05', '2023-07-05', NULL, '2023-07-05 06:23:41', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(166, 'Kidapawan', 'Drying', 105, 'SALE', 'SALE', ' Dayaday, Virginia ', '2023-06-13 17:50:00', ' Paco, Kidapawan City ', ' Tan Tan ', ' 422 ', 4080, 4080, 2020, 2020, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-985 ', '2023-07-05', '2023-07-05', NULL, '2023-07-05 06:24:04', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(167, 'Kidapawan', 'Drying', 106, 'SALE', 'SALE', ' Dayaday, Virginia ', '2023-07-13 19:51:00', ' Paco, Kidapawan City ', ' Tan Tan ', ' 422 ', 2060, 2060, 2020, 2020, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-986 ', '2023-07-05', '2023-07-05', NULL, '2023-07-05 06:24:17', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(168, 'Kidapawan', 'Drying', 107, 'SALE', 'SALE', ' Lucero Jose ', '2023-06-14 17:52:00', ' Makilala ', ' Dodong ', ' 089 ', 780, 780, 2020, 2020, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-988 ', '2023-07-05', '2023-07-05', NULL, '2023-07-05 06:24:31', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(169, 'Kidapawan', 'Drying', 108, 'SALE', 'SALE', ' Galicia Gemima ', '2023-06-15 20:56:00', ' Mlang, Cotabato ', ' Roy Roy ', ' 693 ', 1760, 1760, 2020, 2020, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-989 ', '2023-07-05', '2023-07-05', NULL, '2023-07-05 06:24:40', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(170, 'Kidapawan', 'Drying', 109, 'SALE', 'SALE', ' Dayaday, Virginia ', '2023-06-15 17:58:00', ' Paco, Kidapawan City ', ' Tan Tan ', ' 731 ', 1600, 1600, 2020, 2020, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-990 ', '2023-07-05', '2023-07-05', NULL, '2023-07-05 06:24:50', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(171, 'Kidapawan', 'Drying', 110, 'SALE', 'SALE', ' Galicia Gemima ', '2023-06-15 20:59:00', ' Mlang, Cotabato ', ' Roy Roy ', ' 693 ', 2490, 2490, 2020, 2020, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-994 ', '2023-07-05', '2023-07-05', NULL, '2023-07-05 06:25:14', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(172, 'Kidapawan', 'Drying', 111, 'SALE', 'SALE', ' Lucero Jose ', '2023-07-17 16:17:00', ' Makilala ', ' Dodong ', ' 089 ', 1580, 1580, 2020, 1010, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-999 ', '2023-07-05', '2023-07-06', NULL, '2023-07-05 06:25:23', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(173, 'Kidapawan', 'Drying', 112, 'SALE', 'SALE', ' Lucero Jose ', '2023-06-17 19:02:00', ' Makilala ', ' Jose ', ' 701 ', 1190, 1190, 2020, 2020, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1000 ', '2023-07-05', '2023-07-05', NULL, '2023-07-05 06:25:31', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(174, 'Kidapawan', 'Drying', 113, 'SALE', 'SALE', '  Lucero Jose  ', '2023-06-17 18:04:00', '  Makilala  ', '  Dodong  ', '  089  ', 990, 990, 2020, 2020, 0.00, NULL, NULL, NULL, NULL, 0.00, '  00-1001  ', '2023-07-05', '2023-07-05', NULL, '2023-07-05 06:25:42', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(175, 'Kidapawan', 'Drying', 114, 'SALE', 'SALE', ' Dayaday, Virginia ', '2023-06-18 19:06:00', ' Paco, Kidapawan City ', ' Dodong ', ' 551 ', 740, 740, 2020, 2020, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1003 ', '2023-07-05', '2023-07-05', NULL, '2023-07-05 06:25:50', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(176, 'Kidapawan', 'Drying', 115, 'SALE', 'SALE', ' Dagatan, Edgardo ', '2023-07-20 21:08:00', ' Los Village Mlang, Cotabato ', ' Dodong ', ' 805 ', 3070, 3070, 2020, 2020, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1010 ', '2023-07-05', '2023-07-05', NULL, '2023-07-05 06:25:59', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(177, 'Basilan', 'Drying', 164, 'DRY', 'PURCHASE', 'CHARLIE CAWLEY', '2023-07-05 07:01:54', 'LAMITAN CITY', 'CAWLEY TRUCK', 'N/A', 8660, 8660, 8660, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, 'L', '2023-07-05', NULL, NULL, '2023-07-05 23:02:10', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(178, 'Kidapawan', 'Drying', 165, 'DRY', 'PURCHASE', ' Bobis Fausto ', '2023-06-15 19:51:00', ' Mateo, Kidapawan  ', ' Donkoy ', ' 402 ', 1330, 1330, 1430, 1430, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-993 ', '2023-07-05', '2023-07-05', NULL, '2023-07-05 08:20:41', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(179, 'Kidapawan', 'Drying', 166, 'DRY', 'PURCHASE', ' Bobis Fausto ', '2023-06-17 07:52:00', ' Mateo, Kidapawan  ', ' Dongkoy ', ' 402 ', 1000, 1000, 1430, 1430, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-997 ', '2023-07-05', '2023-07-05', NULL, '2023-07-05 08:21:05', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(180, 'Kidapawan', 'Drying', 167, 'DRY', 'PURCHASE', ' Bobis Fausto ', '2023-06-18 19:54:00', ' Mateo, Kidapawan  ', ' Dongkoy ', ' 402 ', 2190, 2190, 1434, 1434, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1005 ', '2023-07-05', '2023-07-05', NULL, '2023-07-05 08:21:20', NULL, NULL, NULL, 12.00, NULL, NULL, 0);
+INSERT INTO `planta_recording` (`recording_id`, `source`, `status`, `purchased_id`, `trans_type`, `prod_type`, `supplier`, `receiving_date`, `location`, `driver`, `truck_num`, `weight`, `reweight`, `crumbed_weight`, `dry_weight`, `purchase_cost`, `produce_total_weight`, `production_expense`, `prod_expense_desc`, `total_production_cost`, `bales_average_cost`, `lot_num`, `milling_date`, `drying_date`, `pressing_date`, `production_date`, `completion_date`, `selling_date`, `cuplump_remaining_weight`, `milling_cost`, `wet_inventory_sold`, `drc`, `recorded_by`) VALUES
+(181, 'Kidapawan', 'Drying', 168, 'DRY', 'PURCHASE', ' Bobis Fausto ', '2023-06-19 10:55:00', ' Mateo, Kidapawan  ', ' Dongkoy ', ' 402 ', 1920, 1920, 1430, 1430, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1008 ', '2023-07-05', '2023-07-05', NULL, '2023-07-05 08:21:32', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(182, 'Kidapawan', 'Drying', 169, 'DRY', 'PURCHASE', ' Bobis Fausto ', '2023-06-20 11:57:00', ' Mateo, Kidapawan  ', ' Dongkoy ', ' 402 ', 1620, 1620, 1430, 1430, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1011 ', '2023-07-05', '2023-07-05', NULL, '2023-07-05 08:21:57', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(183, 'Kidapawan', 'Drying', 170, 'DRY', 'PURCHASE', 'Galicia Gemima', '2023-07-05 08:02:04', 'Mlang, Cotabato', 'Roy Roy', '693', 960, 960, 3276, 3276, 0.00, NULL, NULL, NULL, NULL, 0.00, '00-995', '2023-07-05', '2023-07-05', NULL, '2023-07-05 08:24:53', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(184, 'Kidapawan', 'Drying', 171, 'DRY', 'PURCHASE', 'Galicia Gemima', '2023-07-05 08:02:55', 'Mlang, Cotabato', 'Roy Roy', '693', 2430, 2430, 3276, 3276, 0.00, NULL, NULL, NULL, NULL, 0.00, '00-1002', '2023-07-05', '2023-07-05', NULL, '2023-07-05 08:25:02', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(185, 'Kidapawan', 'Drying', 172, 'DRY', 'PURCHASE', 'Galicia Gemima', '2023-07-05 08:03:48', 'Mlang, Cotabato', 'Roy Roy', '693', 6750, 6750, 3276, 3276, 0.00, NULL, NULL, NULL, NULL, 0.00, '00-1014', '2023-07-05', '2023-07-05', NULL, '2023-07-05 08:25:10', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(186, 'Kidapawan', 'Drying', 173, 'DRY', 'PURCHASE', 'Lucero Jose', '2023-07-05 08:05:43', 'Makilala', 'Dodong', '089', 4780, 4780, 2956, 2956, 0.00, NULL, NULL, NULL, NULL, 0.00, '00-1012', '2023-07-05', '2023-07-05', NULL, '2023-07-05 08:28:08', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(187, 'Kidapawan', 'Drying', 174, 'DRY', 'PURCHASE', 'Lucero Jose', '2023-07-05 08:06:40', 'Makilala', 'Dodong', '089', 5030, 5030, 2954, 2954, 0.00, NULL, NULL, NULL, NULL, 0.00, '00-1012', '2023-07-05', '2023-07-05', NULL, '2023-07-05 08:28:14', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(188, 'Kidapawan', 'Drying', 175, 'DRY', 'PURCHASE', 'Lucero Jose', '2023-07-05 08:07:24', 'Makilala', 'Jose', '089', 300, 300, 2954, 2954, 0.00, NULL, NULL, NULL, NULL, 0.00, '00-1022', '2023-07-05', '2023-07-05', NULL, '2023-07-05 08:28:23', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(189, 'Kidapawan', 'Drying', 176, 'DRY', 'PURCHASE', 'Lucero Jose', '2023-07-05 08:08:54', 'Makilala', 'Jose', '089', 8660, 8660, 8420, 8420, 0.00, NULL, NULL, NULL, NULL, 0.00, '00-1029', '2023-07-05', '2023-07-05', NULL, '2023-07-05 08:29:08', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(190, 'Kidapawan', 'Drying', 177, 'DRY', 'PURCHASE', 'Lucero Jose', '2023-07-05 08:09:54', 'Makilala', 'Dodong', '089', 3930, 3930, 6857, 6857, 0.00, NULL, NULL, NULL, NULL, 0.00, '00-1026', '2023-07-05', '2023-07-05', NULL, '2023-07-05 08:30:15', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(191, 'Kidapawan', 'Drying', 178, 'DRY', 'PURCHASE', 'Lucero Jose', '2023-07-05 08:10:22', 'Makilala', 'Dodong', '089', 10170, 10170, 6858, 6858, 0.00, NULL, NULL, NULL, NULL, 0.00, '00-1027', '2023-07-05', '2023-07-05', NULL, '2023-07-05 08:30:25', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(192, 'Kidapawan', 'Field', 181, 'DRY', 'PURCHASE', ' Lucero Jose ', '2023-07-04 08:19:00', ' Makilala ', ' Dodong ', ' 089 ', 7680, 7860, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1055 ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(193, 'Kidapawan', 'Drying', 182, 'DRY', 'PURCHASE', ' Bobis Fausto ', '2023-07-04 20:19:00', ' Mateo, Kidapawan  ', ' Dongkoy ', ' 402 ', 2490, 2490, 899, 889, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 00-1056 ', '2023-07-07', '2023-07-07', NULL, '2023-07-07 04:44:06', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(195, 'Kidapawan', 'Pressing', 183, 'DRY', 'PURCHASE', 'Lucero Jose', '2023-07-06 01:09:44', 'Makilala', 'Jose', '089', 8430, 8430, 6446, 6446, 0.00, 4882.94, 0.00, '', 0.00, 0.00, '00-951', '2023-07-06', '2023-07-06', '2023-07-06', '2023-07-06 01:14:48', NULL, NULL, NULL, 12.00, NULL, 57.9234, 0),
+(196, 'Kidapawan', 'Pressing', 184, 'DRY', 'PURCHASE', 'Lucero Jose', '2023-07-06 01:10:47', 'Makilala', 'Dodong', '089', 2870, 2870, 6447, 6447, 0.00, 1726.62, 0.00, '', 0.00, 0.00, '00-952', '2023-07-06', '2023-07-06', '2023-07-06', '2023-07-06 01:14:56', NULL, NULL, NULL, 12.00, NULL, 60.161, 0),
+(197, 'Kidapawan', 'Pressing', 185, 'DRY', 'PURCHASE', 'Lucero Jose', '2023-07-06 01:11:21', 'Makilala', 'Jose', '089', 8480, 8480, 6446, 6446, 0.00, 5101.67, 0.00, '', 0.00, 0.00, '00-954', '2023-07-06', '2023-07-06', '2023-07-06', '2023-07-06 01:15:03', NULL, NULL, NULL, 12.00, NULL, 60.1612, 0),
+(198, 'Kidapawan', 'Pressing', 186, 'DRY', 'PURCHASE', 'Lucero Jose', '2023-07-06 01:12:01', 'Makilala', 'Jose', '089', 4370, 4370, 4100, 4100, 0.00, 2436.33, 0.00, '', 0.00, 0.00, '00-963', '2023-07-06', '2023-07-06', '2023-07-06', '2023-07-06 01:15:09', NULL, NULL, NULL, 12.00, NULL, 55.7513, 0),
+(199, 'Basilan', 'Milling', 187, 'DRY', 'PURCHASE', ' EPIGIL MOLEJE ', '2023-07-06 12:16:00', ' MALOONG SAN JOSE, LAMITAN CITY ', ' MOLEJE JEEP ', ' N/A ', 5989, 5989, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' E ', '2023-07-09', NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(200, 'Basilan', 'Drying', 157, 'DRY', 'PURCHASE', ' TATA HALAL ', '2023-07-04 15:45:00', ' BULINGAN, LAMITAN CITY ', ' NONOY/KULING ', ' 366 ', 15705, 15705, 15705, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 8 ', '2023-07-07', NULL, NULL, '2023-07-08 09:02:29', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(201, 'Basilan', 'Milling', 189, 'DRY', 'PURCHASE', ' LOUIE DELOS REYES ', '2023-07-07 12:01:00', ' PANUNSULAN, ISABELA CITY ', ' RAFAEL ', ' 250 ', 5110, 5110, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' S ', '2023-07-09', NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(202, 'Basilan', 'Drying', 188, 'DRY', 'PURCHASE', ' HON. ARLEIGH EISMA ', '2023-07-07 12:02:00', ' LAMITAN CITY ', ' EISMA JEEP ', ' N/A ', 2795, 2795, 2795, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 1 ', '2023-07-08', NULL, NULL, '2023-07-08 00:05:09', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(203, 'Basilan', 'Drying', 118, 'SALE', 'SALE', ' INFANTE ', '2023-07-07 12:03:00', ' ISABELA CITY ', ' NONOY/KULING ', ' 366 ', 9642, 9642, 9642, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 4 ', '2023-07-09', NULL, NULL, '2023-07-10 09:35:50', NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(204, 'Basilan', 'Field', 119, 'SALE', 'SALE', ' JOEL AMAHAN ', '2023-07-10 14:32:00', ' BOHE SAPA ', ' RAFAEL ', ' 250 ', 2431, 2515, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 8 ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(205, 'Basilan', 'Field', 3, 'EJN', 'EJN', ' EJN RUBBER ', '2023-07-10 16:33:00', ' LAMITAN CITY ', ' RHAP2X ', ' 508 ', 2991, 2570, 0, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, ' 8 ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, 0),
+(207, 'Basilan', 'For Sale', 0, 'Excess', 'EXCESS', 'Bale Excess', '2023-07-15 00:00:00', 'Basilan', NULL, NULL, 805, 805, 0, NULL, 41055.00, 805, NULL, NULL, 41055.00, 51.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, 100, 0),
+(208, 'Basilan', 'For Sale', 0, 'Excess', 'EXCESS', 'Bale Excess', '2023-07-15 00:00:00', 'Basilan', NULL, NULL, 70, 70, 0, NULL, 3570.00, 70, NULL, NULL, 3570.00, 51.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, 100, 0),
+(209, 'Basilan', 'For Sale', 0, 'Excess', 'EXCESS', 'Bale Excess', '2023-07-15 00:00:00', 'Basilan', NULL, NULL, 1785, 1785, 0, NULL, 91035.00, 1785, NULL, NULL, 91035.00, 51.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, 100, 0),
+(210, 'Basilan', 'For Sale', 0, 'Excess', 'EXCESS', 'Bale Excess', '2023-07-15 00:00:00', 'Basilan', NULL, NULL, 1785, 1785, 0, NULL, 91035.00, 1785, NULL, NULL, 91035.00, 51.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, 100, 0);
 
 -- --------------------------------------------------------
 
@@ -3626,17 +4906,6 @@ CREATE TABLE `planta_recording_logs` (
   `source` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Triggers `planta_recording_logs`
---
-DELIMITER $$
-CREATE TRIGGER `planta_trigger` AFTER UPDATE ON `planta_recording_logs` FOR EACH ROW BEGIN
-    INSERT INTO planta_recording_logs (recording_id, purchased_id, supplier, receiving_date, location, driver, truck_num, weight, reweight, cuplump_remaining_weight, purchase_cost, status, lot_num, milling_date, drying_date, pressing_date, production_date, completion_date, selling_date, crumbed_weight, produce_total_weight, cost_ave, dry_weight, drc, wet_inventory_sold)
-    VALUES (NEW.recording_id, NEW.purchased_id, NEW.supplier, NEW.receiving_date, NEW.location, NEW.driver, NEW.truck_num, NEW.weight, NEW.reweight, NEW.cuplump_remaining_weight,NEW.purchase_cost, NEW.status, NEW.lot_num, NEW.milling_date, NEW.drying_date, NEW.pressing_date, NEW.production_date, NEW.completion_date, NEW.selling_date, NEW.crumbed_weight, NEW.produce_total_weight, NEW.cost_ave, NEW.dry_weight, NEW.drc, NEW.wet_inventory_sold);
-END
-$$
-DELIMITER ;
-
 -- --------------------------------------------------------
 
 --
@@ -3658,6 +4927,24 @@ INSERT INTO `purchase_category` (`id`, `category`) VALUES
 (3, 'BALES'),
 (4, 'COFFEE BEANS'),
 (5, 'COFFEE BERRIES');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rubber_bales_sales`
+--
+
+CREATE TABLE `rubber_bales_sales` (
+  `sale_id` int(11) NOT NULL,
+  `ship_date` int(11) NOT NULL,
+  `sale_type` int(11) NOT NULL,
+  `sale_buyer` int(11) NOT NULL,
+  `sale_destination` int(11) NOT NULL,
+  `total_weight` int(11) NOT NULL,
+  `sales` int(11) NOT NULL,
+  `net_gain` int(11) NOT NULL,
+  `amount_unpaid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -3767,7 +5054,6 @@ INSERT INTO `rubber_seller` (`id`, `name`, `address`, `contact`, `cash_advance`,
 (41, 'JERRY ARIERO', 'ULAMI, LAMITAN CITY', '', 0, 0, 'Basilan'),
 (42, 'JARWIN GARCIA', 'CALVARIO, LAMITAN CITY', '', 0, 0, 'Basilan'),
 (43, 'JENG ENRIQUEZ', 'BUAHAN, LAMITAN CITY', '', 0, 0, 'Basilan'),
-(44, '', '', '', 0, 0, 'Basilan'),
 (45, 'DANNY BARANDINO', 'ISABELA CITY', '', 0, 0, 'Basilan'),
 (46, 'mancom', 'MALOONG CANAL', '', 0, 0, 'Basilan'),
 (47, 'MANCOM', 'maloong plantation', '', 0, 0, 'Basilan'),
@@ -3777,11 +5063,17 @@ INSERT INTO `rubber_seller` (`id`, `name`, `address`, `contact`, `cash_advance`,
 (51, 'ANDREW PAMARAN', 'LAMITAN CITY', '', 0, 0, 'Basilan'),
 (52, 'EJN BUAHAN', 'BUAHAN, LAMITAN CITY', '', 0, 0, 'Basilan'),
 (53, 'EJN PERSONAL', 'MALOONG PROCESSING', '', 0, NULL, 'Basilan'),
-(54, 'HON. ARLEIGH EISMA', 'LAMITAN CITY', '', NULL, NULL, 'Basilan'),
+(54, 'HON. ARLEIGH EISMA', 'LAMITAN CITY', '', NULL, 0, 'Basilan'),
 (55, 'hj. Patah', 'Bungos, Lamitan City', '', 0, NULL, 'Basilan'),
 (56, 'MANCOM', 'maloong plantation', '', 0, NULL, 'Basilan'),
 (57, 'JR CATALLA', 'MALOONG CANAL', '', 0, NULL, 'Basilan'),
-(58, 'EJN STA. CLARA', 'STA. CLARA, LAMITAN CITY', '', 0, NULL, 'Basilan');
+(58, 'EJN STA. CLARA', 'STA. CLARA, LAMITAN CITY', '', 0, NULL, 'Basilan'),
+(59, 'Lucero Jose', 'Makilala', '09856457654', 0, NULL, 'Kidapawan'),
+(60, 'Sumabong Jerry', 'Mlang Cotabato', '09068266133', NULL, NULL, 'Kidapawan'),
+(61, 'Dagatan, Edgardo', 'Los Village Mlang, Cotabato', '09994093172', 0, NULL, 'Kidapawan'),
+(62, 'Bobis Fausto', 'Mateo, Kidapawan ', '09103446362', NULL, NULL, 'Kidapawan'),
+(63, 'Galicia Gemima', 'Mlang, Cotabato', '09483352796', 0, NULL, 'Kidapawan'),
+(65, 'Dayaday, Virginia', 'Paco, Kidapawan City', '', 0, NULL, 'Kidapawan');
 
 -- --------------------------------------------------------
 
@@ -3821,7 +5113,7 @@ CREATE TABLE `rubber_transaction` (
 --
 
 INSERT INTO `rubber_transaction` (`id`, `invoice`, `contract`, `date`, `seller`, `address`, `gross`, `tare`, `net_weight`, `price_1`, `price_2`, `total_weight_1`, `total_weight_2`, `total_amount`, `less`, `amount_paid`, `amount_words`, `type`, `loc`, `planta_status`, `supplier_type`, `recorded_by`, `assumed_drc`, `assumed_baleWeight`) VALUES
-(3, NULL, 'SPOT', '2023-04-29', 'ARCO', 'ARCO, LAMITAN CITY', 6915, 0, 6915, 28.5, 0, 6915, 0, 197077, 0, 197078, 'One Hundred Ninety Seven Thousand Seventy Seven Peso/s Pesos And Five Centavo/s ', 'WET', 'Basilan', 1, 0, NULL, NULL, NULL),
+(3, NULL, 'SPOT', '2023-04-29', 'ARCO', 'ARCO, LAMITAN CITY', 6915, 0, 6915, 28.5, 0, 6915, 0, 197077, 0, 197078, 'One Hundred Ninety Seven Thousand Seventy Seven Peso/s And Fifty Centavo/s ', 'WET', 'Basilan', 0, 0, NULL, NULL, NULL),
 (4, NULL, 'SPOT', '2023-05-02', 'KENNYBELL FLOREZ', 'LI-MOOK, LAMITAN CITY', 10739, 0, 10739, 29.5, 0, 10739, 0, 316800, 0, 316800, 'Three Hundred Sixteen Thousand Eight Hundred Peso/s Pesos And Five Centavo/s ', 'WET', 'Basilan', 0, 0, NULL, NULL, NULL),
 (5, NULL, 'SPOT', '2023-05-10', 'JOEL AMAHAN', 'BOHE SAPA', 2069, 0, 2069, 27, 0, 2069, 0, 55863, 0, 55863, 'Fifty Five Thousand Eight Hundred Sixty Three Peso/s And Centavo/s ', 'WET', 'Basilan', 1, 0, NULL, NULL, NULL),
 (8, NULL, 'SPOT', '2023-04-28', 'AREVALO', 'COLONIA, LAMITAN CITY', 1301, 0, 1301, 28, 0, 1301, 0, 36428, 0, 36428, 'Thirty Six Thousand Four Hundred Twenty Eight Peso/s ', 'WET', 'Basilan', 1, 0, NULL, NULL, NULL),
@@ -3834,23 +5126,22 @@ INSERT INTO `rubber_transaction` (`id`, `invoice`, `contract`, `date`, `seller`,
 (15, NULL, 'SPOT', '2023-04-13', 'JESSICA EISMA FLOREZ', 'LAMITAN CITY', 3695, 0, 3695, 25, 0, 3695, 0, 92375, 0, 92375, 'Ninety Two Thousand Three Hundred Seventy Five Peso/s ', 'WET', 'Basilan', 1, 0, NULL, NULL, NULL),
 (16, NULL, 'SPOT', '2023-04-10', 'EJN LOUIE ', 'LAMITAN CITY', 1408, 0, 1408, 30, 0, 1408, 0, 42240, 0, 42240, 'Forty Two Thousand Two Hundred Forty Peso/s ', 'WET', 'Basilan', 1, 0, NULL, NULL, NULL),
 (17, NULL, 'SPOT', '2023-04-10', 'EJN LOUIE ', 'LAMITAN CITY', 3906, 0, 3906, 30, 0, 3906, 0, 117180, 0, 117180, 'One Hundred Seventeen Thousand One Hundred Eighty Peso/s ', 'WET', 'Basilan', 1, 0, NULL, NULL, NULL),
-(18, NULL, 'SPOT', '2023-04-03', 'JAMES TAN', 'ISABELA CITY', 5780, 0, 5780, 30, 0, 5780, 0, 173400, 0, 173400, 'One Hundred Seventy Three Thousand Four Hundred Peso/s ', 'WET', 'Basilan', 1, 0, NULL, NULL, NULL),
-(19, NULL, 'SPOT', '2023-04-01', 'JAMES TAN', 'ISABELA CITY', 13253, 0, 13253, 30, 0, 13253, 0, 397590, 0, 397590, 'Three Hundred Ninety Seven Thousand Five Hundred Ninety Peso/s ', 'WET', 'Basilan', 1, 0, NULL, NULL, NULL),
+(18, NULL, 'SPOT', '2023-04-03', 'JAMES TAN', 'ISABELA CITY', 19033, 0, 19033, 30, 0, 19033, 0, 570990, 0, 570990, 'Five Hundred Seventy Thousand Nine Hundred Ninety Peso/s And Centavo/s ', 'WET', 'Basilan', 0, 0, NULL, NULL, NULL),
 (20, NULL, 'SPOT', '2023-04-01', 'ANDREW PAMARAN', 'LAMITAN CITY', 1536, 0, 1536, 26, 0, 1536, 0, 39936, 0, 39936, 'Thirty Nine Thousand Nine Hundred Thirty Six Peso/s ', 'WET', 'Basilan', 1, 0, NULL, NULL, NULL),
 (21, NULL, 'SPOT', '2023-04-01', 'NONONG FURIGAY', 'LAMITAN CITY', 2235, 0, 2235, 31, 0, 2235, 0, 69285, 0, 69285, 'Sixty Nine Thousand Two Hundred Eighty Five Peso/s ', 'WET', 'Basilan', 1, 0, NULL, NULL, NULL),
 (22, NULL, 'SPOT', '2023-03-31', 'LEE BROWN', '', 6625, 0, 6625, 28, 0, 6625, 0, 185500, 0, 185500, 'One Hundred Eighty Five Thousand Five Hundred Peso/s ', 'WET', 'Basilan', 1, 0, NULL, NULL, NULL),
 (23, NULL, 'SPOT', '2023-05-23', 'DONGGA/ERIC ENRIQUEZ', 'BUAHAN, LAMITAN CITY', 3064, 0, 3064, 26.5, 0, 3064, 0, 81196, 0, 81196, 'Eighty One Thousand One Hundred Ninety Six Peso/s ', 'WET', 'Basilan', 0, 0, NULL, NULL, NULL),
-(25, NULL, 'SPOT', '2023-03-20', 'ARCO', 'ARCO, LAMITAN CITY', 7548, 0, 7548, 28, 0, 7548, 0, 211344, 100000, 111344, 'One Hundred Eleven Thousand Three Hundred Forty Four Peso/s ', 'WET', 'Basilan', 1, 0, NULL, NULL, NULL),
+(25, NULL, 'SPOT', '2023-03-20', 'ARCO', 'ARCO, LAMITAN CITY', 7548, 0, 7548, 28, 0, 7548, 0, 211344, 100000, 111344, 'One Hundred Eleven Thousand Three Hundred Forty Four Peso/s And Centavo/s ', 'WET', 'Basilan', 0, 0, NULL, NULL, NULL),
 (26, NULL, 'SPOT', '2023-03-31', 'JOEL AMAHAN', 'BOHE SAPA', 4370, 0, 4370, 28, 0, 4370, 0, 122360, 0, 122360, 'One Hundred Twenty Two Thousand Three Hundred Sixty Peso/s ', 'WET', 'Basilan', 1, 0, NULL, NULL, NULL),
 (27, NULL, 'SPOT', '2023-04-05', 'EJN LOUIE ', 'LAMITAN CITY', 3942, 0, 3942, 30, 0, 3942, 0, 118260, 0, 118260, 'One Hundred Eighteen Thousand Two Hundred Sixty Peso/s ', 'WET', 'Basilan', 1, 0, NULL, NULL, NULL),
 (34, NULL, 'SPOT', '2023-05-16', 'NONONG FURIGAY', 'LAMITAN CITY', 2195, 0, 2195, 31.5, 0, 2195, 0, 69142, 0, 69142.5, 'Sixty Nine Thousand One Hundred Forty Two Peso/s And Fifty Centavo/s ', 'WET', 'Basilan', 0, 0, 'JANE', NULL, NULL),
 (36, NULL, 'SPOT', '2023-05-16', 'MANCOM', 'maloong plantation', 890, 0, 890, 21, 0, 890, 0, 18690, 0, 18690, 'Eighteen Thousand Six Hundred Ninety Peso/s And Centavo/s ', 'WET', 'Basilan', 0, 0, 'JANE', NULL, NULL),
 (37, NULL, 'SPOT', '2023-05-20', 'LEE BROWN', 'PANUNSULAN, ISABELA CITY', 5224, 0, 5224, 28, 0, 5224, 0, 146272, 0, 146272, 'One Hundred Forty Six Thousand Two Hundred Seventy Two Peso/s And Centavo/s ', 'WET', 'Basilan', 0, 0, 'JANE', NULL, NULL),
-(39, NULL, 'SPOT', '2023-05-29', 'PLANTATION', 'MALOONG CANAL', 16864, 0, 16864, 31, 0, 16864, 0, 522784, 0, 522784, 'Five Hundred Twenty Two Thousand Seven Hundred Eighty Four Peso/s And Centavo/s ', 'WET', 'Basilan', 1, 0, 'JANE', NULL, NULL),
+(39, NULL, 'SPOT', '2023-05-29', 'PLANTATION', 'MALOONG CANAL', 16864, 0, 16864, 31, 0, 16864, 0, 522784, 0, 522784, 'Five Hundred Twenty Two Thousand Seven Hundred Eighty Four Peso/s And Centavo/s ', 'WET', 'Basilan', 0, 0, 'JANE', NULL, NULL),
 (40, NULL, 'SPOT', '2023-05-29', 'hj. Patah', 'Bungos, Lamitan City', 46177, 0, 46177, 32.5, 0, 46177, 0, 1500750, 0, 1500750, 'One Million Five Hundred Thousand Seven Hundred Fifty Two Peso/s And Fifty Centavo/s ', 'WET', 'Basilan', 0, 0, 'JANE', NULL, NULL),
 (44, NULL, 'SPOT', '2023-05-29', 'JR CATALLA', 'MALOONG CANAL', 2349, 0, 2349, 28, 0, 2349, 0, 65772, 0, 65772, 'Sixty Five Thousand Seven Hundred Seventy Two Peso/s And Centavo/s ', 'WET', 'Basilan', 0, 0, 'rubber', NULL, NULL),
 (46, NULL, 'SPOT', '2023-05-30', 'AREVALO', 'COLONIA, LAMITAN CITY', 660, 0, 660, 28, 0, 660, 0, 18480, 0, 18480, 'Eighteen Thousand Four Hundred Eighty Peso/s And Centavo/s ', 'WET', 'Basilan', 0, 0, 'JANE', NULL, NULL),
-(47, NULL, 'SPOT', '2023-05-30', 'ARCO', 'ARCO, LAMITAN CITY', 7788, 0, 7788, 28.5, 0, 7788, 0, 221958, 250000, -28042, 'Undefined Hundred Twenty Eight Thousand Forty Two Peso/s And Centavo/s ', 'WET', 'Basilan', 0, 0, 'JANE', NULL, NULL),
+(47, NULL, 'SPOT', '2023-05-30', 'ARCO', 'ARCO, LAMITAN CITY', 7788, 0, 7788, 28.5, 0, 7788, 0, 221958, 250000, -28042, 'Undefined Hundred Twenty Eight Thousand Forty Two Peso/s And Centavo/s ', 'WET', 'Basilan', 1, 0, 'JANE', NULL, NULL),
 (48, NULL, 'SPOT', '2023-06-01', 'NONONG FURIGAY', 'LAMITAN CITY', 2615, 0, 2615, 30, 0, 2615, 0, 78450, 0, 78450, 'Seventy Eight Thousand Four Hundred Fifty Peso/s And Centavo/s ', 'WET', 'Basilan', 0, 0, 'JANE', NULL, NULL),
 (52, NULL, 'SPOT', '2023-06-03', 'LEE BROWN', 'PANUNSULAN, ISABELA CITY', 6183, 0, 6183, 28, 0, 6183, 0, 173124, 200000, -26876, 'Undefined Hundred Twenty Six Thousand Eight Hundred Seventy Six Peso/s And Centavo/s ', 'WET', 'Basilan', 1, 0, 'JANE', NULL, NULL),
 (53, NULL, 'SPOT', '2023-06-01', 'EJN BUAHAN', 'BUAHAN, LAMITAN CITY', 1564, 0, 1564, 20, 0, 1564, 0, 31280, 0, 31280, 'Thirty One Thousand Two Hundred Eighty Peso/s And Centavo/s ', 'WET', 'Basilan', 0, 0, 'JANE', NULL, NULL),
@@ -3860,8 +5151,58 @@ INSERT INTO `rubber_transaction` (`id`, `invoice`, `contract`, `date`, `seller`,
 (58, NULL, 'SPOT', '2023-05-15', 'EJN PERSONAL', 'MALOONG PROCESSING', 719, 0, 719, 20, 0, 719, 0, 14380, 0, 14380, 'Fourteen Thousand Three Hundred Eighty Peso/s And Centavo/s ', 'WET', 'Basilan', 1, 0, 'JANE', NULL, NULL),
 (60, NULL, 'SPOT', '2023-06-10', 'JOEL AMAHAN', 'BOHE SAPA', 1904, 0, 1904, 28, 0, 1904, 0, 53312, 0, 53312, 'Fifty Three Thousand Three Hundred Twelve Peso/s And Centavo/s ', 'WET', 'Basilan', 0, 0, 'jane', NULL, NULL),
 (62, NULL, 'SPOT', '2023-06-13', 'EJN STA. CLARA', 'STA. CLARA, LAMITAN CITY', 17116, 0, 17116, 25.5, 0, 17116, 0, 436458, 300000, 136458, 'One Hundred Thirty Six Thousand Four Hundred Fifty Eight Peso/s And Centavo/s ', 'WET', 'Basilan', 0, 0, 'JANE', NULL, NULL),
-(63, NULL, NULL, '2023-06-19', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Basilan', NULL, NULL, 'rubber', NULL, NULL),
-(64, NULL, NULL, '2023-06-19', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Basilan', NULL, NULL, 'rubber', NULL, NULL);
+(64, NULL, 'SPOT', '2023-06-15', 'MANCOM', 'maloong plantation', 1208, 0, 1208, 21, 0, 1208, 0, 25368, 0, 25368, 'Twenty Five Thousand Three Hundred Sixty Eight Peso/s And Centavo/s ', 'WET', 'Basilan', 0, 0, 'JANE', NULL, NULL),
+(65, NULL, 'SPOT', '2023-06-15', 'EJN PERSONAL', 'MALOONG PROCESSING', 725, 0, 725, 20, 0, 725, 0, 14500, 0, 14500, 'Fourteen Thousand Five Hundred Peso/s And Centavo/s ', 'WET', 'Basilan', 0, 0, 'jane', NULL, NULL),
+(66, NULL, 'SPOT', '2023-06-16', 'NONONG FURIGAY', 'LAMITAN CITY', 2480, 0, 2480, 30, 0, 2480, 0, 74400, 0, 74400, 'Seventy Four Thousand Four Hundred Peso/s And Centavo/s ', 'WET', 'Basilan', 0, 0, 'rubber', NULL, NULL),
+(68, NULL, 'SPOT', '2023-06-19', 'LEE BROWN', 'PANUNSULAN, ISABELA CITY', 5310, 0, 5310, 28, 0, 5310, 0, 148680, 100000, 48680, 'Forty Eight Thousand Six Hundred Eighty Peso/s And Centavo/s ', 'WET', 'Basilan', 0, 0, 'rubber', NULL, NULL),
+(69, NULL, 'SPOT', '2023-06-28', 'EJN STA. CLARA', 'STA. CLARA, LAMITAN CITY', 2597, 0, 2597, 23.35, 0, 2597, 0, 60639, 0, 60639.9, 'Sixty Thousand Six Hundred Thirty Nine Peso/s And Ninety Five Centavo/s ', 'WET', 'Basilan', 1, 0, 'rubber', NULL, NULL),
+(70, NULL, 'SPOT', '2023-06-30', 'EJN BUAHAN', 'BUAHAN, LAMITAN CITY', 2223, 0, 2223, 20, 0, 2223, 0, 44460, 0, 44460, 'Forty Four Thousand Four Hundred Sixty Peso/s And Centavo/s ', 'WET', 'Basilan', 0, 0, 'rubber', NULL, NULL),
+(71, NULL, 'SPOT', '2023-06-30', 'AREVALO', 'COLONIA, LAMITAN CITY', 1916, 0, 1916, 27, 0, 1916, 0, 51732, 0, 51732, 'Fifty One Thousand Seven Hundred Thirty Two Peso/s And Centavo/s ', 'WET', 'Basilan', 0, 0, 'rubber', NULL, NULL),
+(72, NULL, 'SPOT', '2023-06-30', 'MANCOM', 'maloong plantation', 1458, 0, 1458, 21, 0, 1458, 0, 30618, 0, 30618, 'Thirty Thousand Six Hundred Eighteen Peso/s And Centavo/s ', 'WET', 'Basilan', 0, 0, 'rubber', NULL, NULL),
+(73, NULL, 'SPOT', '2023-06-30', 'EJN PERSONAL', 'MALOONG PROCESSING', 1005, 0, 1005, 20, 0, 1005, 0, 20100, 0, 20100, 'Twenty Thousand One Hundred Peso/s And Centavo/s ', 'WET', 'Basilan', 0, 0, 'rubber', NULL, NULL),
+(74, NULL, 'SPOT', '2023-06-30', 'ARCO', 'ARCO, LAMITAN CITY', 7891, 0, 7891, 28, 0, 7891, 0, 220948, 0, 220948, 'Two Hundred Twenty Thousand Nine Hundred Forty Eight Peso/s And Centavo/s ', 'WET', 'Basilan', 0, 0, 'rubber', NULL, NULL),
+(76, NULL, 'SPOT', '2023-07-01', 'PLANTATION', 'MALOONG CANAL', 23724, 0, 23724, 29, 0, 23724, 0, 687996, 400000, 287996, 'Two Hundred Eighty Seven Thousand Nine Hundred Ninety Six Peso/s And Centavo/s ', 'WET', 'Basilan', 1, 0, 'rubber', NULL, NULL),
+(77, NULL, 'SPOT', '2023-07-02', 'EJN STA. CLARA', 'STA. CLARA, LAMITAN CITY', 19178, 0, 19178, 23.79, 0, 19178, 0, 456244, 0, 456245, 'Four Hundred Fifty Six Thousand Two Hundred Forty Four Peso/s And Sixty Two Centavo/s ', 'WET', 'Basilan', 1, 0, 'rubber', NULL, NULL),
+(78, NULL, 'SPOT', '2023-07-02', 'JAMES TAN', 'ISABELA CITY', 29632, 0, 29632, 29.5, 0, 29632, 0, 874144, 0, 874144, 'Eight Hundred Seventy Four Thousand One Hundred Forty Four Peso/s And Centavo/s ', 'WET', 'Basilan', 1, 0, 'rubber', NULL, NULL),
+(79, NULL, 'SPOT', '2023-06-23', 'Dayaday, Virginia', 'Paco, Kidapawan City', 3590, 3240, 350, 32.24, 0, 350, 0, 11284, 0, 11284, 'Eleven Thousand Two Hundred Eighty Four Peso/s And Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Kidapawan Plant', NULL, NULL),
+(80, NULL, 'SPOT', '2023-06-24', 'Lucero Jose', 'Makilala', 5840, 4730, 1110, 32.24, 0, 1110, 0, 35786, 0, 35786.4, 'Thirty Five Thousand Seven Hundred Eighty Six Peso/s And Forty Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie Peralta', NULL, NULL),
+(81, NULL, 'SPOT', '2023-06-24', 'Lucero Jose', 'Makilala', 5100, 3460, 1640, 32.24, 0, 1640, 0, 52873, 0, 52873.6, 'Fifty Two Thousand Eight Hundred Seventy Three Peso/s And Sixty Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie Peralta', NULL, NULL),
+(82, NULL, 'SPOT', '2023-06-24', 'Lucero Jose', 'Makilala', 5410, 3500, 1910, 32.24, 0, 1910, 0, 61578, 0, 61578.4, 'Sixty One Thousand Five Hundred Seventy Eight Peso/s And Forty Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie Peralta', NULL, NULL),
+(83, NULL, 'SPOT', '2023-06-24', 'Lucero Jose', 'Makilala', 2900, 2050, 850, 32.24, 0, 850, 0, 27404, 0, 27404, 'Twenty Seven Thousand Four Hundred Four Peso/s And Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie Peralta', NULL, NULL),
+(84, NULL, 'SPOT', '2023-06-25', 'Dayaday, Virginia', 'Paco, Kidapawan City', 4780, 3260, 1520, 32.24, 0, 1520, 0, 49004, 0, 49004.8, 'Forty Nine Thousand Four Peso/s And Eighty Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie Peralta', NULL, NULL),
+(85, NULL, 'SPOT', '2023-06-28', 'Dayaday, Virginia', 'Paco, Kidapawan City', 7060, 3320, 3740, 32.24, 0, 3740, 0, 120577, 0, 120578, 'One Hundred Twenty Thousand Five Hundred Seventy Seven Peso/s And Sixty Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie Peralta', NULL, NULL),
+(86, NULL, 'SPOT', '2023-06-28', 'Galicia Gemima', 'Mlang, Cotabato', 7730, 6050, 1680, 32.24, 0, 1680, 0, 54163, 0, 54163.2, 'Fifty Four Thousand One Hundred Sixty Three Peso/s And Twenty Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie Peralta', NULL, NULL),
+(87, NULL, 'SPOT', '2023-06-29', 'Dayaday, Virginia', 'Paco, Kidapawan City', 5160, 3280, 1880, 32.24, 0, 1880, 0, 60611, 0, 60611.2, 'Sixty Thousand Six Hundred Eleven Peso/s And Twenty Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Kidapawan Plant', NULL, NULL),
+(88, NULL, 'SPOT', '2023-06-30', 'Dagatan, Edgardo', 'Los Village Mlang, Cotabato', 6160, 3000, 3160, 32.24, 0, 3160, 0, 101878, 0, 101878, 'One Hundred One Thousand Eight Hundred Seventy Eight Peso/s And Forty Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie Peralta', NULL, NULL),
+(89, NULL, 'SPOT', '2023-07-04', 'LEE BROWN', 'PANUNSULAN, ISABELA CITY', 5725, 0, 5725, 27, 0, 5725, 0, 154575, 100000, 54575, 'Fifty Four Thousand Five Hundred Seventy Five Peso/s And Centavo/s ', 'WET', 'Basilan', 0, 0, 'Jane', NULL, NULL),
+(90, NULL, 'SPOT', '2023-06-30', 'Dayaday, Virginia', 'Paco, Kidapawan City', 5970, 3290, 2680, 32.24, 0, 2680, 0, 86403, 0, 86403.2, 'Eighty Six Thousand Four Hundred Three Peso/s And Twenty Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie Peralta', NULL, NULL),
+(91, NULL, 'SPOT', '2023-06-30', 'Galicia Gemima', 'Mlang, Cotabato', 8230, 6080, 2150, 32.24, 0, 2150, 0, 69316, 0, 69316, 'Sixty Nine Thousand Three Hundred Sixteen Peso/s And Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie Peralta', NULL, NULL),
+(92, NULL, 'SPOT', '2023-07-01', 'Lucero Jose', 'Makilala', 5340, 3540, 1800, 32.24, 0, 1800, 0, 58032, 0, 58032, 'Fifty Eight Thousand Thirty Two Peso/s And Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie Peralta', NULL, NULL),
+(93, NULL, 'SPOT', '2023-07-01', 'Lucero Jose', 'Makilala', 6170, 3540, 2630, 32.24, 0, 2630, 0, 84791, 0, 84791.2, 'Eighty Four Thousand Seven Hundred Ninety One Peso/s And Twenty Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie Peralta', NULL, NULL),
+(94, NULL, 'SPOT', '2023-07-01', 'Lucero Jose', 'Makilala', 5620, 3530, 2090, 32.24, 0, 2090, 0, 67381, 0, 67381.6, 'Sixty Seven Thousand Three Hundred Eighty One Peso/s And Sixty Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie Peralta', NULL, NULL),
+(95, NULL, 'SPOT', '2023-06-03', 'Lucero Jose', 'Makilala', 6750, 4630, 2120, 28.88, 0, 2120, 0, 61225, 0, 61225.6, 'Sixty One Thousand Two Hundred Twenty Five Peso/s And Sixty Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie ', NULL, NULL),
+(96, NULL, 'SPOT', '2023-06-03', 'Lucero Jose', 'Makilala', 5070, 3540, 1530, 28.88, 0, 1530, 0, 44186, 0, 44186.4, 'Forty Four Thousand One Hundred Eighty Six Peso/s And Forty Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie', NULL, NULL),
+(97, NULL, 'SPOT', '2023-06-03', 'Lucero Jose', 'Makilala', 6310, 4640, 1670, 28.88, 0, 1670, 0, 48229, 0, 48229.6, 'Forty Eight Thousand Two Hundred Twenty Nine Peso/s And Sixty Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie', NULL, NULL),
+(98, NULL, 'SPOT', '2023-06-07', 'Dagatan, Edgardo', 'Los Village Mlang, Cotabato', 5710, 2990, 2720, 32.24, 0, 2720, 0, 87692, 0, 87692.8, 'Eighty Seven Thousand Six Hundred Ninety Two Peso/s And Eighty Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie', NULL, NULL),
+(100, NULL, 'SPOT', '2023-06-10', 'Galicia Gemima', 'Mlang, Cotabato', 4310, 3840, 470, 32.54, 0, 470, 0, 15293, 0, 15293.8, 'Fifteen Thousand Two Hundred Ninety Three Peso/s And Eighty Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie', NULL, NULL),
+(101, NULL, 'SPOT', '2023-06-10', 'Lucero Jose', 'Makilala', 5210, 3520, 1690, 32.24, 0, 1690, 0, 54485, 0, 54485.6, 'Fifty Four Thousand Four Hundred Eighty Five Peso/s And Sixty Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie', NULL, NULL),
+(102, NULL, 'SPOT', '2023-06-10', 'Dagatan, Edgardo', 'Los Village Mlang, Cotabato', 5710, 3000, 2710, 32.24, 0, 2710, 0, 87370, 0, 87370.4, 'Eighty Seven Thousand Three Hundred Seventy Peso/s And Forty Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie', NULL, NULL),
+(103, NULL, 'SPOT', '2023-06-10', 'Lucero Jose', 'Makilala', 6780, 4660, 2120, 32.24, 0, 2120, 0, 68348, 0, 68348.8, 'Sixty Eight Thousand Three Hundred Forty Eight Peso/s And Eighty Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie', NULL, NULL),
+(104, NULL, 'SPOT', '2023-06-10', 'Lucero Jose', 'Makilala', 4850, 3520, 1330, 32.24, 0, 1330, 0, 42879, 0, 42879.2, 'Forty Two Thousand Eight Hundred Seventy Nine Peso/s And Twenty Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie', NULL, NULL),
+(105, NULL, 'SPOT', '2023-06-13', 'Dayaday, Virginia', 'Paco, Kidapawan City', 7390, 3310, 4080, 32.24, 0, 4080, 0, 131539, 0, 131539, 'One Hundred Thirty One Thousand Five Hundred Thirty Nine Peso/s And Twenty Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie', NULL, NULL),
+(106, NULL, 'SPOT', '2023-06-13', 'Dayaday, Virginia', 'Paco, Kidapawan City', 5330, 3270, 2060, 32.24, 0, 2060, 0, 66414, 0, 66414.4, 'Sixty Six Thousand Four Hundred Fourteen Peso/s And Forty Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie', NULL, NULL),
+(107, NULL, 'SPOT', '2023-06-13', 'Lucero Jose', 'Makilala', 5460, 4680, 780, 32.24, 0, 780, 0, 25147, 0, 25147.2, 'Twenty Five Thousand One Hundred Forty Seven Peso/s And Twenty Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie', NULL, NULL),
+(108, NULL, 'SPOT', '2023-06-14', 'Galicia Gemima', 'Mlang, Cotabato', 7780, 6020, 1760, 32.24, 0, 1760, 0, 56742, 0, 56742.4, 'Fifty Six Thousand Seven Hundred Forty Two Peso/s And Forty Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie', NULL, NULL),
+(109, NULL, 'SPOT', '2023-06-15', 'Dayaday, Virginia', 'Paco, Kidapawan City', 4860, 3260, 1600, 32.24, 0, 1600, 0, 51584, 0, 51584, 'Fifty One Thousand Five Hundred Eighty Four Peso/s And Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie', NULL, NULL),
+(110, NULL, 'SPOT', '2023-06-15', 'Galicia Gemima', 'Mlang, Cotabato', 8550, 6060, 2490, 32.24, 0, 2490, 0, 80277, 0, 80277.6, 'Eighty Thousand Two Hundred Seventy Seven Peso/s And Sixty Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie', NULL, NULL),
+(111, NULL, 'SPOT', '2023-06-17', 'Lucero Jose', 'Makilala', 6190, 4610, 1580, 32.24, 0, 1580, 0, 50939, 0, 50939.2, 'Fifty Thousand Nine Hundred Thirty Nine Peso/s And Twenty Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie', NULL, NULL),
+(112, NULL, 'SPOT', '2023-06-17', 'Lucero Jose', 'Makilala', 4690, 3500, 1190, 32.24, 0, 1190, 0, 38365, 0, 38365.6, 'Thirty Eight Thousand Three Hundred Sixty Five Peso/s And Sixty Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie', NULL, NULL),
+(113, NULL, 'SPOT', '2023-06-17', 'Lucero Jose', 'Makilala', 5630, 4640, 990, 32.24, 0, 990, 0, 31917, 0, 31917.6, 'Thirty One Thousand Nine Hundred Seventeen Peso/s And Sixty Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie', NULL, NULL),
+(114, NULL, 'SPOT', '2023-06-18', 'Dayaday, Virginia', 'Paco, Kidapawan City', 2130, 1390, 740, 32.24, 0, 740, 0, 23857, 0, 23857.6, 'Twenty Three Thousand Eight Hundred Fifty Seven Peso/s And Sixty Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie', NULL, NULL),
+(115, NULL, 'SPOT', '2023-06-20', 'Dagatan, Edgardo', 'Los Village Mlang, Cotabato', 6070, 3000, 3070, 32.24, 0, 3070, 0, 98976, 0, 98976.8, 'Ninety Eight Thousand Nine Hundred Seventy Six Peso/s And Eighty Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie', NULL, NULL),
+(116, NULL, 'SPOT', '2023-06-17', 'Lucero Jose', 'Makilala', 4950, 3500, 1450, 32.24, 0, 1450, 0, 46748, 0, 46748, 'Forty Six Thousand Seven Hundred Forty Eight Peso/s And Centavo/s ', 'WET', 'Kidapawan', 1, 0, 'Rannie', NULL, NULL),
+(118, NULL, 'SPOT', '2023-07-07', 'INFANTE', 'ISABELA CITY', 9642, 0, 9642, 29.5, 0, 9642, 0, 284439, 0, 284439, 'Two Hundred Eighty Four Thousand Four Hundred Thirty Nine Peso/s And Centavo/s ', 'WET', 'Basilan', 0, 0, 'Jane', NULL, NULL),
+(119, NULL, 'SPOT', '2023-07-10', 'JOEL AMAHAN', 'BOHE SAPA', 2431, 0, 2431, 26, 0, 2431, 0, 63206, 0, 63206, 'Sixty Three Thousand Two Hundred Six Peso/s And Centavo/s ', 'WET', 'Basilan', 0, 0, 'Jane', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -3871,13 +5212,15 @@ INSERT INTO `rubber_transaction` (`id`, `invoice`, `contract`, `date`, `seller`,
 
 CREATE TABLE `sales_cuplump_container` (
   `container_id` int(11) NOT NULL,
-  `container_no` varchar(255) NOT NULL,
+  `van_no` varchar(255) NOT NULL,
+  `location` varchar(255) NOT NULL,
   `loading_date` date NOT NULL,
   `remarks` varchar(255) NOT NULL,
   `recorded_by` varchar(255) NOT NULL,
   `total_cuplump_weight` float NOT NULL,
   `total_cuplump_cost` decimal(10,2) NOT NULL,
   `ave_cuplump_cost` decimal(10,2) NOT NULL,
+  `ship_exp` decimal(10,2) NOT NULL,
   `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -3885,36 +5228,95 @@ CREATE TABLE `sales_cuplump_container` (
 -- Dumping data for table `sales_cuplump_container`
 --
 
-INSERT INTO `sales_cuplump_container` (`container_id`, `container_no`, `loading_date`, `remarks`, `recorded_by`, `total_cuplump_weight`, `total_cuplump_cost`, `ave_cuplump_cost`, `status`) VALUES
-(16, 'ABC', '2023-06-15', 'ABC', 'ABC', 3, 81.00, 24.54, 'Complete'),
-(17, 'AAAA', '2023-06-16', 'qwe11', 'mark', 0, 0.00, 0.00, 'Draft'),
-(18, '', '0000-00-00', '', '', 0, 0.00, 0.00, 'Draft');
+INSERT INTO `sales_cuplump_container` (`container_id`, `van_no`, `location`, `loading_date`, `remarks`, `recorded_by`, `total_cuplump_weight`, `total_cuplump_cost`, `ave_cuplump_cost`, `ship_exp`, `status`) VALUES
+(2, '', '', '2023-07-03', '', 'Raquel Bais', 0, 0.00, 0.00, 0.00, 'Complete'),
+(3, 'REGU 3286848', 'LAMITAN ', '2023-04-04', '', 'ROGELEY RAMOS', 18970, 650339.03, 34.28, 10.50, 'Shipped Out'),
+(4, 'TEST', 'TEST', '2023-07-16', 'TEST', 'Raquel Bais', 2379, 53950.87, 22.68, 10.50, 'Shipped Out');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sales_cuplump_inventory`
+-- Table structure for table `sales_cuplump_container_inv`
 --
 
-CREATE TABLE `sales_cuplump_inventory` (
+CREATE TABLE `sales_cuplump_container_inv` (
   `cuplump_inventory_id` int(11) NOT NULL,
   `sales_cuplump_id` int(11) NOT NULL,
   `supplier` varchar(255) NOT NULL,
+  `location` varchar(255) NOT NULL,
   `loading_weight` int(255) NOT NULL,
   `cost_type` decimal(10,2) NOT NULL,
   `wet_cost` decimal(10,2) NOT NULL,
   `dry_cost` decimal(10,2) NOT NULL,
   `drc` decimal(10,2) NOT NULL,
-  `cuplump_cost` decimal(10,2) NOT NULL
+  `cuplump_cost` decimal(10,2) NOT NULL,
+  `amount_paid` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `sales_cuplump_inventory`
+-- Dumping data for table `sales_cuplump_container_inv`
 --
 
-INSERT INTO `sales_cuplump_inventory` (`cuplump_inventory_id`, `sales_cuplump_id`, `supplier`, `loading_weight`, `cost_type`, `wet_cost`, `dry_cost`, `drc`, `cuplump_cost`) VALUES
-(14, 16, 'ABC', 2333, 0.00, 32.00, 0.00, 0.00, 74656.00),
-(15, 16, 'B', 1000, 0.00, 0.00, 23.00, 31.00, 7130.00);
+INSERT INTO `sales_cuplump_container_inv` (`cuplump_inventory_id`, `sales_cuplump_id`, `supplier`, `location`, `loading_weight`, `cost_type`, `wet_cost`, `dry_cost`, `drc`, `cuplump_cost`, `amount_paid`) VALUES
+(3, 3, 'HARIE SABTAL', 'SAYUGAN ', 18970, 0.00, 0.00, 52.50, 65.30, 650339.03, 650339.03),
+(9, 4, 'AC', 'A', 2333, 0.00, 23.00, 0.00, 0.00, 53659.00, 0.00),
+(10, 4, 'C', '', 23, 0.00, 0.00, 32.00, 3.00, 22.08, 0.00),
+(13, 4, '', '', 23, 0.00, 0.00, 23.00, 51.00, 269.79, 0.00);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sales_cuplump_shipment`
+--
+
+CREATE TABLE `sales_cuplump_shipment` (
+  `shipment_id` int(11) NOT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `status` varchar(255) NOT NULL,
+  `ship_date` date NOT NULL,
+  `destination` varchar(255) DEFAULT NULL,
+  `source` varchar(255) DEFAULT NULL,
+  `vessel` varchar(255) DEFAULT NULL,
+  `bill_lading` varchar(255) NOT NULL,
+  `freight` decimal(10,2) NOT NULL,
+  `loading_unloading` decimal(10,2) NOT NULL,
+  `processing_fee` decimal(10,2) NOT NULL,
+  `trucking_expense` decimal(10,2) NOT NULL,
+  `cranage_fee` decimal(10,2) NOT NULL,
+  `miscellaneous` decimal(10,2) NOT NULL,
+  `total_shipping_expense` decimal(10,2) NOT NULL,
+  `no_containers` int(11) NOT NULL,
+  `ship_cost_container` decimal(10,2) NOT NULL,
+  `remarks` varchar(255) DEFAULT NULL,
+  `recorded_by` varchar(255) DEFAULT NULL,
+  `total_cuplump_weight` float NOT NULL,
+  `total_cuplump_cost` decimal(10,2) NOT NULL,
+  `ave_cuplump_cost` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `sales_cuplump_shipment`
+--
+
+INSERT INTO `sales_cuplump_shipment` (`shipment_id`, `type`, `status`, `ship_date`, `destination`, `source`, `vessel`, `bill_lading`, `freight`, `loading_unloading`, `processing_fee`, `trucking_expense`, `cranage_fee`, `miscellaneous`, `total_shipping_expense`, `no_containers`, `ship_cost_container`, `remarks`, `recorded_by`, `total_cuplump_weight`, `total_cuplump_cost`, `ave_cuplump_cost`) VALUES
+(0, 'EXPORT', 'Draft', '2023-07-16', 'A', 'B', 'C', 'D', 1.00, 2.00, 3.00, 4.00, 5.00, 6.00, 21.00, 1, 10.50, 'E', 'F', 2, 53.00, 22.68);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sales_cuplump_shipment_container`
+--
+
+CREATE TABLE `sales_cuplump_shipment_container` (
+  `cs_id` int(11) NOT NULL,
+  `shipment_id` int(11) NOT NULL,
+  `container_id` int(11) NOT NULL,
+  `loading_date` date DEFAULT NULL,
+  `van_no` varchar(255) NOT NULL,
+  `total_weight` decimal(10,2) NOT NULL,
+  `total_cost` decimal(10,2) NOT NULL,
+  `ave_cost` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -3986,6 +5388,7 @@ CREATE TABLE `transaction_record` (
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
   `username` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
   `type` varchar(100) NOT NULL,
@@ -3996,16 +5399,17 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `type`, `loc`) VALUES
-(1, 'admin', 'admin', 'admin', 'Basilan'),
-(2, 'ledger', 'ledger', 'finance', 'Basilan'),
-(3, 'rubber', 'rubber', 'rubber', 'Basilan'),
-(4, 'copra', 'copra', 'copra', 'Basilan'),
-(5, 'planta', 'planta', 'planta', 'Basilan'),
-(7, 'cecile', 'cecile', 'rubber', 'Kidapawan'),
-(8, 'Jovie', 'jovie', 'planta', 'Basilan'),
-(9, 'sales', 'sales', 'sales', 'Basilan\r\n'),
-(10, 'rannie', 'plant_rannie', 'planta', 'Kidapawan');
+INSERT INTO `users` (`id`, `name`, `username`, `password`, `type`, `loc`) VALUES
+(1, 'Richard New', 'admin', 'admin', 'admin', 'Basilan'),
+(2, 'Mae', 'ledger', 'ledger', 'finance', 'Basilan'),
+(3, 'Jane', 'rubber', 'rubber', 'rubber', 'Basilan'),
+(4, 'Joseph', 'copra', 'copra', 'copra', 'Basilan'),
+(5, 'Jean', 'planta', 'planta', 'planta', 'Basilan'),
+(7, 'Cecile', 'cecile', 'cecile', 'rubber', 'Kidapawan'),
+(8, 'Jovie', 'Jovie', 'jovie', 'planta', 'Basilan'),
+(9, 'Raquel Bais', 'raquel', 'sales123', 'sales', 'Basilan'),
+(10, 'Rannie', 'rubber_purchasing', 'kidapawan', 'rubber', 'Kidapawan'),
+(11, 'Kidapawan Plant', 'rubber_plant', 'kidapawan', 'planta', 'Kidapawan');
 
 --
 -- Indexes for dumped tables
@@ -4024,10 +5428,28 @@ ALTER TABLE `bales_container_selection`
   ADD PRIMARY KEY (`selected_id`);
 
 --
+-- Indexes for table `bales_outsource_purchase`
+--
+ALTER TABLE `bales_outsource_purchase`
+  ADD PRIMARY KEY (`outsource_recording_id`);
+
+--
 -- Indexes for table `bales_purchase_inventory`
 --
 ALTER TABLE `bales_purchase_inventory`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `bales_sales_container`
+--
+ALTER TABLE `bales_sales_container`
+  ADD PRIMARY KEY (`sales_container_id`);
+
+--
+-- Indexes for table `bales_sales_payment`
+--
+ALTER TABLE `bales_sales_payment`
+  ADD PRIMARY KEY (`payment_id`);
 
 --
 -- Indexes for table `bales_sales_record`
@@ -4180,10 +5602,16 @@ ALTER TABLE `sales_cuplump_container`
   ADD PRIMARY KEY (`container_id`);
 
 --
--- Indexes for table `sales_cuplump_inventory`
+-- Indexes for table `sales_cuplump_container_inv`
 --
-ALTER TABLE `sales_cuplump_inventory`
+ALTER TABLE `sales_cuplump_container_inv`
   ADD PRIMARY KEY (`cuplump_inventory_id`);
+
+--
+-- Indexes for table `sales_cuplump_shipment_container`
+--
+ALTER TABLE `sales_cuplump_shipment_container`
+  ADD PRIMARY KEY (`cs_id`);
 
 --
 -- Indexes for table `seller`
@@ -4211,49 +5639,67 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `bales_container_record`
 --
 ALTER TABLE `bales_container_record`
-  MODIFY `container_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `container_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `bales_container_selection`
 --
 ALTER TABLE `bales_container_selection`
-  MODIFY `selected_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `selected_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
+
+--
+-- AUTO_INCREMENT for table `bales_outsource_purchase`
+--
+ALTER TABLE `bales_outsource_purchase`
+  MODIFY `outsource_recording_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `bales_purchase_inventory`
 --
 ALTER TABLE `bales_purchase_inventory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=173;
+
+--
+-- AUTO_INCREMENT for table `bales_sales_container`
+--
+ALTER TABLE `bales_sales_container`
+  MODIFY `sales_container_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `bales_sales_payment`
+--
+ALTER TABLE `bales_sales_payment`
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `bales_sales_record`
 --
 ALTER TABLE `bales_sales_record`
-  MODIFY `bales_sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `bales_sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `bales_shipment_container`
 --
 ALTER TABLE `bales_shipment_container`
-  MODIFY `bs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `bs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `bales_transaction`
 --
 ALTER TABLE `bales_transaction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
 -- AUTO_INCREMENT for table `bale_shipment_record`
 --
 ALTER TABLE `bale_shipment_record`
-  MODIFY `shipment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `shipment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `category_expenses`
 --
 ALTER TABLE `category_expenses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
 
 --
 -- AUTO_INCREMENT for table `contract_purchase`
@@ -4271,7 +5717,7 @@ ALTER TABLE `copra_cashadvance`
 -- AUTO_INCREMENT for table `dry_price_transfer`
 --
 ALTER TABLE `dry_price_transfer`
-  MODIFY `dry_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
+  MODIFY `dry_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=190;
 
 --
 -- AUTO_INCREMENT for table `ejn_rubber_transfer`
@@ -4295,25 +5741,25 @@ ALTER TABLE `ledger_buying_station`
 -- AUTO_INCREMENT for table `ledger_cashadvance`
 --
 ALTER TABLE `ledger_cashadvance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=866;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=959;
 
 --
 -- AUTO_INCREMENT for table `ledger_expenses`
 --
 ALTER TABLE `ledger_expenses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=738;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1410;
 
 --
 -- AUTO_INCREMENT for table `ledger_maloong`
 --
 ALTER TABLE `ledger_maloong`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `ledger_purchase`
 --
 ALTER TABLE `ledger_purchase`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=643;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=731;
 
 --
 -- AUTO_INCREMENT for table `moisture_table`
@@ -4325,13 +5771,13 @@ ALTER TABLE `moisture_table`
 -- AUTO_INCREMENT for table `planta_bales_production`
 --
 ALTER TABLE `planta_bales_production`
-  MODIFY `bales_prod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `bales_prod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=228;
 
 --
 -- AUTO_INCREMENT for table `planta_recording`
 --
 ALTER TABLE `planta_recording`
-  MODIFY `recording_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `recording_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=211;
 
 --
 -- AUTO_INCREMENT for table `planta_recording_logs`
@@ -4361,25 +5807,31 @@ ALTER TABLE `rubber_contract`
 -- AUTO_INCREMENT for table `rubber_seller`
 --
 ALTER TABLE `rubber_seller`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `rubber_transaction`
 --
 ALTER TABLE `rubber_transaction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
 
 --
 -- AUTO_INCREMENT for table `sales_cuplump_container`
 --
 ALTER TABLE `sales_cuplump_container`
-  MODIFY `container_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `container_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `sales_cuplump_inventory`
+-- AUTO_INCREMENT for table `sales_cuplump_container_inv`
 --
-ALTER TABLE `sales_cuplump_inventory`
-  MODIFY `cuplump_inventory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+ALTER TABLE `sales_cuplump_container_inv`
+  MODIFY `cuplump_inventory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `sales_cuplump_shipment_container`
+--
+ALTER TABLE `sales_cuplump_shipment_container`
+  MODIFY `cs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `seller`
@@ -4397,7 +5849,7 @@ ALTER TABLE `transaction_record`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
