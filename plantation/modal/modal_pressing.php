@@ -98,7 +98,7 @@
                             <div class="input-group">
                                 <span class="input-group-text">₱</span>
                                 <input type="text" style='font-size:19px' class="form-control text-center"
-                                    id="press_u_mill_cost" name='mill_cost' >
+                                    id="press_u_mill_cost" name='mill_cost' value='12' >
                             </div>
                         </div>
                     </div>
@@ -225,3 +225,4 @@
         </div>
     </div>
 </div>
+

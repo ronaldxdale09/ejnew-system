@@ -122,10 +122,10 @@ while ($array = mysqli_fetch_array($res)) {
     <div class="col-sm-4">
         <div class="row">
             <div class="col">
-                <input type="text" class='form-control' id="min" name="min" style="width: 150px;" placeholder="From Date:">
+                <input type="text" class='form-control' id="min" name="min" style="width: 150px;" autocomplete="off" placeholder="From Date:">
             </div>
             <div class="col">
-                <input type="text" class='form-control' id="max" name="max" style="width: 150px;" placeholder="To Date:">
+                <input type="text" class='form-control' id="max" name="max" style="width: 150px;" autocomplete="off" placeholder="To Date:">
             </div>
         </div>
     </div>
@@ -141,9 +141,10 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  ORDER BY id DESC")
 <!-- expenses table -->
 <div id='total_expenses'> </div>
 <div class="table-responsive">
-    <table class="table" id="expenses_table">
+    <table class="table table-hover" style='width:100%' id="expenses_table">
         <thead class="table-dark">
             <tr>
+                <th hidden></th>
                 <th scope="col">DATE</th>
                 <th scope="col">PARTICULARS</th>
                 <th scope="col">VOC#</th>
@@ -158,7 +159,8 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  ORDER BY id DESC")
 
             <?php while ($row = mysqli_fetch_array($results)) { ?>
                 <tr>
-                    <td>
+                    <td style="display: none;"><?php echo $row['date']; ?></td>
+                    <td data-sort="<?php echo strtotime($row['date']); ?>">
                         <?php
                         $date = new DateTime($row['date']);
                         echo $date->format('F j, Y'); // Outputs date as "May 14, 2023"
@@ -183,10 +185,10 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  ORDER BY id DESC")
                         <?php echo $row['remarks'] ?>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-secondary text-white btnPressUpdate" data-id="<?php echo $row['id'] ?>" data-voucher_no="<?php echo $row['voucher_no'] ?>" data-particulars="<?php echo $row['particulars'] ?>" data-date="<?php echo $row['date'] ?>" data-type="<?php echo $row['type_expense'] ?>" data-amount="<?php echo $row['amount'] ?>" data-description="<?php echo $row['description'] ?>" data-mode_transact="<?php echo $row['mode_transact'] ?>" data-category="<?php echo $row['category'] ?>" data-date_payment="<?php echo $row['date_payment'] ?>" data-location="<?php echo $row['location'] ?>">
+                        <button type="button" class="btn btn-secondary btn-sm text-white btnPressUpdate" data-id="<?php echo $row['id'] ?>" data-voucher_no="<?php echo $row['voucher_no'] ?>" data-particulars="<?php echo $row['particulars'] ?>" data-date="<?php echo $row['date'] ?>" data-type="<?php echo $row['type_expense'] ?>" data-amount="<?php echo $row['amount'] ?>" data-description="<?php echo $row['description'] ?>" data-mode_transact="<?php echo $row['mode_transact'] ?>" data-category="<?php echo $row['category'] ?>" data-date_payment="<?php echo $row['date_payment'] ?>" data-location="<?php echo $row['location'] ?>">
                             <span class="fa fa-edit"></span>
                         </button>
-                        <button type="button" class="btn btn-danger text-white btnExpenseDelete" data-id="<?php echo $row['id'] ?>">
+                        <button type="button" class="btn btn-danger btn-sm  text-white btnExpenseDelete" data-id="<?php echo $row['id'] ?>">
                             <span class="fa fa-trash"></span>
                         </button>
                     </td>
@@ -219,7 +221,6 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  ORDER BY id DESC")
             $('#dateDropdown').text(selected); // sets the button text
         });
     });
-
 
     $(document).ready(function() {
 
@@ -263,17 +264,23 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  ORDER BY id DESC")
 
 
 
-
         $.fn.dataTable.ext.search.push(
             function(settings, data, dataIndex) {
                 var min = $('#min').datepicker("getDate");
                 var max = $('#max').datepicker("getDate");
+
+                if (max) {
+                    // set max to the next day at 00:00:00.000
+                    max.setDate(max.getDate() + 1);
+                    max.setHours(0, 0, 0, 0);
+                }
+
                 var startDate = new Date(data[0]);
 
                 if (min == null && max == null) return true;
-                if (min == null && startDate <= max) return true;
+                if (min == null && startDate < max) return true; // change <= to <
                 if (max == null && startDate >= min) return true;
-                if (startDate <= max && startDate >= min) return true;
+                if (startDate < max && startDate >= min) return true; // change <= to <
                 return false;
             }
         );
@@ -292,21 +299,21 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  ORDER BY id DESC")
                     extend: 'excelHtml5',
                     footer: true,
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5]
+                        columns: [1, 2, 3, 4, 5, 6]
                     }
                 },
                 {
                     extend: 'pdfHtml5',
                     footer: true,
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5]
+                        columns: [1, 2, 3, 4, 5, 6]
                     }
                 },
                 {
                     extend: 'print',
                     footer: true,
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5]
+                        columns: [1, 2, 3, 4, 5, 6]
                     }
                 }
             ],
@@ -318,7 +325,7 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  ORDER BY id DESC")
                 $(api.column(4).footer()).html('Total');
 
 
-                sum = api.column(5, {
+                sum = api.column(6, {
                     page: 'current'
                 }).data().sum();
 
@@ -327,7 +334,7 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  ORDER BY id DESC")
                     minimumFractionDigits: 2
                 });
                 $(api.column(5).footer()).html(formated);
-                $('#total_expenses').html(formated);
+
 
             },
         });

@@ -26,9 +26,70 @@ include 'include/navbar.php';
                                 <font color="#046D56"> SHIPMENT </font>
                             </b>
                         </h2>
-
                         <br>
-
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="stat-card">
+                                    <div class="stat-card__content">
+                                        <p class="text-uppercase mb-1 text-muted"><b>ACTIVE</b> SHIPMENT</p>
+                                        <h3>
+                                            <i class="text-danger font-weight-bold mr-1"></i>
+                                            <i> Updating </i>
+                                        </h3>
+                                        <div>
+                                            <span class="text-muted">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="stat-card__icon stat-card__icon--primary">
+                                        <div class="stat-card__icon-circle">
+                                            <i class="fa fa-truck"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="stat-card">
+                                    <div class="stat-card__content">
+                                        <p class="text-uppercase mb-1 text-muted"><b>SHIPMENT</b> COMPLETED </p>
+                                        <h3>
+                                            <i class="text-danger font-weight-bold mr-1"></i>
+                                            <i> Updating </i>
+                                        </h3>
+                                        <div>
+                                            <span class="text-muted">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="stat-card__icon stat-card__icon--success">
+                                        <div class="stat-card__icon-circle">
+                                            <i class="fa fa-cube"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="stat-card">
+                                    <div class="stat-card__content">
+                                        <p class="text-uppercase mb-1 text-muted"><b>TOTAL SHIPPING</b> EXPENSES </p>
+                                        <h3>
+                                            <i class="text-success font-weight-bold mr-1"></i>
+                                            <i> Updating </i>
+                                        </h3>
+                                        <div>
+                                            <span class="text-muted">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="stat-card__icon stat-card__icon--warning">
+                                        <div class="stat-card__icon-circle">
+                                            <i class="fa fa-ship"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="background-color: #2452af; height: 6px;"></div><!-- This is the blue bar -->
                         <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
                             <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#newShipment">NEW SHIPMENT</button>
                             <hr>
@@ -41,16 +102,18 @@ include 'include/navbar.php';
                                     <thead class="table-dark text-center" style="font-size: 14px !important">
                                         <tr>
                                             <th scope="col">Status</th>
-                                            <th scope="col">Shipping ID</th>
-                                            <th scope="col">Type</th>
+                                            <th scope="col">Ship. ID</th>
                                             <th scope="col">Date</th>
-                                            <th scope="col">Destination</th>
+                                            <th scope="col">Type</th>
                                             <th scope="col">Source</th>
+                                            <th scope="col">Destination</th>
                                             <th scope="col">Shipping Expense</th>
-                                            <th scope="col">No. of Containers</th>
-                                            <th scope="col">Total Bale Weight</th>
-                                            <th scope="col">Total Bale Cost</th>
-
+                                            <th scope="col">Containers</th>
+                                            <th scope="col">No. of Bales</th>
+                                            <th scope="col">Bale Weight</th>
+                                            <th scope="col">Remarks</th>
+                                            <th scope="col" hidden>Recorded by</th>
+                                            <th scope="col"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -63,36 +126,39 @@ include 'include/navbar.php';
                                                 case "In Progress":
                                                     $status_color = 'bg-warning';
                                                     break;
-                                                case "Awaiting Shipment":
+                                                case "Complete":
                                                     $status_color = 'bg-success';
-                                                    break;
-                                                case "Released":
-                                                    $status_color = 'bg-primary';
                                                     break;
                                             }
 
                                         ?>
                                             <tr>
-
-                                                <td><?php echo $row['shipment_id']; ?></td>
+                                                <td> <span class="badge <?php echo $status_color; ?>">
+                                                        <?php echo $row['status'] ?>
+                                                <td class="text-center"><?php echo $row['shipment_id']; ?></td>
+                                                <td><?php echo date('F j, Y', strtotime($row['ship_date'])); ?></td>
                                                 <td><?php echo $row['type']; ?></td>
-                                                <td><?php echo $row['ship_date']; ?></td>
-                                                <td><?php echo $row['destination']; ?></td>
                                                 <td><?php echo $row['source']; ?></td>
+                                                <td><?php echo $row['destination']; ?></td>
                                                 <td class="number-cell">₱
                                                     <?php echo number_format($row['total_shipping_expense'], 2, '.', ','); ?>
                                                 </td>
+                                                <td class="text-center">
+                                                    <?php echo $row['no_containers']; ?>
+                                                </td>
                                                 <td class="number-cell">
-                                                    <?php echo $row['no_containers']; ?> containers
+                                                    <?php echo number_format($row['total_num_bales'], 0, '.', ','); ?> pcs
                                                 </td>
                                                 <td class="number-cell">
                                                     <?php echo number_format($row['total_bale_weight'], 0, '.', ','); ?> kg
                                                 </td>
-                                                <td class="number-cell">₱
-                                                    <?php echo number_format($row['total_bale_cost'], 2, '.', ','); ?>
+                                                <td><?php echo $row['remarks']; ?></td>
+                                                <td hidden><?php echo $row['recorded_by']; ?></td>
+                                                <td>
+                                                    <button type="button" class="btn btn-success btn-sm btnViewRecord" data-status="<?php echo $row['status']; ?>" data-vessel="<?php echo $row['vessel']; ?>" data-bill_lading="<?php echo $row['bill_lading']; ?>" data-recorded="<?php echo $row['recorded_by']; ?>" data-freight="<?php echo $row['freight']; ?>" data-loading="<?php echo $row['loading_unloading']; ?>" data-processing="<?php echo $row['processing_fee']; ?>" data-trucking="<?php echo $row['trucking_expense']; ?>" data-cranage="<?php echo $row['cranage_fee']; ?>" data-misc="<?php echo $row['miscellaneous']; ?>" data-total_expense="<?php echo $row['total_shipping_expense']; ?>" data-num_containers="<?php echo $row['no_containers']; ?>" data-cost_per_container="<?php echo $row['ship_cost_container']; ?>">
+                                                        <i class="fas fa-book"></i>
+                                                    </button>
                                                 </td>
-
-
                                             </tr>
                                         <?php } ?>
                                     </tbody>
@@ -105,8 +171,6 @@ include 'include/navbar.php';
             </div>
         </div>
     </div>
-
-    <?php include 'modal/modal_container.php'; ?>
 
     <script>
         $(document).ready(function() {
@@ -134,58 +198,86 @@ include 'include/navbar.php';
 
 
 
-        // $('.btnViewRecord').on('click', function() {
-        //     $tr = $(this).closest('tr');
+        $('.btnViewRecord').on('click', function() {
+            $tr = $(this).closest('tr');
 
-        //     var data = $tr.children("td").map(function() {
-        //         return $(this).text();
-        //     }).get();
+            var data = $tr.children("td").map(function() {
+                return $(this).text();
+            }).get();
 
-        //     $('#v_id').val(data[0]);
+            $('#v_ship_id').val(data[1]);
+            $('#v_type').val(data[3]);
+            $('#v_date').val(data[2]);
+            $('#v_source').val(data[4]);
+            $('#v_destination').val(data[5]);
 
-        //     $('#v_container_no').val(data[1]);
-        //     $('#v_van').val(data[2]);
-        //     $('#v_date').val(data[3]);
-        //     $('#v_quality').val(data[4]);
-        //     $('#v_kilo').val(data[5]);
-        //     $('#v_remarks').val(data[8]);
-        //     $('#v_recorded').val(data[9]);
+            $('#v_remarks').val(data[10]);
+            $('#v_recorded_by').val(data[11]);
 
-        //     var status = $(this).data('status');
 
-        //     if (status == "Awaiting Shipment") {
-        //         $('#releaseButton').show();
-        //     } else if (status == 'Released') {
-        //         $('#editButton').hide();
-        //         $('#releaseButton').hide();
-        //     } else {
-        //         $('#releaseButton').hide();
-        //     }
+            var vessel = $(this).data('vessel');
+            var bill_lading = $(this).data('bill_lading');
+            var recorded = $(this).data('recorded');
+            $('#v_vessel').val(vessel);
+            $('#v_bill_lading').val(bill_lading);
+            $('#v_recorded_by').val(recorded);
 
-        //     function fetch_table() {
+            var freight = $(this).data('freight');
+            var loading = $(this).data('loading');
+            var processing = $(this).data('processing');
+            var trucking = $(this).data('trucking');
+            var cranage = $(this).data('cranage');
+            var misc = $(this).data('misc');
+            var total_expense = $(this).data('total_expense');
+            var num_containers = $(this).data('num_containers');
+            var cost_per_container = $(this).data('cost_per_container');
 
-        //         var container_id = (data[0]);
-        //         $.ajax({
-        //             url: "table/contaner_bales_record.php",
-        //             method: "POST",
-        //             data: {
-        //                 container_id: container_id,
-
-        //             },
-        //             success: function(data) {
-        //                 $('#container_record').html(data);
-        //             }
-        //         });
-        //     }
-        //     fetch_table();
-
+            $('#v_ship_exp_freight').val(parseFloat(freight).toLocaleString('en'));
+            $('#v_ship_exp_loading').val(parseFloat(loading).toLocaleString('en'));
+            $('#v_ship_exp_processing').val(parseFloat(processing).toLocaleString('en'));
+            $('#v_ship_exp_trucking').val(parseFloat(trucking).toLocaleString('en'));
+            $('#v_ship_exp_cranage').val(parseFloat(cranage).toLocaleString('en'));
+            $('#v_ship_exp_misc').val(parseFloat(misc).toLocaleString('en'));
+            $('#v_total_ship_exp').val(parseFloat(total_expense).toLocaleString('en'));
+            $('#v_number_container').val(parseFloat(num_containers).toLocaleString('en'));
+            $('#v_ship_cost_per_container').val(parseFloat(cost_per_container).toLocaleString('en'));
 
 
 
-        //     $('#newShipment').modal('show');
 
 
-        // });
+            var status = $(this).data('status');
+
+            if (status == "Complete") {
+                $('#editButton').hide();
+            } else if (status == 'Draft') {
+                $('#editButton').show();
+            } else if (status == 'In Progress') {
+                $('#editButton').show();
+            }
+
+
+            function fetch_table() {
+
+                var shipment_id = (data[1]);
+                $.ajax({
+                    url: "table/bales_shipment_container_record.php",
+                    method: "POST",
+                    data: {
+                        shipment_id: shipment_id,
+
+                    },
+                    success: function(data) {
+                        $('#shipment_container_record').html(data);
+                    }
+                });
+            }
+            fetch_table();
+
+            $('#baleShipmentModal').modal('show');
+
+
+        });
     </script>
 
 

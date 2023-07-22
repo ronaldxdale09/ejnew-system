@@ -43,7 +43,7 @@ if (mysqli_num_rows($result) > 0) {
             case "In Progress":
                 $status_color = 'bg-warning';
                 break;
-            case "Awaiting Shipment":
+            case "Complete":
                 $status_color = 'bg-success';
                 break;
             case "Released":

@@ -50,9 +50,9 @@ if (!$result) {
 <table class="table table-bordered" id="rubber-record">
 <thead class="table-dark" style="font-size: 10px !important" >
         <tr>
+        <th scope="col">Bales ID.</th>
         <th scope="col">Supplier</th>
         <th scope="col">LOT</th>
-        <th scope="col">Lot No.</th>
         <th scope="col">Quality</th>
         <th scope="col">Kilo per Bale</th>
         <th scope="col">Withdrawal Bales</th>
@@ -76,10 +76,16 @@ if(mysqli_num_rows($result) > 0) {
         $total_bales_count += $arr['num_bales'];
         $total_weight += $weight;
 
-        $unit_cost = $arr['total_production_cost'] / $arr['produce_total_weight'];
+        if ($arr['produce_total_weight'] != 0) {
+            $unit_cost = $arr['total_production_cost'] / $arr['produce_total_weight'];
+        } else {
+            // Handle the case when 'produce_total_weight' is zero
+            // You can assign a default value or display an error message
+            $unit_cost = 0; // Assigning a default value of zero
+        }
         $total_unit_cost = $unit_cost * $weight;
         $total_bale_cost += $total_unit_cost;
-        $average_kilo_cost = $total_bale_cost / $total_weight;
+     
 
         $milling_cost = $arr['milling_cost'];
         $total_milling_cost = $arr['milling_cost'] * $weight ;
@@ -88,9 +94,9 @@ if(mysqli_num_rows($result) > 0) {
 
         $output .= '
         <tr style="font-weight:bold" data-bales_id="'.$arr['bales_id'].'"> 
+        <td>'.$arr["bales_id"].'</td>
             <td>'.$arr["supplier"].'</td>
             <td>'.$arr["lot_num"].'</td>
-            <td>'.$arr["recording_id"].'</td>
             <td>'.$arr["bales_type"].'</td>
             <td>'.$arr["kilo_per_bale"].' kg</td>
             <td>'.$arr["num_bales"].' pcs</td>
@@ -102,6 +108,8 @@ if(mysqli_num_rows($result) > 0) {
             <td>₱ '.number_format($total_milling_cost,0).' </td>
         </tr>';
     }
+    $average_kilo_cost = ($total_bale_cost + $overall_milling_cost ) / $total_weight;
+
 }
 
 $output .= '
@@ -149,4 +157,3 @@ $output .= '
 
 
 echo $output;
-?>

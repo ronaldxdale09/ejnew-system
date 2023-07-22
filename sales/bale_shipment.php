@@ -103,7 +103,8 @@ if (isset($_GET['id'])) {
                                         <button type="button" class="btn btn-warning btnDraft"><span class="fas fa-info-circle"></span> Save as Draft</button>
 
                                         <button type="button" class="btn btn-danger btnVoid"> <span class="fas fa-times"></span> Void Shipment</button>
-                                        <button type="button" class="btn btn-primary confirmShipment" id="confirmShipment">Confirm
+                                        <button type="button" class="btn btn-primary confirmShipment" id="confirmShipment"><span class="fas fa-check"></span>
+                                        Confirm
                                             Shipment</button>
                                     </div>
                                 </div>
@@ -188,16 +189,16 @@ if (isset($_GET['id'])) {
                                 <div class="card">
                                     <div class="card-body d-flex justify-content-between align-items-center">
                                         <h4>Containers</h4>
-                                        <button id="add-row-btn" class="btn btn-success selectContainer">Select Container</button>
+                                        <button type='button' id="add-row-btn" class="btn btn-success selectContainer">Select Container</button>
                                     </div>
                                     <div class="card-body">
                                         <div id="selected_container_list"> </div>
                                         <div class="row">
-                                            <div class="col">
+                                            <div class="col" >
                                                 <label style="font-size:15px;font-weight:bold" class="col-md-12">No. of
                                                     Bales</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name="total_num_bales" id="total_num_bales" tabindex="7" autocomplete="off" style="width: 100px;" readonly>
+                                                    <input type="text" class="form-control" name="total_num_bales" id="total_num_bales" tabindex="7" autocomplete="off" style="width: 50px;" readonly>
                                                     <span class="input-group-text"> pcs</span>
                                                 </div>
                                             </div>
@@ -205,15 +206,15 @@ if (isset($_GET['id'])) {
                                                 <label style="font-size:15px;font-weight:bold" class="col-md-12">Total
                                                     Bale Weight</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name="total_bale_weight" id="total_bale_weight" tabindex="7" autocomplete="off" style="width: 100px;" readonly>
+                                                    <input type="text" class="form-control" name="total_bale_weight" id="total_bale_weight" tabindex="7" autocomplete="off" style="width: 50px;" readonly>
                                                     <span class="input-group-text"> kg</span>
                                                 </div>
                                             </div>
-                                            <div class="col">
+                                            <div class="col" hidden>
                                                 <label style="font-size:15px;font-weight:bold" class="col-md-12">Total Bale Cost</label>
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text"> ₱</span>
-                                                    <input type="text" class="form-control" name="total_bale_cost" id="total_bale_cost" tabindex="7" autocomplete="off" style="width: 100px;"  readonly>
+                                                    <input type="text" class="form-control" name="total_bale_cost" id="total_bale_cost" tabindex="7" autocomplete="off" style="width: 50px;" readonly>
 
                                                 </div>
                                             </div>
@@ -299,7 +300,7 @@ if (isset($_GET['id'])) {
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">₱</span>
                                                     </div>
-                                                    <input type="text" class="form-control" name='total_ship_exp' id='total_ship_exp' placeholder="0.00" style="width: 100px;" />
+                                                    <input type="text" readonly class="form-control" name='total_ship_exp' id='total_ship_exp' placeholder="0.00" style="width: 100px;" />
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -345,7 +346,7 @@ if (isset($_GET['id'])) {
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="confirmButton">Yes, Proceed</button>
+                <button type="submit" class="btn btn-primary" id="confirmButton">Yes, Proceed</button>
             </div>
         </div>
     </div>
@@ -373,7 +374,7 @@ if (isset($_GET['id'])) {
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
                     <i class="fas fa-times me-2"></i>Cancel
                 </button>
-                <button type="button" class="btn btn-warning saveDraftBtn" id="saveDraftBtn">
+                <button type="submit" class="btn btn-warning saveDraftBtn" id="saveDraftBtn">
                     <i class="fas fa-check me-2"></i>Yes, Save Draft
                 </button>
             </div>
@@ -390,6 +391,16 @@ if (isset($_GET['id'])) {
     $(document).on('click', '#saveDraftBtn', function(e) {
         // Set the form action to the desired url
         $('#shipmentForm').attr('action', 'function/bale_shipment_draft.php');
+
+        // Submit the form
+        $('#shipmentForm').submit();
+
+    });
+
+
+    $(document).on('click', '#confirmButton', function(e) {
+        // Set the form action to the desired url
+        $('#shipmentForm').attr('action', 'function/bale_shipment_confirm.php');
 
         // Submit the form
         $('#shipmentForm').submit();
@@ -484,14 +495,16 @@ if (isset($_GET['id'])) {
 
         // calculate total shipping expense
         var totalExpense = freight + loading + processing + trucking + cranage + misc;
-        document.getElementById('total_ship_exp').value = totalExpense.toFixed(2); // toFixed is used to limit the decimal places to 2
+
+        document.getElementById('total_ship_exp').value = totalExpense.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
         // get the number of containers
         var numContainers = parseFloat(document.getElementById('number_container').value) || 1;
 
         // calculate shipping expense per container
         var costPerContainer = totalExpense / numContainers;
-        document.getElementById('ship_cost_per_container').value = costPerContainer.toFixed(2);
+        
+        document.getElementById('ship_cost_per_container').value = costPerContainer.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
     // call the function when any of the input values change
@@ -502,4 +515,5 @@ if (isset($_GET['id'])) {
     document.getElementById('ship_exp_cranage').addEventListener('input', calculateShippingExpenses);
     document.getElementById('ship_exp_misc').addEventListener('input', calculateShippingExpenses);
     document.getElementById('number_container').addEventListener('input', calculateShippingExpenses);
+
 </script>

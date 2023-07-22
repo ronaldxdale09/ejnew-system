@@ -11,7 +11,7 @@
 }
 
 
-$loc = $_SESSION['loc'];
+$loc = str_replace(' ', '', $_SESSION['loc']);
 $name = 	$_SESSION["user"];
 ?>
 <html>
@@ -77,20 +77,4 @@ $name = 	$_SESSION["user"];
     margin-right: 0.5rem;
 }
 
-.location-badge {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: lightblue;
-    /* Change to desired color */
-    color: #fff;
-    /* Change to desired color */
-    border-radius: 5px;
-    z-index: -99999;
-}
 </style>
-<div class="location-badge">
-    <?php echo $_SESSION['loc'];?>
-</div>

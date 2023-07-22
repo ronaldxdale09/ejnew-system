@@ -16,12 +16,18 @@
 
 <div class="table-responsive">
     <br>
-    <div id="datatable_filter">
-        <label>From: <input type="text" class='form-control' id="min" name="min"></label>
-        <label>To: <input type="text" class='form-control' id="max" name="max"></label>
-        <button class='btn btn-primary' id="today">Today</button>
-        <button class='btn btn-secondary' id="this-week">This Week</button>
-        <button class='btn btn-dark' id="this-month">This Month</button>
+
+    <div class="card-body d-flex justify-content-between align-items-center">
+        <div id="datatable_filter">
+            <label>From: <input type="text" class='form-control' id="min" name="min"></label>
+            <label>To: <input type="text" class='form-control' id="max" name="max"></label>
+            <button class='btn btn-primary' id="today">Today</button>
+            <button class='btn btn-secondary' id="this-week">This Week</button>
+            <button class='btn btn-dark' id="this-month">This Month</button>
+        </div>
+        <button type="button" class="btn btn-warning text-dark btnExcess" id='btnExecess'>
+            <span class="fa fa-cubes"></span> Bale Excess
+        </button>
     </div>
     <hr>
     <table class="table table-bordered table-hover table-striped table-responsive" style='width:100%' id="recording_table-produced">
@@ -29,7 +35,7 @@
         <?php
         $results = mysqli_query($con, "SELECT * FROM planta_bales_production 
        LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
-       WHERE planta_bales_production.status='Produced' and (rubber_weight !='0' or rubber_weight !=null) and remaining_bales !='0'
+       WHERE planta_bales_production.status='Produced' and (rubber_weight !='0' or rubber_weight !=null) and (remaining_bales !='0' and planta_recording.source='$loc')
        ORDER BY planta_bales_production.recording_id ASC ");
         ?>
 
@@ -160,7 +166,7 @@
 
         var table = $('#recording_table-produced').DataTable({
             "order": [
-                [1, 'asc']
+                [1, 'desc']
             ],
             "pageLength": 50,
             "dom": "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
@@ -242,6 +248,32 @@
             });
         }
         fetch_record();
+
+
+    });
+
+
+    $('.btnExcess').on('click', function() {
+
+        function fetch_record() {
+
+            $.ajax({
+                url: "table/bales_excess_select.php",
+                method: "POST",
+                success: function(data) {
+                    $('#table_bales_excess').html(data);
+                    $('#baleExcessModal').modal('show');
+
+                }
+            });
+        }
+        fetch_record();
+        // Swal.fire({
+        //     icon: 'info',
+        //     title: 'Under Development!',
+        //     showConfirmButton: false,
+        //     timer: 1500
+        // })
 
 
     });

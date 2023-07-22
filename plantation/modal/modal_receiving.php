@@ -1,11 +1,12 @@
 <?php
+$loc = str_replace(' ', '', $_SESSION['loc']);
 
 $sql = "
-(SELECT id, seller, type, net_weight as weight FROM rubber_transaction WHERE planta_status = 1 AND supplier_type = 0)
+(SELECT id, seller, type, net_weight as weight FROM rubber_transaction WHERE planta_status = 1 AND supplier_type = 0 AND loc = '$loc')
 UNION ALL
-(SELECT ejn_id as id, supplier as seller, type, total_buying_weight as weight FROM ejn_rubber_transfer WHERE planta_status = 1)
+(SELECT ejn_id as id, supplier as seller, type, total_buying_weight as weight FROM ejn_rubber_transfer WHERE planta_status = 1 AND source = '$loc')
 UNION ALL
-(SELECT dry_id as id, seller as seller, type, net as weight FROM dry_price_transfer WHERE planta_status = 1)
+(SELECT dry_id as id, seller as seller, type, net as weight FROM dry_price_transfer WHERE planta_status = 1 AND loc = '$loc')
 ORDER BY id;
 ";
 
@@ -118,7 +119,7 @@ if ($result) {
                             <div class="form-group">
                                 <center style="margin: 0px 60px;">
                                     <div class="row no-gutters">
-                                        <div class="col" hidden>
+                                        <div class="col" >
                                             <div class="input-group mb-12">
                                                 <label class="col-md-12">Total Purchase Cost</label>
                                                 <span class="input-group-text">₱</span>
@@ -165,6 +166,13 @@ if ($result) {
         </div>
     </div>
 </div>
+
+<script>
+    document.querySelector("form").addEventListener("submit", function(e) {
+        e.target.querySelector("[name='add']").disabled = true;
+    });
+</script>
+
 
 <div class="modal fade" id="updateReceiving" tabindex="-1" role="dialog" aria-labelledby="updateReceivingLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -262,7 +270,7 @@ if ($result) {
 
                                         <div class="col">
                                             <div class="input-group mb-12">
-                                                <label class="col-md-12">Reweight</label>
+                                                <label class="col-md-12">Reweight/Entry Weight</label>
                                                 <input type="text" style='text-align:right' name='ru_reweight' id='ru_reweight' class="form-control" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" required>
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">kg</span>
@@ -356,7 +364,7 @@ if ($result) {
                             </div>
                             <div class="col">
                                 <div class="form-group">
-                                    <label>Reweight</label>
+                                    <label class="col-md-12">Reweight/Entry Weight</label>
                                     <div class="input-group mb-1">
                                         <input type="text" style="text-align:right" name="reweight" id="rt_reweight" readonly class="form-control">
                                         <div class="input-group-append">

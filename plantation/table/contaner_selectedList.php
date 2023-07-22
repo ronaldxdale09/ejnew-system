@@ -69,42 +69,60 @@ if (!$result) {
     </thead>
     <tbody>';
 
-if(mysqli_num_rows($result) > 0) {  
     while($arr = mysqli_fetch_assoc($result)) {  
+        $missingInfo = false;
+    
+        // Add fields to this array that you don't want to be empty or null
+        $fieldsToCheck = ['supplier', 'lot_num', 'recording_id', 'bales_type', 'kilo_per_bale', 'num_bales'];
+    
+        foreach ($fieldsToCheck as $field) {
+            if (empty($arr[$field])) {
+                $missingInfo = true;
+                break;
+            }
+        }
+    
+        $rowColor = $missingInfo ? 'style="background-color: #FFCCCC;"' : '';
+    
         $remaining= $arr["remaining_bales"] - $arr["num_bales"];
         $weight= $arr["num_bales"] * $arr["kilo_per_bale"];
-
+    
         $total_bales_count += $arr['num_bales'];
         $total_weight += $weight;
-
-        $unit_cost = $arr['total_production_cost'] / $arr['produce_total_weight'];
+    
+        if ($arr['produce_total_weight'] != 0) {
+            $unit_cost = $arr['total_production_cost'] / $arr['produce_total_weight'];
+        } else {
+            $unit_cost = 0; // Assigning a default value of zero
+        }
         $total_unit_cost = $unit_cost * $weight;
         $total_bale_cost += $total_unit_cost;
-        $average_kilo_cost = $total_bale_cost / $total_weight;
-
+        
         $milling_cost = $arr['milling_cost'];
-        $total_milling_cost = $arr['milling_cost'] * $weight ;
-
+        $total_milling_cost = $arr['milling_cost'] * $weight;
+       
         $overall_milling_cost += $total_milling_cost;
-
+    
         $output .= '
-        <tr style="font-weight:bold" data-bales_id="'.$arr['bales_id'].'"> 
+        <tr '.$rowColor.' data-bales_id="'.$arr['bales_id'].'"> 
             <td>'.$arr["supplier"].'</td>
             <td>'.$arr["lot_num"].'</td>
             <td>'.$arr["recording_id"].'</td>
             <td>'.$arr["bales_type"].'</td>
             <td>'.$arr["kilo_per_bale"].' kg</td>
             <td>'.$arr["num_bales"].' pcs</td>
-            <td>'.number_format( $weight,2, '.', ',').' kg</td>
+            <td>'.number_format($weight,2, '.', ',').' kg</td>
             <td>≈ ₱ '.number_format($unit_cost,2).' </td>
             <td>₱ '.number_format($total_unit_cost,2).' </td>
-
             <td>₱ '.number_format($milling_cost,2).' </td>
             <td>₱ '.number_format($total_milling_cost,0).' </td>
-            <td >  <button type="button" class="btn btn-sm btn-warning text-dark removeBtn " >REMOVE</button></td>
+            <td><button type="button" class="btn btn-sm btn-warning text-dark removeBtn">REMOVE</button></td>
         </tr>';
     }
-}
+    $average_kilo_cost = ($total_bale_cost + $overall_milling_cost ) / $total_weight;
+
+
+
 
 $output .= '
     </tbody>

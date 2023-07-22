@@ -24,9 +24,8 @@
 			$userType = $user['type'];
 			$_SESSION["type"] = $userType;
 			$_SESSION["id"] = $user['id'];
+			$_SESSION["full_name"] = $user['name'];
 			$_SESSION["user"] = $username;
-			$_SESSION["username"] = $username;
-			$_SESSION["pass"] = $password;
 			$_SESSION["loc"] = $user['loc'];
 			$_SESSION["source"] = $user['loc'];
 			if ($userType =='copra'){
@@ -43,7 +42,10 @@
 				header('Location: ../rubber/dry_receiving_record.php');
 			}
 			elseif  ($userType =='planta'){
-				header('Location: ../plantation/dashboard.php');
+
+					header('Location: ../plantation/dashboard.php');
+			
+			
 			}
 			elseif  ($userType =='sales'){
 				header('Location: ../sales/dashboard.php');
@@ -52,4 +54,3 @@
 	}
 	//echo "Error: Could not be able to execute $sql. " .mysqli_error($link);
 	mysqli_close($con);
-?>

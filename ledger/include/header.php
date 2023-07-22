@@ -25,6 +25,3 @@
  include "include/datatables_buttons_js.php";
 
 ?>
-<style>
-
-</style>

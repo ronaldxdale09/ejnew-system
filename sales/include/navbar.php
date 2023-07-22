@@ -43,7 +43,7 @@
 
     <hr style='color:gray'>
 
-    <a class='nav-link' href='inventory_bale.php' hidden>
+    <a class='nav-link' href='inventory_bale.php' >
         <i class='fa-solid fa-cube'></i> <span class='nav-text'>Bale Inventory</span>
     </a>
 

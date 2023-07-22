@@ -26,7 +26,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                 <form action="function/receiving_function.php" method="POST">
 
                     <div class="row">
-                        <div class="col-sm-8">
+                        <div class="col-sm-12">
                             <div class="row">
 
                                 <div class="col-3">
@@ -269,7 +269,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                 <div id='pressing_modal_update_table'></div>
                         </div>
 
-                        <div class="col">
+                        <div class="col" hidden>
                             <center> <H5>Milling Record</H5></center>
                             <div id='milling_record'></div>
                             <br> <hr> <br>

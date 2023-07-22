@@ -21,8 +21,8 @@ $output .= '
            <th scope="col">Kilo per Bale</th>
            <th scope="col">No. of Bales</th>
            <th scope="col">Total Weight</th>
-           <th scope="col">Bale Cost</th>
-           <th scope="col">Milling Cost</th>
+           <th scope="col" >Bale Cost</th>
+           <th scope="col" >Milling Cost</th>
            <th scope="col">Remarks</th>
            <th scope="col">Recorded</th>
     
@@ -40,13 +40,13 @@ if (mysqli_num_rows($result) > 0) {
         <tr>
         <td class="nowrap">' . $row["container_id"] . '</td>
         <td class="nowrap">' . $row["van_no"] . '</td>
-        <td class="nowrap">' . $row["withdrawal_date"] . '</td>
+        <td>' .  date("F j, Y", strtotime($row["withdrawal_date"])) . '</td>
         <td class="nowrap">' . $row["quality"] . '</td>
         <td class="nowrap number-cell">' . $row["kilo_bale"] . ' kg</td>
         <td class="nowrap number-cell">' . number_format($row["num_bales"], 0, ".", ",") . ' pcs</td>
         <td class="nowrap number-cell">' . number_format($row["total_bale_weight"], 0, ".", ",") . ' kg</td>
-        <td class="nowrap number-cell">₱ ' . number_format($row["total_bale_cost"], 2, ".", ",") . '</td>
-        <td class="nowrap number-cell">₱ ' . number_format($row["total_milling_cost"], 2, ".", ",") . ' </td>
+        <td class="nowrap number-cell">≈ ₱ ' . number_format($row["average_kilo_cost"] - ($row["total_milling_cost"] / $row["total_bale_weight"]), 2, ".", ",") . '</td>
+        <td class="nowrap number-cell">₱ ' . number_format($row["total_milling_cost"] / $row["total_bale_weight"], 2, ".", ",") . ' </td>
         <td class="nowrap">' . $row["remarks"] . '</td>
         <td class="nowrap">' . $row["recorded_by"] . '</td>
             <td><button type="button" id="removeContainer" class="btn btn-danger btn-sm removeContainer"><i
@@ -65,9 +65,9 @@ $output .= '</table>
     
 
     <script>
-    document.getElementById("total_num_bales").value = "' . number_format($total_bales) . ' pcs";
-    document.getElementById("total_bale_weight").value = "' . number_format($total_weight) . ' kg";
-    document.getElementById("total_bale_cost").value = "₱ ' . number_format($total_bale_cost,2) . '";
+    document.getElementById("total_num_bales").value = "' . number_format($total_bales) . ' ";
+    document.getElementById("total_bale_weight").value = "' . number_format($total_weight) . ' ";
+    document.getElementById("total_bale_cost").value = " ' . number_format($total_bale_cost, 2) . '";
 
 
     document.getElementById("number_container").value = "' . $number_container . '";

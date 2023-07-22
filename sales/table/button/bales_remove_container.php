@@ -9,6 +9,11 @@ $shipment_id = $_POST['shipment_id'];
     $results = mysqli_query($con, $sql);
 
 
+    $sql = "UPDATE bales_container_record 
+    SET status='Released',
+    WHERE container_id='$container_id";
+    $results = mysqli_query($con, $sql);
+
     exit();
 
   

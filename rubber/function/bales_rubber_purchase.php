@@ -113,11 +113,14 @@ WHERE id = '$invoice'";
         $sql=mysqli_query($con,"SELECT * FROM planta_recording WHERE recording_id='$prod_id' ");
         $row = mysqli_fetch_array($sql);
         $expenses = $row['production_expense'];
+        $produce_total_weight = $row['produce_total_weight'];
 
         $total_prod_cost = $total_amount + $expenses;
 
+        
+        $unit_cost = $total_prod_cost / $produce_total_weight;
         $sql=mysqli_query($con,"UPDATE  planta_recording SET 
-        purchase_cost = '$total_amount',total_production_cost='$total_prod_cost',
+        purchase_cost = '$total_amount',total_production_cost='$total_prod_cost',bales_average_cost='$unit_cost',
         status = 'For Sale' where recording_id='$prod_id' ");
 
         $_SESSION['invoice'] = $invoice;

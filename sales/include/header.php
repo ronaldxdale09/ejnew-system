@@ -6,6 +6,14 @@
   include "include/jquery.php"; 
 //   $loc = $_SESSION['loc'];
   
+if (!isset($_SESSION['user']) || empty($_SESSION['user'])) {
+    header('Location: function/logout.php'); // replace 'logout.php' with your logout script
+    exit();
+}
+
+
+$loc = $_SESSION['loc'];
+$name = $_SESSION["full_name"];
 ?>
 <html>
 
@@ -74,9 +82,7 @@
 .floating-refresh-button:hover i {
     animation: spinning 2s linear infinite;
 }
-</style>
 
-<style>
 .modal-content {
     border-radius: 15px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
@@ -89,7 +95,13 @@
 .modal-footer {
     border-top: none;
 }
+
+.nowrap {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 </style>
-<button id="refreshButton" class="floating-refresh-button" onclick="refreshPage()">
+<!-- <button id="refreshButton" class="floating-refresh-button" onclick="refreshPage()">
     <i class="fas fa-sync-alt"></i>
-</button>
+</button> -->

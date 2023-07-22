@@ -53,7 +53,7 @@ if (mysqli_num_rows($result) > 0) {
             <td>' . $arr["bales_type"] . '</td>
             <td>' . $arr["kilo_per_bale"] . ' kg</td>
             <td>' . $arr["supplier"] . '</td>
-            <td>' . $arr["lot_num"] . '</td>
+            <td style="font-weight:bold">' . $arr["lot_num"] . '</td>
             <td>' . number_format($arr['produce_total_weight'], 0, '.', ',') . ' kg</td>
             <td hidden>' . ($arr['drc'] ? number_format($arr['drc'], 2) : '-') . ' %</td>
             <td><b>' . number_format($arr['remaining_bales'], 0, '.', ',') . ' pcs </b></td>
@@ -99,6 +99,7 @@ echo $output;
 
             var bales_id = data[0];
             var planta_id = data[9];
+            var total_weight = data[6];
             var container_id = <?php echo $_POST['container_id'] ?>;
 
             console.log(num_bales);
@@ -111,7 +112,8 @@ echo $output;
                     container_id: container_id,
                     bales_id: bales_id,
                     num_bales: num_bales,
-                    planta_id: planta_id
+                    planta_id: planta_id,
+                    total_weight: total_weight
                 },
                 success: function(data) {
                     console.log(data);

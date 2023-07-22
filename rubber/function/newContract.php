@@ -12,8 +12,7 @@
                             $price_kg =str_replace( ',', '', $_POST['ca']);
 
                             $type =str_replace( ',', '', $_POST['type']);
-                            $loc = $_SESSION['loc'];
-
+                            $loc = str_replace(' ', '', $_SESSION['loc']);
                                 $query = "INSERT INTO rubber_contract (contract_no,date,seller,contract_quantity,balance,status,price,type,loc) 
                                         VALUES ('$contract','$date','$name','$quantity','$quantity','$status',' $price_kg','$type','$loc')";
                                 $results = mysqli_query($con, $query);

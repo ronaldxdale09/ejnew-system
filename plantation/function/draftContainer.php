@@ -39,36 +39,59 @@ $average_cost = preg_replace("/[^0-9\.]/", "", $_POST['average_cost']);
 echo "average_cost: " . $average_cost . "<br>";
 
 
+$sql = "SELECT * FROM bales_container_record WHERE container_id  = '$ref_no'";
+$result = mysqli_query($con, $sql);
+$record = mysqli_fetch_assoc($result);
 
-$query = "UPDATE bales_container_record SET 
-              van_no = '$van_no', 
-              withdrawal_date = '$withdrawal_date', 
-              quality = '$quality', 
-              kilo_bale = '$kilo_bale', 
-              remarks = '$remarks', 
-              recorded_by = '$recorded_by', 
-              num_bales = '$num_bales', 
-              total_bale_weight = '$total_bale_weight' ,
-              total_bale_cost = '$total_bale_cost' ,
-              total_milling_cost = '$total_milling_cost',
-                average_kilo_cost  ='$average_cost',
-              status = 'In Progress' 
-              WHERE container_id  = '$ref_no'";
+$currentStatus = $record['status'];
+$query='';
 
+if ($currentStatus === 'Sold' || $currentStatus === 'Sold-Update') {
+      $query = "UPDATE bales_container_record SET 
+      van_no = '$van_no', 
+      withdrawal_date = '$withdrawal_date', 
+      quality = '$quality', 
+      kilo_bale = '$kilo_bale', 
+      remarks = '$remarks', 
+      recorded_by = '$recorded_by', 
+      num_bales = '$num_bales', 
+      total_bale_weight = '$total_bale_weight' ,
+      total_bale_cost = '$total_bale_cost' ,
+      total_milling_cost = '$total_milling_cost',
+        average_kilo_cost  ='$average_cost',
+      status = 'Sold-Update' 
+      WHERE container_id  = '$ref_no'";
+} else {
+      $query = "UPDATE bales_container_record SET 
+      van_no = '$van_no', 
+      withdrawal_date = '$withdrawal_date', 
+      quality = '$quality', 
+      kilo_bale = '$kilo_bale', 
+      remarks = '$remarks', 
+      recorded_by = '$recorded_by', 
+      num_bales = '$num_bales', 
+      total_bale_weight = '$total_bale_weight' ,
+      total_bale_cost = '$total_bale_cost' ,
+      total_milling_cost = '$total_milling_cost',
+        average_kilo_cost  ='$average_cost',
+      status = 'In Progress' 
+      WHERE container_id  = '$ref_no'";
 
+}
 $results = mysqli_query($con, $query);
+
+
+
 
 if ($results) {
 
-    $query_select_bales = "SELECT bales_id,num_bales FROM bales_container_selection WHERE container_id  = '$ref_no'";
-    $selected_bales = mysqli_query($con, $query_select_bales);
 
-    // Removed the calculation and update of the remaining_bales
+  // Removed the calculation and update of the remaining_bales
 
-    header("Location: ../container_record.php");
-    $_SESSION['contract'] = "Update successful";
-    exit();
+  header("Location: ../container_record.php");
+  $_SESSION['contract'] = "Update successful";
+  exit();
 } else {
-    echo "ERROR: Could not execute $query. " . mysqli_error($con);
+  echo "ERROR: Could not execute $query. " . mysqli_error($con);
 }
 exit();

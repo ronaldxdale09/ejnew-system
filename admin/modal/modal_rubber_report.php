@@ -1,13 +1,5 @@
 <?php
 
-$sql = "SELECT id, invoice, seller FROM rubber_transaction";
-$result = mysqli_query($con, $sql);
-$listPurchased = '';
-while ($arr = mysqli_fetch_assoc($result)) {
-    $invoice = htmlspecialchars($arr['id'], ENT_QUOTES);
-    $seller = htmlspecialchars($arr['seller'], ENT_QUOTES);
-    $listPurchased .= '<option value="'.$arr['id'] . '">INVOICE #' . $invoice . ' - ' . $seller . '</option>';
-}
 
 ?>
 

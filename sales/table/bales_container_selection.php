@@ -7,7 +7,7 @@ $output = '';
 
 $shipment_id = $_POST['shipment_id'];
 
-$result  = mysqli_query($con, "SELECT *,bales_container_record.container_id as con_id  from bales_container_record 
+$result  = mysqli_query($con, "SELECT *,bales_container_record.container_id as con_id,bales_container_record.num_bales as total_bales  from bales_container_record 
 LEFT JOIN bales_container_selection ON bales_container_selection.container_id =  bales_container_record.container_id 
 where bales_container_record.status ='Released'
   GROUP BY bales_container_record.container_id");
@@ -30,17 +30,18 @@ $output .= '
         id="recording_table-receiving">
         <thead class="table-dark text-center" style="font-size: 14px !important">
             <tr>
-                <th scope="col">Ref No.</th>
+                <th scope="col">Container ID.</th>
                 <th scope="col">Van No.</th>
                 <th scope="col">Withdrawal Date</th>
                 <th scope="col">Quality</th>
                 <th scope="col">Kilo per Bale</th>
                 <th scope="col">No. of Bales</th>
                 <th scope="col">Total Weight</th>
+                <th scope="col"hidden>Bale Cost</th>
+                <th scope="col"hidden>Milling Cost</th>
                 <th scope="col">Bale Cost</th>
                 <th scope="col">Milling Cost</th>
                 <th scope="col">Remarks</th>
-                <th scope="col">Recorded</th>
                 <th scope="col">Status</th>
                 <th scope="col">Action</th>
             </tr>
@@ -56,7 +57,7 @@ if (mysqli_num_rows($result) > 0) {
             case "In Progress":
                 $status_color = 'bg-warning';
                 break;
-            case "Awaiting Shipment":
+            case "Complete":
                 $status_color = 'bg-success';
                 break;
             case "Released":
@@ -68,15 +69,16 @@ if (mysqli_num_rows($result) > 0) {
         <tr>
             <td class="nowrap">' . $row["con_id"] . '</td>
             <td class="nowrap">' . $row["van_no"] . '</td>
-            <td class="nowrap">' . $row["withdrawal_date"] . '</td>
+            <td>' .  date("F j, Y", strtotime($row["withdrawal_date"])). '</td>
             <td class="nowrap">' . $row["quality"] . '</td>
             <td class="nowrap number-cell">' . $row["kilo_bale"] . ' kg</td>
-            <td class="nowrap number-cell">' . number_format($row["num_bales"], 0, ".", ",") . ' pcs</td>
+            <td class="nowrap number-cell">' . number_format($row["total_bales"], 0, ".", ",") . ' pcs</td>
             <td class="nowrap number-cell">' . number_format($row["total_bale_weight"], 0, ".", ",") . ' kg</td>
-            <td class="nowrap number-cell">' . number_format($row["total_bale_cost"], 2, ".", ",") . ' pcs</td>
-            <td class="nowrap number-cell">' . number_format($row["total_milling_cost"], 2, ".", ",") . ' kg</td>
+            <td class="nowrap number-cell" hidden>₱ ' . number_format($row["total_bale_cost"], 2, ".", ",") . ' </td>
+            <td class="nowrap number-cell" hidden>₱ ' . number_format($row["total_milling_cost"], 2, ".", ",") . ' </td>
+            <td class="nowrap number-cell" >≈ ₱ ' . number_format($row["average_kilo_cost"]-($row["total_milling_cost"]/$row["total_bale_weight"]), 2, ".", ",") . ' </td>
+            <td class="nowrap number-cell" >₱ ' . number_format($row["total_milling_cost"]/$row["total_bale_weight"], 2, ".", ",") . ' </td>
             <td class="nowrap">' . $row["remarks"] . '</td>
-            <td class="nowrap">' . $row["recorded_by"] . '</td>
             <td class="nowrap"><span class="badge ' . $status_color . '">' . $row["status"] . '</span></td>
             <td class="nowrap text-center">
                 <button type="button" class="btn btn-warning btn-sm addProduct" data-status="' . $row["status"] . '">

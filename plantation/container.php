@@ -63,7 +63,7 @@ if (isset($_GET['id'])) {
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-12">
-                                        <a href="bales_container_record.php" class="btn btn-secondary text-white returnBtn">
+                                        <a href="container_record.php" class="btn btn-secondary text-white returnBtn">
                                             <span class="fas fa-arrow-left"></span> Return
                                         </a>
 
