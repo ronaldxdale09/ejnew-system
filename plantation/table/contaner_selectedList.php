@@ -5,25 +5,25 @@ $container_id = $_POST['container_id'];
 $sql  = "SELECT * FROM bales_container_selection 
 LEFT JOIN planta_bales_production ON bales_container_selection.bales_id = planta_bales_production.bales_prod_id
 LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
- where container_id ='$container_id'"; 
+ where container_id ='$container_id'";
 
 $total_bales_count = 0;
-$total_weight=0;
-$unit_cost =0;
-$total_unit_cost =0;
-$total_bale_cost =0;
+$total_weight = 0;
+$unit_cost = 0;
+$total_unit_cost = 0;
+$total_bale_cost = 0;
 
-$milling_cost =0;
-$total_milling_cost =0;
+$milling_cost = 0;
+$total_milling_cost = 0;
 
-$overall_milling_cost =0;
+$overall_milling_cost = 0;
 $average_kilo_cost = 0;
-$result = mysqli_query($con, $sql);  
+$result = mysqli_query($con, $sql);
 if (!$result) {
     die('Error in query: ' . mysqli_error($con));
 }
 
-    $output = '
+$output = '
     <div class="row">
         <div class="col">
             <label style="font-size:15px" class="col-md-12">No. of Bales</label>
@@ -51,6 +51,7 @@ if (!$result) {
 <table class="table table-bordered" id="rubber-record">
 <thead class="table-dark" style="font-size: 12px !important" >
         <tr>
+        <th scope="col">Bale ID</th>
         <th scope="col">Supplier</th>
         <th scope="col">LOT</th>
         <th scope="col">Lot No.</th>
@@ -69,57 +70,58 @@ if (!$result) {
     </thead>
     <tbody>';
 
-    while($arr = mysqli_fetch_assoc($result)) {  
-        $missingInfo = false;
-    
-        // Add fields to this array that you don't want to be empty or null
-        $fieldsToCheck = ['supplier', 'lot_num', 'recording_id', 'bales_type', 'kilo_per_bale', 'num_bales'];
-    
-        foreach ($fieldsToCheck as $field) {
-            if (empty($arr[$field])) {
-                $missingInfo = true;
-                break;
-            }
+while ($arr = mysqli_fetch_assoc($result)) {
+    $missingInfo = false;
+
+    // Add fields to this array that you don't want to be empty or null
+    $fieldsToCheck = ['supplier', 'lot_num', 'recording_id', 'bales_type', 'kilo_per_bale', 'num_bales'];
+
+    foreach ($fieldsToCheck as $field) {
+        if (empty($arr[$field])) {
+            $missingInfo = true;
+            break;
         }
-    
-        $rowColor = $missingInfo ? 'style="background-color: #FFCCCC;"' : '';
-    
-        $remaining= $arr["remaining_bales"] - $arr["num_bales"];
-        $weight= $arr["num_bales"] * $arr["kilo_per_bale"];
-    
-        $total_bales_count += $arr['num_bales'];
-        $total_weight += $weight;
-    
-        if ($arr['produce_total_weight'] != 0) {
-            $unit_cost = $arr['total_production_cost'] / $arr['produce_total_weight'];
-        } else {
-            $unit_cost = 0; // Assigning a default value of zero
-        }
-        $total_unit_cost = $unit_cost * $weight;
-        $total_bale_cost += $total_unit_cost;
-        
-        $milling_cost = $arr['milling_cost'];
-        $total_milling_cost = $arr['milling_cost'] * $weight;
-       
-        $overall_milling_cost += $total_milling_cost;
-    
-        $output .= '
-        <tr '.$rowColor.' data-bales_id="'.$arr['bales_id'].'"> 
-            <td>'.$arr["supplier"].'</td>
-            <td>'.$arr["lot_num"].'</td>
-            <td>'.$arr["recording_id"].'</td>
-            <td>'.$arr["bales_type"].'</td>
-            <td>'.$arr["kilo_per_bale"].' kg</td>
-            <td>'.$arr["num_bales"].' pcs</td>
-            <td>'.number_format($weight,2, '.', ',').' kg</td>
-            <td>≈ ₱ '.number_format($unit_cost,2).' </td>
-            <td>₱ '.number_format($total_unit_cost,2).' </td>
-            <td>₱ '.number_format($milling_cost,2).' </td>
-            <td>₱ '.number_format($total_milling_cost,0).' </td>
+    }
+
+    $rowColor = $missingInfo ? 'style="background-color: #FFCCCC;"' : '';
+
+    $remaining = $arr["remaining_bales"] - $arr["num_bales"];
+    $weight = $arr["num_bales"] * $arr["kilo_per_bale"];
+
+    $total_bales_count += $arr['num_bales'];
+    $total_weight += $weight;
+
+    if ($arr['produce_total_weight'] != 0) {
+        $unit_cost = $arr['total_production_cost'] / $arr['produce_total_weight'];
+    } else {
+        $unit_cost = 0; // Assigning a default value of zero
+    }
+    $total_unit_cost = $unit_cost * $weight;
+    $total_bale_cost += $total_unit_cost;
+
+    $milling_cost = $arr['milling_cost'];
+    $total_milling_cost = $arr['milling_cost'] * $weight;
+
+    $overall_milling_cost += $total_milling_cost;
+
+    $output .= '
+        <tr ' . $rowColor . ' data-bales_id="' . $arr['bales_id'] . '"> 
+        <td>' . $arr["bales_id"] . '</td>
+            <td>' . $arr["supplier"] . '</td>
+            <td>' . $arr["lot_num"] . '</td>
+            <td>' . $arr["recording_id"] . '</td>
+            <td>' . $arr["bales_type"] . '</td>
+            <td>' . $arr["kilo_per_bale"] . ' kg</td>
+            <td>' . $arr["num_bales"] . ' pcs</td>
+            <td>' . number_format($weight, 2, '.', ',') . ' kg</td>
+            <td>≈ ₱ ' . number_format($unit_cost, 2) . ' </td>
+            <td>₱ ' . number_format($total_unit_cost, 2) . ' </td>
+            <td>₱ ' . number_format($milling_cost, 2) . ' </td>
+            <td>₱ ' . number_format($total_milling_cost, 0) . ' </td>
             <td><button type="button" class="btn btn-sm btn-warning text-dark removeBtn">REMOVE</button></td>
         </tr>';
-    }
-    $average_kilo_cost = ($total_bale_cost + $overall_milling_cost ) / $total_weight;
+}
+$average_kilo_cost = ($total_bale_cost + $overall_milling_cost) / $total_weight;
 
 
 
@@ -158,34 +160,35 @@ $output .= '
 
 <script>
     document.getElementById("num_bales").value = "' . $total_bales_count . ' pcs";
-    document.getElementById("total_bale_weight").value = "' . number_format($total_weight,2) . ' kg";
+    document.getElementById("total_bale_weight").value = "' . number_format($total_weight, 2) . ' kg";
 
-    document.getElementById("total_bale_cost").value = "₱ ' . number_format($total_bale_cost,2) . '";
-    document.getElementById("total_milling_cost").value = "₱ ' . number_format($overall_milling_cost,2) . '";
-    document.getElementById("average_cost").value = "₱ ' . number_format($average_kilo_cost ,2) . '";
+    document.getElementById("total_bale_cost").value = "₱ ' . number_format($total_bale_cost, 2) . '";
+    document.getElementById("total_milling_cost").value = "₱ ' . number_format($overall_milling_cost, 2) . '";
+    document.getElementById("average_cost").value = "₱ ' . number_format($average_kilo_cost, 2) . '";
 </script>
 ';
 
 
 
 echo $output;
-?>
-<script>
-$(".removeBtn").click(function() {
-    var balesId = $(this).closest("tr").data("bales_id");
-    $.ajax({
-        url: "table/container/removeInventory.php",
-        type: "POST",
-        data: {
-            bales_id: balesId
-        },
-        success: function(response) {
-            location.reload();
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log(textStatus, errorThrown);
+?><script>
+    $(".removeBtn").click(function() {
+        var balesId = $(this).closest("tr").data("bales_id");
+
+        if (confirm("Are you sure you want to remove these bales?")) {
+            $.ajax({
+                url: "table/container/removeInventory.php",
+                type: "POST",
+                data: {
+                    bales_id: balesId
+                },
+                success: function(response) {
+                    location.reload();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+            });
         }
     });
-});
 </script>
-

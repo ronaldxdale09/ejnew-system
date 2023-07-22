@@ -34,7 +34,7 @@ $rubberTypes = ['5L', 'SPR-5', 'SPR-10', 'SPR-20', 'Off Color'];
                         <div class="col">
                             <label style='font-size:15px' class="col-md-12">Recorded by:</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='recorded_by' value='<?php echo $name?>'autocomplete='off' style="width: 100px;" />
+                                <input type="text" class="form-control" name='recorded_by' value='<?php echo $name ?>' autocomplete='off' style="width: 100px;" />
                             </div>
                         </div>
                     </div>
@@ -88,12 +88,13 @@ $rubberTypes = ['5L', 'SPR-5', 'SPR-10', 'SPR-20', 'Off Color'];
                     <hr>
                     <div class="row mb-3">
                         <div class="col">
-                            <label class="form-label">Purchase Cost</label>
+                            <label class="form-label">Total Purchase Cost</label>
                             <div class="input-group">
                                 <span class="input-group-text">₱</span>
-                                <input type="text" style='font-size:19px' class="form-control text-center" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" name="purchase_cost" required>
+                                <input type="text" style='font-size:19px' class="form-control text-center" id="purchase_cost" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" name="purchase_cost" required>
                             </div>
                         </div>
+
                         <div class="col">
                             <label class="form-label">Total Weight</label>
                             <div class="input-group">
@@ -114,16 +115,17 @@ $rubberTypes = ['5L', 'SPR-5', 'SPR-10', 'SPR-20', 'Off Color'];
                             <label class="form-label">Expense Amount</label>
                             <div class="input-group">
                                 <span class="input-group-text">₱</span>
-                                <input type="text" style='font-size:19px' class="form-control text-center" name='expense' onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
+                                <input type="text" style='font-size:19px' class="form-control text-center" name='expense'  id='expense_amount' onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
                             </div>
                         </div>
                         <div class="col-3">
                             <label class="form-label">Average Kilo Cost</label>
                             <div class="input-group">
                                 <span class="input-group-text">₱</span>
-                                <input type="text" style='font-size:19px' readonly class="form-control text-center" name='expense' onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
+                                <input type="text" style='font-size:19px' readonly class="form-control text-center" id='average_kilo_cost' name='average_kilo_cost'>
                             </div>
                         </div>
+
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -205,6 +207,8 @@ $rubberTypes = ['5L', 'SPR-5', 'SPR-10', 'SPR-20', 'Off Color'];
 
             calculateTotals();
         });
+        $("#purchase_cost").on('input', calculateTotals);
+        $("#expense_amount").on('input', calculateTotals);
     });
 </script>
 
@@ -231,12 +235,23 @@ $rubberTypes = ['5L', 'SPR-5', 'SPR-10', 'SPR-20', 'Off Color'];
             totalWeight += parseFloat($(this).val().replace(/[^0-9.]/g, '')) || 0;
         });
 
+        // Calculate average kilo cost
+        var purchaseCost = parseFloat($('#purchase_cost').val().replace(/[^0-9.]/g, '')) || 0;
+        var expenseAmount =parseFloat($('#expense_amount').val().replace(/[^0-9.]/g, '')) || 0;
+        
+        var totalCost = purchaseCost + expenseAmount;
+        var averageKiloCost = totalCost / totalWeight;
+
         // Update the corresponding fields with the calculated values
         $("#total_weight").val(totalWeight.toLocaleString("en-US", {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
         }));
 
-
+        $("#average_kilo_cost").val(isNaN(averageKiloCost) ? 0 : averageKiloCost.toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }));
     }
+</script>
 </script>

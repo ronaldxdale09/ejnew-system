@@ -14,6 +14,7 @@ $output = '
 <table class="table table-bordered" id="rubber-record">
     <thead>
         <tr>
+        <th scope="col" width="8%">Bale ID</th>
             <th scope="col" width="22%">Quality</th>
             <th scope="col" width="20%">Kilo Per Bale</th>
             <th scope="col">Weight (kg)</th>
@@ -33,6 +34,10 @@ if(mysqli_num_rows($result) > 0) {
 
         $output .= '
         <tr>
+        <td>
+                <input type="text" class="form-control"  autocomplete="off" step="any"
+                value="'.$arr["bales_prod_id"].'" style="border:none;" readonly>
+            </td>
             <td>
                 <input type="text" class="form-control"  autocomplete="off" step="any"
                 value="'.$arr["bales_type"].'" style="border:none;" readonly>

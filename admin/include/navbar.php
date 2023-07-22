@@ -24,37 +24,35 @@
     <a class='nav-link' href='bale_sale_record.php'>
         <i class='fas fa-chart-line'></i> <span class='nav-text'>Bales Sales Record</span>
     </a>
+    <a class='nav-link' href='container_record.php'> <i class='fas fa-shipping-fast'></i>
+        <span class='nav-text'>Bale Container </span>
+    </a>
     <a class='nav-link' href='bale_shipment_record.php'>
         <i class='fa-solid fa-ship'></i> <span class='nav-text'>Bale Shipment</span>
     </a>
-    <hr style='color:gray'>
-
     <a class='nav-link' href='inv_bale.php'> <i class='fas fa-cube'></i>
         <span class='nav-text'>Bale Inventory</span>
     </a>
+    <hr style='color:gray'>
+
+    <a class='nav-link' href='cuplump_container_record.php'> <i class='fas fa-shipping-fast'></i>
+        <span class='nav-text'>Cuplump Container </span>
+    </a>
+
+    <a class='nav-link' href='cuplump_shipment_record.php'>
+        <i class='fa-solid fa-ship'></i> <span class='nav-text'>Cuplump Shipment</span>
+    </a>
+    
     <a class='nav-link' href='inv_cuplump.php'> <i class='fas fa-tree'></i>
         <span class='nav-text'>Cuplump Inventory</span>
     </a>
+    <hr style='color:gray'>
 
-    <a class='nav-link' href='container_record.php'> <i class='fas fa-shipping-fast'></i>
-        <span class='nav-text'>Container Record</span>
-    </a>
     <a class='nav-link' href='record_allrubber.php'><i class='fas fa-file-alt'></i>
-        <span class='nav-text'>Transaction Record</span>
+        <span class='nav-text'>Bale Planta Record</span>
     </a>
 
-    <!-- 
-    <a class='nav-link' href='admin_kidapawan_rubber.php'>
-        <i class='fas fa-cube'></i> <span class='nav-text'>Kidapawan Rubber</span>
-    </a> -->
 
-    <!-- <a class='nav-link'>
-        <i class='fas fa-tree'></i> <span class='nav-text'>Copra</span>
-    </a>
-
-    <a class='nav-link'>
-        <i class='fas fa-coffee'></i> <span class='nav-text'>Coffee</span>
-    </a> -->
 
     <hr style='color:gray'>
 

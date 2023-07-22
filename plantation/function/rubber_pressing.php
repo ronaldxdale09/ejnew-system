@@ -8,7 +8,7 @@ if (isset($_POST['pressing_update'])) {
     $expense_desc = $_POST['expense_desc'];
     $expense = $_POST['expense'];
     $expense = preg_replace("/[^0-9.]/", "", $expense);
-
+    $loc = $_SESSION["loc"];
     $entry_weight = str_replace(',', '', $_POST['entry_weight']);
     $total_weight = 0;
 
@@ -57,15 +57,15 @@ if (isset($_POST['pressing_update'])) {
             $sql = "UPDATE planta_bales_production 
                     SET bales_type='$bales_type',source_type='Produced', kilo_per_bale='$kilo_bale', 
                         rubber_weight='$weight', description='$description', number_bales='$bale_num', 
-                        remaining_bales='$bale_num', bales_excess='$excess', status='Produced'
+                        remaining_bales='$bale_num', bales_excess='$excess', status='Produced', source='$loc'
                     WHERE recording_id = '$id' AND bales_prod_id = '$bales_id'";
         } else {
             // Insert new row
             $sql = "INSERT INTO planta_bales_production 
                     (source_type,recording_id, bales_type, kilo_per_bale, rubber_weight, description, number_bales, 
-                     remaining_bales, bales_excess,status)
+                     remaining_bales, bales_excess,status,source)
                     VALUES ('Produced','$id', '$bales_type', '$kilo_bale', '$weight', '$description', '$bale_num', 
-                            '$bale_num', '$excess','Produced')";
+                            '$bale_num', '$excess','Produced','$loc')";
         }
 
         $result = mysqli_query($con, $sql);

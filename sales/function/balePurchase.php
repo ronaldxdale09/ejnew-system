@@ -1,6 +1,8 @@
 <?php
 
 include('db.php');
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 $date = $_POST['n_date'];
 $recorded_by = $_POST['recorded_by'];
@@ -11,17 +13,15 @@ $location = $_POST['location'];
 $driver = $_POST['driver'];
 $truck_num = $_POST['truck_num'];
 
-$purchase_cost = preg_replace("/[^0-9\.]/", "", str_replace(',', '', $_POST['purchase_cost']));
-$total_weight = preg_replace("/[^0-9\.]/", "", str_replace(',', '', $_POST['total_weight']));
+$purchase_cost = floatval(preg_replace("/[^0-9\.]/", "", str_replace(',', '', $_POST['purchase_cost'])));
+$total_weight = floatval(preg_replace("/[^0-9\.]/", "", str_replace(',', '', $_POST['total_weight'])));
 
 $weight = $total_weight;
 $reweight = $total_weight;
 
 
 $expense_desc = $_POST['expense_desc'];
-$expense = preg_replace("/[^0-9\.]/", "", str_replace(',', '', $_POST['expense']));
-$remarks = $_POST['remarks'];
-
+$expense = floatval(preg_replace("/[^0-9\.]/", "", str_replace(',', '', $_POST['expense'])));
 
 $prod_type = 'SALE';
 $trans_type = 'OUTSOURCE';
@@ -42,18 +42,12 @@ echo "Purchase Cost: " . $purchase_cost . "<br>";
 echo "Total Weight: " . $total_weight . "<br>";
 echo "Expense Description: " . $expense_desc . "<br>";
 echo "Expense: " . $expense . "<br>";
-echo "Remarks: " . $remarks . "<br>";
 echo "Product Type: " . $prod_type . "<br>";
 echo "Transaction Type: " . $trans_type . "<br>";
 
 
-// $query = "INSERT INTO planta_recording (prod_type,trans_type,trans_date,supplier,location,driver,truck_num,total_weight,expense_desc,expense,remarks,recorded_by) 
-// VALUES ('$prod_type','$trans_type','$date','$supplier','$location','$driver','$truck_num','$total_weight','$expense_desc','$expense','$remarks','$recorded_by')";
-// $results = mysqli_query($con, $query);
-// $recording_id = $con->insert_id;
-
-$query = "INSERT INTO planta_recording (status,purchased_id,prod_type,trans_type,receiving_date,supplier,location,driver,truck_num,weight,reweight,produce_total_weight,prod_expense_desc,production_expense,recorded_by,drc,purchase_cost,total_production_cost,source) 
-VALUES ('For Sale','0','$prod_type','$trans_type','$date','$supplier','$location','$driver','$truck_num','$weight', '$reweight','$total_weight','$expense_desc','$expense','$recorded_by','100','$purchase_cost','$total_prod_cost','Basilan')";
+$query = "INSERT INTO planta_recording (lot_num,status,purchased_id,prod_type,trans_type,receiving_date,supplier,location,driver,truck_num,weight,reweight,produce_total_weight,prod_expense_desc,production_expense,recorded_by,drc,purchase_cost,total_production_cost,source) 
+VALUES ('Outsourced','For Sale','0','$prod_type','$trans_type','$date','$supplier','$location','$driver','$truck_num','$weight', '$reweight','$total_weight','$expense_desc','$expense','$recorded_by','100','$purchase_cost','$total_prod_cost','Basilan')";
 $results = mysqli_query($con, $query);
 $recording_id = $con->insert_id;
 
@@ -95,19 +89,7 @@ foreach ($type as $index => $bales_type) {
     }
 }
 
-  header("Location: ../inventory_bale.php");
-  $_SESSION['success_trans'] = "successful";
+//   header("Location: ../inventory_bale.php");
+//   $_SESSION['success_trans'] = "successful";
 
-    // if ($result) {
-    //     if (mysqli_num_rows($result) > 0) {
-
-
-    //         // header("Location: ../cuplump_shipment_record.php?id=$lastId");
-    //         // $_SESSION['contract'] = "successful";
-    //         exit();
-    //     } else {
-    //         echo "No record found";
-    //     }
-    // } else {
-    //     echo "ERROR: Could not execute query: $query. " . mysqli_error($con);
-    // }
+  

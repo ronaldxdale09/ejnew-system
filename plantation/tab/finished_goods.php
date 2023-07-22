@@ -43,6 +43,7 @@
         <thead class="table-dark" style='font-size:13px'>
             <tr>
                 <th>Status</th>
+                <th>Rec. ID</th>
                 <th>Bale ID</th>
                 <th>Date Produced</th>
                 <th>Quality</th>
@@ -97,7 +98,9 @@
                             <?php echo $row['status'] ?>
                         </span>
                     </td>
-
+                    <td>
+                        <span class="badge bg-success"><?php echo $row['recording_id'] ?></span>
+                    </td>
                     <td>
                         <span class="badge bg-secondary"><?php echo $row['bales_prod_id'] ?></span>
                     </td>
@@ -119,7 +122,8 @@
                     <!-- <td class="number-cell">₱ <?php echo number_format($row['mill_cost'], 2) ?></td> -->
                     <td><?php echo $row['description'] ?></td>
                     <td class="text-center">
-                        <button type="button" data-recording_id='<?php echo $row['recording_id'] ?>' class="btn btn-success btn-sm btnProducedView">
+                        <button type="button" data-recording_id='<?php echo $row['recording_id'] ?>'
+                        data-location='<?php echo $row['location'] ?>' class="btn btn-success btn-sm btnProducedView">
                             <i class="fas fa-book"></i> View
                         </button>
                     </td>
@@ -217,12 +221,13 @@
 
 
         var recording = $(this).data('recording_id');
-
+        var location = $(this).data('location');
+        
         $('#prod_trans_id').val(data[1]);
         $('#prod_trans_date').val(data[2]);
-        $('#prod_trans_supplier').val(data[3]);
-        $('#prod_trans_loc').val(data[4]);
-        $('#prod_trans_lot').val(data[5]);
+        $('#prod_trans_supplier').val(data[6]);
+        $('#prod_trans_loc').val(location);
+        $('#prod_trans_lot').val(data[7]);
 
 
         $('#prod_trans_entry').val(parseFloat(data[6]).toLocaleString());

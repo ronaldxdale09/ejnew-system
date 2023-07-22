@@ -35,13 +35,12 @@ include "include/navbar.php";
                         <div class="wrapper" id="myTab">
                             <input type="radio" name="slider" id="home" checked>
                             <input type="radio" name="slider" id="blog">
-                            <nav>
+                            <nav class='nav_tab my_special_tab'>
                                 <label for="home" class="home"><i class="fas fa-book"></i> Basilan Inventory</label>
                                 <label for="blog" class="blog"><i class="fas fa-list"></i> Kidapawan Inventory</label>
-
-
                                 <div class="slider"></div>
                             </nav>
+
                             <section>
                                 <div class="content content-1">
                                     <hr style="height:3px; background-color: black;">
@@ -74,7 +73,7 @@ include "include/navbar.php";
             </div>
         </div>
     </div>
-   
+
 </body>
 
 </html>

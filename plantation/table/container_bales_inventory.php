@@ -2,10 +2,11 @@
 include('../function/db.php');
 
 
+$loc = str_replace(' ', '', $_SESSION['loc']);
 $container_id = $_POST['container_id'];
 $sql  = "SELECT * FROM planta_bales_production 
 LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
-WHERE ( planta_recording.status='For Sale' ) and (rubber_weight !='0' or rubber_weight IS NOT NULL) and remaining_bales !='0'
+WHERE ( planta_recording.status='For Sale' ) and (rubber_weight !='0' or rubber_weight IS NOT NULL) and (remaining_bales !='0'  and planta_recording.source='$loc')
 ORDER BY planta_bales_production.recording_id ASC ";
 
 $result = mysqli_query($con, $sql);

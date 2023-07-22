@@ -141,6 +141,7 @@ if ($data['total_weight'] != 0) {
             <th>Description</th>
             <th>Mill Cost</th>
             <th>Unit Cost</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -182,6 +183,13 @@ if ($data['total_weight'] != 0) {
                 <td> ₱
                     <?php echo number_format($row['total_production_cost'] / $row['produce_total_weight'], 2) ?>
                 </td>
+                <td>
+                    <?php if ($row['trans_type'] == 'OUTSOURCE') : ?>
+                        <span class="badge bg-danger">Outsourced</span>
+                    <?php else : ?>
+                        <span class="badge bg-success">EJN Produced</span>
+                    <?php endif; ?>
+                </td>
 
             </tr>
         <?php } ?>
@@ -193,7 +201,7 @@ if ($data['total_weight'] != 0) {
     $(document).ready(function() {
         var table = $('#recording_table-produced-kidapawan').DataTable({
             "order": [
-                [1, 'asc']
+                [1, 'desc']
             ],
             "pageLength": -1,
             "dom": "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
