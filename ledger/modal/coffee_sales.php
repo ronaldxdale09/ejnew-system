@@ -6,7 +6,7 @@
                 <h5 class="modal-title"> NEW | COFFEE SALE</h5>
                 <button type="button" class="btn btn-success" onclick="addItemLine()">+ ITEM LINE</button>
             </div>
-            <form action='function/newCoffeeSale.php' method='POST'>
+            <form action='function/coffee_sale.php' method='POST'>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col">

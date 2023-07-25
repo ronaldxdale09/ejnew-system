@@ -156,6 +156,63 @@ table tr {
     background-color: rgba(255, 255, 255, 0.082)
 }
 
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #1b325f;
+    min-width: 240px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: rgb(221, 221, 221);
+    padding: 15px 15px;
+    text-decoration: none;
+    display: block;
+}
+
+
+/* Remove hover behavior on dropdown items */
+
+.dropdown-content a:hover {
+    background-color: transparent;
+}
+
+
+/* Remove hover behavior on dropdown */
+
+
+/*.dropdown:hover .dropdown-content {
+    display: block;
+}*/
+
+
+/* Button styles */
+
+.dropbtn {
+    background-color: #1b325f;
+    color: white;
+    padding: 16px;
+    font-size: 19px;
+    border: none;
+    cursor: pointer;
+}
+
+
+/* Remove hover and focus styles on button */
+
+
+/*.dropbtn:hover,
+.dropbtn:focus {
+    background-color: #1b325f;
+}*/
+
 .logout-container {
     padding: 20px;
     position: static;

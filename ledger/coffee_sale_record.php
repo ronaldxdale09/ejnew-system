@@ -21,7 +21,7 @@
     }
 
     $results = mysqli_query($con, "SELECT 
-        coffee_id,
+        coffee_sale_id,
         coffee_status,
         coffee_no,
         coffee_date,
@@ -72,7 +72,7 @@
                                             while ($row = mysqli_fetch_array($results)) {
                                             ?>
                                                 <tr>
-                                                    <td ><?php echo $row['coffee_id']; ?></td>
+                                                    <td ><?php echo $row['coffee_sale_id']; ?></td>
                                                     <td><?php echo $row['coffee_status']; ?></td>
                                                     <td><?php echo $row['coffee_no']; ?></td>
                                                     <td><?php echo date('M d, Y', strtotime($row['coffee_date'])); ?></td>

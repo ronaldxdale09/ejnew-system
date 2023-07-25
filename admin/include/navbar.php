@@ -1,7 +1,8 @@
 <nav id='navbar'>
     <div id='toggle-nav-btn'>
         <div class='nav-title' style='font-weight:bold;'>
-            <img src='assets/img/logo.png' alt='Q-cart Logo' width='35' height='35' style='margin-right:5px;'> <span class='nav-text'>EJN RUBBER</span>
+            <img src='assets/img/logo.png' alt='Q-cart Logo' width='35' height='35' style='margin-right:5px;'> <span
+                class='nav-text'>EJN RUBBER</span>
         </div>
     </div>
 
@@ -21,27 +22,43 @@
 
     <hr style='color:gray'>
 
-    <a class='nav-link' href='bale_sale_record.php'>
-        <i class='fas fa-chart-line'></i> <span class='nav-text'>Bales Sales Record</span>
+
+    <!-- First Dropdown -->
+    <a class='dropbtn' type="button" id="balesDropdownBtn"
+        onclick="toggleDropdown('balesDropdownBtn', 'balesDropdownContent')">
+        <i class='fas fa-cube'></i> <span class='nav-text'>Bales</span><i class="fa fa-caret-down"></i>
     </a>
-    <a class='nav-link' href='bale_shipment_record.php'>
-        <i class='fa-solid fa-ship'></i> <span class='nav-text'>Bale Shipment</span>
-    </a>
+    <div class='dropdown-content' id="balesDropdownContent">
+        <a class='nav-link' href='bale_sale_record.php'>
+            <i class='fas fa-chart-line'></i> <span class='nav-text'>Bales Sales Record</span>
+        </a>
+        <a class='nav-link' href='bale_shipment_record.php'>
+            <i class='fa-solid fa-ship'></i> <span class='nav-text'>Bale Shipment</span>
+        </a>
+        <a class='nav-link' href='inv_bale.php'>
+            <i class='fas fa-cube'></i> <span class='nav-text'>Bale Inventory</span>
+        </a>
+    </div>
+
     <hr style='color:gray'>
 
-    <a class='nav-link' href='inv_bale.php'> <i class='fas fa-cube'></i>
-        <span class='nav-text'>Bale Inventory</span>
+    <!-- Second Dropdown -->
+    <a class='dropbtn' type="button" id="cuplumpsDropdownBtn"
+        onclick="toggleDropdown('cuplumpsDropdownBtn', 'cuplumpsDropdownContent')">
+        <i class='fas fa-tree'></i> <span class='nav-text'>Cuplumps</span><i class="fa fa-caret-down"></i>
     </a>
-    <a class='nav-link' href='inv_cuplump.php'> <i class='fas fa-tree'></i>
-        <span class='nav-text'>Cuplump Inventory</span>
-    </a>
+    <div class='dropdown-content' id="cuplumpsDropdownContent">
+        <a class='nav-link' href='inv_cuplump.php'>
+            <i class='fas fa-tree'></i> <span class='nav-text'>Cuplump Inventory</span>
+        </a>
+        <a class='nav-link' href='container_record.php'>
+            <i class='fas fa-shipping-fast'></i> <span class='nav-text'>Container Record</span>
+        </a>
+        <a class='nav-link' href='record_allrubber.php'>
+            <i class='fas fa-file-alt'></i> <span class='nav-text'>Transaction Record</span>
+        </a>
+    </div>
 
-    <a class='nav-link' href='container_record.php'> <i class='fas fa-shipping-fast'></i>
-        <span class='nav-text'>Container Record</span>
-    </a>
-    <a class='nav-link' href='record_allrubber.php'><i class='fas fa-file-alt'></i>
-        <span class='nav-text'>Transaction Record</span>
-    </a>
 
     <!-- 
     <a class='nav-link' href='admin_kidapawan_rubber.php'>
@@ -75,3 +92,27 @@
 
 </nav>
 <script src='assets/js/navbar.js'></script>
+
+
+<script>
+    // Get all dropdown buttons
+    const dropdownButtons = document.querySelectorAll('.dropbtn');
+
+    // Loop through each dropdown button to attach click event
+    dropdownButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            // Get the associated dropdown content
+            const content = this.nextElementSibling;
+
+            // Toggle active class on button
+            this.classList.toggle("active");
+
+            // Toggle show/hide dropdown content
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        });
+    });
+</script>
