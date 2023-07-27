@@ -5,6 +5,7 @@
 
                             $source =$_SESSION["source"];
                             $purchased_id = $_POST['purchased_id'];
+                            $date = $_POST['date'];
                             $splitOption = explode(",", $purchased_id);
                             $type = $splitOption[0];
                             $id = $splitOption[1];
@@ -39,7 +40,7 @@
                         
 
                                 $query = "INSERT INTO planta_recording (prod_type,trans_type,lot_num,purchased_id,receiving_date,supplier,location,driver,truck_num,weight,reweight,purchase_cost,status,source) 
-                                        VALUES ('$prod_type','$trans_type','$lot_num','$id',NOW(),'$supplier','$location','$driver','$truck_num','$weight','$reweight','$total_cost','Field','$source')";
+                                        VALUES ('$prod_type','$trans_type','$lot_num','$id','$date','$supplier','$location','$driver','$truck_num','$weight','$reweight','$total_cost','Field','$source')";
                                 $results = mysqli_query($con, $query);
                                    
                                     if ($results) {

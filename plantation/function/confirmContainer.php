@@ -49,52 +49,6 @@ WHERE container_id  = '$ref_no'";
 $results = mysqli_query($con, $query);
 
 if ($results) {
-
-    $query_select_bales = "SELECT bales_id,num_bales FROM bales_container_selection WHERE container_id  = '$ref_no'";
-    $selected_bales = mysqli_query($con, $query_select_bales);
-
-    while ($row = mysqli_fetch_assoc($selected_bales)) {
-        $bales_id = $row['bales_id'];
-        $num_bales = $row['num_bales'];
-
-        $sql = "SELECT remaining_bales,number_bales,recording_id FROM planta_bales_production WHERE bales_prod_id  = '$bales_id'";
-        $res = mysqli_query($con, $sql);
-        $data = mysqli_fetch_assoc($res);
-        $prev_bales = $data['remaining_bales'];
-        $planta_id = $data['recording_id'];
-
-
-        $remaining_bales = $prev_bales - $num_bales;
-
-        $query_update_bales = "UPDATE planta_bales_production SET 
-            status = 'Produced',remaining_bales = '$remaining_bales'
-             WHERE bales_prod_id = '$bales_id'";
-        mysqli_query($con, $query_update_bales);
-
-
-        if ($remaining_bales == 0) {
-            $sql = "UPDATE planta_bales_production SET 
-                status = 'Container'
-                WHERE bales_prod_id = '$bales_id'";
-            mysqli_query($con, $sql);
-
-            // Check if the condition is met
-            $query = "SELECT recording_id, SUM(remaining_bales) AS total_remaining_bales FROM planta_bales_production GROUP BY recording_id HAVING total_remaining_bales = 0";
-            $result = mysqli_query($con, $query);
-
-            if ($result && mysqli_num_rows($result) > 0) {
-                while ($row = mysqli_fetch_assoc($result)) {
-                    $recording_id = $row['recording_id'];
-
-                    // If the condition is met, update the status of planta_recording
-                    $sql = "UPDATE planta_recording SET status = 'Complete' WHERE recording_id = '$recording_id'";
-                    mysqli_query($con, $sql);
-                }
-            }
-        }
-    }
-
-
    header("Location: ../container_record.php");
     $_SESSION['contract'] = "Update successful";
     exit();
@@ -102,3 +56,4 @@ if ($results) {
     echo "ERROR: Could not execute $query. " . mysqli_error($con);
 }
 exit();
+?>

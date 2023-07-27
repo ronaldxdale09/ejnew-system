@@ -10,15 +10,9 @@ if (isset($_GET['tab'])) {
 
 $loc = str_replace(' ', '', $_SESSION['loc']);
 
-$sql = mysqli_query($con, "SELECT SUM(reweight) as inventory from  planta_recording where status='Field' and planta_recording.source ='$loc'   ");
-$cuplumps = mysqli_fetch_array($sql);
-
-$sql = mysqli_query($con, "SELECT SUM(crumbed_weight) as inventory from  planta_recording where status='Milling'  and planta_recording.source  ='$loc'   ");
-$milling = mysqli_fetch_array($sql);
 
 
-$sql = mysqli_query($con, "SELECT SUM(dry_weight) as inventory from  planta_recording where status='Drying' and planta_recording.source  ='$loc'  ");
-$drying = mysqli_fetch_array($sql);
+
 
 $excess = 0;
 $excessUsed = 0;
@@ -58,8 +52,47 @@ $sql = mysqli_query($con, "SELECT SUM(remaining_bales) as inventory from  planta
 $balesCount = mysqli_fetch_array($sql);
 
 
-// Report all PHP errors
 
+// For 'receiving' status
+$sql_receiving = mysqli_query($con, "SELECT COUNT(*) as Total FROM planta_recording WHERE status='Field'  and planta_recording.source='$loc'");
+$receiving = mysqli_fetch_array($sql_receiving);
+$receiving_count = $receiving['Total'];
+
+// For 'milling' status
+$sql_milling = mysqli_query($con, "SELECT COUNT(*) as Total FROM planta_recording WHERE status='Milling'  and planta_recording.source='$loc'");
+$milling = mysqli_fetch_array($sql_milling);
+$milling_count = $milling['Total'];
+
+// For 'drying' status
+$sql_drying = mysqli_query($con, "SELECT COUNT(*) as Total FROM planta_recording WHERE status='Drying'  and planta_recording.source='$loc'");
+$drying = mysqli_fetch_array($sql_drying);
+$drying_count = $drying['Total'];
+
+
+
+
+// For 'drying' status
+$sql_pressing = mysqli_query($con, "SELECT COUNT(*) as Total FROM planta_recording WHERE status='Pressing'  and planta_recording.source='$loc'");
+$pressing = mysqli_fetch_array($sql_pressing);
+$pressing_count = $pressing['Total'];
+
+// For 'produced' status
+$sql_produced = mysqli_query($con, "SELECT COUNT(*) as Total FROM planta_bales_production 
+LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
+WHERE planta_bales_production.status='Produced' and (rubber_weight !='0' or rubber_weight !=null) and (remaining_bales !='0' and planta_recording.source='$loc')
+ORDER BY planta_bales_production.recording_id ASC");
+$produced = mysqli_fetch_array($sql_produced);
+$produced_count = $produced['Total'];
+
+$sql = mysqli_query($con, "SELECT SUM(reweight) as inventory from  planta_recording where status='Field' and planta_recording.source ='$loc'   ");
+$cuplumps = mysqli_fetch_array($sql);
+
+$sql = mysqli_query($con, "SELECT SUM(crumbed_weight) as inventory from  planta_recording where status='Milling'  and planta_recording.source  ='$loc'   ");
+$milling = mysqli_fetch_array($sql);
+
+
+$sql = mysqli_query($con, "SELECT SUM(dry_weight) as inventory from  planta_recording where status='Drying' and planta_recording.source  ='$loc'  ");
+$drying = mysqli_fetch_array($sql);
 
 
 ?>
@@ -167,7 +200,7 @@ $balesCount = mysqli_fetch_array($sql);
                             </div>
                         </div>
 
-                        <div class="col">
+                        <div class="col" hidden>
                             <div class="stat-card stat-card--total-excess">
                                 <div class="stat-card__content">
                                     <div class="stat-card__inner">
@@ -216,11 +249,11 @@ $balesCount = mysqli_fetch_array($sql);
                                                                             } ?>>
 
                                 <nav>
-                                    <label for="home" class="home"><i class="fas fa-truck"></i> Receiving</label>
-                                    <label for="blog" class="blog"><i class="fas fa-cogs"></i> Milling</label>
-                                    <label for="drying" class="drying"><i class="fas fa-sun"></i> Drying</label>
-                                    <label for="code" class="code"><i class="fas fa-toolbox"></i> Pressing</label>
-                                    <label for="help" class="help"><i class="fas fa-check"></i> Produced</label>
+                                    <label for="home" class="home"><i class="fas fa-truck"></i> Receiving    <span class="badge bg-primary"> <?php echo $receiving_count?> </span></label>
+                                    <label for="blog" class="blog"><i class="fas fa-cogs"></i> Milling <span class="badge bg-primary"> <?php echo $milling_count?> </span></label>
+                                    <label for="drying" class="drying"><i class="fas fa-sun"></i> Drying <span class="badge bg-primary"> <?php echo $drying_count?> </span></label>
+                                    <label for="code" class="code"><i class="fas fa-toolbox"></i> Pressing <span class="badge bg-primary"> <?php echo $pressing_count?> </span></label>
+                                    <label for="help" class="help"><i class="fas fa-check"></i> Produced <span class="badge bg-primary"> <?php echo $produced_count?> </span></label>
 
                                     <div class="slider"></div>
                                 </nav>

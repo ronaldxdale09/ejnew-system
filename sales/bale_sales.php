@@ -259,7 +259,7 @@ if (isset($_GET['id'])) {
 
                             <div class="row">
                                 <div class="col-2">
-                                    <label style='font-size:15px' class="col-md-12">No. of Expected Containers</label>
+                                    <label style='font-size:15px' class="col-md-12">No. of Containers</label>
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control" name='contract_contaier' id='contract_contaier' tabindex="7" autocomplete='off' style="width: 100px;" required />
                                     </div>

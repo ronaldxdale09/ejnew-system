@@ -133,6 +133,8 @@ include "include/navbar.php";
                                                         break;
                                                 }
 
+                                          
+
 
 
                                             ?>
@@ -160,6 +162,7 @@ include "include/navbar.php";
                                             <td >₱ <?php echo number_format($row['overall_ave_cost_kilo'],2 )?> </td>
                                             <td >₱ <?php echo number_format($row['unpaid_balance'],2 )?> </td>
                                             <td hidden>₱ <?php echo number_format($row['gross_profit'],0 )?> </td>
+                                    
                                             <td class="text-center">
                                                 <button type="button" class="btn btn-success btn-sm btnViewRecord"
                                                     data-status="<?php echo $row['status']; ?>"
@@ -224,18 +227,20 @@ $('.btnViewRecord').on('click', function() {
     console.log(bale); // Log the data to the console to see what it looks like
     $('#sales_id').val(bale.bales_sales_id);
     $('#sale_contract').val(bale.sale_contract);
-    $('#purchase_contract').val(bale.purchase_contract);
+    $('#v_purchase_contract').val(bale.purchase_contract);
     $('#sale_type').val(bale.sale_type);
     $('#contract_quality').val(bale.contract_quality);
     $('#trans_date').val(bale.transaction_date);
-    $('#sale_buyer').val(bale.buyer_name); // Assuming buyer_name is a column in your table
-    $('#shipping_date').val(bale.shipping_date);
+    $('#v_sale_buyer').val(bale.buyer_name); // Assuming buyer_name is a column in your table
+    $('#v_shipping_date').val(bale.shipping_date);
     $('#sale_source').val(bale.source);
     $('#sale_destination').val(bale.destination);
     $('#contract_contaier').val(bale.contract_container_num);
     $('#contract_quantity').val(bale.contract_quantity);
-    $('#sale_currency').val(bale.currency);
-    $('#contract_price').val(bale.contract_price);
+    $('#v_sale_currency').val(bale.currency);
+    $('#v_contract_price').val(bale.contract_price);
+    $('#tax_rate').val(bale.tax_rate);
+    $('#tax_amount').val(bale.tax_amount);
     $('#other_terms').val(bale.other_terms);
 
 

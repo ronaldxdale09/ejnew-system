@@ -101,7 +101,7 @@ table tr {
 
 #navbar div,
 #navbar a {
-    font-size: 19px;
+    font-size: 19px !important;
     color: white;
     text-decoration: none;
 }

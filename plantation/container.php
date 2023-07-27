@@ -502,18 +502,23 @@ if (isset($_GET['id'])) {
 
 
     $('.btnVoid').on('click', function() {
-        $tr = $(this).closest('tr');
+        // $tr = $(this).closest('tr');
 
-        var data = $tr.children("td").map(function() {
-            return $(this).text();
-        }).get();
+        // var data = $tr.children("td").map(function() {
+        //     return $(this).text();
+        // }).get();
 
-        var id = <?php echo  $id ?>;
+        // var id = <?php echo  $id ?>;
 
-        $('#void_id').val(id);
+        // $('#void_id').val(id);
 
-        $('#voidModal').modal('show');
+        // $('#voidModal').modal('show');
 
+        Swal.fire({
+            icon: 'info',
+            title: 'Oops...',
+            text: 'This function is currently under maintenance!'
+        })
     });
 
 
