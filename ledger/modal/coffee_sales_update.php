@@ -39,9 +39,12 @@
                     <br>
                     <div class="card">
                         <div class="card-body">
-
+                            <div id="itemLines">
+                                <!-- Item lines will be dynamically added here -->
+                            </div>
                         </div>
                     </div>
+
                     <br>
                     <div class="row">
                         <div class="col">
@@ -95,7 +98,7 @@
 
             console.log(coffeeId)
             $.ajax({
-                url: "modal/coffee_table/coffee_sale_line.php", // Adjust this path as needed
+                url: "../function/coffee_sale_fetch.php",
                 method: "POST",
                 data: {
                     coffee_id: coffeeId
@@ -103,14 +106,24 @@
                 success: function (data) {
                     // Remove existing item lines
                     $('#itemLines').empty();
+
                     // Add item lines based on data
                     for (let line of data) {
-                        // addItemLine is a function that creates a new item line
-                        // and populates it with the data from the line object
-                        addItemLine(line);
+                        // Create a new item line element
+                        let itemLine = $('<div class="item-line"></div>');
+
+                        // Populate the item line with data
+                        itemLine.append('<span class="product">' + line.product + '</span>');
+                        itemLine.append('<span class="unit">' + line.unit + '</span>');
+                        itemLine.append('<span class="price">' + line.price + '</span>');
+                        itemLine.append('<span class="amount">' + line.amount + '</span>');
+
+                        // Append the item line to the itemLines div
+                        $('#itemLines').append(itemLine);
                     }
                 }
             });
+
 
 
 

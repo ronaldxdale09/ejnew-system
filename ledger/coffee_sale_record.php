@@ -32,6 +32,7 @@
     FROM coffee_sale");
 
     include "modal/coffee_sales.php"; // Include the modal file
+    include ('modal/coffee_sales_update.php');
     ?>
 
     <div class='main-content' style='min-height:100vh;'>
