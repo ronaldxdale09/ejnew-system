@@ -186,7 +186,7 @@
                                         <input type="text" class="form-control" id='received_by' name='received_by'
                                             required />
                                     </div>
-                                    <input type="text" style='text-align:right' name='m_prod_id' id='m_prod_id' hidden>
+                                    <input type="text" style='text-align:right' name='m_prod_id' id='m_prod_id' hidden >
                                 </div>
                             </div>
                         </div>

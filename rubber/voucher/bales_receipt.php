@@ -126,8 +126,13 @@ table.lastTable {
 </style>
 
 <?php 
-$transaction_id = $_SESSION['invoice']; // replace this with the actual id
-
+if (isset( $_SESSION['print_invoice'])) {
+    $transaction_id = $_SESSION['print_invoice']; // replace this with the actual id
+} else {
+    // Handle the error, e.g. show an error message and exit
+    echo "Error: 'invoice' session variable is not set.";
+    exit;
+}
 $query = "SELECT * FROM bales_transaction WHERE id = $transaction_id";
 $result = mysqli_query($con, $query);
 $data = mysqli_fetch_assoc($result);

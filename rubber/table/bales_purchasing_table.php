@@ -97,7 +97,7 @@ $('.btnSelectTrans').on('click', function() {
     $('#m_lot_number').val(lot_number);
     ('#lot_code').val(lot_number);
     $('#m_delivery_date').val(receiving_date);
-    $('#m_prod_id').val(recording_id);
+    $('#prod_id').val(recording_id);
 
 
     $.ajax({
