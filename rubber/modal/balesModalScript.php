@@ -121,7 +121,7 @@ $(function() {
 
 
         var delivery_date = $("#delivery_date").val();
-        var lot_number = $("#lot_number").val();
+        var lot_number = $("#lot_code").val();
 
         $("#m_delivery_date").val(delivery_date);
         $("#m_lot_number").val(lot_number);

@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // // Your SQL update query
     $query = "UPDATE `sales_cuplump_shipment` SET 
     `type` = '$type', 
-    status='Complete',
+    status='Shipped Out',
     `destination` = '$ship_destination', 
     `source` = '$ship_source', 
     `ship_date` = '$ship_date', 
@@ -85,9 +85,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         while ($row = mysqli_fetch_assoc($selected_container)) {
             $container_id = $row['container_id'];
-
+            
+            // Fetch container info
+            $result = mysqli_query($con, "SELECT * FROM sales_cuplump_container WHERE container_id = '$container_id'");
+            $container_info = mysqli_fetch_assoc($result);
+        
+            // Calculate new average cost
+            $new_average_cuplump_cost = ($container_info['total_cuplump_cost'] + $ship_cost_per_container) / $container_info['total_cuplump_weight'];
+        
+            // Update the container
             $update = "UPDATE sales_cuplump_container SET 
-            status = 'Shipped Out',ship_exp='$ship_cost_per_container' WHERE container_id = '$container_id'";
+            status = 'Shipped Out',
+            ship_exp='$ship_cost_per_container',
+            ave_cuplump_cost='$new_average_cuplump_cost'
+            WHERE container_id = '$container_id'";
+            
             mysqli_query($con, $update);
         }
 

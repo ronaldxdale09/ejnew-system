@@ -146,8 +146,8 @@ echo $output;
                         num_bales: num_bales,
                         total_weight: total_weight,
                         ship_exp: ship_exp,
-                        total_bale_cost:total_bale_cost,
-                        total_milling_cost:total_milling_cost,
+                        total_bale_cost: total_bale_cost,
+                        total_milling_cost: total_milling_cost,
                         remarks: remarks
 
                     },
@@ -155,6 +155,8 @@ echo $output;
                         console.log('success');
                         console.log(data);
                         fetch_container();
+                        changeGrossProfitColor();
+                        computeGrossSales();
                         Swal.fire({
                             position: 'center',
                             icon: 'success',

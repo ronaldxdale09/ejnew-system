@@ -29,7 +29,7 @@ $output .= '
            <th scope="col" >Total Milling Cost</th>
            <th scope="col" >Ship Exp.</th>
            <th scope="col">Remarks</th>
-           <th scope="col">Recorded</th>
+           <th scope="col" hidden>Recorded</th>
     
            <th ></th>
        </tr>
@@ -58,7 +58,7 @@ if (mysqli_num_rows($result) > 0) {
         <td class="nowrap number-cell" >₱ ' . number_format($row["total_milling_cost"], 2, ".", ",") . ' </td>
         <td class="nowrap number-cell">₱ ' . number_format($row["ship_expense"], 2, ".", ",") . ' </td>
         <td class="nowrap">' . $row["remarks"] . '</td>
-        <td class="nowrap">' . $row["recorded_by"] . '</td>
+        <td class="nowrap" hidden>' . $row["recorded_by"] . '</td>
             <td><button type="button" id="removeContainer" class="btn btn-danger btn-sm removeContainer"><i
             class="fa fa-trash"></i></button> </td>
         </tr>

@@ -4,7 +4,7 @@ include('../function/db.php');
 $sales_id = $_POST['sales_id'];
 
 // Query to get the bale info from the database
-$query = "SELECT * FROM bales_sales_payment WHERE sales_id = '$sales_id'";
+$query = "SELECT * FROM sales_cuplump_payment WHERE cuplump_sales_id = '$sales_id'";
 $result = mysqli_query($con, $query);
 
 // Check if the query was successful
@@ -35,8 +35,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     $output .= '
     <tr>
     <td hidden><input type="text"  class="form-control payment_id" name="payment_id[]" value="' . $row['payment_id'] . '" ></td>
-    <td><input type="date" class="form-control " name="pay_date[]"  value="' . $row["date"] . '"></td>
-    <td><input type="text"  class="form-control weight" name="pay_details[]"  value="' . $row["details"] . '"></td>
+    <td><input type="date" class="form-control " name="pay_date[]"  value="' . $row["payment_date"] . '"></td>
+    <td><input type="text"  class="form-control weight" name="pay_details[]"  value="' . $row["payment_details"] . '"></td>
     <td>
        <div class="input-group mb-3">
              <span class="input-group-text" >' . $row["currency"] . '</span>
@@ -44,11 +44,11 @@ while ($row = mysqli_fetch_assoc($result)) {
            value="' . number_format($row["amount_paid"],2) . '">
        </div>
     </td>
-    <td><input type="text"  class="form-control weight payRate" name="pay_rate[]"  value="' . $row["rate"] . '"></td>
+    <td><input type="text"  class="form-control weight payRate" name="pay_rate[]"  value="' . $row["exchange_rate"] . '"></td>
     <td>
        <div class="input-group mb-3">
              <span class="input-group-text">₱</span>
-          <input type="text"  class="form-control weight pesoEquivalent" name="peso_equivalent[]"  value="' . number_format($row["pesos_equivalent"],2) . '">
+          <input type="text"  class="form-control weight pesoEquivalent" name="peso_equivalent[]"  value="' . number_format($row["peso_equivalent"],2) . '">
     </td>
     <td><button class="btn btn-danger removePayment" id="removePayment"><i class="fas fa-trash"></i></button></td>
     </td>
@@ -59,27 +59,16 @@ while ($row = mysqli_fetch_assoc($result)) {
 $output .= '
     </tbody>
 </table>
-<br>
-
-
         <script>
-
         function formatNumber(num) {
             return num.toLocaleString("en-US", {minimumFractionDigits: 2});
         }
 
-
-
         var sales_proceeds = parseFloat(document.getElementById("sales_proceeds").value.replace(/,/g, "")) || 0;
         var tax_amount = parseFloat(document.getElementById("tax_amount").value.replace(/,/g, "")) || 0;
 
-        gross_profit =  (sales_proceeds - overall_cost) - tax_amount;
+        gross_profit =  (sales_proceeds - over_all_cost) - tax_amount;
         document.getElementById("gross_profit").value = formatNumber(gross_profit);
-
-
-
-
-
 
         </script>
 ';
@@ -126,7 +115,7 @@ echo $output;
             var unpaid_balance = total_sale - amount_unpaid;
             document.getElementById("unpaid_balance").value = formatNumber(unpaid_balance.toFixed(2));
             changeGrossProfitColor();
-            computeGrossSales();
+            calculateSalesTotals();
         }
 
         $("#payment-table").on('input', '.payAmount, .payRate', function() {

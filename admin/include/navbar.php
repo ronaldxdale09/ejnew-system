@@ -22,7 +22,7 @@
     <hr style='color:gray'>
 
     <a class='nav-link' href='bale_sale_record.php'>
-        <i class='fas fa-chart-line'></i> <span class='nav-text'>Bales Sales Record</span>
+        <i class='fas fa-chart-line'></i> <span class='nav-text'>Bales Sales </span>
     </a>
     <a class='nav-link' href='container_record.php'> <i class='fas fa-shipping-fast'></i>
         <span class='nav-text'>Bale Container </span>
@@ -34,7 +34,9 @@
         <span class='nav-text'>Bale Inventory</span>
     </a>
     <hr style='color:gray'>
-
+    <a class='nav-link' href='cuplump_sale_record.php'>
+        <i class='fas fa-chart-line'></i> <span class='nav-text'>Cuplump Sales </span>
+    </a>
     <a class='nav-link' href='cuplump_container_record.php'> <i class='fas fa-shipping-fast'></i>
         <span class='nav-text'>Cuplump Container </span>
     </a>

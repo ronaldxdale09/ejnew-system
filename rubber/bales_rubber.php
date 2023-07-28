@@ -22,7 +22,7 @@ if (isset($_GET['id'])) {
         $date = isset($record['date']) ? $record['date'] : '';
         $address = isset($record['address']) ? $record['address'] : '';
         $entry = isset($record['entry']) ? $record['entry'] : 0;
-       
+        $lot_code = isset($record['lot_code']) ? $record['lot_code'] : '';
         $total_net_weight = isset($record['total_net_weight']) ? $record['total_net_weight'] : 0;
     
         $price_1 = isset($record['price_1']) ? $record['price_1'] : 0;
@@ -39,27 +39,27 @@ if (isset($_GET['id'])) {
         
 // Debugging code
 echo "
-<script>
-    console.log('contract: " . $contract . "');
-    console.log('seller: " . $seller . "');
-    console.log('date: " . $date . "');
-    console.log('address: " . $address . "');
-    console.log('entry: " . $entry . "');
+    <script>
+        console.log('contract: " . $contract . "');
+        console.log('seller: " . $seller . "');
+        console.log('date: " . $date . "');
+        console.log('address: " . $address . "');
+        console.log('entry: " . $entry . "');
 
-    console.log('total_net_weight: " . $total_net_weight . "');
+        console.log('total_net_weight: " . $total_net_weight . "');
 
-    console.log('price_1: " . $price_1 . "');
-    console.log('first_total: " . $first_total . "');
-    console.log('price_2: " . $price_2 . "');
-    console.log('second_total: " . $second_total . "');
-    console.log('total_amount: " . $total_amount . "');
-    console.log('cash_advance: " . $cash_advance . "');
-    console.log('amount_paid: " . $amount_paid . "');
-    console.log('amount_words: " . $amount_words . "');
-    console.log('loc: " . $loc . "');
-    console.log('recorded_by: " . $recorded_by . "');
-    console.log('drc: " . $drc . "');
-</script>
+        console.log('price_1: " . $price_1 . "');
+        console.log('first_total: " . $first_total . "');
+        console.log('price_2: " . $price_2 . "');
+        console.log('second_total: " . $second_total . "');
+        console.log('total_amount: " . $total_amount . "');
+        console.log('cash_advance: " . $cash_advance . "');
+        console.log('amount_paid: " . $amount_paid . "');
+        console.log('amount_words: " . $amount_words . "');
+        console.log('loc: " . $loc . "');
+        console.log('recorded_by: " . $recorded_by . "');
+        console.log('drc: " . $drc . "');
+    </script>
 ";
         echo "
             <script>
@@ -68,6 +68,8 @@ echo "
                     $('#date').val('" . $date . "');
                     $('#contract').val('" . $contract . "');
                     $('#name').val('" . $seller . "').trigger('chosen:updated');
+
+                    $('#lot_code').val('" . $lot_code . "');
                     $('#address').val('" . $address . "');
                     $('#entry').val('" . $entry . "');
                     $('#total_net_weight').val('" . $total_net_weight . "');
@@ -324,7 +326,8 @@ $today = $year . "-" . $month . "-" . $day;
                                                     <span class="fa fa-book"></span> Select Inventory</button>
                                                 <hr>
                                                 <!-- -->
-
+                                                <input type="text" class="form-control" id='lot_code'
+                                                                name='lot_code' readonly />
                                                 <br>
                                                 <div id='selected_inventory_bales'></div> <br>
                                                 <div class="form-group">

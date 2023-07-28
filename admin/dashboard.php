@@ -1,50 +1,88 @@
-<?php 
-   include('include/header.php');
-   include "include/navbar.php";
+<?php
+include('include/header.php');
+include "include/navbar.php";
 
 error_reporting(0); // Suppress all warnings
 
 
 
-$sql = mysqli_query($con, "SELECT SUM(reweight) as inventory from  planta_recording where status='Field'   "); 
-$cuplumps = mysqli_fetch_array($sql);
+$sql = mysqli_query($con, "SELECT SUM(reweight) as inventory from  planta_recording where status='Field' and source='Basilan'   ");
+$basilan_cuplumps = mysqli_fetch_array($sql);
 
-$sql = mysqli_query($con, "SELECT SUM(crumbed_weight) as inventory from  planta_recording where status='Milling'   "); 
-$milling = mysqli_fetch_array($sql);
+$sql = mysqli_query($con, "SELECT SUM(crumbed_weight) as inventory from  planta_recording where status='Milling' and source='Basilan'  ");
+$basilan_milling = mysqli_fetch_array($sql);
 
 
-$sql = mysqli_query($con, "SELECT SUM(dry_weight) as inventory from  planta_recording where status='Drying'   "); 
-$drying = mysqli_fetch_array($sql);
+$sql = mysqli_query($con, "SELECT SUM(dry_weight) as inventory from  planta_recording where status='Drying' and source='Basilan'  ");
+$basilan_drying = mysqli_fetch_array($sql);
+
+
+
+$sql = mysqli_query($con, "SELECT SUM(reweight) as inventory from  planta_recording where status='Field'and source='Kidapawan'   ");
+$kidapawan_cuplumps = mysqli_fetch_array($sql);
+
+$sql = mysqli_query($con, "SELECT SUM(crumbed_weight) as inventory from  planta_recording where status='Milling' and source='Kidapawan'     ");
+$kidapawan_milling = mysqli_fetch_array($sql);
+
+
+$sql = mysqli_query($con, "SELECT SUM(dry_weight) as inventory from  planta_recording where status='Drying' and source='Kidapawan'     ");
+$kidapawan_drying = mysqli_fetch_array($sql);
 
 
 $sql = mysqli_query($con, "SELECT SUM(remaining_bales * kilo_per_bale) as inventory,planta_recording.status as planta_status  from  planta_bales_production
 LEFT JOIN planta_recording on planta_bales_production.recording_id = planta_recording.recording_id
- where planta_bales_production.remaining_bales !=0  "); 
-$bales = mysqli_fetch_array($sql);
+ where planta_bales_production.remaining_bales !=0  and planta_recording.source='Basilan'");
+$basilan_bales = mysqli_fetch_array($sql);
+
+$sql = mysqli_query($con, "SELECT SUM(remaining_bales * kilo_per_bale) as inventory,planta_recording.status as planta_status  from  planta_bales_production
+LEFT JOIN planta_recording on planta_bales_production.recording_id = planta_recording.recording_id
+ where planta_bales_production.remaining_bales !=0 and planta_recording.source='Kidapawan' ");
+$kidapawan_bales = mysqli_fetch_array($sql);
 
 
 $sql = mysqli_query($con, "SELECT SUM(remaining_bales) as inventory from  planta_bales_production 
   LEFT JOIN planta_recording on planta_bales_production.recording_id = planta_recording.recording_id
-where  planta_bales_production.remaining_bales !=0 "); 
-$balesCount = mysqli_fetch_array($sql);
+where  planta_bales_production.remaining_bales !=0  and planta_recording.source='Basilan'");
+$basilan_balesCount = mysqli_fetch_array($sql);
+
+$sql = mysqli_query($con, "SELECT SUM(remaining_bales) as inventory from  planta_bales_production 
+  LEFT JOIN planta_recording on planta_bales_production.recording_id = planta_recording.recording_id
+where  planta_bales_production.remaining_bales !=0 and planta_recording.source='Kidapawan'");
+$kidapawan_balesCount = mysqli_fetch_array($sql);
 
 
+$total_cuplumps_weight = ($basilan_cuplumps['inventory'] ?? 0) + ($kidapawan_cuplumps['inventory'] ?? 0);
+$total_milling_weight = ($basilan_milling['inventory'] ?? 0) + ($kidapawan_milling['inventory'] ?? 0);
+$total_drying_weight = ($basilan_drying['inventory'] ?? 0) + ($kidapawan_drying['inventory'] ?? 0);
+$total_bales_weight = ($basilan_bales['inventory'] ?? 0) + ($kidapawan_bales['inventory'] ?? 0);
+$total_bales_count = ($basilan_balesCount['inventory'] ?? 0) + ($kidapawan_balesCount['inventory'] ?? 0);
 
-   $loc = ''; // Please replace with your location value
-   $Currentmonth = date('n');
-   $CurrentYear = date('Y');
+
+$Currentmonth = date('n');
+$CurrentYear = date('Y');
 ?>
 
 
 <link rel="stylesheet" href="css/statistic-card.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"
-    integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"
-    integrity="sha512-JPcRR8yFa8mmCsfrw4TNte1ZvF1e3+1SdGMslZvmrzDYxS69J7J49vkFL8u6u8PlPJK+H3voElBtUCzaXj+6ig=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js" integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js" integrity="sha512-JPcRR8yFa8mmCsfrw4TNte1ZvF1e3+1SdGMslZvmrzDYxS69J7J49vkFL8u6u8PlPJK+H3voElBtUCzaXj+6ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-labels@1.1.0/src/chartjs-plugin-labels.js"></script>
 
+<style>
+    .flex-container {
+        display: flex;
+        justify-content: space-between;
+        font-weight: bold;
+        width: 100%;
+    }
+
+    .separator {
+        border-top: 1px solid #000;
+        /* Change color as needed */
+        margin: 4px 0;
+        /* Add some vertical spacing */
+    }
+</style>
 
 <body>
     <div class='main-content' style='position:relative; height:100%;'>
@@ -148,9 +186,19 @@ $balesCount = mysqli_fetch_array($sql);
                         <div class="stat-card">
                             <div class="stat-card__content">
                                 <p class="text-uppercase mb-1 text-muted"><b>CUPLUMP</b> INVENTORY</p>
-                                <h4>
-                                    <?php echo number_format($cuplumps['inventory'] ?? 0, 0) ?> kg
-                                </h4>
+                                <div class="flex-container">
+                                    <div>Basilan :</div>
+                                    <div><?php echo number_format($basilan_cuplumps['inventory'] ?? 0, 0) ?> kg</div>
+                                </div>
+                                <div class="flex-container">
+                                    <div>Kidapawan :</div>
+                                    <div><?php echo number_format($kidapawan_cuplumps['inventory'] ?? 0, 0) ?> kg</div>
+                                </div>
+                                <div class="separator"></div>
+                                <div class="flex-container">
+                                    <div>Total :</div>
+                                    <div><?php echo number_format($total_cuplumps_weight ?? 0, 0) ?> kg</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -159,9 +207,19 @@ $balesCount = mysqli_fetch_array($sql);
                         <div class="stat-card">
                             <div class="stat-card__content">
                                 <p class="text-uppercase mb-1 text-muted"><b>CRUMB</b> INVENTORY</p>
-                                <h4>
-                                    <?php echo number_format($milling['inventory'] ?? 0, 0) ?> kg
-                                </h4>
+                                <div class="flex-container">
+                                    <div>Basilan :</div>
+                                    <div><?php echo number_format($basilan_milling['inventory'] ?? 0, 0) ?> kg</div>
+                                </div>
+                                <div class="flex-container">
+                                    <div>Kidapawan :</div>
+                                    <div><?php echo number_format($kidapawan_milling['inventory'] ?? 0, 0) ?> kg</div>
+                                </div>
+                                <div class="separator"></div>
+                                <div class="flex-container">
+                                    <div>Total :</div>
+                                    <div><?php echo number_format($total_milling_weight ?? 0, 0) ?> kg</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -170,9 +228,40 @@ $balesCount = mysqli_fetch_array($sql);
                         <div class="stat-card">
                             <div class="stat-card__content">
                                 <p class="text-uppercase mb-1 text-muted"><b>BLANKET</b> INVENTORY</p>
-                                <h4>
-                                    <?php echo number_format($drying['inventory'] ?? 0, 0) ?> kg
-                                </h4>
+                                <div class="flex-container">
+                                    <div>Basilan :</div>
+                                    <div><?php echo number_format($basilan_drying['inventory'] ?? 0, 0) ?> kg</div>
+                                </div>
+                                <div class="flex-container">
+                                    <div>Kidapawan :</div>
+                                    <div><?php echo number_format($kidapawan_drying['inventory'] ?? 0, 0) ?> kg</div>
+                                </div>
+                                <div class="separator"></div>
+                                <div class="flex-container">
+                                    <div>Total :</div>
+                                    <div><?php echo number_format($total_cuplumps_weight ?? 0, 0) ?> kg</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="stat-card">
+                            <div class="stat-card__content">
+                                <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY (kg)</p>
+                                <div class="flex-container">
+                                    <div>Basilan :</div>
+                                    <div><?php echo number_format($basilan_bales['inventory'] ?? 0, 0) ?> kg</div>
+                                </div>
+                                <div class="flex-container">
+                                    <div>Kidapawan :</div>
+                                    <div><?php echo number_format($kidapawan_bales['inventory'] ?? 0, 0) ?> kg</div>
+                                </div>
+                                <div class="separator"></div>
+                                <div class="flex-container">
+                                    <div>Total :</div>
+                                    <div><?php echo number_format($total_bales_weight ?? 0, 0) ?> kg</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -181,117 +270,111 @@ $balesCount = mysqli_fetch_array($sql);
                         <div class="stat-card">
                             <div class="stat-card__content">
                                 <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY</p>
-                                <h4>
-                                    <?php echo number_format($bales['inventory'] ?? 0, 0) ?> kg
-                                </h4>
+                                <div class="stat-card__content">
+                                    <div class="flex-container">
+                                        <div>Basilan :</div>
+                                        <div><?php echo number_format($basilan_balesCount['inventory'] ?? 0, 0) ?> kg</div>
+                                    </div>
+                                    <div class="flex-container">
+                                        <div>Kidapawan :</div>
+                                        <div><?php echo number_format($kidapawan_balesCount['inventory'] ?? 0, 0) ?> kg</div>
+                                    </div>
+                                    <div class="separator"></div>
+                                <div class="flex-container">
+                                    <div>Total :</div>
+                                    <div><?php echo number_format($total_bales_count ?? 0, 0) ?> pcs</div>
+                                </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col">
-                        <div class="stat-card">
-                            <div class="stat-card__content">
-                                <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY</p>
-                            <div class="stat-card__content">
-                                <h4>
-                                    <?php echo number_format($balesCount['inventory'] ?? 0, 0) ?> pcs
-                                </h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-
-                <div class="row" hidden>
-                    <div class="card" style="width:100%;max-width:100%;">
-                        <div class="card-body" style="width:100%;max-width:100%;">
-                            <h5>NET INCOME TREND</h5>
-                            <div class="row" style="display: flex; align-items: stretch;">
-                                <div class="col" style="display: flex;">
-                                    <div class="card" style="width: 100%;">
-                                        <div class="card-body" style="height: 400px; position: relative;">
-                                            <canvas id="trend_income"
-                                                style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                    <div class="row" hidden>
+                        <div class="card" style="width:100%;max-width:100%;">
+                            <div class="card-body" style="width:100%;max-width:100%;">
+                                <h5>NET INCOME TREND</h5>
+                                <div class="row" style="display: flex; align-items: stretch;">
+                                    <div class="col" style="display: flex;">
+                                        <div class="card" style="width: 100%;">
+                                            <div class="card-body" style="height: 400px; position: relative;">
+                                                <canvas id="trend_income" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="row" hidden>
-                    <div class="card" style="width:100%;max-width:100%;">
-                        <div class="card-body" style="width:100%;max-width:100%;">
-                            <h5>GROSS PROFIT TREND</h5>
-                            <div class="row" style="display: flex; align-items: stretch;">
-                                <div class="col" style="display: flex;">
-                                    <div class="card" style="width: 100%;">
-                                        <div class="card-body" style="height: 400px; position: relative;">
-                                            <canvas id="trend_grossprofit"
-                                                style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                    <div class="row" hidden>
+                        <div class="card" style="width:100%;max-width:100%;">
+                            <div class="card-body" style="width:100%;max-width:100%;">
+                                <h5>GROSS PROFIT TREND</h5>
+                                <div class="row" style="display: flex; align-items: stretch;">
+                                    <div class="col" style="display: flex;">
+                                        <div class="card" style="width: 100%;">
+                                            <div class="card-body" style="height: 400px; position: relative;">
+                                                <canvas id="trend_grossprofit" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <br>
+                    <br>
 
-                <div class="row" hidden>
-                    <div class="card" style="width:100%;max-width:100%;">
-                        <div class="card-body" style="width:100%;max-width:100%;">
-                            <h5>SALE TREND</h5>
-                            <div class="row" style="display: flex; align-items: stretch;">
-                                <div class="col" style="display: flex;">
-                                    <div class="card" style="width: 100%;">
-                                        <div class="card-body" style="height: 400px; position: relative;">
-                                            <canvas id="trend_sales"
-                                                style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                    <div class="row" hidden>
+                        <div class="card" style="width:100%;max-width:100%;">
+                            <div class="card-body" style="width:100%;max-width:100%;">
+                                <h5>SALE TREND</h5>
+                                <div class="row" style="display: flex; align-items: stretch;">
+                                    <div class="col" style="display: flex;">
+                                        <div class="card" style="width: 100%;">
+                                            <div class="card-body" style="height: 400px; position: relative;">
+                                                <canvas id="trend_sales" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
 
-                <br>
+                    <br>
 
-                <div class="row">
-                    <div class="card" style="width:100%;max-width:100%;">
-                        <div class="card-body" style="width:100%;max-width:100%;">
-                            <h5>OPERATING EXPENSES</h5>
-                            <div class="row" style="display: flex; align-items: stretch;">
-                                <div class="col-5" style="display: flex;">
-                                    <div class="card" style="width: 100%;">
-                                        <div class="card-body" style="height: 400px; position: relative;">
-                                            <canvas id="expense_bar_chart"
-                                                style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                    <div class="row">
+                        <div class="card" style="width:100%;max-width:100%;">
+                            <div class="card-body" style="width:100%;max-width:100%;">
+                                <h5>OPERATING EXPENSES</h5>
+                                <div class="row" style="display: flex; align-items: stretch;">
+                                    <div class="col-5" style="display: flex;">
+                                        <div class="card" style="width: 100%;">
+                                            <div class="card-body" style="height: 400px; position: relative;">
+                                                <canvas id="expense_bar_chart" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
 
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="col" style="display: flex;">
-                                    <div class="card" style="width: 100%;">
-                                        <div class="card-body" style="height: 400px; position: relative;">
-                                            <canvas id="expense_monthly"
-                                                style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                    <div class="col" style="display: flex;">
+                                        <div class="card" style="width: 100%;">
+                                            <div class="card-body" style="height: 400px; position: relative;">
+                                                <canvas id="expense_monthly" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <br>
-                
-                <div class="row">
+                    <br>
+
+                    <div class="row">
                         <div class="card" style="width:100%;max-width:100%;">
                             <div class="card-body" style="width:100%;max-width:100%;">
                                 <h5>INVENTORY OVERVIEW</h5>
@@ -299,8 +382,7 @@ $balesCount = mysqli_fetch_array($sql);
                                     <div class="col" style="display: flex;">
                                         <div class="card" style="width: 100%;">
                                             <div class="card-body" style="height: 400px; position: relative;">
-                                                <canvas id="inventory_all"
-                                                    style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                                <canvas id="inventory_all" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
                                             </div>
                                         </div>
                                     </div>
@@ -308,8 +390,7 @@ $balesCount = mysqli_fetch_array($sql);
                                     <div class="col" style="display: flex;">
                                         <div class="card" style="width: 100%;">
                                             <div class="card-body" style="height: 400px; position: relative;">
-                                                <canvas id="inventory_baleskilo"
-                                                    style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                                <canvas id="inventory_baleskilo" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
                                             </div>
                                         </div>
                                     </div>
@@ -318,389 +399,388 @@ $balesCount = mysqli_fetch_array($sql);
                         </div>
                     </div>
 
-                <br>
+                    <br>
 
-                <div class="row" hidden>
-                    <div class="card" style="width:100%;max-width:100%;">
-                        <div class="card-body" style="width:100%;max-width:100%;">
-                            <h5>PRODUCTION VOLUME</h5>
+                    <div class="row" hidden>
+                        <div class="card" style="width:100%;max-width:100%;">
+                            <div class="card-body" style="width:100%;max-width:100%;">
+                                <h5>PRODUCTION VOLUME</h5>
 
-                            <div class="row">
-                                <div class="col" style="display: flex;">
-                                    <div class="card" style="width: 100%;">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <canvas id="monthly_production" height="300"></canvas>
+                                <div class="row">
+                                    <div class="col" style="display: flex;">
+                                        <div class="card" style="width: 100%;">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <canvas id="monthly_production" height="300"></canvas>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
                     </div>
+
+
                 </div>
-
-
             </div>
         </div>
-    </div>
 
-    <?php
-    $expense_count = mysqli_query($con,"SELECT   category,year(date) as year,month(date) as month,sum(amount) as  total
+        <?php
+        $expense_count = mysqli_query($con, "SELECT   category,year(date) as year,month(date) as month,sum(amount) as  total
     from ledger_expenses WHERE month(date)='$Currentmonth' and  year(date)='$CurrentYear'   group by year(date), month(date),
-    category ORDER BY id ASC");        
-           if($expense_count->num_rows > 0) {
-                 foreach($expense_count as $data) {
-                     $expenses_category[] = $data['category'];
-                     $expense_total[] = $data['total'];
-                 }
-             }
-   ?>
-    <script>
-    expense_pie = document.getElementById("expense_bar_chart");
-    expense_monthly = document.getElementById("expense_monthly");
-
-
-    function getRandomColor(n) {
-        var letters = '0123456789ABCDEF'.split('');
-        var color = '#';
-        var colors = [];
-        for (var j = 0; j < n; j++) {
-            for (var i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
-            }
-            colors.push(color);
-            color = '#';
-        }
-        return colors;
-    }
-    new Chart(expense_pie, {
-        type: 'pie',
-        data: {
-            labels: <?php echo isset($expenses_category) ? json_encode($expenses_category) : json_encode([]); ?>,
-            datasets: [{
-                label: 'Operating Expenses',
-                data: <?php echo isset($expense_total) ? json_encode($expense_total) : json_encode([]); ?>,
-                borderColor: '#000000',
-                backgroundColor: getRandomColor(10),
-                borderWidth: .5
-            }]
-        },
-        options: {
-            responsive: true,
-            aspectRatio: 1.5,
-            plugins: {
-                labels: {
-                    render: 'value',
-                },
-                legend: {
-                    position: 'right'
-                },
-                title: {
-                    display: false,
-                    text: 'Expenses Chart'
-                }
+    category ORDER BY id ASC");
+        if ($expense_count->num_rows > 0) {
+            foreach ($expense_count as $data) {
+                $expenses_category[] = $data['category'];
+                $expense_total[] = $data['total'];
             }
         }
-    });
+        ?>
+        <script>
+            expense_pie = document.getElementById("expense_bar_chart");
+            expense_monthly = document.getElementById("expense_monthly");
 
 
-
-    new Chart(expense_monthly, {
-        type: 'bar', // Change the chart type to 'bar'
-        data: {
-            labels: <?php echo isset($expenses_category) ? json_encode($expenses_category) : json_encode([]); ?>,
-            datasets: [{
-                label: 'Operating Expenses',
-                data: <?php echo isset($expense_total) ? json_encode($expense_total) : json_encode([]); ?>,
-                borderColor: '#000000',
-                backgroundColor: getRandomColor(10),
-                borderWidth: .5
-            }]
-        },
-        options: {
-            responsive: true,
-            aspectRatio: 1.5,
-            plugins: {
-                labels: {
-                    render: 'value',
-                },
-                legend: {
-                    position: 'right'
-                },
-                title: {
-                    display: false,
-                    text: 'Monthly Expenses Chart' // Update the chart title to 'Monthly Expenses Chart'
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: false,
-                        text: 'Expenses'
+            function getRandomColor(n) {
+                var letters = '0123456789ABCDEF'.split('');
+                var color = '#';
+                var colors = [];
+                for (var j = 0; j < n; j++) {
+                    for (var i = 0; i < 6; i++) {
+                        color += letters[Math.floor(Math.random() * 16)];
                     }
+                    colors.push(color);
+                    color = '#';
+                }
+                return colors;
+            }
+            new Chart(expense_pie, {
+                type: 'pie',
+                data: {
+                    labels: <?php echo isset($expenses_category) ? json_encode($expenses_category) : json_encode([]); ?>,
+                    datasets: [{
+                        label: 'Operating Expenses',
+                        data: <?php echo isset($expense_total) ? json_encode($expense_total) : json_encode([]); ?>,
+                        borderColor: '#000000',
+                        backgroundColor: getRandomColor(10),
+                        borderWidth: .5
+                    }]
                 },
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Category'
+                options: {
+                    responsive: true,
+                    aspectRatio: 1.5,
+                    plugins: {
+                        labels: {
+                            render: 'value',
+                        },
+                        legend: {
+                            position: 'right'
+                        },
+                        title: {
+                            display: false,
+                            text: 'Expenses Chart'
+                        }
                     }
                 }
-            }
-        }
-    });
+            });
 
 
-// ALL INVENTORY PIE CHART------------------------------
 
-<?php
-
-$sql = mysqli_query($con, "SELECT SUM(reweight) as Cuplump from  planta_recording where status='Field'   "); 
-$cuplump = mysqli_fetch_array($sql);
-
-$sql = mysqli_query($con, "SELECT SUM(crumbed_weight) as Crumb from  planta_recording where status='Milling'   "); 
-$crumb = mysqli_fetch_array($sql);
-
-$sql = mysqli_query($con, "SELECT SUM(dry_weight) as Blanket from  planta_recording where status='Drying'   "); 
-$blanket = mysqli_fetch_array($sql);
-
-$sql = mysqli_query($con, "SELECT SUM(produce_total_weight) as Bale from  planta_recording where status='For Sale' or status='Purchase'  "); 
-$bale = mysqli_fetch_array($sql);
-?>
-
-
-new Chart(inventory_all, {
-    options: {
-        plugins: {
-            title: {
-                display: true,
-                text: 'Overall Inventory (kilo)',
-                font: {
-                    size: 18,
-                    weight: 'bold'
-                }
-            },
-            legend: {
-                display: false // Hide the legend
-            },
-        },
-        maintainAspectRatio: false,
-        aspectRatio: 1.5,
-        scales: {
-            x: {
-                grid: {
-                    display: false,
+            new Chart(expense_monthly, {
+                type: 'bar', // Change the chart type to 'bar'
+                data: {
+                    labels: <?php echo isset($expenses_category) ? json_encode($expenses_category) : json_encode([]); ?>,
+                    datasets: [{
+                        label: 'Operating Expenses',
+                        data: <?php echo isset($expense_total) ? json_encode($expense_total) : json_encode([]); ?>,
+                        borderColor: '#000000',
+                        backgroundColor: getRandomColor(10),
+                        borderWidth: .5
+                    }]
                 },
-            },
-            y: {
-                beginAtZero: true // Start the y-axis from zero
-            }
-        }
-    },
+                options: {
+                    responsive: true,
+                    aspectRatio: 1.5,
+                    plugins: {
+                        labels: {
+                            render: 'value',
+                        },
+                        legend: {
+                            position: 'right'
+                        },
+                        title: {
+                            display: false,
+                            text: 'Monthly Expenses Chart' // Update the chart title to 'Monthly Expenses Chart'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: false,
+                                text: 'Expenses'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Category'
+                            }
+                        }
+                    }
+                }
+            });
 
-    type: 'bar',
-    data: {
-        labels: ['Cuplumps', 'Crumbs', 'Blankets', 'Bales'],
-        datasets: [{
-            data: [<?php echo $cuplump['Cuplump'] ?>, <?php echo $crumb['Crumb'] ?>,
-                <?php echo $blanket['Blanket'] ?>, <?php echo $bale['Bale'] ?>
-            ],
-            backgroundColor: ['#C42F1A', '#E6B91E', '#90C226', '#567417'],
-            tension: 0.3,
-            fill: true,
-        }]
-    },
 
-});
+            // ALL INVENTORY PIE CHART------------------------------
+
+            <?php
+
+            $sql = mysqli_query($con, "SELECT SUM(reweight) as Cuplump from  planta_recording where status='Field'   ");
+            $cuplump = mysqli_fetch_array($sql);
+
+            $sql = mysqli_query($con, "SELECT SUM(crumbed_weight) as Crumb from  planta_recording where status='Milling'   ");
+            $crumb = mysqli_fetch_array($sql);
+
+            $sql = mysqli_query($con, "SELECT SUM(dry_weight) as Blanket from  planta_recording where status='Drying'   ");
+            $blanket = mysqli_fetch_array($sql);
+
+            $sql = mysqli_query($con, "SELECT SUM(produce_total_weight) as Bale from  planta_recording where status='For Sale' or status='Purchase'  ");
+            $bale = mysqli_fetch_array($sql);
+            ?>
+
+
+            new Chart(inventory_all, {
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Overall Inventory (kilo)',
+                            font: {
+                                size: 18,
+                                weight: 'bold'
+                            }
+                        },
+                        legend: {
+                            display: false // Hide the legend
+                        },
+                    },
+                    maintainAspectRatio: false,
+                    aspectRatio: 1.5,
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false,
+                            },
+                        },
+                        y: {
+                            beginAtZero: true // Start the y-axis from zero
+                        }
+                    }
+                },
+
+                type: 'bar',
+                data: {
+                    labels: ['Cuplumps', 'Crumbs', 'Blankets', 'Bales'],
+                    datasets: [{
+                        data: [<?php echo $cuplump['Cuplump'] ?>, <?php echo $crumb['Crumb'] ?>,
+                            <?php echo $blanket['Blanket'] ?>, <?php echo $bale['Bale'] ?>
+                        ],
+                        backgroundColor: ['#C42F1A', '#E6B91E', '#90C226', '#567417'],
+                        tension: 0.3,
+                        fill: true,
+                    }]
+                },
+
+            });
 
 
 
 
-// BALE KILO INVENTORY BAR CHART------------------------------
+            // BALE KILO INVENTORY BAR CHART------------------------------
 
-inventory_bales = document.getElementById("inventory_bales");
+            inventory_bales = document.getElementById("inventory_bales");
 
-<?php              
-    $bales_type = mysqli_query($con, "SELECT bales_type,
+            <?php
+            $bales_type = mysqli_query($con, "SELECT bales_type,
             SUM(CASE WHEN kilo_per_bale BETWEEN 33.32 AND 33.34 THEN number_bales ELSE 0 END) as total_33_33,
             SUM(CASE WHEN kilo_per_bale BETWEEN 34.99 AND 35.01 THEN number_bales ELSE 0 END) as total_35
      FROM planta_bales_production
      GROUP BY bales_type;");
-    
-    if ($bales_type->num_rows > 0) {
-        $bales_labels = [];
-        $bales_values_3333 = [];
-        $bales_values_35 = [];
-        while ($bales_data = $bales_type->fetch_assoc()) {
-            $bales_labels[] = $bales_data['bales_type'];
-            $bales_values_3333[] = number_format($bales_data['total_33_33'], 0, '.', '');
-            $bales_values_35[] = number_format($bales_data['total_35'], 0, '.', '');
-        }
-    }
-        ?>
 
-new Chart(inventory_baleskilo, {
-    options: {
-        plugins: {
-            title: {
-                display: true,
-                text: 'Bale Inventory by Kilo (pcs)',
-                font: {
-                    size: 18,
-                    weight: 'bold'
+            if ($bales_type->num_rows > 0) {
+                $bales_labels = [];
+                $bales_values_3333 = [];
+                $bales_values_35 = [];
+                while ($bales_data = $bales_type->fetch_assoc()) {
+                    $bales_labels[] = $bales_data['bales_type'];
+                    $bales_values_3333[] = number_format($bales_data['total_33_33'], 0, '.', '');
+                    $bales_values_35[] = number_format($bales_data['total_35'], 0, '.', '');
                 }
-            },
-            legend: {
-                position: 'top',
-            },
-        },
-        maintainAspectRatio: false,
-        aspectRatio: 1.5,
-        scales: {
-            x: {
-                grid: {
-                    display: false,
+            }
+            ?>
+
+            new Chart(inventory_baleskilo, {
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Bale Inventory by Kilo (pcs)',
+                            font: {
+                                size: 18,
+                                weight: 'bold'
+                            }
+                        },
+                        legend: {
+                            position: 'top',
+                        },
+                    },
+                    maintainAspectRatio: false,
+                    aspectRatio: 1.5,
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false,
+                            },
+                        },
+                        y: {
+                            grid: {
+                                display: true,
+                            },
+                            stacked: true, // Enable stacked bars
+                        },
+                    },
                 },
-            },
-            y: {
-                grid: {
-                    display: true,
+
+                type: 'bar',
+                data: {
+                    labels: <?php echo json_encode($bales_labels) ?>, // X-axis data
+                    datasets: [{
+                            label: '35 kg', // Add a label for 35kg bales
+                            data: <?php echo json_encode($bales_values_35) ?>, // Y-axis data for 35kg bales
+                            backgroundColor: 'rgba(196, 47, 26, 1)',
+                            tension: 0.3,
+                            fill: false,
+                            stack: 'stack1',
+                        },
+                        {
+                            label: '33.33 kg', // Add a label for 33.33kg bales
+                            data: <?php echo json_encode($bales_values_3333) ?>, // Y-axis data for 33.33kg bales
+                            backgroundColor: 'rgba(196, 47, 26, 0.6)',
+                            tension: 0.3,
+                            fill: false,
+                            stack: 'stack1',
+                        },
+                    ],
                 },
-                stacked: true, // Enable stacked bars
-            },
-        },
-    },
-
-    type: 'bar',
-    data: {
-        labels: <?php echo json_encode($bales_labels) ?>, // X-axis data
-        datasets: [{
-                label: '35 kg', // Add a label for 35kg bales
-                data: <?php echo json_encode($bales_values_35) ?>, // Y-axis data for 35kg bales
-                backgroundColor: 'rgba(196, 47, 26, 1)',
-                tension: 0.3,
-                fill: false,
-                stack: 'stack1',
-            },
-            {
-                label: '33.33 kg', // Add a label for 33.33kg bales
-                data: <?php echo json_encode($bales_values_3333) ?>, // Y-axis data for 33.33kg bales
-                backgroundColor: 'rgba(196, 47, 26, 0.6)',
-                tension: 0.3,
-                fill: false,
-                stack: 'stack1',
-            },
-        ],
-    },
-});
+            });
 
 
-    <?php
-$milling_data = mysqli_query($con, "SELECT SUM(crumbed_weight) AS total_weight, MONTH(milling_date) AS month FROM planta_recording_logs
+            <?php
+            $milling_data = mysqli_query($con, "SELECT SUM(crumbed_weight) AS total_weight, MONTH(milling_date) AS month FROM planta_recording_logs
 WHERE (recording_id, planta_logs_id) IN ( SELECT recording_id, MAX(planta_logs_id) AS max_planta_logs_id FROM planta_recording_logs 
 WHERE status = 'Milling' GROUP BY recording_id ) GROUP BY MONTH(milling_date);");
 
-if ($milling_data && $milling_data->num_rows > 0) {
-    $month_bales = [];
-    $bales = [];
-    while ($row = mysqli_fetch_assoc($milling_data)) {
-        $month_bales[] = date('M Y', mktime(0, 0, 0, $row['month'], 1));
-        $bales[] = number_format($row['total_weight'], 0, '.', '');
-    }
-}
+            if ($milling_data && $milling_data->num_rows > 0) {
+                $month_bales = [];
+                $bales = [];
+                while ($row = mysqli_fetch_assoc($milling_data)) {
+                    $month_bales[] = date('M Y', mktime(0, 0, 0, $row['month'], 1));
+                    $bales[] = number_format($row['total_weight'], 0, '.', '');
+                }
+            }
 
-$Drying_data = mysqli_query($con, "SELECT SUM(dry_weight) AS total_weight, MONTH(drying_date) AS month FROM planta_recording_logs
+            $Drying_data = mysqli_query($con, "SELECT SUM(dry_weight) AS total_weight, MONTH(drying_date) AS month FROM planta_recording_logs
 WHERE (recording_id, planta_logs_id) IN ( SELECT recording_id, MAX(planta_logs_id) AS max_planta_logs_id FROM planta_recording_logs 
 WHERE status = 'Drying' GROUP BY recording_id ) GROUP BY MONTH(drying_date);");
 
-if ($Drying_data && $Drying_data->num_rows > 0) {
-    $month_Dry = [];
-    $dry_weight = [];
-    while ($row = mysqli_fetch_assoc($Drying_data)) {
-        $month_Dry[] = date('M Y', mktime(0, 0, 0, $row['month'], 1));
-        $dry_weight[] = number_format($row['total_weight'], 0, '.', '');
-    }
-}
+            if ($Drying_data && $Drying_data->num_rows > 0) {
+                $month_Dry = [];
+                $dry_weight = [];
+                while ($row = mysqli_fetch_assoc($Drying_data)) {
+                    $month_Dry[] = date('M Y', mktime(0, 0, 0, $row['month'], 1));
+                    $dry_weight[] = number_format($row['total_weight'], 0, '.', '');
+                }
+            }
 
-$bale_prod = mysqli_query($con, "SELECT SUM(produce_total_weight) AS total_weight, MONTH(production_date) AS month FROM planta_recording_logs
+            $bale_prod = mysqli_query($con, "SELECT SUM(produce_total_weight) AS total_weight, MONTH(production_date) AS month FROM planta_recording_logs
     WHERE (recording_id, planta_logs_id) IN ( SELECT recording_id, MAX(planta_logs_id) AS max_planta_logs_id FROM planta_recording_logs 
     WHERE status = 'Pressing' GROUP BY recording_id ) GROUP BY MONTH(production_date);");
 
-if ($bale_prod && $bale_prod->num_rows > 0) {
-    $month_produced = [];
-    $produced_weight = [];
-    while ($row = mysqli_fetch_assoc($bale_prod)) {
-        $month_produced[] = date('M Y', mktime(0, 0, 0, $row['month'], 1));
-        $produced_weight[] = number_format($row['total_weight'], 0, '.', '');
-    }
-}
-?>
-
-new Chart(monthly_production, {
-    options: {
-        plugins: {
-            title: {
-                display: true,
-                text: 'Monthly Production (kilo)',
-                font: {
-                    size: 18,
-                    weight: 'bold'
+            if ($bale_prod && $bale_prod->num_rows > 0) {
+                $month_produced = [];
+                $produced_weight = [];
+                while ($row = mysqli_fetch_assoc($bale_prod)) {
+                    $month_produced[] = date('M Y', mktime(0, 0, 0, $row['month'], 1));
+                    $produced_weight[] = number_format($row['total_weight'], 0, '.', '');
                 }
-            },
-            legend: {
-                display: true,
             }
-        },
-        scales: {
-            y: {
-                ticks: {
-                    display: true
-                },
-                grid: {
-                    display: true
-                }
-            },
-            x: {
-                ticks: {
-                    display: true,
-                    font: {
-                        size: 14
+            ?>
+
+            new Chart(monthly_production, {
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Monthly Production (kilo)',
+                            font: {
+                                size: 18,
+                                weight: 'bold'
+                            }
+                        },
+                        legend: {
+                            display: true,
+                        }
+                    },
+                    scales: {
+                        y: {
+                            ticks: {
+                                display: true
+                            },
+                            grid: {
+                                display: true
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                display: true,
+                                font: {
+                                    size: 14
+                                }
+                            },
+                        }
                     }
                 },
-            }
-        }
-    },
-    type: 'line',
-    data: {
-        labels: <?php echo json_encode($month_bales) ?>,
-datasets: [
-{
-label: 'Crumbs',
-data: <?php echo json_encode($bales) ?>,
-backgroundColor: '#e6b91e',
-tension: 0.3,
-fill: true,
-},
-{
-label: 'Blankets',
-data: <?php echo json_encode($dry_weight) ?>,
-backgroundColor: '#3892BA',
-tension: 0.3,
-fill: true,
-},
-{
-label: 'Bales',
-data: <?php echo json_encode($produced_weight) ?>,
-backgroundColor: '#c42f1a',
-tension: 0.3,
-fill: true,
-}
-]
-},
-});
-    </script>
+                type: 'line',
+                data: {
+                    labels: <?php echo json_encode($month_bales) ?>,
+                    datasets: [{
+                            label: 'Crumbs',
+                            data: <?php echo json_encode($bales) ?>,
+                            backgroundColor: '#e6b91e',
+                            tension: 0.3,
+                            fill: true,
+                        },
+                        {
+                            label: 'Blankets',
+                            data: <?php echo json_encode($dry_weight) ?>,
+                            backgroundColor: '#3892BA',
+                            tension: 0.3,
+                            fill: true,
+                        },
+                        {
+                            label: 'Bales',
+                            data: <?php echo json_encode($produced_weight) ?>,
+                            backgroundColor: '#c42f1a',
+                            tension: 0.3,
+                            fill: true,
+                        }
+                    ]
+                },
+            });
+        </script>
 </body>
 
 </html>

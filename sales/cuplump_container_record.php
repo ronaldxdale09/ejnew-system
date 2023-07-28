@@ -2,6 +2,7 @@
 include 'include/header.php';
 include 'include/navbar.php';
 
+
 ?>
 
 <style>
@@ -163,7 +164,7 @@ include 'include/navbar.php';
                                                 <td class="number-cell">₱
                                                     <?php
                                                     if ($row['total_cuplump_weight'] != 0) {
-                                                        echo number_format($row['total_cuplump_cost'] / $row['total_cuplump_weight'], 2, '.', ',');
+                                                        echo number_format($row['ave_cuplump_cost'] , 2, '.', ',');
                                                     } else {
                                                         echo "0";
                                                     }

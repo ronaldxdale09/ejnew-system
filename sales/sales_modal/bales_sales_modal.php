@@ -46,7 +46,7 @@ $today = date('Y-m-d');
                     <div class="col">
                         <label style='font-size:15px' class="col-md-12">Buyer Name</label>
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" name='sale_buyer' id='sale_buyer' tabindex="7" autocomplete='off' style="width: 100px;" required />
+                            <input type="text" class="form-control" name='sale_buyer' id='sale_buyer'  autocomplete='off' style="width: 100px;" required />
                         </div>
                     </div>
 
@@ -66,7 +66,7 @@ $today = date('Y-m-d');
                         <div class="col">
                             <label style='font-size:15px' class="col-md-12">Quality</label>
                             <div class="input-group mb-3">
-                                <select class="form-select" name="quality" tabindex="7" required>
+                                <select class="form-select" name="quality"  required>
                                     <option disabled selected>Select...</option>
                                     <option value="SPR5">5L</option>
                                     <option value="SPR5">SPR-5</option>
@@ -154,13 +154,13 @@ $today = date('Y-m-d');
                                         <label style='font-size:15px' class="col-md-12"> Sales ID
                                         </label>
                                         <div class="input-group mb-3">
-                                            <input type="text" readonly class="form-control" name='sales_id' id='sales_id' readonly autocomplete='off' style="width: 100px;">
+                                            <input type="text" readonly class="form-control" id='v_sale_id' name='sale_id' readonly autocomplete='off' style="width: 100px;">
                                         </div>
                                     </div>
                                     <div class="col-2">
                                         <label style='font-size:15px' class="col-md-12">EN Sale Contract</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" readonly class="form-control" id='sale_contract' autocomplete='off' style="width: 100px;">
+                                            <input type="text" readonly class="form-control" id='v_sale_contract' autocomplete='off' style="width: 100px;">
                                         </div>
                                     </div>
 
@@ -174,7 +174,7 @@ $today = date('Y-m-d');
                                     <div class="col">
                                         <label style='font-size:15px' class="col-md-12">Sale Type</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" readonly class="form-control" id='sale_type' style="width: 100px;" />
+                                            <input type="text" readonly class="form-control" id='v_sale_type' style="width: 100px;" />
                                         </div>
                                     </div>
 
@@ -182,14 +182,14 @@ $today = date('Y-m-d');
                                         <label style='font-size:15px' class="col-md-12">Quality</label>
                                         <div class="input-group mb-3">
 
-                                            <input type="text" readonly class="form-control" id='contract_quality' style="width: 100px;" />
+                                            <input type="text" readonly class="form-control" id='v_contract_quality' style="width: 100px;" />
                                         </div>
                                     </div>
 
                                     <div class="col-3">
                                         <label style='font-size:15px' class="col-md-12">Transaction Date </label>
                                         <div class="col-md-12">
-                                            <input type="date" class='form-control' id="trans_date" name="trans_date">
+                                            <input type="text" class='form-control' id="v_trans_date">
                                         </div>
                                     </div>
                                 </div>
@@ -199,34 +199,34 @@ $today = date('Y-m-d');
                                     <div class="col">
                                         <label style='font-size:15px' class="col-md-12">Buyer Name</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" readonly class="form-control" name='sale_buyer' id='v_sale_buyer' tabindex="7" autocomplete='off' style="width: 100px;" />
+                                            <input type="text" readonly class="form-control" id='v_sale_buyer'  autocomplete='off' style="width: 100px;" />
                                         </div>
                                     </div>
 
                                     <div class="col">
                                         <label style='font-size:15px' class="col-md-12">Shipping Date</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" readonly class="form-control" name='shipping_date' id='v_shipping_date' tabindex="7" autocomplete='off' style="width: 100px;" />
+                                            <input type="text" readonly class="form-control" id='v_shipping_date'  autocomplete='off' style="width: 100px;" />
                                         </div>
                                     </div>
 
                                     <div class="col">
                                         <label style='font-size:15px' class="col-md-12">Source</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" readonly class="form-control" name='sale_source' id='sale_source' tabindex="7" autocomplete='off' style="width: 100px;" />
+                                            <input type="text" readonly class="form-control"  id='v_sale_source'  autocomplete='off' style="width: 100px;" />
                                         </div>
                                     </div>
                                     <div class="col">
                                         <label style='font-size:15px' class="col-md-12">Destination</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" readonly class="form-control" name='sale_destination' id='sale_destination' tabindex="7" autocomplete='off' style="width: 100px;" />
+                                            <input type="text" readonly class="form-control" id='v_sale_destination'  autocomplete='off' style="width: 100px;" />
                                         </div>
                                     </div>
 
                                     <div class="col">
                                         <label style='font-size:15px' class="col-md-12">Containers</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" readonly class="form-control" name='contract_contaier' id='contract_contaier' tabindex="7" autocomplete='off' style="width: 100px;" />
+                                            <input type="text" readonly class="form-control" id='v_contract_contaier'  autocomplete='off' style="width: 100px;" />
                                         </div>
                                     </div>
                                 </div>
@@ -236,7 +236,7 @@ $today = date('Y-m-d');
                                     <div class="col-3">
                                         <label style='font-size:15px' class="col-md-12">Quantity</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control" readonly name='contract_quantity' id='contract_quantity' tabindex="7" autocomplete='off' style="width: 100px;" />
+                                            <input type="text" class="form-control" readonly id='v_contract_quantity'  autocomplete='off' style="width: 100px;" />
                                             <span class="input-group-text"> kg</span>
                                         </div>
                                     </div>
@@ -244,7 +244,7 @@ $today = date('Y-m-d');
                                     <div class="col">
                                         <label style='font-size:15px' class="col-md-12">Currency</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control" readonly name='sale_currency' id='v_sale_currency' tabindex="7" autocomplete='off' style="width: 100px;" />
+                                            <input type="text" class="form-control" readonly id='v_currency'  autocomplete='off' style="width: 100px;" />
 
                                         </div>
                                     </div>
@@ -253,14 +253,14 @@ $today = date('Y-m-d');
                                     <div class="col">
                                         <label style='font-size:15px' class="col-md-12">Price per Kilo</label>
                                         <div class="input-group mb-3">
-                                            <input type="number" readonly class="form-control contract_price" name='contract_price' id='v_contract_price'>
+                                            <input type="number" readonly class="form-control contract_price" id='v_contract_price'>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <label style='font-size:15px' class="col-md-12">Other Terms
                                             (Optional)</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" readonly class="form-control" name='other_terms' id='other_terms'>
+                                            <input type="text" readonly class="form-control" name='other_terms' id='v_other_terms'>
                                         </div>
                                     </div>
                                 </div>
@@ -290,19 +290,19 @@ $today = date('Y-m-d');
                                     <div class="col" hidden>
                                         <label style='font-size:15px' class="col-md-12">No. of Containers</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control" name='number_container' id='number_container' style="width: 100px;" readonly />
+                                            <input type="text" class="form-control" id='v_number_container' style="width: 100px;" readonly />
                                         </div>
                                     </div>
                                     <div class="col">
                                         <label style='font-size:15px' class="col-md-12">Total No. of Bales</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control" name='total_num_bales' id='total_num_bales' style="width: 100px;" readonly />
+                                            <input type="text" class="form-control"  id='v_total_num_bales' style="width: 100px;" readonly />
                                         </div>
                                     </div>
                                     <div class="col">
                                         <label style='font-size:15px' class="col-md-12">Total Bale Weight</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control" name='total_bale_weight' id='total_bale_weight' style="width: 100px;" readonly />
+                                            <input type="text" class="form-control" id='v_total_bale_weight' style="width: 100px;" readonly />
                                         </div>
                                     </div>
                                     <div class="col">
@@ -312,7 +312,7 @@ $today = date('Y-m-d');
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">≈ ₱</span>
                                             </div>
-                                            <input type="text" class="form-control" name='overall_ave_kiloCost' id='overall_ave_kiloCost' style="width: 100px;" readonly />
+                                            <input type="text" class="form-control"  id='v_overall_ave_kiloCost' style="width: 100px;" readonly />
                                         </div>
                                     </div>
                                 </div>
@@ -339,21 +339,21 @@ $today = date('Y-m-d');
                                         <label style='font-size:15px' class="col-md-12">TOTAL SALES</label>
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id='currency_selected_sales'></span>
-                                            <input type="text" class="form-control" name='total_sale' id='total_sale' readonly autocomplete='off' style="width: 100px;" />
+                                            <input type="text" class="form-control"  id='v_total_sale' readonly autocomplete='off' style="width: 100px;" />
                                         </div>
                                     </div>
                                     <div class="col">
                                         <label style='font-size:15px' class="col-md-12">AMOUNT PAID</label>
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id='currency_selected_paid'></span>
-                                            <input type="text" class="form-control" name='amount_unpaid' id='amount_unpaid' readonly autocomplete='off' style="width: 100px;" />
+                                            <input type="text" class="form-control"  id='v_amount_paid' readonly autocomplete='off' style="width: 100px;" />
                                         </div>
                                     </div>
                                     <div class="col">
                                         <label style='font-size:15px' class="col-md-12">UNPAID BALANCE</label>
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id='currency_selected_balance'></span>
-                                            <input type="text" class="form-control" name='unpaid_balance' id='unpaid_balance' readonly autocomplete='off' style="width: 100px;" />
+                                            <input type="text" class="form-control"  id='v_unpaid_balance' readonly autocomplete='off' style="width: 100px;" />
                                         </div>
                                     </div>
                                 </div>
@@ -381,13 +381,13 @@ $today = date('Y-m-d');
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">₱</span>
                                             </div>
-                                            <input type="text" class="form-control" name="sales_proceeds" id="sales_proceeds" readonly style="width: 100px;" />
+                                            <input type="text" class="form-control" id="v_sales_proceeds" readonly style="width: 100px;" />
                                         </div>
                                     </div>
                                     <div class="col">
                                         <label style="font-size:15px" class="col-md-12">Tax Rate</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control" name="tax_rate" id="tax_rate" style="width: 100px;" />
+                                            <input type="text" class="form-control" id="v_tax_rate" style="width: 100px;" />
                                             <span class="input-group-text">%</span>
                                         </div>
                                     </div>
@@ -395,7 +395,7 @@ $today = date('Y-m-d');
                                         <label style="font-size:15px" class="col-md-12">Withholding Tax Amount</label>
                                         <div class="input-group mb-3">
                                             <span class="input-group-text">₱</span>
-                                            <input type="text" class="form-control" name="tax_amount" readonly id="tax_amount" style="width: 100px;" />
+                                            <input type="text" class="form-control" readonly id="v_tax_amount" style="width: 100px;" />
                                         </div>
                                     </div>
                                 </div>
@@ -407,14 +407,14 @@ $today = date('Y-m-d');
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">₱</span>
                                             </div>
-                                            <input type="text" class="form-control" name="over_all_cost" id="over_all_cost" readonly style="width: 100px;" />
+                                            <input type="text" class="form-control"  id="v_over_all_cost" readonly style="width: 100px;" />
                                         </div>
                                     </div>
                                     <div class="col">
                                         <label style='font-size:15px' class="col-md-12">Total Bale Cost</label>
                                         <div class="input-group mb-3">
                                             <span class="input-group-text">₱</span>
-                                            <input type="text" class="form-control" name='total_bale_cost' id='total_bale_cost' style="width: 100px;" readonly />
+                                            <input type="text" class="form-control" id='v_total_bale_cost' style="width: 100px;" readonly />
                                         </div>
                                     </div>
                                     <div class="col">
@@ -423,7 +423,7 @@ $today = date('Y-m-d');
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">₱</span>
                                             </div>
-                                            <input type="text" class="form-control" name='total_production_cost' id='total_production_cost' style="width: 100px;" readonly />
+                                            <input type="text" class="form-control" id='v_total_production_cost' style="width: 100px;" readonly />
                                         </div>
                                     </div>
                                     <div class="col">
@@ -432,7 +432,7 @@ $today = date('Y-m-d');
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">₱</span>
                                             </div>
-                                            <input type="text" class="form-control" name='total_ship_exp' id='total_ship_exp' style="width: 100px;" readonly />
+                                            <input type="text" class="form-control" id='v_total_ship_exp' style="width: 100px;" readonly />
                                         </div>
                                     </div>
                                 </div>
@@ -445,7 +445,7 @@ $today = date('Y-m-d');
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" style='font-size:20px'>₱</span>
                                             </div>
-                                            <input type="text" class="form-control" name="gross_profit" id="gross_profit" style='font-size:20px' readonly style="width: 100px;" />
+                                            <input type="text" class="form-control"  id="v_gross_profit" style='font-size:20px' readonly style="width: 100px;" />
                                         </div>
                                     </div>
                                 </div>

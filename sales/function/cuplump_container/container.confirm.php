@@ -15,7 +15,7 @@ $averageCost = preg_replace('/[^0-9.]/', '', $_POST['average_cuplump_cost']);
 // Prepare the query
 $query = "UPDATE sales_cuplump_container SET van_no = '$van_no',location = '$location', loading_date = '$loadingDate', 
     remarks = '$remarks', recorded_by = '$recordedBy', total_cuplump_weight = '$totalWeight', 
-    total_cuplump_cost = '$totalCost', ave_cuplump_cost = '$averageCost',status='Awaiting Sale'
+    total_cuplump_cost = '$totalCost', ave_cuplump_cost = '$averageCost',status='Awaiting Shipment'
     WHERE container_id = $container_id";
 
 // Execute the query
@@ -34,6 +34,7 @@ if (!$fetchResult) {
 
 while ($row = mysqli_fetch_assoc($fetchResult)) {
     $existingRecords[] = $row['cuplump_inventory_id'];
+    
 }
 
 $suppliers = $_POST['supplier'];

@@ -152,6 +152,8 @@ if ($data['total_weight'] != 0) {
                         <span class="badge bg-danger"><?php echo $row['status'] ?></span>
                     <?php elseif ($row['status'] == 'Purchase') : ?>
                         <span class="badge bg-info"><?php echo $row['status'] ?></span>
+                    <?php elseif ($row['status'] == 'Complete') : ?>
+                        <span class="badge bg-success"><?php echo $row['status'] ?></span>
                     <?php else : ?>
                         <span class="badge"><?php echo $row['status'] ?></span>
                     <?php endif; ?>

@@ -123,6 +123,7 @@ include "include/navbar.php";
                                             <th scope="col">Accounts</th>
                                             <th scope="col">
                                                 <select id="year-select" onchange="updateYear()">
+                                                    <option value="2022">2022</option>
                                                     <option value="2023">2023</option>
                                                 </select>
                                             </th>
@@ -245,8 +246,9 @@ include "include/navbar.php";
                                             echo '</tr>';
                                         }
 
-                                        echo '<tr style="background-color: rgb(210, 252, 225);">';
-                                        echo '<td scope="row"><b>Net Sales </b></td>';
+                                        // Net Sales
+                                        echo '<tr>';
+                                        echo '<td>&emsp; Net Sales</td>';
                                         echo '<td style="text-align: right;"><b>' . number_format($totalNetSales, 0, '.', ',') . ' </b></td>';
                                         for ($i = 1; $i <= 12; $i++) {
                                             echo '<td style="text-align: right;"><b>' . ($netSales[$i] != 0 ? ' ' . number_format($netSales[$i], 0, '.', ',') : '-') . ' </b></td>';
@@ -358,8 +360,8 @@ include "include/navbar.php";
                                         }
 
                                         // TOTALCOGS 
-                                        echo '<tr style="background-color: rgb(252, 210, 210);">';
-                                        echo '<td scope="row"><b>Total COGS </b></td>';
+                                        echo '<tr>';
+                                        echo '<td>&emsp; Total Cogs</td>';
                                         echo '<td style="text-align: right;"><b>' . number_format($totalCogs, 0, '.', ',') . ' </b></td>';
                                         for ($i = 1; $i <= 12; $i++) {
                                             echo '<td style="text-align: right;"><b>' . ($cogs[$i] != 0 ? ' ' . number_format($cogs[$i], 0, '.', ',') : '-') . ' </b></td>';
@@ -369,7 +371,7 @@ include "include/navbar.php";
                                         ?>
 
                                         <!-- MILLING FEE-->
-                                        <tr  style="background-color: rgb(252, 210, 210);">
+                                        <tr>
                                             <th scope="row">Milling Cost </th>
                                             <td></td>
                                             <td></td>
@@ -385,7 +387,22 @@ include "include/navbar.php";
                                             <td></td>
                                             <td></td>
                                         </tr>
-                                       
+                                        <tr>
+                                            <th scope="row">Pressing Expense </th>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
                                         <?php
                                         $freightExpense = mysqli_query($con, "SELECT 
                                                 YEAR(ship_date) AS year, 
@@ -612,57 +629,70 @@ include "include/navbar.php";
 
 
 
-                                        
-
-
-                                        //   Gross Profit	
-                                        $grossprofit = mysqli_query($con, "SELECT 
-                                                 YEAR(transaction_date) AS year, 
-                                                 sum(CASE WHEN MONTH(transaction_date) = 1 THEN gross_profit END) AS Jan,
-                                                 sum(CASE WHEN MONTH(transaction_date) = 2 THEN gross_profit END) AS Feb,
-                                                 sum(CASE WHEN MONTH(transaction_date) = 3 THEN gross_profit END) AS Mar,
-                                                 sum(CASE WHEN MONTH(transaction_date) = 4 THEN gross_profit END) AS Apr,
-                                                 sum(CASE WHEN MONTH(transaction_date) = 5 THEN gross_profit END) AS May,
-                                                 sum(CASE WHEN MONTH(transaction_date) = 6 THEN gross_profit END) AS Jun,
-                                                 sum(CASE WHEN MONTH(transaction_date) = 7 THEN gross_profit END) AS Jul,
-                                                 sum(CASE WHEN MONTH(transaction_date) = 8 THEN gross_profit END) AS Aug,
-                                                 sum(CASE WHEN MONTH(transaction_date) = 9 THEN gross_profit END) AS Sep,
-                                                 sum(CASE WHEN MONTH(transaction_date) = 10 THEN gross_profit END) AS Oct,
-                                                 sum(CASE WHEN MONTH(transaction_date) = 11 THEN gross_profit END) AS Nov,
-                                                 sum(CASE WHEN MONTH(transaction_date) = 12 THEN gross_profit END) AS Decem,
-                                                 SUM(gross_profit) AS total
+                                        //   Cranage Expnese	
+                                        $shippingCranage = mysqli_query($con, "SELECT 
+                                                 YEAR(ship_date) AS year, 
+                                                 sum(CASE WHEN MONTH(ship_date) = 1 THEN cranage_fee END) AS Jan,
+                                                 sum(CASE WHEN MONTH(ship_date) = 2 THEN cranage_fee END) AS Feb,
+                                                 sum(CASE WHEN MONTH(ship_date) = 3 THEN cranage_fee END) AS Mar,
+                                                 sum(CASE WHEN MONTH(ship_date) = 4 THEN cranage_fee END) AS Apr,
+                                                 sum(CASE WHEN MONTH(ship_date) = 5 THEN cranage_fee END) AS May,
+                                                 sum(CASE WHEN MONTH(ship_date) = 6 THEN cranage_fee END) AS Jun,
+                                                 sum(CASE WHEN MONTH(ship_date) = 7 THEN cranage_fee END) AS Jul,
+                                                 sum(CASE WHEN MONTH(ship_date) = 8 THEN cranage_fee END) AS Aug,
+                                                 sum(CASE WHEN MONTH(ship_date) = 9 THEN cranage_fee END) AS Sep,
+                                                 sum(CASE WHEN MONTH(ship_date) = 10 THEN cranage_fee END) AS Oct,
+                                                 sum(CASE WHEN MONTH(ship_date) = 11 THEN cranage_fee END) AS Nov,
+                                                 sum(CASE WHEN MONTH(ship_date) = 12 THEN cranage_fee END) AS Decem,
+                                                 SUM(cranage_fee) AS total
                                                  FROM (
-                                                 SELECT transaction_date, gross_profit
-                                                 FROM bales_sales_record 
-                                                 WHERE YEAR(transaction_date) = $year
+                                                 SELECT ship_date, cranage_fee
+                                                 FROM sales_cuplump_shipment 
+                                                 WHERE YEAR(ship_date) = $year
                                                  UNION ALL
-                                                 SELECT transaction_date, gross_profit
-                                                 FROM sales_cuplump_record 
-                                                 WHERE YEAR(transaction_date) = $year
+                                                 SELECT ship_date, cranage_fee
+                                                 FROM bale_shipment_record 
+                                                 WHERE YEAR(ship_date) = $year
                                                  ) AS combined
                                                  GROUP BY 
-                                                 YEAR(transaction_date)
+                                                 YEAR(ship_date)
                                              ");
 
-                                        while ($row = mysqli_fetch_array($grossprofit)) {
-                                            echo '<tr style="background-color: rgb(217, 239, 252);">';
-                                            echo '  <th scope="row">Gross Profit</th>';
+                                        while ($row = mysqli_fetch_array($shippingCranage)) {
+                                            echo '<tr>';
+                                            echo '<td >&emsp; Cranage Fee	</td>';
                                             echo '<td style="text-align: right;"><b>' . number_format((float)$row['total'], 0, '.', ',') . ' </b></td>';
                                             for ($i = 1; $i <= 12; $i++) {
-                                                $month = date("M", mktime(0, 0, 0, $i, 10)); 
-                                                $month = ($month === 'Dec') ? 'Decem' : $month; 
+                                                $month = date("M", mktime(0, 0, 0, $i, 10)); // get the three-letter month name
+                                                $month = ($month === 'Dec') ? 'Decem' : $month; // use 'Dece' instead of 'Dec'
                                                 $monthSales = isset($row[$month]) ? (float)$row[$month] : 0;
                                                 echo '<td style="text-align: right;">' . ($monthSales != 0 ? ' ' . number_format($monthSales, 0, '.', ',') : '-') . '</td>';
-                                                $cogs[$i] += $monthSales; 
+                                                $cogs[$i] += $monthSales; // add the sales to the corresponding month in net sales
                                             }
-                                            $totalCogs += (float)$row['total'];
+                                            $totalCogs += (float)$row['total']; // add the total sales to the total net sales
                                             echo '</tr>';
                                         }
+
 
                                         ?>
 
 
-                                      
+                                        <tr>
+                                            <th scope="row">Gross Profit</th>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>

@@ -1,10 +1,12 @@
 <?php
 include('../function/db.php');
 
+
+                            $loc = $_SESSION["loc"];
 $purchase_id = $_POST['purchase_id'];
 $sql  = "SELECT *,dry_price_transfer.price as dry_price FROM planta_recording 
 LEFT JOIN dry_price_transfer ON planta_recording.purchased_id = dry_price_transfer.dry_id
-WHERE planta_recording.status='Purchase' and (produce_total_weight !='0' or produce_total_weight IS NOT NULL)
+WHERE planta_recording.status='Purchase' and (produce_total_weight !='0' or produce_total_weight IS NOT NULL) and planta_recording.source='$loc'
 ORDER BY planta_recording.recording_id ASC "; 
 
 $result = mysqli_query($con, $sql);  
@@ -93,6 +95,7 @@ $('.btnSelectTrans').on('click', function() {
     
     $('#recording_id').val(recording_id);
     $('#m_lot_number').val(lot_number);
+    ('#lot_code').val(lot_number);
     $('#m_delivery_date').val(receiving_date);
     $('#m_prod_id').val(recording_id);
 

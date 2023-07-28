@@ -123,11 +123,11 @@ if (isset($_GET['id'])) {
 <body>
     <div class='main-content' style='position:relative; height:100%;'>
         <div class="container home-section h-100" style="max-width:95%;">
-
-            <h2 class="page-title"><B>
+            <br>
+            <h1 class="page-title" style="text-align: center;"><B>
                     <font color="#0C0070"> RUBBER BALE </font>
                     <font color="#046D56"> SALE </font>
-                </b></h2>
+                </b></h1>
             <hr>
             <div class="row">
                 <div class="col-8">
@@ -291,7 +291,7 @@ if (isset($_GET['id'])) {
                                         <input type="number" class="form-control contract_price" name='contract_price' id='contract_price' required>
                                     </div>
                                 </div>
-                                <div class="col-5">
+                                <div class="col-4">
                                     <label style='font-size:15px' class="col-md-12">Other Terms
                                         (Optional)</label>
                                     <div class="input-group mb-3">
@@ -458,7 +458,7 @@ if (isset($_GET['id'])) {
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">₱</span>
                                         </div>
-                                        <input type="text" class="form-control" name='total_production_cost' id='total_production_cost' style="width: 100px;" readonly />
+                                        <input type="text" class="form-control" name='total_milling_cost' id='total_production_cost' style="width: 100px;" readonly />
                                     </div>
                                 </div>
                                 <div class="col">
@@ -583,7 +583,7 @@ if (isset($_GET['id'])) {
         // Change the background color of the input field based on the value
         if (gross_profit_value <= 0) {
             $("#gross_profit").css('backgroundColor', 'lightcoral');
-        } else if  (gross_profit_value >= 0) {
+        } else if (gross_profit_value >= 0) {
             $("#gross_profit").css('backgroundColor', 'lightgreen');
         }
     }
@@ -799,27 +799,28 @@ if (isset($_GET['id'])) {
         $("#currency_selected_sales").text(selectedCurrency);
         $("#currency_selected_paid").text(selectedCurrency);
         $("#currency_selected_balance").text(selectedCurrency);
-
+        $("#currency_selected_price").text(selectedCurrency);
         // Update currency symbol in each payment row
         $(".payment-currency-symbol").text(selectedCurrency);
     });
 
-
     $(document).on("keyup", "#contract_price, #total_bale_weight, #tax_rate", function() {
+
+        changeGrossProfitColor();
+        computeGrossSales();
+    });
+
+    function computeGrossSales() {
         var contract_price = parseFloat($("#contract_price").val().replace(/,/g, "")) || 0;
         var total_bale_weight = parseFloat($("#total_bale_weight").val().replace(/,/g, "")) || 0;
-        var gross_profit = parseFloat($("#gross_profit").val().replace(/,/g, "")) || 0;
-
-
-
         var sales_proceeds = parseFloat($("#sales_proceeds").val().replace(/,/g, "")) || 0;
         var tax_rate = parseFloat($("#tax_rate").val().replace(/,/g, "")) || 0;
+
         var total_sale = total_bale_weight * contract_price;
         var tax_amount = sales_proceeds * (tax_rate / 100); // computed tax amount, tax rate should be in percentage.
+        var gross_profit = sales_proceeds - tax_amount; // Compute gross profit based on the current sales proceeds and tax amount
 
-        var newGross_profit = gross_profit - tax_amount;
-
-        $("#gross_profit").val(newGross_profit.toLocaleString('en-US', {
+        $("#gross_profit").val(gross_profit.toLocaleString('en-US', {
             minimumFractionDigits: 2
         }));
 
@@ -833,9 +834,7 @@ if (isset($_GET['id'])) {
         }));
 
         changeGrossProfitColor();
-
-    });
-
+    }
 
     $(document).on('click', '.btnPrint', function(e) {
         // Check if 'sale_buyer' input is readonly

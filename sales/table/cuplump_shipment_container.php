@@ -5,7 +5,7 @@ $shipment_id = $_POST['shipment_id'];
 
 $output = '';
 $van_no = 0;
-$result  = mysqli_query($con, "SELECT * from sales_cuplump_container where status='Awaiting Sale' ");
+$result  = mysqli_query($con, "SELECT * from sales_cuplump_container where status='Awaiting Shipment' ");
 // $total_bales = 0;
 // $total_weight = 0;
 // $number_container = 0;

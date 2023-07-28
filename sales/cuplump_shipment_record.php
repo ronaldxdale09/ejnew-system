@@ -131,6 +131,9 @@ include "sales_modal/cuplump_shipment_modal.php";
                                                 case "Complete":
                                                     $status_color = 'bg-success';
                                                     break;
+                                                case "Shipped Out":
+                                                    $status_color = 'bg-dark';
+                                                    break;
                                             }
 
                                         ?>
@@ -248,10 +251,10 @@ include "sales_modal/cuplump_shipment_modal.php";
                     success: function(data) {
                         $('#shipment_container_record').html(data);
                         $("#print_content button").each(function() {
-                    if (this.id !== 'btnPrint') {
-                        $(this).hide();
-                    }
-                });
+                            if (this.id !== 'btnPrint') {
+                                $(this).hide();
+                            }
+                        });
                     }
                 });
             }
