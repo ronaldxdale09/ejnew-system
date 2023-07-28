@@ -1,33 +1,64 @@
 <?php
 include('db.php');
 
-// Check if the coffee_id parameter is set
-if (isset($_POST['coffee_id'])) {
-    // Retrieve the coffee_id from the POST data
-    $coffeeId = $_POST['coffee_id'];
+$coffee_sale_id = $_POST["coffee_sale_id"];
 
-    // Fetch the item lines for the given coffee sale from the coffee_sale_line table
-    $query = "SELECT * FROM coffee_sale_line WHERE coffee_sale_id = '$coffeeId'";
-    $result = mysqli_query($con, $query);
+// Prepare your SQL query to fetch data from coffee_sale_line table
+$sql = "SELECT * FROM coffee_sale_line WHERE coffee_sale_id = '$coffee_sale_id'";
+$result = mysqli_query($con, $sql);
 
-    // Create an array to store the item lines
-    $itemLines = array();
-
-    // Loop through the result and add each item line to the array
-    while ($row = mysqli_fetch_assoc($result)) {
-        $itemLine = array(
-            'product' => $row['product'],
-            'unit' => $row['unit'],
-            'price' => $row['price'],
-            'amount' => $row['amount']
-        );
-        $itemLines[] = $itemLine;
-    }
-
-    // Return the item lines as JSON
-    echo json_encode($itemLines);
-} else {
-    // If the coffee_id parameter is not set, return an error message
-    echo "Error: coffee_id parameter is missing.";
+// Check if the query was successful
+if (!$result) {
+    die('Query Failed: ' . mysqli_error($con));
 }
+
+$output = '<div class="row">
+                                <div class="col">Product
+                                </div>
+                                <div class="col">Qty
+                                </div>
+                                <div class="col">Price
+                                </div>
+                                <div class="col">Amount
+                                </div>
+                                <div class="col">Actions
+                                </div>
+                                </div>
+                                <hr>';
+
+                                if (mysqli_num_rows($result) > 0) {
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        $product = $row["product"] == "0" ? "-" : $row["product"];
+                                        $unit = $row["unit"] == "0" ? "-" : $row["unit"];
+                                        $price = $row["price"] == "0" ? "-" : $row["price"];
+                                        $amount = $row["amount"] == "0" ? "-" : $row["amount"];
+                                
+                                        $output .= "<div class='row'>
+                                                        <div class='col'>
+                                                            
+                                                            <td><input type='text' class='form-control' value='$product' readonly></td>
+                                                        </div>
+                                                        <div class='col'>
+                                                            
+                                                        <td><input type='text' class='form-control' value='$unit' readonly></td>
+                                                        </div>
+                                                        <div class='col'>
+                                                            
+                                                            <input type='text' class='form-control' value='$price' readonly>
+                                                        </div>
+                                                        <div class='col'>
+                                                            
+                                                            <input type='text' class='form-control' value='$amount' readonly>
+                                                        </div>
+                                                        <div class='col'>
+                                                            
+                                                        <button class='btn btn-danger removeRow' style='align-items: center;'><i class='fas fa-trash'></i></button>
+                                                        </div>
+                                                    </div><hr>";
+                                    }
+                                } else {
+                                    $output = "<p>No data found.</p>";
+                                }
+
+echo $output;
 ?>

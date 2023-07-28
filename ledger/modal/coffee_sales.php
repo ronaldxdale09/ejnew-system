@@ -15,6 +15,7 @@
                         </div>
                         <div class="col-5">
                             <label>Customer Name</label>
+                            
                             <select class="form-control" name="coffee_customer" required>
                                 <option value="" selected disabled hidden>Select...</option>
                                 <?php
@@ -144,29 +145,29 @@
         const amountField = itemLine.querySelector('input[name="amount[]"]');
 
         coffeeNameField.addEventListener('change', () => {
-    // Retrieve the selected coffee name
-    const selectedCoffeeName = coffeeNameField.value;
+            // Retrieve the selected coffee name
+            const selectedCoffeeName = coffeeNameField.value;
 
-    if (selectedCoffeeName === 'Select...') {
-        // Set unitField, priceField, and amountField to 0
-        unitField.value = 0;
-        priceField.value = 0;
-        amountField.value = 0;
-    } else {
-        // Make an AJAX call to the server to get the price for the selected coffee
-        fetch(`function/coffee_fetch_product_data.php?coffee_name=${selectedCoffeeName}`)
-            .then(response => response.json())
-            .then(data => {
-                // Update the price field with the fetched price
-                priceField.value = data.price;
-                recalculateLine.call(priceField); // Trigger recalculation
-            })
-            .catch(error => {
-                console.error('Error fetching coffee price:', error);
-                // You can set a default or handle the error as needed.
-            });
-    }
-});
+            if (selectedCoffeeName === 'Select...') {
+                // Set unitField, priceField, and amountField to 0
+                unitField.value = 0;
+                priceField.value = 0;
+                amountField.value = 0;
+            } else {
+                // Make an AJAX call to the server to get the price for the selected coffee
+                fetch(`function/coffee_fetch_product_data.php?coffee_name=${selectedCoffeeName}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Update the price field with the fetched price
+                        priceField.value = data.price;
+                        recalculateLine.call(priceField); // Trigger recalculation
+                    })
+                    .catch(error => {
+                        console.error('Error fetching coffee price:', error);
+                        // You can set a default or handle the error as needed.
+                    });
+            }
+        });
 
 
 
