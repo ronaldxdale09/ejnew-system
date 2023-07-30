@@ -30,7 +30,7 @@
     $stmt = mysqli_prepare($con, "SELECT 
     coffee_sale_id,
     coffee_status,
-    coffee_no,
+    sale_voucher,
     coffee_date,
     coffee_customer,
     coffee_total_amount,
@@ -92,7 +92,7 @@ FROM coffee_sale");
                                                         <?php echo $row['coffee_status']; ?>
                                                     </td>
                                                     <td>
-                                                        <?php echo $row['coffee_no']; ?>
+                                                        <?php echo $row['sale_voucher']; ?>
                                                     </td>
                                                     <td>
                                                         <?php echo date('M d, Y', strtotime($row['coffee_date'])); ?>
@@ -111,7 +111,8 @@ FROM coffee_sale");
                                                     </td>
                                                     <td class="text-center">
                                                         <button type="button"
-                                                            class="btn btn-success btn-sm btnSaleUpdate">Update</button>
+                                                        data-coffee_sale='<?php echo json_encode($row)?>'
+                                                        class="btn btn-success btn-sm btnSaleUpdate">Update</button>
                                                     </td>
                                                 </tr>
                                                 <?php
@@ -141,26 +142,19 @@ FROM coffee_sale");
                     return $(this).text();
                 }).get();
 
-                coffeeId = data[0];
-                coffeeNo = data[2];
-                coffeeCustomer = data[4];
-                coffeeDate = data[3];
-                coffeeTotalAmount = data[5];
-                coffeePaid = data[6];
-                coffeeBalance = data[7];
+                var coffee_data=  $(this).data('coffee_sale');
 
-                console.log(coffeeId);
-                console.log(coffeeNo);
-                console.log(coffeeCustomer);
-                console.log(coffeeDate);
-                console.log(coffeeTotalAmount);
-                console.log(coffeePaid);
-                console.log(coffeeBalance);
+                coffeeId = coffee_data.coffee_sale_id ;
+                coffeeNo = coffee_data.sale_voucher;
+                coffeeCustomer = coffee_data.coffee_customer;
+                coffeeDate = coffee_data.coffee_date;
+                coffeeTotalAmount =coffee_data.coffee_total_amount;
+                coffeePaid = coffee_data.coffee_paid;
+                coffeeBalance = coffee_data.coffee_balance;
 
-                // Make an AJAX request to fetch additional data
-                //var coffee_sale_id = coffeeId.replace(/\s+/g, '');
+  
                 $.ajax({
-                    url: "function/coffee_sale_fetch.php",
+                    url: "table/coffee_sale_fetch.php",
                     method: "POST",
                     data: {
                         coffee_sale_id: coffeeId,
