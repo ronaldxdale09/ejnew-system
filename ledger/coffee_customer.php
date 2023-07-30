@@ -110,11 +110,12 @@ if (!$results) {
             </div>
         </div>
     </div>
+    <?php include ('modal/coffee_customer_transaction.php'); ?>
 
     <script>
     function viewTransactions(customerId) {
         // Redirect or perform any desired action
-        window.location.href = "transactions.php?customer_id=" + customerId;
+        window.location.href = "modal/coffee_customer_transaction.php?customer_id=" + customerId;
     }
     $(document).ready(function() {
         var table = $('#customerTable').DataTable({
