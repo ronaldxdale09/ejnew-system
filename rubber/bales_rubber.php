@@ -36,7 +36,7 @@ if (isset($_GET['id'])) {
         $recorded_by = isset($record['recorded_by']) ? $record['recorded_by'] : '';
         $drc = isset($record['drc']) ? $record['drc'] : 0; // If drc refers to dry rubber content
         $production_id = isset($record['production_id']) ? $record['production_id'] : 0; // If drc refers to dry rubber content
-        
+
         // Debugging code
         echo "
     <script>
@@ -298,10 +298,12 @@ if (isset($_GET['id'])) {
                                             <div class="container">
                                                 <button type="button" class="btn btn-dark text-white btnSelectTrans" id='receiptBtn'>
                                                     <span class="fa fa-book"></span> Select Inventory</button>
+                                                <button type="button" class="btn btn-secondary text-white btnClear" id='btnClear'>
+                                                    <span class="fa fa-eraser"></span> Clear Inventory</button>
                                                 <hr>
                                                 <!-- -->
                                                 <input type="text" class="form-control" id='lot_code' name='lot_code' hidden />
-                                                <input type="text" style='text-align:right' name='prod_id' id='prod_id' hidden>
+                                                <input type="text" style='text-align:right' name='prod_id' id='prod_id'hidden >
                                                 <br>
                                                 <div id='selected_inventory_bales'></div> <br>
                                                 <div class="form-group">
@@ -487,6 +489,27 @@ if (isset($_GET['id'])) {
 
 </html>
 
+<div class="modal fade" id="clearInventoryModal" tabindex="-1" role="dialog" aria-labelledby="clearInventoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="clearInventoryModalLabel">Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to clear the inventory?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary btnConfirmClear">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
     function fetch_record() {
         var purchase_id = <?php echo $trans_id; ?>;
@@ -505,6 +528,46 @@ if (isset($_GET['id'])) {
         });
     }
     fetch_record();
+
+    $('.btnClear').on('click', function() {
+        // Open the modal
+        $('#clearInventoryModal').modal('show');
+    });
+
+    $('.btnConfirmClear').on('click', function() {
+        var purchase_id = <?php echo $trans_id ?>;
+        console.log('Clearing inventory for Purchase ID: ' + purchase_id);
+
+        $.ajax({
+            url: 'table/fetch/baleRemoveInventory.php', // Path to the PHP script
+            type: 'POST',
+            data: {
+                'purchase_id': purchase_id
+            },
+            success: function(response) {
+                fetch_record();
+                console.log('Inventory cleared successfully!');
+                console.log('Response:', response);
+                $('#entry').val('');
+                $('#drc').val('');
+                $('#total_net_weight').val('');
+                $('#price_1').val('');
+                $('#weight_1').val('');
+
+                $('#recording_id').val('');
+                $('#m_lot_number').val('');
+                $('#m_delivery_date').val('');
+                $('#m_prod_id').val('');
+                computeBalesRubber()
+            },
+            error: function(error) {
+                console.log('Error:', error);
+            }
+        });
+
+        // Close the modal
+        $('#clearInventoryModal').modal('hide');
+    });
 </script>
 
 <script type="text/javascript" src="js/bales_rubber.js"></script>

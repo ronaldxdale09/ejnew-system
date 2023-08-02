@@ -2,14 +2,14 @@
 
 $sql = mysqli_query($con, "SELECT SUM(remaining_bales * kilo_per_bale) as inventory,planta_recording.status as planta_status  from  planta_bales_production
    LEFT JOIN planta_recording on planta_bales_production.recording_id = planta_recording.recording_id
-    where planta_bales_production.remaining_bales !=0  AND planta_recording.source='Basilan'");
-$bales_basilan = mysqli_fetch_array($sql);
+    where planta_bales_production.remaining_bales !=0  AND planta_recording.source='Kidapawan'");
+$bales_Kidapawan = mysqli_fetch_array($sql);
 
 
 $sql = mysqli_query($con, "SELECT SUM(remaining_bales) as inventory from  planta_bales_production 
      LEFT JOIN planta_recording on planta_bales_production.recording_id = planta_recording.recording_id
-   where  planta_bales_production.remaining_bales !=0 AND planta_recording.source='Basilan' ");
-$balesCount_basilan  = mysqli_fetch_array($sql);
+   where  planta_bales_production.remaining_bales !=0 AND planta_recording.source='Kidapawan' ");
+$balesCount_Kidapawan  = mysqli_fetch_array($sql);
 
 
 
@@ -33,14 +33,16 @@ $sql = mysqli_query($con, "SELECT
             LEFT JOIN planta_recording 
                 ON planta_bales_production.recording_id = planta_recording.recording_id
         WHERE 
-        planta_bales_production.remaining_bales !=0 AND planta_recording.source='Basilan'
+        planta_bales_production.remaining_bales !=0 AND planta_recording.source='Kidapawan'
     ) AS subquery");
 
 
 $data = mysqli_fetch_array($sql);
-$average_kilo_cost_basilan  = ($data['total_bale_cost'] + $data['overall_milling_cost']) / $data['total_weight'];
-
-
+if ($data['total_weight'] != 0) {
+    $average_kilo_cost_Kidapawan  = ($data['total_bale_cost'] + $data['overall_milling_cost']) / $data['total_weight'];
+} else {
+    $average_kilo_cost_Kidapawan = 0;  // or any default value you wish to use when $data['total_weight'] is zero
+}
 
 
 
@@ -53,7 +55,7 @@ $average_kilo_cost_basilan  = ($data['total_bale_cost'] + $data['overall_milling
                 <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY (KG)</p>
                 <h3>
                     <i class="text-danger font-weight-bold mr-1"></i>
-                    <?php echo number_format($bales_basilan['inventory'] ?? 0, 0) ?> kg
+                    <?php echo number_format($bales_Kidapawan['inventory'] ?? 0, 0) ?> kg
                 </h3>
                 <div>
                     <span class="text-muted">
@@ -73,7 +75,7 @@ $average_kilo_cost_basilan  = ($data['total_bale_cost'] + $data['overall_milling
                 <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY </p>
                 <h3>
                     <i class="text-danger font-weight-bold mr-1"></i>
-                    <?php echo number_format($balesCount_basilan['inventory'] ?? 0, 0) ?> pcs
+                    <?php echo number_format($balesCount_Kidapawan['inventory'] ?? 0, 0) ?> pcs
                 </h3>
                 <div>
                     <span class="text-muted">
@@ -93,7 +95,7 @@ $average_kilo_cost_basilan  = ($data['total_bale_cost'] + $data['overall_milling
                 <p class="text-uppercase mb-1 text-muted"><b>AVERAGE</b> INVENTORY COST </p>
                 <h3>
                     <i class="text-success font-weight-bold mr-1"></i>
-                    ₱ <?php echo number_format($average_kilo_cost_basilan ?? 0, 2) ?>
+                    ₱ <?php echo number_format($average_kilo_cost_Kidapawan ?? 0, 2) ?>
                 </h3>
                 <div>
                     <span class="text-muted">
@@ -110,16 +112,15 @@ $average_kilo_cost_basilan  = ($data['total_bale_cost'] + $data['overall_milling
 </div>
 
 <hr>
-<button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#purchaseModal">NEW OUTSIDE PURCHASE </button>
-<hr>
-<table class="table table-bordered table-hover table-striped " style='width:100%' id="recording_table-produced-basilan">
+
+<table class="table table-bordered table-hover table-striped table-responsive" style='width:100%' id="recording_table-produced-kidapawan">
 
     <?php
     $results = mysqli_query($con, "SELECT * FROM planta_bales_production 
                                    LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
                                    WHERE planta_bales_production.status='Produced' and (rubber_weight !='0' or rubber_weight !=null) and
-                                   planta_bales_production.source='Basilan'
-                                   ORDER BY planta_bales_production.recording_id ASC ");
+                                   planta_recording.source='Kidapawan'
+                                   ORDER BY planta_bales_production.recording_id ASC  ");
     ?>
 
 
@@ -162,7 +163,7 @@ $average_kilo_cost_basilan  = ($data['total_bale_cost'] + $data['overall_milling
                 <td>
                     <span class="badge bg-secondary"><?php echo $row['bales_prod_id'] ?></span>
                 </td>
-                <td><?php echo  date('M d, Y', strtotime($row['production_date'])); ?></td>
+                <td><?php echo date('M d, Y', strtotime($row['production_date'])); ?></td>
                 <td><?php echo $row['supplier'] ?></td>
                 <td> <?php echo $row['lot_num'] ?> </td>
                 <td><?php echo $row['bales_type'] ?></td>
@@ -174,11 +175,13 @@ $average_kilo_cost_basilan  = ($data['total_bale_cost'] + $data['overall_milling
                 <td class="number-cell">
                     <?php echo number_format($row['rubber_weight'], 0, '.', ',') ?> kg</td>
 
-                <td class="number-cell"><?php echo number_format($row['drc'], 2) ?>%</td>
+                <td class="number-cell"><?php echo number_format($row['drc'], 2) ?> %</td>
                 <td><?php echo $row['description'] ?></td>
-                <td> ₱<?php echo number_format($row['milling_cost']) ?>
+                <td> ₱
+                    <?php echo number_format($row['milling_cost']) ?>
                 </td>
-                <td> ₱<?php echo number_format($row['total_production_cost'] / $row['produce_total_weight'], 2) ?>
+                <td> ₱
+                    <?php echo number_format($row['total_production_cost'] / $row['produce_total_weight'], 2) ?>
                 </td>
                 <td>
                     <?php if ($row['trans_type'] == 'OUTSOURCE') : ?>
@@ -193,9 +196,10 @@ $average_kilo_cost_basilan  = ($data['total_bale_cost'] + $data['overall_milling
     </tbody>
 </table>
 
+
 <script>
     $(document).ready(function() {
-        var table = $('#recording_table-produced-basilan').DataTable({
+        var table = $('#recording_table-produced-kidapawan').DataTable({
             "order": [
                 [1, 'desc']
             ],
@@ -224,17 +228,8 @@ $average_kilo_cost_basilan  = ($data['total_bale_cost'] + $data['overall_milling
                     exportOptions: {
                         columns: ':visible'
                     }
-                },
-
-                'colvis'
-            ],
-            columnDefs: [{
-                orderable: false,
-                targets: -1
-            }, {
-                targets: [10],
-                visible: false
-            }],
+                }
+            ]
         });
     });
 </script>

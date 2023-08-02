@@ -214,7 +214,7 @@ include 'include/navbar.php';
             var table = $('#recording_table-receiving').DataTable({
                 dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
                 order: [
-                    [1, 'desc']
+                    [11, 'asc']
                 ],
                 buttons: [
                     'excelHtml5',

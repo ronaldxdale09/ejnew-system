@@ -110,8 +110,7 @@ $average_kilo_cost_basilan  = ($data['total_bale_cost'] + $data['overall_milling
 </div>
 
 <hr>
-<button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#purchaseModal">NEW OUTSIDE PURCHASE </button>
-<hr>
+
 <table class="table table-bordered table-hover table-striped " style='width:100%' id="recording_table-produced-basilan">
 
     <?php

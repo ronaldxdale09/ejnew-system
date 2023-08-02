@@ -48,5 +48,6 @@ while ($data = mysqli_fetch_assoc($result_select)) {
     }
 }
 
-echo 'Data successfully inserted!';
+echo "Recording ID: $recording_id, Purchase ID: $purchase_id\n";
+
 ?>

@@ -137,6 +137,8 @@ $query = "SELECT * FROM bales_transaction WHERE id = $transaction_id";
 $result = mysqli_query($con, $query);
 $data = mysqli_fetch_assoc($result);
 
+$lot_number = $data['lot_code'] ;
+
 ?>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
     integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
@@ -150,14 +152,14 @@ $data = mysqli_fetch_assoc($result);
 <table class="lastTable">
     <tr>
         <th>Invoice: <?php echo $transaction_id ?></th>
-        <th>Date: <?php echo  $data['date'] ?> </th>
+        <th>Date: <?php echo  $data['date']; ?> </th>
 
     </tr>
 
 </table>
 
-Seller : <?php echo  $data['seller'] ?><br>
-Address: <?php echo  $data['address'] ?> <br>
+Seller : <?php echo  $data['seller']; ?><br>
+Address: <?php echo  $data['address']; ?> <br>
 -------------------------------------
 <br>
 <center>
@@ -173,7 +175,7 @@ Address: <?php echo  $data['address'] ?> <br>
                 </tr>
                 <tr style='text-align: center; '>
                     <td><br>
-                        LOT #<?php echo  $data['lot_code'] ?> <br>
+                        LOT #<?php echo $_SESSION['lot_code'];?> <br>
                         <?php echo  number_format($data['entry'],0).' Kg' ?>
                     </td>
                     <td style='width:10%'> <br> <br> <?php echo  $data['drc'] ?> %</td>
@@ -305,7 +307,7 @@ Address: <?php echo  $data['address'] ?> <br>
                 </tr>
                 <tr style='text-align: center; '>
                     <td><br>
-                        LOT #<?php echo  $data['lot_code'] ?> <br>
+                        LOT #<?php echo $_SESSION['lot_code']; ?> <br>
                         <?php echo  number_format($data['entry'],0).' Kg' ?>
                     </td>
                     <td style='width:10%'> <br> <br> <?php echo  $data['drc'] ?> %</td>

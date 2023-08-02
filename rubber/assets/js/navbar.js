@@ -4,7 +4,10 @@ const navLinks = document.querySelectorAll('nav a').forEach(link => {
     if (link.href.includes(`${activePage}`)) {
         link.classList.add('active');
     }
-});
+})
+
+
+
 
 $(document).on('click', '#toggle-nav-btn', function() {
     if (toggle) {
@@ -41,18 +44,3 @@ function retractNav() {
         }, 400);
     });
 };
-
-// Function to check the window size and retract the navbar
-function checkWindowSize() {
-    if (window.innerWidth <= 768) {
-        retractNav();
-        toggle = false;
-    } else {
-        expandNav();
-        toggle = true;
-    }
-}
-
-// Call checkWindowSize on load and when the window is resized
-window.addEventListener('resize', checkWindowSize);
-checkWindowSize();

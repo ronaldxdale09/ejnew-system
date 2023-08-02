@@ -254,4 +254,3 @@ $rubberTypes = ['5L', 'SPR-5', 'SPR-10', 'SPR-20', 'Off Color'];
         }));
     }
 </script>
-</script>

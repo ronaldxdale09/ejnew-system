@@ -110,9 +110,7 @@ $average_kilo_cost_basilan  = ($data['total_bale_cost'] + $data['overall_milling
 </div>
 
 <hr>
-<button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#purchaseModal">NEW OUTSIDE PURCHASE </button>
-<hr>
-<table class="table table-bordered table-hover table-striped " style='width:100%' id="recording_table-produced-basilan">
+<table class="table table-bordered table-hover table-striped table-responsive" style='width:100%' id="recording_table-produced-basilan">
 
     <?php
     $results = mysqli_query($con, "SELECT * FROM planta_bales_production 
@@ -162,7 +160,7 @@ $average_kilo_cost_basilan  = ($data['total_bale_cost'] + $data['overall_milling
                 <td>
                     <span class="badge bg-secondary"><?php echo $row['bales_prod_id'] ?></span>
                 </td>
-                <td><?php echo  date('M d, Y', strtotime($row['production_date'])); ?></td>
+                <td><?php echo date('M d, Y', strtotime($row['production_date'])); ?></td>
                 <td><?php echo $row['supplier'] ?></td>
                 <td> <?php echo $row['lot_num'] ?> </td>
                 <td><?php echo $row['bales_type'] ?></td>
@@ -174,11 +172,13 @@ $average_kilo_cost_basilan  = ($data['total_bale_cost'] + $data['overall_milling
                 <td class="number-cell">
                     <?php echo number_format($row['rubber_weight'], 0, '.', ',') ?> kg</td>
 
-                <td class="number-cell"><?php echo number_format($row['drc'], 2) ?>%</td>
+                <td class="number-cell"><?php echo number_format($row['drc'], 2) ?> %</td>
                 <td><?php echo $row['description'] ?></td>
-                <td> ₱<?php echo number_format($row['milling_cost']) ?>
+                <td> ₱
+                    <?php echo number_format($row['milling_cost']) ?>
                 </td>
-                <td> ₱<?php echo number_format($row['total_production_cost'] / $row['produce_total_weight'], 2) ?>
+                <td> ₱
+                    <?php echo number_format($row['total_production_cost'] / $row['produce_total_weight'], 2) ?>
                 </td>
                 <td>
                     <?php if ($row['trans_type'] == 'OUTSOURCE') : ?>
@@ -224,17 +224,8 @@ $average_kilo_cost_basilan  = ($data['total_bale_cost'] + $data['overall_milling
                     exportOptions: {
                         columns: ':visible'
                     }
-                },
-
-                'colvis'
-            ],
-            columnDefs: [{
-                orderable: false,
-                targets: -1
-            }, {
-                targets: [10],
-                visible: false
-            }],
+                }
+            ]
         });
     });
 </script>

@@ -46,8 +46,8 @@ echo "Product Type: " . $prod_type . "<br>";
 echo "Transaction Type: " . $trans_type . "<br>";
 
 
-$query = "INSERT INTO planta_recording (lot_num,status,purchased_id,prod_type,trans_type,receiving_date,supplier,location,driver,truck_num,weight,reweight,produce_total_weight,prod_expense_desc,production_expense,recorded_by,drc,purchase_cost,total_production_cost,source) 
-VALUES ('Outsourced','For Sale','0','$prod_type','$trans_type','$date','$supplier','$location','$driver','$truck_num','$weight', '$reweight','$total_weight','$expense_desc','$expense','$recorded_by','100','$purchase_cost','$total_prod_cost','Basilan')";
+$query = "INSERT INTO planta_recording (lot_num,status,purchased_id,prod_type,trans_type,receiving_date,production_date,supplier,location,driver,truck_num,weight,reweight,produce_total_weight,prod_expense_desc,production_expense,recorded_by,drc,purchase_cost,total_production_cost,source) 
+VALUES ('Outsourced','For Sale','0','$prod_type','$trans_type','$date','$date','$supplier','$location','$driver','$truck_num','$weight', '$reweight','$total_weight','$expense_desc','$expense','$recorded_by','100','$purchase_cost','$total_prod_cost','Basilan')";
 $results = mysqli_query($con, $query);
 $recording_id = $con->insert_id;
 

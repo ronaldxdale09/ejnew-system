@@ -2,7 +2,7 @@
  include('db.php');
                         if (isset($_POST['new'])) {
                             
-                            $loc = $_SESSION["loc"];
+                      $loc = $_SESSION["loc"];
                             $date = $_POST['date'];
                             $recorded_by = $_POST['recorded_by'];
                            

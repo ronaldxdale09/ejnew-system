@@ -1,7 +1,7 @@
 <?php 
    include('include/header.php');
    include "include/navbar.php";
-   $loc = $_SESSION['loc'];
+   $loc = str_replace(' ', '', $_SESSION['loc']);
 
 
 ?>
@@ -286,71 +286,7 @@
                                     <div class="container">
 
                                         <!-- -->
-                                        <div class="form-group">
-                                            <div class="row no-gutters">
-                                                <!--end  -->
-                                                <div class="col">
-                                                    <label style='font-size:15px' class="col-md-12">
-                                                    </label>
-                                                    <div class="input-group mb-1">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text"
-                                                                id="inputGroup-sizing-default" style='color:black'>Net
-                                                            </span>
-                                                        </div>
-                                                        <input type="text" class="form-control" id='net_weight_1'
-                                                            name='net_weight_1' onkeypress="return CheckNumeric()"
-                                                            onkeyup="FormatCurrency(this)" tabindex="2"
-                                                            autocomplete='off' />
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text">Kg</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col">
-                                                    <label class="col-md-12">Kilo Per Bale</label>
-                                                    <input type="text" class="form-control" id='kilo_bales_1'
-                                                        readonly />
-                                                </div>
-
-                                                <div class="col">
-                                                    <label class="col-md-12">Bales</label>
-                                                    <input type="text" class="form-control" id='total_bales_1'
-                                                        name='total_bales_1' readonly />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="row no-gutters">
-                                                <div class="col">
-                                                    <label style='font-size:15px' class="col-md-12">
-                                                    </label>
-                                                    <div class="input-group mb-1">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text"
-                                                                id="inputGroup-sizing-default" style='color:black'>Net
-                                                            </span>
-                                                        </div>
-                                                        <input type="text" class="form-control" id='net_weight_2'
-                                                            name='net_weight_2' readonly />
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text">Kg</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <label class="col-md-12">Kilo Per Bale</label>
-                                                    <input type="text" class="form-control" id='kilo_bales_2'
-                                                        readonly />
-                                                </div>
-                                                <div class="col">
-                                                    <label class="col-md-12">Bales</label>
-                                                    <input type="text" class="form-control" id='total_bales_2'
-                                                        name='total_bales_2' readonly />
-                                                </div>
-                                            </div>
-                                        </div>
+                                       <div id='selected_inventory'> </div>
                                         <br>
                                         <div class="form-group">
                                             <div class="row no-gutters">
@@ -609,6 +545,27 @@ $('.btnView').on('click', function() {
     var loc = $(this).data('loc');
     var production_id = $(this).data('production_id');
     var recorded_by = $(this).data('recorded_by');
+
+    function fetch_record() {
+        var purchase_id = id;
+        $.ajax({
+            url: "table/bales_purchase_selection.php",
+            method: "POST",
+            data: {
+                purchase_id: purchase_id,
+
+            },
+            success: function(data) {
+                $('#selected_inventory').html(data);
+
+
+            }
+        });
+    }
+    fetch_record();
+
+
+
 
 
     $('#recording_id').val(id);
