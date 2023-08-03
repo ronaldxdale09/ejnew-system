@@ -6,7 +6,6 @@ include('../db.php');
 $cuplump_sales_id = $_POST['sales_id'];
 $sale_contract = $_POST['sale_contract'];
 $purchase_contract = $_POST['purchase_contract'];
-$sale_type = $_POST['sale_type'];
 $trans_date = $_POST['trans_date'];
 $sale_buyer = $_POST['sale_buyer'];
 $shipping_date = $_POST['shipping_date'];
@@ -37,7 +36,6 @@ $query = "UPDATE `sales_cuplump_record`
             `purchase_contract`='$purchase_contract',
             `buyer_name`='$sale_buyer',
             `currency`='$sale_currency',
-            `sale_type`='$sale_type',
             `transaction_date`='$trans_date',
             `shipping_date`='$shipping_date',
             `source`='$sale_source',
@@ -132,8 +130,23 @@ if (mysqli_query($con, $query)) {
         }
     }
 
+    
+    // SQL to get all container_id for a given sales_id
+    $sql = "SELECT sales_container_id ,cuplump_sales_id,container_id FROM sales_cuplump_selected_container WHERE sales_container_id = '$cuplump_sales_id'";
+    // Execute the query
+    $result = mysqli_query($con, $sql);
+
+    // For each container_id, update the status in bales_container_record
+    while ($row = mysqli_fetch_assoc($result)) {
+        $container_id = $row['container_id'];
+        // SQL to update the status of the corresponding container_id
+        $update = "UPDATE sales_cuplump_container SET status = 'Sold' WHERE container_id = '$container_id'";
+        // Execute the update query
+        mysqli_query($con, $update);
+    }
+
+    
     echo "success";
 } else {
     echo "Error updating record: " . mysqli_error($con);
 }
-?>

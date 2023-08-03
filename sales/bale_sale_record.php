@@ -251,6 +251,13 @@ $active = mysqli_fetch_array($sql);
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
         }));
+
+        $('#v_total_milling_cost').val(parseFloat(bale.total_milling_cost).toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }));
+
+
         $('#v_contract_quantity').val(parseFloat(bale.contract_quantity).toLocaleString('en-US', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
@@ -319,13 +326,13 @@ $active = mysqli_fetch_array($sql);
 
         $('#other_terms').val(bale.other_terms);
 
-        var status = $(this).data('status');
+        // var status = $(this).data('status');
 
-        if (status == "Draft" || status == "In Progress") {
-            $('#editBtn').show();
-        } else {
-            $('#editBtn').hide();
-        }
+        // if (status == "Draft" || status == "In Progress") {
+        //     $('#editBtn').show();
+        // } else {
+        //     $('#editBtn').hide();
+        // }
 
 
 

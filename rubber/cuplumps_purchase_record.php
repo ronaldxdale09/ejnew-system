@@ -21,12 +21,16 @@
                 <div class="row">
                     <div class="col-sm-12">
 
-                        <h2 class="page-title">
-                            <b>
-                                <font color="#0C0070">Cuplump </font>
-                                <font color="#046D56"> Purchase </font>
-                            </b>
-                        </h2>
+                    <center>
+                            <h1 class="page-title">
+                                <b>
+                                    <font color="#0C0070">CUPLUMP </font>
+                                    <font color="#046D56"> PURCHASING </font>
+                                </b>
+                            </h1>
+
+                        </center>
+
 
                         <br>
 
@@ -38,7 +42,7 @@
                             <div class="table-responsive">
                                 <table class="table" id='wet_record_table'>
                                     <?php
-                  $record  = mysqli_query($con, "SELECT * from rubber_transaction   where loc='$loc' ORDER BY id DESC  "); ?>
+                                 $record  = mysqli_query($con, "SELECT * from rubber_transaction   where loc='$loc' ORDER BY id DESC  "); ?>
                                     <thead class="table-dark" style='font-size:15px'>
                                         <tr>
                                             <th scope="col">Invoice</th>

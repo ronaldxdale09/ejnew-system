@@ -423,7 +423,7 @@ $today = date('Y-m-d');
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">₱</span>
                                             </div>
-                                            <input type="text" class="form-control" id='v_total_production_cost' style="width: 100px;" readonly />
+                                            <input type="text" class="form-control" id='v_total_milling_cost' style="width: 100px;" readonly />
                                         </div>
                                     </div>
                                     <div class="col">

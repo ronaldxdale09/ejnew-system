@@ -2,7 +2,8 @@
 include('include/header.php');
 include "include/navbar.php";
 
-$loc = str_replace(' ', '', $_SESSION['loc']);$sql = mysqli_query($con, "SELECT SUM(remaining_bales * kilo_per_bale) as inventory,planta_recording.status as planta_status  from  planta_bales_production
+$loc = str_replace(' ', '', $_SESSION['loc']);
+$sql = mysqli_query($con, "SELECT SUM(remaining_bales * kilo_per_bale) as inventory,planta_recording.status as planta_status  from  planta_bales_production
    LEFT JOIN planta_recording on planta_bales_production.recording_id = planta_recording.recording_id
     where planta_bales_production.remaining_bales !=0 and planta_recording.source='$loc' ");
 $bales = mysqli_fetch_array($sql);
@@ -40,11 +41,13 @@ $sql = mysqli_query($con, "SELECT
 
 
 $data = mysqli_fetch_array($sql);
-if($data['total_weight'] != 0) {
+if ($data['total_weight'] != 0) {
     $average_kilo_cost = ($data['total_bale_cost'] + $data['overall_milling_cost']) / $data['total_weight'];
 } else {
     $average_kilo_cost = 0; // or some default value
 }
+
+
 
 ?>
 
@@ -71,14 +74,13 @@ if($data['total_weight'] != 0) {
             <div class="page-wrapper">
                 <div class="row">
                     <div class="col-sm-12">
-                        <h2 class="page-title">
+                        <h1 class="page-title">
                             <b>
                                 <font color="#0C0070">BALE </font>
                                 <font color="#046D56"> INVENTORY </font>
                             </b>
-                        </h2>
+                        </h1>
 
-                        <br>
                         <div class="row">
                             <div class="col-3">
                                 <div class="stat-card">
@@ -183,6 +185,8 @@ if($data['total_weight'] != 0) {
                                                         <span class="badge bg-danger"><?php echo $row['status'] ?></span>
                                                     <?php elseif ($row['status'] == 'Purchase') : ?>
                                                         <span class="badge bg-info"><?php echo $row['status'] ?></span>
+                                                    <?php elseif ($row['status'] == 'Complete') : ?>
+                                                        <span class="badge bg-success"><?php echo $row['status'] ?></span>
                                                     <?php else : ?>
                                                         <span class="badge"><?php echo $row['status'] ?></span>
                                                     <?php endif; ?>

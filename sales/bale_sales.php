@@ -815,10 +815,11 @@ if (isset($_GET['id'])) {
         var total_bale_weight = parseFloat($("#total_bale_weight").val().replace(/,/g, "")) || 0;
         var sales_proceeds = parseFloat($("#sales_proceeds").val().replace(/,/g, "")) || 0;
         var tax_rate = parseFloat($("#tax_rate").val().replace(/,/g, "")) || 0;
+        var over_all_cost = parseFloat($("#over_all_cost").val().replace(/,/g, "")) || 0;
 
         var total_sale = total_bale_weight * contract_price;
         var tax_amount = sales_proceeds * (tax_rate / 100); // computed tax amount, tax rate should be in percentage.
-        var gross_profit = sales_proceeds - tax_amount; // Compute gross profit based on the current sales proceeds and tax amount
+        var gross_profit = (sales_proceeds - tax_amount) -over_all_cost ; // Compute gross profit based on the current sales proceeds and tax amount
 
         $("#gross_profit").val(gross_profit.toLocaleString('en-US', {
             minimumFractionDigits: 2
