@@ -115,7 +115,7 @@ try {
     // Everything was successful
     $_SESSION['invoice'] = $invoice;
     $_SESSION['lot_code'] = $lot_number;
-    
+    $_SESSION['print_invoice'] = $invoice;
     $_SESSION['prepared_by'] = $prepared_by;
     $_SESSION['approved_by'] = $approved_by;
     $_SESSION['received_by'] = $received_by;

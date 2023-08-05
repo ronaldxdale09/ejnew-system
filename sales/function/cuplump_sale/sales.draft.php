@@ -132,7 +132,7 @@ if (mysqli_query($con, $query)) {
 
     
     // SQL to get all container_id for a given sales_id
-    $sql = "SELECT sales_container_id ,cuplump_sales_id,container_id FROM sales_cuplump_selected_container WHERE sales_container_id = '$cuplump_sales_id'";
+    $sql = "SELECT sales_container_id ,cuplump_sales_id,container_id FROM sales_cuplump_selected_container WHERE cuplump_sales_id = '$cuplump_sales_id'";
     // Execute the query
     $result = mysqli_query($con, $sql);
 

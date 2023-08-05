@@ -1,14 +1,17 @@
 <?php
 
+
+$loc = str_replace(' ', '', $_SESSION['loc']);
+
 $sql = mysqli_query($con, "SELECT SUM(remaining_bales * kilo_per_bale) as inventory,planta_recording.status as planta_status  from  planta_bales_production
    LEFT JOIN planta_recording on planta_bales_production.recording_id = planta_recording.recording_id
-    where planta_bales_production.remaining_bales !=0  AND planta_recording.source='Basilan'");
+    where planta_bales_production.remaining_bales !=0  AND planta_recording.source='$loc'");
 $bales_basilan = mysqli_fetch_array($sql);
 
 
 $sql = mysqli_query($con, "SELECT SUM(remaining_bales) as inventory from  planta_bales_production 
      LEFT JOIN planta_recording on planta_bales_production.recording_id = planta_recording.recording_id
-   where  planta_bales_production.remaining_bales !=0 AND planta_recording.source='Basilan' ");
+   where  planta_bales_production.remaining_bales !=0 AND planta_recording.source='$loc' ");
 $balesCount_basilan  = mysqli_fetch_array($sql);
 
 
@@ -33,21 +36,17 @@ $sql = mysqli_query($con, "SELECT
             LEFT JOIN planta_recording 
                 ON planta_bales_production.recording_id = planta_recording.recording_id
         WHERE 
-        planta_bales_production.remaining_bales !=0 AND planta_recording.source='Basilan'
+        planta_bales_production.remaining_bales !=0 AND planta_recording.source='$loc'
     ) AS subquery");
 
 
 $data = mysqli_fetch_array($sql);
-$average_kilo_cost_basilan  = ($data['total_bale_cost'] + $data['overall_milling_cost']) / $data['total_weight'];
+$average_kilo_cost_basilan  = ($data['total_bale_cost'] + $data['overall_milling_cost']) / $data['total_weight']; 
 
-
-
-
-
-?>
+        ?>
 <br>
 <div class="row">
-    <div class="col-3">
+    <!-- <div class="col-3">
         <div class="stat-card">
             <div class="stat-card__content">
                 <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY (KG)</p>
@@ -106,7 +105,7 @@ $average_kilo_cost_basilan  = ($data['total_bale_cost'] + $data['overall_milling
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 
 <hr>
@@ -116,8 +115,8 @@ $average_kilo_cost_basilan  = ($data['total_bale_cost'] + $data['overall_milling
     <?php
     $results = mysqli_query($con, "SELECT * FROM planta_bales_production 
                                    LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
-                                   WHERE planta_bales_production.status='Produced' and (rubber_weight !='0' or rubber_weight !=null) and
-                                   planta_bales_production.source='Basilan'
+                                   WHERE planta_bales_production.status='Produced' and
+                                   planta_bales_production.source='$loc'
                                    ORDER BY planta_bales_production.recording_id ASC ");
     ?>
 
@@ -125,6 +124,7 @@ $average_kilo_cost_basilan  = ($data['total_bale_cost'] + $data['overall_milling
     <thead class="table-dark" style='font-size:13px'>
         <tr>
             <th>Status</th>
+            <th>Rec. ID</th>
             <th>Bale ID</th>
             <th>Date Produced</th>
             <th>Supplier</th>
@@ -157,6 +157,9 @@ $average_kilo_cost_basilan  = ($data['total_bale_cost'] + $data['overall_milling
                     <?php else : ?>
                         <span class="badge"><?php echo $row['status'] ?></span>
                     <?php endif; ?>
+                </td>
+                <td>
+                    <span class="badge bg-success"><?php echo $row['recording_id'] ?></span>
                 </td>
                 <td>
                     <span class="badge bg-secondary"><?php echo $row['bales_prod_id'] ?></span>

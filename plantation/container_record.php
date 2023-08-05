@@ -56,7 +56,7 @@ $loc = str_replace(' ', '', $_SESSION['loc']);
                                             <th scope="col">No. of Bales</th>
                                             <th scope="col">Total Weight</th>
                                             <th scope="col">Bale Cost</th>
-                                            <th scope="col">Milling Cost</th>
+                                            <th scope="col" hidden>Milling Cost</th>
                                             <th scope="col">Particulars</th>
                                             <th scope="col" hidden>Recorded By</th>
                                             <th scope="col">Action</th>
@@ -112,7 +112,7 @@ $loc = str_replace(' ', '', $_SESSION['loc']);
                                                 <td class="number-cell"> ₱
                                                     <?php echo number_format($row['total_bale_cost'], 2, '.', ','); ?>
                                                 </td>
-                                                <td class="number-cell"> ₱
+                                                <td class="number-cell" hidden> ₱
                                                     <?php echo number_format($row['total_milling_cost'], 2, '.', ','); ?>
                                                 </td>
                                                 <td><?php echo $row['remarks']; ?></td>

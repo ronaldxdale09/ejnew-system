@@ -234,7 +234,7 @@ if (isset($_GET['id'])) {
 
                             <div class="row">
                                 <div class="col-2">
-                                    <label style='font-size:15px' class="col-md-12">No. of Containers (Contract)</label>
+                                    <label style='font-size:15px' class="col-md-12">No. of Containers</label>
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control" name='contract_contaier' id='contract_contaier' tabindex="7" autocomplete='off' style="width: 100px;" required />
                                     </div>
@@ -266,7 +266,7 @@ if (isset($_GET['id'])) {
                                         <input type="number" class="form-control contract_price" name='contract_price' id='contract_price' required>
                                     </div>
                                 </div>
-                                <div class="col-5">
+                                <div class="col-3">
                                     <label style='font-size:15px' class="col-md-12">Other Terms
                                         (Optional)</label>
                                     <div class="input-group mb-3">
@@ -777,31 +777,36 @@ if (isset($_GET['id'])) {
     });
 
     
+
+
 function calculateSalesTotals() {
-    var contract_price = parseFloat($("#contract_price").val().replace(/,/g, "")) || 0;
-    var total_bale_weight = parseFloat($("#total_cuplump_weight").val().replace(/,/g, "")) || 0;
-    var sales_proceeds = parseFloat($("#sales_proceeds").val().replace(/,/g, "")) || 0;
-    var tax_rate = parseFloat($("#tax_rate").val().replace(/,/g, "")) || 0;
+        var contract_price = parseFloat($("#contract_price").val().replace(/,/g, "")) || 0;
+        var total_cuplump_weight = parseFloat($("#total_cuplump_weight").val().replace(/,/g, "")) || 0;
+        var sales_proceeds = parseFloat($("#sales_proceeds").val().replace(/,/g, "")) || 0;
+        var tax_rate = parseFloat($("#tax_rate").val().replace(/,/g, "")) || 0;
+        var over_all_cost = parseFloat($("#over_all_cost").val().replace(/,/g, "")) || 0;
 
-    var total_sale = total_bale_weight * contract_price;
-    var tax_amount = sales_proceeds * (tax_rate / 100); // computed tax amount, tax rate should be in percentage.
-    var gross_profit = sales_proceeds - tax_amount; // Compute gross profit based on the current sales proceeds and tax amount
+        var total_sale = total_cuplump_weight * contract_price;
+        var tax_amount = sales_proceeds * (tax_rate / 100); // computed tax amount, tax rate should be in percentage.
+        var gross_profit = (sales_proceeds - tax_amount) -over_all_cost ; // Compute gross profit based on the current sales proceeds and tax amount
 
-    $("#total_sale").val(total_sale.toLocaleString('en-US', {
-        minimumFractionDigits: 2
-    }));
+        $("#gross_profit").val(gross_profit.toLocaleString('en-US', {
+            minimumFractionDigits: 2
+        }));
 
-    // Update the tax amount field
-    $("#tax_amount").val(tax_amount.toLocaleString('en-US', {
-        minimumFractionDigits: 2
-    }));
+        $("#total_sale").val(total_sale.toLocaleString('en-US', {
+            minimumFractionDigits: 2
+        }));
 
-    $("#gross_profit").val(gross_profit.toLocaleString('en-US', {
-        minimumFractionDigits: 2
-    }));
+        // Update the tax amount field
+        $("#tax_amount").val(tax_amount.toLocaleString('en-US', {
+            minimumFractionDigits: 2
+        }));
 
-    changeGrossProfitColor();
-}
+        changeGrossProfitColor();
+    }
+
+
 
 
     $(document).on('click', '.btnPrint', function(e) {

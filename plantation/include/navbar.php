@@ -25,7 +25,7 @@
 
     <hr style='color:gray'>
     <a class='nav-link' href='inventory_bale.php'>
-        <i class='fa-solid fa-cube'></i> <span class='nav-text'>Bale Inventory</span>
+        <i class='fa-solid fa-cube'></i> <span class='nav-text'>Bale Produced</span>
     </a>
     <a class='nav-link' href='container_record.php'>
         <i class='fa-solid fa-truck'></i> <span class='nav-text'>Container</span>

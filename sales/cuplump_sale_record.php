@@ -300,13 +300,13 @@ $active = mysqli_fetch_array($sql);
             maximumFractionDigits: 2
         }));
 
-        var status = $(this).data('status');
+        // var status = $(this).data('status');
 
-        if (status == "Draft" || status == "In Progress") {
-            $('#editBtn').show();
-        } else {
-            $('#editBtn').hide();
-        }
+        // if (status == "Draft" || status == "In Progress") {
+        //     $('#editBtn').show();
+        // } else {
+        //     $('#editBtn').hide();
+        // }
 
         sales_id = cuplump.cuplump_sales_id;
 

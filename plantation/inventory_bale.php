@@ -29,9 +29,8 @@ include "include/navbar.php";
             <div class="page-wrapper">
                 <h2 class="page-title" style="text-align:center;">
                     <b>
-                        <font color="#0C0070">BASILAN </font>
-                        <font color="#046D56">BALE INVENTORY </font>
-                    </b>
+                        <font color="#0C0070">BALE PRODUCED </font>
+                        <font color="#046D56"> RECORD</font>
                 </h2>
                 <?php include('bales_inventory/basilan.inventory.php') ?>
 

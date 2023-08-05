@@ -126,7 +126,7 @@ include 'include/navbar.php';
                                                 case "In Progress":
                                                     $status_color = 'bg-warning';
                                                     break;
-                                                case "Awaiting Sale":
+                                                case "Awaiting Shipment":
                                                     $status_color = 'bg-secondary';
                                                     break;
                                                 case "Released":
@@ -194,7 +194,7 @@ include 'include/navbar.php';
             var table = $('#recording_table-receiving').DataTable({
                 dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
                 order: [
-                    [0, 'desc']
+                    [1, 'desc']
                 ],
                 buttons: [
                     'excelHtml5',
@@ -229,11 +229,11 @@ include 'include/navbar.php';
 
             var status = $(this).data('status');
 
-            if (status == "Draft" || status == "In Progress") {
-                $('#editBtn').show();
-            } else {
-                $('#editBtn').hide();
-            }
+            // if (status == "Draft" || status == "In Progress") {
+            //     $('#editBtn').show();
+            // } else {
+            //     $('#editBtn').hide();
+            // }
 
 
 
