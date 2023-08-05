@@ -140,8 +140,7 @@ include 'include/navbar.php';
                                                 <td><?php echo $row['type']; ?></td>
                                                 <td><?php echo $row['source']; ?></td>
                                                 <td><?php echo $row['destination']; ?></td>
-                                                <td class="number-cell">₱
-                                                    <?php echo number_format($row['total_shipping_expense'], 2, '.', ','); ?>
+                                                <td class="number-cell">₱<?php echo number_format($row['total_shipping_expense'], 2, '.', ','); ?>
                                                 </td>
                                                 <td class="text-center">
                                                     <?php echo $row['no_containers']; ?>
@@ -246,15 +245,15 @@ include 'include/navbar.php';
 
 
 
-            var status = $(this).data('status');
+            // var status = $(this).data('status');
 
-            if (status == "Complete") {
-                $('#editButton').hide();
-            } else if (status == 'Draft') {
-                $('#editButton').show();
-            } else if (status == 'In Progress') {
-                $('#editButton').show();
-            }
+            // if (status == "Complete") {
+            //     $('#editButton').hide();
+            // } else if (status == 'Draft') {
+            //     $('#editButton').show();
+            // } else if (status == 'In Progress') {
+            //     $('#editButton').show();
+            // }
 
 
             function fetch_table() {

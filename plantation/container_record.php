@@ -110,7 +110,7 @@ $loc = str_replace(' ', '', $_SESSION['loc']);
                                                     <?php echo number_format($row['total_weight'], 0, '.', ','); ?> kg
                                                 </td>
                                                 <td class="number-cell"> ₱
-                                                    <?php echo number_format($row['total_bale_cost'], 2, '.', ','); ?>
+                                                    <?php echo number_format($row['total_bale_cost'], 0, '.', ','); ?>
                                                 </td>
                                                 <td class="number-cell" hidden> ₱
                                                     <?php echo number_format($row['total_milling_cost'], 2, '.', ','); ?>
