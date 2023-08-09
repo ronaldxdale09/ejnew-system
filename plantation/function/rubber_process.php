@@ -149,14 +149,14 @@ if (isset($_POST['press_transfer'])) {
     if ($result) {
         $row = mysqli_fetch_assoc($result);
         $prod_type = $row['prod_type'];
-        $unit_cost=0;
-      
+        $unit_cost = 0;
+
 
         // Based on prod_type, decide the status to set
         $status = 'For Sale';  // Default status
         if ($prod_type == 'PURCHASE') {
             $status = 'Purchase';
-        }else{
+        } else {
 
             $produce_total_weight = $row['produce_total_weight'];
             $expenses = $row['production_expense'];
@@ -165,7 +165,7 @@ if (isset($_POST['press_transfer'])) {
             $total_prod_cost = $purchase_cost + $expenses;
             $unit_cost = $total_prod_cost / $produce_total_weight;
 
-            $status = 'For Sale';    
+            $status = 'For Sale';
         }
 
         // Update the status
@@ -180,5 +180,20 @@ if (isset($_POST['press_transfer'])) {
         }
     } else {
         echo "ERROR: Could not execute $query_fetch. " . mysqli_error($con);
+    }
+}
+
+
+if ($_POST['action'] == 'dry_milling') {
+
+    $id = $_POST['recording_id'];
+
+    $query = "UPDATE `planta_recording` SET `status`='Milling' WHERE recording_id='$id'";
+
+    if (mysqli_query($con, $query)) {
+        header("Location: ../recording.php?tab=2");
+        exit();
+    } else {
+        echo "ERROR: Could not execute $query. " . mysqli_error($con);
     }
 }

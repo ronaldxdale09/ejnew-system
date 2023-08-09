@@ -64,15 +64,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($results) {
 
-        $sql = "SELECT shipment_id,container_id FROM bales_shipment_container WHERE shipment_id  = '$ship_id'";
-        $selected_container = mysqli_query($con, $sql);
+        // Fetch the current record
+        $query = "SELECT * FROM bales_container_record WHERE container_id = '$container_id'";
+        $result = mysqli_query($con, $query);
 
-        while ($row = mysqli_fetch_assoc($selected_container)) {
-            $container_id = $row['container_id'];
-            $num_bales = $row['num_bales'];
+        // Check if any rows were returned
+        if (mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
 
+            // Check status and perform appropriate update
+            if ($row['status'] == 'Sold') {
+                $updateStatus = 'Sold';
+            } else {
+                $updateStatus = 'Shipped Out';
+            }
+
+            // Update record
             $update = "UPDATE bales_container_record SET 
-            status = 'Shipped Out',shipping_expense='$ship_cost_per_container' WHERE container_id = '$container_id'";
+    status = '$updateStatus', shipping_expense='$ship_cost_per_container' WHERE container_id = '$container_id'";
             mysqli_query($con, $update);
         }
 

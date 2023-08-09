@@ -207,7 +207,7 @@ include 'include/navbar.php';
         </div>
     </div>
 
-    <?php include 'modal/modal_container.php'; ?>
+    <?php include 'sales_modal/modal_container.php'; ?>
 
     <script>
         $(document).ready(function() {

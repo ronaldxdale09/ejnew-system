@@ -1,11 +1,11 @@
 <div class="table-responsive">
     <table class="table table-bordered table-hover table-striped" id='recording_table-milling'> <?php
                                                                                                 $results  = mysqli_query($con, "SELECT * from planta_recording WHERE status='Milling' and planta_recording.source='$loc'"); ?>
-        <thead class="table-dark">
+        <thead class="table-dark" style='font-size:13px'>
             <tr>
 
                 <th scope="col">Status</th>
-                <th scope="col">ID</th>
+                <th scope="col">Rec. ID</th>
                 <th scope="col">Milling Date</th>
                 <th scope="col">Supplier</th>
                 <th scope="col">Location</th>
@@ -30,7 +30,7 @@
                     <td class="number-cell"> <?php echo number_format($row['crumbed_weight'], 0, '.', ',') ?> kg</td>
 
 
-                    <td class="text-center">
+                    <td class="text-center" style="white-space: nowrap;" >
                         <button type="button" class="btn btn-success btn-sm btnMilUpdate" id='btnMilUpdate'>
                             <i class="fas fa-edit"></i> </button>
                         <button type="button" class="btn btn-warning btn-sm btnMilTransfer ">

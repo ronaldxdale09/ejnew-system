@@ -3,19 +3,6 @@ include('include/header.php');
 include "include/navbar.php";
 
 
-$sql = mysqli_query($con, "SELECT SUM(unpaid_balance) as unpaid_balance from  bales_sales_record    ");
-$unpaid = mysqli_fetch_array($sql);
-
-$sql = mysqli_query($con, "SELECT SUM(total_sales) as total_sales from  bales_sales_record    ");
-$sales = mysqli_fetch_array($sql);
-
-
-$sql = mysqli_query($con, "SELECT COUNT(*) as total from  bales_sales_record where status !='Complete'    ");
-$active = mysqli_fetch_array($sql);
-
-
-
-
 ?>
 
 <style>
@@ -42,68 +29,9 @@ $active = mysqli_fetch_array($sql);
                             </b>
                         </h2>
 
-                        <div class="row">
-                            <div class="col-3">
-                                <div class="stat-card">
-                                    <div class="stat-card__content">
-                                        <p class="text-uppercase mb-1 text-muted"><b>ACTIVE</b> SALES</p>
-                                        <h4>
-                                            <i class="text-success font-weight-bold mr-1"></i>
-                                            <?php echo number_format($active['total'] ?? 0,0) ?>
-                                        </h4>
-                                        <div>
-                                            <span class="text-muted">
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="stat-card__icon stat-card__icon--primary">
-                                        <div class="stat-card__icon-circle">
-                                            <i class="fa fa-money"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="stat-card">
-                                    <div class="stat-card__content">
-                                        <p class="text-uppercase mb-1 text-muted"><b>TOTAL </b> SALES </p>
-                                        <h4>
-                                            <i class="text-success font-weight-bold mr-1"></i>
-                                            ₱  <?php echo number_format($sales['total_sales'] ?? 0, 2) ?>
-                                        </h4>
-                                        <div>
-                                            <span class="text-muted">
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="stat-card__icon stat-card__icon--success">
-                                        <div class="stat-card__icon-circle">
-                                            <i class="fa fa-credit-card"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="stat-card">
-                                    <div class="stat-card__content">
-                                        <p class="text-uppercase mb-1 text-muted"><b>TOTAL </b>BALANCE </p>
-                                        <h4>
-                                            <i class="text-success font-weight-bold mr-1"></i>
-                                            ₱  <?php echo number_format($unpaid['unpaid_balance'] ?? 0, 2) ?>
-                                        </h4>
-                                        <div>
-                                            <span class="text-muted">
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="stat-card__icon stat-card__icon--warning">
-                                        <div class="stat-card__icon-circle">
-                                            <i class="fa fa-wallet "></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <?php
+                        include('statistical_card/bale_sales_card.php');
+                        ?>
                         <div style="background-color: #2452af; height: 6px;"></div><!-- This is the blue bar -->
                         <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
 

@@ -40,9 +40,9 @@ echo "Transaction Type: " . $trans_type . "<br>";
 
 
 
-$query = "INSERT INTO planta_recording (status,purchased_id,prod_type,trans_type,receiving_date,supplier,location,weight,
+$query = "INSERT INTO planta_recording (status,purchased_id,prod_type,trans_type,receiving_date,production_date,supplier,location,weight,
 reweight,produce_total_weight,recorded_by,drc,purchase_cost,total_production_cost,bales_average_cost,source,milling_cost) 
-VALUES ('For Sale','0','$prod_type','$trans_type','$date','$supplier','$location','$weight', '$reweight','$total_weight','$recorded_by','100','$excess_total_cost','$excess_total_cost','$unit_cost','$source','$mill_cost')";
+VALUES ('For Sale','0','$prod_type','$trans_type','$date','$date','$supplier','$location','$weight', '$reweight','$total_weight','$recorded_by','100','$excess_total_cost','$excess_total_cost','$unit_cost','$source','$mill_cost')";
 $results = mysqli_query($con, $query);
 $recording_id = $con->insert_id;
 

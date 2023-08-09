@@ -77,7 +77,6 @@
                                     
                                     $ru_date = $_POST['ru_date'];
 
-                                    $total_cost = str_replace(',', '', $_POST['total_cost']);
                                     $ru_weight = str_replace(',', '', $_POST['ru_weight']);
                                     $ru_reweight = str_replace(',', '', $_POST['ru_reweight']);
                                 
@@ -85,7 +84,6 @@
                                     $query = "UPDATE planta_recording 
                                               SET supplier = '$ru_supplier',
                                               receiving_date = '$ru_date',
-                                              purchase_cost = '$total_cost',
                                                   location = '$ru_location',
                                                   lot_num = '$ru_lot_num',
                                                   driver = '$ru_driver',

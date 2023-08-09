@@ -12,7 +12,7 @@ $output='';
 $result = mysqli_query($con, $sql);  
 $output = '
 <table class="table table-bordered" id="rubber-record">
-    <thead>
+    <thead  class="table-success" style="font-size:13px">
         <tr>
         <th scope="col" width="8%">Bale ID</th>
             <th scope="col" width="22%">Quality</th>

@@ -44,12 +44,14 @@ if (isset($_POST['pressing_update'])) {
 }
 
 // Function to clean input
-function cleanInput($input) {
+function cleanInput($input)
+{
     return preg_replace("/[^0-9.]/", "", str_replace(',', '', $input));
 }
 
 // Function to fetch existing bales
-function fetchExistingBales($id, $con) {
+function fetchExistingBales($id, $con)
+{
     $existingBales = array();
     $fetchSql = "SELECT bales_prod_id FROM planta_bales_production WHERE recording_id = '$id'";
     $fetchResult = mysqli_query($con, $fetchSql);
@@ -64,7 +66,8 @@ function fetchExistingBales($id, $con) {
 }
 
 // Function to prepare bales related variables
-function prepareBalesVariables($index) {
+function prepareBalesVariables($index)
+{
     $bales_id = isset($_POST['bales_id'][$index]) ? $_POST['bales_id'][$index] : '';
     $kilo_bale = isset($_POST['kilo_bale'][$index]) ? floatval(cleanInput($_POST['kilo_bale'][$index])) : 0;
     $weight = isset($_POST['weight'][$index]) ? floatval(cleanInput($_POST['weight'][$index])) : 0;
@@ -75,7 +78,8 @@ function prepareBalesVariables($index) {
 }
 
 // Function to display debugging data
-function displayDebuggingData($bales_type, $bales_id, $kilo_bale, $weight, $bale_num, $excess, $expense) {
+function displayDebuggingData($bales_type, $bales_id, $kilo_bale, $weight, $bale_num, $excess, $expense)
+{
     echo "Debugging data: <br>";
     echo "bales_type: $bales_type <br>";
     echo "bales_id: $bales_id <br>";
@@ -88,7 +92,8 @@ function displayDebuggingData($bales_type, $bales_id, $kilo_bale, $weight, $bale
 }
 
 // Function to check and update bale production
-function checkAndUpdateBaleProduction($id, $bales_id, $bales_type, $kilo_bale, $weight, $description, $bale_num, $excess, $con, &$existingBales) {
+function checkAndUpdateBaleProduction($id, $bales_id, $bales_type, $kilo_bale, $weight, $description, $bale_num, $excess, $con, &$existingBales)
+{
     $checkSql = "SELECT * FROM planta_bales_production WHERE recording_id = '$id' AND bales_prod_id = '$bales_id'";
     $checkResult = mysqli_query($con, $checkSql);
     if (mysqli_num_rows($checkResult) > 0) {
@@ -115,7 +120,8 @@ function checkAndUpdateBaleProduction($id, $bales_id, $bales_type, $kilo_bale, $
 }
 
 // Function to delete remaining bales
-function deleteRemainingBales($id, $existingBales, $con) {
+function deleteRemainingBales($id, $existingBales, $con)
+{
     if (!empty($existingBales)) {
         $deleteSql = "DELETE FROM planta_bales_production WHERE recording_id = '$id' AND bales_prod_id IN ('" . implode("','", $existingBales) . "')";
         $deleteResult = mysqli_query($con, $deleteSql);
@@ -126,12 +132,14 @@ function deleteRemainingBales($id, $existingBales, $con) {
 }
 
 // Function to calculate rubber drc
-function calculateRubberDrc($total_weight, $entry_weight) {
+function calculateRubberDrc($total_weight, $entry_weight)
+{
     return (floatval($total_weight) / floatval($entry_weight)) * 100;
 }
 
 // Function to calculate total production cost
-function calculateTotalProductionCost($id, $expense, $con) {
+function calculateTotalProductionCost($id, $expense, $con)
+{
     $query_fetch = "SELECT recording_id,purchase_cost,production_expense FROM planta_recording WHERE recording_id='$id'";
     $result = mysqli_query($con, $query_fetch);
     if ($result) {
@@ -147,7 +155,8 @@ function calculateTotalProductionCost($id, $expense, $con) {
 }
 
 // Function to update planta_recording
-function updatePlantaRecording($id, $rubber_drc, $total_weight, $expense, $expense_desc, $total_production_cost, $mill_cost, $con) {
+function updatePlantaRecording($id, $rubber_drc, $total_weight, $expense, $expense_desc, $total_production_cost, $mill_cost, $con)
+{
     $query = "UPDATE `planta_recording` SET `drc`='$rubber_drc', `produce_total_weight`='$total_weight',`production_expense`='$expense',
         `prod_expense_desc`='$expense_desc',  `total_production_cost` = '$total_production_cost', `milling_cost` = '$mill_cost'
         WHERE recording_id='$id'";
@@ -158,4 +167,19 @@ function updatePlantaRecording($id, $rubber_drc, $total_weight, $expense, $expen
         echo "Error updating record: " . mysqli_error($con);
     }
 }
-?>
+
+
+
+if ($_POST['action'] == 'press_drying') {
+
+    $id = $_POST['recording_id'];
+
+    $query = "UPDATE `planta_recording` SET `status`='Drying' WHERE recording_id='$id'";
+
+    if (mysqli_query($con, $query)) {
+        header("Location: ../recording.php?tab=3");
+        exit();
+    } else {
+        echo "ERROR: Could not execute $query. " . mysqli_error($con);
+    }
+}

@@ -119,7 +119,7 @@ if ($result) {
                             <div class="form-group">
                                 <center style="margin: 0px 60px;">
                                     <div class="row no-gutters">
-                                        <div class="col" >
+                                        <div class="col">
                                             <div class="input-group mb-12">
                                                 <label class="col-md-12">Total Purchase Cost</label>
                                                 <span class="input-group-text">₱</span>
@@ -153,6 +153,9 @@ if ($result) {
                                     </div>
                                 </center>
                             </div>
+                        </div>
+                        <div class="alert alert-success alert-dismissible">
+                            <strong>Reminder:</strong> Please double-check all data for accuracy before proceeding. Thank you.
                         </div>
                     </div>
             </div>

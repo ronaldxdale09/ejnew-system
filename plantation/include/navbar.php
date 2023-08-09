@@ -22,21 +22,23 @@
     <a class='nav-link' href='record_allrubber.php'>
         <i class='fa-solid fa-book'></i> <span class='nav-text'>Transaction Record</span>
     </a>
+    <a class='nav-link' href='inventory_bale.php'>
+        <i class='fa-solid fa-cube'></i> <span class='nav-text'>Bales Record</span>
+    </a>
+
 
     <hr style='color:gray'>
-    <a class='nav-link' href='inventory_bale.php'>
-        <i class='fa-solid fa-cube'></i> <span class='nav-text'>Bale Produced</span>
-    </a>
+
     <a class='nav-link' href='container_record.php'>
         <i class='fa-solid fa-truck'></i> <span class='nav-text'>Container</span>
     </a>
 
     <div class="logout-container">
-        <a class="nav-text logout-button" data-toggle="modal" href="#logoutModal">
-            <i class="fa-solid fa-arrow-right-to-bracket"></i>
-            <span class="nav-text">Logout</span>
-        </a>
-    </div>
+    <a class="nav-text logout-button" data-toggle="modal" href="#logoutModal">
+        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+        <span class="nav-text">Logout</span>
+    </a>
+</div>
 
 </nav>
 

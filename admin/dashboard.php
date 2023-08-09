@@ -1,10 +1,9 @@
 <?php
 include('include/header.php');
-include "include/navbar.php";
 
+$Currentmonth = date('n');
+$CurrentYear = date('Y');
 error_reporting(0); // Suppress all warnings
-
-
 
 $sql = mysqli_query($con, "SELECT SUM(reweight) as inventory from  planta_recording where status='Field' and source='Basilan'   ");
 $basilan_cuplumps = mysqli_fetch_array($sql);
@@ -58,8 +57,81 @@ $total_bales_weight = ($basilan_bales['inventory'] ?? 0) + ($kidapawan_bales['in
 $total_bales_count = ($basilan_balesCount['inventory'] ?? 0) + ($kidapawan_balesCount['inventory'] ?? 0);
 
 
-$Currentmonth = date('n');
-$CurrentYear = date('Y');
+//////////////  BALE SALES   //////////////////
+$sql = mysqli_query($con, "SELECT SUM(total_sales) as total_sales from  bales_sales_record    ");
+$bale_sales = mysqli_fetch_array($sql);
+// MONTHLY SALES
+$sql = mysqli_query($con, "SELECT SUM(total_sales) as monthly_sales FROM bales_sales_record WHERE MONTH(transaction_date) = MONTH(CURRENT_DATE()) AND YEAR(transaction_date) = YEAR(CURRENT_DATE())");
+$bale_month_sales = mysqli_fetch_array($sql);
+// Unpaid Sales
+$sql = mysqli_query($con, "SELECT SUM(unpaid_balance) as unpaid_balance from  bales_sales_record    ");
+$bale_upaid = mysqli_fetch_array($sql);
+// Active Sales
+$sql = mysqli_query($con, "SELECT COUNT(*) as active from  bales_sales_record where status !='Complete'    ");
+$bale = mysqli_fetch_array($sql);
+// total shipping Expense
+$sql = mysqli_query($con, "SELECT 
+        SUM(total_ship_expense) as total_ship_expense,
+        SUM(CASE WHEN MONTH(transaction_date) = MONTH(CURRENT_DATE()) AND YEAR(transaction_date) = YEAR(CURRENT_DATE()) THEN total_ship_expense ELSE 0 END) as month_ship_expense
+    FROM bales_sales_record
+");
+$shipping = mysqli_fetch_array($sql);
+// sales growth 
+$sql = mysqli_query($con, "SELECT
+        CASE
+            WHEN last_month_sales = 0 THEN NULL
+            ELSE ((current_month_sales - last_month_sales) / last_month_sales * 100)
+        END AS percentage_growth
+    FROM (
+        SELECT
+            SUM(CASE WHEN MONTH(transaction_date) = MONTH(CURRENT_DATE()) AND YEAR(transaction_date) = YEAR(CURRENT_DATE()) THEN total_sales ELSE 0 END) AS current_month_sales,
+            SUM(CASE WHEN MONTH(transaction_date) = MONTH(DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND YEAR(transaction_date) = YEAR(DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) THEN total_sales ELSE 0 END) AS last_month_sales
+        FROM bales_sales_record
+    ) AS sales_data;
+");
+$sales_growth = mysqli_fetch_array($sql);
+
+
+
+
+
+///////////// CUPLUMP SALES ///////////////
+$sql = mysqli_query($con, "SELECT SUM(total_sales) as total_sales from  sales_cuplump_record");
+$cuplump_sales = mysqli_fetch_array($sql);
+// MONTHLY SALES
+$sql = mysqli_query($con, "SELECT SUM(total_sales) as monthly_sales FROM sales_cuplump_record WHERE MONTH(transaction_date) = MONTH(CURRENT_DATE()) AND YEAR(transaction_date) = YEAR(CURRENT_DATE())");
+$cuplump_month_sales = mysqli_fetch_array($sql);
+// Unpaid Sales
+$sql = mysqli_query($con, "SELECT SUM(unpaid_balance) as unpaid_balance from  sales_cuplump_record");
+$cuplump_unpaid = mysqli_fetch_array($sql);
+// Active Sales
+$sql = mysqli_query($con, "SELECT COUNT(*) as active from  sales_cuplump_record where status !='Complete'");
+$cuplump = mysqli_fetch_array($sql);
+// total shipping Expense
+$sql = mysqli_query($con, "SELECT 
+        SUM(total_ship_expense) as total_ship_expense,
+        SUM(CASE WHEN MONTH(transaction_date) = MONTH(CURRENT_DATE()) AND YEAR(transaction_date) = YEAR(CURRENT_DATE()) THEN total_ship_expense ELSE 0 END) as month_ship_expense
+    FROM sales_cuplump_record
+");
+$cuplump_shipping = mysqli_fetch_array($sql);
+// sales growth 
+$sql = mysqli_query($con, "SELECT
+        CASE
+            WHEN last_month_sales = 0 THEN NULL
+            ELSE ((current_month_sales - last_month_sales) / last_month_sales * 100)
+        END AS percentage_growth
+    FROM (
+        SELECT
+            SUM(CASE WHEN MONTH(transaction_date) = MONTH(CURRENT_DATE()) AND YEAR(transaction_date) = YEAR(CURRENT_DATE()) THEN total_sales ELSE 0 END) AS current_month_sales,
+            SUM(CASE WHEN MONTH(transaction_date) = MONTH(DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND YEAR(transaction_date) = YEAR(DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) THEN total_sales ELSE 0 END) AS last_month_sales
+        FROM sales_cuplump_record
+    ) AS sales_data;
+");
+$cuplump_sales_growth = mysqli_fetch_array($sql);
+
+
+
+
 ?>
 
 
@@ -67,7 +139,9 @@ $CurrentYear = date('Y');
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js" integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js" integrity="sha512-JPcRR8yFa8mmCsfrw4TNte1ZvF1e3+1SdGMslZvmrzDYxS69J7J49vkFL8u6u8PlPJK+H3voElBtUCzaXj+6ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-labels@1.1.0/src/chartjs-plugin-labels.js"></script>
+<?php include("include/navbar.php");
 
+?>
 <style>
     .flex-container {
         display: flex;
@@ -81,6 +155,32 @@ $CurrentYear = date('Y');
         /* Change color as needed */
         margin: 4px 0;
         /* Add some vertical spacing */
+    }
+
+    .stat-card__content {
+        font-family: Arial, sans-serif;
+        color: #333;
+    }
+
+    .card-header {
+        font-family: 'Arial', sans-serif;
+        /* Use a modern, clean font */
+        font-size: 20px;
+        /* Slightly larger font size */
+        font-weight: 800;
+        /* Semi-bold weight */
+        color: #333333;
+        /* Darker text color */
+        text-align: center;
+        /* Centered text */
+        text-transform: uppercase;
+        /* Uppercase letters */
+        margin-bottom: 15px;
+        /* Space below the header */
+        border-bottom: 2px solid #f0f0f0;
+        /* Underline with a light color */
+        padding-bottom: 10px;
+        /* Padding below the text */
     }
 </style>
 
@@ -97,14 +197,40 @@ $CurrentYear = date('Y');
                         <div class="stat-card">
                             <div class="stat-card__content">
                                 <p class="text-uppercase mb-1 text-muted"><b>BALES</b> SALES</p>
-                                <h3>
+                                <h4>
                                     <i class="text-success font-weight-bold mr-1"></i>
-                                    ₱ <?php echo number_format(0, 0) ?>
-                                </h3>
+                                    ₱ <?php echo number_format($bale_sales['total_sales'], 0) ?>
+                                </h4>
+                                <div>
+                                    <span class="text-muted">
+                                        <?php echo date('F Y'); ?> ₱ <?php echo number_format($bale_month_sales['monthly_sales'], 0) ?>
+                                    </span>
+                                </div>
                             </div>
                             <div class="stat-card__icon stat-card__icon--success">
                                 <div class="stat-card__icon-circle">
-                                    <i class="fa fa-shopping-cart"></i>
+                                    <i class="fa fa-money "></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="stat-card">
+                            <div class="stat-card__content">
+                                <p class="text-uppercase mb-1 text-muted"><b>BALE SALES </b>UNPAID BALANCE </p>
+                                <h4>
+                                    <i class="text-success font-weight-bold mr-1"></i>
+                                    ₱ <?php echo number_format($bale_upaid['unpaid_balance'] ?? 0, 0) ?>
+                                </h4>
+                                <div>
+                                    <span class="text-muted">
+                                        Active Sales: <?php echo number_format($bale['active'], 0) ?>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="stat-card__icon stat-card__icon--warning">
+                                <div class="stat-card__icon-circle">
+                                    <i class="fa fa-wallet "></i>
                                 </div>
                             </div>
                         </div>
@@ -113,15 +239,20 @@ $CurrentYear = date('Y');
                     <div class="col">
                         <div class="stat-card">
                             <div class="stat-card__content">
-                                <p class="text-uppercase mb-1 text-muted"><b>CUPLUMP</b> EXPORT</p>
-                                <h3>
+                                <p class="text-uppercase mb-1 text-muted"><b>BALES SHIPPING</b> EXPENSES</p>
+                                <h4>
                                     <i class="text-success font-weight-bold mr-1"></i>
-                                    ₱ <?php echo number_format(0, 0) ?>
-                                </h3>
+                                    ₱ <?php echo number_format($cuplump_shipping['total_ship_expense'], 0) ?>
+                                </h4>
+                                <div>
+                                    <span class="text-muted">
+                                        <?php echo date('F Y'); ?> ₱ <?php echo number_format($cuplump_shipping['month_ship_expense'], 0) ?>
+                                    </span>
+                                </div>
                             </div>
                             <div class="stat-card__icon stat-card__icon--success">
                                 <div class="stat-card__icon-circle">
-                                    <i class="fa fa-shopping-cart"></i>
+                                    <i class="fa fa-ship"></i>
                                 </div>
                             </div>
                         </div>
@@ -130,28 +261,15 @@ $CurrentYear = date('Y');
                     <div class="col">
                         <div class="stat-card">
                             <div class="stat-card__content">
-                                <p class="text-uppercase mb-1 text-muted"><b>OPERATING</b> EXPENSES</p>
-                                <h3>
-                                    <i class="text-success font-weight-bold mr-1"></i>
-                                    ₱ <?php echo number_format(0, 0) ?>
-                                </h3>
-                            </div>
-                            <div class="stat-card__icon stat-card__icon--success">
-                                <div class="stat-card__icon-circle">
-                                    <i class="fa fa-shopping-cart"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="stat-card">
-                            <div class="stat-card__content">
-                                <p class="text-uppercase mb-1 text-muted"><b>SALES</b> GROWTH</p>
-                                <h3>
+                                <p class="text-uppercase mb-1 text-muted"><b>BALE SALES</b> GROWTH</p>
+                                <h4>
                                     <i class="text-danger font-weight-bold mr-1"></i>
-                                    <?php echo number_format(0, 0) ?> %
-                                </h3>
+                                    <?php echo number_format($cuplump_sales_growth['percentage_growth'], 0) ?> %
+                                </h4>
+                                <span class="text-muted">
+                                    <?php echo date('F', strtotime('-1 month')); ?> to <?php echo date('F Y'); ?>
+                                </span>
+
                             </div>
                             <div class="stat-card__icon stat-card__icon--danger">
                                 <div class="stat-card__icon-circle">
@@ -161,22 +279,99 @@ $CurrentYear = date('Y');
                         </div>
                     </div>
 
+
+                </div>
+                <div class="row">
+
+
+
                     <div class="col">
                         <div class="stat-card">
                             <div class="stat-card__content">
-                                <p class="text-uppercase mb-1 text-muted"><b>OUTSTANDING </b>BALANCE</p>
-                                <h3>
-                                    <i class="text-primary font-weight-bold mr-1"></i>
-                                    ₱ <?php echo number_format(0, 0) ?>
-                                </h3>
+                                <p class="text-uppercase mb-1 text-muted"><b>CUPLUMP</b> SALES</p>
+                                <h4>
+                                    <i class="text-success font-weight-bold mr-1"></i>
+                                    ₱ <?php echo number_format($cuplump_sales['total_sales'], 0) ?>
+                                </h4>
+                                <div>
+                                    <span class="text-muted">
+                                        <?php echo date('F Y'); ?> ₱ <?php echo number_format($cuplump_month_sales['monthly_sales'], 0) ?>
+                                    </span>
+                                </div>
                             </div>
-                            <div class="stat-card__icon stat-card__icon--primary">
+                            <div class="stat-card__icon stat-card__icon--success">
                                 <div class="stat-card__icon-circle">
-                                    <i class="fa fa-boxes"></i>
+                                    <i class="fa fa-money "></i>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="col">
+                        <div class="stat-card">
+                            <div class="stat-card__content">
+                                <p class="text-uppercase mb-1 text-muted"><b>CUPLUMP </b>UNPAID BALANCE </p>
+                                <h4>
+                                    <i class="text-success font-weight-bold mr-1"></i>
+                                    ₱ <?php echo number_format($cuplump_unpaid['unpaid_balance'] ?? 0, 0) ?>
+                                </h4>
+                                <div>
+                                    <span class="text-muted">
+                                        Active Sales: <?php echo number_format($cuplump['active'], 0) ?>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="stat-card__icon stat-card__icon--warning">
+                                <div class="stat-card__icon-circle">
+                                    <i class="fa fa-wallet "></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="stat-card">
+                            <div class="stat-card__content">
+                                <p class="text-uppercase mb-1 text-muted"><b>CUPLUMP SHIPPING</b> EXPENSES</p>
+                                <h4>
+                                    <i class="text-success font-weight-bold mr-1"></i>
+                                    ₱ <?php echo number_format($shipping['total_ship_expense'], 0) ?>
+                                </h4>
+                                <div>
+                                    <span class="text-muted">
+                                        <?php echo date('F Y'); ?> ₱ <?php echo number_format($shipping['month_ship_expense'], 0) ?>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="stat-card__icon stat-card__icon--success">
+                                <div class="stat-card__icon-circle">
+                                    <i class="fa fa-ship"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="stat-card">
+                            <div class="stat-card__content">
+                                <p class="text-uppercase mb-1 text-muted"><b>CUPLUMP SALES</b> GROWTH</p>
+                                <h4>
+                                    <i class="text-danger font-weight-bold mr-1"></i>
+                                    <?php echo number_format($sales_growth['percentage_growth'], 0) ?> %
+                                </h4>
+                                <span class="text-muted">
+                                    <?php echo date('F', strtotime('-1 month')); ?> to <?php echo date('F Y'); ?>
+                                </span>
+
+                            </div>
+                            <div class="stat-card__icon stat-card__icon--danger">
+                                <div class="stat-card__icon-circle">
+                                    <i class="fa fa-credit-card"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
 
                 <!-- INVENTORY CARDS -->
@@ -186,18 +381,20 @@ $CurrentYear = date('Y');
                         <div class="stat-card">
                             <div class="stat-card__content">
                                 <p class="text-uppercase mb-1 text-muted"><b>CUPLUMP</b> INVENTORY</p>
-                                <div class="flex-container">
-                                    <div>Basilan :</div>
-                                    <div><?php echo number_format($basilan_cuplumps['inventory'] ?? 0, 0) ?> kg</div>
-                                </div>
-                                <div class="flex-container">
-                                    <div>Kidapawan :</div>
-                                    <div><?php echo number_format($kidapawan_cuplumps['inventory'] ?? 0, 0) ?> kg</div>
-                                </div>
-                                <div class="separator"></div>
-                                <div class="flex-container">
-                                    <div>Total :</div>
-                                    <div><?php echo number_format($total_cuplumps_weight ?? 0, 0) ?> kg</div>
+                                <div class="flex-container" style="display: flex; flex-direction: column;">
+                                    <div style="display: flex; justify-content: space-between;">
+                                        <div>Basilan :</div>
+                                        <div><?php echo number_format($basilan_cuplumps['inventory'] ?? 0, 0) ?> kg</div>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between;">
+                                        <div>Kidapawan :</div>
+                                        <div><?php echo number_format($kidapawan_cuplumps['inventory'] ?? 0, 0) ?> kg</div>
+                                    </div>
+                                    <div class="separator"></div>
+                                    <div style="display: flex; justify-content: space-between;">
+                                        <div>Total :</div>
+                                        <div><?php echo number_format($total_cuplumps_weight ?? 0, 0) ?> kg</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -245,11 +442,11 @@ $CurrentYear = date('Y');
                         </div>
                     </div>
 
-                    <div class="col">
+                    <div class="col" hidden>
                         <div class="stat-card">
                             <div class="stat-card__content">
                                 <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY (kg)</p>
-                                <div class="flex-container">
+                                <div class="flex-container" style="display: flex; justify-content: space-between;">
                                     <div>Basilan :</div>
                                     <div><?php echo number_format($basilan_bales['inventory'] ?? 0, 0) ?> kg</div>
                                 </div>
@@ -273,17 +470,17 @@ $CurrentYear = date('Y');
                                 <div class="stat-card__content">
                                     <div class="flex-container">
                                         <div>Basilan :</div>
-                                        <div><?php echo number_format($basilan_balesCount['inventory'] ?? 0, 0) ?> kg</div>
+                                        <div><?php echo number_format($basilan_balesCount['inventory'] ?? 0, 0) ?> pcs</div>
                                     </div>
                                     <div class="flex-container">
                                         <div>Kidapawan :</div>
-                                        <div><?php echo number_format($kidapawan_balesCount['inventory'] ?? 0, 0) ?> kg</div>
+                                        <div><?php echo number_format($kidapawan_balesCount['inventory'] ?? 0, 0) ?> pcs</div>
                                     </div>
                                     <div class="separator"></div>
-                                <div class="flex-container">
-                                    <div>Total :</div>
-                                    <div><?php echo number_format($total_bales_count ?? 0, 0) ?> pcs</div>
-                                </div>
+                                    <div class="flex-container">
+                                        <div>Total :</div>
+                                        <div><?php echo number_format($total_bales_count ?? 0, 0) ?> pcs</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -324,36 +521,22 @@ $CurrentYear = date('Y');
                         </div>
                     </div>
 
-                    <br>
-
-                    <div class="row" hidden>
-                        <div class="card" style="width:100%;max-width:100%;">
-                            <div class="card-body" style="width:100%;max-width:100%;">
-                                <h5>SALE TREND</h5>
-                                <div class="row" style="display: flex; align-items: stretch;">
-                                    <div class="col" style="display: flex;">
-                                        <div class="card" style="width: 100%;">
-                                            <div class="card-body" style="height: 400px; position: relative;">
-                                                <canvas id="trend_sales" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
 
                     <br>
 
                     <div class="row">
                         <div class="card" style="width:100%;max-width:100%;">
                             <div class="card-body" style="width:100%;max-width:100%;">
-                                <h5>OPERATING EXPENSES</h5>
+                                <h5 class="card-header">
+                                    <font color="#0C0070">BASILAN OPERATING </font>  <font color="#046D56">EXPENSES </font> 
+                                </h5>
                                 <div class="row" style="display: flex; align-items: stretch;">
-                                    <div class="col-5" style="display: flex;">
+                                    <div class="col" style="display: flex;">
                                         <div class="card" style="width: 100%;">
                                             <div class="card-body" style="height: 400px; position: relative;">
+                                                <center>
+                                                    <h5> <?php echo date('F Y'); ?> Expense </h5>
+                                                </center>
                                                 <canvas id="expense_bar_chart" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
 
                                             </div>
@@ -363,6 +546,9 @@ $CurrentYear = date('Y');
                                     <div class="col" style="display: flex;">
                                         <div class="card" style="width: 100%;">
                                             <div class="card-body" style="height: 400px; position: relative;">
+                                                <center>
+                                                    <h5> <?php echo date('Y'); ?> Expense </h5>
+                                                </center>
                                                 <canvas id="expense_monthly" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
                                             </div>
                                         </div>
@@ -372,12 +558,13 @@ $CurrentYear = date('Y');
                         </div>
                     </div>
 
-                    <br>
 
-                    <div class="row">
+                    <div class="row" style="margin-top: 20px;margin-bottom: 20px;">
                         <div class="card" style="width:100%;max-width:100%;">
                             <div class="card-body" style="width:100%;max-width:100%;">
-                                <h5>INVENTORY OVERVIEW</h5>
+                                <h5 class="card-header">
+                                    <font color="#0C0070">BASILAN RUBBER </font>  <font color="#046D56">INVENTORY OVERVIEW </font> 
+                                </h5>
                                 <div class="row" style="display: flex; align-items: stretch;">
                                     <div class="col" style="display: flex;">
                                         <div class="card" style="width: 100%;">
@@ -390,7 +577,7 @@ $CurrentYear = date('Y');
                                     <div class="col" style="display: flex;">
                                         <div class="card" style="width: 100%;">
                                             <div class="card-body" style="height: 400px; position: relative;">
-                                                <canvas id="inventory_baleskilo" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                                <canvas id="inventory_bales" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
                                             </div>
                                         </div>
                                     </div>
@@ -399,6 +586,32 @@ $CurrentYear = date('Y');
                         </div>
                     </div>
 
+                    <div class="row" style="margin-top: 20px;margin-bottom: 20px;">
+                        <div class="card" style="width:100%;max-width:100%;">
+                            <div class="card-body" style="width:100%;max-width:100%;">
+                                <h5 class="card-header">
+                                    <font color="#0C0070">KIDAPAWAN RUBBER </font>  <font color="#046D56">INVENTORY OVERVIEW </font> 
+                                </h5>
+                                <div class="row" style="display: flex; align-items: stretch;">
+                                    <div class="col" style="display: flex;">
+                                        <div class="card" style="width: 100%;">
+                                            <div class="card-body" style="height: 400px; position: relative;">
+                                                <canvas id="kidapawan_inventory_all" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col" style="display: flex;">
+                                        <div class="card" style="width: 100%;">
+                                            <div class="card-body" style="height: 400px; position: relative;">
+                                                <canvas id="kidapawan_inventory_bales" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <br>
 
                     <div class="row" hidden>
@@ -427,360 +640,7 @@ $CurrentYear = date('Y');
             </div>
         </div>
 
-        <?php
-        $expense_count = mysqli_query($con, "SELECT   category,year(date) as year,month(date) as month,sum(amount) as  total
-    from ledger_expenses WHERE month(date)='$Currentmonth' and  year(date)='$CurrentYear'   group by year(date), month(date),
-    category ORDER BY id ASC");
-        if ($expense_count->num_rows > 0) {
-            foreach ($expense_count as $data) {
-                $expenses_category[] = $data['category'];
-                $expense_total[] = $data['total'];
-            }
-        }
-        ?>
-        <script>
-            expense_pie = document.getElementById("expense_bar_chart");
-            expense_monthly = document.getElementById("expense_monthly");
-
-
-            function getRandomColor(n) {
-                var letters = '0123456789ABCDEF'.split('');
-                var color = '#';
-                var colors = [];
-                for (var j = 0; j < n; j++) {
-                    for (var i = 0; i < 6; i++) {
-                        color += letters[Math.floor(Math.random() * 16)];
-                    }
-                    colors.push(color);
-                    color = '#';
-                }
-                return colors;
-            }
-            new Chart(expense_pie, {
-                type: 'pie',
-                data: {
-                    labels: <?php echo isset($expenses_category) ? json_encode($expenses_category) : json_encode([]); ?>,
-                    datasets: [{
-                        label: 'Operating Expenses',
-                        data: <?php echo isset($expense_total) ? json_encode($expense_total) : json_encode([]); ?>,
-                        borderColor: '#000000',
-                        backgroundColor: getRandomColor(10),
-                        borderWidth: .5
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    aspectRatio: 1.5,
-                    plugins: {
-                        labels: {
-                            render: 'value',
-                        },
-                        legend: {
-                            position: 'right'
-                        },
-                        title: {
-                            display: false,
-                            text: 'Expenses Chart'
-                        }
-                    }
-                }
-            });
-
-
-
-            new Chart(expense_monthly, {
-                type: 'bar', // Change the chart type to 'bar'
-                data: {
-                    labels: <?php echo isset($expenses_category) ? json_encode($expenses_category) : json_encode([]); ?>,
-                    datasets: [{
-                        label: 'Operating Expenses',
-                        data: <?php echo isset($expense_total) ? json_encode($expense_total) : json_encode([]); ?>,
-                        borderColor: '#000000',
-                        backgroundColor: getRandomColor(10),
-                        borderWidth: .5
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    aspectRatio: 1.5,
-                    plugins: {
-                        labels: {
-                            render: 'value',
-                        },
-                        legend: {
-                            position: 'right'
-                        },
-                        title: {
-                            display: false,
-                            text: 'Monthly Expenses Chart' // Update the chart title to 'Monthly Expenses Chart'
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: false,
-                                text: 'Expenses'
-                            }
-                        },
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Category'
-                            }
-                        }
-                    }
-                }
-            });
-
-
-            // ALL INVENTORY PIE CHART------------------------------
-
-            <?php
-
-            $sql = mysqli_query($con, "SELECT SUM(reweight) as Cuplump from  planta_recording where status='Field'   ");
-            $cuplump = mysqli_fetch_array($sql);
-
-            $sql = mysqli_query($con, "SELECT SUM(crumbed_weight) as Crumb from  planta_recording where status='Milling'   ");
-            $crumb = mysqli_fetch_array($sql);
-
-            $sql = mysqli_query($con, "SELECT SUM(dry_weight) as Blanket from  planta_recording where status='Drying'   ");
-            $blanket = mysqli_fetch_array($sql);
-
-            $sql = mysqli_query($con, "SELECT SUM(produce_total_weight) as Bale from  planta_recording where status='For Sale' or status='Purchase'  ");
-            $bale = mysqli_fetch_array($sql);
-            ?>
-
-
-            new Chart(inventory_all, {
-                options: {
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Overall Inventory (kilo)',
-                            font: {
-                                size: 18,
-                                weight: 'bold'
-                            }
-                        },
-                        legend: {
-                            display: false // Hide the legend
-                        },
-                    },
-                    maintainAspectRatio: false,
-                    aspectRatio: 1.5,
-                    scales: {
-                        x: {
-                            grid: {
-                                display: false,
-                            },
-                        },
-                        y: {
-                            beginAtZero: true // Start the y-axis from zero
-                        }
-                    }
-                },
-
-                type: 'bar',
-                data: {
-                    labels: ['Cuplumps', 'Crumbs', 'Blankets', 'Bales'],
-                    datasets: [{
-                        data: [<?php echo $cuplump['Cuplump'] ?>, <?php echo $crumb['Crumb'] ?>,
-                            <?php echo $blanket['Blanket'] ?>, <?php echo $bale['Bale'] ?>
-                        ],
-                        backgroundColor: ['#C42F1A', '#E6B91E', '#90C226', '#567417'],
-                        tension: 0.3,
-                        fill: true,
-                    }]
-                },
-
-            });
-
-
-
-
-            // BALE KILO INVENTORY BAR CHART------------------------------
-
-            inventory_bales = document.getElementById("inventory_bales");
-
-            <?php
-            $bales_type = mysqli_query($con, "SELECT bales_type,
-            SUM(CASE WHEN kilo_per_bale BETWEEN 33.32 AND 33.34 THEN number_bales ELSE 0 END) as total_33_33,
-            SUM(CASE WHEN kilo_per_bale BETWEEN 34.99 AND 35.01 THEN number_bales ELSE 0 END) as total_35
-     FROM planta_bales_production
-     GROUP BY bales_type;");
-
-            if ($bales_type->num_rows > 0) {
-                $bales_labels = [];
-                $bales_values_3333 = [];
-                $bales_values_35 = [];
-                while ($bales_data = $bales_type->fetch_assoc()) {
-                    $bales_labels[] = $bales_data['bales_type'];
-                    $bales_values_3333[] = number_format($bales_data['total_33_33'], 0, '.', '');
-                    $bales_values_35[] = number_format($bales_data['total_35'], 0, '.', '');
-                }
-            }
-            ?>
-
-            new Chart(inventory_baleskilo, {
-                options: {
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Bale Inventory by Kilo (pcs)',
-                            font: {
-                                size: 18,
-                                weight: 'bold'
-                            }
-                        },
-                        legend: {
-                            position: 'top',
-                        },
-                    },
-                    maintainAspectRatio: false,
-                    aspectRatio: 1.5,
-                    scales: {
-                        x: {
-                            grid: {
-                                display: false,
-                            },
-                        },
-                        y: {
-                            grid: {
-                                display: true,
-                            },
-                            stacked: true, // Enable stacked bars
-                        },
-                    },
-                },
-
-                type: 'bar',
-                data: {
-                    labels: <?php echo json_encode($bales_labels) ?>, // X-axis data
-                    datasets: [{
-                            label: '35 kg', // Add a label for 35kg bales
-                            data: <?php echo json_encode($bales_values_35) ?>, // Y-axis data for 35kg bales
-                            backgroundColor: 'rgba(196, 47, 26, 1)',
-                            tension: 0.3,
-                            fill: false,
-                            stack: 'stack1',
-                        },
-                        {
-                            label: '33.33 kg', // Add a label for 33.33kg bales
-                            data: <?php echo json_encode($bales_values_3333) ?>, // Y-axis data for 33.33kg bales
-                            backgroundColor: 'rgba(196, 47, 26, 0.6)',
-                            tension: 0.3,
-                            fill: false,
-                            stack: 'stack1',
-                        },
-                    ],
-                },
-            });
-
-
-            <?php
-            $milling_data = mysqli_query($con, "SELECT SUM(crumbed_weight) AS total_weight, MONTH(milling_date) AS month FROM planta_recording_logs
-WHERE (recording_id, planta_logs_id) IN ( SELECT recording_id, MAX(planta_logs_id) AS max_planta_logs_id FROM planta_recording_logs 
-WHERE status = 'Milling' GROUP BY recording_id ) GROUP BY MONTH(milling_date);");
-
-            if ($milling_data && $milling_data->num_rows > 0) {
-                $month_bales = [];
-                $bales = [];
-                while ($row = mysqli_fetch_assoc($milling_data)) {
-                    $month_bales[] = date('M Y', mktime(0, 0, 0, $row['month'], 1));
-                    $bales[] = number_format($row['total_weight'], 0, '.', '');
-                }
-            }
-
-            $Drying_data = mysqli_query($con, "SELECT SUM(dry_weight) AS total_weight, MONTH(drying_date) AS month FROM planta_recording_logs
-WHERE (recording_id, planta_logs_id) IN ( SELECT recording_id, MAX(planta_logs_id) AS max_planta_logs_id FROM planta_recording_logs 
-WHERE status = 'Drying' GROUP BY recording_id ) GROUP BY MONTH(drying_date);");
-
-            if ($Drying_data && $Drying_data->num_rows > 0) {
-                $month_Dry = [];
-                $dry_weight = [];
-                while ($row = mysqli_fetch_assoc($Drying_data)) {
-                    $month_Dry[] = date('M Y', mktime(0, 0, 0, $row['month'], 1));
-                    $dry_weight[] = number_format($row['total_weight'], 0, '.', '');
-                }
-            }
-
-            $bale_prod = mysqli_query($con, "SELECT SUM(produce_total_weight) AS total_weight, MONTH(production_date) AS month FROM planta_recording_logs
-    WHERE (recording_id, planta_logs_id) IN ( SELECT recording_id, MAX(planta_logs_id) AS max_planta_logs_id FROM planta_recording_logs 
-    WHERE status = 'Pressing' GROUP BY recording_id ) GROUP BY MONTH(production_date);");
-
-            if ($bale_prod && $bale_prod->num_rows > 0) {
-                $month_produced = [];
-                $produced_weight = [];
-                while ($row = mysqli_fetch_assoc($bale_prod)) {
-                    $month_produced[] = date('M Y', mktime(0, 0, 0, $row['month'], 1));
-                    $produced_weight[] = number_format($row['total_weight'], 0, '.', '');
-                }
-            }
-            ?>
-
-            new Chart(monthly_production, {
-                options: {
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Monthly Production (kilo)',
-                            font: {
-                                size: 18,
-                                weight: 'bold'
-                            }
-                        },
-                        legend: {
-                            display: true,
-                        }
-                    },
-                    scales: {
-                        y: {
-                            ticks: {
-                                display: true
-                            },
-                            grid: {
-                                display: true
-                            }
-                        },
-                        x: {
-                            ticks: {
-                                display: true,
-                                font: {
-                                    size: 14
-                                }
-                            },
-                        }
-                    }
-                },
-                type: 'line',
-                data: {
-                    labels: <?php echo json_encode($month_bales) ?>,
-                    datasets: [{
-                            label: 'Crumbs',
-                            data: <?php echo json_encode($bales) ?>,
-                            backgroundColor: '#e6b91e',
-                            tension: 0.3,
-                            fill: true,
-                        },
-                        {
-                            label: 'Blankets',
-                            data: <?php echo json_encode($dry_weight) ?>,
-                            backgroundColor: '#3892BA',
-                            tension: 0.3,
-                            fill: true,
-                        },
-                        {
-                            label: 'Bales',
-                            data: <?php echo json_encode($produced_weight) ?>,
-                            backgroundColor: '#c42f1a',
-                            tension: 0.3,
-                            fill: true,
-                        }
-                    ]
-                },
-            });
-        </script>
+        <?php include "dashboard/dashboard_script.php"; ?>
 </body>
 
 </html>

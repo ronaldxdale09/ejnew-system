@@ -1,12 +1,12 @@
 <div class="table-responsive">
     <table class="table table-bordered table-hover table-striped" id='recording_table-pressing'>
         <?php $results  = mysqli_query($con, "SELECT * from planta_recording WHERE status='Pressing' and planta_recording.source='$loc'"); ?>
-        <thead class="table-dark">
+        <thead class="table-dark" style='font-size:13px'>
 
 
             <tr>
                 <th scope="col">Status</th>
-                <th scope="col">ID</th>
+                <th scope="col">Rec. ID</th>
                 <th scope="col">Pressing Date</th>
                 <th scope="col">Supplier</th>
                 <th scope="col">Location</th>
@@ -241,7 +241,7 @@
 
 
 
-    var table = $('#recording_table-pressing').DataTable({
+    var table_pressing = $('#recording_table-pressing').DataTable({
         dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
         order: [
             [0, 'desc']

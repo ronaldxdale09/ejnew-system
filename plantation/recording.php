@@ -249,11 +249,11 @@ $drying = mysqli_fetch_array($sql);
                                                                             } ?>>
 
                                 <nav>
-                                    <label for="home" class="home"><i class="fas fa-truck"></i> Receiving    <span class="badge bg-primary"> <?php echo $receiving_count?> </span></label>
-                                    <label for="blog" class="blog"><i class="fas fa-cogs"></i> Milling <span class="badge bg-primary"> <?php echo $milling_count?> </span></label>
-                                    <label for="drying" class="drying"><i class="fas fa-sun"></i> Drying <span class="badge bg-primary"> <?php echo $drying_count?> </span></label>
-                                    <label for="code" class="code"><i class="fas fa-toolbox"></i> Pressing <span class="badge bg-primary"> <?php echo $pressing_count?> </span></label>
-                                    <label for="help" class="help"><i class="fas fa-check"></i> Produced <span class="badge bg-primary"> <?php echo $produced_count?> </span></label>
+                                    <label for="home" class="home"><i class="fas fa-truck"></i> Receiving <span class="badge bg-primary"> <?php echo $receiving_count ?> </span></label>
+                                    <label for="blog" class="blog"><i class="fas fa-cogs"></i> Milling <span class="badge bg-primary"> <?php echo $milling_count ?> </span></label>
+                                    <label for="drying" class="drying"><i class="fas fa-sun"></i> Drying <span class="badge bg-primary"> <?php echo $drying_count ?> </span></label>
+                                    <label for="code" class="code"><i class="fas fa-toolbox"></i> Pressing <span class="badge bg-primary"> <?php echo $pressing_count ?> </span></label>
+                                    <label for="help" class="help"><i class="fas fa-check"></i> Produced <span class="badge bg-primary"> <?php echo $produced_count ?> </span></label>
 
                                     <div class="slider"></div>
                                 </nav>

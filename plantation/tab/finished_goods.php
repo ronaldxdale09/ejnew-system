@@ -19,8 +19,8 @@
 
     <div class="card-body d-flex justify-content-between align-items-center">
         <div id="datatable_filter">
-            <label>From: <input type="text" class='form-control' id="min" name="min"></label>
-            <label>To: <input type="text" class='form-control' id="max" name="max"></label>
+            <label>From: <input type="text" class='form-control' id="min" name="min" autocomplete='off'></label>
+            <label>To: <input type="text" class='form-control' id="max" name="max" autocomplete='off'></label>
             <button class='btn btn-primary' id="today">Today</button>
             <button class='btn btn-secondary' id="this-week">This Week</button>
             <button class='btn btn-dark' id="this-month">This Month</button>
@@ -30,7 +30,7 @@
         </button>
     </div>
     <hr>
-    <table class="table table-bordered table-hover table-striped table-responsive" style='width:100%' id="recording_table-produced">
+    <table class="table table-bordered table-hover table-striped table-responsive" style='width:100%' id="recording_table-completed">
 
         <?php
         $results = mysqli_query($con, "SELECT * FROM planta_bales_production 
@@ -42,8 +42,10 @@
 
         <thead class="table-dark" style='font-size:13px'>
             <tr>
+
+                <th class="text-center">Action</th>
                 <th>Status</th>
-                <th>Rec. ID</th>
+                <th hidden>Rec. ID</th>
                 <th>Bale ID</th>
                 <th>Date Produced</th>
                 <th>Quality</th>
@@ -55,13 +57,10 @@
                 <th>Excess</th>
                 <th>Bale Weight</th>
                 <th>DRC</th>
-                <!-- <th>Overhead</th> -->
                 <th>Description</th>
-                <!-- <th>Cost</th> -->
-                <th class="text-center">Action</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody style='font-size:13px'>
             <?php while ($row = mysqli_fetch_array($results)) {
                 switch ($row['status']) {
                     case "Complete":
@@ -74,7 +73,7 @@
                         $status_color = 'bg-secondary';
                         break;
                     case "Drying":
-                        $status_color = 'bg-warning';
+                        $status_color = 'bg-warning text-dark';
                         break;
                     case "Pressing":
                         $status_color = 'bg-danger';
@@ -89,16 +88,21 @@
                         $status_color = 'bg-dark text-light';
                         break;
                     case "Purchase":
-                        $status_color = 'bg-orange'; // Assuming you have an orange class defined in your CSS
+                        $status_color = 'bg-orange text-dark'; // Assuming you have an orange class defined in your CSS
                         break;
                 }
             ?>
                 <tr>
+                    <td>
+                        <button type="button" data-recording_id='<?php echo $row['recording_id'] ?>' data-bale='<?php echo json_encode($row); ?>' class="btn btn-primary btn-sm btnProducedView">
+                            <i class="fas fa-book"></i> view
+                        </button>
+                    </td>
                     <td> <span class="badge <?php echo $status_color; ?>">
                             <?php echo $row['status'] ?>
                         </span>
                     </td>
-                    <td>
+                    <td hidden>
                         <span class="badge bg-success"><?php echo $row['recording_id'] ?></span>
                     </td>
                     <td>
@@ -118,15 +122,10 @@
                     <td class="number-cell remaining-column"> <?php echo number_format($row['remaining_bales'], 0, '.', ',') ?> pcs </td>
                     <td class="number-cell"> <?php echo number_format($row['bales_excess'], 0, '.', ',') ?> kg</td>
                     <td class="number-cell"> <?php echo number_format($row['rubber_weight'], 0, '.', ',') ?> kg</td>
-                    <td class="number-cell"><?php echo number_format($row['drc'], 2) ?> %</td>
-                    <!-- <td class="number-cell">₱ <?php echo number_format($row['mill_cost'], 2) ?></td> -->
+                    <td class="number-cell"><?php echo number_format($row['drc'], 2) ?>%</td>
+
                     <td><?php echo $row['description'] ?></td>
-                    <td class="text-center">
-                        <button type="button" data-recording_id='<?php echo $row['recording_id'] ?>'
-                        data-location='<?php echo $row['location'] ?>' class="btn btn-success btn-sm btnProducedView">
-                            <i class="fas fa-book"></i> View
-                        </button>
-                    </td>
+
                 </tr>
             <?php } ?>
         </tbody>
@@ -143,7 +142,7 @@
             function(settings, data, dataIndex) {
                 var min = $('#min').datepicker("getDate");
                 var max = $('#max').datepicker("getDate");
-                var startDate = new Date(data[3]);
+                var startDate = new Date(data[4]);
 
                 if (min == null && max == null) return true;
                 if (min == null && startDate <= max) return true;
@@ -155,40 +154,50 @@
 
         $("#min").datepicker({
             onSelect: function() {
-                table.draw();
+                table_produced.draw();
             },
             changeMonth: true,
             changeYear: true
         });
         $("#max").datepicker({
             onSelect: function() {
-                table.draw();
+                table_produced.draw();
             },
             changeMonth: true,
             changeYear: true
         });
 
-        var table = $('#recording_table-produced').DataTable({
-            "order": [
-                [1, 'desc']
+        var table_produced = $('#recording_table-completed').DataTable({
+            dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
+            order: [
+                [3, 'desc']
             ],
-            "pageLength": 50,
-            "dom": "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-            "responsive": true
+            buttons: [
+                'excelHtml5',
+                'pdfHtml5',
+                'print'
+            ],
+            columnDefs: [{
+                orderable: false,
+                targets: -1
+            }],
+            lengthChange: false,
+            orderCellsTop: true,
+            paging: false,
+            info: false,
         });
+
 
         // Event listener to the two range filtering inputs to redraw on input
         $('#min, #max').change(function() {
-            table.draw();
+            table_produced.draw();
         });
 
         // Quick date filters
         $('#today').on('click', function() {
             var today = new Date();
             $('#min, #max').datepicker('setDate', today);
-            table.draw();
+            table_produced.draw();
         });
 
         $('#this-week').on('click', function() {
@@ -197,7 +206,7 @@
                 .getDay());
             $('#min').datepicker('setDate', firstDayOfWeek);
             $('#max').datepicker('setDate', today);
-            table.draw();
+            table_produced.draw();
         });
 
         $('#this-month').on('click', function() {
@@ -205,7 +214,7 @@
             var firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
             $('#min').datepicker('setDate', firstDayOfMonth);
             $('#max').datepicker('setDate', today);
-            table.draw();
+            table_produced.draw();
         });
 
 
@@ -219,21 +228,45 @@
             return $(this).text();
         }).get();
 
+        var bale = $(this).data('bale');
 
-        var recording = $(this).data('recording_id');
-        var location = $(this).data('location');
-        
-        $('#prod_trans_id').val(data[1]);
-        $('#prod_trans_date').val(data[2]);
-        $('#prod_trans_supplier').val(data[6]);
-        $('#prod_trans_loc').val(location);
-        $('#prod_trans_lot').val(data[7]);
+        var recording = bale.recording_id;
+        $('#prod_rec_id').val(bale.recording_id);
 
 
-        $('#prod_trans_entry').val(parseFloat(data[6]).toLocaleString());
+        $('#prod_purchased_id').val(bale.purchased_id);
+        $('#prod_recording_id').val(bale.recording_id);
 
-        $('#prod_trans_drc').val(data[12]);
-        $('#prod_trans_total_weight').val(data[8]);
+        $('#prod_trans_date').val(bale.production_date);
+        $('#prod_trans_supplier').val(bale.supplier);
+        $('#prod_trans_loc').val(bale.location);
+        $('#prod_trans_lot').val(bale.lot_num);
+
+
+        $('#prod_unit_cost').val(parseFloat(bale.bales_average_cost).toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }));
+        $('#prod_trans_entry').val(parseFloat(bale.rubber_weight).toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }));
+        $('#prod_trans_total_weight').val(parseFloat(bale.produce_total_weight).toLocaleString('en-US', {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+        }));
+
+        $('#prod_trans_drc').val(bale.drc);
+        $('#prod_expense_desc').val(bale.prod_expense_desc);
+
+        $('#prod_expense').val(parseFloat(bale.production_expense).toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }));
+        $('#prod_mill_cost').val(parseFloat(bale.milling_cost).toLocaleString('en-US', {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+        }));
 
 
         function fetch_record() {
@@ -281,5 +314,97 @@
         // })
 
 
+    });
+
+    document.getElementById('btnMarkCompleteBale').addEventListener('click', function() {
+
+
+        var recording_id = parseFloat($("#prod_rec_id").val().replace(/,/g, "")) || 0;
+
+        console.log(recording_id)
+
+        Swal.fire({
+            title: 'Confirm Completion',
+            text: 'Are you sure you want to finalize this bale production recording? Completing this process will remove all remaining bale pieces for this record.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Complete It',
+            cancelButtonText: 'No, Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "function/completeBaleRecord.php",
+                    method: "POST",
+                    data: {
+                        recording_id: recording_id,
+                    },
+                    success: function(data) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Bale has been set as Complete',
+                            showConfirmButton: true,
+                            timer: 1500
+                        }).then(function() {
+                            location.reload(); // This will refresh the page
+                        });
+                    }
+                });
+            }
+        });
+
+
+    });
+
+    document.getElementById('btnProdTransPressing').addEventListener('click', function() {
+
+        var recording_id = parseFloat($("#prod_rec_id").val().replace(/,/g, "")) || 0;
+
+        // Check if the recording_id is in a container
+        $.ajax({
+            url: "fetch/checkBaleInContainer.php",
+            method: "POST",
+            data: {
+                recording_id: recording_id,
+            },
+            success: function(data) {
+                if (data == 'in_container') { // Assuming this is the response for a bale in container
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Bale in Container',
+                        text: 'Some of the bales with this recording ID are already in the container. Please remove the bale selection from the container before proceeding to transfer to pressing again.',
+                        showConfirmButton: true
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Transfer Bale Record Back to Pressing',
+                        text: 'Are you sure you want to transfer this bale record back to pressing? This action will affect the related production process.',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, Transfer',
+                        cancelButtonText: 'Cancel'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: "function/prodBaleTransferPressing.php",
+                                method: "POST",
+                                data: {
+                                    recording_id: recording_id,
+                                },
+                                success: function(data) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Bale has been Transfered to Pressing',
+                                        showConfirmButton: true,
+                                        timer: 1500
+                                    }).then(function() {
+                                        window.location.href = 'recording.php?tab=4'; // Redirect to the specified URL
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        });
     });
 </script>

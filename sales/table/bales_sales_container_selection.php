@@ -24,7 +24,7 @@ $output .= '
 }
 </style>
     <table class="table table-bordered table-hover table-striped"
-        id="recording_table-receiving">
+        id="cotaniner-selection">
         <thead class="table-dark text-center" style="font-size: 14px !important">
             <tr>
                 <th scope="col">ID.</th>
@@ -94,6 +94,17 @@ echo $output;
 <script>
     $(document).ready(function() {
 
+        var table = $('#cotaniner-selection').DataTable({
+            "order": [
+                [0, 'desc']
+            ],
+            "pageLength": -1,
+            "dom": "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'>>",
+            "responsive": true,
+
+        });
 
         $('.addProduct').on('click', function() {
 

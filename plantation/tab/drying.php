@@ -1,13 +1,13 @@
 <div class="table-responsive">
     <table class="table table-bordered table-hover table-striped" id='recording_table-drying'> <?php
                                                                                                 $results  = mysqli_query($con, "SELECT * from planta_recording WHERE status='Drying' and planta_recording.source='$loc'"); ?>
-        <thead class="table-dark">
+        <thead class="table-dark" style='font-size:13px'>
 
 
             <tr>
 
                 <th scope="col">Status</th>
-                <th scope="col">ID</th>
+                <th scope="col">Rec. ID</th>
                 <th scope="col">Drying Date</th>
                 <th scope="col">Supplier</th>
                 <th scope="col">Location</th>
@@ -36,13 +36,16 @@
 
 
                     <!-- AGE, COUNT DAYS FROM TRANSFERRED TO TODAY -->
-                    <td class="text-center">
+                    <td class="text-center" style="white-space: nowrap;">
                         <button type="button" class="btn btn-success btn-sm btnDryUpdate" id='btnDryUpdate' data-reweight='<?php echo $row['reweight'] ?>'>
-                            <i class="fas fa-edit"></i> </button>
+                            <i class="fas fa-edit"></i>
+                        </button>
                         <button type="button" class="btn btn-warning btn-sm btnDryTransfer" data-reweight='<?php echo $row['reweight'] ?>'>
-                            <i class="fas fa-chevron-right"></i> </button>
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
                         <button type="button" class="btn btn-dark btn-sm btnViewRecordDrying">
-                            <i class="fas fa-book"></i> </button>
+                            <i class="fas fa-book"></i>
+                        </button>
                     </td>
 
 

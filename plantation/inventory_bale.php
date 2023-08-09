@@ -26,12 +26,12 @@ include "include/navbar.php";
 
     <div class='main-content' style='min-height:100vh;'>
         <div class="container home-section h-100" style="max-width:95%;">
-            <div class="page-wrapper">
-                <h2 class="page-title" style="text-align:center;">
+            <div class="page-wrapper"><br>
+                <h1 class="page-title" style="text-align:center;">
                     <b>
                         <font color="#0C0070">BALE PRODUCED </font>
                         <font color="#046D56"> RECORD</font>
-                </h2>
+                </h1>
                 <?php include('bales_inventory/basilan.inventory.php') ?>
 
             </div>

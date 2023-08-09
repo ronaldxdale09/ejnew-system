@@ -1,17 +1,3 @@
-<script type="text/javascript" src="js/getWords.js"></script>
-<script>
-function ComputationRubber() {
-
-    var gross = $("#gross").val().replace(/,/g, '');
-    var tare = $("#tare").val().replace(/,/g, '');
-    var price1 = $("#first_price").val().replace(/,/g, '');
-    var price2 = $("#second_price").val().replace(/,/g, '');
-    var less = $("#cash_advance").val().replace(/,/g, '');
-
-
-    rubberComputation(gross, tare, price1, price2, less);
-
-};
 </script>
 <!--hide contract details -->
 <script type="text/javascript">
@@ -73,10 +59,19 @@ function contractSet(contractVal) {
                 $('#name').attr('disabled', false);
                 document.getElementById("contract-form").style.display = "none";
 
+                document.getElementById('net_weight_2').disabled = true;
+                document.getElementById('price_2').disabled = true;
+                document.getElementById('kilo_bales_2').disabled = true;
+
+
             } else {
                 document.getElementById("contract-form").style.display = "block";
                 $('#name').attr('disabled', true);
 
+
+                document.getElementById('net_weight_2').disabled = false;
+                document.getElementById('price_2').disabled = false;
+                document.getElementById('kilo_bales_2').disabled = false;
             }
 
 
@@ -109,7 +104,7 @@ function contractSet(contractVal) {
 
             let nf = new Intl.NumberFormat('en-US');
             $.ajax({
-                url: "include/fetch/fetchRubberCashAdvance.php",
+                url: "include/fetch/fetchCABales.php",
                 type: "POST",
                 cache: false,
                 data: {
@@ -200,7 +195,7 @@ $(document).ready(function() {
 
                     document.getElementById('cash_advance').readOnly = true;
 
-                    ComputationRubber();
+                    BalesRubber();
                 } else {
 
 
@@ -210,7 +205,7 @@ $(document).ready(function() {
                     document.getElementById('cash_advance').readOnly = false;
 
 
-                    ComputationRubber();
+                    BalesRubber();
                 }
 
 
@@ -222,14 +217,37 @@ $(document).ready(function() {
 });
 </script>
 
+<script>
+function BalesRubber() {
+
+    var entry = $("#entry").val().replace(/,/g, '');
+    var net_1 = $("#net_weight_1").val().replace(/,/g, '');
+    var net_2 = $("#net_weight_2").val().replace(/,/g, '');
+
+    var kilo_bales_1 = $("#kilo_bales_1").val().replace(/,/g, '');
+    var kilo_bales_2 = $("#kilo_bales_2").val().replace(/,/g, '');
+
+
+    var price_1 = $("#price_1").val().replace(/,/g, '');
+    var price_2 = $("#price_2").val().replace(/,/g, '');
+
+
+    var less = $("#cash_advance").val().replace(/,/g, '');
+
+
+    bales_compute(entry, net_1, net_2, kilo_bales_1, kilo_bales_2, price_1, price_2, less);
+
+};
+</script>
+
 
 
 
 <!-- add netweight -->
 <script>
 $(function() {
-    $("#gross").keyup(function() {
-        ComputationRubber();
+    $("#entry").keyup(function() {
+        BalesRubber();
     });
 
 
@@ -238,16 +256,22 @@ $(function() {
 });
 </script>
 
-
 <script>
 $(function() {
-    $("#tare").keyup(function() {
-        ComputationRubber();
+    $("#net_weight_1,#net_weight_2").keyup(function() {
+        BalesRubber();
 
     });
 
+});
+</script>
 
+<script>
+$(function() {
+    $("#kilo_bales_1,#kilo_bales_2").on("change", function() {
+        BalesRubber();
 
+    });
 
 });
 </script>
@@ -255,24 +279,12 @@ $(function() {
 <!-- total -->
 <script>
 $(function() {
-    $("#first_price").keyup(function() {
+    $("#price_1,#price_2").keyup(function() {
 
-        ComputationRubber();
-        var amount_paid = $("#amount-paid").val().replace(/,/g, '');
 
-        words = numToWords(amount_paid);
-        document.getElementById("amount-paid-words").value = words;
+        BalesRubber();
 
-    });
-});
-</script>
-
-<script>
-$(function() {
-    $("#second_price").keyup(function() {
-
-        ComputationRubber();
-        var amount_paid = $("#amount-paid").val().replace(/,/g, '');
+        var amount_paid = $("#amount_paid").val().replace(/,/g, '');
 
         words = numToWords(amount_paid);
         document.getElementById("amount-paid-words").value = words;
@@ -280,15 +292,18 @@ $(function() {
     });
 });
 </script>
+
+
 <script>
 $(function() {
     $("#cash_advance").keyup(function() {
-        ComputationRubber();
-        var amount_paid = $("#amount-paid").val().replace(/,/g, '');
+
+
+        BalesRubber();
+        var amount_paid = $("#amount_paid").val().replace(/,/g, '');
 
         words = numToWords(amount_paid);
         document.getElementById("amount-paid-words").value = words;
-
     });
 });
 </script>
@@ -337,7 +352,7 @@ function numToWords(s) {
     str += 'peso/s ';
     if (x != s.length) {
         var y = s.length;
-        str += 'pesos and ';
+        str += 'and ';
         for (var i = x + 1; i < y; i++) str += dg[n[i]] + ' ';
         str = str + 'centavo/s ';
     }

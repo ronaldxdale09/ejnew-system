@@ -69,6 +69,9 @@ $today = date('Y-m-d');
                                 </select>
                             </div>
                         </div>
+                    </div> <br>
+                    <div class="alert alert-success alert-dismissible">
+                        <strong>Reminder:</strong> Please double-check all data for accuracy before proceeding. Thank you.
                     </div>
                 </div>
                 <div class="modal-footer">
