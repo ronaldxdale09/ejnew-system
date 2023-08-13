@@ -71,6 +71,9 @@
     <a class='nav-link' href='purchase_report.php'>
         <i class='fas fa-cash-register'></i> <span class='nav-text'>Purchase Report</span>
     </a>
+    <a class='nav-link' href='sales_reports.php'>
+        <i class='fa-solid fa-file-alt'></i> <span class='nav-text'>Sales Report</span>
+    </a>
 
     <hr style='color:gray'>
 

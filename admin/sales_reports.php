@@ -275,48 +275,47 @@ include "include/navbar.php";
                                         $cogs = array_fill(1, 12, 0);
                                         $totalCogs = 0;
 
-                                        $cogsTypes = ['LOCAL' => 'Bale Local COGS', 'EXPORT' => 'Bale Export COGS'];
-                                        foreach ($cogsTypes as $type => $label) {
-                                            $cogsQuery = mysqli_query($con, "SELECT 
-                                     YEAR(transaction_date) AS year, 
-                                     sum(CASE WHEN MONTH(transaction_date) = 1 THEN total_bale_cost END) AS Jan,
-                                     sum(CASE WHEN MONTH(transaction_date) = 2 THEN total_bale_cost END) AS Feb,
-                                     sum(CASE WHEN MONTH(transaction_date) = 3 THEN total_bale_cost END) AS Mar,
-                                     sum(CASE WHEN MONTH(transaction_date) = 4 THEN total_bale_cost END) AS Apr,
-                                     sum(CASE WHEN MONTH(transaction_date) = 5 THEN total_bale_cost END) AS May,
-                                     sum(CASE WHEN MONTH(transaction_date) = 6 THEN total_bale_cost END) AS Jun,
-                                     sum(CASE WHEN MONTH(transaction_date) = 7 THEN total_bale_cost END) AS Jul,
-                                     sum(CASE WHEN MONTH(transaction_date) = 8 THEN total_bale_cost END) AS Aug,
-                                     sum(CASE WHEN MONTH(transaction_date) = 9 THEN total_bale_cost END) AS Sep,
-                                     sum(CASE WHEN MONTH(transaction_date) = 10 THEN total_bale_cost END) AS Oct,
-                                     sum(CASE WHEN MONTH(transaction_date) = 11 THEN total_bale_cost END) AS Nov,
-                                     sum(CASE WHEN MONTH(transaction_date) = 12 THEN total_bale_cost END) AS Decem,
-                                     SUM(total_bale_cost) AS total
-                                 FROM 
-                                     bales_sales_record 
-                                 WHERE 
-                                     YEAR(transaction_date) = $year AND 
-                                     sale_type = '$type'
-                                 GROUP BY 
-                                     YEAR(transaction_date)
-                                 ");
+                                        $salesTypes = ['LOCAL' => 'Bale Local COGS', 'EXPORT' => 'Bale Export COGS'];
+                                        foreach ($salesTypes as $type => $label) {
+                                            $sales = mysqli_query($con, "SELECT 
+                                                YEAR(transaction_date) AS year, 
+                                                sum(CASE WHEN MONTH(transaction_date) = 1 THEN total_bale_cost END) AS Jan,
+                                                sum(CASE WHEN MONTH(transaction_date) = 2 THEN total_bale_cost END) AS Feb,
+                                                sum(CASE WHEN MONTH(transaction_date) = 3 THEN total_bale_cost END) AS Mar,
+                                                sum(CASE WHEN MONTH(transaction_date) = 4 THEN total_bale_cost END) AS Apr,
+                                                sum(CASE WHEN MONTH(transaction_date) = 5 THEN total_bale_cost END) AS May,
+                                                sum(CASE WHEN MONTH(transaction_date) = 6 THEN total_bale_cost END) AS Jun,
+                                                sum(CASE WHEN MONTH(transaction_date) = 7 THEN total_bale_cost END) AS Jul,
+                                                sum(CASE WHEN MONTH(transaction_date) = 8 THEN total_bale_cost END) AS Aug,
+                                                sum(CASE WHEN MONTH(transaction_date) = 9 THEN total_bale_cost END) AS Sep,
+                                                sum(CASE WHEN MONTH(transaction_date) = 10 THEN total_bale_cost END) AS Oct,
+                                                sum(CASE WHEN MONTH(transaction_date) = 11 THEN total_bale_cost END) AS Nov,
+                                                sum(CASE WHEN MONTH(transaction_date) = 12 THEN total_bale_cost END) AS Decem,
+                                                SUM(total_bale_cost) AS total
+                                            FROM 
+                                                bales_sales_record 
+                                            WHERE 
+                                                YEAR(transaction_date) = $year AND 
+                                                sale_type = '$type'
+                                            GROUP BY 
+                                                YEAR(transaction_date)
+                                            ");
 
-                                            while ($row = mysqli_fetch_array($cogsQuery)) {
+                                            while ($row = mysqli_fetch_array($sales)) {
                                                 echo '<tr>';
                                                 echo '<td >&emsp;' . $label . '</td>';
                                                 echo '<td style="text-align: right;"><b>' . number_format((float)$row['total'], 0, '.', ',') . ' </b></td>';
                                                 for ($i = 1; $i <= 12; $i++) {
                                                     $month = date("M", mktime(0, 0, 0, $i, 10)); // get the three-letter month name
-                                                    $month = ($month === 'Dec') ? 'Decem' : $month; // use 'Decem' instead of 'Dec'
-                                                    $monthCogs = isset($row[$month]) ? (float)$row[$month] : 0;
-                                                    echo '<td style="text-align: right;">' . ($monthCogs != 0 ? ' ' . number_format($monthCogs, 0, '.', ',') : '-') . '</td>';
-                                                    $cogs[$i] += $monthCogs; // add the COGS to the corresponding month
+                                                    $month = ($month === 'Dec') ? 'Decem' : $month; // use 'Dece' instead of 'Dec'
+                                                    $monthSales = isset($row[$month]) ? (float)$row[$month] : 0;
+                                                    echo '<td style="text-align: right;">' . ($monthSales != 0 ? ' ' . number_format($monthSales, 0, '.', ',') : '-') . '</td>';
+                                                    $cogs[$i] += $monthSales; // add the sales to the corresponding month in net sales
                                                 }
-                                                $totalCogs += (float)$row['total']; // add the total COGS to the total
+                                                $totalCogs += (float)$row['total']; // add the total sales to the total net sales
                                                 echo '</tr>';
                                             }
                                         }
-
 
 
                                         // Cuplump COGS
@@ -400,11 +399,10 @@ include "include/navbar.php";
                                             echo '<td style="text-align: right;"><b>' . number_format((float)$row['total'], 0, '.', ',') . ' </b></td>';
                                             for ($i = 1; $i <= 12; $i++) {
                                                 $month = date("M", mktime(0, 0, 0, $i, 10)); // get the three-letter month name
-                                                $month = ($month === 'Dec') ? 'Decem' : $month; // use 'Decem' instead of 'Dec'
-                                                $monthMillingValue = isset($row[$month]) ? (float)$row[$month] : 0;
-                                                $totalMillingCost += $monthMillingValue; // Add the monthly cost to the total
-                                                $monthMilling[$i] = $monthMillingValue; // Correctly update the value inside the array
-                                                echo '<td style="text-align: right;font-weight:bold;">' . ($monthMillingValue != 0 ? ' ' . number_format($monthMillingValue, 0, '.', ',') : '-') . '</td>';
+                                                $month = ($month === 'Dec') ? 'Decem' : $month; // use 'Dece' instead of 'Dec'
+                                                $monthMilling = isset($row[$month]) ? (float)$row[$month] : 0;
+
+                                                echo '<td style="text-align: right;font-weight:bold;">' . ($monthMilling != 0 ? ' ' . number_format($monthMilling, 0, '.', ',') : '-') . '</td>';
                                             }
                                             echo '</tr>';
                                         }
@@ -463,6 +461,7 @@ include "include/navbar.php";
                                                 $month = ($month === 'Dec') ? 'Decem' : $month; // use 'Dece' instead of 'Dec'
                                                 $monthFreight = isset($row[$month]) ? (float)$row[$month] : 0;
                                                 echo '<td style="text-align: right;">' . ($monthFreight != 0 ? ' ' . number_format($monthFreight, 0, '.', ',') : '-') . '</td>';
+                                                $cogs[$i] += $monthFreight; // add the sales to the corresponding month in net sales
                                             }
                                             echo '</tr>';
                                         }
@@ -506,6 +505,7 @@ include "include/navbar.php";
                                                 $monthLoading = isset($row[$month]) ? (float)$row[$month] : 0;
                                                 echo '<td style="text-align: right;">' . ($monthLoading != 0 ? ' ' . number_format($monthLoading, 0, '.', ',') : '-') . '</td>';
                                             }
+                                            $totalCogs += (float)$row['total']; // add the total sales to the total net sales
                                             echo '</tr>';
                                         }
 
@@ -549,6 +549,7 @@ include "include/navbar.php";
                                                 $monthProcess = isset($row[$month]) ? (float)$row[$month] : 0;
                                                 echo '<td style="text-align: right;">' . ($monthProcess != 0 ? ' ' . number_format($monthProcess, 0, '.', ',') : '-') . '</td>';
                                             }
+                                            $totalCogs += (float)$row['total']; // add the total sales to the total net sales
                                             echo '</tr>';
                                         }
 
@@ -591,7 +592,9 @@ include "include/navbar.php";
                                                 $month = ($month === 'Dec') ? 'Decem' : $month; // use 'Dece' instead of 'Dec'
                                                 $monthSales = isset($row[$month]) ? (float)$row[$month] : 0;
                                                 echo '<td style="text-align: right;">' . ($monthSales != 0 ? ' ' . number_format($monthSales, 0, '.', ',') : '-') . '</td>';
+                                                $cogs[$i] += $monthSales; // add the sales to the corresponding month in net sales
                                             }
+                                            $totalCogs += (float)$row['total']; // add the total sales to the total net sales
                                             echo '</tr>';
                                         }
 
@@ -636,56 +639,56 @@ include "include/navbar.php";
                                                 $monthSales = isset($row[$month]) ? (float)$row[$month] : 0;
                                                 echo '<td style="text-align: right;">' . ($monthSales != 0 ? ' ' . number_format($monthSales, 0, '.', ',') : '-') . '</td>';
                                             }
+                                            $totalCogs += (float)$row['total']; // add the total sales to the total net sales
                                             echo '</tr>';
                                         }
 
 
 
-                                        // Total Shipping Miscellaneous
-                                        $query_miscellaneous = mysqli_query($con, "SELECT 
-                                            YEAR(ship_date) AS year, 
-                                            sum(CASE WHEN MONTH(ship_date) = 1 THEN miscellaneous END) AS Jan,
-                                            sum(CASE WHEN MONTH(ship_date) = 2 THEN miscellaneous END) AS Feb,
-                                            sum(CASE WHEN MONTH(ship_date) = 3 THEN miscellaneous END) AS Mar,
-                                            sum(CASE WHEN MONTH(ship_date) = 4 THEN miscellaneous END) AS Apr,
-                                            sum(CASE WHEN MONTH(ship_date) = 5 THEN miscellaneous END) AS May,
-                                            sum(CASE WHEN MONTH(ship_date) = 6 THEN miscellaneous END) AS Jun,
-                                            sum(CASE WHEN MONTH(ship_date) = 7 THEN miscellaneous END) AS Jul,
-                                            sum(CASE WHEN MONTH(ship_date) = 8 THEN miscellaneous END) AS Aug,
-                                            sum(CASE WHEN MONTH(ship_date) = 9 THEN miscellaneous END) AS Sep,
-                                            sum(CASE WHEN MONTH(ship_date) = 10 THEN miscellaneous END) AS Oct,
-                                            sum(CASE WHEN MONTH(ship_date) = 11 THEN miscellaneous END) AS Nov,
-                                            sum(CASE WHEN MONTH(ship_date) = 12 THEN miscellaneous END) AS Decem,
-                                            SUM(miscellaneous) AS total
-                                            FROM (
-                                            SELECT ship_date, miscellaneous
-                                            FROM bale_shipment_record 
-                                            WHERE YEAR(ship_date) = $year
-                                            UNION ALL
-                                            SELECT ship_date, miscellaneous
-                                            FROM sales_cuplump_shipment 
-                                            WHERE YEAR(ship_date) = $year  
-                                            ) AS combined
-                                            GROUP BY 
-                                            YEAR(ship_date)
-                                            ");
+                                        // Total Shipping Miscelleneous 
+                                        //   Totol Shipping miscellaneous	
+                                        $shippingTotalExpense = mysqli_query($con, "SELECT 
+                                          YEAR(ship_date) AS year, 
+                                          sum(CASE WHEN MONTH(ship_date) = 1 THEN miscellaneous END) AS Jan,
+                                          sum(CASE WHEN MONTH(ship_date) = 2 THEN miscellaneous END) AS Feb,
+                                          sum(CASE WHEN MONTH(ship_date) = 3 THEN miscellaneous END) AS Mar,
+                                          sum(CASE WHEN MONTH(ship_date) = 4 THEN miscellaneous END) AS Apr,
+                                          sum(CASE WHEN MONTH(ship_date) = 5 THEN miscellaneous END) AS May,
+                                          sum(CASE WHEN MONTH(ship_date) = 6 THEN miscellaneous END) AS Jun,
+                                          sum(CASE WHEN MONTH(ship_date) = 7 THEN miscellaneous END) AS Jul,
+                                          sum(CASE WHEN MONTH(ship_date) = 8 THEN miscellaneous END) AS Aug,
+                                          sum(CASE WHEN MONTH(ship_date) = 9 THEN miscellaneous END) AS Sep,
+                                          sum(CASE WHEN MONTH(ship_date) = 10 THEN miscellaneous END) AS Oct,
+                                          sum(CASE WHEN MONTH(ship_date) = 11 THEN miscellaneous END) AS Nov,
+                                          sum(CASE WHEN MONTH(ship_date) = 12 THEN miscellaneous END) AS Decem,
+                                          SUM(miscellaneous) AS total
+                                          FROM (
+                                          SELECT ship_date, miscellaneous
+                                          FROM bale_shipment_record 
+                                          WHERE YEAR(ship_date) = $year
+                                          UNION ALL
+                                          SELECT ship_date, miscellaneous
+                                          FROM sales_cuplump_shipment 
+                                          WHERE YEAR(ship_date) = $year  
+                                          ) AS combined
+                                          GROUP BY 
+                                          YEAR(ship_date)
+                                          ");
 
-                                        while ($row = mysqli_fetch_array($query_miscellaneous)) {
+                                        while ($row = mysqli_fetch_array($shippingTotalExpense)) {
                                             echo '<tr>';
-                                            echo '<td >&emsp;<b>Miscellaneous</b></td>';
+                                            echo '<td >&emsp; Miscellaneous	</b></td>';
                                             echo '<td style="text-align: right;"><b>' . number_format((float)$row['total'], 0, '.', ',') . ' </b></td>';
                                             for ($i = 1; $i <= 12; $i++) {
-                                                $monthMiscName = date("M", mktime(0, 0, 0, $i, 10)); // get the three-letter month name
-                                                $monthMiscName = ($monthMiscName === 'Dec') ? 'Decem' : $monthMiscName; // use 'Decem' instead of 'Dec'
-                                                $monthMiscValue = isset($row[$monthMiscName]) ? (float)$row[$monthMiscName] : 0;
-                                                echo '<td style="text-align: right;">' . ($monthMiscValue != 0 ? ' ' . number_format($monthMiscValue, 0, '.', ',') : '-') . '</td>';
+                                                $monthShip = date("M", mktime(0, 0, 0, $i, 10)); // get the three-letter month name
+                                                $monthShip = ($monthShip === 'Dec') ? 'Decem' : $monthShip; // use 'Decem' instead of 'Dec'
+                                                $monthMisc = isset($row[$monthShip]) ? (float)$row[$monthShip] : 0;
+                                                echo '<td style="text-align: right;">' . ($monthMisc != 0 ? ' ' . number_format($monthMisc, 0, '.', ',') : '-') . '</td>'; // changed from $monthSales to $monthTotalShip
                                             }
                                             echo '</tr>';
                                         }
 
                                         //   Totol Shipping Expnese	
-                                        $monthTotalShip = array_fill(1, 12, 0);
-                                        $total_shipping = 0;
                                         $shippingTotalExpense = mysqli_query($con, "SELECT 
                                             YEAR(ship_date) AS year, 
                                             sum(CASE WHEN MONTH(ship_date) = 1 THEN total_shipping_expense END) AS Jan,
@@ -704,11 +707,11 @@ include "include/navbar.php";
                                             FROM (
                                             SELECT ship_date, total_shipping_expense
                                             FROM bale_shipment_record 
-                                            WHERE YEAR(ship_date) = $year
+                                            WHERE YEAR(ship_date) = 2023
                                             UNION ALL
                                             SELECT ship_date, total_shipping_expense
                                             FROM sales_cuplump_shipment 
-                                            WHERE YEAR(ship_date) = $year  
+                                            WHERE YEAR(ship_date) = 2023  
                                             ) AS combined
                                             GROUP BY 
                                         YEAR(ship_date)
@@ -716,15 +719,13 @@ include "include/navbar.php";
 
                                         while ($row = mysqli_fetch_array($shippingTotalExpense)) {
                                             echo '<tr style="background-color: rgb(252, 210, 210);">';
-                                            echo '<td ><b> Total Shipping Expense </b></td>';
+                                            echo '<td ><b> Total Shipping Expense	</b></td>';
                                             echo '<td style="text-align: right;"><b>' . number_format((float)$row['total'], 0, '.', ',') . ' </b></td>';
                                             for ($i = 1; $i <= 12; $i++) {
                                                 $monthShip = date("M", mktime(0, 0, 0, $i, 10)); // get the three-letter month name
                                                 $monthShip = ($monthShip === 'Dec') ? 'Decem' : $monthShip; // use 'Decem' instead of 'Dec'
-                                                $monthTotalShipValue = isset($row[$monthShip]) ? (float)$row[$monthShip] : 0;
-                                                $monthTotalShip[$i] = $monthTotalShipValue; // Store the monthly value
-                                                $total_shipping += $monthTotalShipValue; // add the monthly value to the total shipping expense
-                                                echo '<td style="text-align: right;font-weight:bold;">' . ($monthTotalShipValue != 0 ? ' ' . number_format($monthTotalShipValue, 0, '.', ',') : '-') . '</td>'; // changed from $monthSales to $monthTotalShip
+                                                $monthTotalShip = isset($row[$monthShip]) ? (float)$row[$monthShip] : 0;
+                                                echo '<td style="text-align: right;font-weight:bold;">' . ($monthTotalShip != 0 ? ' ' . number_format($monthTotalShip, 0, '.', ',') : '-') . '</td>'; // changed from $monthSales to $monthTotalShip
                                             }
                                             echo '</tr>';
                                         }
@@ -733,48 +734,25 @@ include "include/navbar.php";
 
 
 
+
+
+
                                         // Gross Profit Sales
-                                        $totalGrossProfitSales = 0;
+                                        $monthlyGrossProfitSales = 0;
+                                        $totalGrossProfitSales = $totalNetSales - $totalCogs - $totalMillingCost;
                                         echo '<tr style="background-color: rgb(252, 252, 210);">';
                                         echo '<td scope="row"><b>Gross Profit Sales </b></td>';
-
-
-                                        echo "<script type='text/javascript'>
-                                        console.log('Total Gross Profit Sales: " . $totalGrossProfitSales . "');
-                                        console.log('Total Net Sales: " . $totalNetSales . "');
-                                        console.log('Total COGS: " . $totalCogs . "');
-                                        console.log('Total Milling Cost: " . $totalMillingCost . "');
-                                        console.log('Total Shipping: " . $total_shipping . "');
-                                      </script>";
-
-                                        $totalGrossProfitSales = $totalNetSales - $totalCogs - $totalMillingCost - $total_shipping; // Add monthly value to the total
-
-                                        // Print total in the second column
                                         echo '<td style="text-align: right;"><b>' . number_format($totalGrossProfitSales, 0, '.', ',') . ' </b></td>';
-
                                         for ($i = 1; $i <= 12; $i++) {
                                             $netSalesValue = isset($netSales[$i]) ? (float)$netSales[$i] : 0;
                                             $cogsValue = isset($cogs[$i]) ? (float)$cogs[$i] : 0;
                                             $monthMillingValue = isset($monthMilling[$i]) ? (float)$monthMilling[$i] : 0;
-                                            $monthShippingValue = isset($monthTotalShip[$i]) ? (float)$monthTotalShip[$i] : 0;
-                                            $monthlyGrossProfit = $netSalesValue - $cogsValue - $monthMillingValue - $monthShippingValue;
+                                            $monthlyGrossProfitSales = $netSalesValue - $cogsValue - $monthMillingValue;
+                                            echo '<td style="text-align: right;font-weight:bold;">' . ($monthlyGrossProfitSales != 0 ? ' ' . number_format($monthlyGrossProfitSales, 0, '.', ',') : '-') . '</td>'; // changed from $monthSales to $monthTotalShip
 
-                                            echo "<script type='text/javascript'>
-                                                console.log('Month: " . $i . "');
-                                                console.log('Net Sales: " . $netSalesValue . "');
-                                                console.log('COGS: " . $cogsValue . "');
-                                                console.log('Milling Cost: " . $monthMillingValue . "');
-                                                console.log('Shipping Cost: " . $monthShippingValue . "');
-                                                console.log('Gross Profit: " . $monthlyGrossProfit . "');
-                                              </script>";
-
-                                            echo '<td style="text-align: right;"><b>' . ($monthlyGrossProfit != 0 ? ' ' . number_format($monthlyGrossProfit, 0, '.', ',') : '-') . ' </b></td>';
                                         }
+
                                         echo '</tr>';
-
-
-
-
                                         ?>
 
 

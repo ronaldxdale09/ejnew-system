@@ -2,14 +2,11 @@
 
 <?php
 include "function/db.php";
+include "function/authenticate.php";
 include "include/bootstrap.php";
 include "include/jquery.php";
 //   $loc = $_SESSION['loc'];
 
-if (!isset($_SESSION['user']) || empty($_SESSION['user'])) {
-    header('Location: function/logout.php'); // replace 'logout.php' with your logout script
-    exit();
-}
 
 
 $loc = $_SESSION['loc'];

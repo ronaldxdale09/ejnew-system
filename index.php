@@ -1,13 +1,11 @@
-<!-- Fantacy Design -->
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <style>
-.logo {
-    width: 150px;
-    margin-bottom: 20px;
+    .logo {
+        width: 150px;
+        margin-bottom: 20px;
 
-}
+    }
 </style>
 
 <head>
@@ -16,8 +14,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Login </title>
- 
+
 </head>
+<!-- Fantacy Design -->
+<?php
+include "function/db.php";
+
+// Check if the user type is set in the session
+if (isset($_SESSION['type'])) {
+    $userType = $_SESSION['type'];
+
+    if ($userType == 'copra') {
+        header('Location: transaction.php');
+    } elseif ($userType == 'finance') {
+        header('Location: ledger/ledger-expense.php');
+    } elseif ($userType == 'admin') {
+        header('Location: admin/dashboard.php');
+    } elseif ($userType == 'rubber') {
+        header('Location: rubber/dry_receiving_record.php');
+    } elseif ($userType == 'planta') {
+        header('Location: plantation/dashboard.php');
+    } elseif ($userType == 'sales') {
+        header('Location: sales/dashboard.php');
+    }
+    exit(); // Make sure to exit after redirecting
+} 
+?>
 <link rel="stylesheet" href="css/login.css">
 
 <body>

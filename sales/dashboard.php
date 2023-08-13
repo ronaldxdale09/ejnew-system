@@ -3,6 +3,9 @@ include('include/header.php');
 include "include/navbar.php";
 
 error_reporting(0); // Suppress all warnings
+// Current month and year
+$currentMonth = date("m");
+$currentYear = date("Y");
 
 
 ?>
@@ -23,10 +26,10 @@ error_reporting(0); // Suppress all warnings
 
 
 
-                    <h4 class="card-header">
-                        <font color="#0C0070">BALE SALES </font>
-                        <font color="#046D56"> GRAPHICAL REPORT</font>
-                    </h4>
+                    <h2 class="card-header">
+                        <font color="#046D56">EJN SALES</font>
+                        <font color="#0C0070"> GRAPHICAL REPORT</font>
+                    </h2>
                     <div class="row">
                         <div class="col-5">
                             <div class="card" style="width:100%;max-width:100%;">
@@ -131,30 +134,36 @@ error_reporting(0); // Suppress all warnings
                         </div>
                     </div>
                     <br>
-
+                    <h4 class="card-header">
+                        <font color="#0C0070">SHIPPING </font>
+                        <font color="#046D56"> EXPENSES</font>
+                    </h4>
                     <div class="row">
-                        <div class="col">
-                            <div class="card" style="width:100%;max-width:100%;margin-bottom: 30px;">
+                        <div class="col-6"> <!-- Change from col-5 to col-6 -->
+                            <div class="card" style="width:100%;max-width:100%;">
                                 <div class="card-body" style="width:100%;max-width:100%;">
-                                    <h4>SHIPPING EXPENSES</h4>
-                                    <div class="row" style="display: flex; align-items: stretch;">
-                                        <div class="col-5" style="display: flex;">
-                                            <div class="card" style="width: 100%;">
-                                                <div class="card-body" style="height: 400px; position: relative;">
-                                                <?php
-                                                    include('statistical_card/baleShippingExpense.php');
-                                                    ?>
-                                                </div>
-                                            </div>
-                                        </div>
 
+                                    <div class="row" style="display: flex; align-items: stretch;">
                                         <div class="col" style="display: flex;">
                                             <div class="card" style="width: 100%;">
                                                 <div class="card-body" style="height: 400px; position: relative;">
-                                                <?php
-                                                    include('statistical_card/cuplumpShippingExpense.php');
-                                                    ?>
-                                                    <canvas id="trend_shipexp" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                                    <?php include('statistical_card/baleShippingExpense.php'); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6"> <!-- Change from col to col-6 -->
+                            <div class="card" style="width:100%;max-width:100%;">
+                                <div class="card-body" style="width:100%;max-width:100%;">
+                                    <div class="row" style="display: flex; align-items: stretch;">
+                                        <div class="col" style="display: flex;">
+                                            <div class="card" style="width: 100%;">
+                                                <div class="card-body" style="height: 400px; position: relative;">
+                                                    <?php include('statistical_card/cuplumpShippingExpense.php'); ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -163,6 +172,36 @@ error_reporting(0); // Suppress all warnings
                             </div>
                         </div>
                     </div>
+
+
+
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="card" style="width:100%;max-width:100%;;margin-bottom: 60px;">
+                                <div class="card-body" style="width:100%;max-width:100%;">
+                                    <h4 class="card-header">
+                                        <font color="#0C0070">SHIPPING EXPENSES </font>
+                                        <font color="#046D56"> TREND</font>
+                                    </h4>
+                                    <div class="row" style="display: flex; align-items: stretch;">
+                                        <div class="col" style="display: flex;">
+                                            <div class="card" style="width: 100%;">
+                                                <div class="card-body" style="height: 400px; position: relative;">
+                                                    <?php
+                                                    include('statistical_card/allShippingExpenseChart.php');
+                                                    ?>
+                                                    <canvas id="trend_grossprofit" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
         </div>
