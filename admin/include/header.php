@@ -2,7 +2,6 @@
 
 <?php  
   include "function/db.php";
-  include "../function/update_last_active.php";
   include "include/bootstrap.php";
   include "include/jquery.php"; 
 ?>

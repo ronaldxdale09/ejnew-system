@@ -110,27 +110,68 @@
 </div>
 
 <script>
-document.querySelector('button[name="press_drying"]').addEventListener('click', function(e) {
-    e.preventDefault(); // Prevent the default submit behavior
+    document.querySelector('button[name="press_drying"]').addEventListener('click', function(e) {
+        e.preventDefault(); // Prevent the default submit behavior
 
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "Do you want to transfer the record back to Drying?",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, transfer it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // If user clicked 'Yes', get the form element
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you want to transfer the record back to Drying?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, transfer it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // If user clicked 'Yes', get the form element
+                var form = document.querySelector('#modal_press_update form');
+                form.querySelector('#action').value = 'press_drying';
+                // Submit the form
+                form.submit();
+            }
+        });
+    });
+
+
+    // Listen for form submission
+    document.querySelector('#modal_press_update button[name="pressing_update"]').addEventListener('click', function(e) {
+        // Prevent the default click behavior
+        e.preventDefault();
+
+        // Get the value of the expense input
+        var expenseAmount = document.getElementById('u_expense').value;
+
+        // Remove non-numeric characters (like currency symbols) if necessary
+        expenseAmount = parseFloat(expenseAmount.replace(/[^\d.-]/g, ''));
+
+        // Check if the expense amount is zero or empty
+        if (expenseAmount === 0 || isNaN(expenseAmount)) {
+            // Show SweetAlert warning
+            Swal.fire({
+                title: 'Expense amount is zero!',
+                text: "Do you want to proceed?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, proceed!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // If expense amount is not zero, proceed with submission
+                    var form = document.querySelector('#modal_press_update form');
+                    form.querySelector('#action').value = 'pressing_update';
+                    // Submit the form
+                    form.submit();
+                }
+            });
+        } else {
+            // If expense amount is not zero, proceed with submission
             var form = document.querySelector('#modal_press_update form');
-            form.querySelector('#action').value = 'press_drying';
+            form.querySelector('#action').value = 'pressing_update';
             // Submit the form
             form.submit();
         }
     });
-});
 </script>
 
 <div class="modal fade" id="modal_press_transfer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

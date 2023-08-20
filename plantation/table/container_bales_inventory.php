@@ -1,5 +1,5 @@
 <?php
-include('../function/db.php');
+include('../../function/db.php');
 
 
 $loc = str_replace(' ', '', $_SESSION['loc']);
@@ -84,6 +84,18 @@ echo $output;
 
         $tr.each(function() {
             var num_bales = $(this).find(".keyvalue input").val();
+
+            if (!num_bales || num_bales <= 0) {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'warning',
+                    title: 'Number of bales must be greater than zero',
+                    showConfirmButton: true,
+                });
+                return;
+            }
+
+
             var max_bales = parseInt($(this).find("td:nth-child(9)")
                 .text()); // Get the number of bales from the row
 

@@ -34,7 +34,7 @@ $loc = str_replace(' ', '', $_SESSION['loc']);
                                     <div class="table-responsive">
                                         <table class="table" id='sellerTable'>
                                             <?php
-                                            $results = mysqli_query($con, "SELECT planta_recording.recording_id,planta_recording.trans_type, planta_recording.status, planta_recording.supplier,
+                                            $results = mysqli_query($con, "SELECT planta_recording.recording_id,planta_recording.purchase_cost,planta_recording.trans_type, planta_recording.status, planta_recording.supplier,
                                         planta_recording.location, planta_recording.lot_num, planta_recording.weight, planta_recording.reweight,
                                         planta_recording.crumbed_weight, planta_recording.dry_weight, planta_recording.produce_total_weight,
                                         planta_recording.drc, planta_recording.driver, planta_recording.truck_num, planta_recording.receiving_date, 
@@ -45,7 +45,7 @@ $loc = str_replace(' ', '', $_SESSION['loc']);
                                         WHERE trans_type !='OUTSOURCE' and source ='$loc'
                                         GROUP BY planta_recording.recording_id"); ?>
                                             <thead class="table-dark">
-                                                <tr>
+                                                <tr style='font-size:12px'>
                                                     <th scope="col">Status</th>
                                                     <th scope="col">ID</th>
                                                     <th scope="col">Supplier</th>
@@ -56,6 +56,7 @@ $loc = str_replace(' ', '', $_SESSION['loc']);
                                                     <th scope="col" hidden>Blanket</th>
                                                     <th scope="col">Bale Weight</th>
                                                     <th scope="col">DRC</th>
+                                                    <th scope="col">Purchase Cost</th>
                                                     <th scope="col">Expense</th>
                                                     <th scope="col">Overhead</th>
                                                     <th scope="col">Action</th>
@@ -84,7 +85,7 @@ $loc = str_replace(' ', '', $_SESSION['loc']);
                                                             case "Produced":
                                                                 $status_color = 'bg-primary';
                                                                 break;
-                                                 
+
                                                             case "Sold":
                                                                 $status_color = 'bg-dark text-white';
                                                                 break;
@@ -121,6 +122,8 @@ $loc = str_replace(' ', '', $_SESSION['loc']);
                                                             kg</td>
                                                         <td class="number-cell">
                                                             <?php echo number_format($row['drc'], 2, '.', ','); ?> %</td>
+                                                        <td class="number-cell">
+                                                        ₱<?php echo number_format($row['purchase_cost'],0, '.', ','); ?></td>
                                                         <td class="number-cell">₱
                                                             <?php echo number_format($row['production_expense'], 0, '.', ','); ?></td>
                                                         <td class="number-cell">₱
@@ -213,13 +216,14 @@ $loc = str_replace(' ', '', $_SESSION['loc']);
         $('#wet_weight').val(wet_weight || '-');
 
         $('#date_received').val(date_received || '-');
-        $('#reweight').val((data[6] ? data[6].replace(/\s+/g, '') : '-') || '-');
+        $('#reweight').val((data[6] ? data[6].replace(/\D+/g, '') : '-') || '-');
+
 
         $('#milling_date').val(date_milled || '-');
-        $('#crumbed_weight').val(data[7] || '-');
+        $('#crumbed_weight').val((data[7] ? data[7].replace(/\D+/g, '') : '-') || '-');
 
         $('#dry_date').val(date_dryed || '-');
-        $('#dry_weight').val((data[8] ? data[8].replace(/\s+/g, '') : '-') || '-');
+        $('#dry_weight').val((data[8] ? data[8].replace(/\D+/g, '') : '-') || '-');
 
         $('#production_date').val(production_date || '-');
         $('#bale_weight').val((data[9] ? data[9].replace(/\s+/g, '') : '-') || '-');

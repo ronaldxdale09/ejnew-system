@@ -1,5 +1,5 @@
 <?php
-include('../function/db.php');
+include('../../function/db.php');
 
 $sales_id = $_POST['sales_id'];
 

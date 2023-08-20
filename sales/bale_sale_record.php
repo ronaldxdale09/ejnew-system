@@ -335,17 +335,7 @@ include "include/navbar.php";
 
 
     $(document).on('click', '.btnPrint', function(e) {
-        // Check if 'sale_buyer' input is readonly
-        if (!$('#sale_buyer').prop('readonly')) {
-            // If not readonly, show alert and return
-            Swal.fire({
-                icon: 'warning',
-                title: 'Incomplete Form',
-                text: 'Please complete the form before printing.',
-            });
-            return;
-        }
-
+ 
         console.log('hello');
 
         // Temporarily hide the buttons

@@ -1,5 +1,5 @@
 <?php
-include('../../function/db.php');
+include('../../../function/db.php');
 
 // Get the data from the POST request
 $recording_id = $_POST['recording_id'];

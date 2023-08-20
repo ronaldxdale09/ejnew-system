@@ -1,5 +1,5 @@
 <?php
-include('db.php');
+include('../../function/db.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $ship_id = str_replace(',', '', $_POST['ship_id']);

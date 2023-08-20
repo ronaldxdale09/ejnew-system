@@ -1,5 +1,5 @@
 <?php
-include "../function/db.php";
+include('../../function/db.php');
 
 $shipment_id = $_POST['shipment_id'];
 

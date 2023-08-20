@@ -164,9 +164,20 @@ include 'include/navbar.php';
                                             }
                                         ?>
                                             <tr>
-                                                <td> <span class="badge <?php echo $status_color; ?>">
-                                                        <?php echo $row['status'] ?>
+                                                <td width='10%'>
+                                                    <span class="badge <?php echo $status_color; ?>">
+                                                        <?php
+                                                        if ($row['status'] == "Shipped Out" && $row['shipment_id']) {
+                                                            echo "Shipped Out - #" . $row['shipment_id'];
+                                                        }
+                                                        elseif ($row['status'] == "Sold") {
+                                                            echo "Sold - Ship ID #" . $row['shipment_id'];
+                                                        } else {
+                                                            echo $row['status'];
+                                                        }
+                                                        ?>
                                                     </span>
+
                                                 </td>
                                                 <td class="text-center"><?php echo $row['con_id']; ?></td>
                                                 <td class="text-center"><?php echo date('M j, Y', strtotime($row['withdrawal_date'])); ?></td>
@@ -206,8 +217,6 @@ include 'include/navbar.php';
             </div>
         </div>
     </div>
-
-    <?php include 'sales_modal/modal_container.php'; ?>
 
     <script>
         $(document).ready(function() {

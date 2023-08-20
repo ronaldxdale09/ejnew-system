@@ -115,13 +115,14 @@ if ($data['total_weight'] != 0) {
 
 <table class="table table-bordered table-hover table-striped table-responsive" style='width:100%' id="recording_table-produced-kidapawan">
 
-    <?php
+<?php
     $results = mysqli_query($con, "SELECT * FROM planta_bales_production 
                                    LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
-                                   WHERE planta_bales_production.status='Produced' and (rubber_weight !='0' or rubber_weight !=null) and planta_recording.source='Kidapawan'
-                                   ORDER BY planta_bales_production.recording_id ASC ");
+                                   WHERE planta_bales_production.status='Produced' and
+                                    (rubber_weight !='0' or rubber_weight !=null)  and
+                                     (remaining_bales !='0' and  planta_recording.source='Kidapawan')
+                                   ORDER BY planta_bales_production.recording_id ASC  ");
     ?>
-
 
     <thead class="table-dark" style='font-size:13px'>
         <tr>

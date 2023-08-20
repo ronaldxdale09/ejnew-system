@@ -1,5 +1,5 @@
 <?php
-include('db.php');
+include('../../function/db.php');
 if (isset($_POST['new'])) {
     $loc = str_replace(' ', '', $_SESSION['loc']);
     $container_no = $_POST['container_no'];

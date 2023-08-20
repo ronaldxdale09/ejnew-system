@@ -1,4 +1,4 @@
-﻿<?php include('../function/db.php');
+﻿<?php include('../../function/db.php');
  
 ?>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong">

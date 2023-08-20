@@ -1,7 +1,7 @@
 
 
 <?php 
- include('../db.php');
+ include('../../../function/db.php');
                         if (isset($_POST['submit'])) {
                             $date = $_POST['date'];
                             $vouch = $_POST['voucher'];

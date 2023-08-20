@@ -1,3 +1,8 @@
+<?php
+$today = date('Y-m-d');
+?>
+
+
 
 <div class="modal fade" id='viewSalesRecord' tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl  ">
@@ -294,7 +299,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">₱</span>
                                             </div>
-                                            <input type="text" class="form-control" id='v_total_production_cost' style="width: 100px;" readonly />
+                                            <input type="text" class="form-control" id='v_total_milling_cost' style="width: 100px;" readonly />
                                         </div>
                                     </div>
                                     <div class="col">
@@ -326,7 +331,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
         </div>
         </form>

@@ -13,7 +13,7 @@ $loc = str_replace(' ', '', $_SESSION['loc']);
         $results = mysqli_query($con, "SELECT * FROM planta_bales_production 
                                    LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
                                    WHERE 
-                                   planta_bales_production.source='$loc'
+                                   planta_recording.source='$loc'
                                    ORDER BY planta_bales_production.recording_id ASC ");
         ?>
 
@@ -29,7 +29,7 @@ $loc = str_replace(' ', '', $_SESSION['loc']);
                 <th>Quality</th>
                 <th>Kilo</th>
                 <th>Produced Bales</th>
-                <th>Remaining Bales</th>
+                <th  >Remaining Bales</th>
                 <th>Cuplump Weight</th>
                 <th>Bale Weight</th>
                 <th>DRC</th>

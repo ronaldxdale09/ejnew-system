@@ -1,5 +1,5 @@
 <?php
-include('../db.php');
+include('../../../function/db.php');
 
 // Retrieve values from the form
 $cuplump_sales_id = $_POST['sales_id'];

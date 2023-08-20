@@ -1,7 +1,7 @@
 
 
 <?php 
- include('db.php');
+include('../../function/db.php');
                         if (isset($_POST['add'])) {
                             $code = $_POST['code'];
                             $name = $_POST['name'];

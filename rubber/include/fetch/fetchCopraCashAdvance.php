@@ -1,6 +1,6 @@
 <?php 
 // Include the database config file 
-    include('../../function/db.php');
+    include('../../../function/db.php');
 
   
     $name = $_POST['name'];

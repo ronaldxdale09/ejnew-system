@@ -1,6 +1,6 @@
 <?php 
 // Include the database config file 
-include('../function/db.php');
+include('../../function/db.php');
 
 $id = $_REQUEST['purchased_id'];
 

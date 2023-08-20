@@ -1,5 +1,5 @@
 <?php 
- include('db.php');
+include('../../function/db.php');
 if (isset($_POST['bales_remove'])) {
     $id = $_POST['d_bales_id'];
 

@@ -1,5 +1,5 @@
 <?php
-include('../db.php');
+include('../../../function/db.php');
 // Retrieve values from the form
 
 // Retrieve values from the form

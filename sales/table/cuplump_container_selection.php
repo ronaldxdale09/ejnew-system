@@ -1,5 +1,5 @@
 <?php
-include "../function/db.php";
+include('../../function/db.php');
 $output = '';
 
 $container_cuplump_id = $_POST['container_cuplump_id'];

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <?php
-include "function/db.php";
+include "../function/db.php";
 include "include/bootstrap.php";
 include "include/jquery.php";
 

@@ -1,5 +1,5 @@
 <?php
-include('../function/db.php');
+include('../../function/db.php');
 
 $container_id = $_POST['container_id'];
 $sql  = "SELECT * FROM bales_container_selection 
@@ -53,8 +53,7 @@ $output = '
         <tr>
         <th scope="col">Bale ID</th>
         <th scope="col">Supplier</th>
-        <th scope="col">LOT</th>
-        <th scope="col">Lot No.</th>
+        <th scope="col">Lot #</th>
         <th scope="col">Quality</th>
         <th scope="col">Kilo per Bale</th>
         <th scope="col">Withdrawal Bales</th>
@@ -63,7 +62,7 @@ $output = '
         <th scope="col">Total Bale Cost</th>
 
         <th scope="col">Milling Cost</th>
-        <th scope="col">Total Milling Cost</th>
+        <th scope="col" hidden>Total Milling Cost</th>
         <th scope="col"></th>
 
         </tr>
@@ -107,21 +106,24 @@ while ($arr = mysqli_fetch_assoc($result)) {
     $output .= '
         <tr ' . $rowColor . ' data-bales_id="' . $arr['bales_id'] . '"> 
         <td>' . $arr["bales_id"] . '</td>
-            <td>' . $arr["supplier"] . '</td>
+            <td><b>' . $arr["supplier"] . '</b></td>
             <td>' . $arr["lot_num"] . '</td>
-            <td>' . $arr["recording_id"] . '</td>
             <td>' . $arr["bales_type"] . '</td>
             <td>' . $arr["kilo_per_bale"] . ' kg</td>
-            <td>' . $arr["num_bales"] . ' pcs</td>
+            <td><b>' . $arr["num_bales"] . ' pcs </b></td>
             <td>' . number_format($weight, 2, '.', ',') . ' kg</td>
             <td>≈ ₱ ' . number_format($unit_cost, 2) . ' </td>
             <td>₱ ' . number_format($total_unit_cost, 2) . ' </td>
             <td>₱ ' . number_format($milling_cost, 2) . ' </td>
-            <td>₱ ' . number_format($total_milling_cost, 0) . ' </td>
+            <td hidden>₱ ' . number_format($total_milling_cost, 0) . ' </td>
             <td><button type="button" class="btn btn-sm btn-warning text-dark removeBtn">REMOVE</button></td>
         </tr>';
 }
-$average_kilo_cost = ($total_bale_cost + $overall_milling_cost) / $total_weight;
+if ($total_weight != 0) {
+    $average_kilo_cost = ($total_bale_cost + $overall_milling_cost) / $total_weight;
+} else {
+    $average_kilo_cost = 0; // or whatever value you want when $total_weight is zero
+}
 
 
 

@@ -75,8 +75,8 @@
                                                 echo "<td style='text-align: right'>₱ " . number_format($row['cash_advance'], 0, '.', ',') . "</td>";                                                                                          
                                                 echo "<td>".$row['recorded_by']."</td>";
                                                 echo "<td>
-                                                        <button type='button' class='btn btn-primary updateBtn'> <i class='fas fa-edit'></i> </button>
-                                                        <button type='button' class='btn btn-danger deleteBtn'> <i class='fas fa-trash'></i> </button>
+                                                        <button type='button' class='btn btn-primary btn-sm updateBtn'> <i class='fas fa-edit'></i> </button>
+                                                        <button type='button' class='btn btn-danger btn-sm deleteBtn'> <i class='fas fa-trash'></i> </button>
                                                     </td>";
                                             
 

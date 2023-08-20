@@ -1,5 +1,5 @@
 <?php
-include('../function/db.php');
+include('../../function/db.php');
 
 
 $loc = $_SESSION["loc"];

@@ -3,19 +3,6 @@ include('include/header.php');
 include "include/navbar.php";
 
 
-$sql = mysqli_query($con, "SELECT SUM(unpaid_balance) as unpaid_balance from  bales_sales_record    ");
-$unpaid = mysqli_fetch_array($sql);
-
-$sql = mysqli_query($con, "SELECT SUM(total_sales) as total_sales from  bales_sales_record    ");
-$sales = mysqli_fetch_array($sql);
-
-
-$sql = mysqli_query($con, "SELECT COUNT(*) as total from  bales_sales_record where status !='Complete'    ");
-$active = mysqli_fetch_array($sql);
-
-
-
-
 ?>
 
 <style>
@@ -42,71 +29,13 @@ $active = mysqli_fetch_array($sql);
                             </b>
                         </h2>
 
-                        <div class="row">
-                            <div class="col-3">
-                                <div class="stat-card">
-                                    <div class="stat-card__content">
-                                        <p class="text-uppercase mb-1 text-muted"><b>ACTIVE</b> SALES</p>
-                                        <h4>
-                                            <i class="text-success font-weight-bold mr-1"></i>
-                                            <?php echo number_format($active['total'] ?? 0,0) ?>
-                                        </h4>
-                                        <div>
-                                            <span class="text-muted">
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="stat-card__icon stat-card__icon--primary">
-                                        <div class="stat-card__icon-circle">
-                                            <i class="fa fa-money"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="stat-card">
-                                    <div class="stat-card__content">
-                                        <p class="text-uppercase mb-1 text-muted"><b>TOTAL </b> SALES </p>
-                                        <h4>
-                                            <i class="text-success font-weight-bold mr-1"></i>
-                                            ₱  <?php echo number_format($sales['total_sales'] ?? 0, 2) ?>
-                                        </h4>
-                                        <div>
-                                            <span class="text-muted">
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="stat-card__icon stat-card__icon--success">
-                                        <div class="stat-card__icon-circle">
-                                            <i class="fa fa-credit-card"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="stat-card">
-                                    <div class="stat-card__content">
-                                        <p class="text-uppercase mb-1 text-muted"><b>TOTAL </b>BALANCE </p>
-                                        <h4>
-                                            <i class="text-success font-weight-bold mr-1"></i>
-                                            ₱  <?php echo number_format($unpaid['unpaid_balance'] ?? 0, 2) ?>
-                                        </h4>
-                                        <div>
-                                            <span class="text-muted">
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="stat-card__icon stat-card__icon--warning">
-                                        <div class="stat-card__icon-circle">
-                                            <i class="fa fa-wallet "></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <?php
+                        include('statistical_card/bale_sales_card.php');
+                        ?>
                         <div style="background-color: #2452af; height: 6px;"></div><!-- This is the blue bar -->
                         <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
 
+                            <hr>
                             <div class="table-responsive">
 
                                 <table class="table table-bordered table-hover table-striped" id='sales_rec_table'>
@@ -127,7 +56,7 @@ $active = mysqli_fetch_array($sql);
                                             <th scope="col" hidden>Sale Proceed</th>
                                             <th scope="col" hidden>Overall Cost </th>
                                             <th scope="col">Balance</th>
-                                            <th scope="col">Gr. Profit</th>
+                                            <th scope="col" hidden>Profit/Loss</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -173,7 +102,7 @@ $active = mysqli_fetch_array($sql);
                                                 <td hidden>₱ <?php echo number_format($row['overall_cost'], 0) ?> </td>
                                                 <td>₱ <?php echo number_format($row['overall_ave_cost_kilo'], 2) ?> </td>
                                                 <td>₱ <?php echo number_format($row['unpaid_balance'], 2) ?> </td>
-                                                <td>₱ <?php echo number_format($row['gross_profit'], 2) ?></td>
+                                                <td hidden>₱ <?php echo number_format($row['gross_profit'], 0) ?> </td>
 
                                                 <td class="text-center">
                                                     <button type="button" class="btn btn-success btn-sm btnViewRecord" data-status="<?php echo $row['status']; ?>" data-bale='<?php echo json_encode($row); ?>'>
@@ -249,6 +178,13 @@ $active = mysqli_fetch_array($sql);
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
         }));
+
+        $('#v_total_milling_cost').val(parseFloat(bale.total_milling_cost).toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }));
+
+
         $('#v_contract_quantity').val(parseFloat(bale.contract_quantity).toLocaleString('en-US', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
@@ -317,13 +253,13 @@ $active = mysqli_fetch_array($sql);
 
         $('#other_terms').val(bale.other_terms);
 
-        var status = $(this).data('status');
+        // var status = $(this).data('status');
 
-        if (status == "Draft" || status == "In Progress") {
-            $('#editBtn').show();
-        } else {
-            $('#editBtn').hide();
-        }
+        // if (status == "Draft" || status == "In Progress") {
+        //     $('#editBtn').show();
+        // } else {
+        //     $('#editBtn').hide();
+        // }
 
 
 

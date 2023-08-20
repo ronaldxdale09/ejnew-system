@@ -1,6 +1,6 @@
 <?php
 
-include('db.php');
+include('../../function/db.php');
 
 $date = $_POST['n_date'];
 $recorded_by = $_POST['recorded_by'];

@@ -1,6 +1,6 @@
 <?php
 
-include('db.php');
+include('../../function/db.php');
 
 // Clean and assign POST data to variables
 $ref_no = $_POST['ref_no'];

@@ -390,7 +390,7 @@ while ($arr = mysqli_fetch_array($result)) {
             </div>
             <form action="function/ledger/removeExpenses.php" method="POST">
                 <div class="modal-body">
-                    <input   id="del_id" name="id">
+                    <input   id="del_id" name="id" hidden>
                     <p class="text-center text-secondary">Are you sure you want to remove this record? This action cannot be undone.</p>
                 </div>
                 <div class="modal-footer justify-content-center">

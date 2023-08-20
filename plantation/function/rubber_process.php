@@ -1,5 +1,5 @@
 <?php
-include('db.php');
+include('../../function/db.php');
 
 //TRANSFER FROM RECEIVING TO MILLING
 if (isset($_POST['milling'])) {

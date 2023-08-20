@@ -1,5 +1,5 @@
 <?php
-include('db.php');
+include('../../function/db.php');
 
 // UPDATE PRESSING
 if (isset($_POST['pressing_update'])) {

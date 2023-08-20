@@ -1,6 +1,6 @@
 <?php
 
-    echo "
+echo "
     <nav id='navbar'>
         <div id='toggle-nav-btn'>
             <i class='fa-solid fa-ellipsis'></i>
@@ -8,8 +8,8 @@
         <div class='nav-title' style='font-weight:bold;'>
             <img src='assets/img/logo.png' alt='Q-cart Logo' width='35' height='35' style='margin-right:5px;'> <span class='nav-text'>General Ledger</span>
         </div>";
-        if($_SESSION['type'] == 'finance'){
-            echo "
+if ($_SESSION['type'] == 'finance') {
+    echo "
              
     <hr style='color:gray'>
              
@@ -28,7 +28,7 @@
     <a class='nav-link' href='coffee_customer.php'>
     <i class='fa-solid fa-book'></i> <span class='nav-text'>Manage Customer</span> </a>
     
-    <a class='nav-link' href='coffee_sale_report.php'>
+    <a class='nav-link' href='coffee_sale_report.php' hidden>
     <i class='fa-solid fa-book'></i> <span class='nav-text'>Sale Report</span> </a>
      
 <hr style='color:white'>
@@ -62,8 +62,8 @@
 </a>
         
         ";
-        }
-    echo "
+}
+echo "
         <div class='logout-container'>
             <span class='nav-text'></span>
             <a class='nav-link logout' href='function/logout.php'>
@@ -72,4 +72,3 @@
         </div>
     </nav>
     <script src='assets/js/navbar.js'></script>";
-?>

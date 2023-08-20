@@ -1,5 +1,5 @@
 <?php
-include('../function/db.php');
+include('../../function/db.php');
 
 $purchase_id = $_POST['purchase_id'];
 $sql  = "SELECT * FROM bales_purchase_inventory where purchase_id='$purchase_id' "; 

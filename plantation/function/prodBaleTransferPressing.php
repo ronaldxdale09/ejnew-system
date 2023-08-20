@@ -2,7 +2,7 @@
 
 <?php
 
-include('db.php');
+include('../../function/db.php');
 
 
 $id = $_POST['recording_id'];

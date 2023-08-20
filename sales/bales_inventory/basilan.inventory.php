@@ -119,7 +119,7 @@ $average_kilo_cost_basilan  = ($data['total_bale_cost'] + $data['overall_milling
                                    LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
                                    WHERE planta_bales_production.status='Produced' and (rubber_weight !='0' or rubber_weight !=null) 
                                    and (remaining_bales !='0' and 
-                                   planta_bales_production.source='Basilan')
+                                   planta_recording.source='Basilan')
                                    ORDER BY planta_bales_production.recording_id ASC ");
     ?>
 

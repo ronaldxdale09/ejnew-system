@@ -2,7 +2,7 @@
 
 <?php
 
-include('db.php');
+include('../../function/db.php');
 $recording_id = $_POST['recording_id'];
 
 // Select all records from planta_bales_production with the given recording_id

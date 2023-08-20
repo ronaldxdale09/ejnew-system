@@ -1,5 +1,5 @@
 <?php
-include('../../function/db.php');
+include('../../../function/db.php');
 
 if(isset($_POST['bales_id'])) {
     $bales_id = $_POST['bales_id'];

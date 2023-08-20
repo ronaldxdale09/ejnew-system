@@ -1,9 +1,9 @@
 <?php
 
-include('db.php');
+include('../../function/db.php');
 
 // If the update request is set
-if (isset($_POST['pressing_update'])) {
+if ($_POST['action'] == 'pressing_update') {
     $id = $_POST['recording_id'];
 
     // Cleanse and prepare variables

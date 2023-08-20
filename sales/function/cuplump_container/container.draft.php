@@ -1,5 +1,6 @@
 <?php
-include('../db.php');
+include('../../../function/db.php');
+
 
 // Retrieve and sanitize the POST data
 $container_id = $_POST['container_id'];
