@@ -1,13 +1,12 @@
 <?php 
- include('db.php');
+include('../../function/db.php');
  if (isset($_POST['submit'])) {
     $date = $_POST['date'];
     $seller = $_POST['name'];
     $category = $_POST['ca_category'];
     $type = $_POST['type'];
     $amount = str_replace(',', '', $_POST['ca_amount']);
-    $loc = $_SESSION['loc'];
-
+    $loc = str_replace(' ', '', $_SESSION['loc']);
     // Select seller ca
     $sql = mysqli_query($con, "SELECT * FROM rubber_seller WHERE name='$seller'");
     $row = mysqli_fetch_array($sql);
@@ -46,8 +45,7 @@
 
                                 if (isset($_POST['update'])) {
                                     $id = $_POST['id'];
-                                    $loc = $_SESSION['loc'];
-                                    $bales = str_replace( ',', '', $_POST['bales']);
+                                    $loc = str_replace(' ', '', $_SESSION['loc']);                                    $bales = str_replace( ',', '', $_POST['bales']);
                                     $wet = str_replace( ',', '', $_POST['wet']);
                                    //select seller ca
                                    $sql = "UPDATE rubber_seller SET cash_advance='$wet',bales_cash_advance='$bales'  where id='$id' and loc='$loc' ";

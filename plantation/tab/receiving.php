@@ -1,11 +1,11 @@
 <div class="table-responsive">
     <table class="table table-bordered table-hover table-striped" id='recording_table-receiving'> <?php
-        $results  = mysqli_query($con, "SELECT * from planta_recording WHERE status='Field'"); ?>
+        $results  = mysqli_query($con, "SELECT * from planta_recording WHERE status='Field' and planta_recording.source='$loc'"); ?>
         <thead class="table-dark">
             <tr>
 
                 <th scope="col">Status</th>
-                <th scope="col">ID</th>
+                <th scope="col">Rec. ID</th>
                 <th scope="col">Date Received</th>
                 <th scope="col">Supplier</th>
                 <th scope="col">Location</th>
@@ -108,23 +108,7 @@ $('.btnUpdateReceiving').on('click', function() {
 
 
 
-<?php if (isset($_SESSION['receiving'])): ?>
-<div class="msg">
 
-    <script>
-    Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Cuplumps Received!',
-        showConfirmButton: false,
-        timer: 1500
-    })
-    </script>
-    <?php 
-			unset($_SESSION['receiving']);
-		?>
-</div>
-<?php endif ?>
 
 
 <script>
@@ -159,3 +143,21 @@ var table = $('#recording_table-receiving').DataTable({
     info: false,
 });
 </script>
+
+<?php if (isset($_SESSION['receiving'])): ?>
+<div class="msg">
+
+    <script>
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Cuplumps Received!',
+        showConfirmButton: false,
+        timer: 1500
+    })
+    </script>
+    <?php 
+			unset($_SESSION['receiving']);
+		?>
+</div>
+<?php endif ?>

@@ -1,7 +1,7 @@
 
 
 <?php 
- include('../db.php');
+ include('../../../function/db.php');
                         if (isset($_POST['submit'])) {
                             $id = $_POST['my_id'];
 

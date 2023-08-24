@@ -1,6 +1,5 @@
 <?php
-session_start();
-include('db.php');
+include('../../function/db.php');
 
 $id = $_POST["m_invoice"];
 
@@ -82,8 +81,33 @@ WHERE id = '$id'";
 
 
 if (mysqli_query($con, $query)) {
-    $last_id = $con->insert_id;
-    $_SESSION['print_invoice'] = $last_id;
+    // Update Planta Recording
+    $total_prod_cost = 0;
+    $planta_recording_query = "SELECT * FROM planta_recording WHERE purchased_id='$id' and trans_type='SALE'";
+    $result = mysqli_query($con, $planta_recording_query);
+
+    // Check if any rows were returned
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_array($result);
+
+        // Check if purchase_cost is NULL or 0
+        if (empty($row['purchase_cost'])) {
+            $expenses = $row['production_expense'];
+            $produce_total_weight = $row['produce_total_weight'];
+            $total_prod_cost = $total_amount + $expenses;
+            $unit_cost = $total_prod_cost / $produce_total_weight;
+            $query = "UPDATE  planta_recording SET 
+                purchase_cost = '$total_amount',
+                total_production_cost='$total_prod_cost',
+                bales_average_cost='$unit_cost'
+                where purchased_id='$id'  and trans_type='SALE' ";
+            mysqli_query($con, $query);
+        }
+    }
+
+
+    //$last_id = $con->insert_id;
+    $_SESSION['print_invoice'] = $id;
     $_SESSION['print_seller'] = $seller;
     $_SESSION['print_date'] = $date;
     $_SESSION['print_address'] = $address;
@@ -101,14 +125,7 @@ if (mysqli_query($con, $query)) {
     echo json_encode(array('result' => 'success', 'message' => 'Transaction Was Successful!'));
 
     $_SESSION['transaction'] = 'COMPLETED';
-    } 
-    
-    else {
+} else {
 
     echo json_encode(array('result' => 'error', 'message' => 'Transaction Failed!'));
-
-    
-    }
-
-    
-    ?>
+}

@@ -1,8 +1,60 @@
+<style>
+    /* Dropdown Styles */
+    .dropdown {
+        position: relative;
+        display: block;
+    }
+
+    .dropbtn {
+        background-color: #1b325f;
+        color: black;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .fa-caret-down {
+        color: inherit;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: relative;
+        background-color: #13264a;
+        min-width: 240px;
+        z-index: 1;
+        color: white;
+    }
+
+    .dropdown-content a {
+        color: white;
+        padding: 15px;
+        text-decoration: none;
+        display: flex;
+    }
+
+    .dropdown-content a:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .link-content {
+        display: flex;
+    }
+
+    .icon-wrapper {
+        margin-right: 6px;
+        display: inline-block;
+    }
+</style>
+
 <nav id='navbar'>
     <div id='toggle-nav-btn'>
         <div class='nav-title' style='font-weight:bold;'>
-            <img src='assets/img/logo.png' alt='Q-cart Logo' width='35' height='35' style='margin-right:5px;'> <span
-                class='nav-text'>EJN RUBBER</span>
+            <img src='assets/img/logo.png' alt='Q-cart Logo' width='35' height='35' style='margin-right:5px;'> <span class='nav-text'>EJN RUBBER</span>
         </div>
     </div>
 
@@ -19,39 +71,46 @@
     <a class='nav-link' href='purchase_report.php'>
         <i class='fas fa-cash-register'></i> <span class='nav-text'>Purchase Report</span>
     </a>
+    <a class='nav-link' href='sales_reports.php'>
+        <i class='fa-solid fa-file-alt'></i> <span class='nav-text'>Sales Report</span>
+    </a>
+
+    <hr style='color:gray'>
+
+    <div class="dropdown">
+        <a class="dropbtn nav-link" id='dropbtnBale'>
+            <span class="icon-wrapper"><i class='fas fa-cube'></i></span>
+            Bale Record
+            <i class="fa fa-caret-down"></i>
+        </a>
+        <div class="dropdown-content">
+            <a href='bale_sale_record.php'> <span class="icon-wrapper"><i class='fas fa-chart-line'></i></span> Sales</a>
+            <a href='container_record.php'> <span class="icon-wrapper"><i class='fas fa-shipping-fast'></i></span> Container</a>
+            <a href='bale_shipment_record.php'> <span class="icon-wrapper"><i class='fa-solid fa-ship'></i></span> Shipment</a>
+            <a href='inv_bale.php'><span class="icon-wrapper"><i class='fas fa-cube'></i></span> Inventory</a>
+        </div>
+    </div>
 
 
     <hr style='color:gray'>
 
 
-    <a>Basilan Rubber</a>
-    <a class='nav-link' href='inv_bale.php' style='margin-left: 20px; font-size: 18px;'> <i class='fas fa-cube'></i>
-        <span class='nav-text'>Bale Inventory</span>
-    </a>
-    <a class='nav-link' href='inv_cuplump.php' style='margin-left: 20px; font-size: 18px;'> <i class='fas fa-tree'></i>
-        <span class='nav-text'>Cuplump Inventory</span>
-    </a>
 
-    <a class='nav-link' href='container_record.php' style='margin-left: 20px; font-size: 18px;'> <i class='fas fa-shipping-fast'></i>
-        <span class='nav-text'>Container Record</span>
-    </a>
-    <a class='nav-link' href='record_allrubber.php' style='margin-left: 20px; font-size: 18px;'><i
-            class='fas fa-file-alt'></i>
-        <span class='nav-text'>Transaction Record</span>
-    </a>
+    <div class="dropdown">
+        <a class="dropbtn nav-link" id='dropbtnCuplump'>
+            <span class="icon-wrapper"><i class='fas fa-cube'></i></span>
+            Cuplump Record
+            <i class="fa fa-caret-down"></i>
+        </a>
+        <div class="dropdown-content">
+            <a href='cuplump_sale_record.php'> <span class="icon-wrapper"><i class='fas fa-chart-line'></i></span> Sales</a>
+            <a href='cuplump_container_record.php'> <span class="icon-wrapper"><i class='fas fa-shipping-fast'></i></span> Container</a>
+            <a href='cuplump_shipment_record.php'> <span class="icon-wrapper"><i class='fa-solid fa-ship'></i></span> Shipment</a>
+            <a href='inv_cuplump.php'><span class="icon-wrapper"><i class='fas fa-cube'></i></span> Inventory</a>
+        </div>
+    </div>
 
-    <!-- 
-    <a class='nav-link' href='admin_kidapawan_rubber.php'>
-        <i class='fas fa-cube'></i> <span class='nav-text'>Kidapawan Rubber</span>
-    </a> -->
 
-    <!-- <a class='nav-link'>
-        <i class='fas fa-tree'></i> <span class='nav-text'>Copra</span>
-    </a>
-
-    <a class='nav-link'>
-        <i class='fas fa-coffee'></i> <span class='nav-text'>Coffee</span>
-    </a> -->
 
     <hr style='color:gray'>
 
@@ -71,4 +130,31 @@
     </div>
 
 </nav>
+
+<script>
+    // Function to toggle the dropdown
+    function toggleDropdown(id) {
+        var dropdownContent = document.getElementById(id).nextElementSibling;
+        dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+        // Save the state to localStorage
+        localStorage.setItem('expandedDropdown', dropdownContent.style.display === 'block' ? id : '');
+    }
+
+    // Event listeners for the dropdown buttons
+    document.getElementById('dropbtnBale').addEventListener('click', function() {
+        toggleDropdown('dropbtnBale');
+    });
+
+    document.getElementById('dropbtnCuplump').addEventListener('click', function() {
+        toggleDropdown('dropbtnCuplump');
+    });
+
+    // On page load, check the localStorage to see if a dropdown should be expanded
+    window.onload = function() {
+        var expandedDropdown = localStorage.getItem('expandedDropdown');
+        if (expandedDropdown) {
+            toggleDropdown(expandedDropdown);
+        }
+    };
+</script>
 <script src='assets/js/navbar.js'></script>

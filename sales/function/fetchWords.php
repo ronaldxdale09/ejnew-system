@@ -1,5 +1,5 @@
 <?php
-include('db.php');
+include('../../function/db.php');
 include('classes/numtowords.php');
 // Get the user id 
 $number = $_REQUEST['number'];

@@ -1,6 +1,6 @@
 <?php 
 
-include "../function/db.php";
+include('../../function/db.php');
 if (isset($_POST['sales_id'])) {
     $sales_id = $_POST['sales_id'];
 

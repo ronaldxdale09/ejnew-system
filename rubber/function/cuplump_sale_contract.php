@@ -1,6 +1,5 @@
 <?php
-
-include "db.php";
+include('../../function/db.php');
 
 if (isset($_POST["new"])) {
     $en_sale_contract_no = $_POST["wet_info_lading"];

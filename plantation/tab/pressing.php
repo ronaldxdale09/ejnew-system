@@ -1,12 +1,12 @@
 <div class="table-responsive">
     <table class="table table-bordered table-hover table-striped" id='recording_table-pressing'>
-        <?php $results  = mysqli_query($con, "SELECT * from planta_recording WHERE status='Pressing'"); ?>
-        <thead class="table-dark">
+        <?php $results  = mysqli_query($con, "SELECT * from planta_recording WHERE status='Pressing' and planta_recording.source='$loc'"); ?>
+        <thead class="table-dark" style='font-size:13px'>
 
 
             <tr>
                 <th scope="col">Status</th>
-                <th scope="col">ID</th>
+                <th scope="col">Rec. ID</th>
                 <th scope="col">Pressing Date</th>
                 <th scope="col">Supplier</th>
                 <th scope="col">Location</th>
@@ -38,14 +38,10 @@
 
                     <td class="text-center">
                         <div style="display: flex;">
-                            <button type="button" data-crumbed='<?php echo $row['crumbed_weight']?>'
-                                    data-expense_desc='<?php echo $row['prod_expense_desc']?>'
-                                    data-dry='<?php echo $row['dry_weight']?>' 
-                                    class="btn btn-success btn-sm btnPressUpdate">
+                            <button type="button" data-crumbed='<?php echo $row['crumbed_weight'] ?>' data-expense_desc='<?php echo $row['prod_expense_desc'] ?>' data-dry='<?php echo $row['dry_weight'] ?>' class="btn btn-success btn-sm btnPressUpdate">
                                 <i class="fas fa-book"></i>
                             </button>
-                            <button type="button" data-expense_desc='<?php echo $row['prod_expense_desc']?>'
-                                    class="btn btn-warning btn-sm btnCompletePressing">
+                            <button type="button" data-expense_desc='<?php echo $row['prod_expense_desc'] ?>' class="btn btn-warning btn-sm btnCompletePressing">
                                 <i class="fas fa-chevron-right"> </i>
                             </button>
                         </div>
@@ -77,7 +73,13 @@
 
         $('#press_u_drc').val(data[8]);
         $('#press_u_total_weight').val(data[7]);
-        $('#press_u_mill_cost').val(data[10].match(/\d+/g));
+
+        $mill_cost = data[10].match(/\d+/g);
+        if ($mill_cost == 0 || $mill_cost == "" || $mill_cost == null) {
+            $('#press_u_mill_cost').val(12);
+        } else {
+            $('#press_u_mill_cost').val(data[10].match(/\d+/g));
+        }
 
         var crumbed = $(this).data('crumbed');
         var dry = $(this).data('dry');
@@ -138,6 +140,8 @@
         $('#press_trans_supplier').val(data[3]);
         $('#press_trans_loc').val(data[4]);
         $('#press_trans_lot').val(data[5]);
+
+        $('#mill_cost').val(data[10]);
 
 
         $('#press_trans_entry').val((data[6]));
@@ -232,5 +236,39 @@
         $('#modal_dry_record').modal('show');
 
 
+    });
+
+
+
+
+    var table_pressing = $('#recording_table-pressing').DataTable({
+        dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
+        order: [
+            [0, 'desc']
+        ],
+        buttons: [{
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                }
+            },
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                }
+            },
+
+        ],
+        lengthChange: false,
+        orderCellsTop: true,
+        paging: false,
+        info: false,
     });
 </script>

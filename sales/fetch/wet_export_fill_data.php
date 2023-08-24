@@ -1,5 +1,6 @@
 
 <?php 
+include('../../function/db.php');
 
 $query = "SELECT * FROM sales_cuplumps_rec WHERE sale_id = $id";
 $result = mysqli_query($con, $query);

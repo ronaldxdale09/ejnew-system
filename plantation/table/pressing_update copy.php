@@ -1,5 +1,5 @@
 <?php  
-include('../function/db.php');
+include('../../function/db.php');
 
 // Report all PHP errors
 error_reporting(E_ALL);

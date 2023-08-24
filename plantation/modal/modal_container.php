@@ -69,6 +69,9 @@ $today = date('Y-m-d');
                                 </select>
                             </div>
                         </div>
+                    </div> <br>
+                    <div class="alert alert-success alert-dismissible">
+                        <strong>Reminder:</strong> Please double-check all data for accuracy before proceeding. Thank you.
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -148,7 +151,7 @@ document.getElementById("proceedButton").addEventListener("click", function() {
 
 
 
-                    <div id='container_record'> </div>
+                    <div id='bales_container_record'> </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

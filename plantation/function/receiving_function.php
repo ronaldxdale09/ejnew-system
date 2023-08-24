@@ -1,10 +1,11 @@
 <?php 
- include('db.php');
+ include('../../function/db.php');
                         if (isset($_POST['add'])) {
 
 
                             $source =$_SESSION["source"];
                             $purchased_id = $_POST['purchased_id'];
+                            $date = $_POST['date'];
                             $splitOption = explode(",", $purchased_id);
                             $type = $splitOption[0];
                             $id = $splitOption[1];
@@ -39,7 +40,7 @@
                         
 
                                 $query = "INSERT INTO planta_recording (prod_type,trans_type,lot_num,purchased_id,receiving_date,supplier,location,driver,truck_num,weight,reweight,purchase_cost,status,source) 
-                                        VALUES ('$prod_type','$trans_type','$lot_num','$id',NOW(),'$supplier','$location','$driver','$truck_num','$weight','$reweight','$total_cost','Field','$source')";
+                                        VALUES ('$prod_type','$trans_type','$lot_num','$id','$date','$supplier','$location','$driver','$truck_num','$weight','$reweight','$total_cost','Field','$source')";
                                 $results = mysqli_query($con, $query);
                                    
                                     if ($results) {
@@ -76,7 +77,6 @@
                                     
                                     $ru_date = $_POST['ru_date'];
 
-                                    $total_cost = str_replace(',', '', $_POST['total_cost']);
                                     $ru_weight = str_replace(',', '', $_POST['ru_weight']);
                                     $ru_reweight = str_replace(',', '', $_POST['ru_reweight']);
                                 
@@ -84,7 +84,6 @@
                                     $query = "UPDATE planta_recording 
                                               SET supplier = '$ru_supplier',
                                               receiving_date = '$ru_date',
-                                              purchase_cost = '$total_cost',
                                                   location = '$ru_location',
                                                   lot_num = '$ru_lot_num',
                                                   driver = '$ru_driver',

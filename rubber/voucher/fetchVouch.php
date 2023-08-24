@@ -1,6 +1,6 @@
 <?php 
 // Include the database config file 
-    include('../function/db.php');
+    include('../../function/db.php');
 
   
     $_SESSION['print_voucher'] = $_POST['voucher'];

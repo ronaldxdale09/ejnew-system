@@ -19,7 +19,7 @@
         <i class='fa-solid fa-book'></i> <span class='nav-text'>Rubber Bale Sale</span>
     </a>
 
-    <a class='nav-link' href='container_record.php'>
+    <a class='nav-link' href='bale_container_record.php'>
         <i class='fa-solid fa-book'></i> <span class='nav-text'>Bale Container</span>
     </a>
 
@@ -43,7 +43,7 @@
 
     <hr style='color:gray'>
 
-    <a class='nav-link' href='inventory_bale.php' hidden>
+    <a class='nav-link' href='inventory_bale.php' >
         <i class='fa-solid fa-cube'></i> <span class='nav-text'>Bale Inventory</span>
     </a>
 

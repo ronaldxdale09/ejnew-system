@@ -2,13 +2,12 @@
 
     <div id='toggle-nav-btn'>
         <div class='nav-title' style='font-weight:bold;'>
-            <img src='assets/img/logo.png' alt='Q-cart Logo' width='35' height='35' style='margin-right:5px;'> <span
-                class='nav-text'>EJN RUBBER</span>
+            <img src='assets/img/logo.png' alt='Q-cart Logo' width='35' height='35' style='margin-right:5px;'> <span class='nav-text'>EJN RUBBER</span>
         </div>
     </div>
+    <div class='nav-text' style='text-align: center;'><?php echo $_SESSION['loc']; ?></div>
 
-    <br>
-
+    <hr style='color:white'>
 
     <a class='nav-link' href='dashboard.php'>
         <i class='fa-solid fa-house'></i> <span class='nav-text'>Home</span>
@@ -23,6 +22,10 @@
     <a class='nav-link' href='record_allrubber.php'>
         <i class='fa-solid fa-book'></i> <span class='nav-text'>Transaction Record</span>
     </a>
+    <a class='nav-link' href='inventory_bale.php'>
+        <i class='fa-solid fa-cube'></i> <span class='nav-text'>Bales Record</span>
+    </a>
+
 
     <hr style='color:gray'>
 
@@ -31,18 +34,17 @@
     </a>
 
     <div class="logout-container">
-        <a class="nav-text" data-toggle="modal" href="#logoutModal">
-            <i class="fa-solid fa-arrow-right-to-bracket"></i>
-            <span class="nav-text">Logout</span>
-        </a>
-    </div>
+    <a class="nav-text logout-button" data-toggle="modal" href="#logoutModal">
+        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+        <span class="nav-text">Logout</span>
+    </a>
+</div>
 
 </nav>
 
 <script src='assets/js/navbar.js'></script>
 <!-- Logout confirmation modal -->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">

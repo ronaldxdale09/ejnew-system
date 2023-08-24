@@ -1,13 +1,13 @@
-<?php 
-   include('include/header.php');
-   include "include/navbar.php";
-   include "sales_modal/wet_modal_shipment.php";
+<?php
+include('include/header.php');
+include "include/navbar.php";
+include "sales_modal/cuplump_shipment_modal.php";
 ?>
 
 <style>
-.number-cell {
-    text-align: right;
-}
+    .number-cell {
+        text-align: right;
+    }
 </style>
 
 <body>
@@ -26,80 +26,144 @@
                         </h2>
 
                         <br>
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="stat-card">
+                                    <div class="stat-card__content">
+                                        <p class="text-uppercase mb-1 text-muted"><b>ACTIVE</b> SHIPMENT</p>
+                                        <h3>
+                                            <i class="text-danger font-weight-bold mr-1"></i>
+                                            <i> Updating </i>
+                                        </h3>
+                                        <div>
+                                            <span class="text-muted">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="stat-card__icon stat-card__icon--primary">
+                                        <div class="stat-card__icon-circle">
+                                            <i class="fa fa-truck"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="stat-card">
+                                    <div class="stat-card__content">
+                                        <p class="text-uppercase mb-1 text-muted"><b>SHIPMENT</b> COMPLETED </p>
+                                        <h3>
+                                            <i class="text-danger font-weight-bold mr-1"></i>
+                                            <i> Updating </i>
+                                        </h3>
+                                        <div>
+                                            <span class="text-muted">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="stat-card__icon stat-card__icon--success">
+                                        <div class="stat-card__icon-circle">
+                                            <i class="fa fa-cube"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="stat-card">
+                                    <div class="stat-card__content">
+                                        <p class="text-uppercase mb-1 text-muted"><b>TOTAL SHIPPING</b> EXPENSES </p>
+                                        <h3>
+                                            <i class="text-success font-weight-bold mr-1"></i>
+                                            <i> Updating </i>
+                                        </h3>
+                                        <div>
+                                            <span class="text-muted">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="stat-card__icon stat-card__icon--warning">
+                                        <div class="stat-card__icon-circle">
+                                            <i class="fa fa-ship"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-
+                        <div style="background-color: #2452af; height: 6px;"></div><!-- This is the blue bar -->
                         <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
-                            <button type="button" class="btn btn-success text-white" data-toggle="modal"
-                                data-target="#newWetExport">NEW EXPORT </button>
+
+                            <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#newShipment">NEW SHIPMENT</button>
                             <hr>
                             <div class="table-responsive">
-                                <table class="table table-bordered table-hover table-striped"
-                                    id='recording_table-receiving'>
+                                <?php
+                                $results = mysqli_query($con, "SELECT * FROM sales_cuplump_shipment");
+
+                                ?>
+                                <table class="table table-bordered table-hover table-striped" id='recording_table-receiving'>
                                     <thead class="table-dark text-center" style="font-size: 14px !important">
                                         <tr>
+                                            <th scope="col">Status</th>
                                             <th scope="col">ID</th>
-                                            <th scope="col" hidden>Shipment Type</th>
-                                            <th scope="col">Shipment Date</th>
-                                            <th scope="col">Destination</th>
+                                            <th scope="col">Type</th>
+                                            <th scope="col">Date</th>
                                             <th scope="col">Source</th>
-                                            <th scope="col">Containers</th>
-                                            <th scope="col">Total Weight</th>
-                                            <th scope="col">Cuplump Cost</th>
-                                            <th scope="col">Shipping Expenses</th>
-                                            <th scope="col">Action</th>
+                                            <th scope="col">Destination</th>
+
+                                            <th scope="col">Shipping Expense</th>
+                                            <th scope="col">No. of Containers</th>
+                                            <th scope="col">Cuplump Weight</th>
+                                            <th scope="col">Total Cost</th>
+                                            <th scope="col">Average Cost</th>
+                                            <th scope="col">Remarks</th>
+                                            <th scope="col"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php while ($row = mysqli_fetch_array($results)) { ?>
-                                        <tr>
-                                            <td> <?php echo $row['ship_id']?> </td>
-                                            <td hidden> <?php echo $row['ship_type']?> </td>
-                                            <td> <?php echo $row['ship_date']?> </td>
-                                            <td> <?php echo $row['buyer']?> </td>
-                                            <td> <?php echo $row['destination']?> </td>
-                                            <td> <?php echo $row['source']?> </td>
-                                            <td class="number-cell">
-                                                <?php echo number_format($row['ship_weight'], 0, '.', ',')?> kg
-                                            </td>
-                                            <td class="number-cell">₱
-                                                <?php echo number_format($row['ship_cogs'], 2, '.', ',')?>
-                                            </td>
-                                            <td class="number-cell">₱
-                                                <?php echo number_format($row['ship_expense'], 2, '.', ',')?>
-                                            </td>
-                                            <td class="text-center">
+                                        <?php while ($row = mysqli_fetch_array($results)) {
+                                            $status_color = '';
+                                            switch ($row['status']) {
+                                                case "Draft":
+                                                    $status_color = 'bg-info';
+                                                    break;
+                                                case "In Progress":
+                                                    $status_color = 'bg-warning';
+                                                    break;
+                                                case "Complete":
+                                                    $status_color = 'bg-success';
+                                                    break;
+                                                case "Shipped Out":
+                                                    $status_color = 'bg-dark';
+                                                    break;
+                                            }
 
-                                                <button type="button" class="btn btn-success btn-sm btnViewRecord">
-                                                    <i class="fas fa-book"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
+                                        ?>
+                                            <tr>
+                                                <td>
+                                                    <span class="badge <?php echo $status_color; ?>">
+                                                        <?php echo $row['status'] ?>
+                                                    </span>
+                                                </td>
+                                                <td><?php echo $row['shipment_id']; ?></td>
+                                                <td><?php echo $row['type']; ?></td>
+                                                <td><?php echo date('F j, Y', strtotime($row['ship_date'])); ?></td>
+                                                <td><?php echo $row['source']; ?></td>
+                                                <td><?php echo $row['destination']; ?></td>
+                                                <td class="number-cell">₱<?php echo number_format($row['total_shipping_expense'], 2, '.', ','); ?></td>
+                                                <td class="number-cell"><?php echo $row['no_containers']; ?> container/s</td>
+                                                <td class="number-cell"><?php echo isset($row['total_cuplump_weight']) ? number_format($row['total_cuplump_weight'], 2, '.', ',') : '0'; ?> kg</td>
+                                                <td class="number-cell">₱ <?php echo isset($row['total_cuplump_cost']) ? number_format($row['total_cuplump_cost'], 2, '.', ',') : '0'; ?> </td>
+                                                <td class="number-cell">₱ <?php echo isset($row['ave_cuplump_cost']) ? number_format($row['ave_cuplump_cost'], 2, '.', ',') : '0'; ?> </td>
+                                                <td><?php echo $row['remarks']; ?></td>
+                                                <td>
+                                                    <button type="button" class="btn btn-success btn-sm btnViewRecord" data-status="<?php echo $row['status']; ?>" data-vessel="<?php echo $row['vessel']; ?>" data-bill_lading="<?php echo $row['bill_lading']; ?>" data-recorded="<?php echo $row['recorded_by']; ?>" data-freight="<?php echo $row['freight']; ?>" data-loading="<?php echo $row['loading_unloading']; ?>" data-processing="<?php echo $row['processing_fee']; ?>" data-trucking="<?php echo $row['trucking_expense']; ?>" data-cranage="<?php echo $row['cranage_fee']; ?>" data-misc="<?php echo $row['miscellaneous']; ?>" data-total_expense="<?php echo $row['total_shipping_expense']; ?>" data-num_containers="<?php echo $row['no_containers']; ?>" data-cost_per_container="<?php echo $row['ship_cost_container']; ?>">
+                                                        <i class="fas fa-book"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
                                         <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
-
-                            <script>
-                            var table = $('#recording_table-receiving').DataTable({
-                                dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
-                                order: [
-                                    [0, 'desc']
-                                ],
-                                buttons: [
-                                    'excelHtml5',
-                                    'pdfHtml5',
-                                    'print'
-                                ],
-                                columnDefs: [{
-                                    orderable: false,
-                                    targets: -1
-                                }],
-                                lengthChange: false,
-                                orderCellsTop: true,
-                                paging: false,
-                                info: false,
-                            });
-                            </script>
 
                         </div>
                     </div>
@@ -108,137 +172,101 @@
         </div>
     </div>
 
+    <script>
+        $(document).ready(function() {
+            var table = $('#recording_table-receiving').DataTable({
+                dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
+                order: [
+                    [1, 'desc']
+                ],
+                buttons: [
+                    'excelHtml5',
+                    'pdfHtml5',
+                    'print'
+                ],
+                columnDefs: [{
+                    orderable: false,
+                    targets: -1
+                }],
+                lengthChange: false,
+                orderCellsTop: true,
+                paging: false,
+                info: false,
+            });
+        });
+
+
+
+
+        $('.btnViewRecord').on('click', function() {
+            $tr = $(this).closest('tr');
+            var data = $tr.find("td").map(function() {
+                return $(this).text();
+            }).get();
+
+            $('#v_ship_id').val(data[1]);
+            $('#v_type').val(data[2]);
+            $('#v_date').val(data[3]);
+            $('#v_source').val(data[4]);
+            $('#v_destination').val(data[5]);
+            $('#v_remarks').val(data[10]);
+
+            var vessel = $(this).data('vessel');
+            var bill_lading = $(this).data('bill_lading');
+            var recorded = $(this).data('recorded');
+            $('#v_vessel').val(vessel);
+            $('#v_bill_lading').val(bill_lading);
+            $('#v_recorded_by').val(recorded);
+
+            var freight = $(this).data('freight');
+            var loading = $(this).data('loading');
+            var processing = $(this).data('processing');
+            var trucking = $(this).data('trucking');
+            var cranage = $(this).data('cranage');
+            var misc = $(this).data('misc');
+            var total_expense = $(this).data('total_expense');
+            var num_containers = $(this).data('num_containers');
+            var cost_per_container = $(this).data('cost_per_container');
+
+            $('#v_ship_exp_freight').val(parseFloat(freight).toLocaleString('en'));
+            $('#v_ship_exp_loading').val(parseFloat(loading).toLocaleString('en'));
+            $('#v_ship_exp_processing').val(parseFloat(processing).toLocaleString('en'));
+            $('#v_ship_exp_trucking').val(parseFloat(trucking).toLocaleString('en'));
+            $('#v_ship_exp_cranage').val(parseFloat(cranage).toLocaleString('en'));
+            $('#v_ship_exp_misc').val(parseFloat(misc).toLocaleString('en'));
+            $('#v_total_ship_exp').val(parseFloat(total_expense).toLocaleString('en'));
+            $('#v_number_container').val(parseFloat(num_containers).toLocaleString('en'));
+            $('#v_ship_cost_per_container').val(parseFloat(cost_per_container).toLocaleString('en'));
+
+
+            // TABLE TO DISPLAY THE SELECTED CONTAINER
+            function fetch_container_list() {
+
+                $.ajax({
+                    url: "table/cuplump_shipment_container_record.php",
+                    method: "POST",
+                    data: {
+                        shipment_id: data[1]
+                    },
+                    success: function(data) {
+                        $('#shipment_container_record').html(data);
+                        $("#print_content button").each(function() {
+                            if (this.id !== 'btnPrint') {
+                                $(this).hide();
+                            }
+                        });
+                    }
+                });
+            }
+            fetch_container_list();
+
+
+
+            $('#cuplumpShipmentRecord').modal('show');
+        });
+    </script>
 
 
 </body>
 
 </html>
-
-
-<script>
-$(document).ready(function() {
-
-
-    $('.btnViewRecord').on('click', function() {
-
-
-        $tr = $(this).closest('tr');
-        var data = $tr.children("td").map(function() {
-            return $(this).text();
-        }).get();
-
-
-        var sales_id = data[0]
-        console.log(sales_id);
-
-
-        // Fetch additional data using AJAX
-        $.ajax({
-            url: 'fetch/fetch_wet_record_modal.php',
-            type: 'POST',
-            data: {
-                sales_id: sales_id
-            },
-            dataType: 'JSON',
-            success: function(data) {
-                console.log(data);
-
-                // Fill in the modal with the data from the table row and additional data
-                document.getElementById('m_sale_id').value = data.sale_id;
-                document.getElementById('m_ship_date').value = data.ship_date;
-                document.getElementById('m_sale_buyer').value = data.sale_buyer;
-                document.getElementById('m_van_no').value = data.van_no;
-                document.getElementById('m_sale_type').value = data.sale_type;
-                document.getElementById('m_sale_currency').value = data.sale_currency;
-                document.getElementById('m_exchange_rate').value = data.exchange_rate;
-                document.getElementById('m_wet_kilo_price').value = parseFloat(data
-                    .wet_kilo_price).toFixed(2);
-
-                document.getElementById('m_info_lading').value = data.info_lading;
-                document.getElementById('m_sale_destination').value = data.sale_destination;
-                document.getElementById('m_voyage').value = data.voyage;
-                document.getElementById('m_source').value = data.source;
-                document.getElementById('m_vessel').value = data.vessel;
-                document.getElementById('m_sales').value = parseFloat(data.sales).toFixed(
-                    2);
-                document.getElementById('m_total_wet_cost').value = parseFloat(data
-                    .total_wet_cost).toFixed(2);
-                document.getElementById('m_total_ship_exp').value = parseFloat(data
-                    .total_ship_exp).toFixed(2);
-                document.getElementById('m_net_gain').value = parseFloat(data.net_gain)
-                    .toFixed(2);
-                document.getElementById('m_payment_sales').value = parseFloat(data
-                    .payment_sales).toFixed(2);
-                document.getElementById('m_amount_unpaid').value = parseFloat(data
-                    .amount_unpaid).toFixed(2);
-                document.getElementById('m_pay_date').value = data.pay_date;
-                document.getElementById('m_pay_details').value = data.pay_details;
-                document.getElementById('m_paid_amount').value = parseFloat(data
-                    .paid_amount).toFixed(2);
-
-                document.getElementById('m_ship_exp_freight').value = parseFloat(data
-                    .ship_exp_freight).toFixed(2);
-                document.getElementById('m_ship_exp_loading').value = parseFloat(data
-                    .ship_exp_loading).toFixed(2);
-                document.getElementById('m_ship_exp_processing').value = parseFloat(data
-                    .ship_exp_processing).toFixed(2);
-                document.getElementById('m_ship_exp_trucking').value = parseFloat(data
-                    .ship_exp_trucking).toFixed(2);
-                document.getElementById('m_ship_exp_cranage').value = parseFloat(data
-                    .ship_exp_cranage).toFixed(2);
-                document.getElementById('m_ship_exp_misc').value = parseFloat(data
-                    .ship_exp_misc).toFixed(2);
-
-
-
-
-                $('#modalSalesRecord').modal('show');
-            }
-        });
-
-        function fetch_cost_weight() {
-
-            $.ajax({
-                url: "table/wSales_cw_record.php",
-                method: "POST",
-                data: {
-                    sales_id: sales_id,
-
-                },
-                success: function(data) {
-                    $('#m_cost_weight_table').html(data);
-
-                }
-            });
-        }
-        fetch_cost_weight();
-
-
-    });
-    document.getElementById('printButton').addEventListener('click', function() {
-        const transactionRecord = document.getElementById('transaction_record');
-
-        html2canvas(transactionRecord).then(function(canvas) {
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = pdfMake.createPdf({
-                content: [{
-                    image: imgData,
-                    width: 500
-                }]
-            });
-
-            pdf.download('transaction_record.pdf');
-        });
-    });
-
-
-
-    document.getElementById('editButton').addEventListener('click', function() {
-        var sale_id = document.getElementById('m_sale_id').value;
-
-        // Redirect to the sales_wet.php page with the sale_id in the URL
-        window.location.href = 'sales_wet.php?id=' + sale_id;
-    });
-
-});
-</script>

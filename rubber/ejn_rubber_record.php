@@ -1,8 +1,7 @@
 <?php 
    include('include/header.php');
    include "include/navbar.php";
-
-
+   $loc = str_replace(' ', '', $_SESSION['loc']);
 
 
 ?>
@@ -38,7 +37,7 @@
                             <div class="table-responsive">
                                 <table class="table table-bordered table-hover table-striped" id='inventory-table'>
                                     <?php
-                                    $results  = mysqli_query($con, "SELECT * FROM `ejn_rubber_transfer`");?>
+                                    $results  = mysqli_query($con, "SELECT * FROM `ejn_rubber_transfer` where source='$loc'");?>
                                     <thead class="table-dark">
                                         <tr>
                                             <th scope="col">Status</th>
@@ -88,12 +87,12 @@
 
                                             <td>
                                                 <!-- Update Button -->
-                                                <button type="button" class="btn btn-primary updateBtn"
+                                                <button type="button" class="btn btn-primary btn-sm updateBtn"
                                                     data-id="<?php echo $row['ejn_id']; ?>">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
 
-                                                <button type='button' class='btn btn-danger deleteBtn'> <i
+                                                <button type='button' class='btn btn-danger btn-sm deleteBtn'> <i
                                                         class='fas fa-trash'></i> </button>
                                             </td>
 

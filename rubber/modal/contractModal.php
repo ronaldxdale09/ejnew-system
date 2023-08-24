@@ -1,7 +1,6 @@
 <?php 
 
-$loc = $_SESSION['loc'];
- $contract = mysqli_query($con, "SELECT  MAX(id) from rubber_contract  WHERE loc='$loc'  "); 
+$loc = str_replace(' ', '', $_SESSION['loc']); $contract = mysqli_query($con, "SELECT  MAX(id) from rubber_contract  WHERE loc='$loc'  "); 
  $contractNo = mysqli_fetch_array($contract);
 
  $generate= sprintf("%'03d", $contractNo[0]+1);

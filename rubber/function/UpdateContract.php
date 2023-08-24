@@ -1,5 +1,5 @@
 <?php 
- include('db.php');
+include('../../function/db.php');
                         if (isset($_POST['update'])) {
                             echo $id = $_POST['id'];
                             $contract = $_POST['m_contact'];

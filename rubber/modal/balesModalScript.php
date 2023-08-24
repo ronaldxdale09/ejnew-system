@@ -68,7 +68,8 @@ $('#confirm').click(function() {
         $('#m_price_2').val($("#price_2").val());
         $('#m_bales_count').val($("#bales_count").val());
 
-        
+        $('#m_lot_number').val($("#lot_code").val());
+        $('#m_prod_id').val($("#prod_id").val());
 
         $('#m_first_total').val($("#first_total").val());
         $('#m_second_total').val($("#second_total").val());
@@ -121,7 +122,7 @@ $(function() {
 
 
         var delivery_date = $("#delivery_date").val();
-        var lot_number = $("#lot_number").val();
+        var lot_number = $("#lot_code").val();
 
         $("#m_delivery_date").val(delivery_date);
         $("#m_lot_number").val(lot_number);

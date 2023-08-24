@@ -1,5 +1,5 @@
 <?php
-include('../../function/db.php');
+include('../../../function/db.php');
 
 // Get the data from the POST request
 $recording_id = $_POST['recording_id'];
@@ -48,5 +48,6 @@ while ($data = mysqli_fetch_assoc($result_select)) {
     }
 }
 
-echo 'Data successfully inserted!';
+echo "Recording ID: $recording_id, Purchase ID: $purchase_id\n";
+
 ?>

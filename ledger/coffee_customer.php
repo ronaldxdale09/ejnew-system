@@ -1,32 +1,7 @@
 <?php
-ob_start();
-session_start();
 
-include('function/db.php');
-
-if (isset($_POST['add'])) {
-    $cof_customer_name = $_POST['cof_customer_name'];
-    $cof_customer_address = $_POST['cof_customer_address'];
-    $cof_customer_contact = $_POST['cof_customer_contact'];
-    $loc = $_SESSION['loc'];
-    
-    $query = "INSERT INTO coffee_customer (cof_customer_name, cof_customer_address, cof_customer_contact, loc) 
-              VALUES ('$cof_customer_name', '$cof_customer_address', '$cof_customer_contact', '$loc')";
-              
-    $results = mysqli_query($con, $query);
-    
-    if ($results) {
-        $_SESSION['new_customer_added'] = true;
-        header("Location: coffee_customer.php");
-        exit();
-    } else {
-        echo "ERROR: Could not execute $query. " . mysqli_error($con);
-    }
-}
-
-if (!$con) {
-    die("Connection failed: " . mysqli_connect_error());
-}
+include('include/header.php');
+include('include/navbar.php');
 
 // Prepare SQL statement
 $sql = "SELECT * FROM coffee_customer";
@@ -42,10 +17,6 @@ if (!$results) {
 <html>
 
 <body>
-    <?php 
-    include('include/header.php');
-    include('include/navbar.php');
-    ?>
 
     <div class='main-content' style='position:relative; height:100%;'>
         <div class="container home-section h-100" style="max-width:95%;">
@@ -62,8 +33,7 @@ if (!$results) {
                         <br>
                         <div class="card">
                             <div class="card-body">
-                                <button type="button" class="btn btn-success text-white" data-toggle="modal"
-                                    data-target="#add_customer">
+                                <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#addCustomer">
                                     <i class="fa fa-add" aria-hidden="true"></i> NEW CUSTOMER
                                 </button>
                                 <hr>
@@ -88,17 +58,20 @@ if (!$results) {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php 
+                                            <?php
                                             while ($row = mysqli_fetch_array($results)) {
                                                 echo "<tr>";
-                                                echo "<td>".$row['cof_customer_id']."</td>";
-                                                echo "<td>".$row['cof_customer_name']."</td>";
-                                                echo "<td>".$row['cof_customer_address']."</td>";
-                                                echo "<td>".$row['cof_customer_contact']."</td>";
+                                                echo "<td>" . $row['cof_customer_id'] . "</td>";
+                                                echo "<td>" . $row['cof_customer_name'] . "</td>";
+                                                echo "<td>" . $row['cof_customer_address'] . "</td>";
+                                                echo "<td>" . $row['cof_customer_contact'] . "</td>";
                                                 echo "<td>₱ " . number_format($row['cof_customer_balance'], 2) . "</td>";
-                                                echo "<td> <button class='btn btn-primary' onclick='viewTransactions(".$row['cof_customer_id'].")'>View Transactions</button> </td>";
+                                                echo "<td width='25%'> <button class='btn btn-success btn-sm')'>Transactions</button>
+                                                <button class='btn btn-primary btn-sm btnUpdate' >Update</button>
+                                                <button class='btn btn-danger btn-sm confirmDelete' >Delete</button>  </td>";
+
                                                 echo "</tr>";
-                                            } 
+                                            }
                                             ?>
                                         </tbody>
                                     </table>
@@ -112,50 +85,76 @@ if (!$results) {
     </div>
 
     <script>
-    function viewTransactions(customerId) {
-        // Redirect or perform any desired action
-        window.location.href = "transactions.php?customer_id=" + customerId;
-    }
-    $(document).ready(function() {
-        var table = $('#customerTable').DataTable({
-            dom: '<"top"<"left-col"B><"center-col"f>>rti<"bottom"p><"clear">',
-            order: [
-                [0, 'desc']
-            ],
-            buttons: [{
-                    extend: 'excelHtml5',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7]
-                    }
-                },
-                {
-                    extend: 'pdfHtml5',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7]
-                    }
-                },
-                {
-                    extend: 'print',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7]
-                    }
-                }
-            ],
-            lengthMenu: [
-                [-1],
-                ["All"]
-            ],
-            orderCellsTop: true,
-            paging: false, // Disable pagination
-            infoCallback: function(settings, start, end, max, total, pre) {
-                return total + ' entries';
-            }
+        $('.btnUpdate').on('click', function() {
+            $tr = $(this).closest('tr');
+
+            var data = $tr.children("td").map(function() {
+                return $(this).text();
+            }).get();
+
+            $('#customer_id').val(data[0]);
+            $('#name').val(data[1]);
+            $('#address').val(data[2]);
+            $('#contact').val(data[3].replace(/[^0-9.]/g, ''));
+
+            $('#updateCustomer').modal('show');
+
+
         });
-    });
+
+        $('.confirmDelete').on('click', function() {
+            $tr = $(this).closest('tr');
+
+            var data = $tr.children("td").map(function() {
+                return $(this).text();
+            }).get();
+
+            $('#d_customer_id').val(data[0]);
+
+            $('#deleteCustomer').modal('show'); // Close the modal
+        });
+
+
+        $(document).ready(function() {
+            var table = $('#customerTable').DataTable({
+                dom: '<"top"<"left-col"B><"center-col"f>>rti<"bottom"p><"clear">',
+                order: [
+                    [0, 'desc']
+                ],
+                buttons: [{
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                        }
+                    }
+                ],
+                lengthMenu: [
+                    [-1],
+                    ["All"]
+                ],
+                orderCellsTop: true,
+                paging: false, // Disable pagination
+                infoCallback: function(settings, start, end, max, total, pre) {
+                    return total + ' entries';
+                }
+            });
+        });
     </script>
 
-    <?php 
-    include "modal/modal_customer.php";
+    <?php
+    include "modal/coffee_customer.php";
     ?>
 
 </body>

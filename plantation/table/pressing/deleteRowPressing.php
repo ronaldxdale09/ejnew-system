@@ -1,5 +1,5 @@
 <?php
-include('../function/db.php');
+include('../../../function/db.php');
 
 if(isset($_POST['recording_id'], $_POST['bales_type'], $_POST['kilo_per_bale'])) {
     $recording_id = mysqli_real_escape_string($con, $_POST['recording_id']);

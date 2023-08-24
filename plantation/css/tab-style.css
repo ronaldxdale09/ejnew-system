@@ -53,6 +53,8 @@
     border-radius: 5px;
     margin: 0 5px;
     transition: all 0.3s ease;
+    border: 2px solid #021f4f;
+    /* You can customize the border color and thickness here */
 }
 
 .wrapper nav label:hover {

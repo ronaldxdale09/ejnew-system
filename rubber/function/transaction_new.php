@@ -1,5 +1,5 @@
 <?php 
- include('db.php');
+include('../../function/db.php');
 
 
                         if (isset($_POST['new_seller'])) {
@@ -7,8 +7,10 @@
                             $name = $_POST['name'];
                             $address = $_POST['address'];
                             $contact = $_POST['contact'];
-                            $loc = $_SESSION['loc'];
-                                $query = "INSERT INTO rubber_seller (name,address,contact,loc) 
+                            $loc = preg_replace('/\s+/', '', $_SESSION['loc']);
+                           
+                            
+                            $query = "INSERT INTO rubber_seller (name,address,contact,loc) 
                                         VALUES ('$name','$address','$contact','$loc')";
                                 $results = mysqli_query($con, $query);
                                    
@@ -24,8 +26,7 @@
 
 
                                 if (isset($_POST['new_contract'])) {
-                                    $loc = $_SESSION['loc'];
-                                    $contract = str_replace( ',', '', $_POST['v_contact']);
+                                    $loc = str_replace(' ', '', $_SESSION['loc']);                                    $contract = str_replace( ',', '', $_POST['v_contact']);
                                     $date = $_POST['date'];
                                     $name = $_POST['name'];
                                     $quantity =str_replace( ',', '', $_POST['quantity']);
@@ -53,8 +54,7 @@
                                             $seller = $_POST['name'];
                                             $category = $_POST['ca_category'];
                                             $type = $_POST['ca_category'];
-                                            $loc = $_SESSION['loc'];
-                                            $amount = str_replace(',', '', $_POST['ca_amount']);
+                                            $loc = str_replace(' ', '', $_SESSION['loc']);                                            $amount = str_replace(',', '', $_POST['ca_amount']);
                 
                                             //select seller ca
                                             $sql=mysqli_query($con,"SELECT * FROM rubber_seller WHERE name='$seller' and loc='$loc' ");

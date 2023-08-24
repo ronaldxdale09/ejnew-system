@@ -5,14 +5,14 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $id =  preg_replace('~\D~', '', $id);
 
-    $sql = "SELECT * FROM container_record WHERE container_id = $id";
+    $sql = "SELECT * FROM bales_container_record WHERE container_id = $id";
     $result = $con->query($sql);
 
     if ($result->num_rows > 0) {
         // Output data of each row
         $record = $result->fetch_assoc();
 
-        $container_no = isset($record['container_no']) ? $record['container_no'] : '';
+       
         $van_no = isset($record['van_no']) ? $record['van_no'] : '';
         $withdrawal_date = isset($record['withdrawal_date']) ? $record['withdrawal_date'] : '';
         $quality = isset($record['quality']) ? $record['quality'] : '';
@@ -24,7 +24,6 @@ if (isset($_GET['id'])) {
                 <script>
                     $(document).ready(function() {
                         $('#ref_no').val('" . $id . "');
-                        $('#container_no').val('" . $container_no . "');
                         $('#van_no').val('" . $van_no . "');
                         $('#withdrawal_date').val('" . $withdrawal_date . "');
                         $('#quality').val('" . $quality . "');
@@ -411,7 +410,7 @@ if (isset($_GET['id'])) {
 
 
     document.getElementById("confirmButton").addEventListener("click", function(e) {
-        var fields = ['ref_no', 'container_no', 'van_no', 'withdrawal_date', 'quality', 'kilo_bale',
+        var fields = ['ref_no', 'van_no', 'withdrawal_date', 'quality', 'kilo_bale',
             'recorded_by'
         ];
         var isEmpty = false;
@@ -475,7 +474,9 @@ if (isset($_GET['id'])) {
 
         var num_bales = $('#num_bales').val();
         var total_bale_weight = $('#total_bale_weight').val();
-
+        var total_bale_cost = $('#total_bale_cost').val();
+        var ave_kilo_cost = $('#average_cost').val();
+        var total_milling_cost = $('#total_milling_cost').val();
 
         $('#u_van_no').val(vanNo);
         $('#u_withdrawal_date').val(withdrawalDate);
@@ -488,9 +489,9 @@ if (isset($_GET['id'])) {
         $('#u_total_bale_weight').val(total_bale_weight);
 
 
-        $('#u_total_bale_cost').val(num_bales);
-        $('#u_average_cost').val(total_bale_weight);
-        $('#u_total_milling_cost').val(total_bale_weight);
+        $('#u_total_bale_cost').val(total_bale_cost);
+        $('#u_average_cost').val(ave_kilo_cost);
+        $('#u_total_milling_cost').val(total_milling_cost);
 
 
         $('#draft_id').val(id);
@@ -501,18 +502,23 @@ if (isset($_GET['id'])) {
 
 
     $('.btnVoid').on('click', function() {
-        $tr = $(this).closest('tr');
+        // $tr = $(this).closest('tr');
 
-        var data = $tr.children("td").map(function() {
-            return $(this).text();
-        }).get();
+        // var data = $tr.children("td").map(function() {
+        //     return $(this).text();
+        // }).get();
 
-        var id = <?php echo  $id ?>;
+        // var id = <?php echo  $id ?>;
 
-        $('#void_id').val(id);
+        // $('#void_id').val(id);
 
-        $('#voidModal').modal('show');
+        // $('#voidModal').modal('show');
 
+        Swal.fire({
+            icon: 'info',
+            title: 'Oops...',
+            text: 'This function is currently under maintenance!'
+        })
     });
 
 

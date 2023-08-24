@@ -2,14 +2,15 @@
    include('include/header.php');
    include "include/navbar.php";
 
-   $sql = mysqli_query($con, "SELECT SUM(reweight) as inventory from  planta_recording where status='Field'   "); 
+   $loc = str_replace(' ', '', $_SESSION['loc']);
+   $sql = mysqli_query($con, "SELECT SUM(reweight) as inventory from  planta_recording where status='Field'  and source='$loc'  "); 
    $cuplumps = mysqli_fetch_array($sql);
 
-   $sql = mysqli_query($con, "SELECT SUM(crumbed_weight) as inventory from  planta_recording where status='Milling'   "); 
+   $sql = mysqli_query($con, "SELECT SUM(crumbed_weight) as inventory from  planta_recording where status='Milling' and source='$loc'  "); 
    $milling = mysqli_fetch_array($sql);
 
    
-   $sql = mysqli_query($con, "SELECT SUM(dry_weight) as inventory from  planta_recording where status='Drying'   "); 
+   $sql = mysqli_query($con, "SELECT SUM(dry_weight) as inventory from  planta_recording where status='Drying' and source='$loc'  "); 
    $drying = mysqli_fetch_array($sql);
 
 
@@ -117,7 +118,7 @@
                                     $results  = mysqli_query($con, "SELECT DISTINCT planta_recording.*, rubber_transaction.total_amount as total_amount, rubber_transaction.net_weight as net_weight 
                                     FROM planta_recording
                                     LEFT JOIN rubber_transaction ON planta_recording.purchased_id = rubber_transaction.id
-                                    WHERE planta_recording.status = 'Field'");?>
+                                    WHERE planta_recording.status = 'Field' and planta_recording.source='$loc' ");?>
                                     <thead class="table-dark">
                                         <tr>
 

@@ -1,7 +1,7 @@
 
 
 <?php
-include "../function/db.php";
+include('../../function/db.php');
 $output = '';
 $sales_id = $_POST['sales_id'];
 

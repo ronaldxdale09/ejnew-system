@@ -26,7 +26,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                 <form action="function/receiving_function.php" method="POST">
 
                     <div class="row">
-                        <div class="col-sm-8">
+                        <div class="col-sm-12">
                             <div class="row">
 
                                 <div class="col-3">
@@ -110,7 +110,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                             <div class="input-group mb-12">
                                                 <label style='font-size:15px' class="col-md-12">Date Purchased </label>
                                                 <div class="col-md-12">
-                                                    <input readonly type="text" class='form-control' id="date_purchased"
+                                                    <input readonly type="text" class='form-control text-center' id="date_purchased"
                                                         name="purchasing_date">
                                                 </div>
                                             </div>
@@ -120,7 +120,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                             <div class="input-group mb-12">
                                                 <label class="col-md-12">Cuplump Weight</label>
                                                 <input readonly type="text" style='text-align:right' name='weight'
-                                                    id='wet_weight' class="form-control">
+                                                    id='wet_weight' class="form-control text-center">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">kg</span>
                                                 </div>
@@ -138,7 +138,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                             <div class="input-group mb-12">
                                                 <label style='font-size:15px' class="col-md-12">Date Received </label>
                                                 <div class="col-md-12">
-                                                    <input readonly type="text" class='form-control' id="date_received"
+                                                    <input readonly type="text" class='form-control text-center' id="date_received"
                                                         name="receiving_date">
                                                 </div>
                                             </div>
@@ -148,7 +148,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                             <div class="input-group mb-12">
                                                 <label class="col-md-12">Reweight</label>
                                                 <input readonly type="text" style='text-align:right' name='reweight'
-                                                    id='reweight' class="form-control">
+                                                    id='reweight' class="form-control text-center">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">kg</span>
                                                 </div>
@@ -167,7 +167,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                             <div class="input-group mb-12">
                                                 <label style='font-size:15px' class="col-md-12">Date Milled </label>
                                                 <div class="col-md-12">
-                                                    <input readonly type="text" class='form-control' id="milling_date"
+                                                    <input readonly type="text" class='form-control text-center' id="milling_date"
                                                         name="milling_date">
                                                 </div>
                                             </div>
@@ -177,7 +177,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                             <div class="input-group mb-12">
                                                 <label class="col-md-12">Crumbed Weight</label>
                                                 <input readonly type="text" style='text-align:right'
-                                                    name='crumbed_weight' id='crumbed_weight' class="form-control"
+                                                    name='crumbed_weight' id='crumbed_weight' class="form-control text-center"
                                                     required>
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">kg</span>
@@ -197,7 +197,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                             <div class="input-group mb-12">
                                                 <label style='font-size:15px' class="col-md-12">Date Dried </label>
                                                 <div class="col-md-12">
-                                                    <input readonly type="text" class='form-control' id="dry_date"
+                                                    <input readonly type="text" class='form-control text-center' id="dry_date"
                                                         name="milling_date">
                                                 </div>
                                             </div>
@@ -207,7 +207,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                             <div class="input-group mb-12">
                                                 <label class="col-md-12">Blanket Weight</label>
                                                 <input readonly type="text" style='text-align:right' name='dry_weight'
-                                                    id='dry_weight' class="form-control"
+                                                    id='dry_weight' class="form-control text-center"
                                                     onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
                                                     required>
                                                 <div class="input-group-append">
@@ -232,7 +232,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                             <div class="input-group mb-12">
                                                 <label style='font-size:15px' class="col-md-12">Date Produced </label>
                                                 <div class="col-md-12">
-                                                    <input readonly type="text" class='form-control'
+                                                    <input readonly type="text" class='form-control text-center'
                                                         id="production_date" name="milling_date">
                                                 </div>
                                             </div>
@@ -242,7 +242,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                             <div class="input-group mb-12">
                                                 <label class="col-md-12">Bale Weight</label>
                                                 <input readonly type="text" style='text-align:right' name='bale_weight'
-                                                    id='bale_weight' class="form-control"
+                                                    id='bale_weight' class="form-control text-center"
                                                     onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
                                                     required>
                                                 <div class="input-group-append">
@@ -255,7 +255,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                             <div class="input-group mb-12">
                                                 <label class="col-md-12">DRC</label>
                                                 <input readonly type="text" style='text-align:right' name='drc' id='drc'
-                                                    class="form-control" onkeypress="return CheckNumeric()"
+                                                    class="form-control text-center" onkeypress="return CheckNumeric()"
                                                     onkeyup="FormatCurrency(this)" required>
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">%</span>
@@ -269,7 +269,7 @@ while ($arr = mysqli_fetch_assoc($result)) {
                                 <div id='pressing_modal_update_table'></div>
                         </div>
 
-                        <div class="col">
+                        <div class="col" hidden>
                             <center> <H5>Milling Record</H5></center>
                             <div id='milling_record'></div>
                             <br> <hr> <br>

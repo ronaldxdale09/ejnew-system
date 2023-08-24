@@ -1,14 +1,14 @@
 <?php 
- include('db.php');
+include('../../function/db.php');
                         if (isset($_POST['new'])) {
                             
-                   
+                      $loc = $_SESSION["loc"];
                             $date = $_POST['date'];
                             $recorded_by = $_POST['recorded_by'];
                            
 
-                                $query = "INSERT INTO bales_transaction (date,recorded_by) 
-                                        VALUES ('$date','$recorded_by')";
+                                $query = "INSERT INTO bales_transaction (date,recorded_by,loc) 
+                                        VALUES ('$date','$recorded_by','$loc')";
                                 $results = mysqli_query($con, $query);
                                    
                                     if ($results) {
