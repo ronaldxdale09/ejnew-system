@@ -33,6 +33,7 @@
     </div>
 </div>
 
+
 <div class="row">
     <div class="col">
         <div class="card" style="width:100%;max-width:100%;margin-top: 30px;">
@@ -42,7 +43,7 @@
                     <font color="#046D56"> EXPENSES</font>
                 </h4>
                 <div class="row" style="display: flex; align-items: stretch;">
-                    <div class="col-5" style="display: flex;">
+                    <div class="col">
                         <div class="card" style="width: 100%;">
                             <div class="card-body" style="height: 400px; position: relative;">
                                 <?php
@@ -52,7 +53,7 @@
                         </div>
                     </div>
 
-                    <div class="col" style="display: flex;">
+                    <div class="col">
                         <div class="card" style="width: 100%;">
                             <div class="card-body" style="height: 400px; position: relative;">
                                 <?php
@@ -67,6 +68,7 @@
         </div>
     </div>
 </div>
+<br>
 <div class="row">
     <div class="col">
         <div class="card" style="width:100%;max-width:100%;;margin-bottom: 60px;">
@@ -91,3 +93,8 @@
         </div>
     </div>
 </div>
+
+
+<?php
+include('statistical_card/expense_report_table.php');
+?>

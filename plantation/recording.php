@@ -218,7 +218,10 @@ $drying = mysqli_fetch_array($sql);
                     </div>
 
 
-
+                    <div class="alert alert-dark alert-dismissible">
+                        <a href="#" class="btn close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Important Notice:</strong> To ensure the integrity and reliability of our system, it is imperative that data is continuously updated and maintained for utmost accuracy. We appreciate your diligence in upholding these standards at all times.
+                    </div>
                     <div class="inventory-table">
                         <div class="container-fluid">
                             <div class="wrapper" id="myTab">

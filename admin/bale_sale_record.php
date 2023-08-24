@@ -100,8 +100,8 @@ include "include/navbar.php";
                                                     <?php echo number_format($row['contract_price'], 2) ?> </td>
                                                 <td hidden>₱ <?php echo number_format($row['total_sales'], 0) ?> </td>
                                                 <td hidden>₱ <?php echo number_format($row['overall_cost'], 0) ?> </td>
-                                                <td>₱ <?php echo number_format($row['overall_ave_cost_kilo'], 2) ?> </td>
-                                                <td>₱ <?php echo number_format($row['unpaid_balance'], 2) ?> </td>
+                                                <td>₱<?php echo number_format($row['overall_ave_cost_kilo'], 2) ?> </td>
+                                                <td>₱<?php echo number_format($row['unpaid_balance'], 2) ?> </td>
                                                 <td hidden>₱ <?php echo number_format($row['gross_profit'], 0) ?> </td>
 
                                                 <td class="text-center">

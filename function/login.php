@@ -44,6 +44,8 @@ if ($count == 0) {
 			header('Location: ../plantation/dashboard.php');
 		} elseif ($userType == 'sales') {
 			header('Location: ../sales/dashboard.php');
+		} elseif ($userType == 'coffee') {
+			header('Location: ../coffee/inventory.php');
 		}
 	}
 }

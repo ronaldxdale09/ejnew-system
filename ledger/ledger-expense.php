@@ -28,11 +28,15 @@ $expense_year = mysqli_fetch_array($getYearTotal);
     <link rel='stylesheet' href='css/tab.css'>
     <input type='hidden' id='selected-cart' value=''>
     <div class='main-content' style='position:relative; height:100%;'>
-        <center>
-            <h2>EXPENSES</h2>
-        </center>
+
         <div class="container home-section h-100" style="max-width:95%;">
             <div class="p-5 bg-white rounded shadow mb-5">
+                <h2 class="page-title text-center">
+                    <b>
+                        <font color="#0C0070">EXPENSE </font>
+                        <font color="#046D56"> RECORD </font>
+                    </b>
+                </h2>
                 <?php include('ledgerTab/expenses.php') ?>
             </div>
             <!-- ============================================================== -->

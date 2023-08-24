@@ -284,7 +284,7 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  ORDER BY id DESC")
 
         var table = $('#expenses_table').DataTable({
             dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
-            "pageLength": 50,
+            "pageLength": 25,
 
             order: [
                 [0, 'desc']

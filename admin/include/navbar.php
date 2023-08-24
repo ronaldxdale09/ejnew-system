@@ -14,7 +14,7 @@
         cursor: pointer;
         width: 100%;
         display: flex;
-        justify-content: space-between;
+        
     }
 
     .fa-caret-down {
@@ -81,7 +81,7 @@
         <a class="dropbtn nav-link" id='dropbtnBale'>
             <span class="icon-wrapper"><i class='fas fa-cube'></i></span>
             Bale Record
-            <i class="fa fa-caret-down"></i>
+            <i style='justify-content: right'class="fa fa-caret-down"></i>
         </a>
         <div class="dropdown-content">
             <a href='bale_sale_record.php'> <span class="icon-wrapper"><i class='fas fa-chart-line'></i></span> Sales</a>
@@ -99,8 +99,8 @@
     <div class="dropdown">
         <a class="dropbtn nav-link" id='dropbtnCuplump'>
             <span class="icon-wrapper"><i class='fas fa-cube'></i></span>
-            Cuplump Record
-            <i class="fa fa-caret-down"></i>
+            Cuplump 
+            <i  style='justify-content: right' class="fa fa-caret-down"></i>
         </a>
         <div class="dropdown-content">
             <a href='cuplump_sale_record.php'> <span class="icon-wrapper"><i class='fas fa-chart-line'></i></span> Sales</a>

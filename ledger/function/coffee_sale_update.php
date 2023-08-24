@@ -33,7 +33,7 @@ if (isset($_POST['confirm'])) {
                         coffee_total_amount = '$coffeeTotalAmount', 
                         coffee_paid = '$coffeePaid', 
                         coffee_balance = '$coffeeBalance' 
-                    WHERE coffee_sale_id = '$sale_id'";
+                    WHERE coffee_sale_id  = '$sale_id'";
 
     if (!mysqli_query($con, $updateSaleQuery)) {
         die("Error: " . mysqli_error($con));
@@ -60,16 +60,16 @@ if (isset($_POST['confirm'])) {
 
 function processCoffeeSaleLines($con, $sale_id)
 {
-    // Fetch existing coffee_sale_id values from the database for this coffee sale
+    // Fetch existing sale_id values from the database for this coffee sale
     $existingProductLines = array();
-    $fetchSql = "SELECT coffee_sale_id FROM coffee_sale_line WHERE coffee_sale_id = '$sale_id'";
+    $fetchSql = "SELECT sale_id,sale_line_id FROM coffee_sale_line WHERE sale_id = '$sale_id'";
     $fetchResult = mysqli_query($con, $fetchSql);
 
     if (!$fetchResult) {
         die('Error fetching existing product lines: ' . mysqli_error($con));
     } else {
         while ($row = mysqli_fetch_assoc($fetchResult)) {
-            $existingProductLines[] = $row['coffee_sale_id'];
+            $existingProductLines[] = $row['sale_line_id'];
         }
     }
 
@@ -86,18 +86,18 @@ function processCoffeeSaleLines($con, $sale_id)
         $prod_amount = isset($amounts[$index]) ? floatval(str_replace(',', '', $amounts[$index])) : 0;
 
         // Check if this product line already exists
-        $checkSql = "SELECT * FROM coffee_sale_line WHERE coffee_sale_id = '$sale_id' AND coffee_sale_id = '$id'";
+        $checkSql = "SELECT * FROM coffee_sale_line WHERE sale_id = '$sale_id' AND sale_line_id  = '$id'";
         $checkResult = mysqli_query($con, $checkSql);
 
         if (mysqli_num_rows($checkResult) > 0) {
             // Update existing row
             $sql = "UPDATE coffee_sale_line 
                     SET product='$product', unit='$prod_qty', price='$prod_price', amount='$prod_amount'
-                    WHERE coffee_sale_id = '$sale_id' AND coffee_sale_id = '$id'";
+                    WHERE sale_id = '$sale_id' AND sale_line_id  = '$id'";
         } else {
             // Insert new row
             $sql = "INSERT INTO coffee_sale_line 
-                    (coffee_sale_id, product, unit, price, amount)
+                    (sale_id, product, unit, price, amount)
                     VALUES ('$sale_id', '$product', '$prod_qty', '$prod_price', '$prod_amount')";
         }
 
@@ -106,13 +106,13 @@ function processCoffeeSaleLines($con, $sale_id)
             die('Error inserting or updating data: ' . mysqli_error($con));
         }
 
-        // Remove coffee_sale_id from existingProductLines array
+        // Remove sale_id from existingProductLines array
         $existingProductLines = array_diff($existingProductLines, array($id));
     }
 
     // Delete old data
     foreach ($existingProductLines as $id) {
-        $deleteSql = "DELETE FROM coffee_sale_line WHERE coffee_sale_id = '$sale_id' AND sale_line_id  = '$id'";
+        $deleteSql = "DELETE FROM coffee_sale_line WHERE sale_id = '$sale_id' AND sale_line_id   = '$id'";
         if (!mysqli_query($con, $deleteSql)) {
             die('Error deleting old data: ' . mysqli_error($con));
         }
@@ -123,7 +123,7 @@ function processPayments($con, $sale_id)
 {
     // Fetch existing payment_id values from the database
     $existingPayments = array();
-    $fetchSql = "SELECT payment_id FROM coffee_sale_payment WHERE coffee_sale_id = '$sale_id'";
+    $fetchSql = "SELECT payment_id FROM coffee_sale_payment WHERE sale_id = '$sale_id'";
     $fetchResult = mysqli_query($con, $fetchSql);
 
     if (!$fetchResult) {
@@ -145,18 +145,18 @@ function processPayments($con, $sale_id)
         $amount = isset($payAmounts[$index]) ? floatval(str_replace(',', '', $payAmounts[$index])) : 0;
 
         // Check if this payment already exists
-        $checkSql = "SELECT * FROM coffee_sale_payment WHERE coffee_sale_id = '$sale_id' AND payment_id = '$id'";
+        $checkSql = "SELECT * FROM coffee_sale_payment WHERE sale_id = '$sale_id' AND payment_id = '$id'";
         $checkResult = mysqli_query($con, $checkSql);
 
         if (mysqli_num_rows($checkResult) > 0) {
             // Update existing row
             $sql = "UPDATE coffee_sale_payment 
                     SET pay_date='$date', pay_details='$details', payAmount='$amount'
-                    WHERE coffee_sale_id = '$sale_id' AND payment_id = '$id'";
+                    WHERE sale_id = '$sale_id' AND payment_id = '$id'";
         } else {
             // Insert new row
             $sql = "INSERT INTO coffee_sale_payment 
-                    (coffee_sale_id, pay_date, pay_details, payAmount)
+                    (sale_id, pay_date, pay_details, payAmount)
                     VALUES ('$sale_id', '$date', '$details', '$amount')";
         }
 
@@ -171,7 +171,7 @@ function processPayments($con, $sale_id)
 
     // Delete old data
     foreach ($existingPayments as $id) {
-        $deleteSql = "DELETE FROM coffee_sale_payment WHERE coffee_sale_id = '$sale_id' AND payment_id = '$id'";
+        $deleteSql = "DELETE FROM coffee_sale_payment WHERE sale_id = '$sale_id' AND payment_id = '$id'";
         if (!mysqli_query($con, $deleteSql)) {
             die('Error deleting old data: ' . mysqli_error($con));
         }
