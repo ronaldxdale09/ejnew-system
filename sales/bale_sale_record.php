@@ -97,13 +97,18 @@ include "include/navbar.php";
                                                 <td> <?php echo $row['total_num_bales'] ?> pcs</td>
                                                 <td class="text-center" hidden><?php echo $row['contract_container_num'] ?>/<?php echo $row['no_containers'] ?>
                                                 </td>
-                                                <td><?php echo $row['currency'] ?>
+                                                <td><?php $currency = $row['currency']; // Assuming you get the currency value from a POST request
+                                                    if ($currency == "PHP") {
+                                                        echo "₱";
+                                                    } else {
+                                                      echo $currency;
+                                                    }?>
                                                     <?php echo number_format($row['contract_price'], 2) ?> </td>
-                                                <td hidden>₱ <?php echo number_format($row['total_sales'], 0) ?> </td>
-                                                <td hidden>₱ <?php echo number_format($row['overall_cost'], 0) ?> </td>
-                                                <td>₱ <?php echo number_format($row['overall_ave_cost_kilo'], 2) ?> </td>
-                                                <td>₱ <?php echo number_format($row['unpaid_balance'], 2) ?> </td>
-                                                <td hidden>₱ <?php echo number_format($row['gross_profit'], 0) ?> </td>
+                                                <td hidden>₱<?php echo number_format($row['total_sales'], 0) ?> </td>
+                                                <td hidden>₱<?php echo number_format($row['overall_cost'], 0) ?> </td>
+                                                <td>₱<?php echo number_format($row['overall_ave_cost_kilo'], 2) ?> </td>
+                                                <td>₱<?php echo number_format($row['unpaid_balance'],0) ?> </td>
+                                                <td hidden>₱<?php echo number_format($row['gross_profit'], 0) ?> </td>
 
                                                 <td class="text-center">
                                                     <button type="button" class="btn btn-success btn-sm btnViewRecord" data-status="<?php echo $row['status']; ?>" data-bale='<?php echo json_encode($row); ?>'>

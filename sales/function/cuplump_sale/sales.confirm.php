@@ -20,15 +20,17 @@ $total_cuplump_weight = isset($_POST['total_cuplump_weight']) ? preg_replace("/[
 $total_cuplump_cost = isset($_POST['total_cuplump_cost']) ? preg_replace("/[^0-9.]/", "", $_POST['total_cuplump_cost']) : '';
 $overall_ave_kiloCost = isset($_POST['overall_ave_kiloCost']) ? preg_replace("/[^0-9.]/", "", $_POST['overall_ave_kiloCost']) : '';
 
-$total_ship_exp = isset($_POST['total_ship_exp']) ? preg_replace("/[^0-9.]/", "", $_POST['total_ship_exp']) : '';
-$total_sale = isset($_POST['total_sale']) ? preg_replace("/[^0-9.]/", "", $_POST['total_sale']) : '';
-$amount_unpaid = isset($_POST['amount_unpaid']) ? preg_replace("/[^0-9.]/", "", $_POST['amount_unpaid']) : '';
-$unpaid_balance = isset($_POST['unpaid_balance']) ? preg_replace("/[^0-9.]/", "", $_POST['unpaid_balance']) : '';
-$sales_proceeds = isset($_POST['sales_proceeds']) ? preg_replace("/[^0-9.]/", "", $_POST['sales_proceeds']) : '';
-$over_all_cost = isset($_POST['over_all_cost']) ? preg_replace("/[^0-9.]/", "", $_POST['over_all_cost']) : '';
-$gross_profit = isset($_POST['gross_profit']) ? preg_replace("/[^0-9.]/", "", $_POST['gross_profit']) : '';
-$tax_rate = isset($_POST['tax_rate']) ? preg_replace("/[^0-9.]/", "", $_POST['tax_rate']) : '';
-$tax_amount = isset($_POST['tax_amount']) ? preg_replace("/[^0-9.]/", "", $_POST['tax_amount']) : '';
+$total_ship_exp = isset($_POST['total_ship_exp']) ? preg_replace("/[^0-9.-]/", "", $_POST['total_ship_exp']) : '';
+$total_sale = isset($_POST['total_sale']) ? preg_replace("/[^0-9.-]/", "", $_POST['total_sale']) : '';
+$amount_unpaid = isset($_POST['amount_unpaid']) ? preg_replace("/[^0-9.-]/", "", $_POST['amount_unpaid']) : '';
+$unpaid_balance = isset($_POST['unpaid_balance']) ? preg_replace("/[^0-9.-]/", "", $_POST['unpaid_balance']) : '';
+$sales_proceeds = isset($_POST['sales_proceeds']) ? preg_replace("/[^0-9.-]/", "", $_POST['sales_proceeds']) : '';
+$over_all_cost = isset($_POST['over_all_cost']) ? preg_replace("/[^0-9.-]/", "", $_POST['over_all_cost']) : '';
+$gross_profit = isset($_POST['gross_profit']) ? preg_replace("/[^0-9.-]/", "", $_POST['gross_profit']) : '';
+$tax_rate = isset($_POST['tax_rate']) ? preg_replace("/[^0-9.-]/", "", $_POST['tax_rate']) : '';
+$tax_amount = isset($_POST['tax_amount']) ? preg_replace("/[^0-9.-]/", "", $_POST['tax_amount']) : '';
+
+
 $query = "UPDATE `sales_cuplump_record` 
         SET `status`='Complete',
             `sale_contract`='$sale_contract',

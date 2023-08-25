@@ -21,10 +21,11 @@ if (!isset($_POST['prod_id'])) {
         $rowList = mysqli_fetch_array($result);
   
         // Extract the cost and price values from the row
-        $price = $rowList['price'] ?? '';
+        $price = $rowList['case_price'] ?? '';
+        $case_qty = $rowList['case_quantity'] ?? '';
   
         // Store the data in an array
-        $result = ["price" => "$price"];
+        $result = ["price" => "$price","case_qty" => "$case_qty"];
     }
 }
   

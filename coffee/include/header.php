@@ -55,6 +55,9 @@ include "include/datatables_buttons_js.php";
     text-align: center;       /* Center the text */
 
   }
+  .gray-background {
+    background-color: #f2f2f2;
+}
 
   
 </style>
