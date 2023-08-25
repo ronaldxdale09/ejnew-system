@@ -14,9 +14,16 @@
     <link rel='stylesheet' href='css/tab.css'>
     <input type='hidden' id='selected-cart' value=''>
     <div class='main-content' style='position:relative; height:100%;'>
+
+        <h2 class="page-title text-center my-4">
+            <b>
+                <font color="#0C0070">PURCHASE </font>
+                <font color="#046D56"> REPORT </font>
+            </b>
+        </h2>
         <div class="text-center mb-4">
-            <h2 class="display-4 mb-1">Purchases Report</h2>
-            <h3 class="text-muted mt-1"><?php echo $_SESSION['loc']?></h3>
+            <h5 class="text-center"><?php echo $_SESSION['loc']?></h5>
+            <h5 class="text-center">(All amounts are in Philippine Peso)</h5>
         </div>
 
 
@@ -78,19 +85,33 @@ $ExpensesMonth = (isset($_GET['month'])) ? $_GET['month'] : $Currentmonth; // se
                     <tr>
 
                         <td><?php echo $row['year']?> </td>
-                        <td><?php echo $row['category']?> </td><td style="text-align: right;"><?php echo '₱ '.number_format((float)$row['JAN'], 0, '.', ',');?></td>
-<td style="text-align: right;"><?php echo '₱ '.number_format((float)$row['FEB'], 0, '.', ',');?></td>
-<td style="text-align: right;"><?php echo '₱ '.number_format((float)$row['MAR'], 0, '.', ',');?></td>
-<td style="text-align: right;"><?php echo '₱ '.number_format((float)$row['APR'], 0, '.', ',');?></td>
-<td style="text-align: right;"><?php echo '₱ '.number_format((float)$row['MAY'], 0, '.', ',');?></td>
-<td style="text-align: right;"><?php echo '₱ '.number_format((float)$row['JUNE'], 0, '.', ',');?></td>
-<td style="text-align: right;"><?php echo '₱ '.number_format((float)$row['JULY'], 0, '.', ',');?></td>
-<td style="text-align: right;"><?php echo '₱ '.number_format((float)$row['AUG'], 0, '.', ',');?></td>
-<td style="text-align: right;"><?php echo '₱ '.number_format((float)$row['SEP'], 0, '.', ',');?></td>
-<td style="text-align: right;"><?php echo '₱ '.number_format((float)$row['OCT'], 0, '.', ',');?></td>
-<td style="text-align: right;"><?php echo '₱ '.number_format((float)$row['NOV'], 0, '.', ',');?></td>
-<td style="text-align: right;"><?php echo '₱ '.number_format((float)$row['DECE'], 0, '.', ',');?></td>
-<td style="text-align: right; font-weight: bold;"><?php echo '₱ '.number_format((float)$row['total'], 0, '.', ',');?></td>
+                        <td><?php echo $row['category']?> </td>
+                        <td style="text-align: right;"><?php echo '₱ '.number_format((float)$row['JAN'], 0, '.', ',');?>
+                        </td>
+                        <td style="text-align: right;"><?php echo '₱ '.number_format((float)$row['FEB'], 0, '.', ',');?>
+                        </td>
+                        <td style="text-align: right;"><?php echo '₱ '.number_format((float)$row['MAR'], 0, '.', ',');?>
+                        </td>
+                        <td style="text-align: right;"><?php echo '₱ '.number_format((float)$row['APR'], 0, '.', ',');?>
+                        </td>
+                        <td style="text-align: right;"><?php echo '₱ '.number_format((float)$row['MAY'], 0, '.', ',');?>
+                        </td>
+                        <td style="text-align: right;">
+                            <?php echo '₱ '.number_format((float)$row['JUNE'], 0, '.', ',');?></td>
+                        <td style="text-align: right;">
+                            <?php echo '₱ '.number_format((float)$row['JULY'], 0, '.', ',');?></td>
+                        <td style="text-align: right;"><?php echo '₱ '.number_format((float)$row['AUG'], 0, '.', ',');?>
+                        </td>
+                        <td style="text-align: right;"><?php echo '₱ '.number_format((float)$row['SEP'], 0, '.', ',');?>
+                        </td>
+                        <td style="text-align: right;"><?php echo '₱ '.number_format((float)$row['OCT'], 0, '.', ',');?>
+                        </td>
+                        <td style="text-align: right;"><?php echo '₱ '.number_format((float)$row['NOV'], 0, '.', ',');?>
+                        </td>
+                        <td style="text-align: right;">
+                            <?php echo '₱ '.number_format((float)$row['DECE'], 0, '.', ',');?></td>
+                        <td style="text-align: right; font-weight: bold;">
+                            <?php echo '₱ '.number_format((float)$row['total'], 0, '.', ',');?></td>
 
 
 
@@ -122,7 +143,7 @@ $ExpensesMonth = (isset($_GET['month'])) ? $_GET['month'] : $Currentmonth; // se
 
             <div class="row">
                 <div class="row">
-         
+
                     <div class="col-md-1">
                         <label for="date"> Date Filter</label>
                     </div>

@@ -57,4 +57,5 @@ $expense_year = mysqli_fetch_array($getYearTotal);
 
 <?php
 include('modal/modal_expenses.php');
+include('modal/modal_plant_expenses.php');
 ?>

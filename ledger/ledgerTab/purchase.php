@@ -13,11 +13,6 @@ $side = mysqli_query($con, "SELECT category,year(date) as year,month(date) as mo
                     ₱
                     <?php echo number_format($purchase_today['total_amount']) ?>
                 </h2>
-                <div>
-                    <span class="text-muted">
-                        <?php echo "Today is " . date("Y-m-d") . "<br>"; ?>
-                    </span>
-                </div>
             </div>
             <div class="stat-card__icon stat-card__icon--success">
                 <div class="stat-card__icon-circle">
@@ -35,11 +30,6 @@ $side = mysqli_query($con, "SELECT category,year(date) as year,month(date) as mo
                     ₱
                     <?php echo number_format($purchase_month['month_total']) ?>
                 </h2>
-                <div>
-                    <span class="text-muted">
-                        <?php echo date("F Y") . "<br>"; ?>
-                    </span>
-                </div>
             </div>
             <div class="stat-card__icon stat-card__icon--danger">
                 <div class="stat-card__icon-circle">
@@ -114,12 +104,11 @@ $side = mysqli_query($con, "SELECT category,year(date) as year,month(date) as mo
         <thead class="table-dark">
             <tr>
                 <th scope="col">DATE</th>
+                <th scope="col">VOUCHER</th>
                 <th scope="col">CATEGORY</th>
-                <th scope="col">VOUCHER #</th>
                 <th scope="col">CUSTOMER NAME</th>
-                <th scope="col">NET KILOS</th>
                 <th scope="col">PRICE</th>
-
+                <th scope="col">NET WEIGHT</th>
                 <th scope="col">TOTAL AMOUNT</th>
                 <th scope="col">ACTION</th>
             </tr>
@@ -128,27 +117,26 @@ $side = mysqli_query($con, "SELECT category,year(date) as year,month(date) as mo
             <?php while ($row = mysqli_fetch_array($results)) { ?>
                 <tr>
                     <td>
-                        <?php echo $row['date'] ?>
-                    </td>
-                    <td>
-                        <?php echo $row['category'] ?>
+                    <?php echo date('F j, Y', strtotime($row['date'])); ?>
                     </td>
                     <td>
                         <?php echo $row['voucher'] ?>
                     </td>
                     <td>
+                        <?php echo $row['category'] ?>
+                    </td>
+                    <td>
                         <?php echo $row['customer_name'] ?>
+                    </td>
+                    <td>₱
+                        <?php echo empty($row['price']) ? "0" : number_format($row['price']); ?>
                     </td>
                     <td>
                         <?php echo empty(floatval($row['net_kilos'])) ? "0" : number_format(floatval($row['net_kilos'])); ?>
-                        KG
+                        kg
                     </td>
-                    <td>
-                        <?php echo empty($row['price']) ? "0" : number_format($row['price']); ?>
-                    </td>
-
-                    <td>₱
-                        <?php echo number_format(floatval($row['total_amount'])) ?>
+                    <td style="text-align: right;">
+                        ₱<?php echo empty($row['price']) ? "0" : number_format($row['price']); ?>
                     </td>
                     <td>
                         <button type="button" class="btn btn-secondary text-white" data-bs-toggle="modal"
