@@ -324,7 +324,7 @@ $ExpensesMonth = (isset($_GET['month'])) ? $_GET['month'] : $Currentmonth; // se
                 data: {
                     labels: <?php echo isset($expenses_category) ? json_encode($expenses_category) : json_encode([]); ?>,
                     datasets: [{
-                        label: 'Purchase ',
+                        label: 'Purchases ',
                         data: <?php echo isset($expense_total) ? json_encode($expense_total) : json_encode([]); ?>,
                         borderColor: '#000000',
                         backgroundColor: getRandomColor(10),
@@ -339,7 +339,7 @@ $ExpensesMonth = (isset($_GET['month'])) ? $_GET['month'] : $Currentmonth; // se
                         },
                         title: {
                             display: true,
-                            text: 'Purchases Chart',
+                            text: 'Purchase Chart',
                         },
                     },
                     scales: {
