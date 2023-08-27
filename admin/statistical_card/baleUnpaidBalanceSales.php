@@ -16,37 +16,41 @@ if ($balance_query->num_rows > 0) {
 // Rest of the code for drawing the chart, as you have done for the expenses
 ?>
 
-<canvas id="unpaidBalanceChart" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+<canvas id="unpaidBalanceChart"
+    style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
 
 <script>
-    new Chart(document.getElementById("unpaidBalanceChart"), {
-        type: 'bar',
-        data: {
-            labels: <?php echo json_encode($buyer_names); ?>,
-            datasets: [{
-                label: 'Bale Sales Outstanding  Balance',
-                data: <?php echo json_encode($unpaid_balances); ?>,
-                borderColor: '#000000',
-                backgroundColor: "#4E79A7", // Apply the color palette for 12 months
-                borderWidth: .5
-            }]
-        },
-        options: {
-            indexAxis: 'y',
-            // Elements options apply to all of the options unless overridden in a dataset
-            // In this case, we are setting the border of each horizontal bar to be 2px wide
-            elements: {
-                bar: {
-                    borderWidth: 2,
-                }
-            },
-            responsive: true,
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Bale Sales Outstanding Balance'
-                }
+new Chart(document.getElementById("unpaidBalanceChart"), {
+    type: 'bar',
+    data: {
+        labels: <?php echo json_encode($buyer_names); ?>,
+        datasets: [{
+            label: 'Bale Sales Outstanding  Balance',
+            data: <?php echo json_encode($unpaid_balances); ?>,
+            borderColor: '#000000',
+            backgroundColor: "#4E79A7", // Apply the color palette for 12 months
+            borderWidth: .5
+        }]
+    },
+    options: {
+        indexAxis: 'y',
+        // Elements options apply to all of the options unless overridden in a dataset
+        // In this case, we are setting the border of each horizontal bar to be 2px wide
+        elements: {
+            bar: {
+                borderWidth: 2,
             }
         },
-    });
+        responsive: true,
+        plugins: {
+            title: {
+                display: false,
+                text: 'Bale Sales Outstanding Balance'
+            },
+            legend: {
+                display: false // Hide the legend
+            },
+        }
+    },
+});
 </script>
