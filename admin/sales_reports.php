@@ -730,9 +730,6 @@ function sortTable() {
                                         }
 
 
-
-
-
                                         // Gross Profit Sales
                                         $totalGrossProfitSales = 0;
                                         echo '<tr style="background-color: rgb(252, 252, 210);">';
@@ -771,13 +768,7 @@ function sortTable() {
                                             echo '<td style="text-align: right;"><b>' . ($monthlyGrossProfit != 0 ? ' ' . number_format($monthlyGrossProfit, 0, '.', ',') : '-') . ' </b></td>';
                                         }
                                         echo '</tr>';
-
-
-
-
                                         ?>
-
-
 
                                     </tbody>
                                 </table>
@@ -809,8 +800,6 @@ function sortTable() {
                     </div>
                 </div>
             </div>
-
-
             <footer class="mt-5">
                 <p class="text-center">EN Rubber &copy; 2023 | All Rights Reserved</p>
                 <p class="text-center">Lamitan City, Basilan, Philippines (7302)</p>
