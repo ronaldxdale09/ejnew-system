@@ -9,7 +9,7 @@
                     <div class="row">
                         <div class="col">
                             <label>Invoice No.</label>
-                            <input type="text" class="form-control" name="coffee_no">
+                            <input type="text" class="form-control" name="coffee_no" required>
                         </div>
                         <div class="col-5">
                             <label>Customer Name</label>
@@ -53,7 +53,7 @@
                             </table>
                             <button type="button" class="btn btn-sm btn-warning text-dark" id="addProduct">+ Add Product</button>
                         </div>
-                    </div>     <br>
+                    </div> <br>
                     <div class="card">
                         <div class="card-body">
                             <h4 class="header-design">Payment Details</h4>
@@ -61,9 +61,8 @@
                             <table class="table table-hover table-bordered table-striped" id="new_payment_table">
                                 <thead class="thead-dark text-center">
                                     <tr>
-                                        <th>Product</th>
-                                        <th>Qty</th>
-                                        <th>Price</th>
+                                        <th>Date</th>
+                                        <th>Details</th>
                                         <th>Amount</th>
                                         <th></th>
                                     </tr>
@@ -180,20 +179,21 @@
                 <tr>
                 <td>
                     <div class="input-group mb-3">
-                        <select class="form-select" name="product[]" style="width: 100px;">
-                            <option>Select...</option>
-                            <?php
-                            // Retrieve coffee names from the coffee_products table
-                            $sql = "SELECT coffee_name FROM coffee_products";
-                            $result = mysqli_query($con, $sql);
-                            if ($result) {
-                                while ($row = mysqli_fetch_assoc($result)) {
-                                    $coffeeName = $row['coffee_name'];
-                                    echo "<option value='$coffeeName'>$coffeeName</option>";
-                                }
+                    <select class="form-select product-dropdown" name="product[]" style="width: 100px;">
+                        <option value="">Select...</option>
+                        <?php
+                        $sql = "SELECT coffee_name, coffee_price FROM coffee_products";
+                        $result = mysqli_query($con, $sql);
+                        if ($result) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $coffeeName = $row['coffee_name'];
+                                $coffeePrice = $row['coffee_price'];
+                                echo "<option value='$coffeeName' data-price='$coffeePrice'>$coffeeName</option>";
                             }
-                            ?>
-                        </select>
+                        }
+
+                        ?>
+                    </select>
                     </div>
                 </td>
                 <td>
@@ -244,6 +244,19 @@
             $("#new_payment_table tbody").append(newRow);
         });;
 
+
+
+        // Using event delegation to ensure dynamically added elements also have the event listener
+        $("#new_sale_table tbody").on('change', '.product-dropdown', function() {
+            // Get the selected price from the data-price attribute
+            var selectedPrice = $(this).find('option:selected').data('price');
+            updateTotalAmount();
+            updateTotalPaidAndBalance();
+            // Format the price if needed (e.g., number_format in PHP, but here, you might want to use JavaScript)
+
+            // Set the price in the corresponding input field
+            $(this).closest('tr').find('input[name="price[]"]').val(selectedPrice);
+        });
 
     });
 </script>

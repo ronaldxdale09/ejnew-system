@@ -28,22 +28,18 @@ $expense_year = mysqli_fetch_array($getYearTotal);
     <link rel='stylesheet' href='css/tab.css'>
     <input type='hidden' id='selected-cart' value=''>
     <div class='main-content' style='position:relative; height:100%;'>
+
         <div class="container home-section h-100" style="max-width:95%;">
-            <div class="page-wrapper">
-                <div class="row">
-                    <div class="col-12">
-                        <h2 class="page-title">
-                            <b>
-                                <font color="#0C0070">GENERAL </font>
-                                <font color="#046D56"> EXPENSES </font>
-                            </b>
-                        </h2>
-                        <br>
-                        <?php include('ledgerTab/expenses.php') ?>
-                        <!-- ============================================================== -->
-                    </div>
-                </div>
+            <div class="p-5 bg-white rounded shadow mb-5">
+                <h2 class="page-title text-center">
+                    <b>
+                        <font color="#0C0070">EXPENSE </font>
+                        <font color="#046D56"> RECORD </font>
+                    </b>
+                </h2>
+                <?php include('ledgerTab/expenses.php') ?>
             </div>
+            <!-- ============================================================== -->
         </div>
     </div>
 </body>
@@ -57,5 +53,4 @@ $expense_year = mysqli_fetch_array($getYearTotal);
 
 <?php
 include('modal/modal_expenses.php');
-include('modal/modal_plant_expenses.php');
 ?>

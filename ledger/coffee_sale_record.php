@@ -35,7 +35,6 @@
 
             
     include "modal/coffee_sales.php"; // Include the modal file
-    include "modal/coffee_sales_update.php"; // Include the modal file
 
 
 
@@ -46,13 +45,13 @@
             <div class="page-wrapper">
                 <div class="row">
                     <div class="col-sm-12">
-                        <h2 class="page-title">
+                        <h1 class="page-title">
                             <b>
                                 <font color="#0C0070">COFFEE </font>
                                 <font color="#046D56"> SALE </font>
                             </b>
-                        </h2>
-                        <br>
+                        </h1> <hr>
+                        <?php   include('statistical_card/coffee_sale_card.php'); ?>
                         <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
                             <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#newCoffeeSale">NEW SALE</button>
                             <hr>
@@ -150,7 +149,7 @@
         </div>
     </div>
 
-
+<?php     include "modal/coffee_sales_update.php"; // Include the modal file ?>
     <script>
         $(document).ready(function() {
             var table = $('.coffee-sale-table').DataTable({

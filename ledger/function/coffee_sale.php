@@ -21,9 +21,10 @@ if (isset($_POST['confirm'])) {
                         VALUES ('$coffeeStatus', '$coffeeNo', '$coffeeDate', '$coffeeCustomer', '$coffeeTotalAmount', '$coffeePaid', '$coffeeBalance')";
 
     if (mysqli_query($con, $insertSaleQuery)) {
+        
         $sale_id = $con->insert_id;
 
-        // Retrieve the coffee_sale_id of the inserted record
+        // Retrieve the sale_id of the inserted record
         $coffeeSaleId = mysqli_insert_id($con);
 
         $products = $_POST['product'];
@@ -38,7 +39,7 @@ if (isset($_POST['confirm'])) {
             $prod_amount = isset($amounts[$index]) ? floatval(str_replace(',', '', $amounts[$index])) : 0;
 
             $sql = "INSERT INTO coffee_sale_line 
-                    (coffee_sale_id,product,unit,price,amount)
+                    (sale_id,product,unit,price,amount)
                     VALUES ('$sale_id', '$product', '$prod_qty', '$prod_price', '$prod_amount')";
 
             $result = mysqli_query($con, $sql);
@@ -63,7 +64,7 @@ if (isset($_POST['confirm'])) {
             $payAmount = isset($payAmount[$index]) ? floatval(str_replace(',', '', $payAmount[$index])) : 0;
 
             $sql = "INSERT INTO coffee_sale_payment 
-                    (coffee_sale_id,pay_date,pay_details,payAmount)
+                    (sale_id,pay_date,pay_details,payAmount)
                     VALUES ('$sale_id', '$pay_date', '$pay_details', '$payAmount')";
 
             $result = mysqli_query($con, $sql);

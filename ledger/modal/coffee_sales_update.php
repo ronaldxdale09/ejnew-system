@@ -16,11 +16,11 @@
                         <div class="col-5">
                             <label>Customer Name</label>
                             <select class='form-select category' name='coffee_customer' id='customer_name' required>
-                                    <option disabled="disabled" value="" selected="selected">Select Category </option>
-                                    <?php echo $customer_name ?>
+                                <option disabled="disabled" value="" selected="selected">Select Category </option>
+                                <?php echo $customer_name ?>
 
-                                    <!--PHP echo-->
-                                </select>
+                                <!--PHP echo-->
+                            </select>
                         </div>
 
                         <div class="col-4">
@@ -140,6 +140,24 @@
             $("#coffee_total_amount").val(u_updateTotal("#coffee-listing-table tbody tr", u_updateRowAmount).toFixed(2).toLocaleString('en-US'));
             u_updateTotalPaidAndBalance();
         });
+
+
+        $(document).on('change', '#coffee-listing-table tbody .u_product-dropdown', function() {
+            // Get the selected price from the data-price attribute
+            var selectedPrice = $(this).find('option:selected').data('price');
+
+            // Replace u_updateTotalAmount with the correct function
+            $("#coffee_total_amount").val(u_updateTotal("#coffee-listing-table tbody tr", u_updateRowAmount).toFixed(2).toLocaleString('en-US'));
+            u_updateTotalPaidAndBalance();
+
+            // Format the price if needed (e.g., number_format in PHP, but here, you might want to use JavaScript)
+
+            // Set the price in the corresponding input field
+            $(this).closest('tr').find('input[name="u_price[]"]').val(selectedPrice);
+        });
+
+
+
 
     });
 </script>

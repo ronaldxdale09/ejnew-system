@@ -105,11 +105,9 @@ include 'include/navbar.php';
                                                 <td class="number-cell">
                                                     <?php echo number_format($row['total_weight'], 0, '.', ','); ?> kg
                                                 </td>
-                                                <td class="number-cell"> ₱
-                                                    <?php echo number_format($row['total_bale_cost'], 2, '.', ','); ?>
+                                                <td class="number-cell"> ₱<?php echo number_format($row['total_bale_cost'],0, '.', ','); ?>
                                                 </td>
-                                                <td class="number-cell"> ₱
-                                                    <?php echo number_format($row['total_milling_cost'], 2, '.', ','); ?>
+                                                <td class="number-cell"> ₱<?php echo number_format($row['total_milling_cost'],0, '.', ','); ?>
                                                 </td>
                                                 <td><?php echo $row['remarks']; ?></td>
                                                 <td hidden><?php echo $row['recorded_by']; ?></td>
