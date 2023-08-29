@@ -14,7 +14,7 @@
         cursor: pointer;
         width: 100%;
         display: flex;
-        
+
     }
 
     .fa-caret-down {
@@ -64,18 +64,15 @@
         <i class='fas fa-home'></i> <span class='nav-text'>Home</span>
     </a>
 
-    <br>
-
-    <a class='nav-link' href='sales_reports.php'>
-        <i class='fa-solid fa-chart-line'></i> <span class='nav-text'>Sales Report</span>
+    <a class='nav-link' href='expense_report.php'>
+        <i class='fas fa-money'></i> <span class='nav-text'>Expense Report</span>
     </a>
 
     <a class='nav-link' href='purchase_report.php'>
         <i class='fas fa-cash-register'></i> <span class='nav-text'>Purchase Report</span>
     </a>
-
-    <a class='nav-link' href='expense_report.php'>
-        <i class='fas fa-money'></i> <span class='nav-text'>Expense Report</span>
+    <a class='nav-link' href='sales_reports.php'>
+        <i class='fa-solid fa-file-alt'></i> <span class='nav-text'>Sales Report</span>
     </a>
 
     <hr style='color:gray'>
@@ -83,8 +80,8 @@
     <div class="dropdown">
         <a class="dropbtn nav-link" id='dropbtnBale'>
             <span class="icon-wrapper"><i class='fas fa-cube'></i></span>
-            Bale Record
-            <i style='justify-content: right'class="fa fa-caret-down"></i>
+            <span class="nav-text">Bale Record</span>
+            <i style='justify-content: right' class="fa fa-caret-down"></i>
         </a>
         <div class="dropdown-content">
             <a href='bale_sale_record.php'> <span class="icon-wrapper"><i class='fas fa-chart-line'></i></span> Sales</a>
@@ -102,8 +99,7 @@
     <div class="dropdown">
         <a class="dropbtn nav-link" id='dropbtnCuplump'>
             <span class="icon-wrapper"><i class='fas fa-cube'></i></span>
-            Cuplump Record
-            <i  style='justify-content: right' class="fa fa-caret-down"></i>
+            <span class="nav-text">Cuplump</span> <i style='justify-content: right' class="fa fa-caret-down"></i>
         </a>
         <div class="dropdown-content">
             <a href='cuplump_sale_record.php'> <span class="icon-wrapper"><i class='fas fa-chart-line'></i></span> Sales</a>
@@ -113,7 +109,13 @@
         </div>
     </div>
 
+
+
     <hr style='color:gray'>
+
+    <a class='nav-link' href='reports.php' hidden>
+        <i class='fas fa-file-alt'></i> <span class='nav-text'>Reports</span>
+    </a>
 
     <a class='nav-link' href='admin_users.php'>
         <i class='fas fa-users'></i> <span class='nav-text'>Manage Users</span>

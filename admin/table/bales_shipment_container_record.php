@@ -5,7 +5,7 @@ $shipment_id = $_POST['shipment_id'];
 
 $result  = mysqli_query($con, "SELECT * from bales_shipment_container
 LEFT JOIN bales_container_record ON bales_container_record.container_id =  bales_shipment_container.container_id
-Where shipment_id = '$shipment_id'  ");
+Where bales_shipment_container.shipment_id = '$shipment_id'  ");
 $total_bales = 0;
 $total_weight = 0;
 $total_bale_cost = 0;

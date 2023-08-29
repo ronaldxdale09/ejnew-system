@@ -67,9 +67,9 @@
         <i class='fa-solid fa-home'></i> <span class='nav-text'>Dashboard</span>
     </a>
 
-    <hr style='color:white'>
+    <hr style='color:white' hidden>
 
-    <div class="dropdown">
+    <div class="dropdown" hidden>
         <a class="dropbtn nav-link" id='dropbtnCoffee'>
             <span class="icon-wrapper"><i class='fa-solid fa-coffee'></i></span>
             Coffee

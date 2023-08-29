@@ -67,7 +67,7 @@ while ($arr = mysqli_fetch_array($result)) {
                         <div class="col">
                             <div class="mb-3">
                                 <label for="product_name" class="form-label">Category</label>
-                                <select class='form-select category' name='category' id='category' required>
+                                <select class='form-select ex_category' name='category' id='category' required>
                                     <option disabled="disabled" selected="selected">Select Category </option>
                                     <?php echo $categoryList?>
 
