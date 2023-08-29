@@ -71,19 +71,19 @@
 
     <div class="dropdown">
         <a class="dropbtn nav-link" id='dropbtnCoffee'>
-            <span class="icon-wrapper"><i class='fa-solid fa-book'></i></span>
+            <span class="icon-wrapper"><i class='fa-solid fa-coffee'></i></span>
             Coffee
             <i class="fa fa-caret-down"></i>
         </a>
         <div class="dropdown-content">
             <a href='coffee_sale_record.php'>
-                <span class="icon-wrapper"><i class='fa-solid fa-book'></i></span> Coffee Sale
+                <span class="icon-wrapper"><i class='fa-solid fa-line-chart'></i></span> Coffee Sale
             </a>
             <a href='coffee_list.php'>
-                <span class="icon-wrapper"><i class='fa-solid fa-book'></i></span> Product List
+                <span class="icon-wrapper"><i class='fa-solid fa-box'></i></span> Product List
             </a>
             <a href='coffee_customer.php'>
-                <span class="icon-wrapper"><i class='fa-solid fa-book'></i></span> Manage Customer
+                <span class="icon-wrapper"><i class='fa-solid fa-users'></i></span> Manage Customer
             </a>
             <a href='coffee_sale_report.php'>
                 <span class="icon-wrapper"><i class='fa-solid fa-book'></i></span> Sale Report

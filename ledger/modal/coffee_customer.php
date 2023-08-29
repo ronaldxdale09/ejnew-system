@@ -21,7 +21,7 @@
                         <input type="text" class="form-control rounded" name="address" >
                     </div>
                     <div class="form-group">
-                        <label for="coffee-price" class="col-form-label">Contact #:</label>
+                        <label for="coffee-price" class="col-form-label">Contact No.:</label>
                         <input type="text" class="form-control rounded" name="contact" >
                     </div>
             </div>
@@ -58,7 +58,7 @@
                         <input type="text" class="form-control rounded"  id='address' name="address" >
                     </div>
                     <div class="form-group">
-                        <label for="coffee-price" class="col-form-label">Contact #:</label>
+                        <label for="coffee-price" class="col-form-label">Contact No.:</label>
                         <input type="text" class="form-control rounded" id='contact' name="contact" >
                     </div>
             </div>

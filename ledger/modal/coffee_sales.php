@@ -8,11 +8,11 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col">
-                            <label>Invoice No.</label>
+                            <label style="font-weight: bold;">Invoice No.</label>
                             <input type="text" class="form-control" name="coffee_no" required>
                         </div>
                         <div class="col-5">
-                            <label>Customer Name</label>
+                            <label style="font-weight: bold;">Customer Name</label>
 
                             <select class="form-control" name="coffee_customer" required>
                                 <option value="" selected disabled hidden>Select...</option>
@@ -30,7 +30,7 @@
                             </select>
                         </div>
                         <div class="col-4">
-                            <label>Transaction Date</label>
+                            <label style="font-weight: bold;">Transaction Date</label>
                             <input type="date" class="form-control" name="coffee_date" required>
                         </div>
                     </div>
@@ -77,28 +77,29 @@
                     </div>
                     <br>
                     <div class="row">
-                        <div class="col">
-                            <label>Total Amount Due</label>
-                            <div class="input-group">
-                                <span class="input-group-text">₱</span>
-                                <input type="text" class="form-control" name="coffee_total_amount" readonly>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <label>Total Amount Paid</label>
-                            <div class="input-group">
-                                <span class="input-group-text">₱</span>
-                                <input type="text" class="form-control" name="total_amount_paid" readonly>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <label>Remaining Balance</label>
-                            <div class="input-group">
-                                <span class="input-group-text">₱</span>
-                                <input type="text" class="form-control" name="coffee_balance" readonly>
-                            </div>
-                        </div>
-                    </div>
+    <div class="col">
+        <label style="font-weight: bold;">Total Amount</label>
+        <div class="input-group">
+            <span class="input-group-text">₱</span>
+            <input type="text" class="form-control" name="coffee_total_amount" readonly>
+        </div>
+    </div>
+    <div class="col">
+        <label style="font-weight: bold;">Amount Paid</label>
+        <div class="input-group">
+            <span class="input-group-text">₱</span>
+            <input type="text" class="form-control" name="total_amount_paid" readonly>
+        </div>
+    </div>
+    <div class="col">
+        <label style="font-weight: bold;">Remaining Balance</label>
+        <div class="input-group">
+            <span class="input-group-text">₱</span>
+            <input type="text" class="form-control" name="coffee_balance" readonly>
+        </div>
+    </div>
+</div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

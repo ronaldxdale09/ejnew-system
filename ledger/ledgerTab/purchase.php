@@ -129,15 +129,16 @@ $side = mysqli_query($con, "SELECT category,year(date) as year,month(date) as mo
                         <?php echo $row['customer_name'] ?>
                     </td>
                     <td>₱
-                        <?php echo empty($row['price']) ? "0" : number_format($row['price']); ?>
-                    </td>
-                    <td>
-                        <?php echo empty(floatval($row['net_kilos'])) ? "0" : number_format(floatval($row['net_kilos'])); ?>
-                        kg
-                    </td>
-                    <td style="text-align: right;">
-                        ₱<?php echo empty($row['price']) ? "0" : number_format($row['price']); ?>
-                    </td>
+    <?php echo empty($row['price']) ? "0" : number_format(floatval($row['price']), 2); ?>
+</td>
+<td style="text-align: right;">
+    <?php echo empty(floatval($row['net_kilos'])) ? "0" : number_format(floatval($row['net_kilos']), 2); ?>
+    kg
+</td>
+<td style="text-align: right;">
+    ₱<?php echo empty($row['total_amount']) ? "0" : number_format(floatval($row['total_amount']), 2); ?>
+</td>
+
                     <td>
                         <button type="button" class="btn btn-secondary text-white" data-bs-toggle="modal"
                             data-bs-target="#updatePurchase" data-bs-id="<?php echo $row['id'] ?>"
