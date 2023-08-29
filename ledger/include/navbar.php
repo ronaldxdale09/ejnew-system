@@ -50,7 +50,7 @@
         display: inline-block;
     }
 </style>
-
+<?php $loc = str_replace(' ', '', $_SESSION['loc']); ?>
 <nav id='navbar'>
     <div id='toggle-nav-btn'>
         <i class='fa-solid fa-ellipsis'></i>
@@ -59,6 +59,7 @@
         <img src='assets/img/logo.png' alt='Q-cart Logo' width='35' height='35' style='margin-right:5px;'> <span class='nav-text'>General Ledger</span>
     </div>
 
+    <?php if (strcasecmp(trim($loc), 'Zamboanga') != 0) : ?>
 
     <hr style='color:gray'>
 
@@ -66,7 +67,7 @@
     <a class='nav-link' href='dashboard.php'>
         <i class='fa-solid fa-home'></i> <span class='nav-text'>Dashboard</span>
     </a>
-
+    <?php endif; ?>
     <hr style='color:white' hidden>
 
     <div class="dropdown" hidden>
@@ -98,29 +99,36 @@
         <i class='fa-solid fa-money'></i> <span class='nav-text'>Expenses</span>
     </a>
 
+    <?php if (strcasecmp(trim($loc), 'Zamboanga') != 0) : ?>
+        <a class='nav-link' href='ledger-purchase.php'>
+            <i class='fa-solid fa-comment-dollar'></i> <span class='nav-text'>Purchases</span>
+        </a>
 
-    <a class='nav-link' href='ledger-purchase.php'>
-        <i class='fa-solid fa-comment-dollar'></i> <span class='nav-text'>Purchases</span>
-    </a>
+        <a class='nav-link' href='ledger-ca.php'>
+            <i class='fa-solid fa-address-book'></i> <span class='nav-text'>Cash Advance</span>
+        </a>
 
-    <a class='nav-link' href='ledger-ca.php'>
-        <i class='fa-solid fa-address-book'></i> <span class='nav-text'>Cash Advance</span>
-    </a>
+        <a class='nav-link' href='ledger-maloong.php'>
+            <i class='fa-solid fa-book'></i> <span class='nav-text'>Maloong Toppers</span>
+        </a>
+        <a class='nav-link' href='ledger-buahan.php'>
+            <i class='fa-solid fa-archive'></i> <span class='nav-text'>Buahan Toppers</span>
+        </a>
+        <hr style='color:white'>
 
-    <a class='nav-link' href='ledger-maloong.php'>
-        <i class='fa-solid fa-book'></i> <span class='nav-text'>Maloong Toppers</span>
-    </a>
-    <a class='nav-link' href='ledger-buahan.php'>
-        <i class='fa-solid fa-archive'></i> <span class='nav-text'>Buahan Toppers</span>
-    </a>
-    <hr style='color:white'>
+    <?php endif; ?>
 
     <a class='nav-link' href='expense_report.php'>
         <i class='fa-solid fa-money'></i> <span class='nav-text'>Expense Report</span>
     </a>
-    <a class='nav-link' href='purchase_report.php'>
-        <i class='fa-solid fa-comment-dollar'></i> <span class='nav-text'>Purchase Report</span>
-    </a>
+    <?php if (strcasecmp(trim($loc), 'Zamboanga') != 0) : ?>
+
+        <a class='nav-link' href='purchase_report.php'>
+            <i class='fa-solid fa-comment-dollar'></i> <span class='nav-text'>Purchase Report</span>
+        </a>
+
+    <?php endif; ?>
+
     <div class='logout-container'>
         <span class='nav-text'></span>
         <a class='nav-link logout' href='function/logout.php'>
@@ -142,7 +150,7 @@
     document.getElementById('dropbtnCoffee').addEventListener('click', function() {
         toggleDropdown('dropbtnCoffee');
     });
-  
+
 
     // On page load, check the localStorage to see if a dropdown should be expanded
     window.onload = function() {

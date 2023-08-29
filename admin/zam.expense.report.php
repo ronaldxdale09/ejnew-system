@@ -9,7 +9,6 @@ $CurrentYear = date('Y');
 
 $Expensesyear = (isset($_GET['year'])) ? $_GET['year'] : $CurrentYear; // set default 
 $ExpensesMonth = (isset($_GET['month'])) ? $_GET['month'] : $Currentmonth; // set default 
-$source = $_SESSION["loc"];
 ?>
 
 <body>
@@ -28,7 +27,7 @@ $source = $_SESSION["loc"];
 
             <h2 class="page-title text-center my-4">
                 <b>
-                    <font color="#0C0070">EXPENSE </font>
+                    <font color="#0C0070">ZAMBOANGA EXPENSE </font>
                     <font color="#046D56"> REPORT </font>
                 </b>
             </h2>
@@ -58,7 +57,7 @@ $source = $_SESSION["loc"];
                                 sum(CASE WHEN MONTHNAME(date) = 'November' THEN amount END) AS NOV,
                                 sum(CASE WHEN MONTHNAME(date) = 'December' THEN amount END) AS DECE,
                                 SUM(amount) AS total
-                                FROM ledger_expenses WHERE YEAR(date) = $Expensesyear and location='$source'
+                                FROM ledger_expenses WHERE YEAR(date) = $Expensesyear and location='Zamboanga'
                                 GROUP BY category");
                             ?>
 
@@ -150,7 +149,7 @@ $source = $_SESSION["loc"];
                         <?php
 
                         $side = mysqli_query($con, "SELECT   category,year(date) as year,month(date) as month,sum(amount) as  total
-                  from ledger_expenses WHERE (month(date)='$ExpensesMonth' OR '$ExpensesMonth' = '') and  (year(date)='$Expensesyear'  and location='$source')   group by year(date), month(date),
+                  from ledger_expenses WHERE (month(date)='$ExpensesMonth' OR '$ExpensesMonth' = '') and  (year(date)='$Expensesyear'  and location='Zamboanga')   group by year(date), month(date),
                   category ORDER BY total DESC");
                         ?>
                         <table class="table table-hover" id='expenses_report'>
@@ -260,7 +259,7 @@ $source = $_SESSION["loc"];
 
 
             $expense_count = mysqli_query($con, "SELECT   category,year(date) as year,month(date) as month,sum(amount) as  total
-     from ledger_expenses WHERE (month(date)='$ExpensesMonth' and  year(date)='$Expensesyear')  and location='$source'  group by year(date), month(date),
+     from ledger_expenses WHERE (month(date)='$ExpensesMonth' and  year(date)='$Expensesyear')  and location='Zamboanga'  group by year(date), month(date),
      category ORDER BY id ASC");
             if ($expense_count->num_rows > 0) {
                 foreach ($expense_count as $data) {

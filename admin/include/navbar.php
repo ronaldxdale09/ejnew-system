@@ -64,9 +64,20 @@
         <i class='fas fa-home'></i> <span class='nav-text'>Home</span>
     </a>
 
-    <a class='nav-link' href='expense_report.php'>
-        <i class='fas fa-money'></i> <span class='nav-text'>Expense Report</span>
-    </a>
+    <div class="dropdown">
+        <a class="dropbtn nav-link" id='dropbtnBale'>
+            <span class="icon-wrapper"><i class='fas fa-money'></i></span>
+            <span class="nav-text">Expenses</span>
+            <i style='justify-content: right' class="fa fa-caret-down"></i>
+        </a>
+        <div class="dropdown-content">
+            <a href='basilan.expense.php'> <span class="icon-wrapper"><i class='fas fa-wallet'></i></span> Basilan Record</a>
+            <a href='basilan.expense.report.php'> <span class="icon-wrapper"><i class='fas fa-clipboard'></i></span> Basilan Report</a>
+            <a href='zam.expense.php'> <span class="icon-wrapper"><i class='fa-solid fa-ship'></i></span> Zamboanga Record</a>
+            <a href='zam.expense.report.php'> <span class="icon-wrapper"><i class='fa-solid fa-ship'></i></span> Zamboanga Report</a>
+        </div>
+
+    </div>
 
     <a class='nav-link' href='purchase_report.php'>
         <i class='fas fa-cash-register'></i> <span class='nav-text'>Purchase Report</span>

@@ -7,17 +7,18 @@
 ?>
 <html>
 
+
 <head>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css" integrity="sha512-Z/def5z5u2aR89OuzYcxmDJ0Bnd5V1cKqBEbvLOiUNWdg9PQeXVvXLI90SE4QOHGlfLqUnDNVAYyZi8UwUTmWQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="css/chosen.min.css">
+  <link rel='stylesheet' href='css/main.css'>
+  <script src="assets/js/numberFormat.js"></script>
+  <title>EJN System Admin</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-    <link href="assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/chosen.min.css">
-    <link rel='stylesheet' href='css/main.css'>
-    <link rel='icon' href='assets/img/logo.png' size='10x10' />
-    <script src="assets/js/numberFormat.js"></script>
-    <script src="js/sweetalert2@11.js"></script>
-    <title>EJN RUBBER</title>
- 
-
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <?php 
  include "include/datatables_buttons_css.php";

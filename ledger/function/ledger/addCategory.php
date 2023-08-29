@@ -4,10 +4,11 @@
 if (isset($_POST['add'])) {
                             
     $name = $_POST['name'];
+    $source = $_SESSION["loc"];
 
                     
                   
-    $query = "INSERT INTO category_expenses (category) VALUES ('$name')";
+    $query = "INSERT INTO category_expenses (category,source) VALUES ('$name','$source')";
     $results = mysqli_query($con, $query);
                                
     if ($results) {
