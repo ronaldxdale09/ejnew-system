@@ -1,25 +1,26 @@
-<?php 
-   include('include/header.php');
-   include "include/navbar.php";
+<?php
+include('include/header.php');
+include "include/navbar.php";
 
-   // purchase category
-   $query = "SELECT * FROM ledger_buying_station";
-   $result = mysqli_query($con, $query);
-   $buyingStation='';
-   while($array = mysqli_fetch_array($result))
-   {
-   $buyingStation .= '
-<option value="'.$array["name"].'">'.$array["name"].'</option>';
-   }
-   
+// purchase category
+$query = "SELECT * FROM ledger_buying_station";
+$result = mysqli_query($con, $query);
+$buyingStation = '';
+while ($array = mysqli_fetch_array($result)) {
+    $buyingStation .= '
+<option value="' . $array["name"] . '">' . $array["name"] . '</option>';
+}
 
-   ?>
+
+?>
 
 <!-- Bootstrap -->
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 
+<!-- Bootstrap script -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous">
+</script>
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.12.1/api/sum().js"></script>
 
 <body>
@@ -39,7 +40,7 @@
                         </h2>
                         <br>
 
-                        <?php include('ledgerTab/cash-advance.php')?>
+                        <?php include('ledgerTab/cash-advance.php') ?>
                     </div>
                     <!-- ============================================================== -->
                 </div>
@@ -49,10 +50,6 @@
 </body>
 
 </html>
-<!-- Bootstrap script -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous">
-</script>
 
 <script src="ledgerTab/js/ca.js"></script>
 <?php

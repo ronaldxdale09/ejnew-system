@@ -48,9 +48,43 @@ $expense_year = mysqli_fetch_array($getYearTotal);
 
 </html>
 
-<!-- for date filter -->
-
 
 <?php
+
 include('modal/modal_expenses.php');
 ?>
+
+
+<?php if (isset($_SESSION['expenses'])) : ?>
+    <div class="msg">
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Expense record successfully inserted!',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        </script>
+        <?php
+        unset($_SESSION['expenses']);
+        ?>
+    </div>
+<?php endif ?>
+
+<?php if (isset($_SESSION['expenses_update'])) : ?>
+    <div class="msg">
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Expense record successfully Update!',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        </script>
+        <?php
+        unset($_SESSION['expenses']);
+        ?>
+    </div>
+<?php endif ?>

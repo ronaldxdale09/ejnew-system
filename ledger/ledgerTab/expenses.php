@@ -1,6 +1,6 @@
 <?php
 
-$sql = "SELECT * FROM ledger_expenses ";
+$sql = "SELECT * FROM category_expenses ";
 $res = mysqli_query($con, $sql);
 $category = '';
 while ($array = mysqli_fetch_array($res)) {
@@ -21,7 +21,7 @@ while ($array = mysqli_fetch_array($res)) {
 
                 </h4>
                 <div>
-                <p class="text-uppercase mb-1 text-muted"><?php echo date("F d, Y"); ?></p>
+                    <p class="text-uppercase mb-1 text-muted"><?php echo date("F d, Y"); ?></p>
                 </div>
             </div>
             <div class="stat-card__icon stat-card__icon--success">
@@ -102,7 +102,7 @@ while ($array = mysqli_fetch_array($res)) {
             </div>
             <div class="col">
                 <div class="dropdown">
-                    <select class="form-select" name="category" id="category_filter" style="width: 157px;">
+                    <select class="form-select category_filter" name="category" id="category_filter" style="width: 157px;">
                         <option disabled="disabled" selected>Select Category</option>
                         <option value="">All</option>
                         <?php echo $category ?>
@@ -145,7 +145,6 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  ORDER BY id DESC")
                 <th scope="col">CATEGORY</th>
                 <th scope="col">Expense Type</th>
                 <th scope="col">AMOUNT</th>
-                <th scope="col">REMARKS</th>
                 <th scope="col">ACTION</th>
             </tr>
         </thead>
@@ -176,9 +175,6 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  ORDER BY id DESC")
                         <?php echo number_format($row['amount']) ?>
                     </td>
                     <td>
-                        <?php echo $row['remarks'] ?>
-                    </td>
-                    <td>
                         <button type="button" class="btn btn-secondary btn-sm text-white btnPressUpdate" data-id="<?php echo $row['id'] ?>" data-voucher_no="<?php echo $row['voucher_no'] ?>" data-particulars="<?php echo $row['particulars'] ?>" data-date="<?php echo $row['date'] ?>" data-type="<?php echo $row['type_expense'] ?>" data-amount="<?php echo $row['amount'] ?>" data-description="<?php echo $row['description'] ?>" data-mode_transact="<?php echo $row['mode_transact'] ?>" data-category="<?php echo $row['category'] ?>" data-date_payment="<?php echo $row['date_payment'] ?>" data-location="<?php echo $row['location'] ?>">
                             <span class="fa fa-edit"></span>
                         </button>
@@ -205,10 +201,6 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  ORDER BY id DESC")
 
 
 <script>
-    $('#addExpense').on('shown.bs.modal', function() {
-        $('.ex_category', this).chosen();
-    });
-
     $(document).ready(function() {
         $('.dropdown-item').click(function() {
             var selected = $(this).text(); // gets the text of the clicked item
@@ -218,6 +210,15 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  ORDER BY id DESC")
 
     $(document).ready(function() {
 
+        $(function() {
+            $(".category_filter").chosen({
+                search_threshold: 10
+            });
+        });
+
+        $('#addExpense').on('shown.bs.modal', function() {
+            $('.ex_category', this).chosen();
+        });
 
         $('.btnPressUpdate').on('click', function() {
             var id = $(this).attr('data-id');

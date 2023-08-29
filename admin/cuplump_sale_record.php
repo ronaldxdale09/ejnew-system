@@ -161,11 +161,11 @@ $active = mysqli_fetch_array($sql);
                                                 <td> <?php echo $row['contract_quantity'] ?> </td>
                                                 <td><?php echo $row['currency'] ?> <?php echo number_format($row['contract_price'], 2) ?></td>
                                                 <td> <?php echo $row['total_cuplump_weight'] ?> </td> <!-- total weight -->
-                                                <td>₱ <?php echo number_format($row['overall_ave_cost_kilo'], 2) ?></td> <!-- ave cost kilo -->
-                                                <td>₱ <?php echo number_format($row['total_sales'], 2) ?></td>
-                                                <td>₱ <?php echo number_format($row['overall_cost'], 2) ?></td>
-                                                <td>₱ <?php echo number_format($row['unpaid_balance'], 2) ?></td>
-                                                <td>₱ <?php echo number_format($row['gross_profit'], 2) ?></td>
+                                                <td>₱<?php echo number_format($row['overall_ave_cost_kilo'], 2) ?></td> <!-- ave cost kilo -->
+                                                <td>₱<?php echo number_format($row['total_sales'],0) ?></td>
+                                                <td>₱<?php echo number_format($row['overall_cost'],0) ?></td>
+                                                <td>₱<?php echo number_format($row['unpaid_balance'],0) ?></td>
+                                                <td>₱<?php echo number_format($row['gross_profit'], 0) ?></td>
                                                 <td class="text-center">
                                                     <button type="button" class="btn btn-success btn-sm btnViewRecord
                                                     " data-status="<?php echo $row['status']; ?>" data-cuplump='<?php echo json_encode($row); ?>'>
