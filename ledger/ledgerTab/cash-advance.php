@@ -109,8 +109,8 @@ $data_year = mysqli_fetch_assoc($result_year);
                         <tr>
                             <th>Voucher #</th>
                             <th>Date</th>
-                            <th width="10%">Name</th>
-                            <th>Buying Station</th>
+                            <th width="10%">Particular</th>
+                            <th>Remarks</th>
                             <th>Category</th>
                             <th>Total</th>
                             <th>Action</th>

@@ -4,19 +4,20 @@ include "include/navbar.php";
 //current month
 $currentMonth = date("m");
 $currentYear = date("Y");
-
+$source = $_SESSION["loc"];
 
 // Get today's expenses
-$sql = mysqli_query($con, "SELECT SUM(amount) AS total FROM ledger_expenses WHERE DATE(`date`) = CURDATE()");
+$sql = mysqli_query($con, "SELECT SUM(amount) AS total FROM ledger_expenses WHERE DATE(`date`) = CURDATE() and location='$source'");
 $expense_today = mysqli_fetch_array($sql);
 
 // Get current month's expenses
 $getMonthTotal = mysqli_query($con, "SELECT YEAR(date) AS year, MONTH(date) AS month, SUM(amount) AS month_total
-    FROM ledger_expenses WHERE MONTH(date) = '$currentMonth' AND YEAR(date) = '$currentYear' GROUP BY YEAR(date), MONTH(date)");
+    FROM ledger_expenses WHERE (MONTH(date) = '$currentMonth' AND YEAR(date) = '$currentYear') and location='$source' GROUP BY YEAR(date), MONTH(date)");
+
 $expense_month = mysqli_fetch_array($getMonthTotal);
 
 // Get current year's expenses
-$getYearTotal = mysqli_query($con, "SELECT SUM(amount) AS year_total FROM ledger_expenses WHERE YEAR(date) = '$currentYear'");
+$getYearTotal = mysqli_query($con, "SELECT SUM(amount) AS year_total FROM ledger_expenses WHERE YEAR(date) = '$currentYear'  and location='$source'");
 $expense_year = mysqli_fetch_array($getYearTotal);
 
 

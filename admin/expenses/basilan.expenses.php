@@ -1,6 +1,6 @@
 <?php
 
-$sql = "SELECT * FROM category_expenses where source='$source' ";
+$sql = "SELECT * FROM category_expenses where source='Basilan' ";
 $res = mysqli_query($con, $sql);
 $category = '';
 while ($array = mysqli_fetch_array($res)) {
@@ -75,16 +75,7 @@ while ($array = mysqli_fetch_array($res)) {
 </div>
 <div class="row" style="display: flex; align-items: center;">
 
-    <div class="col-sm-4">
-        <div class="btn-group">
-            <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#addExpense">
-                <i class="fa fa-plus" aria-hidden="true"></i> ADD EXPENSE
-            </button>
-            <button type="button" class="btn btn-dark text-white" data-toggle="modal" data-target="#categoryModal">
-                <i class="fa fa-book" aria-hidden="true"></i> CATEGORY
-            </button>
-        </div>
-    </div>
+  
 
     <div class="col-sm-4">
         <div class="row">
@@ -130,7 +121,7 @@ while ($array = mysqli_fetch_array($res)) {
 <hr>
 <?php
 $date = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d'); // set $date to the requested date or today's date in yyyy-mm-dd format
-$results = mysqli_query($con, "SELECT * FROM ledger_expenses  where location='$source'  ORDER BY id DESC");
+$results = mysqli_query($con, "SELECT * FROM ledger_expenses  where location='Basilan'  ORDER BY id DESC");
 ?>
 <!-- expenses table -->
 <div id='total_expenses'> </div>
@@ -145,7 +136,6 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  where location='$s
                 <th scope="col">CATEGORY</th>
                 <th scope="col">Expense Type</th>
                 <th scope="col">AMOUNT</th>
-                <th scope="col">ACTION</th>
             </tr>
         </thead>
         <tbody>
@@ -174,14 +164,7 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  where location='$s
                     <td>₱
                         <?php echo number_format($row['amount']) ?>
                     </td>
-                    <td>
-                        <button type="button" class="btn btn-secondary btn-sm text-white btnPressUpdate" data-id="<?php echo $row['id'] ?>" data-voucher_no="<?php echo $row['voucher_no'] ?>" data-particulars="<?php echo $row['particulars'] ?>" data-date="<?php echo $row['date'] ?>" data-type="<?php echo $row['type_expense'] ?>" data-amount="<?php echo $row['amount'] ?>" data-description="<?php echo $row['description'] ?>" data-mode_transact="<?php echo $row['mode_transact'] ?>" data-category="<?php echo $row['category'] ?>" data-date_payment="<?php echo $row['date_payment'] ?>" data-location="<?php echo $row['location'] ?>">
-                            <span class="fa fa-edit"></span>
-                        </button>
-                        <button type="button" class="btn btn-danger btn-sm  text-white btnExpenseDelete" data-id="<?php echo $row['id'] ?>">
-                            <span class="fa fa-trash"></span>
-                        </button>
-                    </td>
+                   
                 </tr>
             <?php } ?>
         </tbody>
@@ -214,46 +197,6 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  where location='$s
             $(".category_filter").chosen({
                 search_threshold: 10
             });
-        });
-
-        $('#addExpense').on('shown.bs.modal', function() {
-            $('.ex_category', this).chosen();
-        });
-
-        $('.btnPressUpdate').on('click', function() {
-            var id = $(this).attr('data-id');
-            var voucher = $(this).attr('data-voucher_no');
-            var date = $(this).attr('data-date');
-            var type = $(this).attr('data-type');
-            var amount = $(this).attr('data-amount');
-            var description = $(this).attr('data-description');
-            var particulars = $(this).attr('data-particulars');
-            var category = $(this).attr('data-category'); // Added this line
-            var mode_transact = $(this).attr('data-mode_transact');
-            var date_payment = $(this).attr('data-date_payment');
-            var location = $(this).attr('data-location');
-
-            $('#update_id').val(id);
-            $('#u_date_transaction').val(date);
-            $('#u_date_payment').val(date_payment);
-            $('#u_location').val(location);
-            $('#u_voucher').val(voucher);
-            $('#u_type').val(type);
-            $('#u_particular').val(particulars);
-            $('#u_category').val(category); // Added this line
-            $('#u_mode_transaction').val(mode_transact);
-            $('#u_amount').val(amount);
-            $('#u_remarks').val(description);
-            $('#updateExpense').modal('show');
-        });
-
-        $('.btnExpenseDelete').on('click', function() {
-            var del_id = $(this).data('id');
-
-
-            $('#del_id').val(del_id);
-
-            $('#removeExpenseModal').modal('show');
         });
 
 

@@ -3,9 +3,9 @@ $month = date("m");
 $day = date("d");
 $year = date("Y");
 $dateNow = $year . "-" . $month . "-" . $day;
-
+$source = $_SESSION["loc"];
 // expense category
-$sql = "SELECT * FROM category_expenses ";
+$sql = "SELECT * FROM category_expenses where source='$source'";
 $result = mysqli_query($con, $sql);
 $categoryList = '';
 while ($arr = mysqli_fetch_array($result)) {
@@ -24,7 +24,7 @@ while ($arr = mysqli_fetch_array($result)) {
             <div class="modal-header">
                 <h5 class="modal-title">Create New Record</h5>
             </div>
-            <form action="function/ledger/addExpenses.php" id='myform' method="POST">
+            <form action="function/ledger/addExpenses.php" id='expense_form' method="POST" >
 
                 <div class="modal-body">
                     <div class="row">
@@ -39,7 +39,7 @@ while ($arr = mysqli_fetch_array($result)) {
                         <div class="col">
                             <div class="mb-3">
                                 <label for="product_name" class="form-label">Location</label>
-                                <input type="text" class="form-control" name="location" value="Basilan" readonly>
+                                <input type="text" class="form-control" name="location" value="<?php echo $source;?>" readonly>
                             </div>
                         </div>
                     </div>
@@ -56,9 +56,11 @@ while ($arr = mysqli_fetch_array($result)) {
                                 <label for="product_name" class="form-label">Type</label>
                                 <select class='form-select category' name='type' id='type' required>
                                     <option disabled="disabled" value='' selected="selected">Select Type </option>
+                                    <option value='Personal Expenses'>Personal Expenses</option>
                                     <option value='Rubber Expenses'>Rubber Expenses</option>
                                     <option value='Coffee Expenses'>Coffee Expenses</option>
                                     <option value='Copra Expenses'>Copra Expenses</option>
+                                    <option value='NTC Expenses'>NTC Expenses</option>
                                     <option value='Other Expenses'>Others</option>
 
                                 </select>
@@ -67,7 +69,7 @@ while ($arr = mysqli_fetch_array($result)) {
                         <div class="col">
                             <div class="mb-3">
                                 <label for="product_name" class="form-label">Category</label>
-                                <select class='form-select ex_category' name='category' id='category' required>
+                                <select class='form-select ex_category' name='category' id='n_category' required>
                                     <option disabled="disabled" selected="selected">Select Category </option>
                                     <?php echo $categoryList?>
 
@@ -176,11 +178,13 @@ while ($arr = mysqli_fetch_array($result)) {
                         <div class="col">
                             <div class="mb-3">
                                 <label for="product_name" class="form-label">Type</label>
-                                <select class='form-select category' name='type' id='u_type' required>
+                                <select class='form-select' name='type' id='u_type' required>
                                     <option disabled="disabled" value='' selected="selected">Select Type </option>
+                                    <option value='Personal Expenses'>Personal Expenses</option>
                                     <option value='Rubber Expenses'>Rubber Expenses</option>
                                     <option value='Coffee Expenses'>Coffee Expenses</option>
                                     <option value='Copra Expenses'>Copra Expenses</option>
+                                    <option value='NTC Expenses'>NTC Expenses</option>
                                     <option value='Other Expenses'>Others</option>
 
                                 </select>
@@ -190,7 +194,7 @@ while ($arr = mysqli_fetch_array($result)) {
                             <div class="mb-3">
                                 <label for="product_name" class="form-label">Category</label>
                                 <select class='form-select category' name='category' id='u_category' required>
-                                    <option disabled="disabled" value="" selected="selected">Select Category </option>
+                                    <option disabled="disabled"  value='' selected="selected">Select Category </option>
                                     <?php echo $categoryList?>
 
                                     <!--PHP echo-->
@@ -275,7 +279,7 @@ while ($arr = mysqli_fetch_array($result)) {
                         <div class="col-md-7">
 
                             <?php
-                                 $results  = mysqli_query($con, "SELECT * from category_expenses ORDER BY category ASC "); ?>
+                                 $results  = mysqli_query($con, "SELECT * from category_expenses where source='$source' ORDER BY category ASC "); ?>
                             <table id="expense_category" class="table table-hover" style="width:100%">
                                 <thead class="table-dark">
                                     <tr>
@@ -404,7 +408,6 @@ while ($arr = mysqli_fetch_array($result)) {
 
 
 
-
 <script>
 $('.catUpdate').on('click', function() {
 
@@ -434,4 +437,6 @@ $('.btnDelete').on('click', function() {
 
 
 });
+
+ 
 </script>
