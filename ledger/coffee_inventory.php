@@ -15,15 +15,18 @@ include('include/navbar.php');
                         <h2 class="page-title">
                             <b>
                                 <font color="#0C0070">COFFEE </font>
-                                <font color="#046D56"> PRODUCTS </font>
+                                <font color="#046D56"> INVENTORY </font>
                             </b>
                         </h2>
                         <br>
                         <div class="card">
                             <div class="card-body">
-                                <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#add_product">
-                                    <i class="fa fa-add" aria-hidden="true"></i> NEW PRODUCT
+                                <button type="button" class="btn btn-success text-white" data-toggle="modal"
+                                    data-target="#add_inventory">
+                                    <i class="fa fa-plus" aria-hidden="true"></i> ADD INVENTORY
                                 </button>
+
+
                                 <hr>
                                 <?php
 
@@ -40,12 +43,14 @@ include('include/navbar.php');
                                     <table class="table" id='customerTable'>
                                         <thead class="table-dark">
                                             <tr>
-                                                <th scope="col">Code</th>
-                                                <th scope="col">Product Category</th>
-                                                <th scope="col">Product Description</th>
+                                                <th scope="col">ID</th>
+                                                <th scope="col">Date Added</th>
+                                                <th scope="col">Product Name</th>
                                                 <th scope="col">Pieces per Box</th>
                                                 <th scope="col">Unit Price</th>
-                                                <th scope="col">Action</th>
+                                                <th scope="col">Unit Cost</th>
+                                                <th scope="col">Produced</th>
+                                                <th scope="col">Inventory</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -56,11 +61,10 @@ include('include/navbar.php');
                                                 echo "<td>" . $row['coffee_name'] . "</td>";
                                                 echo "<td>" . $row['coffee_name'] . "</td>";
                                                 echo "<td>" . $row['coffee_name'] . "</td>";
+                                                echo "<td>" . $row['coffee_name'] . "</td>";
+                                                echo "<td>" . $row['coffee_name'] . "</td>";    
                                                 echo "<td>&#8369;" . $row['coffee_price'] . "</td>";
-                                                echo "<td class='text-center'> 
-                                                        <button class='btn btn-primary btn-sm btnUpdate' >Update</button>
-                                                        <button class='btn btn-danger btn-sm confirmDelete' >Delete</button>
-                                                    </td>";
+                                                echo "<td>&#8369;" . $row['coffee_price'] . "</td>";
                                                 echo "</tr>";
                                             }
                                             ?>
@@ -77,77 +81,77 @@ include('include/navbar.php');
     </div>
 
     <?php
-    include "modal/coffee_product.php";
+    include "modal/coffee_inventory.php";
     ?>
 
 
     <script>
-        $('.btnUpdate').on('click', function() {
-            $tr = $(this).closest('tr');
+    $('.btnUpdate').on('click', function() {
+        $tr = $(this).closest('tr');
 
-            var data = $tr.children("td").map(function() {
-                return $(this).text();
-            }).get();
+        var data = $tr.children("td").map(function() {
+            return $(this).text();
+        }).get();
 
-            $('#coffee_id').val(data[0]);
-            $('#coffee_name').val(data[1]);
-            $('#coffee_price').val(data[2].replace(/[^0-9.]/g, ''));
+        $('#coffee_id').val(data[0]);
+        $('#coffee_name').val(data[1]);
+        $('#coffee_price').val(data[2].replace(/[^0-9.]/g, ''));
 
-            $('#update_product').modal('show');
-
-
-        });
-
-        $('.confirmDelete').on('click', function() {
-            $tr = $(this).closest('tr');
-
-            var data = $tr.children("td").map(function() {
-                return $(this).text();
-            }).get();
-
-            $('#d_coffee_id').val(data[0]);
-            
-            $('#deleteProductModal').modal('show'); // Close the modal
-        });
+        $('#update_product').modal('show');
 
 
+    });
 
-        $(document).ready(function() {
-            var table = $('#customerTable').DataTable({
-                dom: '<"top"<"left-col"B><"center-col"f>>rti<"bottom"p><"clear">',
-                order: [
-                    [0, 'desc']
-                ],
-                buttons: [{
-                        extend: 'excelHtml5',
-                        exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
-                        }
-                    },
-                    {
-                        extend: 'pdfHtml5',
-                        exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
-                        }
-                    },
-                    {
-                        extend: 'print',
-                        exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
-                        }
+    $('.confirmDelete').on('click', function() {
+        $tr = $(this).closest('tr');
+
+        var data = $tr.children("td").map(function() {
+            return $(this).text();
+        }).get();
+
+        $('#d_coffee_id').val(data[0]);
+
+        $('#deleteProductModal').modal('show'); // Close the modal
+    });
+
+
+
+    $(document).ready(function() {
+        var table = $('#customerTable').DataTable({
+            dom: '<"top"<"left-col"B><"center-col"f>>rti<"bottom"p><"clear">',
+            order: [
+                [0, 'desc']
+            ],
+            buttons: [{
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7]
                     }
-                ],
-                lengthMenu: [
-                    [-1],
-                    ["All"]
-                ],
-                orderCellsTop: true,
-                paging: false, // Disable pagination
-                infoCallback: function(settings, start, end, max, total, pre) {
-                    return total + ' entries';
+                },
+                {
+                    extend: 'pdfHtml5',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                    }
+                },
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                    }
                 }
-            });
+            ],
+            lengthMenu: [
+                [-1],
+                ["All"]
+            ],
+            orderCellsTop: true,
+            paging: false, // Disable pagination
+            infoCallback: function(settings, start, end, max, total, pre) {
+                return total + ' entries';
+            }
         });
+    });
     </script>
 
 

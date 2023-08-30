@@ -1,4 +1,4 @@
-<!-- Add Customer Modal -->
+<!-- Add Product Modal -->
 <div class="modal fade" id="add_product" tabindex="-1" role="dialog" aria-labelledby="newCoffeeProductForm" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
