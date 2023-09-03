@@ -1,5 +1,5 @@
 <?php
-include "../function/db.php";
+include('../../function/db.php');
 $output = '';
 $sales_id = $_POST['sales_id'];
 
@@ -13,6 +13,7 @@ $total_production_cost = 0;
 $number_container = 0;
 $total_ship_exp = 0;
 $output .= '
+<div class="table-responsive">
 <table class="table table-bordered table-hover table-striped" id="recording_table-receiving">
            <thead class="table-dark" style="font-size: 12px !important" >
            <tr>
@@ -69,7 +70,7 @@ if (mysqli_num_rows($result) > 0) {
 }
 
 $output .= '</table>
-
+</div>
 
     <script>
     document.getElementById("total_num_bales").value = "' . number_format($total_bales) . ' ";

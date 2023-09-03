@@ -1,6 +1,5 @@
 <?php  
-include('../function/db.php');
-
+include('../../function/db.php');
 // Report all PHP errors
 error_reporting(E_ALL);
 
@@ -20,6 +19,7 @@ $output='';
 
 $result = mysqli_query($con, $sql);  
 $output = '
+<div class="table-responsive">
 <table class="table table-bordered" id="rubber-table">
     <thead>
         <tr>
@@ -75,7 +75,9 @@ $output = '
 
 $output .= '
     </tbody>
-</table>';
+</table>
+</div>
+';
 
 echo $output;
  ?>

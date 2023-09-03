@@ -171,11 +171,11 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  where location='$s
                     <td>
                         <?php echo $row['type_expense'] ?>
                     </td>
-                    <td>₱
-                        <?php echo number_format($row['amount']) ?>
+                    <td>₱<?php echo number_format($row['amount'],2) ?>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-secondary btn-sm text-white btnPressUpdate" data-id="<?php echo $row['id'] ?>" data-voucher_no="<?php echo $row['voucher_no'] ?>" data-particulars="<?php echo $row['particulars'] ?>" data-date="<?php echo $row['date'] ?>" data-type="<?php echo $row['type_expense'] ?>" data-amount="<?php echo $row['amount'] ?>" data-description="<?php echo $row['description'] ?>" data-mode_transact="<?php echo $row['mode_transact'] ?>" data-category="<?php echo $row['category'] ?>" data-date_payment="<?php echo $row['date_payment'] ?>" data-location="<?php echo $row['location'] ?>">
+                        <button type="button" class="btn btn-secondary btn-sm text-white btnPressUpdate"
+                        data-remarks="<?php echo $row['remarks'] ?>" data-id="<?php echo $row['id'] ?>" data-voucher_no="<?php echo $row['voucher_no'] ?>" data-particulars="<?php echo $row['particulars'] ?>" data-date="<?php echo $row['date'] ?>" data-type="<?php echo $row['type_expense'] ?>" data-amount="<?php echo $row['amount'] ?>" data-description="<?php echo $row['description'] ?>" data-mode_transact="<?php echo $row['mode_transact'] ?>" data-category="<?php echo $row['category'] ?>" data-date_payment="<?php echo $row['date_payment'] ?>" data-location="<?php echo $row['location'] ?>">
                             <span class="fa fa-edit"></span>
                         </button>
                         <button type="button" class="btn btn-danger btn-sm  text-white btnExpenseDelete" data-id="<?php echo $row['id'] ?>">
@@ -232,6 +232,7 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  where location='$s
             var mode_transact = $(this).attr('data-mode_transact');
             var date_payment = $(this).attr('data-date_payment');
             var location = $(this).attr('data-location');
+            var remarks = $(this).attr('data-remarks');
 
             $('#update_id').val(id);
             $('#u_date_transaction').val(date);
@@ -243,7 +244,7 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  where location='$s
             $('#u_category').val(category); // Added this line
             $('#u_mode_transaction').val(mode_transact);
             $('#u_amount').val(amount);
-            $('#u_remarks').val(description);
+            $('#u_remarks').val(remarks);
             $('#updateExpense').modal('show');
         });
 

@@ -49,14 +49,14 @@ if ($data['total_weight'] != 0) {
 ?>
 <br>
 <div class="row">
-    <div class="col-3">
+    <div class="col">
         <div class="stat-card">
             <div class="stat-card__content">
                 <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY (KG)</p>
-                <h3>
+                <h4>
                     <i class="text-danger font-weight-bold mr-1"></i>
                     <?php echo number_format($bales_Kidapawan['inventory'] ?? 0, 0) ?> kg
-                </h3>
+                </h4>
                 <div>
                     <span class="text-muted">
                     </span>
@@ -69,14 +69,14 @@ if ($data['total_weight'] != 0) {
             </div>
         </div>
     </div>
-    <div class="col-3">
+    <div class="col">
         <div class="stat-card">
             <div class="stat-card__content">
                 <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY </p>
-                <h3>
+                <h4>
                     <i class="text-danger font-weight-bold mr-1"></i>
                     <?php echo number_format($balesCount_Kidapawan['inventory'] ?? 0, 0) ?> pcs
-                </h3>
+                </h4>
                 <div>
                     <span class="text-muted">
                     </span>
@@ -89,14 +89,14 @@ if ($data['total_weight'] != 0) {
             </div>
         </div>
     </div>
-    <div class="col-3">
+    <div class="col">
         <div class="stat-card">
             <div class="stat-card__content">
-                <p class="text-uppercase mb-1 text-muted"><b>AVERAGE</b> INVENTORY COST </p>
-                <h3>
+                <p class="text-uppercase mb-1 text-muted"><b>AVERAGE</b>  COST </p>
+                <h4>
                     <i class="text-success font-weight-bold mr-1"></i>
                     ₱ <?php echo number_format($average_kilo_cost_Kidapawan ?? 0, 2) ?>
-                </h3>
+                </h4>
                 <div>
                     <span class="text-muted">
                     </span>

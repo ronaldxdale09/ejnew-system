@@ -6,7 +6,7 @@
 </style>
 
 <?php
-include('../function/db.php');
+include('../../function/db.php');
 
 $sales_id = $_POST['sales_id'];
 
@@ -21,7 +21,7 @@ if (!$result) {
 
 
 $output = '
-
+<div class="table-responsive">
 <table class="table"  id="payment-table" >
     <thead style="font-weight: normal;">
         <tr style="font-weight: normal;">
@@ -63,6 +63,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 $output .= '
     </tbody>
 </table>
+</div>
 <br>
 
 

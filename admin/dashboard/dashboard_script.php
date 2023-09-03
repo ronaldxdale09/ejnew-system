@@ -1,16 +1,6 @@
-<?php
-$expense = mysqli_query($con, "SELECT   category,year(date) as year,month(date) as month,sum(amount) as  total
-         from ledger_expenses WHERE month(date)='$Currentmonth' and year(date)='$CurrentYear'   group by year(date), month(date),
-        category ORDER BY id ASC");
-if ($expense->num_rows > 0) {
-    foreach ($expense as $data) {
-        $expenses_category[] = $data['category'];
-        $expense_total[] = $data['total'];
-    }
-}
-?>
 <script>
-    expense_pie = document.getElementById("expense_bar_chart");
+    b_expense_pie = document.getElementById("expense_pie_basilan");
+    z_expense_pie = document.getElementById("expense_pie_zam");
     expense_monthly = document.getElementById("expense_monthly");
 
 
@@ -31,72 +21,147 @@ if ($expense->num_rows > 0) {
         return colors;
     }
 
-    new Chart(expense_pie, {
+    <?php
+    $expenses_category_basilan = [];
+    $expense_total_basilan = [];
+
+    $expenses_category_zamboanga = [];
+    $expense_total_zamboanga = [];
+
+    // Fetch data for Basilan
+    $expense_basilan = mysqli_query($con, "SELECT category, year(date) as year, month(date) as month, sum(amount) as total
+    from ledger_expenses 
+    WHERE (month(date)='$Currentmonth' and year(date)='$CurrentYear' ) and location='Basilan'
+    group by year(date), month(date), category");
+
+    if ($expense_basilan->num_rows > 0) {
+        foreach ($expense_basilan as $data) {
+            $expenses_category_basilan[] = $data['category'];
+            $expense_total_basilan[] = $data['total'];
+        }
+    }
+
+    // Fetch data for Zamboanga
+    $expense_zamboanga = mysqli_query($con, "SELECT category, year(date) as year, month(date) as month, sum(amount) as total
+    from ledger_expenses 
+    WHERE (month(date)='$Currentmonth' and year(date)='$CurrentYear' ) and location='Zamboanga'
+    group by year(date), month(date), category");
+
+    if ($expense_zamboanga->num_rows > 0) {
+        foreach ($expense_zamboanga as $data) {
+            $expenses_category_zamboanga[] = $data['category'];
+            $expense_total_zamboanga[] = $data['total'];
+        }
+    }
+    ?>
+
+    new Chart(b_expense_pie, {
         type: 'pie',
         data: {
-            labels: <?php echo isset($expenses_category) ? json_encode($expenses_category) : json_encode([]); ?>,
+            labels: <?php echo isset($expenses_category_basilan) ? json_encode($expenses_category_basilan) : json_encode([]); ?>,
             datasets: [{
-                label: 'Operating Expenses',
-                data: <?php echo isset($expense_total) ? json_encode($expense_total) : json_encode([]); ?>,
+                label: 'Operating Expenses Basilan',
+                data: <?php echo isset($expense_total_basilan) ? json_encode($expense_total_basilan) : json_encode([]); ?>,
                 borderColor: '#000000',
-                backgroundColor: getColorPalette(<?php echo isset($expenses_category) ? count($expenses_category) : 0; ?>),
+                backgroundColor: getColorPalette(<?php echo isset($expenses_category_basilan) ? count($expenses_category_basilan) : 0; ?>),
                 borderWidth: .5
             }]
         },
         options: {
+            maintainAspectRatio: false,
             responsive: true,
-            aspectRatio: 1.5,
-            layout: {
-                padding: {
-                    top: 59 // Adjust the value based on your needs
-                }
-            },
             plugins: {
-                labels: {
-                    render: 'value',
-                },
                 legend: {
-                    position: 'right'
-                },
+                    position: 'bottom'
+                }
+            }
+        }
+    });
 
+    new Chart(z_expense_pie, {
+        type: 'pie',
+        data: {
+            labels: <?php echo isset($expenses_category_zamboanga) ? json_encode($expenses_category_zamboanga) : json_encode([]); ?>,
+            datasets: [{
+                label: 'Operating Expenses Zamboanga',
+                data: <?php echo isset($expense_total_zamboanga) ? json_encode($expense_total_zamboanga) : json_encode([]); ?>,
+                borderColor: '#000000',
+                backgroundColor: getColorPalette(<?php echo isset($expenses_category_zamboanga) ? count($expenses_category_zamboanga) : 0; ?>),
+                borderWidth: .5
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
             }
         }
     });
 
     <?php
-    $expense = mysqli_query($con, "SELECT year(date) as year, month(date) as month, sum(amount) as total
- from ledger_expenses WHERE year(date)='$CurrentYear' group by year(date), month(date)
- ORDER BY year(date) ASC, month(date) ASC");
-
+    // Initial Variables
     $expenses_months = [];
-    $expense_total = [];
+    $expense_total_basilan = array_fill(0, 12, 0);  // Pre-fill with 0s
+    $expense_total_zamboanga = array_fill(0, 12, 0);  // Pre-fill with 0s
 
-    if ($expense->num_rows > 0) {
-        while ($data = $expense->fetch_assoc()) {
-            $expenses_months[] = date("F", mktime(0, 0, 0, $data['month'], 10)); // Month's name
-            $expense_total[] = $data['total'];
+    // Fetch data for Basilan
+    $expense_basilan = mysqli_query($con, "SELECT month(date) as month, sum(amount) as total 
+from ledger_expenses WHERE year(date)='$CurrentYear' AND location='Basilan' group by month(date)
+ORDER BY month(date) ASC");
+
+    if ($expense_basilan->num_rows > 0) {
+        while ($data = $expense_basilan->fetch_assoc()) {
+            $expense_total_basilan[$data['month'] - 1] = $data['total']; // Minus 1 because array index starts at 0
         }
     }
+
+    // Fetch data for Zamboanga
+    $expense_zamboanga = mysqli_query($con, "SELECT month(date) as month, sum(amount) as total 
+from ledger_expenses WHERE year(date)='$CurrentYear' AND location='Zamboanga' group by month(date)
+ORDER BY month(date) ASC");
+
+    if ($expense_zamboanga->num_rows > 0) {
+        while ($data = $expense_zamboanga->fetch_assoc()) {
+            $expense_total_zamboanga[$data['month'] - 1] = $data['total'];
+        }
+    }
+
+    // Generate Month Labels
+    for ($i = 1; $i <= 12; $i++) {
+        $expenses_months[] = date("F", mktime(0, 0, 0, $i, 10));
+    }
     ?>
+
     new Chart(document.getElementById("expense_monthly"), {
         type: 'bar',
         data: {
             labels: <?php echo json_encode($expenses_months); ?>,
             datasets: [{
-                label: 'Monthly Expenses',
-                data: <?php echo json_encode($expense_total); ?>,
-                borderColor: '#000000',
-                backgroundColor: "#4E79A7", // Apply the color palette for 12 months
-                borderWidth: .5
-            }]
+                    label: 'Basilan Monthly Expenses',
+                    data: <?php echo json_encode($expense_total_basilan); ?>,
+                    borderColor: '#000000',
+                    backgroundColor: "#4E79A7",
+                    borderWidth: .5
+                },
+                {
+                    label: 'Zamboanga Monthly Expenses',
+                    data: <?php echo json_encode($expense_total_zamboanga); ?>,
+                    borderColor: '#000000',
+                    backgroundColor: "#F28E2B", // A different color for clarity
+                    borderWidth: .5
+                }
+            ]
         },
         options: {
-            maintainAspectRatio: false, // This ensures that the chart will take the full height of the container
+            maintainAspectRatio: false,
             responsive: true,
             aspectRatio: 1.5,
             layout: {
                 padding: {
-                    top: 59 // Adjust the value based on your needs
+                    top: 59
                 }
             },
             plugins: {
@@ -108,10 +173,9 @@ if ($expense->num_rows > 0) {
                 },
                 title: {
                     display: true,
-                    text: 'Monthly Expenses Chart' // Chart title
+                    text: 'Monthly Expenses Chart for Basilan and Zamboanga'
                 }
-            },
-
+            }
         }
     });
 

@@ -6,8 +6,7 @@
 </style>
 
 <?php
-include('../function/db.php');
-
+include('../../function/db.php');
 $container_id = $_POST['container_id'];
 
 // Query to get the bale info from the database
@@ -21,6 +20,7 @@ if (!$result) {
 
 
 $output = '
+<div class="table-responsive">
 <table class="table"  id="rubber-table" >
     <thead style="font-weight: normal;">
         <tr style="font-weight: normal;">
@@ -68,6 +68,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 $output .= '
     </tbody>
 </table>
+</div>
 
 <div class="row">
 <div class="col">

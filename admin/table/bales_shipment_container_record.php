@@ -1,5 +1,5 @@
 <?php
-include "../function/db.php";
+include('../../function/db.php');
 $output = '';
 $shipment_id = $_POST['shipment_id'];
 
@@ -11,6 +11,7 @@ $total_weight = 0;
 $total_bale_cost = 0;
 $number_container = 0;
 $output .= '
+<div class="table-responsive">
 <table class="table table-bordered table-hover table-striped" id="recording_table-receiving">
            <thead class="table-dark" style="font-size: 12px !important" >
            <tr>
@@ -54,7 +55,7 @@ if (mysqli_num_rows($result) > 0) {
 }
 
 $output .= '</table>
-
+</div>
     
 
     <script>
@@ -71,6 +72,3 @@ $output .= '</table>
 ';
 
 echo $output;
-
-?>
-

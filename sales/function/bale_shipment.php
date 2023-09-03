@@ -31,6 +31,8 @@
     
         if ($results) {
             $last_id = $con->insert_id;
+
+            
             header("Location: ../bale_shipment.php?id=$last_id");  // Change this to your desired location
             exit();
         } else {

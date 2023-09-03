@@ -65,7 +65,7 @@
     </a>
 
     <div class="dropdown">
-        <a class="dropbtn nav-link" id='dropbtnBale'>
+        <a class="dropbtn nav-link" id='dropbtnExpense'>
             <span class="icon-wrapper"><i class='fas fa-money'></i></span>
             <span class="nav-text">Expenses</span>
             <i style='justify-content: right' class="fa fa-caret-down"></i>
@@ -158,6 +158,11 @@
     document.getElementById('dropbtnCuplump').addEventListener('click', function() {
         toggleDropdown('dropbtnCuplump');
     });
+    
+     document.getElementById('dropbtnExpense').addEventListener('click', function() {
+        toggleDropdown('dropbtnExpense');
+    });
+    
 
     // On page load, check the localStorage to see if a dropdown should be expanded
     window.onload = function() {

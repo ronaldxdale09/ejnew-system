@@ -1,6 +1,5 @@
 <?php
-include "../function/db.php";
-
+include('../../function/db.php');
 $shipment_id = $_POST['shipment_id'];
 $number_container = 0;
 $output = '';
@@ -10,7 +9,7 @@ $result  = mysqli_query($con, "SELECT * from sales_cuplump_shipment_container wh
 // $total_weight = 0;
 // $number_container = 0;
 $output .= '
-
+<div class="table-responsive">
 <table class="table table-bordered table-hover table-striped" id="container_table">
            <thead class="table-dark" style="font-size: 12px !important" >
            <tr>
@@ -47,6 +46,7 @@ if (mysqli_num_rows($result) > 0) {
 }
 
 $output .= '</table>
+</div>
 <hr>
 
 <script>

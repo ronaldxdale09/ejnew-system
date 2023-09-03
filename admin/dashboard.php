@@ -253,17 +253,17 @@ include('dashboard/dashboard_computation.php');
 
                 <div class="row">
                     <div class="col">
-                        <div class="stat-card">
+                        <div class="stat-card-default">
                             <div class="stat-card__content">
                                 <p class="text-uppercase mb-1 text-muted"><b>CUPLUMP</b> INVENTORY</p>
                                 <div class="flex-container" style="display: flex; flex-direction: column;">
                                     <div style="display: flex; justify-content: space-between;">
-                                        <div>Basilan :</div>
-                                        <div><?php echo number_format($basilan_cuplumps['inventory'] ?? 0, 0) ?> kg</div>
+                                        <div><i class="fas fa-map-marker-alt"></i>&emsp;Basilan :</div>
+                                        <div style="font-weight: normal;"><?php echo number_format($basilan_cuplumps['inventory'] ?? 0, 0) ?> kg</div>
                                     </div>
                                     <div style="display: flex; justify-content: space-between;">
-                                        <div>Kidapawan :</div>
-                                        <div><?php echo number_format($kidapawan_cuplumps['inventory'] ?? 0, 0) ?> kg</div>
+                                        <div><i class="fas fa-map-marker-alt"></i>&emsp;Kidapawan :</div>
+                                        <div style="font-weight: normal;"><?php echo number_format($kidapawan_cuplumps['inventory'] ?? 0, 0) ?> kg</div>
                                     </div>
                                     <div class="separator"></div>
                                     <div style="display: flex; justify-content: space-between;">
@@ -276,16 +276,16 @@ include('dashboard/dashboard_computation.php');
                     </div>
 
                     <div class="col">
-                        <div class="stat-card">
+                        <div class="stat-card-default">
                             <div class="stat-card__content">
                                 <p class="text-uppercase mb-1 text-muted"><b>CRUMB</b> INVENTORY</p>
                                 <div class="flex-container">
-                                    <div>Basilan :</div>
-                                    <div><?php echo number_format($basilan_milling['inventory'] ?? 0, 0) ?> kg</div>
+                                    <div><i class="fas fa-map-marker-alt"></i>&emsp;Basilan :</div>
+                                    <div style="font-weight: normal;"><?php echo number_format($basilan_milling['inventory'] ?? 0, 0) ?> kg</div>
                                 </div>
                                 <div class="flex-container">
-                                    <div>Kidapawan :</div>
-                                    <div><?php echo number_format($kidapawan_milling['inventory'] ?? 0, 0) ?> kg</div>
+                                    <div><i class="fas fa-map-marker-alt"></i>&emsp;Kidapawan :</div>
+                                    <div style="font-weight: normal;"><?php echo number_format($kidapawan_milling['inventory'] ?? 0, 0) ?> kg</div>
                                 </div>
                                 <div class="separator"></div>
                                 <div class="flex-container">
@@ -297,16 +297,16 @@ include('dashboard/dashboard_computation.php');
                     </div>
 
                     <div class="col">
-                        <div class="stat-card">
+                        <div class="stat-card-default">
                             <div class="stat-card__content">
                                 <p class="text-uppercase mb-1 text-muted"><b>BLANKET</b> INVENTORY</p>
                                 <div class="flex-container">
-                                    <div>Basilan :</div>
-                                    <div><?php echo number_format($basilan_drying['inventory'] ?? 0, 0) ?> kg</div>
+                                    <div><i class="fas fa-map-marker-alt"></i>&emsp;Basilan :</div>
+                                    <div style="font-weight: normal;"><?php echo number_format($basilan_drying['inventory'] ?? 0, 0) ?> kg</div>
                                 </div>
                                 <div class="flex-container">
-                                    <div>Kidapawan :</div>
-                                    <div><?php echo number_format($kidapawan_drying['inventory'] ?? 0, 0) ?> kg</div>
+                                    <div><i class="fas fa-map-marker-alt"></i>&emsp;Kidapawan :</div>
+                                    <div style="font-weight: normal;"><?php echo number_format($kidapawan_drying['inventory'] ?? 0, 0) ?> kg</div>
                                 </div>
                                 <div class="separator"></div>
                                 <div class="flex-container">
@@ -318,38 +318,38 @@ include('dashboard/dashboard_computation.php');
                     </div>
 
                     <div class="col" hidden>
-                        <div class="stat-card">
+                        <div class="stat-card-default">
                             <div class="stat-card__content">
                                 <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY (kg)</p>
                                 <div class="flex-container" style="display: flex; justify-content: space-between;">
-                                    <div>Basilan :</div>
-                                    <div><?php echo number_format($basilan_bales['inventory'] ?? 0, 0) ?> kg</div>
+                                    <div><i class="fas fa-map-marker-alt"></i>&emsp;Basilan :</div>
+                                    <div style="font-weight: normal;"><?php echo number_format($basilan_bales['inventory'] ?? 0, 0) ?> kg</div>
                                 </div>
                                 <div class="flex-container">
-                                    <div>Kidapawan :</div>
-                                    <div><?php echo number_format($kidapawan_bales['inventory'] ?? 0, 0) ?> kg</div>
+                                    <div><i class="fas fa-map-marker-alt"></i>&emsp;Kidapawan :</div>
+                                    <div style="font-weight: normal;"><?php echo number_format($kidapawan_bales['inventory'] ?? 0, 0) ?> kg</div>
                                 </div>
                                 <div class="separator"></div>
                                 <div class="flex-container">
                                     <div>Total :</div>
-                                    <div><?php echo number_format($total_bales_weight ?? 0, 0) ?> kg</div>
+                                    <div ><?php echo number_format($total_bales_weight ?? 0, 0) ?> kg</div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="col">
-                        <div class="stat-card">
+                        <div class="stat-card-default">
                             <div class="stat-card__content">
                                 <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY</p>
                                 <div class="stat-card__content">
                                     <div class="flex-container">
-                                        <div>Basilan :</div>
-                                        <div><?php echo number_format($basilan_balesCount['inventory'] ?? 0, 0) ?> pcs</div>
+                                        <div><i class="fas fa-map-marker-alt"></i>&emsp;Basilan :</div>
+                                        <div style="font-weight: normal;"><?php echo number_format($basilan_balesCount['inventory'] ?? 0, 0) ?> pcs</div>
                                     </div>
                                     <div class="flex-container">
-                                        <div>Kidapawan :</div>
-                                        <div><?php echo number_format($kidapawan_balesCount['inventory'] ?? 0, 0) ?> pcs</div>
+                                        <div><i class="fas fa-map-marker-alt"></i>&emsp;Kidapawan :</div>
+                                        <div style="font-weight: normal;"><?php echo number_format($kidapawan_balesCount['inventory'] ?? 0, 0) ?> pcs</div>
                                     </div>
                                     <div class="separator"></div>
                                     <div class="flex-container">
@@ -392,9 +392,9 @@ include('dashboard/dashboard_computation.php');
                                                                         } ?>>
 
                             <nav>
-                                <label for="home" class="home"><i class="fas fa-chart-line"></i> EJN RUBBER SALES </label>
+                                <label for="home" class="home"><i class="fas fa-chart-line"></i>RUBBER SALES </label>
                                 <label for="blog" class="blog"><i class="fas fa-boxes"></i>RUBBER INVENTORY </label>
-                                <label for="drying" class="drying"><i class="fas fa-money-bill-alt"></i> OPERATING EXPENSE </label>
+                                <label for="drying" class="drying"><i class="fas fa-money-bill-alt"></i>EXPENSES & PURCHASES </label>
                                 <label for="code" class="code"><i class="fas fa-coffee"></i> EJN COFFEE </label>
                                 <label for="help" class="help"><i class="fas fa-leaf"></i>EJN COPRA</label>
 
@@ -429,6 +429,8 @@ include('dashboard/dashboard_computation.php');
     </div>
 
     <?php include "dashboard/dashboard_script.php"; ?>
+    <?php include "dashboard/purchase_script.php"; ?>
+
 </body>
 
 </html>

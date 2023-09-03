@@ -1,18 +1,23 @@
 <?php
 
-
 // Query to get bales data
 $ship_sql = "SELECT MONTH(transaction_date) as month, SUM(total_ship_expense) as monthly_expense FROM bales_sales_record WHERE YEAR(transaction_date) = $currentYear GROUP BY MONTH(transaction_date) ORDER BY MONTH(transaction_date)";
 $ship_query = mysqli_query($con, $ship_sql);
-$ship_total = array_fill(0, 12, null);
+
+// Initialize with zeros for each month
+$ship_total = array_fill(0, 12, 0); 
+
 while ($row = mysqli_fetch_assoc($ship_query)) {
     $ship_total[$row['month'] - 1] = $row['monthly_expense'];
 }
 
-// Query for cuplump gross profit
+// Query for cuplump shipping expense
 $c_ship_sql = "SELECT MONTH(transaction_date) as month, SUM(total_ship_expense) as monthly_expense FROM sales_cuplump_record WHERE YEAR(transaction_date) = $currentYear GROUP BY MONTH(transaction_date) ORDER BY MONTH(transaction_date)";
 $c_ship_query = mysqli_query($con, $c_ship_sql);
-$c_ship_profits = array_fill(0, 12, null);
+
+// Initialize with zeros for each month
+$c_ship_profits = array_fill(0, 12, 0);
+
 while ($row = mysqli_fetch_assoc($c_ship_query)) {
     $c_ship_profits[$row['month'] - 1] = $row['monthly_expense'];
 }

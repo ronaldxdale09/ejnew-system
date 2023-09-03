@@ -133,10 +133,10 @@ $data_year = mysqli_fetch_assoc($result_year);
 
                                 <td>
                                     <div class="btn-group" role="group">
-                                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#updateCashAdvance" data-bs-id="<?php echo $row['id'] ?>" data-bs-voucher="<?php echo $row['voucher'] ?>" data-bs-date="<?php echo $row['date'] ?>" data-bs-customer="<?php echo $row['customer'] ?>" data-bs-buying_station="<?php echo $row['buying_station'] ?>" data-bs-category="<?php echo $row['category'] ?>" data-bs-amount="<?php echo $row['amount'] ?>" title="Edit">
+                                        <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#updateCashAdvance" data-bs-id="<?php echo $row['id'] ?>" data-bs-voucher="<?php echo $row['voucher'] ?>" data-bs-date="<?php echo $row['date'] ?>" data-bs-customer="<?php echo $row['customer'] ?>" data-bs-buying_station="<?php echo $row['buying_station'] ?>" data-bs-category="<?php echo $row['category'] ?>" data-bs-amount="<?php echo $row['amount'] ?>" title="Edit">
                                             <span class="fa fa-edit"></span>
                                         </button>
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#removeCashAdvance" data-bs-id="<?php echo $row['id'] ?>" data-bs-name="<?php echo $row['customer'] ?>" title="Remove">
+                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#removeCashAdvance" data-bs-id="<?php echo $row['id'] ?>" data-bs-name="<?php echo $row['customer'] ?>" title="Remove">
                                             <span class="fa fa-trash"></span>
                                         </button>
                                     </div>

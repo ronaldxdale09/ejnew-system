@@ -1,6 +1,5 @@
 <?php  
-include('../function/db.php');
-
+include('../../function/db.php');
 $recording_id = $_POST['recording_id'];
  
 
@@ -11,6 +10,7 @@ $output='';
 
 $result = mysqli_query($con, $sql);  
 $output = '
+<div class="table-responsive">
 <table class="table table-bordered" id="rubber-record">
     <thead>
         <tr>
@@ -66,7 +66,9 @@ if(mysqli_num_rows($result) > 0) {
 
 $output .= '
     </tbody>
-</table>';
+</table>
+</div>
+';
 
 echo $output;
 ?>

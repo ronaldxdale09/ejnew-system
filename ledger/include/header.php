@@ -25,6 +25,7 @@ $user_name = $_SESSION["full_name"];
   <title>EJN General Ledger</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
@@ -52,11 +53,14 @@ include "include/datatables_buttons_js.php";
     letter-spacing: 0.5px;
     /* Increase letter spacing for better readability */
     text-transform: uppercase;
-    text-align: center;       /* Center the text */
+    text-align: center;
+    /* Center the text */
 
   }
 
-  
+  input[readonly] {
+    background-color: lightgray;
+  }
 </style>
 <script>
   function formatWithComma(value) {

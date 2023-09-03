@@ -1,5 +1,5 @@
 <?php
-include('../function/db.php');
+include('../../function/db.php');
 
 $container_id = $_POST['container_id'];
 $sql  = "SELECT * FROM bales_container_selection 
@@ -46,7 +46,7 @@ if (!$result) {
 
 <br>
 
-                                        
+<div class="table-responsive">                                       
 <table class="table table-bordered" id="rubber-record">
 <thead class="table-dark" style="font-size: 10px !important" >
         <tr>
@@ -109,7 +109,7 @@ if(mysqli_num_rows($result) > 0) {
 $output .= '
     </tbody>
 </table> 
-
+</div>
 <hr>
 
 <div class="row">

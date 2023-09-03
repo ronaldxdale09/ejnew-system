@@ -1,4 +1,5 @@
 <?php
+$currentMonth = date('n') - 1; // Returns month number (January = 0, February = 1, ...)
 
 // Query to get bales data
 $bales_sql = "SELECT MONTH(transaction_date) as month, SUM(gross_profit) as monthly_profit FROM bales_sales_record WHERE YEAR(transaction_date) = $currentYear GROUP BY MONTH(transaction_date) ORDER BY MONTH(transaction_date)";
@@ -8,12 +9,26 @@ while ($row = mysqli_fetch_assoc($bales_query)) {
     $bales_profits[$row['month'] - 1] = $row['monthly_profit'];
 }
 
+// Set zeros to all null values up to the current month for bales_profits
+for ($i = 0; $i <= $currentMonth; $i++) {
+    if ($bales_profits[$i] === null) {
+        $bales_profits[$i] = 0;
+    }
+}
+
 // Query for cuplump gross profit
 $cuplump_sql = "SELECT MONTH(transaction_date) as month, SUM(gross_profit) as monthly_profit FROM sales_cuplump_record WHERE YEAR(transaction_date) = $currentYear GROUP BY MONTH(transaction_date) ORDER BY MONTH(transaction_date)";
 $cuplump_query = mysqli_query($con, $cuplump_sql);
 $cuplump_profits = array_fill(0, 12, null);
 while ($row = mysqli_fetch_assoc($cuplump_query)) {
     $cuplump_profits[$row['month'] - 1] = $row['monthly_profit'];
+}
+
+// Set zeros to all null values up to the current month for cuplump_profits
+for ($i = 0; $i <= $currentMonth; $i++) {
+    if ($cuplump_profits[$i] === null) {
+        $cuplump_profits[$i] = 0;
+    }
 }
 
 // Month labels

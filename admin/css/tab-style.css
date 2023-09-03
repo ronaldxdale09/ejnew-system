@@ -57,6 +57,33 @@
     transition: all 0.3s ease;
 }
 
+
+/* For tablets (between 600px and 900px) */
+
+@media (min-width: 600px) and (max-width: 900px) {
+    .wrapper nav label {
+        font-size: 15px;
+    }
+}
+
+
+/* For larger phones (between 400px and 600px) */
+
+@media (min-width: 400px) and (max-width: 599px) {
+    .wrapper nav label {
+        font-size: 13px;
+    }
+}
+
+
+/* For small phones (less than 400px) */
+
+@media (max-width: 399px) {
+    .wrapper nav label {
+        font-size: 11px;
+    }
+}
+
 .wrapper nav label:hover {
     background: rgba(23, 162, 184, 0.3);
 }

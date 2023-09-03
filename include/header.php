@@ -15,6 +15,9 @@
     <link rel='icon' href='assets/img/logo.png' size='10x10' />
     <script src="assets/js/numberFormat.js"></script>
     <script src="js/sweetalert2@11.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
+    <meta name="application-name" content="EN-rubber System"/>
     <title>EJN Copra</title>
 
 </head>

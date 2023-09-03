@@ -1,6 +1,5 @@
 <?php  
-include('../function/db.php');
-
+include('../../function/db.php');
  $recording_id = (string)$_POST['recording_id'];
 
  
@@ -14,6 +13,7 @@ $output='';
 
  $result = mysqli_query($con, $sql);  
  $output .= '  
+ <div class="table-responsive">
             <table id="s_record_table"class="table">
             <thead class="table-dark">
                 <tr>

@@ -7,7 +7,7 @@ $count = mysqli_num_rows($record);
 if ($count == 0) {
 	echo "	<script type='text/javascript'>
 					alert('No Record of Given Username');
-					window.location='/index.php';
+					window.location='../index.php';
 				</script>";
 } else {
 	$sql = mysqli_query($con, "SELECT * FROM users WHERE username='$username' and password='$password'");
@@ -15,7 +15,7 @@ if ($count == 0) {
 	if ($count == 0) {
 		echo "	<script type='text/javascript'>
 						alert('Invalid Password!');
-						window.location='/index.php';
+						window.location='../index.php';
 					</script>";
 	} else {
 		$user = mysqli_fetch_array($sql);

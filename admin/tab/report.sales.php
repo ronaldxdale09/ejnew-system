@@ -1,14 +1,9 @@
-<br><br>
-<h2 class="card-header">
-    <font color="#046D56">EJN SALES</font>
-    <font color="#0C0070"> GRAPHICAL REPORT</font>
-</h2>
-
+<br>
 
 
 <div class="row">
     <div class="col">
-        <div class="card" style="width:100%;max-width:100%;">
+        <div class="card" style="width:100%;max-width:100%;background-color:#E7F3F0">
             <div class="card-body" style="width:100%;max-width:100%;">
                 <h4 class="card-header">
                     <font color="#0C0070">SALES </font>
@@ -34,9 +29,9 @@
 
 <br>
 
-<div class="row">
+<div class="row" >
     <div class="col">
-        <div class="card" style="width:100%;max-width:100%;">
+        <div class="card" style="width:100%;max-width:100%;background-color:#FAE5E7">
             <div class="card-body" style="width:100%;max-width:100%;">
                 <h4 class="card-header">
                     <font color="#020a4f">BALE OUTSTANDING </font>
@@ -61,7 +56,7 @@
     </div>
 
     <div class="col">
-        <div class="card" style="width:100%;max-width:100%;">
+        <div class="card" style="width:100%;max-width:100%;background-color:#FAE5E7">
             <div class="card-body" style="width:100%;max-width:100%;">
                 <h4 class="card-header">
                     <font color="#020a4f">CUPLUMP OUTSTANDING </font>
@@ -91,7 +86,7 @@
 
 <div class="row">
     <div class="col">
-        <div class="card" style="width:100%;max-width:100%;">
+        <div class="card"  style="width:100%;max-width:100%;background-color:#DFE4F1">
             <div class="card-body" style="width:100%;max-width:100%;">
                 <h4 class="card-header">
                     <font color="#0C0070">GROSS </font>
