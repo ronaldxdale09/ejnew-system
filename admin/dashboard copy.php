@@ -332,7 +332,7 @@ include('dashboard/dashboard_computation.php');
                                 <div class="separator"></div>
                                 <div class="flex-container">
                                     <div>Total :</div>
-                                    <div><?php echo number_format($total_bales_weight ?? 0, 0) ?> kg</div>
+                                    <div ><?php echo number_format($total_bales_weight ?? 0, 0) ?> kg</div>
                                 </div>
                             </div>
                         </div>
@@ -402,20 +402,20 @@ include('dashboard/dashboard_computation.php');
                             </nav>
                             <section>
                                 <div class="content content-1">
-                                    <?php include('tab/report.sales.php') ?>
+                                <?php include('tab/report.sales.php') ?>
                                 </div>
                                 <div class="content content-2">
-                                    <?php include('tab/report.inventory.php') ?>
+                                <?php include('tab/report.inventory.php') ?>
 
                                 </div>
                                 <div class="content content-3">
-                                    <?php include('tab/report.expense.php') ?>
+                                <?php include('tab/report.expense.php') ?>
                                 </div>
                                 <div class="content content-4">
-
+                                   
                                 </div>
                                 <div class="content content-5">
-
+                 
                             </section>
                         </div>
 
@@ -427,14 +427,7 @@ include('dashboard/dashboard_computation.php');
             </div>
         </div>
     </div>
-    <script>
-        $(document).ready(function() {
-            $("input[type='radio']").change(function() {
-                var positionTop = $("label[for='" + $(this).attr('id') + "']").position().top;
-                $(".slider").css("top", positionTop + "px");
-            });
-        });
-    </script>
+
     <?php include "dashboard/dashboard_script.php"; ?>
     <?php include "dashboard/purchase_script.php"; ?>
 

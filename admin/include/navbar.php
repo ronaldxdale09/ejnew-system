@@ -49,6 +49,10 @@
         margin-right: 6px;
         display: inline-block;
     }
+
+
+
+
 </style>
 
 <nav id='navbar'>
@@ -59,86 +63,86 @@
     </div>
 
     <br>
-
-    <a class='nav-link' href='dashboard.php'>
-        <i class='fas fa-home'></i> <span class='nav-text'>Home</span>
-    </a>
-
-    <div class="dropdown">
-        <a class="dropbtn nav-link" id='dropbtnExpense'>
-            <span class="icon-wrapper"><i class='fas fa-money'></i></span>
-            <span class="nav-text">Expenses</span>
-            <i style='justify-content: right' class="fa fa-caret-down"></i>
+    <div id="navbar-content">
+        <a class='nav-link' href='dashboard.php'>
+            <i class='fas fa-home'></i> <span class='nav-text'>Home</span>
         </a>
-        <div class="dropdown-content">
-            <a href='basilan.expense.php'> <span class="icon-wrapper"><i class='fas fa-wallet'></i></span> Basilan Record</a>
-            <a href='basilan.expense.report.php'> <span class="icon-wrapper"><i class='fas fa-clipboard'></i></span> Basilan Report</a>
-            <a href='zam.expense.php'> <span class="icon-wrapper"><i class='fa-solid fa-ship'></i></span> Zamboanga Record</a>
-            <a href='zam.expense.report.php'> <span class="icon-wrapper"><i class='fa-solid fa-ship'></i></span> Zamboanga Report</a>
+
+        <div class="dropdown">
+            <a class="dropbtn nav-link" id='dropbtnExpense'>
+                <span class="icon-wrapper"><i class='fas fa-money'></i></span>
+                <span class="nav-text">Expenses</span>
+                <i style='justify-content: right' class="fa fa-caret-down"></i>
+            </a>
+            <div class="dropdown-content">
+                <a href='basilan.expense.php'> <span class="icon-wrapper"><i class='fas fa-wallet'></i></span> Basilan Record</a>
+                <a href='basilan.expense.report.php'> <span class="icon-wrapper"><i class='fas fa-clipboard'></i></span> Basilan Report</a>
+                <a href='zam.expense.php'> <span class="icon-wrapper"><i class='fa-solid fa-ship'></i></span> Zamboanga Record</a>
+                <a href='zam.expense.report.php'> <span class="icon-wrapper"><i class='fa-solid fa-ship'></i></span> Zamboanga Report</a>
+            </div>
+
         </div>
 
-    </div>
-
-    <a class='nav-link' href='purchase_report.php'>
-        <i class='fas fa-cash-register'></i> <span class='nav-text'>Purchase Report</span>
-    </a>
-    <a class='nav-link' href='sales_reports.php'>
-        <i class='fa-solid fa-file-alt'></i> <span class='nav-text'>Sales Report</span>
-    </a>
-
-    <hr style='color:gray'>
-
-    <div class="dropdown">
-        <a class="dropbtn nav-link" id='dropbtnBale'>
-            <span class="icon-wrapper"><i class='fas fa-cube'></i></span>
-            <span class="nav-text">Bale Record</span>
-            <i style='justify-content: right' class="fa fa-caret-down"></i>
+        <a class='nav-link' href='purchase_report.php'>
+            <i class='fas fa-cash-register'></i> <span class='nav-text'>Purchase Report</span>
         </a>
-        <div class="dropdown-content">
-            <a href='bale_sale_record.php'> <span class="icon-wrapper"><i class='fas fa-chart-line'></i></span> Sales</a>
-            <a href='container_record.php'> <span class="icon-wrapper"><i class='fas fa-shipping-fast'></i></span> Container</a>
-            <a href='bale_shipment_record.php'> <span class="icon-wrapper"><i class='fa-solid fa-ship'></i></span> Shipment</a>
-            <a href='inv_bale.php'><span class="icon-wrapper"><i class='fas fa-cube'></i></span> Inventory</a>
+        <a class='nav-link' href='sales_reports.php'>
+            <i class='fa-solid fa-file-alt'></i> <span class='nav-text'>Sales Report</span>
+        </a>
+
+        <hr style='color:gray'>
+
+        <div class="dropdown">
+            <a class="dropbtn nav-link" id='dropbtnBale'>
+                <span class="icon-wrapper"><i class='fas fa-cube'></i></span>
+                <span class="nav-text">Bale Record</span>
+                <i style='justify-content: right' class="fa fa-caret-down"></i>
+            </a>
+            <div class="dropdown-content">
+                <a href='bale_sale_record.php'> <span class="icon-wrapper"><i class='fas fa-chart-line'></i></span> Sales</a>
+                <a href='container_record.php'> <span class="icon-wrapper"><i class='fas fa-shipping-fast'></i></span> Container</a>
+                <a href='bale_shipment_record.php'> <span class="icon-wrapper"><i class='fa-solid fa-ship'></i></span> Shipment</a>
+                <a href='inv_bale.php'><span class="icon-wrapper"><i class='fas fa-cube'></i></span> Inventory</a>
+            </div>
+        </div>
+
+
+        <hr style='color:gray'>
+
+
+
+        <div class="dropdown">
+            <a class="dropbtn nav-link" id='dropbtnCuplump'>
+                <span class="icon-wrapper"><i class='fas fa-cube'></i></span>
+                <span class="nav-text">Cuplump</span> <i style='justify-content: right' class="fa fa-caret-down"></i>
+            </a>
+            <div class="dropdown-content">
+                <a href='cuplump_sale_record.php'> <span class="icon-wrapper"><i class='fas fa-chart-line'></i></span> Sales</a>
+                <a href='cuplump_container_record.php'> <span class="icon-wrapper"><i class='fas fa-shipping-fast'></i></span> Container</a>
+                <a href='cuplump_shipment_record.php'> <span class="icon-wrapper"><i class='fa-solid fa-ship'></i></span> Shipment</a>
+                <a href='inv_cuplump.php'><span class="icon-wrapper"><i class='fas fa-cube'></i></span> Inventory</a>
+            </div>
+        </div>
+
+
+
+        <hr style='color:gray'>
+
+        <a class='nav-link' href='reports.php' hidden>
+            <i class='fas fa-file-alt'></i> <span class='nav-text'>Reports</span>
+        </a>
+
+        <a class='nav-link' href='admin_users.php'>
+            <i class='fas fa-users'></i> <span class='nav-text'>Manage Users</span>
+        </a>
+
+        <div class='logout-container'>
+            <a class='nav-text' href='function/logout.php'>
+                <i class='fa-solid fa-arrow-right-to-bracket'></i>
+                <span class='nav-text'>Logout </span>
+            </a>
         </div>
     </div>
-
-
-    <hr style='color:gray'>
-
-
-
-    <div class="dropdown">
-        <a class="dropbtn nav-link" id='dropbtnCuplump'>
-            <span class="icon-wrapper"><i class='fas fa-cube'></i></span>
-            <span class="nav-text">Cuplump</span> <i style='justify-content: right' class="fa fa-caret-down"></i>
-        </a>
-        <div class="dropdown-content">
-            <a href='cuplump_sale_record.php'> <span class="icon-wrapper"><i class='fas fa-chart-line'></i></span> Sales</a>
-            <a href='cuplump_container_record.php'> <span class="icon-wrapper"><i class='fas fa-shipping-fast'></i></span> Container</a>
-            <a href='cuplump_shipment_record.php'> <span class="icon-wrapper"><i class='fa-solid fa-ship'></i></span> Shipment</a>
-            <a href='inv_cuplump.php'><span class="icon-wrapper"><i class='fas fa-cube'></i></span> Inventory</a>
-        </div>
-    </div>
-
-
-
-    <hr style='color:gray'>
-
-    <a class='nav-link' href='reports.php' hidden>
-        <i class='fas fa-file-alt'></i> <span class='nav-text'>Reports</span>
-    </a>
-
-    <a class='nav-link' href='admin_users.php'>
-        <i class='fas fa-users'></i> <span class='nav-text'>Manage Users</span>
-    </a>
-
-    <div class='logout-container'>
-        <a class='nav-text' href='function/logout.php'>
-            <i class='fa-solid fa-arrow-right-to-bracket'></i>
-            <span class='nav-text'>Logout </span>
-        </a>
-    </div>
-
 </nav>
 
 <script>
@@ -158,11 +162,11 @@
     document.getElementById('dropbtnCuplump').addEventListener('click', function() {
         toggleDropdown('dropbtnCuplump');
     });
-    
-     document.getElementById('dropbtnExpense').addEventListener('click', function() {
+
+    document.getElementById('dropbtnExpense').addEventListener('click', function() {
         toggleDropdown('dropbtnExpense');
     });
-    
+
 
     // On page load, check the localStorage to see if a dropdown should be expanded
     window.onload = function() {

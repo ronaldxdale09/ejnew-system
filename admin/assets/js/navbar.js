@@ -1,11 +1,14 @@
 var toggle = true;
+
+// Function to highlight the active page in navigation
 const activePage = window.location.pathname;
-const navLinks = document.querySelectorAll('nav a').forEach(link => {
+document.querySelectorAll('nav a').forEach(link => {
     if (link.href.includes(`${activePage}`)) {
         link.classList.add('active');
     }
 });
 
+// Function to toggle navigation
 $(document).on('click', '#toggle-nav-btn', function() {
     if (toggle) {
         retractNav();
@@ -17,34 +20,36 @@ $(document).on('click', '#toggle-nav-btn', function() {
 });
 
 function expandNav() {
-    document.getElementsByClassName('main-content')[0].style.marginLeft = '240px';
-    document.getElementsByClassName('main-content')[0].style.width = 'calc(100% - 240px)';
-    document.getElementById('navbar').style.width = '240px';
-    var nav_texts = document.getElementsByClassName('nav-text');
-    Array.from(nav_texts).forEach(element => {
-        element.style.display = 'block';
-        setTimeout(function() {
-            element.style.opacity = '1';
+    $('.main-content').css({
+        'margin-left': '240px',
+        'width': 'calc(100% - 240px)'
+    });
+    $('#navbar').css('width', '240px');
+    $('.nav-text').each(function() {
+        $(this).css('display', 'block');
+        setTimeout(() => {
+            $(this).css('opacity', '1');
         }, 250);
     });
-};
+}
 
 function retractNav() {
-    document.getElementsByClassName('main-content')[0].style.marginLeft = '65px';
-    document.getElementsByClassName('main-content')[0].style.width = 'calc(100% - 65px)';
-    document.getElementById('navbar').style.width = '65px';
-    var nav_texts = document.getElementsByClassName('nav-text');
-    Array.from(nav_texts).forEach(element => {
-        element.style.opacity = '0';
-        setTimeout(function() {
-            element.style.display = 'none';
+    $('.main-content').css({
+        'margin-left': '65px',
+        'width': 'calc(100% - 65px)'
+    });
+    $('#navbar').css('width', '65px');
+    $('.nav-text').each(function() {
+        $(this).css('opacity', '0');
+        setTimeout(() => {
+            $(this).css('display', 'none');
         }, 400);
     });
-};
+}
 
 // Function to check the window size and retract the navbar
 function checkWindowSize() {
-    if (window.innerWidth <= 780) {
+    if (window.innerWidth <= 1024) {
         retractNav();
         toggle = false;
     } else {
@@ -53,6 +58,6 @@ function checkWindowSize() {
     }
 }
 
-// Call checkWindowSize on load and when the window is resized
+// Listen to resize and load events
 window.addEventListener('resize', checkWindowSize);
-checkWindowSize();
+window.addEventListener('load', checkWindowSize);

@@ -1,13 +1,17 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
 .main-content {
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
 }
 
 .stat-card {
     background: #fff;
-    padding: 13px;
-    margin-bottom: 20px;
+    padding: 0.8rem;
+    margin-bottom: 1.25rem;
     border-radius: 5px;
     overflow: hidden;
     display: flex;
@@ -18,8 +22,8 @@
 
 .stat-card-default {
     background: #fff;
-    padding: 13px;
-    margin-bottom: 20px;
+    padding: 0.8rem;
+    margin-bottom: 1.25rem;
     border-radius: 5px;
     overflow: hidden;
     justify-content: space-between;
@@ -33,8 +37,8 @@
 }
 
 .stat-card__icon-circle {
-    height: 40px;
-    width: 40px;
+    height: 2.5rem;
+    width: 2.5rem;
     border-radius: 60px;
     background: rgba(0, 123, 255, 0.2);
     display: flex;
@@ -43,7 +47,7 @@
 }
 
 .stat-card__icon-circle i {
-    font-size: 20px;
+    font-size: 1.25rem;
     color: #007bff;
 }
 
@@ -77,4 +81,25 @@
 
 .stat-card__icon.stat-card__icon--primary .stat-card__icon-circle i {
     color: #007bff;
+}
+
+
+/* Responsive styles for mobile screens */
+
+@media (max-width: 768px) {
+    .main-content {
+        padding-top: 1.25rem;
+        padding-bottom: 1.25rem;
+    }
+    .stat-card,
+    .stat-card-default {
+        padding: 0.5rem;
+    }
+    .stat-card__icon-circle {
+        height: 1.875rem;
+        width: 1.875rem;
+    }
+    .stat-card__icon-circle i {
+        font-size: 0.9375rem;
+    }
 }

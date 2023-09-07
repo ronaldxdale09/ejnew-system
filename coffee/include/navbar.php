@@ -96,10 +96,7 @@
         localStorage.setItem('expandedDropdown', dropdownContent.style.display === 'block' ? id : '');
     }
 
-    document.getElementById('dropbtnCoffee').addEventListener('click', function() {
-        toggleDropdown('dropbtnCoffee');
-    });
-  
+
 
     // On page load, check the localStorage to see if a dropdown should be expanded
     window.onload = function() {

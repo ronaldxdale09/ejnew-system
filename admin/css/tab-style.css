@@ -55,6 +55,8 @@
     margin: 0 5px;
     border: 2px solid #021f4f;
     transition: all 0.3s ease;
+    flex: 1;
+    /* this will make labels grow and take equal space */
 }
 
 
@@ -77,6 +79,35 @@
 
 
 /* For small phones (less than 400px) */
+
+@media (max-width: 399px) {
+    .wrapper nav label {
+        font-size: 11px;
+    }
+}
+
+
+/* Mobile styles and media queries */
+
+@media (max-width: 900px) {
+    .wrapper {
+        padding: 20px 25px;
+    }
+    .wrapper header {
+        font-size: 25px;
+        padding-bottom: 15px;
+    }
+    section .content .title {
+        font-size: 19px;
+        margin: 25px 0 8px 0;
+    }
+}
+
+@media (max-width: 599px) {
+    .wrapper nav label {
+        font-size: 13px;
+    }
+}
 
 @media (max-width: 399px) {
     .wrapper nav label {
@@ -154,4 +185,51 @@ section .content .title {
 
 section .content p {
     text-align: justify;
+}
+
+
+/* Mobile Responsive Changes */
+
+@media (max-width: 768px) {
+    /* You can change 768px to a different breakpoint if you want */
+    /* Change the height of the nav container and switch the flex direction */
+    .wrapper nav {
+        flex-direction: column;
+        height: auto;
+        position: relative;
+        /* Ensure this is here so that the slider positions relative to it */
+        /* adjust this based on the height of each nav item and the number of items you have */
+    }
+    /* Modify nav items for vertical stacking */
+    .wrapper nav label {
+        width: 100%;
+        margin: 5px 0;
+        /* adjust vertical margin for spacing */
+    }
+    /* Adjust the slider's positioning for mobile */
+    nav .slider {
+        left: 0 !important;
+        width: 100%;
+        height: 50px;
+        /* Adjust based on your label's height */
+    }
+    /* Adjust slider positions for each radio */
+}
+
+@media (max-width: 768px) {
+    #home:checked~nav .slider {
+        top: 0;
+    }
+    #blog:checked~nav .slider {
+        top: 50px;
+    }
+    #drying:checked~nav .slider {
+        top: 100px;
+    }
+    #code:checked~nav .slider {
+        top: 150px;
+    }
+    #help:checked~nav .slider {
+        top: 200px;
+    }
 }

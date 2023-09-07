@@ -2,7 +2,6 @@
 include('include/header.php');
 include('include/navbar.php');
 
-include "modal/production_modal.php";
 
 ?>
 
@@ -88,76 +87,93 @@ include "modal/production_modal.php";
     </div>
 
     <?php
-    include "modal/coffee_product.php";
+    include "modal/production_modal.php";
     ?>
 
 
     <script>
-        $('.btnUpdate').on('click', function() {
-            $tr = $(this).closest('tr');
-
-            var data = $tr.children("td").map(function() {
-                return $(this).text();
-            }).get();
-
-            $('#u_coffee_id').val(data[0]);
-            $('#prod_name').val(data[1]);
-            $('#description').val(data[2]);
-            $('#unit_price').val(data[3].replace(/[^0-9.]/g, ''));
-            $('#qty_case').val(data[4].replace(/[^0-9.]/g, ''));
-            $('#case_price').val(data[5].replace(/[^0-9.]/g, ''));
-
-            $('#update_product').modal('show');
-        });
-
-        $('.confirmDelete').on('click', function() {
-            $tr = $(this).closest('tr');
-
-            var data = $tr.children("td").map(function() {
-                return $(this).text();
-            }).get();
-
-            $('#d_coffee_id').val(data[0]);
-
-            $('#deleteProductModal').modal('show'); // Close the modal
-        });
-
-
-
         $(document).ready(function() {
-            var table = $('#customerTable').DataTable({
-                dom: '<"top"<"left-col"B><"center-col"f>>rti<"bottom"p><"clear">',
-                order: [
-                    [0, 'desc']
-                ],
-                buttons: [{
-                        extend: 'excelHtml5',
-                        exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
-                        }
-                    },
-                    {
-                        extend: 'pdfHtml5',
-                        exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
-                        }
-                    },
-                    {
-                        extend: 'print',
-                        exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
-                        }
-                    }
-                ],
-                lengthMenu: [
-                    [-1],
-                    ["All"]
-                ],
-                orderCellsTop: true,
-                paging: false, // Disable pagination
-                infoCallback: function(settings, start, end, max, total, pre) {
-                    return total + ' entries';
-                }
+
+
+            $('.btnUpdate').on('click', function() {
+                $tr = $(this).closest('tr');
+
+                var data = $tr.children("td").map(function() {
+                    return $(this).text();
+                }).get();
+
+                $('#u_coffee_id').val(data[0]);
+                $('#prod_name').val(data[1]);
+                $('#description').val(data[2]);
+                $('#unit_price').val(data[3].replace(/[^0-9.]/g, ''));
+                $('#qty_case').val(data[4].replace(/[^0-9.]/g, ''));
+                $('#case_price').val(data[5].replace(/[^0-9.]/g, ''));
+
+                $('#update_product').modal('show');
+            });
+
+            $('.confirmDelete').on('click', function() {
+                $tr = $(this).closest('tr');
+
+                var data = $tr.children("td").map(function() {
+                    return $(this).text();
+                }).get();
+
+                $('#d_coffee_id').val(data[0]);
+
+                $('#deleteProductModal').modal('show'); // Close the modal
+            });
+
+
+
+            $("#addProduct").click(function() {
+                // Append the row
+                var newRow = `
+                    <tr>
+                        <td>
+                        <div class="input-group mb-3">
+
+                                <select class="form-select product-dropdown" name="product[]" style="width: 100px;">
+                                    <option value="">Select...</option>
+                                    <?php
+                                    $sql = "SELECT coffee_name,coffee_id,description  FROM coffee_products";
+                                    $result = mysqli_query($con, $sql);
+                                    if ($result) {
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            $coffeeName = $row['coffee_name'];
+                                            $coffee_id = $row['coffee_id'];
+                                            $description = $row['description'];
+
+                                            echo "<option value='$coffee_id'>$coffeeName- $description </option>";
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">₱</span>
+                                    <input type="text" class="form-control" name="price[]"  onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" style="width: 100px;">
+                                </div>
+                            </td>
+                            <td>
+                            <div class="input-group mb-3">
+                                    <input type="number" class="form-control" name="qty[]" style="width: 100px;">
+                                    </div>
+                                </td>
+                            <td>
+                                    <button type="button" class="btn btn-danger btn-sm remove-item-line">Remove</button>
+                            </td>
+                        </tr>
+                            `;
+
+                $("#new_sale_table tbody").append(newRow);
+            });
+
+            // Handle the 'Remove' button for dynamically added rows
+            $("#new_sale_table tbody").on("click", ".remove-item-line", function() {
+                $(this).closest('tr').remove();
             });
         });
     </script>

@@ -6,6 +6,11 @@ body {
     position: relative;
 }
 
+body,
+html {
+    overflow-x: hidden;
+}
+
 body.swal2-height-auto {
     height: 100% !important;
 }
@@ -297,4 +302,84 @@ table tr {
 .form-control {
     font-size: 20;
     font-weight: bold;
+}
+
+
+/* ... (Your existing styles here) ... */
+
+
+/* Responsive styles for mobile screens */
+
+@media (max-width: 768px) {
+    /* For devices with width less than or equal to 768px */
+    body {
+        font-size: 16px;
+        /* Adjust the font size for mobile screens */
+    }
+    .main-content {
+        width: 100%;
+        /* Full width for mobile screens */
+        margin-left: 0;
+        /* Remove margin */
+    }
+}
+
+@media (max-width: 768px) {
+    #navbar {
+        width: 160px;
+        /* reduce the width for mobile screens */
+        padding: 3px;
+    }
+    #toggle-nav-btn {
+        font-size: 20px !important;
+        /* reduce the font size for mobile screens */
+    }
+    #navbar div,
+    #navbar a {
+        font-size: 15px !important;
+        /* reduce the font size for mobile screens */
+    }
+    .nav-title {
+        padding: 10px 10px 10px 7px;
+        /* reduce the padding for mobile screens */
+        font-size: 16px;
+        /* reduce the font size for mobile screens */
+    }
+    .nav-text {
+        margin-left: 7px;
+    }
+    #navbar i {
+        width: 20px;
+    }
+}
+
+
+/* For even smaller screens, typically for very small devices and portrait mode on phones */
+
+@media (max-width: 480px) {
+    #navbar {
+        width: 100px;
+        /* further reduce the width for very small screens */
+    }
+    #toggle-nav-btn {
+        font-size: 16px !important;
+        /* further reduce the font size */
+    }
+    #navbar div,
+    #navbar a {
+        font-size: 13px !important;
+        /* further reduce the font size */
+    }
+    .nav-title {
+        padding: 8px 8px 8px 5px;
+        /* reduce the padding even more */
+        font-size: 14px;
+        /* reduce the font size even more */
+    }
+    .nav-text {
+        margin-left: 5px;
+    }
+    #navbar i {
+        width: 18px;
+    }
 }
