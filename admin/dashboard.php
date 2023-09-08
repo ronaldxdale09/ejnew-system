@@ -9,14 +9,13 @@ include('dashboard/dashboard_computation.php');
 ?>
 
 <link rel='stylesheet' href='css/tab-style.css'>
+<link rel='stylesheet' href='css/mobile.responsive.css'>
+<link rel='stylesheet' href='css/modern.stat.css'>
 
 <link rel="stylesheet" href="css/statistic-card.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js" integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js" integrity="sha512-JPcRR8yFa8mmCsfrw4TNte1ZvF1e3+1SdGMslZvmrzDYxS69J7J49vkFL8u6u8PlPJK+H3voElBtUCzaXj+6ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-labels@1.1.0/src/chartjs-plugin-labels.js"></script>
-<?php include("include/navbar.php");
-
-?>
 <style>
     .flex-container {
         display: flex;
@@ -60,6 +59,8 @@ include('dashboard/dashboard_computation.php');
 </style>
 
 <body>
+<?php include("include/navbar.php");?>
+
     <div class='main-content' style='position:relative; height:100%;'>
         <div class="container home-section h-100" style="max-width:95%;">
             <div class="page-wrapper">
@@ -74,7 +75,7 @@ include('dashboard/dashboard_computation.php');
                                 <p class="text-uppercase mb-1 text-muted"><b>BALES</b> SALES</p>
                                 <h4>
                                     <i class="text-success font-weight-bold mr-1"></i>
-                                    ₱ <?php echo number_format($bale_sales['total_sales'], 0) ?>
+                                    ₱<?php echo number_format($bale_sales['total_sales'], 0) ?>
                                 </h4>
                                 <div>
                                     <span class="text-muted">
@@ -95,7 +96,7 @@ include('dashboard/dashboard_computation.php');
                                 <p class="text-uppercase mb-1 text-muted"><b>EJN BALE SALES </b>UNPAID BALANCE </p>
                                 <h4>
                                     <i class="text-success font-weight-bold mr-1"></i>
-                                    ₱ <?php echo number_format($bale_upaid['unpaid_balance'] ?? 0, 0) ?>
+                                    ₱<?php echo number_format($bale_upaid['unpaid_balance'] ?? 0, 0) ?>
                                 </h4>
                                 <div>
                                     <span class="text-muted">
@@ -117,7 +118,7 @@ include('dashboard/dashboard_computation.php');
                                 <p class="text-uppercase mb-1 text-muted"><b>BALES SHIPPING</b> EXPENSES</p>
                                 <h4>
                                     <i class="text-success font-weight-bold mr-1"></i>
-                                    ₱ <?php echo number_format($cuplump_shipping['total_ship_expense'], 0) ?>
+                                    ₱<?php echo number_format($cuplump_shipping['total_ship_expense'], 0) ?>
                                 </h4>
                                 <div>
                                     <span class="text-muted">
@@ -395,8 +396,8 @@ include('dashboard/dashboard_computation.php');
                                 <label for="home" class="home"><i class="fas fa-chart-line"></i>RUBBER SALES </label>
                                 <label for="blog" class="blog"><i class="fas fa-boxes"></i>RUBBER INVENTORY </label>
                                 <label for="drying" class="drying"><i class="fas fa-money-bill-alt"></i>EXPENSES & PURCHASES </label>
-                                <label for="code" class="code"><i class="fas fa-coffee"></i> EJN COFFEE </label>
-                                <label for="help" class="help"><i class="fas fa-leaf"></i>EJN COPRA</label>
+                                <label for="code" class="code"><i class="fas fa-leaf"></i> EJN COPRA </label>
+                                <label for="help" class="help"><i class="fas fa-coffee"></i>EJN COFFEE</label>
 
                                 <div class="slider"></div>
                             </nav>
@@ -412,6 +413,7 @@ include('dashboard/dashboard_computation.php');
                                     <?php include('tab/report.expense.php') ?>
                                 </div>
                                 <div class="content content-4">
+                                <?php include('tab/report.copra.php') ?>
 
                                 </div>
                                 <div class="content content-5">

@@ -45,6 +45,8 @@
     height: 100%;
     width: 100%;
     text-align: center;
+    white-space: nowrap;
+    /* Prevents the text from wrapping */
     line-height: 50px;
     cursor: pointer;
     position: relative;

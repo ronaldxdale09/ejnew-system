@@ -1,13 +1,13 @@
 <div class="row">
-    <div class="card" style="width:100%;max-width:100%;background-color:#E7F3F0">
+    <div class="card custom-card bg-operating">
         <div class="card-body" style="width:100%;max-width:100%;">
             <h3 class="card-header">
                 <i class="fas fa-map-marker-alt"></i>
                 <font color="#343434">OPERATING </font>
                 <font color="#343434">EXPENSES </font>
             </h3>
-            <div class="row" style="display: flex; align-items: stretch;">
-                <div class="col d-flex">
+            <div class="row">
+                <div class="col-12 col-md-6">
                     <div class="card" style="width: 100%;">
 
                         <div class="chart-header">
@@ -46,16 +46,16 @@
 </div>
 
 
-<div class="row">
-    <div class="card" style="width:100%;max-width:100%;background-color:#FDE9D3">
+<div class="row mt-4">
+    <div class="card custom-card bg-purchases">
         <div class="card-body" style="width:100%;max-width:100%;">
             <h3 class="card-header">
                 <i class="fas fa-map-marker-alt"></i>
                 <font color="#343434">EJN </font>
                 <font color="#343434">PURCHASES </font>
             </h3>
-            <div class="row" style="display: flex; align-items: stretch;">
-                <div class="col d-flex">
+            < <div class="row">
+                <div class="col-12 col-md-6">
                     <div class="card" style="width: 100%;">
 
                         <div class="chart-header">
@@ -116,34 +116,33 @@
                         </div>
                     </div>
                 </div>
-            </div> <br>
-            <div class="card" style="width: 100%;">
-                <div class="card-body" style="height: 400px; position: relative;">
-                    <h3 class="card-header">
-                        <i class="fas fa-money"></i>
-                        <font color="#343434">TOTAL MONTHLY </font>
-                        <font color="#343434">PURCHASES </font>
-                    </h3>
-                    <canvas id="purchases_monthly" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
-                </div>
+        </div> <br>
+        <div class="card" style="width: 100%;">
+            <div class="card-body" style="height: 400px; position: relative;">
+                <h3 class="card-header">
+                    <i class="fas fa-money"></i>
+                    <font color="#343434">TOTAL MONTHLY </font>
+                    <font color="#343434">PURCHASES </font>
+                </h3>
+                <canvas id="purchases_monthly" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
             </div>
         </div>
     </div>
 </div>
+</div>
 
 
 
-
-
-<div class="row">
-    <div class="card" style="width:100%;max-width:100%;background-color:#F4D7D7">
+<!-- SHIPPING EXPENSES -->
+<div class="row mt-4">
+    <div class="card custom-card bg-shipping">
         <div class="card-body" style="width:100%;max-width:100%;">
             <h4 class="card-header">
                 <font color="#0C0070">SHIPPING</font>
                 <font color="#046D56"> EXPENSES</font>
             </h4>
-            <div class="row" style="display: flex; align-items: stretch;">
-                <div class="col d-flex">
+            <div class="row mt-4">
+                <div class="col-12">
                     <div class="card" style="width: 100%;">
 
                         <div class="chart-header">

@@ -18,6 +18,8 @@ $name = $_SESSION["full_name"];
     <link href="assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/chosen.min.css">
     <link rel='stylesheet' href='css/main.css'>
+    <link rel='stylesheet' href='css/navbar.css'>
+
     <link rel='icon' href='assets/img/logo.png' size='10x10' />
     <script src="assets/js/numberFormat.js"></script>
     <script src="js/sweetalert2@11.js"></script>

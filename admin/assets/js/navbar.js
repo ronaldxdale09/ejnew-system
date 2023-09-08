@@ -25,6 +25,7 @@ function expandNav() {
         'width': 'calc(100% - 240px)'
     });
     $('#navbar').css('width', '240px');
+    $('.dropdown').removeClass('retracted'); // remove the 'retracted' class
     $('.nav-text').each(function() {
         $(this).css('display', 'block');
         setTimeout(() => {
@@ -39,6 +40,7 @@ function retractNav() {
         'width': 'calc(100% - 65px)'
     });
     $('#navbar').css('width', '65px');
+    $('.dropdown').addClass('retracted'); // add the 'retracted' class
     $('.nav-text').each(function() {
         $(this).css('opacity', '0');
         setTimeout(() => {

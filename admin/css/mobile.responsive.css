@@ -1,0 +1,130 @@
+.card-theme1 {
+    background-color: #E7F3F0;
+}
+
+.card-title1 {
+    color: #0C0070;
+}
+
+.card-title1 span {
+    color: #046D56;
+}
+
+.card-theme2 {
+    background-color: #FAE5E7;
+}
+
+.card-title2,
+.card-title3 {
+    color: #020a4f;
+}
+
+.card-title2 span,
+.card-title3 span {
+    color: #47020e;
+}
+
+.card-theme3 {
+    background-color: #DFE4F1;
+}
+
+.card-content {
+    height: 400px;
+    position: relative;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+}
+
+@media (max-width: 768px) {
+    /* Add your mobile-specific styles here */
+    .card-content {
+        height: 250px;
+    }
+}
+
+.custom-card {
+    width: 100%;
+    max-width: 100%;
+}
+
+.inventory-title {
+    color: #020a4f;
+}
+
+.inventory-title span,
+.inventory-title2 span {
+    color: #47020e;
+}
+
+.inventory-title2 {
+    color: #0C0070;
+}
+
+.card-content {
+    height: 400px;
+    position: relative;
+}
+
+.card-row {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    /* Add mobile-specific styles here */
+    .card-content {
+        height: 250px;
+    }
+}
+
+.custom-card {
+    width: 100%;
+    max-width: 100%;
+}
+
+.custom-card-inner {
+    width: 100%;
+}
+
+.bg-operating {
+    background-color: #E7F3F0;
+}
+
+.bg-purchases {
+    background-color: #FDE9D3;
+}
+
+.bg-shipping {
+    background-color: #F4D7D7;
+}
+
+.custom-header {
+    color: #343434;
+}
+
+.chart-body {
+    height: 400px;
+    position: relative;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+}
+
+@media (max-width: 767px) {
+    .chart-body {
+        height: 250px;
+    }
+}

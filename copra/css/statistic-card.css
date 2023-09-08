@@ -1,0 +1,71 @@
+.modern-stat-card {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    background-color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.modern-stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.icon-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    color: white;
+    font-size: 24px;
+    margin-right: 15px;
+}
+
+.info-section {
+    flex-grow: 1;
+}
+
+.stat-title {
+    display: block;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+}
+
+
+/* Different color for each card icon */
+
+.total-purchases-icon {
+    background-color: #007bff;
+}
+
+.average-purchase-icon {
+    background-color: #f39c12;
+}
+
+.total-tax-icon {
+    background-color: #00d2d3;
+}
+
+.recent-purchase-icon {
+    background-color: #2ecc71;
+}
+
+.total-weight-icon {
+    background-color: #9b59b6;
+}
+
+.transactions-icon {
+    background-color: #e74c3c;
+}

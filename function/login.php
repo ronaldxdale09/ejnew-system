@@ -32,7 +32,7 @@ if ($count == 0) {
 		$_SESSION["loc"] = $user['loc'];
 		$_SESSION["source"] = $user['loc'];
 		if ($userType == 'copra') {
-			header('Location: ../transaction.php');
+			header('Location: ../copra/transaction.php');
 		} elseif ($userType == 'finance') {
 			header('Location: ../ledger/ledger-expense.php');
 		} elseif ($userType == 'admin') {

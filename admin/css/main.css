@@ -1,36 +1,36 @@
 body {
+    font-family: 'Arial', sans-serif;
+    /* Use a neutral and readable font family */
+    font-size: 16px;
+    line-height: 1.5;
     min-height: 100%;
-    height: 100%;
-    width: 100%;
-    background-color: #e9f2f9;
-    position: relative;
+    background-color: #f4f4f4;
+    /* Neutral background */
+    color: #333;
+    /* Darker text color for contrast */
+    overflow-x: hidden;
+    margin: 0;
+    /* Reset default margin */
+    padding: 0;
+    /* Reset default padding */
 }
+
+
+/* Simplified the body and html overflow properties */
 
 body,
 html {
     overflow-x: hidden;
 }
 
-body.swal2-height-auto {
-    height: 100% !important;
-}
-
-html {
-    height: 100%;
-    width: 100%;
-}
-
 .datepicker {
-    border: 1px solid #c4c4c4;
+    border: none;
     border-radius: 5px;
     background-color: #fff;
-    padding: 3px 5px;
-    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.1);
-    width: 190px;
-}
-
-.list-label {
-    border: solid black 1px;
+    padding: 8px 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    /* Full width */
 }
 
 .list-table {
@@ -39,347 +39,61 @@ html {
     border-spacing: 2px;
 }
 
-.table-fix-head {
-    overflow: auto;
-}
-
 .table-fix-head thead th {
     position: sticky;
     top: 0;
     z-index: 1;
+    background-color: #fff;
+    /* Add background to header for visibility */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Soft shadow */
 }
 
 table tr {
     background-color: white;
-    height: 40px;
-}
-
-.hidden {
-    display: none !important;
-}
-
-.main-content {
-    width: calc(100% - 240px);
-    margin-left: 240px;
-    transition: width 0.5s ease-in-out, margin-left 0.5s ease-in-out;
-}
-
-#navbar {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    height: 100%;
-    width: 240px;
-    /* 240px */
-    background-color: #1b325f;
-    display: block;
-    align-items: center;
-    padding: 5px;
-    z-index: 5;
-    overflow-x: hidden;
-    overflow-y: auto;
-    -ms-overflow-style: none;
-    /* IE and Edge */
-    scrollbar-width: none;
-    /* Firefox */
-    transition: width 0.5s ease-in-out;
-}
-
-#toggle-nav-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 25px !important;
-    color: white;
-    transition: font-size 0.25s ease-out, color 0.25s;
-}
-
-#toggle-nav-btn:hover {
-    cursor: pointer;
-    font-size: 40px !important;
-    color: rgb(187, 241, 255);
-}
-
-#navbar::-webkit-scrollbar {
-    display: none;
-}
-
-#navbar div,
-#navbar a {
-    font-size: 19px !important;
-    color: white;
-    text-decoration: none;
-}
-
-#navbar a {
-    color: rgb(221, 221, 221);
-    display: flex;
-    align-items: center;
-    padding: 15px 15px 15px 15px;
-    /* 15px 15px 15px 9px */
-}
-
-#navbar i {
-    margin-right: 0px;
-    /* 10px */
-    width: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#navbar a:hover {
-    color: white;
-}
-
-.nav-title {
-    padding: 15px 15px 15px 10px;
-    font-size: 19px;
-    display: flex;
-    align-items: center;
-}
-
-.nav-text {
-    display: block;
-    /* block */
-    margin-left: 10px;
-    opacity: 1;
-    transition: opacity 0.3s;
-    white-space: nowrap;
-}
-
-.nav-title .nav-text {
-    white-space: normal;
-}
-
-.nav-link {
-    background-color: transparent;
-    border-radius: 10px;
-}
-
-.nav-link:hover {
-    background-color: rgba(255, 255, 255, 0.082)
-}
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #1b325f;
-    min-width: 240px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-}
-
-.dropdown-content a {
-    color: rgb(221, 221, 221);
-    padding: 15px 15px;
-    text-decoration: none;
-    display: block;
-}
-
-
-/* Remove hover behavior on dropdown items */
-
-.dropdown-content a:hover {
-    background-color: transparent;
-}
-
-
-/* Remove hover behavior on dropdown */
-
-
-/*.dropdown:hover .dropdown-content {
-    display: block;
-}*/
-
-
-/* Button styles */
-
-.dropbtn {
-    background-color: #1b325f;
-    color: white;
-    padding: 16px;
-    font-size: 19px;
-    border: none;
-    cursor: pointer;
-}
-
-
-/* Remove hover and focus styles on button */
-
-
-/*.dropbtn:hover,
-.dropbtn:focus {
-    background-color: #1b325f;
-}*/
-
-.logout-container {
-    padding: 20px;
-    position: static;
-    bottom: 5px;
-    display: flex;
-    align-items: center;
-    width: 100%;
-}
-
-@media only screen and (min-height: 600px) {
-    .logout-container {
-        position: absolute;
-    }
-}
-
-.logout {
-    padding: 8px 5px 8px 8px !important;
-    border-radius: 15px;
-    position: absolute;
-    right: 15px;
-}
-
-.logout i {
-    margin: 0 !important;
+    height: 50px;
+    /* Slightly increase the height for touch devices */
 }
 
 .main-container {
-    padding-top: 20px;
-    width: 80%;
-    max-width: 80% !important;
+    padding: 20px;
+    width: 90%;
+    max-width: 1200px;
+    /* Max width can be higher for wide screens */
     margin: auto;
 }
 
-.modal {
-    background-color: rgba(0, 0, 0, 0.5)
-}
 
-#myTable {
-    padding: 10px;
-}
+/* Simplified modal styles with unified border-radius and modern shadows */
 
-.active {
-    background-color: rgb(11, 19, 54) !important;
-}
-
-.form-group {
-    margin-bottom: 0.5rem;
-}
-
-.modal-body {
-    background-color: #FFFFFF;
-}
-
-.modal-content {
-    border-radius: 6px;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
-    background-color: transparent;
-}
-
+.modal-content,
+.modal-header,
 .modal-footer {
-    background-color: rgb(222, 222, 225);
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
-    -webkit-border-bottom-left-radius: 6px;
-    -webkit-border-bottom-right-radius: 6px;
-    -moz-border-radius-bottomleft: 6px;
-    -moz-border-radius-bottomright: 6px;
-}
-
-.modal-header {
-    background-color: rgb(32, 32, 32);
-    color: white;
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
-    -webkit-border-top-left-radius: 6px;
-    -webkit-border-top-right-radius: 6px;
-    -moz-border-radius-topleft: 6px;
-    -moz-border-radius-topright: 6px;
+    border-radius: 6px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .form-control {
-    font-size: 20;
+    font-size: 20px;
+    /* Ensure this has 'px' for consistency */
     font-weight: bold;
+    padding: 10px;
+    /* Padding for touch comfort */
+    border-radius: 4px;
+    /* Slight rounded edges */
+    border: 1px solid #ccc;
+    /* Visible border */
+    width: 100%;
+    /* Full width */
 }
 
-
-/* ... (Your existing styles here) ... */
-
-
-/* Responsive styles for mobile screens */
-
 @media (max-width: 768px) {
-    /* For devices with width less than or equal to 768px */
     body {
         font-size: 16px;
-        /* Adjust the font size for mobile screens */
     }
-    .main-content {
+    .main-container {
         width: 100%;
-        /* Full width for mobile screens */
-        margin-left: 0;
-        /* Remove margin */
-    }
-}
-
-@media (max-width: 768px) {
-    #navbar {
-        width: 160px;
-        /* reduce the width for mobile screens */
-        padding: 3px;
-    }
-    #toggle-nav-btn {
-        font-size: 20px !important;
-        /* reduce the font size for mobile screens */
-    }
-    #navbar div,
-    #navbar a {
-        font-size: 15px !important;
-        /* reduce the font size for mobile screens */
-    }
-    .nav-title {
-        padding: 10px 10px 10px 7px;
-        /* reduce the padding for mobile screens */
-        font-size: 16px;
-        /* reduce the font size for mobile screens */
-    }
-    .nav-text {
-        margin-left: 7px;
-    }
-    #navbar i {
-        width: 20px;
-    }
-}
-
-
-/* For even smaller screens, typically for very small devices and portrait mode on phones */
-
-@media (max-width: 480px) {
-    #navbar {
-        width: 100px;
-        /* further reduce the width for very small screens */
-    }
-    #toggle-nav-btn {
-        font-size: 16px !important;
-        /* further reduce the font size */
-    }
-    #navbar div,
-    #navbar a {
-        font-size: 13px !important;
-        /* further reduce the font size */
-    }
-    .nav-title {
-        padding: 8px 8px 8px 5px;
-        /* reduce the padding even more */
-        font-size: 14px;
-        /* reduce the font size even more */
-    }
-    .nav-text {
-        margin-left: 5px;
-    }
-    #navbar i {
-        width: 18px;
+        padding: 10px;
+        /* Reduced padding for smaller screens */
     }
 }
