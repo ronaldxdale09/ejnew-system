@@ -18,6 +18,8 @@ if (isset($_POST['update'])) {
     $type = $_POST['type'];
     $location = $_POST['location'];
     $amount = str_replace(',', '', $_POST['amount']);
+    $less = str_replace(',', '', $_POST['less']);
+    $total_amount = str_replace(',', '', $_POST['total_amount']);
 
     $category = $_POST['category'];
 
@@ -30,6 +32,8 @@ if (isset($_POST['update'])) {
               mode_transact='$modetransac', 
               remarks='$remark', 
               amount='$amount', 
+              less='$less', 
+              total_amount='$total_amount', 
               location='$location', 
               type_expense='$type' 
               WHERE id = $id";

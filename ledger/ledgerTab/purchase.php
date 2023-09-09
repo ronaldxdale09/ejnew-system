@@ -144,7 +144,7 @@ foreach ($categories as $category) {
 
 
             <?php $results = mysqli_query($con, "SELECT * from ledger_purchase ORDER BY id DESC"); ?>
-            <div  class="col-md-9 col-sm-12">
+            <div class="col-md-9 col-sm-12">
                 <div class="table-responsive">
                     <table class="table custom-table table-responsive-lg" id='purchase_table'>
                         <thead class="table-dark" style='font-size:13px'>
@@ -155,7 +155,7 @@ foreach ($categories as $category) {
                                 <th scope="col">CUSTOMER NAME</th>
                                 <th scope="col">PRICE</th>
                                 <th scope="col">NET WEIGHT</th>
-                                <th scope="col">TOTAL AMOUNT</th>
+                                <th scope="col">NET TOTAL AMOUNT</th>
                                 <th scope="col">ACTION</th>
                             </tr>
                         </thead>
@@ -181,7 +181,12 @@ foreach ($categories as $category) {
                                         kg
                                     </td>
                                     <td style="text-align: right;">
-                                        ₱<?php echo empty($row['total_amount']) ? "0" : number_format($row['total_amount'], 2); ?>
+                                        ₱<?php
+                                            $netTotal = floatval($row['net_total_amount']);
+                                            echo ($netTotal == 0 || empty($row['net_total_amount']))
+                                                ? number_format($row['total_amount'], 2)
+                                                : number_format($row['net_total_amount'], 2);
+                                            ?>
                                     </td>
                                     <td>
                                         <div class="d-flex flex-nowrap">

@@ -171,11 +171,22 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  where location='$s
                     <td>
                         <?php echo $row['type_expense'] ?>
                     </td>
-                    <td>₱<?php echo number_format($row['amount'],2) ?>
+                    <td>₱<?php echo number_format($row['total_amount'],2) ?>
                     </td>
                     <td>
                         <button type="button" class="btn btn-secondary btn-sm text-white btnPressUpdate"
-                        data-remarks="<?php echo $row['remarks'] ?>" data-id="<?php echo $row['id'] ?>" data-voucher_no="<?php echo $row['voucher_no'] ?>" data-particulars="<?php echo $row['particulars'] ?>" data-date="<?php echo $row['date'] ?>" data-type="<?php echo $row['type_expense'] ?>" data-amount="<?php echo $row['amount'] ?>" data-description="<?php echo $row['description'] ?>" data-mode_transact="<?php echo $row['mode_transact'] ?>" data-category="<?php echo $row['category'] ?>" data-date_payment="<?php echo $row['date_payment'] ?>" data-location="<?php echo $row['location'] ?>">
+                        data-remarks="<?php echo $row['remarks'] ?>" data-id="<?php echo $row['id'] ?>" 
+                        data-voucher_no="<?php echo $row['voucher_no'] ?>" 
+                        data-particulars="<?php echo $row['particulars'] ?>" 
+                        data-date="<?php echo $row['date'] ?>" 
+                        data-type="<?php echo $row['type_expense'] ?>" 
+                        data-amount="<?php echo $row['amount'] ?>" 
+                        data-less="<?php echo $row['less'] ?>" 
+                        data-total_amount="<?php echo $row['total_amount'] ?>" 
+                        data-mode_transact="<?php echo $row['mode_transact'] ?>" 
+                        data-category="<?php echo $row['category'] ?>" 
+                        data-date_payment="<?php echo $row['date_payment'] ?>" 
+                        data-location="<?php echo $row['location'] ?>">
                             <span class="fa fa-edit"></span>
                         </button>
                         <button type="button" class="btn btn-danger btn-sm  text-white btnExpenseDelete" data-id="<?php echo $row['id'] ?>">
@@ -226,6 +237,8 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  where location='$s
             var date = $(this).attr('data-date');
             var type = $(this).attr('data-type');
             var amount = $(this).attr('data-amount');
+            var less = $(this).attr('data-less');
+            var total_amount = $(this).attr('data-total_amount');
             var description = $(this).attr('data-description');
             var particulars = $(this).attr('data-particulars');
             var category = $(this).attr('data-category'); // Added this line
@@ -244,6 +257,8 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  where location='$s
             $('#u_category').val(category); // Added this line
             $('#u_mode_transaction').val(mode_transact);
             $('#u_amount').val(amount);
+            $('#u_less').val(less);
+            $('#u_total').val(total_amount);
             $('#u_remarks').val(remarks);
             $('#updateExpense').modal('show');
         });

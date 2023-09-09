@@ -136,17 +136,6 @@ $dateNow = $year . "-" . $month . "-" . $day;
                     <div class="form-group">
                         <div class="row no-gutters">
                             <div class="col-6 col-md-6">
-                                <label style='font-size:15px' class="col-md-12">Net Total Amount :</label>
-                                <!-- new column -->
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">₱</span>
-                                    </div>
-                                    <input type="text" style='text-align:right' name='net_total_amount' readonly class="form-control">
-                                </div>
-                                <!--  -->
-                            </div>
-                            <div class="col-6 col-md-6">
                                 <label style='font-size:15px' class="col-md-12">Total Amount :</label>
                                 <!-- new column -->
                                 <div class="input-group mb-3">
@@ -154,6 +143,17 @@ $dateNow = $year . "-" . $month . "-" . $day;
                                         <span class="input-group-text">₱</span>
                                     </div>
                                     <input type="text" style='text-align:right' name='total_amount' readonly class="form-control">
+                                </div>
+                                <!--  -->
+                            </div>
+                            <div class="col-6 col-md-6">
+                                <label style='font-size:15px' class="col-md-12">Net Total Amount :</label>
+                                <!-- new column -->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">₱</span>
+                                    </div>
+                                    <input type="text" style='text-align:right' name='net_total_amount'  onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" class="form-control">
                                 </div>
                                 <!--  -->
                             </div>
@@ -363,17 +363,6 @@ $dateNow = $year . "-" . $month . "-" . $day;
                     <div class="form-group">
                         <div class="row no-gutters">
                             <div class="col-6 col-md-6">
-                                <label style='font-size:15px' class="col-md-12">Net Total Amount :</label>
-                                <!-- new column -->
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">₱</span>
-                                    </div>
-                                    <input type="text" style='text-align:right' name='u_net_total_amount' id='u_net_total_amount' readonly class="form-control">
-                                </div>
-                                <!--  -->
-                            </div>
-                            <div class="col-6 col-md-6">
                                 <label style='font-size:15px' class="col-md-12">Total Amount :</label>
                                 <!-- new column -->
                                 <div class="input-group mb-3">
@@ -384,6 +373,18 @@ $dateNow = $year . "-" . $month . "-" . $day;
                                 </div>
                                 <!--  -->
                             </div>
+                            <div class="col-6 col-md-6">
+                                <label style='font-size:15px' class="col-md-12">Net Total Amount :</label>
+                                <!-- new column -->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">₱</span>
+                                    </div>
+                                    <input type="text" style='text-align:right' name='u_net_total_amount' id='u_net_total_amount'  onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"  class="form-control">
+                                </div>
+                                <!--  -->
+                            </div>
+
                         </div>
                     </div>
                     <!-- END Price -->

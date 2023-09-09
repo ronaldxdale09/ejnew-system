@@ -17,6 +17,8 @@ if (isset($_POST['add'])) {
     $type = $_POST['type'];
     $location = $_POST['location'];
     $amount = str_replace(',', '', $_POST['amount']);
+    $less = str_replace(',', '', $_POST['less']);
+    $total_amount = str_replace(',', '', $_POST['total_amount']);
 
     // Check if the selected category already exists in the database
     $id = null;
@@ -30,8 +32,8 @@ if (isset($_POST['add'])) {
     }
 
     // Insert the expense into the database
-    $query = "INSERT INTO ledger_expenses (date,voucher_no,particulars,category,mode_transact,remarks,amount,location,type_expense) 
-              VALUES ('$date','$vouch','$particular','$category','$modetransac','$remark','$amount','$location','$type')";
+    $query = "INSERT INTO ledger_expenses (date,voucher_no,particulars,category,mode_transact,remarks,amount,less,total_amount,location,type_expense) 
+              VALUES ('$date','$vouch','$particular','$category','$modetransac','$remark','$amount','$less','$total_amount','$location','$type')";
     $results = mysqli_query($con, $query);
 
     if ($results) {
