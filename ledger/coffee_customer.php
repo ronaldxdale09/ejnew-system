@@ -66,7 +66,7 @@ if (!$results) {
                                                 echo "<td>" . $row['cof_customer_address'] . "</td>";
                                                 echo "<td>" . $row['cof_customer_contact'] . "</td>";
                                                 echo "<td>₱ " . number_format($row['cof_customer_balance'], 2) . "</td>";
-                                                echo "<td width='25%'> <button class='btn btn-success btn-sm')'>Transactions</button>
+                                                echo "<td width='25%'> <button hidden class='btn btn-success btn-sm')'>Transactions</button>
                                                 <button class='btn btn-primary btn-sm btnUpdate' >Update</button>
                                                 <button class='btn btn-danger btn-sm confirmDelete' >Delete</button>  </td>";
 

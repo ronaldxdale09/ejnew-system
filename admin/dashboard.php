@@ -8,9 +8,9 @@ include('dashboard/dashboard_computation.php');
 
 ?>
 
-<link rel='stylesheet' href='css/tab-style.css'>
-<link rel='stylesheet' href='css/mobile.responsive.css'>
-<link rel='stylesheet' href='css/modern.stat.css'>
+<link rel='stylesheet' href='css/tab-style.css?v=1'>
+<link rel='stylesheet' href='css/mobile.responsive.css?v=1'>
+<link rel='stylesheet' href='css/modern.stat.css?v=1'>
 
 <link rel="stylesheet" href="css/statistic-card.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js" integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -57,13 +57,13 @@ include('dashboard/dashboard_computation.php');
         /* Padding below the text */
     }
 </style>
+<?php include("include/navbar.php"); ?>
 
 <body>
-<?php include("include/navbar.php");?>
 
     <div class='main-content' style='position:relative; height:100%;'>
         <div class="container home-section h-100" style="max-width:95%;">
-            <div class="page-wrapper">
+    
 
                 <!-- CARDS -->
 
@@ -318,26 +318,7 @@ include('dashboard/dashboard_computation.php');
                         </div>
                     </div>
 
-                    <div class="col" hidden>
-                        <div class="stat-card-default">
-                            <div class="stat-card__content">
-                                <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY (kg)</p>
-                                <div class="flex-container" style="display: flex; justify-content: space-between;">
-                                    <div><i class="fas fa-map-marker-alt"></i>&emsp;Basilan :</div>
-                                    <div style="font-weight: normal;"><?php echo number_format($basilan_bales['inventory'] ?? 0, 0) ?> kg</div>
-                                </div>
-                                <div class="flex-container">
-                                    <div><i class="fas fa-map-marker-alt"></i>&emsp;Kidapawan :</div>
-                                    <div style="font-weight: normal;"><?php echo number_format($kidapawan_bales['inventory'] ?? 0, 0) ?> kg</div>
-                                </div>
-                                <div class="separator"></div>
-                                <div class="flex-container">
-                                    <div>Total :</div>
-                                    <div><?php echo number_format($total_bales_weight ?? 0, 0) ?> kg</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
 
                     <div class="col">
                         <div class="stat-card-default">
@@ -363,70 +344,64 @@ include('dashboard/dashboard_computation.php');
                     </div>
 
                 </div>
-                <div class="inventory-table">
-                    <div class="container-fluid">
-                        <div class="wrapper" id="myTab">
-                            <input type="radio" name="slider" id="home" <?php if ($tab == '') {
-                                                                            echo 'checked';
-                                                                        } else {
-                                                                            echo '';
-                                                                        } ?>>
-                            <input type="radio" name="slider" id="blog" <?php if ($tab == '2') {
-                                                                            echo 'checked';
-                                                                        } else {
-                                                                            echo '';
-                                                                        } ?>>
-                            <input type="radio" name="slider" id="drying" <?php if ($tab == '3') {
-                                                                                echo 'checked';
-                                                                            } else {
-                                                                                echo '';
-                                                                            } ?>>
-                            <input type="radio" name="slider" id="code" <?php if ($tab == '4') {
-                                                                            echo 'checked';
-                                                                        } else {
-                                                                            echo '';
-                                                                        } ?>>
-                            <input type="radio" name="slider" id="help" <?php if ($tab == '5') {
-                                                                            echo 'checked';
-                                                                        } else {
-                                                                            echo '';
-                                                                        } ?>>
+                <div class="wrapper" id="myTab">
+                    <input type="radio" name="slider" id="home" <?php if ($tab == '') {
+                                                                    echo 'checked';
+                                                                } else {
+                                                                    echo '';
+                                                                } ?>>
+                    <input type="radio" name="slider" id="blog" <?php if ($tab == '2') {
+                                                                    echo 'checked';
+                                                                } else {
+                                                                    echo '';
+                                                                } ?>>
+                    <input type="radio" name="slider" id="drying" <?php if ($tab == '3') {
+                                                                        echo 'checked';
+                                                                    } else {
+                                                                        echo '';
+                                                                    } ?>>
+                    <input type="radio" name="slider" id="code" <?php if ($tab == '4') {
+                                                                    echo 'checked';
+                                                                } else {
+                                                                    echo '';
+                                                                } ?>>
+                    <input type="radio" name="slider" id="help" <?php if ($tab == '5') {
+                                                                    echo 'checked';
+                                                                } else {
+                                                                    echo '';
+                                                                } ?>>
 
-                            <nav>
-                                <label for="home" class="home"><i class="fas fa-chart-line"></i>RUBBER SALES </label>
-                                <label for="blog" class="blog"><i class="fas fa-boxes"></i>RUBBER INVENTORY </label>
-                                <label for="drying" class="drying"><i class="fas fa-money-bill-alt"></i>EXPENSES & PURCHASES </label>
-                                <label for="code" class="code"><i class="fas fa-leaf"></i> EJN COPRA </label>
-                                <label for="help" class="help"><i class="fas fa-coffee"></i>EJN COFFEE</label>
+                    <nav>
+                        <label for="home" class="home"><i class="fas fa-chart-line"></i>RUBBER SALES </label>
+                        <label for="blog" class="blog"><i class="fas fa-boxes"></i>RUBBER INVENTORY </label>
+                        <label for="drying" class="drying"><i class="fas fa-money-bill-alt"></i>EXPENSES & PURCHASES </label>
+                        <label for="code" class="code"><i class="fas fa-leaf"></i> EJN COPRA </label>
+                        <label for="help" class="help"><i class="fas fa-coffee"></i>EJN COFFEE</label>
 
-                                <div class="slider"></div>
-                            </nav>
-                            <section>
-                                <div class="content content-1">
-                                    <?php include('tab/report.sales.php') ?>
-                                </div>
-                                <div class="content content-2">
-                                    <?php include('tab/report.inventory.php') ?>
-
-                                </div>
-                                <div class="content content-3">
-                                    <?php include('tab/report.expense.php') ?>
-                                </div>
-                                <div class="content content-4">
-                                <?php include('tab/report.copra.php') ?>
-
-                                </div>
-                                <div class="content content-5">
-
-                            </section>
+                        <div class="slider"></div>
+                    </nav>
+                    <section>
+                        <div class="content content-1">
+                            <?php include('tab/report.sales.php') ?>
                         </div>
+                        <div class="content content-2">
+                            <?php include('tab/report.inventory.php') ?>
 
-                    </div>
+                        </div>
+                        <div class="content content-3">
+                            <?php include('tab/report.expense.php') ?>
+                        </div>
+                        <div class="content content-4">
+                            <?php include('tab/report.copra.php') ?>
+
+                        </div>
+                        <div class="content content-5">
+                            <?php include('tab/report.coffee.php') ?>
+
+                        </div>
+                    </section>
+
                 </div>
-
-
-
-            </div>
         </div>
     </div>
     <script>

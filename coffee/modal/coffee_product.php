@@ -14,7 +14,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="coffee-price" class="col-form-label">Category:</label>
+                                <label for="coffee-price" class="col-form-label">Product Name:</label>
                                 <select class="form-control" name="prod_name" required>
                                     <option value="" selected disabled hidden>Select Brand & Category</option>
                                     <?php
@@ -35,8 +35,17 @@
 
                         <div class="col">
                             <div class="form-group">
-                                <label for="coffee-name" class="col-form-label">Description:</label>
-                                <input type="text" class="form-control rounded" name="description" placeholder="Product Description e.g (100g)" autocomplete="off" required>
+                                <label for="coffee-name" class="col-form-label">Weight:</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control rounded" name="weight" placeholder="Product Description e.g (100g)" autocomplete="off" required>
+                                    <span class="input-group-text">
+                                        <select class="form-select" name="weight_unit">
+                                            <option value="kg" selected>kg</option>
+                                            <option value="g" selected>g</option>
+                                        </select>
+                                    </span>
+                                </div>
+
                             </div>
                         </div>
 
@@ -48,7 +57,7 @@
                                 <label for="coffee-price" class="col-form-label">Unit Price:</label>
                                 <div class="input-group">
                                     <span class="input-group-text">₱</span>
-                                    <input type="text" class="form-control" name="unit_price" placeholder="0.00" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
+                                    <input type="text" class="form-control" name="unit_price" placeholder="0.00" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" required>
                                 </div>
                             </div>
                         </div>
@@ -57,7 +66,7 @@
                                 <label for="coffee-price" class="col-form-label">Quantity Per Case:</label>
                                 <div class="input-group">
                                     <span class="input-group-text">QTY</span>
-                                    <input type="number" class="form-control" name="qty_case" placeholder="0">
+                                    <input type="number" class="form-control" name="qty_case" placeholder="0" required>
                                 </div>
                             </div>
                         </div>
@@ -66,7 +75,7 @@
                                 <label for="coffee-price" class="col-form-label">Case Price:</label>
                                 <div class="input-group">
                                     <span class="input-group-text">₱</span>
-                                    <input type="text" class="form-control" name="case_price" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" placeholder="0.00">
+                                    <input type="text" class="form-control" name="case_price" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" placeholder="0.00" required>
                                 </div>
                             </div>
                         </div>
@@ -120,8 +129,17 @@
 
                         <div class="col">
                             <div class="form-group">
-                                <label for="coffee-name" class="col-form-label">Description:</label>
-                                <input type="text" class="form-control rounded" id="description" name="description" placeholder="Product Description e.g (100g)" autocomplete="off" required>
+                                <label for="coffee-name" class="col-form-label">Weight:</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control rounded" id="weight" name="weight" placeholder="Product Description e.g (100g)" autocomplete="off" required>
+                                    <span class="input-group-text">
+                                        <select class="form-select" id="weight_unit"name="weight_unit">
+                                            <option value="kg" selected>kg</option>
+                                            <option value="g" selected>g</option>
+                                        </select>
+                                    </span>
+                                </div>
+
                             </div>
                         </div>
 

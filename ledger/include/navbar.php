@@ -61,36 +61,40 @@
 
     <?php if (strcasecmp(trim($loc), 'Zamboanga') != 0) : ?>
 
-    <hr style='color:gray'>
+        <hr style='color:gray'>
 
 
-    <a class='nav-link' href='dashboard.php'>
-        <i class='fa-solid fa-home'></i> <span class='nav-text'>Dashboard</span>
-    </a>
-    <?php endif; ?>
-    <hr style='color:white' hidden>
-
-    <div class="dropdown" hidden>
-        <a class="dropbtn nav-link" id='dropbtnCoffee'>
-            <span class="icon-wrapper"><i class='fa-solid fa-book'></i></span>
-            Coffee
-            <i class="fa fa-caret-down"></i>
+        <a class='nav-link' href='dashboard.php'>
+            <i class='fa-solid fa-home'></i> <span class='nav-text'>Dashboard</span>
         </a>
-        <div class="dropdown-content">
-            <a href='coffee_sale_record.php'>
-                <span class="icon-wrapper"><i class='fa-solid fa-book'></i></span> Coffee Sale
+
+
+        <hr style='color:white'>
+
+        <div class="dropdown">
+            <a class="dropbtn nav-link" id='dropbtnCoffee'>
+                <span class="icon-wrapper"><i class='fa-solid fa-book'></i></span>
+                Coffee
+                <i class="fa fa-caret-down"></i>
             </a>
-            <a href='coffee_list.php'>
-                <span class="icon-wrapper"><i class='fa-solid fa-book'></i></span> Product List
-            </a>
-            <a href='coffee_customer.php'>
-                <span class="icon-wrapper"><i class='fa-solid fa-book'></i></span> Manage Customer
-            </a>
-            <a href='coffee_sale_report.php'>
-                <span class="icon-wrapper"><i class='fa-solid fa-book'></i></span> Sale Report
-            </a>
+            <div class="dropdown-content">
+                <a href='coffee_sale_record.php'>
+                    <span class="icon-wrapper"><i class='fa-solid fa-book'></i></span> Coffee Sale
+                </a>
+                <a href='coffee_list.php'>
+                    <span class="icon-wrapper"><i class='fa-solid fa-book'></i></span> Product List
+                </a>
+                <a href='coffee_customer.php'>
+                    <span class="icon-wrapper"><i class='fa-solid fa-book'></i></span> Manage Customer
+                </a>
+                <a href='coffee_sale_report.php' hidden>
+                    <span class="icon-wrapper"><i class='fa-solid fa-book'></i></span> Sale Report
+                </a>
+            </div>
         </div>
-    </div>
+
+
+    <?php endif; ?>
 
 
     <hr style='color:white'>

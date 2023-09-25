@@ -51,7 +51,7 @@ function retractNav() {
 
 // Function to check the window size and retract the navbar
 function checkWindowSize() {
-    if (window.innerWidth <= 1024) {
+    if (window.innerWidth <= 768) { // adjusted from 1024 to 768
         retractNav();
         toggle = false;
     } else {
@@ -60,6 +60,16 @@ function checkWindowSize() {
     }
 }
 
-// Listen to resize and load events
-window.addEventListener('resize', checkWindowSize);
-window.addEventListener('load', checkWindowSize);
+
+function debounce(func, wait = 100) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+}
+
+
+
+window.addEventListener('resize', debounce(checkWindowSize));
+document.addEventListener('DOMContentLoaded', checkWindowSize);

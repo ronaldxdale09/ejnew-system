@@ -14,30 +14,44 @@ $name = $_SESSION["full_name"];
 <html>
 
 <head>
+    <meta charset="UTF-8">
 
-    <link href="assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/chosen.min.css">
-    <link rel='stylesheet' href='css/main.css'>
-    <link rel='stylesheet' href='css/navbar.css'>
-
+    <!-- Favicon -->
     <link rel='icon' href='assets/img/logo.png' size='10x10' />
-    <script src="assets/js/numberFormat.js"></script>
-    <script src="js/sweetalert2@11.js"></script>
-    <title>EJN RUBBER</title>
+
+    <!-- Bootstrap & DataTables CSS -->
+    <link href="assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap4.min.css">
+    <link href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css" rel="stylesheet">
+
+    <!-- Local CSS -->
+    <link rel="stylesheet" href="css/chosen.min.css?v=1.1">
+    <link rel='stylesheet' href='css/main.css?v=1.1'>
+    <link rel='stylesheet' href='css/navbar.css?v=1.1'>
+    <link rel="stylesheet" href="css/statistic-card.css?v=1.1">
+
+    <!-- Local JS -->
+    <script src="assets/js/numberFormat.js?v=1.1"></script>
+    <script src="js/sweetalert2@11.js?v=1.1"></script>
+
+    <!-- External JS Libraries -->
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.3/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/vfs_fonts.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap4.min.css" />
-    <link href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="css/statistic-card.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js" integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js" integrity="sha512-JPcRR8yFa8mmCsfrw4TNte1ZvF1e3+1SdGMslZvmrzDYxS69J7J49vkFL8u6u8PlPJK+H3voElBtUCzaXj+6ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js" integrity="sha512-CryKbMe7sjSCDPl18jtJI5DR5jtkUWxPXWaLCst6QjH8wxDexfRJic2WRmRXmstr2Y8SxDDWuBO6CQC6IE4KTA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-adapter-moment/1.0.1/chartjs-adapter-moment.min.js" integrity="sha512-hVy4KxCKgnXi2ok7rlnlPma4JHXI1VPQeempoaclV1GwRHrDeaiuS1pI6DVldaj5oh6Opy2XJ2CTljQLPkaMrQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <title>EJN RUBBER</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="0">
 </head>
+
+<!-- <script src='assets/js/navbar.js'></script> -->
 <?php
 include "include/datatables_buttons_css.php";
 include "include/datatables_buttons_js.php";

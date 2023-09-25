@@ -15,7 +15,7 @@ if (!$result) {
 
 $output = '
 
-<table class="table "  id="coffee-payment-table" >
+<table class="table table-hover table-bordered table-striped "  id="new_payment_table" >
     <thead class="table-dark">
     <tr style="font-weight: normal;">
         <th scope="col"hidden ></th>
@@ -39,18 +39,18 @@ while ($row = mysqli_fetch_assoc($result)) {
         </td>
         <td>
             <div class="input-group mb-3">
-                <input type="date" class="form-control" name="u_pay_date[]" value="' . $row["pay_date"] . '" style="width: 100px;">
+                <input type="date" class="form-control" name="pay_date[]" value="' . $row["pay_date"] . '" style="width: 100px;">
             </div>
         </td>
         <td width=35%>
             <div class="input-group mb-3">
-                <input type="text" class="form-control"name="u_pay_details[]" value="' . $row["pay_details"] . '" style="width: 100px;">
+                <input type="text" class="form-control"name="pay_details[]" value="' . $row["pay_details"] . '" style="width: 100px;">
             </div>
         </td>
         <td>
             <div class="input-group mb-3">
                 <span class="input-group-text">₱</span>
-                <input type="text" class="form-control"name="u_pay_amount[]"  onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" value="' . number_format($row["payAmount"], 2) . '" style="width: 100px;">
+                <input type="text" class="form-control"name="pay_amount[]"  onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" value="' . number_format($row["payAmount"], 2) . '" style="width: 100px;">
             </div>
         </td>
         <td>
@@ -84,19 +84,19 @@ echo $output;
                 <td hidden>
                 <input  type="text" class="form-control"name="payment_id[]"  style="width: 100px;">
                  </td>
-                    <td><input type="date" class="form-control"name="u_pay_date[]"></td>
-                    <td><input type="text" class="form-control weight"name="u_pay_details[]"></td>
+                    <td><input type="date" class="form-control"name="pay_date[]"></td>
+                    <td><input type="text" class="form-control weight"name="pay_details[]"></td>
                     <td>
                         <div class="input-group mb-3">
                             <span class="input-group-text payment-currency-symbol">₱</span>
-                            <input type="text" class="form-control weight payAmount"  onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"name="u_pay_amount[]">
+                            <input type="text" class="form-control weight payAmount"  onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"name="pay_amount[]">
                         </div>
                     </td>
             
                     <td><button class="btn btn-danger removePayment btn-sm" id="removePayment">Remove</td>
                 </tr>
                 `;
-            $("#coffee-payment-table tbody").append(newRow);
+            $("#new_payment_table tbody").append(newRow);
         });;
 
 

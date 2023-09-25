@@ -92,8 +92,6 @@ include 'include/navbar.php';
                         <div style="background-color: #2452af; height: 6px;"></div><!-- This is the blue bar -->
 
                         <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
-                            <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#newContainer">NEW CONTAINER</button>
-                            <hr>
                             <div class="table-responsive">
                                 <?php
                                 $results  = mysqli_query($con, "SELECT * from sales_cuplump_container ");

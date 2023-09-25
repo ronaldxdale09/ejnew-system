@@ -1,33 +1,27 @@
 <?php
 
 include('../../function/db.php');
+
 // Turn on error reporting
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// Check if the form is submitted
-if (isset($_POST['confirm'])) {
+// === PROCESS THE COFFEE SALE ===
+$sale_id = $_POST['sale_id'];
 
-    // === PROCESS THE COFFEE SALE ===
-    // Retrieve the form data
-    $sale_id = $_POST['sale_id'];
-    $coffeeNo = $_POST['coffee_no'];
-    $coffeeDate = $_POST['coffee_date'];
-    $coffeeCustomer = $_POST['coffee_customer'];
+$coffeeDate = $_POST['coffee_date'];
+$coffeeCustomer = $_POST['coffee_customer'];
 
-    $coffeeTotalAmount =str_replace(',', '', $_POST['coffee_total_amount']); 
-    $coffeePaid =str_replace(',', '', $_POST['total_amount_paid']);
-    $coffeeBalance =str_replace(',', '', $_POST['coffee_balance']);
+$coffeeTotalAmount = str_replace(',', '', $_POST['coffee_total_amount']);
+$coffeePaid = str_replace(',', '', $_POST['total_amount_paid']);
+$coffeeBalance = str_replace(',', '', $_POST['coffee_balance']);
 
-    // Determine the coffee payment status
-    $coffeeStatus = ($coffeeBalance == 0) ? "Paid" : "In Progress";
+$coffeeStatus = ($coffeeBalance == 0) ? "Paid" : "In Progress";
 
-    // Update the coffee sale record in the coffee_sale table
-    $updateSaleQuery = "UPDATE coffee_sale 
+$updateSaleQuery = "UPDATE coffee_sale 
                     SET 
                         coffee_status = '$coffeeStatus', 
-                        sale_voucher = '$coffeeNo', 
                         coffee_date = '$coffeeDate', 
                         coffee_customer = '$coffeeCustomer', 
                         coffee_total_amount = '$coffeeTotalAmount', 
@@ -35,36 +29,28 @@ if (isset($_POST['confirm'])) {
                         coffee_balance = '$coffeeBalance' 
                     WHERE coffee_sale_id  = '$sale_id'";
 
-    if (!mysqli_query($con, $updateSaleQuery)) {
-        die("Error: " . mysqli_error($con));
-    }
-    
-
-    // === PROCESS COFFEE SALE LINES ===
-
-    if (isset($_POST['u_product'])) {
-        processCoffeeSaleLines($con, $sale_id);
-    }
-
-    // === PROCESS PAYMENTS ===
-
-    if (isset($_POST['u_pay_date'])) {
-        processPayments($con, $sale_id);
-    }
-
-    // Close the database connection and redirect
-    mysqli_close($con);
-     header("Location: ../coffee_sale_record.php");
-    exit();
+if (!mysqli_query($con, $updateSaleQuery)) {
+    die("Error: " . mysqli_error($con));
 }
+
+if (isset($_POST['product'])) {
+    processCoffeeSaleLines($con, $sale_id);
+}
+
+if (isset($_POST['pay_date'])) {
+    processPayments($con, $sale_id);
+}
+echo 'success';
+mysqli_close($con);
+exit();
 
 function processCoffeeSaleLines($con, $sale_id)
 {
-    // Fetch existing sale_id values from the database for this coffee sale
     $existingProductLines = array();
+
+    // Fetch existing sale lines
     $fetchSql = "SELECT sale_id,sale_line_id FROM coffee_sale_line WHERE sale_id = '$sale_id'";
     $fetchResult = mysqli_query($con, $fetchSql);
-
     if (!$fetchResult) {
         die('Error fetching existing product lines: ' . mysqli_error($con));
     } else {
@@ -73,32 +59,44 @@ function processCoffeeSaleLines($con, $sale_id)
         }
     }
 
-    $products = $_POST['u_product'];
-    $quantities = $_POST['u_qty'];
-    $prices = $_POST['u_price'];
-    $amounts = $_POST['u_amount'];
+    // Check if inventory adjustment is needed
+    $checkQuery = "SELECT inventoryCheck FROM coffee_sale WHERE coffee_sale_id = '$sale_id'";
+    $checkResult = mysqli_query($con, $checkQuery);
+    $adjustInventory = false;
+    if ($row = mysqli_fetch_assoc($checkResult)) {
+        $adjustInventory = ($row['inventoryCheck'] == 0);
+    }
+
+    $products = $_POST['product'];
+    $quantities = $_POST['qty'];
+    $total_quantities = $_POST['total_qty'];
+    $prices = $_POST['price'];
+    $amounts = $_POST['amount'];
+    $specification = $_POST['spec'];
+
+    
     $productLineIds = isset($_POST['product_id']) ? $_POST['product_id'] : array();
 
     foreach ($products as $index => $product) {
         $id = isset($productLineIds[$index]) ? $productLineIds[$index] : '';
-        $prod_qty = isset($quantities[$index]) ? $quantities[$index] : '';
+        $quantity = isset($quantities[$index]) ? $quantities[$index] : '';
+        $spec = isset($specification[$index]) ? $specification[$index] : '';
+
+        $total_qty = isset($total_quantities[$index]) ? $total_quantities[$index] : '';
         $prod_price = isset($prices[$index]) ? floatval(str_replace(',', '', $prices[$index])) : 0;
         $prod_amount = isset($amounts[$index]) ? floatval(str_replace(',', '', $amounts[$index])) : 0;
 
-        // Check if this product line already exists
         $checkSql = "SELECT * FROM coffee_sale_line WHERE sale_id = '$sale_id' AND sale_line_id  = '$id'";
         $checkResult = mysqli_query($con, $checkSql);
 
         if (mysqli_num_rows($checkResult) > 0) {
-            // Update existing row
             $sql = "UPDATE coffee_sale_line 
-                    SET product='$product', unit='$prod_qty', price='$prod_price', amount='$prod_amount'
+                    SET coffee_id='$product',specification='$spec',unit='$quantity', total_qty='$total_qty', price='$prod_price', amount='$prod_amount'
                     WHERE sale_id = '$sale_id' AND sale_line_id  = '$id'";
         } else {
-            // Insert new row
             $sql = "INSERT INTO coffee_sale_line 
-                    (sale_id, product, unit, price, amount)
-                    VALUES ('$sale_id', '$product', '$prod_qty', '$prod_price', '$prod_amount')";
+                    (sale_id, coffee_id,specification, unit,total_qty, price, amount)
+                    VALUES ('$sale_id', '$product','$spec','$quantity', '$total_qty', '$prod_price', '$prod_amount')";
         }
 
         $result = mysqli_query($con, $sql);
@@ -106,11 +104,23 @@ function processCoffeeSaleLines($con, $sale_id)
             die('Error inserting or updating data: ' . mysqli_error($con));
         }
 
-        // Remove sale_id from existingProductLines array
+        // Update coffee inventory if necessary
+        if ($adjustInventory) {
+            updateCoffeeInventory($con, $product, $total_qty);
+        }
+
         $existingProductLines = array_diff($existingProductLines, array($id));
     }
 
-    // Delete old data
+    if ($adjustInventory) {
+        // Update inventoryCheck to 1 after adjusting the inventory
+        $updateCheckQuery = "UPDATE coffee_sale SET inventoryCheck = 1 WHERE coffee_sale_id = '$sale_id'";
+        if (!mysqli_query($con, $updateCheckQuery)) {
+            die('Error updating inventoryCheck: ' . mysqli_error($con));
+        }
+    }
+
+    // Remove any old product lines that weren't updated
     foreach ($existingProductLines as $id) {
         $deleteSql = "DELETE FROM coffee_sale_line WHERE sale_id = '$sale_id' AND sale_line_id   = '$id'";
         if (!mysqli_query($con, $deleteSql)) {
@@ -118,6 +128,25 @@ function processCoffeeSaleLines($con, $sale_id)
         }
     }
 }
+
+
+function updateCoffeeInventory($con, $coffee_id, $quantitySold)
+{
+    $inventoryQuery = "SELECT quantity FROM coffee_inventory WHERE coffee_id = '$coffee_id'";
+    $result = mysqli_query($con, $inventoryQuery);
+
+    if ($row = mysqli_fetch_assoc($result)) {
+        $currentInventory = $row['quantity'];
+        $newInventory = $currentInventory - $quantitySold;
+        $updateQuery = "UPDATE coffee_inventory SET quantity = '$newInventory' WHERE coffee_id = '$coffee_id'";
+        if (!mysqli_query($con, $updateQuery)) {
+            die('Error updating coffee inventory: ' . mysqli_error($con));
+        }
+    } else {
+        die('Error fetching coffee inventory: ' . mysqli_error($con));
+    }
+}
+
 
 function processPayments($con, $sale_id)
 {
@@ -134,9 +163,9 @@ function processPayments($con, $sale_id)
         }
     }
 
-    $payDates = $_POST['u_pay_date'];
-    $payDetailsArray = $_POST['u_pay_details'];
-    $payAmounts = $_POST['u_pay_amount'];
+    $payDates = $_POST['pay_date'];
+    $payDetailsArray = $_POST['pay_details'];
+    $payAmounts = $_POST['pay_amount'];
     $paymentIds = isset($_POST['payment_id']) ? $_POST['payment_id'] : array();
 
     foreach ($payDetailsArray as $index => $details) {

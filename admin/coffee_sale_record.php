@@ -1,42 +1,9 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <link rel='stylesheet' href='css/statistic-card.css'>
-    <style>
-        .number-cell {
-            text-align: right;
-        }
-
-        /* Adjust the width and remove padding and margin to remove spaces */
-        .form-control-wide {
-            width: 100%;
-            padding: 0;
-            margin: 0;
-        }
-    </style>
-</head>
+<link rel='stylesheet' href='css/statistic-card.css'>
 
 <body>
     <?php
     include('include/header.php');
     include('include/navbar.php');
-
-
-    $sql = "SELECT * FROM coffee_customer ";
-    $res = mysqli_query($con, $sql);
-    $customer_name = '';
-    while ($array = mysqli_fetch_array($res)) {
-        $customer_name .= '
-        <option value="' . $array["cof_customer_name"] . '">' . $array["cof_customer_name"] . '</option>';
-    }
-
-
-
-
-    include "modal/coffee_sales.php"; // Include the modal file
-
-
 
     ?>
 
@@ -52,7 +19,7 @@
                             </b>
                         </h1>
                         <hr>
-                        <?php include('statistical_card/coffee_sale_card.php'); ?>
+                        <?php include('statistical_card/coffee.sale.card.php'); ?>
                         <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
                             <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#newCoffeeSale">NEW SALE</button>
                             <hr>
@@ -124,7 +91,7 @@
                                                         <?php echo $row['coffee_balance']; ?>
                                                     </td>
                                                     <td class="text-center">
-                                                        <button type="button" data-coffee='<?php echo json_encode($row); ?>' class="btn btn-success btn-sm btnViewRecord">Update</button>
+                                                        <button type="button" data-coffee='<?php echo json_encode($row); ?>' class="btn btn-success btn-sm btnViewRecord">View</button>
                                                     </td>
                                                 </tr>
                                             <?php
@@ -165,6 +132,24 @@
                 info: false,
             });
 
+            function formatWithComma(value) {
+                // Ensure value is a number
+                let parsedValue = parseFloat(value);
+
+                // Ensure parsed value is a valid number
+                if (isNaN(parsedValue)) {
+                    return "0.00"; // or some default value, or you can throw an error
+                }
+
+                // Convert to string with 2 decimal places
+                let fixedValue = parsedValue.toFixed(2);
+
+                // Return with comma as thousands separator
+                return parseFloat(fixedValue).toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+            }
             $('.btnViewRecord').on('click', function() {
 
                 var coffee = $(this).data('coffee');

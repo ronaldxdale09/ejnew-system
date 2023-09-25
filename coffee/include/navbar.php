@@ -60,13 +60,6 @@
     </div>
 
 
-    <hr style='color:gray'>
-
-
-    <a class='nav-link' href='dashboard.php'>
-        <i class='fa-solid fa-home'></i> <span class='nav-text'>Dashboard</span>
-    </a>
-
     <hr style='color:white'>
 
 
@@ -75,8 +68,8 @@
         <i class='fa-solid fa-coffee'></i> <span class='nav-text'>Coffee Product</span>
     </a>
 
-    <a class='nav-link' href='coffee_inventory.php'>
-        <i class='fa-solid fa-box'></i> <span class='nav-text'>Coffee Inventory</span>
+    <a class='nav-link' href='coffee_production.php'>
+        <i class='fa-solid fa-box'></i> <span class='nav-text'>Coffee Production</span>
     </a>
     <div class='logout-container'>
         <span class='nav-text'></span>

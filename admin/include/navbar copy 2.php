@@ -1,64 +1,9 @@
-<style>
-    /* Dropdown Styles */
-    .dropdown {
-        position: relative;
-        display: block;
-    }
-
-    .dropbtn {
-        background-color: #1b325f;
-        color: black;
-        padding: 16px;
-        font-size: 16px;
-        border: none;
-        cursor: pointer;
-        width: 100%;
-        display: flex;
-
-    }
-
-    .fa-caret-down {
-        color: inherit;
-    }
-
-    .dropdown-content {
-        display: none;
-        position: relative;
-        background-color: #13264a;
-        min-width: 240px;
-        z-index: 1;
-        color: white;
-    }
-
-    .dropdown-content a {
-        color: white;
-        padding: 15px;
-        text-decoration: none;
-        display: flex;
-    }
-
-    .dropdown-content a:hover {
-        background-color: rgba(255, 255, 255, 0.2);
-    }
-
-    .link-content {
-        display: flex;
-    }
-
-    .icon-wrapper {
-        margin-right: 6px;
-        display: inline-block;
-    }
-
-
-
-
-</style>
-
 <nav id='navbar'>
     <div id='toggle-nav-btn'>
         <div class='nav-title' style='font-weight:bold;'>
-            <img src='assets/img/logo.png' alt='Q-cart Logo' width='35' height='35' style='margin-right:5px;'> <span class='nav-text'>EJN RUBBER</span>
+            <span id='hamburger-icon' style='display:none;'>&#9776;</span>
+            <img id='logo' src='assets/img/logo.png' alt='Q-cart Logo' width='35' height='35' style='margin-right:5px;'>
+            <span class='nav-text'>EJN RUBBER</span>
         </div>
     </div>
 
@@ -82,7 +27,9 @@
             </div>
 
         </div>
-
+        <a class='nav-link' href='copra_record.php'>
+            <i class='fas fa-list-alt'></i> <span class='nav-text'>Copra Record</span>
+        </a>
         <a class='nav-link' href='purchase_report.php'>
             <i class='fas fa-cash-register'></i> <span class='nav-text'>Purchase Report</span>
         </a>
@@ -168,12 +115,17 @@
     });
 
 
-    // On page load, check the localStorage to see if a dropdown should be expanded
-    window.onload = function() {
-        var expandedDropdown = localStorage.getItem('expandedDropdown');
-        if (expandedDropdown) {
-            toggleDropdown(expandedDropdown);
+
+    document.getElementById('toggle-nav-btn').addEventListener('click', function() {
+        var hamburger = document.getElementById('hamburger-icon');
+        var logo = document.getElementById('logo');
+
+        if (hamburger.style.display === "none") {
+            hamburger.style.display = "inline";
+            logo.style.display = "none";
+        } else {
+            hamburger.style.display = "none";
+            logo.style.display = "inline";
         }
-    };
+    });
 </script>
-<script src='assets/js/navbar.js'></script>

@@ -4,80 +4,93 @@
 include "../function/db.php";
 include "include/bootstrap.php";
 include "include/jquery.php";
+
 if (!isset($_SESSION['loc']) || empty($_SESSION['loc'])) {
   header('Location: function/logout.php'); // replace 'logout.php' with your logout script
   exit();
 }
 
+
 $loc = str_replace(' ', '', $_SESSION['loc']);
-$user_name = $_SESSION["full_name"];
-
-
+$name =   $_SESSION["user"];
 ?>
 <html>
 
 <head>
-  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css" integrity="sha512-Z/def5z5u2aR89OuzYcxmDJ0Bnd5V1cKqBEbvLOiUNWdg9PQeXVvXLI90SE4QOHGlfLqUnDNVAYyZi8UwUTmWQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link href="assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/chosen.min.css">
   <link rel='stylesheet' href='css/main.css'>
+  <link rel='stylesheet' href='css/navbar.css'>
+  <link rel="stylesheet" href="css/chosen.min.css">
+  <link rel='stylesheet' href='css/statistic-card.css'>
+
+  <link rel='icon' href='assets/img/logo.png' size='10x10' />
   <script src="assets/js/numberFormat.js"></script>
-  <title>EJN General Ledger</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="js/sweetalert2@11.js"></script>
+  <title>EJN COFFEE</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
-
 <?php
 include "include/datatables_buttons_css.php";
 include "include/datatables_buttons_js.php";
+
 ?>
-
-
 <style>
-  .header-design {
-    font-size: 24px;
-    /* Increase font size */
-    font-weight: 600;
-    /* Make it bold */
-    color: #204562;
-    /* Deep blue color */
-    padding-bottom: 10px;
-    /* Add some padding at the bottom */
-    border-bottom: 2px solid #ddd;
-    /* Add a subtle bottom border */
-    margin-bottom: 20px;
-    /* Add some margin after the header */
-    letter-spacing: 0.5px;
-    /* Increase letter spacing for better readability */
-    text-transform: uppercase;
-    text-align: center;       /* Center the text */
-
+  .dataTables_length {
+    margin-top: 10px;
+    margin-left: 20px;
   }
-  .gray-background {
-    background-color: #f2f2f2;
+
+  /* #process_supplier[readonly] {
+  background-color: #fff;
 }
 
-  
-</style>
-<script>
-  function formatWithComma(value) {
-    // Ensure value is a number
-    let parsedValue = parseFloat(value);
+#process_weight[readonly] {
+  background-color: #fff;
+}
 
-    // Ensure parsed value is a valid number
-    if (isNaN(parsedValue)) {
-      return "0.00"; // or some default value, or you can throw an error
-    }
+#process_lot_no[readonly] {
+  background-color: #fff;
+} */
 
-    // Convert to string with 2 decimal places
-    let fixedValue = parsedValue.toFixed(2);
-
-    // Return with comma as thousands separator
-    return parseFloat(fixedValue).toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    });
+  .logout-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #212529;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    background-color: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    transition: all 0.15s ease-in-out;
   }
-</script>
+
+  .logout-btn:hover {
+    color: #007bff;
+    background-color: rgba(0, 0, 0, 0.075);
+    border-color: rgba(0, 0, 0, 0.2);
+  }
+
+  .logout-btn i {
+    margin-right: 0.5rem;
+  }
+
+  .loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 9999;
+    text-align: center;
+    line-height: 100vh;
+  }
+</style>

@@ -1,124 +1,105 @@
-<nav id='navbar'>
-    <div id='toggle-nav-btn'>
-        <div class='nav-title' style='font-weight:bold;'>
-            <img src='assets/img/logo.png' alt='Q-cart Logo' width='35' height='35' style='margin-right:5px;'> <span class='nav-text'>EJN RUBBER</span>
-        </div>
-    </div>
-
-    <br>
-    <div id="navbar-content">
-        <a class='nav-link' href='dashboard.php'>
-            <i class='fas fa-home'></i> <span class='nav-text'>Home</span>
-        </a>
-
-        <div class="dropdown">
-            <a class="dropbtn nav-link" id='dropbtnExpense'>
-                <span class="icon-wrapper"><i class='fas fa-money'></i></span>
-                <span class="nav-text">Expenses</span>
-                <i style='justify-content: right' class="fa fa-caret-down"></i>
-            </a>
-            <div class="dropdown-content">
-                <a href='basilan.expense.php'> <span class="icon-wrapper"><i class='fas fa-wallet'></i></span> Basilan Record</a>
-                <a href='basilan.expense.report.php'> <span class="icon-wrapper"><i class='fas fa-clipboard'></i></span> Basilan Report</a>
-                <a href='zam.expense.php'> <span class="icon-wrapper"><i class='fa-solid fa-ship'></i></span> Zamboanga Record</a>
-                <a href='zam.expense.report.php'> <span class="icon-wrapper"><i class='fa-solid fa-ship'></i></span> Zamboanga Report</a>
-            </div>
-
-        </div>
-        <a class='nav-link' href='copra_record.php'>
-            <i class='fas fa-list-alt'></i> <span class='nav-text'>Copra Record</span>
-        </a>
-        <a class='nav-link' href='purchase_report.php'>
-            <i class='fas fa-cash-register'></i> <span class='nav-text'>Purchase Report</span>
-        </a>
-        <a class='nav-link' href='sales_reports.php'>
-            <i class='fa-solid fa-file-alt'></i> <span class='nav-text'>Sales Report</span>
-        </a>
-
-        <hr style='color:gray'>
-
-        <div class="dropdown">
-            <a class="dropbtn nav-link" id='dropbtnBale'>
-                <span class="icon-wrapper"><i class='fas fa-cube'></i></span>
-                <span class="nav-text">Bale Record</span>
-                <i style='justify-content: right' class="fa fa-caret-down"></i>
-            </a>
-            <div class="dropdown-content">
-                <a href='bale_sale_record.php'> <span class="icon-wrapper"><i class='fas fa-chart-line'></i></span> Sales</a>
-                <a href='container_record.php'> <span class="icon-wrapper"><i class='fas fa-shipping-fast'></i></span> Container</a>
-                <a href='bale_shipment_record.php'> <span class="icon-wrapper"><i class='fa-solid fa-ship'></i></span> Shipment</a>
-                <a href='inv_bale.php'><span class="icon-wrapper"><i class='fas fa-cube'></i></span> Inventory</a>
-            </div>
-        </div>
+<nav class='nav-bar'>
+    <ul class="menu">
+        <li class="logo"><a href="#">EN-System </a></li>
+        <li class="item"><a href='dashboard.php'>Dashboard</a></li>
+        <li class="item has-submenu">
+            <a tabindex="0">Expenses</a>
+            <ul class="submenu">
+                <li class="subitem"><a href="basilan.expense.php">Basilan Expenses</a></li>
+                <li class="subitem"><a href="basilan.expense.report.php">Basilan Report</a></li>
+                <li class="subitem"><a href="zam.expense.php">Zamboanga Expenses</a></li>
+                <li class="subitem"><a href="zam.expense.report.php">Zamboanga Report</a></li>
+            </ul>
+        </li>
+        <li class="item"><a href="purchase_report.php">Purchases Report</a></li>
+        <li class="item"><a href="sales_reports.php">Sales Report</a></li>
+        <li class="item"><a href="copra_record.php">Copra Record</a></li>
 
 
-        <hr style='color:gray'>
+        <li class="item has-submenu">
+            <a tabindex="0">Bales</a>
+            <ul class="submenu">
+                <li class="subitem"><a href="inv_bale.php">Inventory</a></li>
+                <li class="subitem"><a href="bale_sale_record.php">Bale Sales</a></li>
+                <li class="subitem"><a href="container_record.php">Container</a></li>
+                <li class="subitem"><a href="bale_shipment_record.php">Shipment</a></li>
+            </ul>
+        </li>
+
+        <li class="item has-submenu">
+            <a tabindex="0">Cuplump</a>
+            <ul class="submenu">
+                <li class="subitem"><a href="inv_cuplump.php">Inventory</a></li>
+                <li class="subitem"><a href="cuplump_sale_record.php">Sales</a></li>
+                <li class="subitem"><a href="cuplump_container_record.php">Container</a></li>
+                <li class="subitem"><a href="cuplump_shipment_record.php">Shipment</a></li>
+            </ul>
+        </li>
+
+        <li class="item has-submenu">
+            <a tabindex="0">Coffee</a>
+            <ul class="submenu">
+                <li class="subitem"><a href="coffee_list.php">Inventory</a></li>
+                <li class="subitem"><a href="coffee_production.php">Production</a></li>
+                <li class="subitem"><a href="coffee_sale_record.php">Sales</a></li>
+            </ul>
+        </li>
 
 
+        <li class="item"><a href='function/logout.php'><i class='fa-solid fa-arrow-right-to-bracket'></i> Logout</a></li>
 
-        <div class="dropdown">
-            <a class="dropbtn nav-link" id='dropbtnCuplump'>
-                <span class="icon-wrapper"><i class='fas fa-cube'></i></span>
-                <span class="nav-text">Cuplump</span> <i style='justify-content: right' class="fa fa-caret-down"></i>
-            </a>
-            <div class="dropdown-content">
-                <a href='cuplump_sale_record.php'> <span class="icon-wrapper"><i class='fas fa-chart-line'></i></span> Sales</a>
-                <a href='cuplump_container_record.php'> <span class="icon-wrapper"><i class='fas fa-shipping-fast'></i></span> Container</a>
-                <a href='cuplump_shipment_record.php'> <span class="icon-wrapper"><i class='fa-solid fa-ship'></i></span> Shipment</a>
-                <a href='inv_cuplump.php'><span class="icon-wrapper"><i class='fas fa-cube'></i></span> Inventory</a>
-            </div>
-        </div>
-
-
-
-        <hr style='color:gray'>
-
-        <a class='nav-link' href='reports.php' hidden>
-            <i class='fas fa-file-alt'></i> <span class='nav-text'>Reports</span>
-        </a>
-
-        <a class='nav-link' href='admin_users.php'>
-            <i class='fas fa-users'></i> <span class='nav-text'>Manage Users</span>
-        </a>
-
-        <div class='logout-container'>
-            <a class='nav-text' href='function/logout.php'>
-                <i class='fa-solid fa-arrow-right-to-bracket'></i>
-                <span class='nav-text'>Logout </span>
-            </a>
-        </div>
-    </div>
+        <li class="toggle"><a href="#"><i class="fas fa-bars"></i></a></li>
+    </ul>
 </nav>
 
+
 <script>
-    // Function to toggle the dropdown
-    function toggleDropdown(id) {
-        var dropdownContent = document.getElementById(id).nextElementSibling;
-        dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
-        // Save the state to localStorage
-        localStorage.setItem('expandedDropdown', dropdownContent.style.display === 'block' ? id : '');
+    const toggle = document.querySelector(".toggle");
+    const menu = document.querySelector(".menu");
+    const items = document.querySelectorAll(".item");
+
+    /* Toggle mobile menu */
+    function toggleMenu() {
+        if (menu.classList.contains("active")) {
+            menu.classList.remove("active");
+            toggle.querySelector("a").innerHTML = "<i class='fas fa-bars'></i>";
+        } else {
+            menu.classList.add("active");
+            toggle.querySelector("a").innerHTML = "<i class='fas fa-times'></i>";
+        }
     }
 
-    // Event listeners for the dropdown buttons
-    document.getElementById('dropbtnBale').addEventListener('click', function() {
-        toggleDropdown('dropbtnBale');
-    });
-
-    document.getElementById('dropbtnCuplump').addEventListener('click', function() {
-        toggleDropdown('dropbtnCuplump');
-    });
-
-    document.getElementById('dropbtnExpense').addEventListener('click', function() {
-        toggleDropdown('dropbtnExpense');
-    });
-
-
-    // On page load, check the localStorage to see if a dropdown should be expanded
-    window.onload = function() {
-        var expandedDropdown = localStorage.getItem('expandedDropdown');
-        if (expandedDropdown) {
-            toggleDropdown(expandedDropdown);
+    /* Activate Submenu */
+    function toggleItem() {
+        if (this.classList.contains("submenu-active")) {
+            this.classList.remove("submenu-active");
+        } else if (menu.querySelector(".submenu-active")) {
+            menu.querySelector(".submenu-active").classList.remove("submenu-active");
+            this.classList.add("submenu-active");
+        } else {
+            this.classList.add("submenu-active");
         }
-    };
+    }
+
+    /* Close Submenu From Anywhere */
+    function closeSubmenu(e) {
+        if (menu.querySelector(".submenu-active")) {
+            let isClickInside = menu
+                .querySelector(".submenu-active")
+                .contains(e.target);
+
+            if (!isClickInside && menu.querySelector(".submenu-active")) {
+                menu.querySelector(".submenu-active").classList.remove("submenu-active");
+            }
+        }
+    }
+    /* Event Listeners */
+    toggle.addEventListener("click", toggleMenu, false);
+    for (let item of items) {
+        if (item.querySelector(".submenu")) {
+            item.addEventListener("click", toggleItem, false);
+        }
+        item.addEventListener("keypress", toggleItem, false);
+    }
+    document.addEventListener("click", closeSubmenu, false);
 </script>
-<script src='assets/js/navbar.js'></script>

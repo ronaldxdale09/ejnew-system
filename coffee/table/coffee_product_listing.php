@@ -98,10 +98,10 @@ echo $output;
 
 
 <script>
-        $("#addProductUpdate").click(function() {
+    $("#addProductUpdate").click(function() {
 
-            // Append the row
-            var newRow = `
+        // Append the row
+        var newRow = `
                 <tr>
                 
                 <td hidden><input type="text" class="form-control product_id" name="product_id[]"></td>
@@ -149,10 +149,8 @@ echo $output;
                 </td>
             </tr>
                 `;
-            $("#coffee-listing-table tbody").append(newRow);
-
-            
-        });
+        $("#coffee-listing-table tbody").append(newRow);
 
 
+    });
 </script>

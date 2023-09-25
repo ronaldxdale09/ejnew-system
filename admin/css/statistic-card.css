@@ -1,53 +1,32 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
-body {
-    font-family: 'Roboto', sans-serif;
-}
-
-.main-content {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-}
-
-.stat-card {
-    background: #fff;
-    padding: 0.8rem;
-    margin-bottom: 1.25rem;
-    border-radius: 5px;
-    overflow: hidden;
-    display: flex;
-    justify-content: space-between;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    transition: all 0.2s;
-}
-
+.stat-card,
 .stat-card-default {
     background: #fff;
-    padding: 0.8rem;
+    padding: 20px;
     margin-bottom: 1.25rem;
-    border-radius: 5px;
-    overflow: hidden;
+    border-radius: 8px;
+    height: auto;
+    /* Adjusted to auto to allow for content flow */
+    width: 100%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
     justify-content: space-between;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    transition: all 0.2s;
-}
-
-.stat-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 }
 
 .stat-card__icon-circle {
     height: 2.5rem;
     width: 2.5rem;
-    border-radius: 60px;
-    background: rgba(0, 123, 255, 0.2);
+    border-radius: 50%;
+    background: rgba(0, 123, 255, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .stat-card__icon-circle i {
-    font-size: 1.25rem;
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    /* Responsive font-size */
     color: #007bff;
 }
 
@@ -86,20 +65,16 @@ body {
 
 /* Responsive styles for mobile screens */
 
+
+/* Responsive styles */
+
 @media (max-width: 768px) {
-    .main-content {
-        padding-top: 1.25rem;
-        padding-bottom: 1.25rem;
-    }
     .stat-card,
     .stat-card-default {
-        padding: 0.5rem;
+        padding: 15px;
     }
     .stat-card__icon-circle {
-        height: 1.875rem;
-        width: 1.875rem;
-    }
-    .stat-card__icon-circle i {
-        font-size: 0.9375rem;
+        height: 2rem;
+        width: 2rem;
     }
 }

@@ -1,36 +1,32 @@
 body {
-    font-family: 'Arial', sans-serif;
-    /* Use a neutral and readable font family */
-    font-size: 16px;
-    line-height: 1.5;
     min-height: 100%;
-    background-color: #f4f4f4;
-    /* Neutral background */
-    color: #333;
-    /* Darker text color for contrast */
+    height: 100%;
+    width: 100%;
+    background-color: #e9f2f9;
+    position: relative;
     overflow-x: hidden;
-    margin: 0;
-    /* Reset default margin */
-    padding: 0;
-    /* Reset default padding */
 }
 
+body.swal2-height-auto {
+    height: 100% !important;
+}
 
-/* Simplified the body and html overflow properties */
-
-body,
 html {
-    overflow-x: hidden;
+    height: 100%;
+    width: 100%;
 }
 
 .datepicker {
-    border: none;
+    border: 1px solid #c4c4c4;
     border-radius: 5px;
     background-color: #fff;
-    padding: 8px 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    /* Full width */
+    padding: 3px 5px;
+    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.1);
+    width: 190px;
+}
+
+.list-label {
+    border: solid black 1px;
 }
 
 .list-table {
@@ -39,61 +35,93 @@ html {
     border-spacing: 2px;
 }
 
+.table-fix-head {
+    overflow: auto;
+}
+
 .table-fix-head thead th {
     position: sticky;
     top: 0;
     z-index: 1;
-    background-color: #fff;
-    /* Add background to header for visibility */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    /* Soft shadow */
 }
 
 table tr {
     background-color: white;
-    height: 50px;
-    /* Slightly increase the height for touch devices */
+    height: 40px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+@media only screen and (min-height: 600px) {
+    .logout-container {
+        position: absolute;
+    }
+}
+
+.logout {
+    padding: 8px 5px 8px 8px !important;
+    border-radius: 15px;
+    position: absolute;
+    right: 15px;
+}
+
+.logout i {
+    margin: 0 !important;
 }
 
 .main-container {
-    padding: 20px;
-    width: 90%;
-    max-width: 1200px;
-    /* Max width can be higher for wide screens */
+    padding-top: 20px;
+    width: 80%;
+    max-width: 80% !important;
     margin: auto;
 }
 
-
-/* Simplified modal styles with unified border-radius and modern shadows */
-
-.modal-content,
-.modal-header,
-.modal-footer {
-    border-radius: 6px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.modal {
+    background-color: rgba(0, 0, 0, 0.5)
 }
 
-.form-control {
-    font-size: 20px;
-    /* Ensure this has 'px' for consistency */
-    font-weight: bold;
+#myTable {
     padding: 10px;
-    /* Padding for touch comfort */
-    border-radius: 4px;
-    /* Slight rounded edges */
-    border: 1px solid #ccc;
-    /* Visible border */
-    width: 100%;
-    /* Full width */
 }
 
-@media (max-width: 768px) {
-    body {
-        font-size: 16px;
-    }
-    .main-container {
-        width: 100%;
-        padding: 10px;
-        /* Reduced padding for smaller screens */
-    }
+.active {
+    background-color: rgb(11, 19, 54) !important;
+}
+
+.form-group {
+    margin-bottom: 0.5rem;
+}
+
+.modal-body {
+    background-color: #FFFFFF;
+}
+
+.modal-content {
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    background-color: transparent;
+}
+
+.modal-footer {
+    background-color: rgb(222, 222, 225);
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    -webkit-border-bottom-left-radius: 6px;
+    -webkit-border-bottom-right-radius: 6px;
+    -moz-border-radius-bottomleft: 6px;
+    -moz-border-radius-bottomright: 6px;
+}
+
+.modal-header {
+    background-color: rgb(32, 32, 32);
+    color: white;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    -webkit-border-top-left-radius: 6px;
+    -webkit-border-top-right-radius: 6px;
+    -moz-border-radius-topleft: 6px;
+    -moz-border-radius-topright: 6px;
 }

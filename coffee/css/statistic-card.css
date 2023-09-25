@@ -1,48 +1,49 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
-body {
-    background: #f9f9f9;
-    font-family: "Roboto", sans-serif;
-}
-
-.main-content {
-    padding-top: 70px;
-    padding-bottom: 70px;
-}
-
 .stat-card {
-    background: #fff;
-    padding: 25px;
-    margin-bottom: 25px;
-    border-radius: 5px;
+    background: linear-gradient(135deg, #f9f9f9 0%, #fff 100%);
+    /* subtle gradient */
+    padding: 30px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    /* increased border-radius */
     overflow: hidden;
     display: flex;
     justify-content: space-between;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    transition: all 0.2s;
+    align-items: center;
+    /* vertical alignment */
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .stat-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
 }
 
 .stat-card__icon-circle {
-    height: 40px;
-    width: 40px;
-    border-radius: 60px;
-    background: rgba(0, 123, 255, 0.2);
+    height: 50px;
+    /* increased size */
+    width: 50px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background 0.3s;
+    /* smooth transition */
 }
 
 .stat-card__icon-circle i {
-    font-size: 24px;
-    color: #007bff;
+    font-size: 26px;
+    transition: color 0.3s;
+    /* smooth transition */
 }
 
 .stat-card__icon.stat-card__icon--success .stat-card__icon-circle {
     background: rgba(40, 167, 69, 0.2);
+}
+
+.stat-card__icon.stat-card__icon--success:hover .stat-card__icon-circle {
+    background: rgba(40, 167, 69, 0.3);
 }
 
 .stat-card__icon.stat-card__icon--success .stat-card__icon-circle i {
@@ -53,6 +54,10 @@ body {
     background: rgba(220, 53, 69, 0.2);
 }
 
+.stat-card__icon.stat-card__icon--danger:hover .stat-card__icon-circle {
+    background: rgba(220, 53, 69, 0.3);
+}
+
 .stat-card__icon.stat-card__icon--danger .stat-card__icon-circle i {
     color: #dc3545;
 }
@@ -61,12 +66,20 @@ body {
     background: rgba(255, 193, 7, 0.2);
 }
 
+.stat-card__icon.stat-card__icon--warning:hover .stat-card__icon-circle {
+    background: rgba(255, 193, 7, 0.3);
+}
+
 .stat-card__icon.stat-card__icon--warning .stat-card__icon-circle i {
     color: #ffc107;
 }
 
 .stat-card__icon.stat-card__icon--primary .stat-card__icon-circle {
     background: rgba(0, 123, 255, 0.2);
+}
+
+.stat-card__icon.stat-card__icon--primary:hover .stat-card__icon-circle {
+    background: rgba(0, 123, 255, 0.3);
 }
 
 .stat-card__icon.stat-card__icon--primary .stat-card__icon-circle i {

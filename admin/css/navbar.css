@@ -1,218 +1,193 @@
-.main-content {
-    width: calc(100% - 240px);
-    margin-left: 240px;
-    transition: width 0.5s ease-in-out, margin-left 0.5s ease-in-out;
+.nav-bar {
+    background: #1b325f;
+    padding: 0 15px;
 }
 
-#navbar {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    height: 100%;
-    width: 240px;
-    background-color: #1b325f;
-    display: block;
-    align-items: center;
-    padding: 5px;
-    z-index: 5;
-    overflow-x: hidden;
-    overflow-y: auto;
-    -ms-overflow-style: none;
-    /* IE and Edge */
-    scrollbar-width: none;
-    /* Firefox */
-    transition: width 0.5s ease-in-out;
-}
-
-#navbar::-webkit-scrollbar {
-    display: none;
-}
-
-#toggle-nav-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 25px !important;
-    color: white;
-    transition: font-size 0.25s ease-out, color 0.25s;
-}
-
-#toggle-nav-btn:hover {
-    cursor: pointer;
-    font-size: 40px !important;
-    color: rgb(187, 241, 255);
-}
-
-#navbar div,
-#navbar a {
-    font-size: 19px !important;
+a {
     color: white;
     text-decoration: none;
 }
 
-#navbar a {
-    color: rgb(221, 221, 221);
+.menu,
+.submenu {
+    list-style-type: none;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 20px;
+    padding: 7.5px 10px 7.5px 0;
+}
+
+.item {
+    padding: 10px;
+}
+
+.item.button {
+    padding: 9px 5px;
+}
+
+.item:not(.button) a:hover,
+.item a:hover::after {
+    color: #ccc;
+}
+
+
+/* Mobile menu */
+
+.menu {
     display: flex;
-    align-items: center;
-    padding: 15px 15px 15px 15px;
-}
-
-#navbar i {
-    margin-right: 0px;
-    width: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#navbar a:hover {
-    color: white;
-}
-
-.nav-title {
-    padding: 15px 15px 15px 10px;
-    font-size: 19px;
-    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     align-items: center;
 }
 
-.nav-text {
+.menu li a {
     display: block;
-    margin-left: 10px;
-    opacity: 1;
-    transition: opacity 0.3s;
-    white-space: nowrap;
+    padding: 15px 5px;
 }
 
-.nav-title .nav-text {
-    white-space: normal;
+.menu li.subitem a {
+    padding: 15px;
 }
 
-.nav-link {
-    background-color: transparent;
-    border-radius: 10px;
+.toggle {
+    order: 1;
+    font-size: 20px;
 }
 
-.nav-link:hover {
-    background-color: rgba(255, 255, 255, 0.082);
+.item.button {
+    order: 2;
 }
 
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #1b325f;
-    min-width: 240px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-}
-
-.dropdown-content a {
-    color: rgb(221, 221, 221);
-    padding: 15px 15px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content a:hover {
-    background-color: transparent;
-}
-
-.dropbtn {
-    background-color: #1b325f;
+.item {
+    order: 3;
     color: white;
-    padding: 16px;
-    font-size: 19px;
-    border: none;
-    cursor: pointer;
-}
-
-.logout-container {
-    padding: 20px;
-    position: static;
-    bottom: 5px;
-    display: flex;
-    align-items: center;
     width: 100%;
+    text-align: center;
+    display: none;
 }
 
-@media only screen and (min-height: 600px) {
-    .logout-container {
-        position: absolute;
+.active .item {
+    display: block;
+}
+
+.button.secondary {
+    /* divider between buttons and menu links */
+    border-bottom: 1px #444 solid;
+}
+
+
+/* Submenu up from mobile screens */
+
+.submenu {
+    display: none;
+}
+
+.submenu-active .submenu {
+    display: block;
+}
+
+.has-submenu i {
+    font-size: 12px;
+}
+
+.has-submenu>a::after {
+    font-family: "Font Awesome 5 Free";
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 900;
+    content: "\f078";
+    color: white;
+    padding-left: 5px;
+}
+
+.subitem a {
+    padding: 10px 15px;
+}
+
+.submenu-active {
+    background-color: #111;
+    border-radius: 3px;
+}
+
+
+/* Tablet menu */
+
+@media all and (min-width: 700px) {
+    .menu {
+        justify-content: center;
+    }
+    .logo {
+        flex: 1;
+    }
+    .item.button {
+        width: auto;
+        order: 1;
+        display: block;
+    }
+    .toggle {
+        flex: 1;
+        text-align: right;
+        order: 2;
+    }
+    /* Button up from tablet screen */
+    .menu li.button a {
+        padding: 10px 15px;
+        margin: 5px 0;
+    }
+    .button a {
+        background: #0080ff;
+        border: 1px royalblue solid;
+    }
+    .button.secondary {
+        border: 0;
+    }
+    .button.secondary a {
+        background: transparent;
+        border: 1px #0080ff solid;
+    }
+    .button a:hover {
+        text-decoration: none;
+    }
+    .button:not(.secondary) a:hover {
+        background: royalblue;
+        border-color: darkblue;
     }
 }
 
-.logout {
-    padding: 8px 5px 8px 8px !important;
-    border-radius: 15px;
-    position: absolute;
-    right: 15px;
-}
 
-.logout i {
-    margin: 0 !important;
-}
+/* Desktop menu */
 
-
-/* Dropdown Styles */
-
-.dropdown {
-    position: relative;
-    display: block;
-}
-
-.dropbtn {
-    background-color: #1b325f;
-    color: black;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    display: flex;
-}
-
-.fa-caret-down {
-    color: inherit;
-}
-
-.dropdown-content {
-    display: none;
-    position: relative;
-    z-index: 1000;
-    /* or any large number */
-    background-color: #13264a;
-    min-width: 240px;
-    z-index: 1;
-    color: white;
-}
-
-.dropdown-content a {
-    color: white;
-    padding: 15px;
-    text-decoration: none;
-    display: flex;
-}
-
-.retracted .dropdown-content {
-    top: 0;
-    left: 100%;
-    position: absolute;
-}
-
-.dropdown-content a:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
-.link-content {
-    display: flex;
-}
-
-.icon-wrapper {
-    margin-right: 6px;
-    display: inline-block;
+@media all and (min-width: 960px) {
+    .menu {
+        align-items: flex-start;
+        flex-wrap: nowrap;
+        background: none;
+    }
+    .logo {
+        order: 0;
+    }
+    .item {
+        order: 1;
+        position: relative;
+        display: block;
+        width: auto;
+    }
+    .button {
+        order: 2;
+    }
+    .submenu-active .submenu {
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 68px;
+        background: #111;
+    }
+    .toggle {
+        display: none;
+    }
+    .submenu-active {
+        border-radius: 0;
+    }
 }
