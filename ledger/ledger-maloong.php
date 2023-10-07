@@ -1,40 +1,41 @@
-<?php 
-   include('include/header.php');
-   include "include/navbar.php";
+<?php
+include('include/header.php');
+include "include/navbar.php";
 
-   // purchase category
-   $query = "SELECT * FROM ledger_buying_station";
-   $result = mysqli_query($con, $query);
-   $buyingStation='';
-   while($array = mysqli_fetch_array($result))
-   {
-   $buyingStation .= '
-<option value="'.$array["name"].'">'.$array["name"].'</option>';
-   }
-   
+// purchase category
+$query = "SELECT * FROM ledger_buying_station";
+$result = mysqli_query($con, $query);
+$buyingStation = '';
+while ($array = mysqli_fetch_array($result)) {
+    $buyingStation .= '
+<option value="' . $array["name"] . '">' . $array["name"] . '</option>';
+}
 
-   ?>
+
+?>
 
 <body>
     <link rel='stylesheet' href='css/statistic-card.css'>
     <link rel='stylesheet' href='css/tab.css'>
     <input type='hidden' id='selected-cart' value=''>
-    <div class='main-content' style='position:relative; height:100%;'>
-        <div class="container home-section h-100" style="max-width:95%;">
-            <div class="page-wrapper">
-                <div class="row">
-                    <div class="col-12">
-                        <h2 class="page-title">
-                            <b>
-                                <font color="#0C0070">MALOONG </font>
-                                <font color="#046D56"> TOPPERS </font>
-                            </b>
-                        </h2>
-                        <br>
-                        <?php include('ledgerTab/ejn-maloong.php')?>
-                    </div>
-                    <!-- ============================================================== -->
+
+    <div class="container home-section h-100" style="max-width:95%;">
+        <div class="page-wrapper">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="page-title">
+                        <b>
+                            <font color="#0C0070">MALOONG </font>
+                            <font color="#046D56"> TOPPERS </font>
+                        </b>
+                    </h2>
+                    <?php
+                    include('statistical_card/maloong.toppers.php');
+                    ?>
+
+                    <?php include('ledgerTab/ejn-maloong.php') ?>
                 </div>
+                <!-- ============================================================== -->
             </div>
         </div>
     </div>

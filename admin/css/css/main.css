@@ -1,0 +1,97 @@
+body,
+html {
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+    background-color: #f4f4f4;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.datepicker {
+    border: none;
+    border-radius: 5px;
+    background-color: #fff;
+    padding: 8px 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    /* Full width */
+}
+
+.list-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 2px;
+}
+
+.table-fix-head thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #fff;
+    /* Add background to header for visibility */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Soft shadow */
+}
+
+table tr {
+    background-color: white;
+    height: 50px;
+    /* Slightly increase the height for touch devices */
+}
+
+.main-container {
+    padding: 20px;
+    width: 90%;
+    max-width: 1200px;
+    /* Max width can be higher for wide screens */
+    margin: auto;
+}
+
+
+/* Simplified modal styles with unified border-radius and modern shadows */
+
+.modal-content,
+.modal-header,
+.modal-footer {
+    border-radius: 6px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-control {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 12px;
+    /* Increased padding for a better feel */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+}
+
+
+/* Mobile Styles */
+
+@media (max-width: 768px) {
+    body {
+        font-size: 15px;
+        /* Reduced for better mobile viewing */
+    }
+    .main-container {
+        width: 100%;
+        padding: 12px;
+        /* Balanced padding */
+    }
+    table tr {
+        height: 50px;
+        /* Adjusted height for mobile */
+    }
+    .form-control {
+        font-size: 18px;
+        /* Adjusted font size for mobile */
+        padding: 10px;
+        /* Reduced padding */
+    }
+}

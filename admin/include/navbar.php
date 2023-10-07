@@ -20,6 +20,8 @@
             <a tabindex="0">Bales</a>
             <ul class="submenu">
                 <li class="subitem"><a href="inv_bale.php">Inventory</a></li>
+                <li class="subitem"><a href="bale_record.php">Bale Records</a></li>
+
                 <li class="subitem"><a href="bale_sale_record.php">Bale Sales</a></li>
                 <li class="subitem"><a href="container_record.php">Container</a></li>
                 <li class="subitem"><a href="bale_shipment_record.php">Shipment</a></li>

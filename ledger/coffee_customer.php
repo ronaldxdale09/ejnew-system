@@ -18,64 +18,62 @@ if (!$results) {
 
 <body>
 
-    <div class='main-content' style='position:relative; height:100%;'>
-        <div class="container home-section h-100" style="max-width:95%;">
-            <div class="page-wrapper">
-                <div class="row">
-                    <div class="col-12">
-                        <br>
-                        <h2 class="page-title">
-                            <b>
-                                <font color="#0C0070">CUSTOMER </font>
-                                <font color="#046D56"> LIST </font>
-                            </b>
-                        </h2>
-                        <br>
-                        <div class="card">
-                            <div class="card-body">
-                                <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#addCustomer">
-                                    <i class="fa fa-add" aria-hidden="true"></i> NEW CUSTOMER
-                                </button>
-                                <hr>
+    <div class="container home-section h-100" style="max-width:95%;">
+        <div class="page-wrapper">
+            <div class="row">
+                <div class="col-12">
+                    <br>
+                    <h2 class="page-title">
+                        <b>
+                            <font color="#0C0070">CUSTOMER </font>
+                            <font color="#046D56"> LIST </font>
+                        </b>
+                    </h2>
+                    <br>
+                    <div class="card">
+                        <div class="card-body">
+                            <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#addCustomer">
+                                <i class="fa fa-add" aria-hidden="true"></i> NEW CUSTOMER
+                            </button>
+                            <hr>
 
-                                <?php
-                                if (isset($_SESSION['new_customer_added'])) {
-                                    echo '<div class="alert alert-success">New customer added successfully!</div>';
-                                    unset($_SESSION['new_customer_added']);
-                                }
-                                ?>
+                            <?php
+                            if (isset($_SESSION['new_customer_added'])) {
+                                echo '<div class="alert alert-success">New customer added successfully!</div>';
+                                unset($_SESSION['new_customer_added']);
+                            }
+                            ?>
 
-                                <div class="table-responsive">
-                                    <table class="table" id='customerTable'>
-                                        <thead class="table-dark">
-                                            <tr>
-                                                <th scope="col">ID</th>
-                                                <th scope="col">Name</th>
-                                                <th scope="col">Address</th>
-                                                <th scope="col">Contact</th>
-                                                <th scope="col">Balance</th>
-                                                <th scope="col">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            while ($row = mysqli_fetch_array($results)) {
-                                                echo "<tr>";
-                                                echo "<td>" . $row['cof_customer_id'] . "</td>";
-                                                echo "<td>" . $row['cof_customer_name'] . "</td>";
-                                                echo "<td>" . $row['cof_customer_address'] . "</td>";
-                                                echo "<td>" . $row['cof_customer_contact'] . "</td>";
-                                                echo "<td>₱ " . number_format($row['cof_customer_balance'], 2) . "</td>";
-                                                echo "<td width='25%'> <button hidden class='btn btn-success btn-sm')'>Transactions</button>
+                            <div class="table-responsive">
+                                <table class="table" id='customerTable'>
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Address</th>
+                                            <th scope="col">Contact</th>
+                                            <th scope="col">Balance</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        while ($row = mysqli_fetch_array($results)) {
+                                            echo "<tr>";
+                                            echo "<td>" . $row['cof_customer_id'] . "</td>";
+                                            echo "<td>" . $row['cof_customer_name'] . "</td>";
+                                            echo "<td>" . $row['cof_customer_address'] . "</td>";
+                                            echo "<td>" . $row['cof_customer_contact'] . "</td>";
+                                            echo "<td>₱ " . number_format($row['cof_customer_balance'], 2) . "</td>";
+                                            echo "<td width='25%'> <button hidden class='btn btn-success btn-sm')'>Transactions</button>
                                                 <button class='btn btn-primary btn-sm btnUpdate' >Update</button>
                                                 <button class='btn btn-danger btn-sm confirmDelete' >Delete</button>  </td>";
 
-                                                echo "</tr>";
-                                            }
-                                            ?>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                            echo "</tr>";
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

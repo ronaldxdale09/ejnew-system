@@ -19,7 +19,7 @@ while ($array = mysqli_fetch_array($pur_result)) {
 <body>
     <link rel='stylesheet' href='css/tab.css'>
     <input type='hidden' id='selected-cart' value=''>
-    <div class='main-content' style='position:relative; height:100%;'>
+   
         <div class="container home-section h-100" style="max-width:95%;">
                 <br>
                 <h2 class="page-title">
@@ -31,7 +31,6 @@ while ($array = mysqli_fetch_array($pur_result)) {
                 <br>
                 <?php include('ledgerTab/purchase.php') ?>
         </div>
-    </div>
 </body>
 
 </html>

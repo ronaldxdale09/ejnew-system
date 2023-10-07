@@ -15,7 +15,10 @@ $name = $_SESSION["full_name"];
 
 <head>
     <meta charset="UTF-8">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="0">
     <!-- Favicon -->
     <link rel='icon' href='assets/img/logo.png' size='10x10' />
 
@@ -45,10 +48,6 @@ $name = $_SESSION["full_name"];
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-adapter-moment/1.0.1/chartjs-adapter-moment.min.js" integrity="sha512-hVy4KxCKgnXi2ok7rlnlPma4JHXI1VPQeempoaclV1GwRHrDeaiuS1pI6DVldaj5oh6Opy2XJ2CTljQLPkaMrQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <title>EJN RUBBER</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="pragma" content="no-cache">
-    <meta http-equiv="expires" content="0">
 </head>
 
 <!-- <script src='assets/js/navbar.js'></script> -->

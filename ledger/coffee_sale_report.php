@@ -36,35 +36,34 @@ while ($row = mysqli_fetch_assoc($result)) {
     $salesData[$category][$product][$month] = $totalSales;
 }
 ?>
-<div class='main-content' style='position:relative; height:100%;'>
-    <div class="container home-section h-100" style="max-width:95%;">
-        <div class="page-wrapper">
-            <div class="row">
-                <div class="col-12">
-                    <br>
-                    <center>
-                        <h2>Annual Sales Report</h2>
-                        <p>A summary view of categoric sales per month for the reporting period.</p>
-                        <i>
-                            <p>All amount are in Philippine Peso (₱).</p>
-                        </i>
-                    </center>
-                    <br>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="report-container">
+<div class="container home-section h-100" style="max-width:95%;">
+    <div class="page-wrapper">
+        <div class="row">
+            <div class="col-12">
+                <br>
+                <center>
+                    <h2>Annual Sales Report</h2>
+                    <p>A summary view of categoric sales per month for the reporting period.</p>
+                    <i>
+                        <p>All amount are in Philippine Peso (₱).</p>
+                    </i>
+                </center>
+                <br>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="report-container">
 
-                                <?php 
-                                    $Currentmonth = date('n');
-                                    $CurrentYear = date('Y');
+                            <?php
+                            $Currentmonth = date('n');
+                            $CurrentYear = date('Y');
 
-                                    $SaleYear = (isset($_GET['year'])) ? $_GET['year'] : $CurrentYear; // set default 
-                                    $SaleMonth = (isset($_GET['month'])) ? $_GET['month'] : $Currentmonth; // set default 
-                                ?>
+                            $SaleYear = (isset($_GET['year'])) ? $_GET['year'] : $CurrentYear; // set default 
+                            $SaleMonth = (isset($_GET['month'])) ? $_GET['month'] : $Currentmonth; // set default 
+                            ?>
 
-                                <table id="table-expenses_all" class="table display nowrap" style="width:100%;">
-                                    <?php
-                                        $coffeesale = mysqli_query($con,"SELECT YEAR(date) AS year, category,
+                            <table id="table-expenses_all" class="table display nowrap" style="width:100%;">
+                                <?php
+                                $coffeesale = mysqli_query($con, "SELECT YEAR(date) AS year, category,
                                         sum(CASE WHEN MONTHNAME(date) = 'January' THEN amount END) AS JAN,
                                         sum(CASE WHEN MONTHNAME(date) = 'February' THEN amount END) AS FEB,
                                         sum(CASE WHEN MONTHNAME(date) = 'March' THEN amount END) AS MAR,
@@ -79,74 +78,74 @@ while ($row = mysqli_fetch_assoc($result)) {
                                         sum(CASE WHEN MONTHNAME(date) = 'December' THEN amount END) AS DECE,
                                         SUM(amount) AS TOTAL
                                         FROM coffee_sale_line WHERE YEAR(date) = $SaleYear
-                                        GROUP BY category");        
-                                    ?>
+                                        GROUP BY category");
+                                ?>
 
-                                    <thead class='table-dark' style="width:100%;font-size: 13px;">
+                                <thead class='table-dark' style="width:100%;font-size: 13px;">
+                                    <tr>
+                                        <!-- <th>Year</th> -->
+                                        <th>CATEGORY</th>
+                                        <th>Jan</th>
+                                        <th>Feb</th>
+                                        <th>Mar</th>
+                                        <th>Apr</th>
+                                        <th>May</th>
+                                        <th>Jun</th>
+                                        <th>Jul</th>
+                                        <th>Aug</th>
+                                        <th>Sept</th>
+                                        <th>Oct</th>
+                                        <th>Nov</th>
+                                        <th>Dec</th>
+                                        <th>TOTAL</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="width:100%;font-size: 14px;">
+                                    <?php while ($row = mysqli_fetch_array($coffeesale)) { ?>
                                         <tr>
-                                            <!-- <th>Year</th> -->
-                                            <th>CATEGORY</th>
-                                            <th>Jan</th>
-                                            <th>Feb</th>
-                                            <th>Mar</th>
-                                            <th>Apr</th>
-                                            <th>May</th>
-                                            <th>Jun</th>
-                                            <th>Jul</th>
-                                            <th>Aug</th>
-                                            <th>Sept</th>
-                                            <th>Oct</th>
-                                            <th>Nov</th>
-                                            <th>Dec</th>
-                                            <th>TOTAL</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody style="width:100%;font-size: 14px;">
-                                        <?php while ($row = mysqli_fetch_array($coffeesale)) { ?>
-                                        <tr>
-                                            <!-- <td><?php echo $row['year']?> </td> -->
-                                            <td><?php echo $row['category']?> </td>
-                                            <td>₱ <?php echo number_format((float)$row['JAN'], 2, '.', ',');?></td>
-                                            <td>₱ <?php echo number_format((float)$row['FEB'], 2, '.', ',');?></td>
-                                            <td>₱ <?php echo number_format((float)$row['MAR'], 2, '.', ',');?></td>
-                                            <td>₱ <?php echo number_format((float)$row['APR'], 2, '.', ',');?></td>
-                                            <td>₱ <?php echo number_format((float)$row['MAY'], 2, '.', ',');?></td>
-                                            <td>₱ <?php echo number_format((float)$row['JUN'], 2, '.', ',');?></td>
-                                            <td>₱ <?php echo number_format((float)$row['JUL'], 2, '.', ',');?></td>
-                                            <td>₱ <?php echo number_format((float)$row['AUG'], 2, '.', ',');?></td>
-                                            <td>₱ <?php echo number_format((float)$row['SEP'], 2, '.', ',');?></td>
-                                            <td>₱ <?php echo number_format((float)$row['OCT'], 2, '.', ',');?></td>
-                                            <td>₱ <?php echo number_format((float)$row['NOV'], 2, '.', ',');?></td>
-                                            <td>₱ <?php echo number_format((float)$row['DECE'], 2, '.', ',');?></td>
-                                            <td>₱ <?php echo number_format((float)$row['TOTAL'], 2, '.', ',');?></td>
+                                            <!-- <td><?php echo $row['year'] ?> </td> -->
+                                            <td><?php echo $row['category'] ?> </td>
+                                            <td>₱ <?php echo number_format((float)$row['JAN'], 2, '.', ','); ?></td>
+                                            <td>₱ <?php echo number_format((float)$row['FEB'], 2, '.', ','); ?></td>
+                                            <td>₱ <?php echo number_format((float)$row['MAR'], 2, '.', ','); ?></td>
+                                            <td>₱ <?php echo number_format((float)$row['APR'], 2, '.', ','); ?></td>
+                                            <td>₱ <?php echo number_format((float)$row['MAY'], 2, '.', ','); ?></td>
+                                            <td>₱ <?php echo number_format((float)$row['JUN'], 2, '.', ','); ?></td>
+                                            <td>₱ <?php echo number_format((float)$row['JUL'], 2, '.', ','); ?></td>
+                                            <td>₱ <?php echo number_format((float)$row['AUG'], 2, '.', ','); ?></td>
+                                            <td>₱ <?php echo number_format((float)$row['SEP'], 2, '.', ','); ?></td>
+                                            <td>₱ <?php echo number_format((float)$row['OCT'], 2, '.', ','); ?></td>
+                                            <td>₱ <?php echo number_format((float)$row['NOV'], 2, '.', ','); ?></td>
+                                            <td>₱ <?php echo number_format((float)$row['DECE'], 2, '.', ','); ?></td>
+                                            <td>₱ <?php echo number_format((float)$row['TOTAL'], 2, '.', ','); ?></td>
 
 
                                         </tr>
-                                        <?php } ?>
-                                    </tbody>
-                                    <tfoot style=' font-weight: normal;'>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                    </tfoot>
-                                </table>
-                            </div>
+                                    <?php } ?>
+                                </tbody>
+                                <tfoot style=' font-weight: normal;'>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tfoot>
+                            </table>
+                        </div>
 
-                            <!-- Add any additional JavaScript code or libraries here -->
+                        <!-- Add any additional JavaScript code or libraries here -->
 
-                            <script>
+                        <script>
                             // Retrieve monthly sales data and display it in the table
                             document.addEventListener('DOMContentLoaded', function() {
                                 // Fetch the monthly sales data from the server
@@ -198,9 +197,9 @@ while ($row = mysqli_fetch_assoc($result)) {
                                         console.error('Error:', error);
                                     });
                             });
-                            </script>
+                        </script>
 
 
-                            </body>
+                        </body>
 
-                            </html>
+                        </html>

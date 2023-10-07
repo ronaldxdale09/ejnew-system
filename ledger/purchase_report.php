@@ -15,7 +15,6 @@ $ExpensesMonth = (isset($_GET['month'])) ? $_GET['month'] : $Currentmonth; // se
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js" integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.12.1/api/sum().js"></script>
-    <div class='main-content' style='position:relative; height:100%;'>
 
         <div class="container home-section h-100" style="max-width:95%;">
 
@@ -530,7 +529,6 @@ $ExpensesMonth = (isset($_GET['month'])) ? $_GET['month'] : $Currentmonth; // se
                 });
             </script>
         </div>
-    </div>
 </body>
 
 </html>

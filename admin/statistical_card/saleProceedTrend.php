@@ -37,7 +37,7 @@ for ($i = 0; $i <= $currentMonth; $i++) {
 $months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 ?>
 
-<canvas id="salesProfitRubber" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+<canvas id="salesProfitRubber" ></canvas>
 
 <script>
 var saleProfitsCanvas = document.getElementById("salesProfitRubber");

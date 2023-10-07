@@ -16,8 +16,7 @@ if ($c_balance_query->num_rows > 0) {
 // Rest of the code for drawing the chart, as you have done for the expenses
 ?>
 
-<canvas id="c_unpaidBalanceChart"
-    style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+<canvas id="c_unpaidBalanceChart"></canvas>
 
 <script>
 new Chart(document.getElementById("c_unpaidBalanceChart"), {

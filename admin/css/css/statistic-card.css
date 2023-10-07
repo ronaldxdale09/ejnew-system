@@ -1,0 +1,105 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.main-content {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+.stat-card {
+    background: #fff;
+    padding: 0.8rem;
+    margin-bottom: 1.25rem;
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s;
+}
+
+.stat-card-default {
+    background: #fff;
+    padding: 0.8rem;
+    margin-bottom: 1.25rem;
+    border-radius: 5px;
+    overflow: hidden;
+    justify-content: space-between;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card__icon-circle {
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 60px;
+    background: rgba(0, 123, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-card__icon-circle i {
+    font-size: 1.25rem;
+    color: #007bff;
+}
+
+.stat-card__icon.stat-card__icon--success .stat-card__icon-circle {
+    background: rgba(40, 167, 69, 0.2);
+}
+
+.stat-card__icon.stat-card__icon--success .stat-card__icon-circle i {
+    color: #28a745;
+}
+
+.stat-card__icon.stat-card__icon--danger .stat-card__icon-circle {
+    background: rgba(220, 53, 69, 0.2);
+}
+
+.stat-card__icon.stat-card__icon--danger .stat-card__icon-circle i {
+    color: #dc3545;
+}
+
+.stat-card__icon.stat-card__icon--warning .stat-card__icon-circle {
+    background: rgba(255, 193, 7, 0.2);
+}
+
+.stat-card__icon.stat-card__icon--warning .stat-card__icon-circle i {
+    color: #ffc107;
+}
+
+.stat-card__icon.stat-card__icon--primary .stat-card__icon-circle {
+    background: rgba(0, 123, 255, 0.2);
+}
+
+.stat-card__icon.stat-card__icon--primary .stat-card__icon-circle i {
+    color: #007bff;
+}
+
+
+/* Responsive styles for mobile screens */
+
+@media (max-width: 768px) {
+    .main-content {
+        padding-top: 1.25rem;
+        padding-bottom: 1.25rem;
+    }
+    .stat-card,
+    .stat-card-default {
+        padding: 0.5rem;
+    }
+    .stat-card__icon-circle {
+        height: 1.875rem;
+        width: 1.875rem;
+    }
+    .stat-card__icon-circle i {
+        font-size: 0.9375rem;
+    }
+}

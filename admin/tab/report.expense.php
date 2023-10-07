@@ -5,7 +5,9 @@
                 <i class="fas fa-map-marker-alt"></i>
                 <font color="#343434">OPERATING </font>
                 <font color="#343434">EXPENSES </font>
-            </h3>
+            </h3> <br>
+            <?php include('statistical_card/expense.card.php')?>
+<br>
             <div class="row">
                 <div class="col-12 col-md-6">
                     <div class="card" style="width: 100%;">

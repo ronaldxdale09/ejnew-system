@@ -36,7 +36,7 @@ $months = ["January", "February", "March", "April", "May", "June", "July", "Augu
 
 ?>
 
-<canvas id="grossProfitTrendChart" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+<canvas id="grossProfitTrendChart" ></canvas>
 
 <script>
 var grossProfitCanvas = document.getElementById("grossProfitTrendChart");

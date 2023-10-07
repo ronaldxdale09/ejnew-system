@@ -62,7 +62,7 @@ if (isset($_POST['update'])) {
     $net_total =  str_replace(',', '', $_POST['u_net_total_amount']);
     $total_amount = str_replace(',', '', $_POST['u_total_amount']);
     $id  = $_POST['p_id'];
-    
+
     $purchase = "UPDATE `ledger_purchase`
                 SET `location` = '$location',
                     `date` = '$date',
@@ -90,5 +90,4 @@ if (isset($_POST['update'])) {
         echo "ERROR: Could not be able to execute $purchase. " . mysqli_error($con);
     }
     exit();
-
 }

@@ -18,7 +18,7 @@ while ($data = mysqli_fetch_assoc($bales_query)) {
     $bales_data[$data['source']][] = $data['total_remaining'];
 }
 ?>
-<canvas id="inventory_bales_combined" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+<canvas id="inventory_bales_combined" ></canvas>
 
 <script>
     var inventory_bales_combined = document.getElementById("inventory_bales_combined");

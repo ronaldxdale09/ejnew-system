@@ -18,27 +18,27 @@
 </head>
 <!-- Fantacy Design -->
 <?php
-include "function/db.php";
+// include "function/db.php";
 
-// Check if the user type is set in the session
-if (isset($_SESSION['type'])) {
-    $userType = $_SESSION['type'];
+// // Check if the user type is set in the session
+// if (isset($_SESSION['type'])) {
+//     $userType = $_SESSION['type'];
 
-    if ($userType == 'copra') {
-        header('Location: transaction.php');
-    } elseif ($userType == 'finance') {
-        header('Location: ledger/ledger-expense.php');
-    } elseif ($userType == 'admin') {
-        header('Location: admin/dashboard.php');
-    } elseif ($userType == 'rubber') {
-        header('Location: rubber/dry_receiving_record.php');
-    } elseif ($userType == 'planta') {
-        header('Location: plantation/dashboard.php');
-    } elseif ($userType == 'sales') {
-        header('Location: sales/dashboard.php');
-    }
-    exit(); // Make sure to exit after redirecting
-} 
+//     if ($userType == 'copra') {
+//         header('Location: transaction.php');
+//     } elseif ($userType == 'finance') {
+//         header('Location: ledger/ledger-expense.php');
+//     } elseif ($userType == 'admin') {
+//         header('Location: admin/dashboard.php');
+//     } elseif ($userType == 'rubber') {
+//         header('Location: rubber/dry_receiving_record.php');
+//     } elseif ($userType == 'planta') {
+//         header('Location: plantation/dashboard.php');
+//     } elseif ($userType == 'sales') {
+//         header('Location: sales/dashboard.php');
+//     }
+//     exit(); // Make sure to exit after redirecting
+// } 
 ?>
 <link rel="stylesheet" href="css/login.css">
 

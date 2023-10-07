@@ -40,7 +40,6 @@
 
     ?>
 
-    <div class='main-content' style='min-height:100vh;'>
         <div class="container home-section h-100" style="max-width:95%;">
             <div class="page-wrapper">
                 <div class="row">
@@ -143,7 +142,6 @@
                 </div>
             </div>
         </div>
-    </div>
 
     <?php include "modal/coffee_sales_update.php"; // Include the modal file 
     ?>

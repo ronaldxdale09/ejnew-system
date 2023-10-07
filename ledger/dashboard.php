@@ -32,234 +32,234 @@ $buahan = mysqli_fetch_array($sql);
 
     <link rel='stylesheet' href='css/statistic-card.css'>
     <input type='hidden' id='selected-cart' value=''>
-    <div class='main-content' style='position:relative; height:100%;'>
-        <div class="container home-section h-100" style="max-width:95%;">
-            <div class="page-wrapper">
-                <div class="container-fluid">
-                    <!-- ============================================================== -->
-                    <div class="row">
-                        <!-- Expenses Card -->
-                        <div class="col-sm-3 offset-sm-0">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted">
-                                        <span class="text-muted"> <?php echo $today = date("F"); ?>
-                                            <?php echo $sumExpense['year']; ?>
-                                        </span> EXPENSES
-                                    </p>
-                                    <h4>
-                                        <i class="fa fa-money-bill-wave text-danger font-weight-bold mr-1"></i>
-                                        <?php echo number_format($sumExpense['month_total']); ?> kg
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- Purchased Card -->
-                        <div class="col-sm-3">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted">
-                                        <span class="text-muted"><?php echo $today = date("F"); ?>
-                                            <?php echo $sumAmountPurchased['year']; ?>
-                                        </span> PURCHASED
-                                    </p>
-                                    <h4>
-                                        <i class="fa fa-shopping-cart text-primary font-weight-bold mr-1"></i>
-                                        ₱<?php echo number_format($sumAmountPurchased['month_total']); ?>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- EJN Maloong Card -->
-                        <div class="col-sm-3">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted">
-                                        <span class="text-muted">
-                                            <?php echo date('F  Y'); ?>
-                                        </span> EJN Maloong
-                                    </p>
-                                    <h4>
-                                        <i class="fa fa-hand-holding-usd text-primary font-weight-bold mr-1"></i>
-                                        ₱<?php echo number_format($maloong['month_total']); ?>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- EJN Buahan Card -->
-                        <div class="col-sm-3">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted">
-                                        <span class="text-muted"><?php echo $today = date("F"); ?>
-                                            <?php echo $buahan['year']; ?>
-                                        </span> EJN Buahan
-                                    </p>
-                                    <h4>
-                                        <i class="fa fa-wallet text-danger font-weight-bold mr-1"></i>
-                                        ₱<?php echo number_format($buahan['month_total']); ?>
-                                    </h4>
-                                </div>
+    <div class="container home-section h-100" style="max-width:95%;">
+        <div class="page-wrapper">
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <div class="row">
+                    <!-- Expenses Card -->
+                    <div class="col-sm-3 offset-sm-0">
+                        <div class="stat-card">
+                            <div class="stat-card__content">
+                                <p class="text-uppercase mb-1 text-muted">
+                                    <span class="text-muted"> <?php echo $today = date("F"); ?>
+                                        <?php echo $sumExpense['year']; ?>
+                                    </span> EXPENSES
+                                </p>
+                                <h4>
+                                    <i class="fa fa-money-bill-wave text-danger font-weight-bold mr-1"></i>
+                                    <?php echo number_format($sumExpense['month_total']); ?> kg
+                                </h4>
                             </div>
                         </div>
                     </div>
 
-                    <!-- ============================================================== -->
-
-                    <div class="row">
-                        <div class="col">
-                            <div class="card">
-                                <div class="card-body">
-                                    <canvas id="expenses_bar" style="position: relative; height:40vh; width:80vw"></canvas>
-                                </div>
+                    <!-- Purchased Card -->
+                    <div class="col-sm-3">
+                        <div class="stat-card">
+                            <div class="stat-card__content">
+                                <p class="text-uppercase mb-1 text-muted">
+                                    <span class="text-muted"><?php echo $today = date("F"); ?>
+                                        <?php echo $sumAmountPurchased['year']; ?>
+                                    </span> PURCHASED
+                                </p>
+                                <h4>
+                                    <i class="fa fa-shopping-cart text-primary font-weight-bold mr-1"></i>
+                                    ₱<?php echo number_format($sumAmountPurchased['month_total']); ?>
+                                </h4>
                             </div>
                         </div>
                     </div>
 
-                    <br>
-
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <!-- start first column -->
-                            <!-- start expense table -->
-                            <div class="card">
-                                <div class="card-body">
-
-                                    <div class="row">
-                                        <center>
-                                            <h5>EXPENSES TODAY</h5>
-                                        </center>
-                                    </div>
-                                    <div class="table-responsive">
-                                        <table class="table" id='expenses_table'> <?php
-                                                                                    $results  = mysqli_query($con, "SELECT * from ledger_expenses WHERE DATE(`date`) = CURDATE() ORDER BY id DESC LIMIT 5 ");
-
-                                                                                    ?> <thead class="table-dark">
-                                                <tr>
-                                                    <th scope="col">DATE</th>
-                                                    <th scope="col">VOC</th>
-                                                    <th scope="col">PARTICULARS</th>
-                                                    <th scope="col">CATEGORY</th>
-                                                    <th scope="col">AMOUNT</th>
-
-                                                </tr>
-                                            </thead>
-                                            <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
-                                                        <td> <?php echo $row['date'] ?> </td>
-                                                        <td> <?php echo $row['voucher_no'] ?> </td>
-                                                        <td> <?php echo $row['particulars'] ?> </td>
-                                                        <td> <?php echo $row['category'] ?> </td>
-                                                        <td>₱ <?php echo number_format($row['amount']) ?> </td>
-
-                                                    </tr> <?php }
-                                                            ?> </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                    <!-- EJN Maloong Card -->
+                    <div class="col-sm-3">
+                        <div class="stat-card">
+                            <div class="stat-card__content">
+                                <p class="text-uppercase mb-1 text-muted">
+                                    <span class="text-muted">
+                                        <?php echo date('F  Y'); ?>
+                                    </span> EJN Maloong
+                                </p>
+                                <h4>
+                                    <i class="fa fa-hand-holding-usd text-primary font-weight-bold mr-1"></i>
+                                    ₱<?php echo number_format($maloong['month_total']); ?>
+                                </h4>
                             </div>
-                            <!-- end expense table -->
-                            <br>
-                            <div class="card">
-                                <div class="card-body">
-
-                                    <div class="row">
-                                        <center>
-                                            <h5>CASH ADVANCE TODAY</h5>
-                                        </center>
-                                    </div>
-
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-responsive-lg" id='purchase_table'>
-                                            <?php
-                                            $results  = mysqli_query($con, "SELECT * from ledger_cashadvance  WHERE DATE(`date`) = CURDATE() ORDER BY id DESC LIMIT 5"); ?>
-                                            <thead class="table-dark">
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>VOC</th>
-                                                    <th>DATE</th>
-                                                    <th>CATEGORY</th>
-                                                    <th>NAME</th>
-                                                    <th>STATION</th>
-                                                    <th>TOTAL</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
-                                                        <td> <?php echo $row['id'] ?> </td>
-                                                        <td> <?php echo $row['voucher'] ?> </td>
-                                                        <td> <?php echo $row['date'] ?> </td>
-                                                        <td> <?php echo $row['category'] ?> </td>
-                                                        <td> <?php echo $row['customer'] ?> </td>
-                                                        <td> <?php echo $row['buying_station'] ?> </td>
-                                                        <td> <?php echo $row['amount'] ?> </td>
-                                                    </tr> <?php } ?> </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end first column -->
                         </div>
+                    </div>
 
-                        <div class="col-sm-6">
-                            <!--  second columnn-->
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <center>
-                                            <h5>SUBSCRIPTIONS</h5>
-                                        </center>
-                                    </div>
-                                    <div class="table-responsive">
-                                        <table class="table" id='expenses_table'> <?php
-                                                                                    $results  = mysqli_query($con, "SELECT * from ledger_expenses WHERE category='Subscription'
+                    <!-- EJN Buahan Card -->
+                    <div class="col-sm-3">
+                        <div class="stat-card">
+                            <div class="stat-card__content">
+                                <p class="text-uppercase mb-1 text-muted">
+                                    <span class="text-muted"><?php echo $today = date("F"); ?>
+                                        <?php echo $buahan['year']; ?>
+                                    </span> EJN Buahan
+                                </p>
+                                <h4>
+                                    <i class="fa fa-wallet text-danger font-weight-bold mr-1"></i>
+                                    ₱<?php echo number_format($buahan['month_total']); ?>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============================================================== -->
+
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                <canvas id="expenses_bar" style="position: relative; height:40vh; width:80vw"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!-- start first column -->
+                        <!-- start expense table -->
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <center>
+                                        <h5>EXPENSES TODAY</h5>
+                                    </center>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table" id='expenses_table'> <?php
+                                                                                $results  = mysqli_query($con, "SELECT * from ledger_expenses WHERE DATE(`date`) = CURDATE() ORDER BY id DESC LIMIT 5 ");
+
+                                                                                ?> <thead class="table-dark">
+                                            <tr>
+                                                <th scope="col">DATE</th>
+                                                <th scope="col">VOC</th>
+                                                <th scope="col">PARTICULARS</th>
+                                                <th scope="col">CATEGORY</th>
+                                                <th scope="col">AMOUNT</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
+                                                    <td> <?php echo $row['date'] ?> </td>
+                                                    <td> <?php echo $row['voucher_no'] ?> </td>
+                                                    <td> <?php echo $row['particulars'] ?> </td>
+                                                    <td> <?php echo $row['category'] ?> </td>
+                                                    <td>₱ <?php echo number_format($row['amount']) ?> </td>
+
+                                                </tr> <?php }
+                                                        ?> </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end expense table -->
+                        <br>
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <center>
+                                        <h5>CASH ADVANCE TODAY</h5>
+                                    </center>
+                                </div>
+
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-responsive-lg" id='purchase_table'>
+                                        <?php
+                                        $results  = mysqli_query($con, "SELECT * from ledger_cashadvance  WHERE DATE(`date`) = CURDATE() ORDER BY id DESC LIMIT 5"); ?>
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>VOC</th>
+                                                <th>DATE</th>
+                                                <th>CATEGORY</th>
+                                                <th>NAME</th>
+                                                <th>STATION</th>
+                                                <th>TOTAL</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
+                                                    <td> <?php echo $row['id'] ?> </td>
+                                                    <td> <?php echo $row['voucher'] ?> </td>
+                                                    <td> <?php echo $row['date'] ?> </td>
+                                                    <td> <?php echo $row['category'] ?> </td>
+                                                    <td> <?php echo $row['customer'] ?> </td>
+                                                    <td> <?php echo $row['buying_station'] ?> </td>
+                                                    <td> <?php echo $row['amount'] ?> </td>
+                                                </tr> <?php } ?> </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end first column -->
+                    </div>
+
+                    <div class="col-sm-6">
+                        <!--  second columnn-->
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <center>
+                                        <h5>SUBSCRIPTIONS</h5>
+                                    </center>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table" id='expenses_table'> <?php
+                                                                                $results  = mysqli_query($con, "SELECT * from ledger_expenses WHERE category='Subscription'
                                     AND  MONTH(date) = MONTH(CURDATE())
                                         AND YEAR(date) = YEAR(CURDATE()) ORDER BY id DESC LIMIT 10 ");
 
-                                                                                    ?> <thead class="table-dark">
-                                                <tr>
-                                                    <th scope="col">VOC</th>
-                                                    <th scope="col">NAME</th>
-                                                    <th scope="col">LAST PAID</th>
-                                                    <th scope="col">NEXT PAYMENT</th>
-                                                    <th scope="col">AMOUNT</th>
+                                                                                ?> <thead class="table-dark">
+                                            <tr>
+                                                <th scope="col">VOC</th>
+                                                <th scope="col">NAME</th>
+                                                <th scope="col">LAST PAID</th>
+                                                <th scope="col">NEXT PAYMENT</th>
+                                                <th scope="col">AMOUNT</th>
 
-                                                </tr>
-                                            </thead>
-                                            <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
-                                                        <td> <?php echo $row['voucher_no'] ?> </td>
-                                                        <td> <?php echo $row['particulars'] ?> </td>
-                                                        <td>
-                                                            <h5><span class="badge bg-success"> <?php echo $row['date'] ?>
-                                                                </span> </h5>
-                                                        </td>
-                                                        <td>
-                                                            <h5><span class="badge bg-danger">
-                                                                    <?php echo $date = date('Y-m-d', strtotime('+1 month', strtotime($row['date']))); ?></span>
-                                                            </h5>
-                                                        </td>
-                                                        <td>₱ <?php echo number_format($row['amount']) ?> </td>
+                                            </tr>
+                                        </thead>
+                                        <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?> <tr>
+                                                    <td> <?php echo $row['voucher_no'] ?> </td>
+                                                    <td> <?php echo $row['particulars'] ?> </td>
+                                                    <td>
+                                                        <h5><span class="badge bg-success"> <?php echo $row['date'] ?>
+                                                            </span> </h5>
+                                                    </td>
+                                                    <td>
+                                                        <h5><span class="badge bg-danger">
+                                                                <?php echo $date = date('Y-m-d', strtotime('+1 month', strtotime($row['date']))); ?></span>
+                                                        </h5>
+                                                    </td>
+                                                    <td>₱ <?php echo number_format($row['amount']) ?> </td>
 
-                                                    </tr> <?php }
-                                                            ?> </tbody>
-                                        </table>
-                                    </div>
+                                                </tr> <?php }
+                                                        ?> </tbody>
+                                    </table>
                                 </div>
                             </div>
-
-                            <br>
-
-                            <!-- cash advance pie -->
-                            <div class="card">
-                                <div class="card-body">
-                                    <canvas id="ca_pie" style="position: relative; height:30vh; width:10vw">></canvas>
-                                </div>
-                            </div>
-                            <!-- end cash advance -->
-                            <!-- end second column -->
                         </div>
+
+                        <br>
+
+                        <!-- cash advance pie -->
+                        <div class="card">
+                            <div class="card-body">
+                                <canvas id="ca_pie" style="position: relative; height:30vh; width:10vw">></canvas>
+                            </div>
+                        </div>
+                        <!-- end cash advance -->
+                        <!-- end second column -->
                     </div>
+                </div>
 
 </body>
 

@@ -28,8 +28,7 @@ $expense_year = mysqli_fetch_array($getYearTotal);
     <link rel='stylesheet' href='css/statistic-card.css'>
     <link rel='stylesheet' href='css/tab.css'>
     <input type='hidden' id='selected-cart' value=''>
-    <div class='main-content' style='position:relative; height:100%;'>
-
+   
         <div class="container home-section h-100" style="max-width:95%;">
             <div class="p-5 bg-white rounded shadow mb-5">
                 <h2 class="page-title text-center">
@@ -42,7 +41,7 @@ $expense_year = mysqli_fetch_array($getYearTotal);
             </div>
             <!-- ============================================================== -->
         </div>
-    </div>
+  
 </body>
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.12.1/api/sum().js"></script>
 

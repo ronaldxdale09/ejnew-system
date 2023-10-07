@@ -85,69 +85,99 @@ $data_year = mysqli_fetch_assoc($result_year);
             <div class="col-sm">
                 <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#cashadvanceModal"> ADD CASH ADVANCE </button>
             </div>
-            <div class="col-sm">
-                <div class="row">
-                    <div class="col"></div>
-                    <div class="col">
-                        <b></b>
-                        <input type="text" id="min" name="min" class="form-control" placeholder="From Date" />
-                    </div>
-                    <div class="col">
-                        <input type="text" id="max" name="max" class="form-control" placeholder="To Date" />
-                    </div>
+            <div class="row">
+                <!-- Payee Filter -->
+                <div class="col-md-3 mb-3">
+                    <label for="filterPayee">Category:</label>
+                    <select class="form-control" id="filterCategory">
+                        <option value="">All</option>
+                        <?php
+                        $res = mysqli_query($con, "SELECT DISTINCT category FROM ledger_cashadvance");
+                        while ($cat = mysqli_fetch_array($res)) {
+                            echo '<option value="' . $cat['category'] . '">' . $cat['category'] . '</option>';
+                        }
+                        ?>
+                    </select>
                 </div>
+
+
+
+                <!-- Month Filter -->
+                <div class="col-md-3 mb-3">
+                    <label for="filterMonth">Month:</label>
+                    <select id="filterMonth" class="form-control">
+                        <option value="">All</option>
+                        <?php
+                        for ($i = 1; $i <= 12; $i++) {
+                            echo '<option value="' . $i . '">' . date("F", mktime(0, 0, 0, $i, 10)) . '</option>';
+                        }
+                        ?>
+                    </select>
+                </div>
+
+                <!-- Date Range Filter - Start Date -->
+                <div class="col-md-3 mb-3">
+                    <label for="startDate">Start Date:</label>
+                    <input type="date" id="startDate" class="form-control">
+                </div>
+
+                <!-- Date Range Filter - End Date -->
+                <div class="col-md-3 mb-3">
+                    <label for="endDate">End Date:</label>
+                    <input type="date" id="endDate" class="form-control">
+                </div>
+
             </div>
-        </div>
-        <br>
-        <hr>
-        <div class="table-responsive ">
-            <div class="table-responsive">
-                <table class="table table-striped table-hover table-bordered" id='ca_table'>
-                    <?php
-                    $results  = mysqli_query($con, "SELECT * from ledger_cashadvance ORDER BY id DESC"); ?>
-                    <thead class="table-dark">
-                        <tr>
-                            <th>Voucher #</th>
-                            <th>Date</th>
-                            <th width="10%">Particular</th>
-                            <th>Remarks</th>
-                            <th>Category</th>
-                            <th>Total</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php while ($row = mysqli_fetch_array($results)) { ?>
+            <br>
+            <hr>
+            <div class="table-responsive ">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover table-bordered" id='ca_table'>
+                        <?php
+                        $results  = mysqli_query($con, "SELECT * from ledger_cashadvance ORDER BY id DESC"); ?>
+                        <thead class="table-dark">
                             <tr>
-                                <td> <?php echo $row['voucher'] ?> </td>
-                                <td data-sort="<?php echo strtotime($row['date']); ?>">
-                                    <?php
-                                    $date = new DateTime($row['date']);
-                                    echo $date->format('F j, Y'); // Outputs date as "May 14, 2023"
-                                    ?>
-                                </td>
-                                <td> <?php echo $row['customer'] ?> </td>
-                                <td> <?php echo $row['buying_station'] ?> </td>
-                                <td> <?php echo $row['category'] ?> </td>
-                                <td>₱<?php echo number_format($row['amount'], 0) ?></td> <!-- ave cost kilo -->
-
-                                <td>
-                                    <div class="btn-group" role="group">
-                                        <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#updateCashAdvance" data-bs-id="<?php echo $row['id'] ?>" data-bs-voucher="<?php echo $row['voucher'] ?>" data-bs-date="<?php echo $row['date'] ?>" data-bs-customer="<?php echo $row['customer'] ?>" data-bs-buying_station="<?php echo $row['buying_station'] ?>" data-bs-category="<?php echo $row['category'] ?>" data-bs-amount="<?php echo $row['amount'] ?>" title="Edit">
-                                            <span class="fa fa-edit"></span>
-                                        </button>
-                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#removeCashAdvance" data-bs-id="<?php echo $row['id'] ?>" data-bs-name="<?php echo $row['customer'] ?>" title="Remove">
-                                            <span class="fa fa-trash"></span>
-                                        </button>
-                                    </div>
-                                </td>
+                                <th>Voucher #</th>
+                                <th>Date</th>
+                                <th width="10%">Particular</th>
+                                <th>Remarks</th>
+                                <th>Category</th>
+                                <th>Total</th>
+                                <th>Action</th>
                             </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                            <?php while ($row = mysqli_fetch_array($results)) { ?>
+                                <tr>
+                                    <td> <?php echo $row['voucher'] ?> </td>
+                                    <td data-sort="<?php echo strtotime($row['date']); ?>">
+                                        <?php
+                                        $date = new DateTime($row['date']);
+                                        echo $date->format('F j, Y'); // Outputs date as "May 14, 2023"
+                                        ?>
+                                    </td>
+                                    <td> <?php echo $row['customer'] ?> </td>
+                                    <td> <?php echo $row['buying_station'] ?> </td>
+                                    <td> <?php echo $row['category'] ?> </td>
+                                    <td>₱<?php echo number_format($row['amount'], 0) ?></td> <!-- ave cost kilo -->
 
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#updateCashAdvance" data-bs-id="<?php echo $row['id'] ?>" data-bs-voucher="<?php echo $row['voucher'] ?>" data-bs-date="<?php echo $row['date'] ?>" data-bs-customer="<?php echo $row['customer'] ?>" data-bs-buying_station="<?php echo $row['buying_station'] ?>" data-bs-category="<?php echo $row['category'] ?>" data-bs-amount="<?php echo $row['amount'] ?>" title="Edit">
+                                                <span class="fa fa-edit"></span>
+                                            </button>
+                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#removeCashAdvance" data-bs-id="<?php echo $row['id'] ?>" data-bs-name="<?php echo $row['customer'] ?>" title="Remove">
+                                                <span class="fa fa-trash"></span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <!-- END CONTENT -->
         </div>
-        <!-- END CONTENT -->
     </div>
-</div>

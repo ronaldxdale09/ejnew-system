@@ -37,20 +37,20 @@ include 'include/navbar.php';
                                 $results = mysqli_query($con, "SELECT * FROM bale_shipment_record");
 
                                 ?>
-                                <table class="table table-bordered table-hover table-striped" id='recording_table-receiving'>
+                                 <table class="table table-bordered table-hover table-striped" id='recording_table-receiving'>
                                     <thead class="table-dark text-center" style="font-size: 14px !important">
                                         <tr>
                                             <th scope="col">Status</th>
-                                            <th scope="col">Ship. ID</th>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Particular</th>
                                             <th scope="col">Date</th>
                                             <th scope="col">Type</th>
                                             <th scope="col">Source</th>
                                             <th scope="col">Destination</th>
-                                            <th scope="col">Shipping Expense</th>
+                                            <th scope="col">Ship Expense</th>
                                             <th scope="col">Containers</th>
                                             <th scope="col">No. of Bales</th>
                                             <th scope="col">Bale Weight</th>
-                                            <th scope="col">Remarks</th>
                                             <th scope="col"></th>
                                         </tr>
                                     </thead>
@@ -74,12 +74,12 @@ include 'include/navbar.php';
                                                 <td> <span class="badge <?php echo $status_color; ?>">
                                                         <?php echo $row['status'] ?>
                                                 <td class="text-center"><?php echo $row['shipment_id']; ?></td>
+                                                <td class="text-center"><?php echo $row['particular']; ?></td>
                                                 <td><?php echo date('F j, Y', strtotime($row['ship_date'])); ?></td>
                                                 <td><?php echo $row['type']; ?></td>
                                                 <td><?php echo $row['source']; ?></td>
                                                 <td><?php echo $row['destination']; ?></td>
-                                                <td class="number-cell">₱
-                                                    <?php echo number_format($row['total_shipping_expense'],0, '.', ','); ?>
+                                                <td class="number-cell">₱<?php echo number_format($row['total_shipping_expense'], 2, '.', ','); ?>
                                                 </td>
                                                 <td class="text-center">
                                                     <?php echo $row['no_containers']; ?>
@@ -90,7 +90,6 @@ include 'include/navbar.php';
                                                 <td class="number-cell">
                                                     <?php echo number_format($row['total_bale_weight'], 0, '.', ','); ?> kg
                                                 </td>
-                                                <td><?php echo $row['remarks']; ?></td>
                                                 <td>
                                                     <button type="button" class="btn btn-success btn-sm btnViewRecord" data-status="<?php echo $row['status']; ?>" data-vessel="<?php echo $row['vessel']; ?>" data-bill_lading="<?php echo $row['bill_lading']; ?>" data-recorded="<?php echo $row['recorded_by']; ?>" data-freight="<?php echo $row['freight']; ?>" data-loading="<?php echo $row['loading_unloading']; ?>" data-processing="<?php echo $row['processing_fee']; ?>" data-trucking="<?php echo $row['trucking_expense']; ?>" data-cranage="<?php echo $row['cranage_fee']; ?>" data-misc="<?php echo $row['miscellaneous']; ?>" data-total_expense="<?php echo $row['total_shipping_expense']; ?>" data-num_containers="<?php echo $row['no_containers']; ?>" data-cost_per_container="<?php echo $row['ship_cost_container']; ?>">
                                                         <i class="fas fa-book"></i>

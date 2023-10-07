@@ -1,4 +1,15 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f4;
+    /* Added to provide contrast */
+}
+
+.main-content {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
 .stat-card,
 .stat-card-default {
     background: #fff;
@@ -69,6 +80,10 @@
 /* Responsive styles */
 
 @media (max-width: 768px) {
+    .main-content {
+        padding-top: 1.25rem;
+        padding-bottom: 1.25rem;
+    }
     .stat-card,
     .stat-card-default {
         padding: 15px;

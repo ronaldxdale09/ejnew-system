@@ -1,8 +1,10 @@
 <?php
 $balance_query = mysqli_query($con, "SELECT buyer_name, sum(unpaid_balance) as total_unpaid
-                                      FROM bales_sales_record
-                                      GROUP BY buyer_name
-                                      ORDER BY buyer_name ASC");
+FROM bales_sales_record
+GROUP BY buyer_name
+HAVING total_unpaid > 0
+ORDER BY buyer_name ASC");
+
 
 $buyer_names = [];
 $unpaid_balances = [];
@@ -16,8 +18,7 @@ if ($balance_query->num_rows > 0) {
 // Rest of the code for drawing the chart, as you have done for the expenses
 ?>
 
-<canvas id="unpaidBalanceChart"
-    style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
+<canvas id="unpaidBalanceChart"></canvas>
 
 <script>
 new Chart(document.getElementById("unpaidBalanceChart"), {

@@ -1,24 +1,3 @@
-var minDate, maxDate;
-
-// Custom filtering function which will search data in column four between two values
-$.fn.dataTable.ext.search.push(
-    function(settings, data, dataIndex) {
-        var min = minDate.val();
-        var max = maxDate.val();
-        var date = new Date(data[0]);
-
-        if (
-            (min === null && max === null) ||
-            (min === null && date < max) ||
-            (min < date && max === null) ||
-            (min < date && date < max)
-        ) {
-            return true;
-        }
-        return false;
-    }
-);
-
 $(document).ready(function() {
     // Create date inputs
     minDate = new DateTime($('#min'), {
@@ -79,14 +58,46 @@ $(document).ready(function() {
         },
         lengthChange: true,
         orderCellsTop: true,
-
-
-
     });
-    $('#min, #max').on('change', function() {
+
+
+    // Filter by Payee
+    $('#filterCategory').on('change', function() {
+        table.column(4).search(this.value).draw(); // Assuming Payee is the 5th column
+    });
+
+    $('#filterMonth').on('change', function() {
+        var month = parseInt(this.value, 10);
+        $.fn.dataTable.ext.search.push(
+            function(settings, data, dataIndex) {
+                var dateIssued = new Date(data[1]); // Assuming Date Issued is the 3rd column
+                return isNaN(month) || month === dateIssued.getMonth() + 1;
+            }
+        );
         table.draw();
+        $.fn.dataTable.ext.search.pop(); // Clear this specific filter
     });
 
+    // Filter by Date Range
+    $('#startDate, #endDate').on('change', function() {
+        var startDate = $('#startDate').val() ? new Date($('#startDate').val()) : null;
+        var endDate = $('#endDate').val() ? new Date($('#endDate').val()) : null;
+
+        $.fn.dataTable.ext.search.push(
+            function(settings, data, dataIndex) {
+                var dateIssued = new Date(data[1]); // Assuming Date Issued is the 3rd column
+                if (startDate && dateIssued < startDate) {
+                    return false;
+                }
+                if (endDate && dateIssued > endDate) {
+                    return false;
+                }
+                return true;
+            }
+        );
+        table.draw();
+        $.fn.dataTable.ext.search.pop(); // Clear this specific filter
+    });
 
 
 });

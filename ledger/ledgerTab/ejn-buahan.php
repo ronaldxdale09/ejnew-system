@@ -84,10 +84,10 @@
 
                                         <td>
                                             <div class="btn-group" role="group">
-                                                <button type="button" class="btn btn-sm btn-secondary text-white">
+                                                <button type="button" data-buahantoppers='<?php echo json_encode($row); ?>' class="btn btn-sm  btnUpdate btn-secondary text-white">
                                                     <span class="fa fa-edit"></span>
                                                 </button>
-                                                <button type="button" class="btn btn-sm btn-danger text-white">
+                                                <button type="button" data-buahantoppers='<?php echo json_encode($row); ?>' class="btn btn-sm btnDelete btn-danger text-white">
                                                     <span class="fa fa-trash"></span>
                                                 </button>
                                             </div>
@@ -104,3 +104,34 @@
             </div>
         </div>
     </div>
+
+
+
+    <script>
+        $('.btnUpdate').on('click', function() {
+            let buahantoppers = $(this).data('buahantoppers');
+       
+            $('#u_id').val(buahantoppers.id);
+            $('#u_date').val(buahantoppers.date);
+            $('#u_voucher').val(buahantoppers.voucher);
+            $('#u_name').val(buahantoppers.name);
+            $('#u_net_kilos').val(buahantoppers.net_kilos.replace(/[^0-9.]/g, ''));
+            $('#u_price').val(buahantoppers.price.replace(/[^0-9.]/g, ''));
+            $('#u_ejn_percent').val(buahantoppers.ejn_percent.replace(/[^0-9.]/g, ''));
+            $('#u_ejn_total').val(buahantoppers.ejn_total.replace(/[^0-9.]/g, ''));
+            $('#u_topper_percent').val(buahantoppers.toppers_percent.replace(/[^0-9.]/g, ''));
+            $('#u_topper_gross').val(buahantoppers.gross_amount.replace(/[^0-9.]/g, ''));
+            $('#u_less_category').val(buahantoppers.less_category);
+            $('#u_less').val(buahantoppers.less_toppers.replace(/[^0-9.]/g, ''));
+            $('#u_topper_total').val(buahantoppers.toppers_total.replace(/[^0-9.]/g, ''));
+
+            $('#updateBuahan').modal('show');
+        });
+        $('.btnDelete').on('click', function() {
+            let buahantoppers = $(this).data('buahantoppers');
+         
+            $('#d_id').val(buahantoppers.id);
+          
+            $('#deleteRecord').modal('show');
+        });
+    </script>

@@ -37,7 +37,7 @@ $avg_recovery = mysqli_fetch_array($sql);
         <div class="stat-card">
             <div class="stat-card__content">
                 <p class="text-uppercase mb-1 text-muted"><b>TOTAL COFFEE</b> PRODUCTION</p>
-                <h5><?php echo number_format($total_qty['total_qty'], 0) ?></h5>
+                <h5><?php echo number_format($total_qty['total_qty'], 0) ?> </h5>
             </div>
             <div class="stat-card__icon stat-card__icon--primary">
                 <div class="stat-card__icon-circle">
@@ -78,19 +78,6 @@ $avg_recovery = mysqli_fetch_array($sql);
         </div>
     </div>
 
-    <!-- Overall Recovery Weight Ratio -->
-    <div class="col">
-        <div class="stat-card">
-            <div class="stat-card__content">
-                <p class="text-uppercase mb-1 text-muted"><b>AVERAGE</b> RECOVERY</p>
-                <h5><?php echo number_format($avg_recovery['avg_recovery'], 2) ?>%</h5>
-            </div>
-            <div class="stat-card__icon stat-card__icon--warning">
-                <div class="stat-card__icon-circle">
-                    <i class="fa fa-chart-bar"></i>
-                </div>
-            </div>
-        </div>
-    </div>
+ 
 
 </div>

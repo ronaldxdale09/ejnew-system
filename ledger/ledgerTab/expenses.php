@@ -15,11 +15,11 @@ while ($array = mysqli_fetch_array($res)) {
         <div class="stat-card">
             <div class="stat-card__content">
                 <p class="text-uppercase mb-1 text-muted">EXPENSES TODAY </p>
-                <h4><i class="text-danger font-weight-bold mr-1"></i>
+                <h5><i class="text-danger font-weight-bold mr-1"></i>
                     ₱
                     <?php echo number_format(empty($expense_today['total']) ? 0 : $expense_today['total']); ?>
 
-                </h4>
+                </h5>
                 <div>
                     <p class="text-uppercase mb-1 text-muted"><?php echo date("F d, Y"); ?></p>
                 </div>
@@ -37,10 +37,10 @@ while ($array = mysqli_fetch_array($res)) {
             <div class="stat-card__content">
 
                 <p class="text-uppercase mb-1 text-muted">EXPENSES THIS MONTH</p>
-                <h4><i class="text-danger font-weight-bold mr-1"></i>
+                <h5><i class="text-danger font-weight-bold mr-1"></i>
                     ₱
                     <?php echo number_format(empty($expense_month['month_total']) ? 0 : $expense_month['month_total']); ?>
-                </h4>
+                </h5>
                 <p class="text-uppercase mb-1 text-muted"><?php echo date("F"); ?></p>
 
 
@@ -58,10 +58,10 @@ while ($array = mysqli_fetch_array($res)) {
         <div class="stat-card">
             <div class="stat-card__content">
                 <p class="text-uppercase mb-1 text-muted">EXPENSES THIS YEAR</p>
-                <h4><i class="text-danger font-weight-bold mr-1"></i>
+                <h5><i class="text-danger font-weight-bold mr-1"></i>
                     ₱
                     <?php echo number_format(empty($expense_year['year_total']) ? 0 : $expense_year['year_total']); ?>
-                </h4>
+                </h5>
                 <p class="text-uppercase mb-1 text-muted"><?php echo date("Y"); ?></p>
 
             </div>

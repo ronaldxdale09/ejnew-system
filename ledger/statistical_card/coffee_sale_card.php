@@ -37,69 +37,69 @@ $coffee_sales_growth = mysqli_fetch_array($sql);
 
 ?><div class="row">
 
-<div class="col">
-    <div class="stat-card">
-        <div class="stat-card__content">
-            <p class="text-uppercase mb-1 text-muted"><b>TOTAL COFFEE</b> SALES</p>
-            <h4>
-                <i class="text-success font-weight-bold mr-1"></i>
-                ₱ <?php echo number_format($coffee_sales['total_sales'], 0) ?>
-            </h4>
-            <div>
+    <div class="col">
+        <div class="stat-card">
+            <div class="stat-card__content">
+                <p class="text-uppercase mb-1 text-muted"><b>TOTAL COFFEE</b> SALES</p>
+                <h4>
+                    <i class="text-success font-weight-bold mr-1"></i>
+                    ₱ <?php echo number_format($coffee_sales['total_sales'], 0) ?>
+                </h4>
+                <div>
+                    <span class="text-muted">
+                        <?php echo date('F Y'); ?> ₱ <?php echo number_format($coffee_month_sales['monthly_sales'], 0) ?>
+                    </span>
+                </div>
+            </div>
+            <div class="stat-card__icon stat-card__icon--success">
+                <div class="stat-card__icon-circle">
+                    <i class="fa fa-money "></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="stat-card">
+            <div class="stat-card__content">
+                <p class="text-uppercase mb-1 text-muted"><b>COFFEE SALES </b>UNPAID BALANCE </p>
+                <h4>
+                    <i class="text-danger font-weight-bold mr-1"></i>
+                    ₱ <?php echo number_format($coffee_unpaid['unpaid_balance'] ?? 0, 0) ?>
+                </h4>
+                <div>
+                    <span class="text-muted">
+                        Active Sales: <?php echo number_format($coffee['active'], 0) ?>
+                    </span>
+                </div>
+            </div>
+            <div class="stat-card__icon stat-card__icon--warning">
+                <div class="stat-card__icon-circle">
+                    <i class="fa fa-wallet "></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col">
+        <div class="stat-card">
+            <div class="stat-card__content">
+                <p class="text-uppercase mb-1 text-muted"><b>COFFEE SALES</b> GROWTH</p>
+                <h4>
+                    <i class="text-danger font-weight-bold mr-1"></i>
+                    <?php echo number_format($coffee_sales_growth['percentage_growth'], 0) ?> %
+                </h4>
                 <span class="text-muted">
-                    <?php echo date('F Y'); ?> ₱ <?php echo number_format($coffee_month_sales['monthly_sales'], 0) ?>
+                    <?php echo date('F', strtotime('-1 month')); ?> to <?php echo date('F Y'); ?>
                 </span>
+
             </div>
-        </div>
-        <div class="stat-card__icon stat-card__icon--success">
-            <div class="stat-card__icon-circle">
-                <i class="fa fa-money "></i>
+            <div class="stat-card__icon stat-card__icon--danger">
+                <div class="stat-card__icon-circle">
+                    <i class="fa fa-chart-line"></i>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="col">
-    <div class="stat-card">
-        <div class="stat-card__content">
-            <p class="text-uppercase mb-1 text-muted"><b>COFFEE SALES </b>UNPAID BALANCE </p>
-            <h4>
-                <i class="text-danger font-weight-bold mr-1"></i>
-                ₱ <?php echo number_format($coffee_unpaid['unpaid_balance'] ?? 0, 0) ?>
-            </h4>
-            <div>
-                <span class="text-muted">
-                    Active Sales: <?php echo number_format($coffee['active'], 0) ?>
-                </span>
-            </div>
-        </div>
-        <div class="stat-card__icon stat-card__icon--warning">
-            <div class="stat-card__icon-circle">
-                <i class="fa fa-wallet "></i>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<div class="col">
-    <div class="stat-card">
-        <div class="stat-card__content">
-            <p class="text-uppercase mb-1 text-muted"><b>COFFEE SALES</b> GROWTH</p>
-            <h4>
-                <i class="text-danger font-weight-bold mr-1"></i>
-                <?php echo number_format($coffee_sales_growth['percentage_growth'], 0) ?> %
-            </h4>
-            <span class="text-muted">
-                <?php echo date('F', strtotime('-1 month')); ?> to <?php echo date('F Y'); ?>
-            </span>
-
-        </div>
-        <div class="stat-card__icon stat-card__icon--danger">
-            <div class="stat-card__icon-circle">
-                <i class="fa fa-chart-line"></i>
-            </div>
-        </div>
-    </div>
-</div>
 </div>

@@ -27,7 +27,6 @@ while ($array = mysqli_fetch_array($result)) {
     <link rel='stylesheet' href='css/statistic-card.css'>
     <link rel='stylesheet' href='css/tab.css'>
     <input type='hidden' id='selected-cart' value=''>
-    <div class='main-content' style='position:relative; height:100%;'>
         <div class="container home-section h-100" style="max-width:95%;">
             <div class="page-wrapper">
                 <div class="row">
@@ -45,7 +44,6 @@ while ($array = mysqli_fetch_array($result)) {
                     <!-- ============================================================== -->
                 </div>
             </div>
-        </div>
     </div>
 </body>
 

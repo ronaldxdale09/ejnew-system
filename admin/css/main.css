@@ -4,7 +4,6 @@ body {
     width: 100%;
     background-color: #e9f2f9;
     position: relative;
-    overflow-x: hidden;
 }
 
 body.swal2-height-auto {

@@ -19,7 +19,6 @@
     <link rel='stylesheet' href='css/statistic-card.css'>
     <link rel='stylesheet' href='css/tab.css'>
     <input type='hidden' id='selected-cart' value=''>
-    <div class='main-content' style='position:relative; height:100%;'>
         <div class="container home-section h-100" style="max-width:95%;">
             <div class="page-wrapper">
                 <div class="row">
@@ -30,10 +29,11 @@
                                 <font color="#046D56"> TOPPERS </font>
                             </b>
                         </h2>
-                        <br>
+                        <?php
+                    include('statistical_card/buahan.toppers.php');
+                    ?>
                         <?php include('ledgerTab/ejn-buahan.php')?>
                     </div>
-                </div>
             </div>
         </div>
     </div>
