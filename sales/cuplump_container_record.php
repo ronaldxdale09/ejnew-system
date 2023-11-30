@@ -27,74 +27,81 @@ include 'include/navbar.php';
                                 <font color="#046D56"> CONTAINER </font>
                             </b>
                         </h2>
-                        <div class="row">
-                            <div class="col-3">
-                                <div class="stat-card">
-                                    <div class="stat-card__content">
-                                        <p class="text-uppercase mb-1 text-muted"><b>CONTAINER</b> COMPLETED</p>
-                                        <h3>
-                                            <i class="text-danger font-weight-bold mr-1"></i>
-                                            <i> Updating </i>
-                                        </h3>
-                                        <div>
-                                            <span class="text-muted">
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="stat-card__icon stat-card__icon--primary">
-                                        <div class="stat-card__icon-circle">
-                                            <i class="fa fa-truck"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="stat-card">
-                                    <div class="stat-card__content">
-                                        <p class="text-uppercase mb-1 text-muted"><b>CONTAINER</b> IN PROGRESS </p>
-                                        <h3>
-                                            <i class="text-danger font-weight-bold mr-1"></i>
-                                            <i> Updating </i>
-                                        </h3>
-                                        <div>
-                                            <span class="text-muted">
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="stat-card__icon stat-card__icon--success">
-                                        <div class="stat-card__icon-circle">
-                                            <i class="fa fa-cube"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="stat-card">
-                                    <div class="stat-card__content">
-                                        <p class="text-uppercase mb-1 text-muted"><b>CONTAINER</b>SHIPPED </p>
-                                        <h3>
-                                            <i class="text-success font-weight-bold mr-1"></i>
-                                            <i> Updating </i>
-                                        </h3>
-                                        <div>
-                                            <span class="text-muted">
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="stat-card__icon stat-card__icon--warning">
-                                        <div class="stat-card__icon-circle">
-                                            <i class="fa fa-ship"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
                         <div style="background-color: #2452af; height: 6px;"></div><!-- This is the blue bar -->
 
                         <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
                             <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#newContainer">NEW CONTAINER</button>
                             <hr>
+                            <div class="mb-3">
+
+                                <!-- Filters -->
+                                <div class="row">
+                                    <!-- Payee Filter -->
+                                    <!-- <div class="col-md-3 mb-3">
+                                        <label for="filterBuyer">Particular:</label>
+                                        <select class="form-control" id="filterBuyer">
+                                            <option value="">All</option>
+                                            <?php
+                                            $remarksResults = mysqli_query($con, "SELECT DISTINCT remarks FROM bales_container_record WHERE remarks IS NOT NULL AND remarks != ''");
+                                            while ($remark = mysqli_fetch_array($remarksResults)) {
+                                                echo '<option value="' . $remark['remarks'] . '">' . $remark['remarks'] . '</option>';
+                                            }
+                                            ?>
+                                        </select>
+
+
+                                    </div> -->
+
+                                    <!-- Check Status Filter -->
+                                    <div class="col-md-3 mb-3">
+                                        <label for="filterStatus"> Status:</label>
+                                        <select id="filterStatus" class="form-control">
+                                            <option value="">All</option>
+                                            <option value="Shipped Out">Shipped Out</option>
+                                            <option value="Sold">Sold</option>
+                                            <option value="In Progress">In Progress</option>
+
+                                        </select>
+                                    </div>
+
+
+                                    <!-- Month Filter -->
+                                    <div class="col-md-3 mb-3">
+                                        <label for="filterMonth">Month:</label>
+                                        <select id="filterMonth" class="form-control">
+                                            <option value="">All</option>
+                                            <?php
+                                            for ($i = 1; $i <= 12; $i++) {
+                                                echo '<option value="' . $i . '">' . date("F", mktime(0, 0, 0, $i, 10)) . '</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label for="filterYear">Year:</label>
+                                        <select id="filterYear" class="form-control">
+                                            <option value="">All</option>
+                                            <?php
+                                            $currentYear = date("Y");
+                                            $startYear = 2022;
+                                            for ($i = $startYear; $i <= $currentYear; $i++) {
+                                                echo '<option value="' . $i . '">' . $i . '</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <!-- Date Range Filter - Start Date -->
+                                    <div class="col-md-3 mb-3">
+                                        <label for="startDate">Start Date:</label>
+                                        <input type="date" id="startDate" class="form-control">
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label for="endDate">End Date:</label>
+                                        <input type="date" id="endDate" class="form-control">
+                                    </div>
+                                </div>
+
+                            </div>
                             <div class="table-responsive">
                                 <?php
                                 $results  = mysqli_query($con, "SELECT * from sales_cuplump_container ");
@@ -164,7 +171,7 @@ include 'include/navbar.php';
                                                 <td class="number-cell">₱
                                                     <?php
                                                     if ($row['total_cuplump_weight'] != 0) {
-                                                        echo number_format($row['ave_cuplump_cost'] , 2, '.', ',');
+                                                        echo number_format($row['ave_cuplump_cost'], 2, '.', ',');
                                                     } else {
                                                         echo "0";
                                                     }
@@ -210,6 +217,64 @@ include 'include/navbar.php';
                 paging: false,
                 info: false,
             });
+
+
+
+            // Filter by Payee
+            // $('#filterBuyer').on('change', function() {
+            //     table.column(7).search(this.value).draw(); // Assuming Payee is the 5th column
+            // });
+            // Filter by Status
+            $('#filterStatus').on('change', function() {
+                table.column(0).search(this.value).draw(); // Assuming Payee is the 5th column
+            });
+            // Filter by Month
+            $('#filterMonth').on('change', function() {
+                var month = parseInt(this.value, 10);
+                $.fn.dataTable.ext.search.push(
+                    function(settings, data, dataIndex) {
+                        var dateIssued = new Date(data[2]); // Assuming Date Issued is the 3rd column
+                        return isNaN(month) || month === dateIssued.getMonth() + 1;
+                    }
+                );
+                table.draw();
+                $.fn.dataTable.ext.search.pop(); // Clear this specific filter
+            });
+
+            // Filter by Date Range
+            $('#startDate, #endDate').on('change', function() {
+                var startDate = $('#startDate').val() ? new Date($('#startDate').val()) : null;
+                var endDate = $('#endDate').val() ? new Date($('#endDate').val()) : null;
+
+                $.fn.dataTable.ext.search.push(
+                    function(settings, data, dataIndex) {
+                        var dateIssued = new Date(data[2]); // Assuming Date Issued is the 3rd column
+                        if (startDate && dateIssued < startDate) {
+                            return false;
+                        }
+                        if (endDate && dateIssued > endDate) {
+                            return false;
+                        }
+                        return true;
+                    }
+                );
+                table.draw();
+                $.fn.dataTable.ext.search.pop(); // Clear this specific filter
+            });
+            // Filter by Year
+            $('#filterYear').on('change', function() {
+                var year = parseInt(this.value, 10);
+                $.fn.dataTable.ext.search.push(
+                    function(settings, data, dataIndex) {
+                        var dateIssued = new Date(data[2]); // Assuming Date Issued is the 3rd column
+                        return isNaN(year) || year === dateIssued.getFullYear();
+                    }
+                );
+                table.draw();
+                $.fn.dataTable.ext.search.pop(); // Clear this specific filter
+            });
+
+
         });
 
 

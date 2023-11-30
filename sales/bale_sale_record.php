@@ -37,6 +37,76 @@ include "include/navbar.php";
 
                             <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#newWetExport">NEW SALE </button>
                             <hr>
+                            <div class="mb-3">
+
+                                <!-- Filters -->
+                                <div class="row">
+                                    <!-- Payee Filter -->
+                                    <div class="col-md-3 mb-3">
+                                        <label for="filterBuyer">Particular:</label>
+                                        <select class="form-control" id="filterBuyer">
+                                            <option value="">All</option>
+                                            <?php
+                                            $remarksResults = mysqli_query($con, "SELECT DISTINCT remarks FROM bales_container_record WHERE remarks IS NOT NULL AND remarks != ''");
+                                            while ($remark = mysqli_fetch_array($remarksResults)) {
+                                                echo '<option value="' . $remark['remarks'] . '">' . $remark['remarks'] . '</option>';
+                                            }
+                                            ?>
+                                        </select>
+
+
+                                    </div>
+
+                                    <!-- Check Status Filter -->
+                                    <div class="col-md-3 mb-3">
+                                        <label for="filterStatus"> Status:</label>
+                                        <select id="filterStatus" class="form-control">
+                                            <option value="">All</option>
+                                            <option value="In Progress">In Progress</option>
+                                            <option value="Complete">Complete</option>
+                                            <option value="Draft">Draft</option>
+
+                                        </select>
+                                    </div>
+
+
+                                    <!-- Month Filter -->
+                                    <div class="col-md-3 mb-3">
+                                        <label for="filterMonth">Month:</label>
+                                        <select id="filterMonth" class="form-control">
+                                            <option value="">All</option>
+                                            <?php
+                                            for ($i = 1; $i <= 12; $i++) {
+                                                echo '<option value="' . $i . '">' . date("F", mktime(0, 0, 0, $i, 10)) . '</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label for="filterYear">Year:</label>
+                                        <select id="filterYear" class="form-control">
+                                            <option value="">All</option>
+                                            <?php
+                                            $currentYear = date("Y");
+                                            $startYear = 2022;
+                                            for ($i = $startYear; $i <= $currentYear; $i++) {
+                                                echo '<option value="' . $i . '">' . $i . '</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <!-- Date Range Filter - Start Date -->
+                                    <div class="col-md-3 mb-3">
+                                        <label for="startDate">Start Date:</label>
+                                        <input type="date" id="startDate" class="form-control">
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label for="endDate">End Date:</label>
+                                        <input type="date" id="endDate" class="form-control">
+                                    </div>
+                                </div>
+
+                            </div>
                             <div class="table-responsive">
 
                                 <table class="table table-bordered table-hover table-striped" id='sales_rec_table'>
@@ -101,13 +171,13 @@ include "include/navbar.php";
                                                     if ($currency == "PHP") {
                                                         echo "₱";
                                                     } else {
-                                                      echo $currency;
-                                                    }?>
+                                                        echo $currency;
+                                                    } ?>
                                                     <?php echo number_format($row['contract_price'], 2) ?> </td>
                                                 <td hidden>₱<?php echo number_format($row['total_sales'], 0) ?> </td>
                                                 <td hidden>₱<?php echo number_format($row['overall_cost'], 0) ?> </td>
                                                 <td>₱<?php echo number_format($row['overall_ave_cost_kilo'], 2) ?> </td>
-                                                <td>₱<?php echo number_format($row['unpaid_balance'],0) ?> </td>
+                                                <td>₱<?php echo number_format($row['unpaid_balance'], 0) ?> </td>
                                                 <td hidden>₱<?php echo number_format($row['gross_profit'], 0) ?> </td>
 
                                                 <td class="text-center">
@@ -123,27 +193,6 @@ include "include/navbar.php";
                                 </table>
                             </div>
 
-                            <script>
-                                var table = $('#sales_rec_table').DataTable({
-                                    dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
-                                    order: [
-                                        [1, 'desc']
-                                    ],
-                                    buttons: [
-                                        'excelHtml5',
-                                        'pdfHtml5',
-                                        'print'
-                                    ],
-                                    columnDefs: [{
-                                        orderable: false,
-                                        targets: -1
-                                    }],
-                                    lengthChange: false,
-                                    orderCellsTop: true,
-                                    paging: false,
-                                    info: false,
-                                });
-                            </script>
 
                         </div>
                     </div>
@@ -158,6 +207,83 @@ include "include/navbar.php";
 
 </html>
 
+<script>
+    var table = $('#sales_rec_table').DataTable({
+        dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
+        order: [
+            [1, 'desc']
+        ],
+        buttons: [
+            'excelHtml5',
+            'pdfHtml5',
+            'print'
+        ],
+        columnDefs: [{
+            orderable: false,
+            targets: -1
+        }],
+        lengthChange: false,
+        orderCellsTop: true,
+        paging: false,
+        info: false,
+    });
+
+
+
+    // Filter by Payee
+    $('#filterBuyer').on('change', function() {
+        table.column(4).search(this.value).draw(); // Assuming Payee is the 5th column
+    });
+    // Filter by Status
+    $('#filterStatus').on('change', function() {
+        table.column(0).search(this.value).draw(); // Assuming Payee is the 5th column
+    });
+    // Filter by Month
+    $('#filterMonth').on('change', function() {
+        var month = parseInt(this.value, 10);
+        $.fn.dataTable.ext.search.push(
+            function(settings, data, dataIndex) {
+                var dateIssued = new Date(data[2]); // Assuming Date Issued is the 3rd column
+                return isNaN(month) || month === dateIssued.getMonth() + 1;
+            }
+        );
+        table.draw();
+        $.fn.dataTable.ext.search.pop(); // Clear this specific filter
+    });
+
+    // Filter by Date Range
+    $('#startDate, #endDate').on('change', function() {
+        var startDate = $('#startDate').val() ? new Date($('#startDate').val()) : null;
+        var endDate = $('#endDate').val() ? new Date($('#endDate').val()) : null;
+
+        $.fn.dataTable.ext.search.push(
+            function(settings, data, dataIndex) {
+                var dateIssued = new Date(data[2]); // Assuming Date Issued is the 3rd column
+                if (startDate && dateIssued < startDate) {
+                    return false;
+                }
+                if (endDate && dateIssued > endDate) {
+                    return false;
+                }
+                return true;
+            }
+        );
+        table.draw();
+        $.fn.dataTable.ext.search.pop(); // Clear this specific filter
+    });
+    // Filter by Year
+    $('#filterYear').on('change', function() {
+        var year = parseInt(this.value, 10);
+        $.fn.dataTable.ext.search.push(
+            function(settings, data, dataIndex) {
+                var dateIssued = new Date(data[2]); // Assuming Date Issued is the 3rd column
+                return isNaN(year) || year === dateIssued.getFullYear();
+            }
+        );
+        table.draw();
+        $.fn.dataTable.ext.search.pop(); // Clear this specific filter
+    });
+</script>
 
 <script>
     $('.btnViewRecord').on('click', function() {
@@ -340,7 +466,7 @@ include "include/navbar.php";
 
 
     $(document).on('click', '.btnPrint', function(e) {
- 
+
         console.log('hello');
 
         // Temporarily hide the buttons

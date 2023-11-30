@@ -14,6 +14,7 @@ $balesCount_basilan  = mysqli_fetch_array($sql);
 
 
 
+
 $sql = mysqli_query($con, "SELECT 
     SUM(remaining_bales) AS total_bales_count,
     SUM(remaining_bales * kilo_per_bale) AS total_weight,
@@ -25,6 +26,7 @@ $sql = mysqli_query($con, "SELECT
             planta_bales_production.kilo_per_bale,
             planta_recording.total_production_cost,
             planta_recording.produce_total_weight,
+            planta_recording.status,
             planta_recording.milling_cost
         FROM 
             bales_container_selection
@@ -33,12 +35,16 @@ $sql = mysqli_query($con, "SELECT
             LEFT JOIN planta_recording 
                 ON planta_bales_production.recording_id = planta_recording.recording_id
         WHERE 
-        planta_bales_production.remaining_bales !=0 AND planta_recording.source='Basilan'
+        (planta_bales_production.remaining_bales !=0 AND planta_recording.source='Basilan') AND planta_recording.status = 'For Sale'
     ) AS subquery");
 
 
 $data = mysqli_fetch_array($sql);
-$average_kilo_cost_basilan  = ($data['total_bale_cost'] + $data['overall_milling_cost']) / $data['total_weight'];
+$ave_kilo_cost_basilan  = ($data['total_bale_cost']) / $data['total_weight'];
+$ave_kilo_cost_basilan_wMill  = ($data['total_bale_cost'] + $data['overall_milling_cost']) / $data['total_weight'];
+
+
+
 
 
 
@@ -87,14 +93,19 @@ $average_kilo_cost_basilan  = ($data['total_bale_cost'] + $data['overall_milling
             </div>
         </div>
     </div>
-    <div class="col">
+    <div class="col-3">
         <div class="stat-card">
             <div class="stat-card__content">
-                <p class="text-uppercase mb-1 text-muted"><b>AVE.</b>  COST </p>
-                <h4>
+                <p class="text-uppercase mb-1 text-muted"><b>AVERAGE</b> INVENTORY COST
+                    <span data-toggle="tooltip" data-placement="left" title="Average cost of bale inventory for sale only." style="cursor: pointer; font-size: 15px;">
+                        <i class="fas fa-info-circle"></i>
+                    </span>
+                </p>
+
+                <h5>
                     <i class="text-success font-weight-bold mr-1"></i>
-                    ₱ <?php echo number_format($average_kilo_cost_basilan ?? 0, 2) ?>
-                </h4>
+                    ₱ <?php echo number_format($ave_kilo_cost_basilan ?? 0, 2) ?>
+                </h5>
                 <div>
                     <span class="text-muted">
                     </span>
@@ -107,13 +118,35 @@ $average_kilo_cost_basilan  = ($data['total_bale_cost'] + $data['overall_milling
             </div>
         </div>
     </div>
+    <div class="col-3">
+        <div class="stat-card">
+            <div class="stat-card__content">
+                <p class="text-uppercase mb-1 text-muted"><b>TOTAL AVERAGE</b> COST <span data-toggle="tooltip" data-placement="left" title="Average cost of bale inventory for sale only." style="cursor: pointer; font-size: 15px;">
+                        <i class="fas fa-info-circle"></i>
+                    </span></p>
+                <h5>
+                    <i class="text-success font-weight-bold mr-1"></i>
+                    ₱ <?php echo number_format($ave_kilo_cost_basilan_wMill ?? 0, 2) ?>
+                </h5>
+                <div>
+                    <span class="text-muted">
+                    </span>
+                </div>
+            </div>
+            <div class="stat-card__icon stat-card__icon--danger">
+                <div class="stat-card__icon-circle">
+                    <i class="fa fa-info"></i>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <hr>
 
 <table class="table table-bordered table-hover table-striped table-responsive" style='width:100%' id="recording_table-produced-basilan">
 
-<?php
+    <?php
     $results = mysqli_query($con, "SELECT * FROM planta_bales_production 
                                    LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
                                    WHERE planta_bales_production.status='Produced' and (rubber_weight !='0' or rubber_weight !=null) 
@@ -175,12 +208,14 @@ $average_kilo_cost_basilan  = ($data['total_bale_cost'] + $data['overall_milling
 
                 <td class="number-cell"><?php echo number_format($row['drc'], 2) ?> %</td>
                 <td><?php echo $row['description'] ?></td>
-                <td> ₱
-                    <?php echo number_format($row['milling_cost']) ?>
-                </td>
-                <td> ₱
-                    <?php echo number_format($row['total_production_cost'] / $row['produce_total_weight'], 2) ?>
-                </td>
+                <?php if ($row['status'] == 'For Sale') : ?>
+                    <td>₱<?php echo number_format($row['milling_cost']) ?></td>
+                    <td>₱<?php echo number_format($row['total_production_cost'] / $row['produce_total_weight'], 2) ?></td>
+                <?php else : ?>
+                    <td>-</td>
+                    <td>-</td>
+                <?php endif; ?>
+
 
             </tr>
         <?php } ?>

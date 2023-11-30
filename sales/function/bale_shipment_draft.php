@@ -12,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $ship_info_lading = $_POST['ship_info_lading'] ?? '';
     $ship_remarks = $_POST['ship_remarks'] ?? '';
     $ship_recorded = $_POST['ship_recorded'] ?? '';
+    $buyer = $_POST['n_buyer'] ?? '';
 
     $total_num_bales = isset($_POST['total_num_bales']) ? preg_replace("/[^0-9.]/", "", $_POST['total_num_bales']) : '';
     $total_bale_weight = isset($_POST['total_bale_weight']) ? preg_replace("/[^0-9.]/", "", $_POST['total_bale_weight']) : '';
@@ -56,7 +57,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
      remarks = '$ship_remarks', recorded_by = '$ship_recorded', total_num_bales = '$total_num_bales', total_bale_weight = '$total_bale_weight', 
      total_bale_cost = '$total_bale_cost', freight = '$freight', loading_unloading = '$loading_expense', processing_fee = '$ship_exp_processing', 
      trucking_expense = '$ship_exp_trucking', cranage_fee = '$ship_exp_cranage', miscellaneous = '$ship_exp_misc', 
-     total_shipping_expense = '$total_ship_exp', no_containers = '$number_container', ship_cost_container = '$ship_cost_per_container'
+     total_shipping_expense = '$total_ship_exp', no_containers = '$number_container',
+      ship_cost_container = '$ship_cost_per_container',particular='$buyer'
       WHERE shipment_id  = '$ship_id'";
 
     // Executing the query

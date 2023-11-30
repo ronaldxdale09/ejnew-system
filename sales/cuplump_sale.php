@@ -6,7 +6,7 @@ include "include/navbar.php";
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    $id =  preg_replace('~\D~', '', $id);
+    $id = preg_replace('~\D~', '', $id);
 
     $sql = "SELECT * FROM sales_cuplump_record WHERE cuplump_sales_id  = $id";
     $result = $con->query($sql);
@@ -85,22 +85,6 @@ if (isset($_GET['id'])) {
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-    .trans-btn {
-        border-radius: 25px;
-        padding: 10px 20px;
-        font-size: 14px;
-        text-transform: uppercase;
-        transition: all 0.3s ease 0s;
-        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .trans-btn:hover {
-        background-color: #2c3e50;
-        box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
-        color: #fff;
-        transform: translateY(-7px);
-    }
-
     /* For the font awesome icons */
     .fas {
         margin-right: 10px;
@@ -119,7 +103,6 @@ if (isset($_GET['id'])) {
 <body>
     <div class='main-content' style='position:relative; height:100%;'>
         <div class="container home-section h-100" style="max-width:95%;">
-            <br>
             <h1 class="page-title" style="text-align: center;"><B>
                     <font color="#0C0070"> RUBBER CUPLUMP </font>
                     <font color="#046D56"> SALE </font>
@@ -130,10 +113,12 @@ if (isset($_GET['id'])) {
                     <button type="button" class="btn trans-btn btn-secondary btnReturn">
                         <span class="fas fa-arrow-left"></span> Return
                     </button>
-                    <button type="button" class="btn trans-btn btn-danger btnVoid"> <span class="fas fa-times"></span>
-                        Void</button>
-                    <button type="button" class="btn trans-btn btn-warning btnDraft"><span class="fas fa-info-circle"></span> Save as Draft</button>
-                    <button type="button" class="btn trans-btn btn-primary confirmSales" id="confirmSales"><span class="fas fa-check"></span>
+                    <button type="button" class="btn trans-btn btn-danger btnDelete"> <span class="fas fa-times"></span>
+                        Delete Record</button>
+                    <button type="button" class="btn trans-btn btn-warning btnDraft"><span
+                            class="fas fa-info-circle"></span> Save as Draft</button>
+                    <button type="button" class="btn trans-btn btn-primary confirmSales" id="confirmSales"><span
+                            class="fas fa-check"></span>
                         Confirm
                         Sales</button>
                 </div>
@@ -145,41 +130,32 @@ if (isset($_GET['id'])) {
 
                 </div>
             </div>
-            <br>
             <form id="salesForm" action="" method="post">
                 <div id='print_content'>
                     <div class="card">
-                        <div style="background-color: #2452af; height: 6px;"></div><!-- This is the blue bar -->
+                        <div style="background-color: #2452af; height: 6px;"></div><!-- Blue bar -->
                         <div class="card-body">
-                            <h4>Sale Contract</h4>
-                            <hr size="10" noshade />
+                            <h4 class="card-title">Sale Contract</h4>
+                            <hr>
 
-                            <div class="row">
-                                <div class="col-1">
-                                    <label style='font-size:15px' class="col-md-12"> Sales ID
-                                    </label>
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='sales_id' id='sales_id' readonly autocomplete='off' style="width: 100px;">
+                            <form action="function/cuplump_shipment.php" method="POST">
+                                <div class="row mb-3">
+                                    <div class="col-md-2">
+                                        <label for="sales_id">Sales ID</label>
+                                        <input type="text" class="form-control" name="sales_id" id="sales_id" readonly>
                                     </div>
-                                </div>
-                                <div class="col-3">
-                                    <label style='font-size:15px' class="col-md-12">EN Sale Contract</label>
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='sale_contract' id='sale_contract' autocomplete='off' style="width: 100px;">
+                                    <div class="col">
+                                        <label for="sale_contract">EN Sale Contract</label>
+                                        <input type="text" class="form-control" name="sale_contract" id="sale_contract">
                                     </div>
-                                </div>
-
-                                <div class="col-3">
-                                    <label style='font-size:15px' class="col-md-12">Buyer Purchase Contract</label>
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='purchase_contract' id='purchase_contract' style="width: 100px;" />
+                                    <div class="col">
+                                        <label for="purchase_contract">Buyer Purchase Contract</label>
+                                        <input type="text" class="form-control" name="purchase_contract"
+                                            id="purchase_contract">
                                     </div>
-                                </div>
-
-                                <div class="col">
-                                    <label style='font-size:15px' class="col-md-12">Sale Type</label>
-                                    <div class="input-group mb-3">
-                                        <select class="form-select" id="sale_type" name="sale_type" required>
+                                    <div class="col-md-2">
+                                        <label for="sale_type">Sale Type<span class="text-danger">*</span></label>
+                                        <select class="form-select" id="sale_type" name="sale_type">
                                             <option selected disabled>Select...</option>
                                             <option value="EXPORT">Export</option>
                                             <option value="LOCAL">Local</option>
@@ -187,95 +163,57 @@ if (isset($_GET['id'])) {
                                     </div>
                                 </div>
 
-
-
-
-
-                                <div class="col-2">
-                                    <label style='font-size:15px' class="col-md-12">Transaction Date </label>
-                                    <div class="col-md-12">
-                                        <input type="date" class='form-control' id="trans_date" name="trans_date" required>
+                                <div class="row mb-3">
+                                    <div class="col-md-3">
+                                        <label for="trans_date">Transaction Date<span class="text-danger">*</span></label>
+                                        <input type="date" class="form-control" id="trans_date" name="trans_date"
+                                            required>
                                     </div>
-                                </div>
-                            </div>
-                            <hr>
 
-                            <div class="row">
-                                <div class="col">
-                                    <label style='font-size:15px' class="col-md-12">Buyer Name</label>
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='sale_buyer' id='sale_buyer' tabindex="7" autocomplete='off' style="width: 100px;" required />
+                                    <div class="col-md-3">
+                                        <label for="sale_buyer">Buyer Name<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="sale_buyer" id="sale_buyer"
+                                            required>
                                     </div>
-                                </div>
-
-                                <div class="col">
-                                    <label style='font-size:15px' class="col-md-12">Shipping Date</label>
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='shipping_date' id='shipping_date' tabindex="7" autocomplete='off' style="width: 100px;" />
+                                    <div class="col-md-3">
+                                        <label for="sale_source">Source <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="sale_source" id="sale_source"
+                                            required>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="sale_destination">Destination<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="sale_destination"
+                                            id="sale_destination">
                                     </div>
                                 </div>
 
-                                <div class="col">
-                                    <label style='font-size:15px' class="col-md-12">Source</label>
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='sale_source' id='sale_source' tabindex="7" autocomplete='off' style="width: 100px;" required />
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <label style='font-size:15px' class="col-md-12">Destination</label>
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='sale_destination' id='sale_destination' tabindex="7" autocomplete='off' style="width: 100px;" />
-                                    </div>
-                                </div>
-
-
-                            </div>
-
-
-                            <div class="row">
-                                <div class="col-2">
-                                    <label style='font-size:15px' class="col-md-12">No. of Containers</label>
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='contract_contaier' id='contract_contaier' tabindex="7" autocomplete='off' style="width: 100px;" required />
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <label style='font-size:15px' class="col-md-12">Kilo Quantity (e.g 21,000)</label>
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='contract_quantity' id='contract_quantity' tabindex="7" autocomplete='off' style="width: 100px;" />
-                                        <span class="input-group-text"> kg</span>
-                                    </div>
-                                </div>
-
-                                <div class="col">
-                                    <label style='font-size:15px' class="col-md-12">Currency</label>
-                                    <div class="input-group mb-3">
-                                        <select class="form-select" id="sale_currency" name="sale_currency" style="width: 100px;" required>
+                                <div class="row mb-3">
+                                 
+                                    <div class="col-md-2">
+                                        <label for="sale_currency">Currency <span class="text-danger">*</span></label>
+                                        <select class="form-select" id="sale_currency" name="sale_currency" required>
                                             <option selected disabled>Choose...</option>
                                             <option value="PHP">PHP ₱</option>
                                             <option value="USD">USD $</option>
                                         </select>
                                     </div>
-                                </div>
-
-
-                                <div class="col">
-                                    <label style='font-size:15px' class="col-md-12">Price per Kilo</label>
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id='currency_selected_price'></span>
-                                        <input type="number" class="form-control contract_price" name='contract_price' id='contract_price' required>
+                                    <div class="col-md-3">
+                                        <label for="contract_price">Price per Kilo <span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text" id="currency_selected_price"></span>
+                                            <input type="number" class="form-control contract_price"
+                                                name="contract_price" id="contract_price" required>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <label for="other_terms">Other Terms (Optional)</label>
+                                        <input type="text" class="form-control" name="other_terms" id="other_terms">
                                     </div>
                                 </div>
-                                <div class="col-3">
-                                    <label style='font-size:15px' class="col-md-12">Other Terms
-                                        (Optional)</label>
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='other_terms' id='other_terms'>
-                                    </div>
-                                </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
+
 
                     <br>
 
@@ -300,17 +238,30 @@ if (isset($_GET['id'])) {
                                 <div class="col">
                                     <label style='font-size:15px' class="col-md-12">No. of Containers (Actual)</label>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='number_container' id='number_container' style="width: 100px;" readonly />
+                                        <input type="text" class="form-control" name='number_container'
+                                            id='number_container' style="width: 100px;" readonly />
                                     </div>
                                 </div>
 
                                 <div class="col">
                                     <label style='font-size:15px' class="col-md-12">Total Cuplump Weight</label>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='total_cuplump_weight' id='total_cuplump_weight' style="width: 100px;" readonly />
+                                        <input type="text" class="form-control" name='total_cuplump_weight'
+                                            id='total_cuplump_weight' style="width: 100px;" readonly />
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">kg</span>
                                         </div>
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <label style="font-size:15px" class="col-md-12">Total Selling
+                                        Weight</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" readonly class="form-control small-font-input total_selling_weight"
+                                            name="total_selling_weight" id="total_selling_weight" tabindex="7"
+                                            autocomplete="off" style="width: 100px;" />
+                                        <span class="input-group-text">kg</span>
                                     </div>
                                 </div>
                                 <div class="col">
@@ -320,7 +271,8 @@ if (isset($_GET['id'])) {
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">≈ ₱</span>
                                         </div>
-                                        <input type="text" class="form-control" name='overall_ave_kiloCost' id='overall_ave_kiloCost' style="width: 100px;" readonly />
+                                        <input type="text" class="form-control" name='overall_ave_kiloCost'
+                                            id='overall_ave_kiloCost' style="width: 100px;" readonly />
                                     </div>
                                 </div>
                             </div>
@@ -347,21 +299,24 @@ if (isset($_GET['id'])) {
                                     <label style='font-size:15px' class="col-md-12">TOTAL SALES</label>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id='currency_selected_sales'></span>
-                                        <input type="text" class="form-control" name='total_sale' id='total_sale' readonly autocomplete='off' style="width: 100px;" />
+                                        <input type="text" class="form-control" name='total_sale' id='total_sale'
+                                            readonly autocomplete='off' style="width: 100px;" />
                                     </div>
                                 </div>
                                 <div class="col">
                                     <label style='font-size:15px' class="col-md-12">AMOUNT PAID</label>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id='currency_selected_paid'></span>
-                                        <input type="text" class="form-control" name='amount_unpaid' id='amount_unpaid' readonly autocomplete='off' style="width: 100px;" />
+                                        <input type="text" class="form-control" name='amount_unpaid' id='amount_unpaid'
+                                            readonly autocomplete='off' style="width: 100px;" />
                                     </div>
                                 </div>
                                 <div class="col">
                                     <label style='font-size:15px' class="col-md-12">UNPAID BALANCE</label>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id='currency_selected_balance'></span>
-                                        <input type="text" class="form-control" name='unpaid_balance' id='unpaid_balance' readonly autocomplete='off' style="width: 100px;" />
+                                        <input type="text" class="form-control" name='unpaid_balance'
+                                            id='unpaid_balance' readonly autocomplete='off' style="width: 100px;" />
                                     </div>
                                 </div>
                             </div>
@@ -389,13 +344,15 @@ if (isset($_GET['id'])) {
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">₱</span>
                                         </div>
-                                        <input type="text" class="form-control" name="sales_proceeds" id="sales_proceeds" readonly style="width: 100px;" />
+                                        <input type="text" class="form-control" name="sales_proceeds"
+                                            id="sales_proceeds" readonly style="width: 100px;" />
                                     </div>
                                 </div>
                                 <div class="col">
                                     <label style="font-size:15px" class="col-md-12">Tax Rate</label>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name="tax_rate" id="tax_rate" style="width: 100px;" />
+                                        <input type="text" class="form-control" name="tax_rate" id="tax_rate"
+                                            style="width: 100px;" />
                                         <span class="input-group-text">%</span>
                                     </div>
                                 </div>
@@ -403,7 +360,8 @@ if (isset($_GET['id'])) {
                                     <label style="font-size:15px" class="col-md-12">Withholding Tax Amount</label>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">₱</span>
-                                        <input type="text" class="form-control" name="tax_amount" readonly id="tax_amount" style="width: 100px;" />
+                                        <input type="text" class="form-control" name="tax_amount" readonly
+                                            id="tax_amount" style="width: 100px;" />
                                     </div>
                                 </div>
                             </div>
@@ -412,7 +370,8 @@ if (isset($_GET['id'])) {
                                     <label style='font-size:15px' class="col-md-12">Total Cuplump Cost</label>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">₱</span>
-                                        <input type="text" class="form-control" name='total_cuplump_cost' id='total_cuplump_cost' style="width: 100px;" readonly />
+                                        <input type="text" class="form-control" name='total_cuplump_cost'
+                                            id='total_cuplump_cost' style="width: 100px;" readonly />
                                     </div>
                                 </div>
 
@@ -422,7 +381,8 @@ if (isset($_GET['id'])) {
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">₱</span>
                                         </div>
-                                        <input type="text" class="form-control" name='total_ship_exp' id='total_ship_exp' style="width: 100px;" readonly />
+                                        <input type="text" class="form-control" name='total_ship_exp'
+                                            id='total_ship_exp' style="width: 100px;" readonly />
                                     </div>
                                 </div>
                                 <div class="col-4">
@@ -432,7 +392,8 @@ if (isset($_GET['id'])) {
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">₱</span>
                                         </div>
-                                        <input type="text" class="form-control" name="over_all_cost" id="over_all_cost" readonly style="width: 100px;" />
+                                        <input type="text" class="form-control" name="over_all_cost" id="over_all_cost"
+                                            readonly style="width: 100px;" />
                                     </div>
                                 </div>
                             </div>
@@ -445,7 +406,8 @@ if (isset($_GET['id'])) {
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" style='font-size:20px'>₱</span>
                                         </div>
-                                        <input type="text" class="form-control" name="gross_profit" id="gross_profit" style='font-size:20px' readonly style="width: 100px;" />
+                                        <input type="text" class="form-control" name="gross_profit" id="gross_profit"
+                                            style='font-size:20px' readonly style="width: 100px;" />
                                     </div>
                                 </div>
                             </div>
@@ -467,25 +429,6 @@ if (isset($_GET['id'])) {
 
 
 
-<!-- Confirm Modal -->
-<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Confirm Sales Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Are you sure you want to complete the sales record?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-primary" id="confirmButton">Yes, Proceed</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- Draft Modal -->
 <div class="modal fade" id="draftModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -494,7 +437,8 @@ if (isset($_GET['id'])) {
                 <h5 class="modal-title" id="exampleModalLabel">
                     <i class="fas fa-save me-2"></i>Store Sales Draft
                 </h5>
-                <button type="button" class="btn-close btn-close-white" data-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white" data-dismiss="modal"
+                    aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <p class="text-center">
@@ -564,7 +508,7 @@ if (isset($_GET['id'])) {
             data: {
                 sales_id: sales_id,
             },
-            success: function(data) {
+            success: function (data) {
                 $('#container_selected').html(data);
             }
         });
@@ -581,7 +525,7 @@ if (isset($_GET['id'])) {
             data: {
                 sales_id: sales_id,
             },
-            success: function(data) {
+            success: function (data) {
                 $('#payment_list_table').html(data);
             }
         });
@@ -591,7 +535,7 @@ if (isset($_GET['id'])) {
 
 
 
-    $(document).on('click', '#confirmButton', function(e) {
+    $(document).on('click', '#confirmSales', function (e) {
         // Prevent the default form submission
         e.preventDefault();
 
@@ -603,7 +547,7 @@ if (isset($_GET['id'])) {
             type: "POST",
             url: $('#salesForm').attr('action'),
             data: $('#salesForm').serialize(),
-            success: function(response) {
+            success: function (response) {
                 if (response.trim() === 'success') {
                     Swal.fire({
                         icon: 'success',
@@ -618,7 +562,6 @@ if (isset($_GET['id'])) {
                     // Disable all buttons inside the form
                     // Temporarily hide the buttons
                     $("#print_content button").hide();
-                    $('#confirmModal').modal('hide');
                 } else {
                     Swal.fire({
                         icon: 'error',
@@ -627,7 +570,7 @@ if (isset($_GET['id'])) {
                     });
                 }
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 // Handle the error response
                 // Display SweetAlert error popup
                 Swal.fire({
@@ -641,7 +584,7 @@ if (isset($_GET['id'])) {
 
 
 
-    $(document).on('click', '#saveDraftBtn', function(e) {
+    $(document).on('click', '#saveDraftBtn', function (e) {
         // Prevent the default form submission
         e.preventDefault();
 
@@ -653,7 +596,7 @@ if (isset($_GET['id'])) {
             type: "POST",
             url: $('#salesForm').attr('action'),
             data: $('#salesForm').serialize(),
-            success: function(response) {
+            success: function (response) {
                 if (response.trim() === 'success') {
                     Swal.fire({
                         icon: 'info',
@@ -677,7 +620,7 @@ if (isset($_GET['id'])) {
                     });
                 }
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 // Handle the error response
                 // Display SweetAlert error popup
                 Swal.fire({
@@ -691,7 +634,7 @@ if (isset($_GET['id'])) {
 
 
 
-    $(document).on('click', '.confirmSales, .btnDraft, .btnVoid', function(e) {
+    $(document).on('click', ' .btnDraft, .btnVoid', function (e) {
         // Check if 'sale_buyer' input is readonly
         if ($('#sale_buyer').prop('readonly')) {
             // If readonly, show alert and return
@@ -705,15 +648,13 @@ if (isset($_GET['id'])) {
 
         $tr = $(this).closest('tr');
 
-        var data = $tr.children("td").map(function() {
+        var data = $tr.children("td").map(function () {
             return $(this).text();
         }).get();
 
-        var sales_id = <?php echo  $id ?>;
+        var sales_id = <?php echo $id ?>;
 
-        if ($(this).hasClass('confirmSales')) {
-            $('#confirmModal').modal('show');
-        } else if ($(this).hasClass('btnDraft')) {
+        if ($(this).hasClass('btnDraft')) {
             $('#draftModal').modal('show');
         }
         // add similar if conditions for other buttons if needed
@@ -723,14 +664,14 @@ if (isset($_GET['id'])) {
 
 
     //RETURN JS
-    $('.btnReturn').on('click', function() {
+    $('.btnReturn').on('click', function () {
         $('#confirmReturnModal').modal('show');
     });
-    $('#confirmReturn').on('click', function() {
+    $('#confirmReturn').on('click', function () {
         window.location.href = "cuplump_sale_record.php";
     })
 
-    $('.btnContainer').on('click', function() {
+    $('.btnContainer').on('click', function () {
 
         // TABLE TO DISPLAY THE SELECTED CONTAINER
         function fetch_container_list() {
@@ -742,7 +683,7 @@ if (isset($_GET['id'])) {
                 data: {
                     sales_id: sales_id,
                 },
-                success: function(data) {
+                success: function (data) {
                     $('#container_selection_modal').html(data);
                 }
             });
@@ -753,7 +694,7 @@ if (isset($_GET['id'])) {
 
     });
 
-    $("#sale_currency").change(function() {
+    $("#sale_currency").change(function () {
         // Get selected value
         var selectedCurrency = $(this).val();
 
@@ -772,14 +713,14 @@ if (isset($_GET['id'])) {
     });
 
 
-    $(document).on("keyup", "#contract_price, #total_cuplump_weight, #tax_rate", function() {
+    $(document).on("keyup", "#contract_price, #total_cuplump_weight, #tax_rate", function () {
         calculateSalesTotals();
     });
 
-    
 
 
-function calculateSalesTotals() {
+
+    function calculateSalesTotals() {
         var contract_price = parseFloat($("#contract_price").val().replace(/,/g, "")) || 0;
         var total_cuplump_weight = parseFloat($("#total_cuplump_weight").val().replace(/,/g, "")) || 0;
         var sales_proceeds = parseFloat($("#sales_proceeds").val().replace(/,/g, "")) || 0;
@@ -788,7 +729,7 @@ function calculateSalesTotals() {
 
         var total_sale = total_cuplump_weight * contract_price;
         var tax_amount = sales_proceeds * (tax_rate / 100); // computed tax amount, tax rate should be in percentage.
-        var gross_profit = (sales_proceeds - tax_amount) -over_all_cost ; // Compute gross profit based on the current sales proceeds and tax amount
+        var gross_profit = (sales_proceeds - tax_amount) - over_all_cost; // Compute gross profit based on the current sales proceeds and tax amount
 
         $("#gross_profit").val(gross_profit.toLocaleString('en-US', {
             minimumFractionDigits: 2
@@ -809,7 +750,7 @@ function calculateSalesTotals() {
 
 
 
-    $(document).on('click', '.btnPrint', function(e) {
+    $(document).on('click', '.btnPrint', function (e) {
         // Check if 'sale_buyer' input is readonly
         if (!$('#sale_buyer').prop('readonly')) {
             // If not readonly, show alert and return
@@ -831,7 +772,7 @@ function calculateSalesTotals() {
             var tWindow = window.open("");
             $(tWindow.document.body)
                 .html("<img id='Image' src=" + myImage + " style='width:100%;'></img>")
-                .ready(function() {
+                .ready(function () {
                     tWindow.focus();
                     tWindow.print();
                 });

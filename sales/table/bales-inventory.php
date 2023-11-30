@@ -62,7 +62,7 @@ if (mysqli_num_rows($result) > 0) {
     }
 } else {
     $output .= '<tr>
-     <td colspan="4">Nothings in the cart</td>
+     <td colspan="4">No data available</td>
  </tr>';
 }
 

@@ -12,6 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $ship_info_lading = $_POST['ship_info_lading'] ?? '';
     $ship_remarks = $_POST['ship_remarks'] ?? '';
     $ship_recorded = $_POST['ship_recorded'] ?? '';
+    $particular = $_POST['particular'] ?? '';
+
 
     $total_num_bales = isset($_POST['total_num_bales']) ? preg_replace("/[^0-9.]/", "", $_POST['total_num_bales']) : '';
     $total_bale_weight = isset($_POST['total_bale_weight']) ? preg_replace("/[^0-9.]/", "", $_POST['total_bale_weight']) : '';
@@ -51,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "Ship Cost per Container: " . $ship_cost_per_container . "<br/>";
     echo "</pre>";
     // // Your SQL update query
-    $query = "UPDATE bale_shipment_record SET status='Complete',type = '$type', ship_date = '$ship_date', 
+    $query = "UPDATE bale_shipment_record SET status='Complete',particular = '$particular',type = '$type', ship_date = '$ship_date', 
     destination = '$ship_destination', source = '$ship_source', vessel = '$ship_vessel', bill_lading = '$ship_info_lading',
      remarks = '$ship_remarks', recorded_by = '$ship_recorded', total_num_bales = '$total_num_bales', total_bale_weight = '$total_bale_weight', 
      total_bale_cost = '$total_bale_cost', freight = '$freight', loading_unloading = '$loading_expense', processing_fee = '$ship_exp_processing', 
@@ -65,13 +67,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($results) {
 
         // Fetch the current record
-        $query = "SELECT * FROM bales_container_record WHERE container_id = '$container_id'";
+        $query = "SELECT * FROM bales_shipment_container WHERE shipment_id='$ship_id'";
         $result = mysqli_query($con, $query);
 
         // Check if any rows were returned
         if (mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_assoc($result);
-
+            $container_id= $row['container_id'];
             // Check status and perform appropriate update
             if ($row['status'] == 'Sold') {
                 $updateStatus = 'Sold';
@@ -86,9 +88,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         header("Location: ../bale_shipment_record.php");  // Change this to your desired location
-
-
-
 
 
         exit();

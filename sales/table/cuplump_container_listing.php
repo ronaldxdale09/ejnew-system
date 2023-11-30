@@ -1,7 +1,9 @@
 <style>
     #rubber-table th,
-    #rubber-table td {
-        font-weight: normal;
+    #rubber-table td,
+    #rubber-table input,
+    #rubber-table select {
+        font-weight: normal !important;
     }
 </style>
 
@@ -21,46 +23,38 @@ if (!$result) {
 
 
 $output = '
-<table class="table"  id="rubber-table" >
-    <thead style="font-weight: normal;">
-        <tr style="font-weight: normal;">
-            <th scope="col" width="15%">Supplier</th>
-            <th scope="col" >Weight</th>
-            <th scope="col"width="12%"> Type</th>
-            <th scope="col">Wet Cost</th>
-            <th scope="col">Dry Cost</th>
-            <th scope="col">DRC</th>
-            <th scope="col">Cuplump Cost</th>
-        </tr>
-    </thead>
-    <tbody>';
 
-// Fetch the data from the database and output each row
+<button type="button" id="addRow" class="btn btn-success">+ Add Inventory</button>
+<table class="table custom-table"  id="rubber-table" >
+    <thead style="font-weight: normal !important;">
+    <tr>
+        <th scope="col" hidden></th>
+        <th scope="col">Supplier</th>
+        <th scope="col">Buying Weight</th>
+        <th scope="col">Final DRC</th>
+        <th scope="col">Dry/Selling Weight</th>
+        <th scope="col">Cost Per Kilo (₱)</th>
+        <th scope="col">Total Cost (₱)</th>
+        <th scope="col">Amount Paid (₱)</th>
+        <th scope="col">Remarks</th>
+    </tr>
+
+    </thead>
+    <tbody   style="font-weight: normal !important;">';
+
 while ($row = mysqli_fetch_assoc($result)) {
     $output .= "<tr>";
 
-    $output .= '<td><input type="text"  readonly class="form-control " name="supplier[]" readonly value="' . $row['supplier'] . '"></td>';
-    $output .= '<td><input type="text"  readonly onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"class="form-control weight"   value="' . number_format($row['loading_weight'],2) . '"></td>';
-    $output .= '<td><select class="form-control kilo_bale" name="cost_type[]" readonly>';
-    $costType = ['WET', 'DRY'];
-    foreach ($costType as $type) {
-        if ($type == $row['cost_type']) {
-            $output .= '<option value="' . $type . '">' . $type . '</option>';
-        } else {
-            $output .= '<option value="' . $type . '">' . $type . '</option>';
-        }
-    }
-    $output .= '</select></td>';
-
-    $output .= '<td><input type="text" readonly onkeypress="return CheckNumeric()"  onkeyup="FormatCurrency(this)" class="form-control wetInput" readonly value="' . $row['wet_cost'] . '"></td>';
-    $output .= '<td><input type="text"  readonly onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" class="form-control dryInput" value="' . $row['dry_cost'] . '"></td>';
-    $output .= '<td>
-            <div class="input-group">
-                <input type="text" readonly  onkeypress="return CheckNumeric()"  onkeyup="FormatCurrency(this)" class="form-control drcInput"  value="' . $row['drc'] . '">
-                <span class="input-group-text">%</span>
-            </div>
-        </td>';
-    $output .= '<td><input type="text" readonly class="form-control cuplump_cost"  value="' . number_format($row['cuplump_cost'],2). '"></td>';
+    // Each column now displays data as text instead of inputs
+    $output .= '<td hidden>' . $row['cuplump_inventory_id'] . '</td>';
+    $output .= '<td>' . $row['supplier'] . '</td>';
+    $output .= '<td>' . number_format($row['buying_weight'], 2) . ' kg</td>';
+    $output .= '<td>' . number_format($row['drc'], 2) . '%</td>';
+    $output .= '<td>' . number_format($row['dry_weight'], 2) . ' kg</td>';
+    $output .= '<td>₱' . number_format($row['cost_per_kilo'], 2) . '</td>';
+    $output .= '<td>₱' . number_format($row['total_cost'], 2) . '</td>';
+    $output .= '<td>₱' . number_format($row['amount_paid'], ) . '</td>';
+    $output .= '<td>' . $row['inv_remarks'] . '</td>';
 
     $output .= "</tr>";
 }
@@ -74,16 +68,16 @@ $output .= '
     <label style="font-size:15px" class="col-md-12">Total Cuplump
         Weight</label>
     <div class="input-group mb-3">
-        <input type="text" class="form-control" id="total-cuplump-weight" tabindex="7" autocomplete="off" style="width: 100px;" readonly />
+        <input type="text" class="form-control small-font-input" name="total_cuplump_weight" id="total-cuplump-weight" tabindex="7" autocomplete="off" style="width: 100px;" readonly />
         <span class="input-group-text">kg</span>
-    </div>
+        </div>
 </div>
 <div class="col">
     <label style="font-size:15px" class="col-md-12">Total Cuplump
         Cost</label>
     <div class="input-group mb-3">
         <span class="input-group-text">₱</span>
-        <input type="text" class="form-control"  id="total-cuplump-cost" tabindex="7" autocomplete="off" style="width: 100px;" readonly />
+        <input type="text" class="form-control small-font-input" name="total_cuplump_cost" id="total-cuplump-cost" tabindex="7" autocomplete="off" style="width: 100px;" readonly />
     </div>
 </div>
 <div class="col">
@@ -91,7 +85,7 @@ $output .= '
         Cost</label>
     <div class="input-group mb-3">
         <span class="input-group-text">₱</span>
-        <input type="text" class="form-control"  id="average-cuplump-cost" tabindex="7" autocomplete="off" style="width: 100px;" readonly />
+        <input type="text" class="form-control small-font-input" name="average_cuplump_cost" id="average-cuplump-cost" tabindex="7" autocomplete="off" style="width: 100px;" readonly />
     </div>
 </div>
 </div>
@@ -104,49 +98,42 @@ echo $output;
 
 
 <script>
-    $(document).ready(function() {
-        computeTotalsAndAverage();
+    $(document).ready(function () {
 
-
-        function computeTotalsAndAverage() {
+        function calculateTotalsAndAverages() {
             var totalWeight = 0;
             var totalCost = 0;
-            var averageCost = 0;
             var rowCount = 0;
 
-            $("#rubber-table tbody tr").each(function() {
-                var weight = parseFloat($(this).find('.weight').val().replace(/,/g, '')) || 0;
-                var cost = parseFloat($(this).find('.cuplump_cost').val().replace(/,/g, '')) || 0;
+            // Loop through each row of the table to sum up the weights and costs
+            $('#rubber-table tbody tr').each(function () {
+                var weightStr = $(this).find('td:nth-child(3)').text().replace(' kg', '').replace(/,/g, '');
+                var costStr = $(this).find('td:nth-child(7)').text().replace('₱', '').replace(/,/g, '');
 
-                totalWeight += weight;
-                totalCost += cost;
-                rowCount++;
+                var weight = parseFloat(weightStr);
+                var cost = parseFloat(costStr);
+
+                if (!isNaN(weight) && weight > 0) {
+                    totalWeight += weight;
+                    rowCount++;
+                }
+
+                if (!isNaN(cost) && cost > 0) {
+                    totalCost += cost;
+                }
             });
 
-            // Compute average cost if possible
-            if (rowCount > 0) {
-                averageCost = totalCost / totalWeight;
-            }
+            // Calculate the average cost
+            var averageCost = rowCount > 0 ? totalCost / totalWeight : 0;
 
-            // Update the total and average fields
-            // Update the total and average fields
-            $('#total-cuplump-weight').val(totalWeight.toLocaleString('en-US', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            }));
-            $('#total-cuplump-cost').val(totalCost.toLocaleString('en-US', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            }));
-            $('#average-cuplump-cost').val(averageCost.toLocaleString('en-US', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            }));
-
+            // Update the total and average fields with comma separators
+            $('#total-cuplump-weight').val(totalWeight.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' kg');
+            $('#total-cuplump-cost').val('₱' + totalCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}));
+            $('#average-cuplump-cost').val('₱' + averageCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}));
         }
 
-
-
+        // Initial calculation on page load
+        calculateTotalsAndAverages();
 
     });
 </script>

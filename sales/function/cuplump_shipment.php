@@ -6,11 +6,10 @@
         $ship_date = $_POST['n_date'];
         $destination = $_POST['destination'];
         $source = $_POST['source'];
-        $vessel = $_POST['vessel'];
-        $bill_lading = $_POST['info_lading'];
         $remarks = $_POST['remarks'];
         $recorded_by = $_POST['recorded_by'];
-    
+        $particular = $_POST['particular'];
+        
         // Assuming you have default values or calculations for the following fields
         $freight = 0;
         $loading_unloading = 0;
@@ -23,8 +22,8 @@
         $ship_cost_container = 0;
     
         // Creating the SQL query
-        $query = "INSERT INTO sales_cuplump_shipment (status,type, ship_date, destination, source, vessel, bill_lading, remarks, recorded_by, freight, loading_unloading, processing_fee, trucking_expense, cranage_fee, miscellaneous, total_shipping_expense, no_containers, ship_cost_container) 
-                                VALUES ('In Progress','$type', '$ship_date', '$destination', '$source', '$vessel', '$bill_lading', '$remarks', '$recorded_by', '$freight', '$loading_unloading', '$processing_fee', '$trucking_expense', '$cranage_fee', '$miscellaneous', '$total_shipping_expense', '$no_containers', '$ship_cost_container')";
+        $query = "INSERT INTO sales_cuplump_shipment (status,type,particular, ship_date, destination, source, remarks, recorded_by, freight, loading_unloading, processing_fee, trucking_expense, cranage_fee, miscellaneous, total_shipping_expense, no_containers, ship_cost_container) 
+                                VALUES ('In Progress','$type','$particular',  '$ship_date', '$destination', '$source', '$remarks', '$recorded_by', '$freight', '$loading_unloading', '$processing_fee', '$trucking_expense', '$cranage_fee', '$miscellaneous', '$total_shipping_expense', '$no_containers', '$ship_cost_container')";
     
         // Executing the query
         $results = mysqli_query($con, $query);

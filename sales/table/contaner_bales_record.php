@@ -55,7 +55,7 @@ if (!$result) {
         <th scope="col"> Weight</th>
         <th scope="col" >Bale Cost</th>
         <th scope="col" >Milling Cost</th>
-        <th scope="col" >Ship Exp.</th>
+        <th scope="col" >Ship Expense</th>
 
         </tr>
     </thead>

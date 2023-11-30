@@ -32,6 +32,8 @@ $output = '
 // Fetch the data from the database and output each row
 
 while ($row = mysqli_fetch_assoc($result)) {
+    $exchangeRateValue = $row["currency"] === 'PHP' ? '1' : ''; // Set exchange rate to 1 if currency is PHP, else leave empty
+
     $output .= '
     <tr>
     <td hidden><input type="text"  class="form-control payment_id" name="payment_id[]" value="' . $row['payment_id'] . '" ></td>
@@ -135,24 +137,25 @@ echo $output;
             counter++;
             // Get the selected currency
             var selectedCurrency = $("#sale_currency").val();
+            var exchangeRateValue = selectedCurrency === 'PHP' ? '1' : ''; // Set exchange rate to 1 if currency is PHP, else leave empty
 
             // Append the row
             var newRow = `
                 <tr>
                     <td hidden><input type="text" class="form-control payment_id" name="payment_id[]"></td>
                     <td><input type="date" class="form-control" name="pay_date[]"></td>
-                    <td><input type="text" class="form-control weight" name="pay_details[]"></td>
+                    <td><input type="text" class="form-control " name="pay_details[]"></td>
                     <td>
                         <div class="input-group mb-3">
                             <span class="input-group-text payment-currency-symbol">${selectedCurrency}</span>
-                            <input type="text" class="form-control weight payAmount"  onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" name="pay_amount[]">
+                            <input type="text" class="form-control  payAmount"  onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" name="pay_amount[]">
                         </div>
                     </td>
-                    <td><input type="text"  class="form-control weight payRate" name="pay_rate[]"></td>
+                    <td><input type="text" class="form-control  payRate" name="pay_rate[]" value="${exchangeRateValue}"></td>
                     <td>
                         <div class="input-group mb-3">
                             <span class="input-group-text">₱</span>
-                            <input type="text" class="form-control weight pesoEquivalent" name="peso_equivalent[]">
+                            <input type="text" class="form-control  pesoEquivalent" name="peso_equivalent[]">
                         </div>
                     </td>
                     <td><button class="btn btn-danger removePayment" id="removePayment"><i class="fas fa-trash"></i></button></td>

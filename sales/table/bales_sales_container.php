@@ -1,19 +1,19 @@
 <?php
 include('../../function/db.php');
 $output = '';
-$sales_id = $_POST['sales_id'];
+$sales_id = isset($_POST['sales_id']) ? mysqli_real_escape_string($con, $_POST['sales_id']) : '';
 
-$result  = mysqli_query($con, "SELECT * from bales_sales_container
+$result = mysqli_query($con, "SELECT * from bales_sales_container
 LEFT JOIN bales_container_record ON bales_container_record.container_id =  bales_sales_container.container_id
-Where sales_id = '$sales_id'  ");
+WHERE sales_id = '$sales_id'");
 $total_bales = 0;
 $total_weight = 0;
 $total_bale_cost = 0;
 $total_production_cost = 0;
 $number_container = 0;
 $total_ship_exp = 0;
-$output .= '
-<table class="table table-bordered table-hover table-striped" id="recording_table-receiving">
+
+$output .= '<table class="table table-bordered table-hover table-striped" id="recording_table-receiving">
            <thead class="table-dark" style="font-size: 12px !important" >
            <tr>
            <th scope="col">ID</th>
@@ -27,27 +27,26 @@ $output .= '
            <th scope="col" >Milling Cost</th>
            <th scope="col" >Total Bale Cost</th>
            <th scope="col" >Total Milling Cost</th>
-           <th scope="col" >Ship Exp.</th>
+           <th scope="col" >Ship Expense</th>
            <th scope="col">Remarks</th>
            <th scope="col" hidden>Recorded</th>
-    
            <th ></th>
        </tr>
            </thead>';
 
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_array($result)) {
-        $total_bales +=  preg_replace("/[^0-9\.]/", "", $row['num_bales']);
-        $total_bale_cost +=  floatval($row['total_bale_cost']);
-        $total_weight += $row["total_weight"];
-        $total_ship_exp += $row["ship_expense"];
-        $total_production_cost += $row["total_milling_cost"];
+        $total_bales += preg_replace("/[^0-9\.]/", "", $row['num_bales']);
+        $total_bale_cost += floatval($row['total_bale_cost']);
+        $total_weight += floatval($row["total_weight"]);
+        $total_ship_exp += floatval($row["ship_expense"]);
+        $total_production_cost += floatval($row["total_milling_cost"]);
         $number_container++;
         $output .= '
         <tr>
         <td class="nowrap">' . $row["container_id"] . '</td>
         <td class="nowrap">' . $row["van_no"] . '</td>
-        <td hidden>' .  date("F j, Y", strtotime($row["withdrawal_date"])) . '</td>
+        <td hidden>' . date("F j, Y", strtotime($row["withdrawal_date"])) . '</td>
         <td class="nowrap">' . $row["quality"] . '</td>
         <td class="nowrap number-cell">' . $row["kilo_bale"] . ' kg</td>
         <td class="nowrap number-cell">' . number_format($row["num_bales"], 0, ".", ",") . ' pcs</td>
@@ -59,115 +58,59 @@ if (mysqli_num_rows($result) > 0) {
         <td class="nowrap number-cell">₱ ' . number_format($row["ship_expense"], 2, ".", ",") . ' </td>
         <td class="nowrap">' . $row["remarks"] . '</td>
         <td class="nowrap" hidden>' . $row["recorded_by"] . '</td>
-            <td><button type="button" id="removeContainer" class="btn btn-danger btn-sm removeContainer"><i
-            class="fa fa-trash"></i></button> </td>
-        </tr>
-        ';
+        <td><button type="button" id="removeContainer" class="btn btn-danger btn-sm removeContainer"><i class="fa fa-trash"></i></button> </td>
+        </tr>';
     }
 } else {
-    $output .= '<tr>
-     <td colspan="4">No row data</td>
- </tr>';
+    $output .= '<tr><td colspan="4">No row data</td></tr>';
 }
 
-$output .= '</table>
+// Calculate the overall cost and average cost per kilo
+$overall_cost = $total_bale_cost  + $total_production_cost;
+$overall_ave_kilo_cost = $total_weight > 0 ? $overall_cost / $total_weight : 0;
 
-
-    <script>
-    document.getElementById("total_num_bales").value = "' . number_format($total_bales) . ' ";
-    document.getElementById("total_bale_weight").value = "' . number_format($total_weight) . ' ";
-    document.getElementById("total_bale_cost").value = " ' . number_format($total_bale_cost, 2) . '";
-    document.getElementById("total_ship_exp").value = " ' . number_format($total_ship_exp, 2) . '";
-
-    document.getElementById("total_production_cost").value = " ' . number_format($total_production_cost, 2) . '";
-
-
-
-    document.getElementById("number_container").value = "' . $number_container . '";
-
-
-    var contract_price = parseFloat(document.getElementById("contract_price").value.replace(/,/g, "")) || 0;
-    var total_bale_weight = parseFloat(document.getElementById("total_bale_weight").value.replace(/,/g, "")) || 0;
-
-    var total_sale = total_bale_weight * contract_price;
-
-    document.getElementById("total_sale").value = Number(total_sale.toFixed(2)).toLocaleString("en");
-
-
-
-
-    var total_bale_cost = parseFloat(document.getElementById("total_bale_cost").value.replace(/,/g, "")) || 0;
-    var total_production_cost = parseFloat(document.getElementById("total_production_cost").value.replace(/,/g, "")) || 0;
-    var total_ship_exp = parseFloat(document.getElementById("total_ship_exp").value.replace(/,/g, "")) || 0;
-
-    var overall_cost = total_bale_cost + total_production_cost + total_ship_exp;
-    document.getElementById("over_all_cost").value = overall_cost.toLocaleString("en-US", {minimumFractionDigits: 2, maximumFractionDigits: 2});
-
-
-
-    overall_ave_kilo_cost = overall_cost / total_bale_weight;
-
-    document.getElementById("overall_ave_kiloCost").value =overall_ave_kilo_cost.toLocaleString("en-US", {minimumFractionDigits: 2, maximumFractionDigits: 2});
-
-
-
-
-    </script>
-
-
-';
-
+$output .= '</table>';
 echo $output;
-
 ?>
 
-
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
+        // Use PHP variables directly
+        $('#total_num_bales').val("<?php echo number_format($total_bales); ?>");
+        $('#total_bale_weight').val("<?php echo number_format($total_weight, 2); ?>");
+        $('#total_bale_cost').val("<?php echo number_format($total_bale_cost, 2); ?>");
+        $('#total_ship_exp').val("<?php echo number_format($total_ship_exp, 2); ?>");
+        $('#total_production_cost').val("<?php echo number_format($total_production_cost, 2); ?>");
+        $('#number_container').val("<?php echo $number_container; ?>");
 
+        // Use the computed overall cost and average kilo cost
+        $('#over_all_cost').val("<?php echo number_format($overall_cost, 2); ?>");
+        $('#overall_ave_kiloCost').val("<?php echo number_format($overall_ave_kilo_cost, 2); ?>");
 
-        $('.removeContainer').on('click', function() {
+        $('.removeContainer').on('click', function () {
+            var $tr = $(this).closest('tr');
+            var containerId = $tr.find("td").first().text();
 
-
-            $tr = $(this).closest('tr');
-            var data = $tr.children("td").map(function() {
-                return $(this).text();
-            }).get();
-
-            $tr.each(function() {
-                ;
-
-
-                var container_id = data[0];
-                var sales_id = <?php echo $sales_id ?>;
-
-                $.ajax({
-                    method: "POST",
-                    url: "table/button/bales_sales_remove_container.php",
-                    data: {
-                        container_id: container_id,
-                        sales_id: sales_id,
-
-
-                    },
-                    success: function(data) {
-                        console.log('success');
-                        console.log(data);
-                        fetch_container();
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'info',
-                            title: 'Container Removed!',
-                            showConfirmButton: false,
-                            timer: 1000
-                        })
-                    }
-                });
+            $.ajax({
+                method: "POST",
+                url: "table/button/bales_sales_remove_container.php",
+                data: {
+                    container_id: containerId,
+                    sales_id: "<?php echo $sales_id; ?>"
+                },
+                success: function (response) {
+                    console.log('success');
+                    console.log(response);
+                    fetch_container();
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'info',
+                        title: 'Container Removed!',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                }
             });
-
-
         });
-
-
     });
 </script>

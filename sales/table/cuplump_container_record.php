@@ -24,21 +24,23 @@ if (!$result) {
 
 $output = '
 
-<button type="button" id="addRow" class="btn btn-success">+ Add Inventory</button>
-<table class="table"  id="rubber-table" >
+<button type="button" id="addRow" class="btn btn-success">+ Add Container</button>
+<table class="table custom-table"  id="rubber-table" >
     <thead style="font-weight: normal !important;">
-        <tr style="font-weight: normal;">
+    <tr>
         <th scope="col" hidden></th>
-            <th scope="col" width="15%">Supplier</th>
-            <th scope="col">Location</th>
-            <th scope="col" >Loading Weight</th>
-            <th scope="col"width="8%"> Type</th>
-            <th scope="col">Wet Cost (₱)</th>
-            <th scope="col">Dry Cost (₱)</th>
-            <th scope="col">DRC</th>
-            <th scope="col">Total Cost (₱)</th>
-            <th scope="col">Amount Paid (₱)</th>
-        </tr>
+        <th scope="col" width="15%" style="white-space: nowrap;">Supplier</th>
+        <th scope="col" width="10%" style="white-space: nowrap;">Buying Weight</th>
+        <th scope="col" width="9%"  style="white-space: nowrap;">Final DRC</th>
+        <th scope="col" style="white-space: nowrap;">Dry/Selling Weight</th>
+        <th scope="col" style="white-space: nowrap;">Cost Per Kilo (₱)</th>
+        <th scope="col" style="white-space: nowrap;">Total Cost (₱)</th>
+
+        <th scope="col" style="white-space: nowrap;">Amount Paid (₱)</th>
+        <th scope="col" style="white-space: nowrap;">Remarks</th>
+        <th scope="col"></th>
+    </tr>
+
     </thead>
     <tbody   style="font-weight: normal !important;">';
 
@@ -46,40 +48,48 @@ $output = '
 while ($row = mysqli_fetch_assoc($result)) {
     $output .= "<tr>";
 
-    $output .= '<td hidden><input type="text"  readonly class="form-control  " name="inventory_id[]" readonly value="' . $row['cuplump_inventory_id'] . '"></td>';
-    $output .= '<td><input type="text" class="form-control " name="supplier[]"  value="' . $row['supplier'] . '"></td>';
-    $output .= '<td><input type="text" class="form-control " name="location[]"  value="' . $row['location'] . '"></td>';
+    // Hidden inventory ID
+    $output .= '<td hidden><input type="text" readonly class="form-control small-font-input" name="inventory_id[]" value="' . $row['cuplump_inventory_id'] . '"></td>';
+
+    // Supplier
+    $output .= '<td><input type="text" class="form-control small-font-input" name="supplier[]" value="' . $row['supplier'] . '"></td>';
+
+    // Buying Weight with comma separator
     $output .= '<td>
     <div class="input-group">
-    <input type="text" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"class="form-control weight" name="loading_weight[]"  value="' . $row['loading_weight'] . '">
+    <input type="text" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" class="form-control small-font-input weight" name="buying_weight[]" value="' . number_format($row['buying_weight'], 0) . '">
     <span class="input-group-text">kg</span>
     </div>
     </td>';
-    $output .= '<td><select class="form-control kilo_bale" name="cost_type[]">';
-    $costType = ['WET', 'DRY'];
-    foreach ($costType as $type) {
-        if ($type == $row['cost_type']) {
-            $output .= '<option value="' . $type . '">' . $type . '</option>';
-        } else {
-            $output .= '<option value="' . $type . '">' . $type . '</option>';
-        }
-    }
-    $output .= '</select></td>';
 
-    $output .= '<td><input type="text" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" class="form-control wetInput" name="wet_cost[]" readonly value="' . $row['wet_cost'] . '" ' . ($row['cost_type'] == 'DRY' ? 'readonly' : '') . '></td>';
-    $output .= '<td><input type="text" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" class="form-control dryInput" name="dry_cost[]" value="' . $row['dry_cost'] . '" ' . ($row['cost_type'] == 'WET' ? 'readonly' : '') . '></td>';
+    // DRC
     $output .= '<td>
-            <div class="input-group">
-                <input type="text" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" class="form-control drcInput" name="drc[]" value="' . $row['drc'] . '" ' . ($row['cost_type'] == 'WET' ? 'readonly' : '') . '>
-                <span class="input-group-text">%</span>
-            </div>
-        </td>';
-    $output .= '<td><input type="text" class="form-control cuplump_cost" name="cuplump_cost[]" value="' . $row['cuplump_cost'] . '"></td>';
-    $output .= '<td><input type="text" class="form-control amount_paid" name="amount_paid[]" value="' . $row['amount_paid'] . '"></td>';
-    $output .= '<td><button class="btn btn-danger removeRow"><i class="fas fa-trash"></i></button></td>';
+    <div class="input-group">
+    <input type="text" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" class="form-control small-font-input drcInput" name="drc[]" value="' . number_format($row['drc'], 2) . '">
+    <span class="input-group-text">%</span>
+    </div>
+    </td>';
+
+    // Dry Weight, Cost Per Kilo, Total Cost, and Amount Paid with comma separator
+    $output .= '<td>
+    <div class="input-group">
+    <input type="text" class="form-control small-font-input dry_weight" name="dry_weight[]" readonly value="' . number_format($row['dry_weight'], 2) . '">
+    <span class="input-group-text">kg</span>
+    </div>
+    </td>';
+    $output .= '<td><input type="text" class="form-control small-font-input cost_per_kilo" name="cost_per_kilo[]" readonly value="' . number_format($row['cost_per_kilo'], 2) . '"></td>';
+    $output .= '<td><input type="text" class="form-control small-font-input total_cost" name="total_cost[]" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" value="' . number_format($row['total_cost'], 2) . '"></td>';
+    $output .= '<td><input type="text" class="form-control small-font-input amount_paid" name="amount_paid[]" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" value="' . number_format($row['amount_paid'], 2) . '"></td>';
+
+    // Remarks
+    $output .= '<td><input type="text" class="form-control small-font-input remarks" name="inv_remarks[]" value="' . $row['inv_remarks'] . '"></td>';
+
+    // Delete button
+    $output .= '<td><button class="btn btn-sm btn-danger removeRow"><i class="fas fa-trash"></i></button></td>';
 
     $output .= "</tr>";
 }
+
 
 $output .= '
     </tbody>
@@ -87,10 +97,18 @@ $output .= '
 
 <div class="row">
 <div class="col">
-    <label style="font-size:15px" class="col-md-12">Total Cuplump
+    <label style="font-size:15px" class="col-md-12">Total Buying
         Weight</label>
     <div class="input-group mb-3">
-        <input type="text" class="form-control" name="total_cuplump_weight" id="total-cuplump-weight" tabindex="7" autocomplete="off" style="width: 100px;" readonly />
+        <input type="text" class="form-control small-font-input" name="total_cuplump_weight" id="total-cuplump-weight" tabindex="7" autocomplete="off" style="width: 100px;" readonly />
+        <span class="input-group-text">kg</span>
+        </div>
+</div>
+<div class="col">
+    <label style="font-size:15px" class="col-md-12">Total Selling
+        Weight</label>
+    <div class="input-group mb-3">
+        <input type="text" class="form-control small-font-input total_selling_weight" name="total_selling_weight" id="total_selling_weight" tabindex="7" autocomplete="off" style="width: 100px;"  />
         <span class="input-group-text">kg</span>
         </div>
 </div>
@@ -99,7 +117,7 @@ $output .= '
         Cost</label>
     <div class="input-group mb-3">
         <span class="input-group-text">₱</span>
-        <input type="text" class="form-control" name="total_cuplump_cost" id="total-cuplump-cost" tabindex="7" autocomplete="off" style="width: 100px;" readonly />
+        <input type="text" class="form-control small-font-input" name="total_cuplump_cost" id="total-cuplump-cost" tabindex="7" autocomplete="off" style="width: 100px;" readonly />
     </div>
 </div>
 <div class="col">
@@ -107,7 +125,7 @@ $output .= '
         Cost</label>
     <div class="input-group mb-3">
         <span class="input-group-text">₱</span>
-        <input type="text" class="form-control" name="average_cuplump_cost" id="average-cuplump-cost" tabindex="7" autocomplete="off" style="width: 100px;" readonly />
+        <input type="text" class="form-control small-font-input" name="average_cuplump_cost" id="average-cuplump-cost" tabindex="7" autocomplete="off" style="width: 100px;" readonly />
     </div>
 </div>
 </div>
@@ -120,148 +138,122 @@ echo $output;
 
 
 <script>
-    $(document).ready(function() {
-        computeTotalsAndAverage();
+    $(document).ready(function () {
+
+        // Function to sanitize and validate input
+        function sanitizeInput(value) {
+            return parseFloat(value.replace(/,/g, '') || 0);
+        }
+
+        // Function to calculate Dry Weight
+        function calculateDryWeight(buyingWeight, drc) {
+            return buyingWeight * (drc / 100);
+        }
+
+        // Function to calculate Cost Per Kilo
+        function calculateCostPerKilo(totalCost, buyingWeight) {
+            return buyingWeight > 0 ? totalCost / buyingWeight : 0;
+        }
+
+        // Function to calculate totals and averages
+        function calculateTotalsAndAverages() {
+            var totalBuyingWeight = 0, totalSellingWeight = 0, totalCost = 0;
+
+            // Loop through each row of the table to sum up the weights and costs
+            $('#rubber-table tbody tr').each(function () {
+                var weight = sanitizeInput($(this).find('.weight').val());
+                var sellingWeight = sanitizeInput($(this).find('.dry_weight').val());
+                var cost = sanitizeInput($(this).find('.total_cost').val());
+
+                if (!isNaN(sellingWeight) && sellingWeight > 0) {
+                    totalSellingWeight += sellingWeight;
+                }
+
+                if (!isNaN(weight) && weight > 0) {
+                    totalBuyingWeight += weight;
+                }
+
+                if (!isNaN(cost) && cost > 0) {
+                    totalCost += cost;
+                }
+            });
+
+            // Calculate the average cost (using totalBuyingWeight)
+            var averageCost = totalBuyingWeight > 0 ? totalCost / totalBuyingWeight : 0;
+
+            // Update the total and average fields
+            $('#total-cuplump-weight').val(totalBuyingWeight.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+            $('#total_selling_weight').val(totalSellingWeight.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+            $('#total-cuplump-cost').val(totalCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+            $('#average-cuplump-cost').val(averageCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+        }
+
+        // Event handler for input changes
+        $(document).on('input', '.weight, .drcInput, .total_cost', function () {
+            var row = $(this).closest('tr');
+            var buyingWeight = sanitizeInput(row.find('.weight').val());
+            var drc = sanitizeInput(row.find('.drcInput').val());
+            var totalCost = sanitizeInput(row.find('.total_cost').val());
+
+            if (!isNaN(buyingWeight) && !isNaN(drc)) {
+                var dryWeight = calculateDryWeight(buyingWeight, drc);
+                row.find('.dry_weight').val(dryWeight.toFixed(2));
+            }
+
+            if (!isNaN(totalCost) && !isNaN(buyingWeight)) {
+                var costPerKilo = calculateCostPerKilo(totalCost, buyingWeight);
+                row.find('.cost_per_kilo').val(costPerKilo.toFixed(2));
+            }
+
+            calculateTotalsAndAverages();
+        });
+
+
+
         var counter = 0;
 
-        $("#addRow").on("click", function() {
+        $("#addRow").on("click", function () {
             var newRow = $('<tr>' +
-                '<td hidden><input type="text" class="form-control inventory_id" name="inventory_id[]"></td>'+
-                '<td><input type="text" class="form-control " name="supplier[]" ></td>' +
-                '<td><input type="text" class="form-control " name="location[]" ></td>' +
+                '<td hidden><input type="text" class="form-control small-font-input" name="inventory_id[]" readonly value=""></td>' +
+                '<td><input type="text" class="form-control small-font-input" name="supplier[]"></td>' +
                 '<td>' +
                 '<div class="input-group">' +
-                '<input type="text"  onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"  class="form-control weight" name="loading_weight[]" >' +
+                '<input type="text" class="form-control small-font-input weight" name="buying_weight[]">' +
                 '<span class="input-group-text">kg</span>' +
                 '</div>' +
                 '</td>' +
                 '<td>' +
-                '<select class="form-control type" name="cost_type[]">' +
-                '<option selected="selected" disabled value="">Select...</option>' +
-                '<option value="WET">WET</option>' +
-                '<option value="DRY">DRY</option>' +
-                '</select>' +
-                '</td>' +
-                '<td><input type="text"  onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" class="form-control wetInput" name="wet_cost[]" ></td>' +
-                '<td><input type="text"  onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" class="form-control dryInput" name="dry_cost[]"></td>' +
-                '<td>' +
                 '<div class="input-group">' +
-                '<input type="text"  onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" class="form-control drcInput" name="drc[]">' +
+                '<input type="text" class="form-control small-font-input drcInput" name="drc[]">' +
                 '<span class="input-group-text">%</span>' +
                 '</div>' +
                 '</td>' +
-                '<td><input type="text" class="form-control cuplump_cost" name="cuplump_cost[]" readonly></td>' +
-                '<td><input type="text" class="form-control amount_paid"   onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"  name="amount_paid[]" ></td>' +
-                '<td><button class="btn btn-danger removeRow"><i class="fas fa-trash"></i></button></td>' +
+                '<td>' +
+                '<div class="input-group">' +
+                '<input type="text" class="form-control small-font-input dry_weight" name="dry_weight[]" readonly value="">' +
+                '<span class="input-group-text">kg</span>' +
+                '</div>' +
+                '</td>' +
+                '<td><input type="text" class="form-control small-font-input cost_per_kilo" name="cost_per_kilo[]" readonly value=""></td>' +
+                '<td><input type="text" class="form-control small-font-input total_cost" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" name="total_cost[]"></td>' +
+                '<td><input type="text" class="form-control small-font-input amount_paid" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" name="amount_paid[]"></td>' +
+                '<td><input type="text" class="form-control small-font-input remarks" name="inv_remarks[]"></td>' +
+                '<td><button class="btn btn-sm btn-danger removeRow"><i class="fas fa-trash"></i></button></td>' +
                 '</tr>');
-            counter++;
-            computeTotalsAndAverage();
+
             $("#rubber-table tbody").append(newRow);
         });
 
-        $(document).on("change", ".type", function() {
-            var row = $(this).closest("tr");
-            var selectedType = row.find(".type").val();
-            var dryInput = row.find(".dryInput").val("");
-            var wetInput = row.find(".wetInput").val("");
-            var drcInput = row.find(".drcInput").val("");
 
-
-            if (selectedType == 'DRY') {
-                wetInput.prop("readonly", true);
-                wetInput.val(''); // Clear the value
-                dryInput.prop("readonly", false);
-                drcInput.prop("readonly", false);
-            } else {
-                wetInput.prop("readonly", false);
-                dryInput.prop("readonly", true);
-                dryInput.val(''); // Clear the value
-                drcInput.prop("readonly", true);
-                drcInput.val(''); // Clear the value
-            }
+        // Event handler for removing a row
+        $(document).on("click", ".removeRow", function () {
+            $(this).closest("tr").remove();
+            calculateTotalsAndAverages();
         });
 
-        $(document).on("keyup", ".wetInput, .dryInput, .drcInput, .weight", function() {
-            calculateCuplumpCost($(this));
-        });
-        $(document).on('keyup', ".wetInput, .dryInput, .drcInput, .weight", function() {
-            computeTotalsAndAverage();
-        });
-
-        function computeTotalsAndAverage() {
-            var totalWeight = 0;
-            var totalCost = 0;
-            var averageCost = 0;
-            var rowCount = 0;
-
-            $("#rubber-table tbody tr").each(function() {
-                var weight = parseFloat($(this).find('.weight').val().replace(/,/g, '')) || 0;
-                var cost = parseFloat($(this).find('.cuplump_cost').val().replace(/,/g, '')) || 0;
-
-                totalWeight += weight;
-                totalCost += cost;
-                rowCount++;
-            });
-
-            // Compute average cost if possible
-            if (rowCount > 0) {
-                averageCost = totalCost / totalWeight;
-            }
-
-            // Update the total and average fields
-            // Update the total and average fields
-            $('#total-cuplump-weight').val(totalWeight.toLocaleString('en-US'));
-            $('#total-cuplump-cost').val(totalCost.toLocaleString('en-US', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            }));
-            $('#average-cuplump-cost').val(averageCost.toLocaleString('en-US', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            }));
-
-        }
-
-
-
-        // Remove row on click
-        $(document).on("click", ".removeRow", function() {
-            event.preventDefault();
-
-            var row = $(this).closest("tr");
-            row.remove();
-            computeTotalsAndAverage();
-        });
+        // Initial calculation on page load
+        calculateTotalsAndAverages();
     });
 
-    function calculateCuplumpCost(inputField) {
-        var row = inputField.closest("tr");
-        var type = row.find(".type").val();
-        var weight = parseFloat(row.find('.weight').val().replace(/,/g, '')) || 0;
-        var wetCost = parseFloat(row.find('.wetInput').val().replace(/,/g, '')) || 0;
-        var dryCost = parseFloat(row.find('.dryInput').val().replace(/,/g, '')) || 0;
-        var drc = parseFloat(row.find('.drcInput').val().replace(/,/g, '')) || 0;
-        var cuplumpCostInput = row.find('.cuplump_cost');
 
-        console.log(wetCost)
-        console.log(dryCost)
-        console.log(drc)
-        if (type == 'WET') {
-            let cost = weight * wetCost;
-            cuplumpCostInput.val(cost.toLocaleString('en-US', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            }));
-            console.log(weight * wetCost)
-
-
-        } else if (type == 'DRY') {
-            let cost = (weight * dryCost) * (drc / 100);
-            cuplumpCostInput.val(cost.toLocaleString('en-US', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            }));
-            console.log(weight * dryCost) * (drc / 100);
-        }
-    }
 </script>

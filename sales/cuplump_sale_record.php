@@ -119,7 +119,6 @@ $active = mysqli_fetch_array($sql);
                                             <th scope="col">Date</th>
                                             <th scope="col">Cont. No.</th>
                                             <th scope="col">Buyer</th>
-                                            <th scope="col">Cont. Qty</th>
                                             <th scope="col">Kilo Price</th>
                                             <th scope="col">Tot. Weight</th>
                                             <th scope="col">Ave Cost/Kg</th>
@@ -157,7 +156,6 @@ $active = mysqli_fetch_array($sql);
                                                 <td class="text-center"><?php echo $row['sale_contract'] ?> |
                                                     <?php echo $row['purchase_contract'] ?> </td>
                                                 <td> <?php echo $row['buyer_name'] ?></td>
-                                                <td> <?php echo $row['contract_quantity'] ?> </td>
                                                 <td><?php echo $row['currency'] ?> <?php echo number_format($row['contract_price'], 2) ?></td>
                                                 <td> <?php echo $row['total_cuplump_weight'] ?> </td> <!-- total weight -->
                                                 <td>₱ <?php echo number_format($row['overall_ave_cost_kilo'], 2) ?></td> <!-- ave cost kilo -->

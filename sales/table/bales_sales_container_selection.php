@@ -40,7 +40,6 @@ $output .= '
                 <th scope="col" hidden>Milling Cost</th>
                 <th scope="col">Shipping Exp.</th>
                 <th scope="col">Remarks</th>
-                <th scope="col">Status</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>';
@@ -69,7 +68,7 @@ if (mysqli_num_rows($result) > 0) {
             <td class="nowrap number-cell" hidden>₱ ' . number_format($row["total_milling_cost"] / $row["total_bale_weight"], 2, ".", ",") . ' </td>
             <td class="nowrap number-cell" >₱ ' . number_format($row["shipping_expense"], 2, ".", ",") . ' </td>
             <td class="nowrap">' . $row["remarks"] . '</td>
-            <td class="nowrap"><span class="badge ' . $status_color . '">' . $row["status"] . '</span></td>
+         
             <td class="nowrap text-center">
                 <button type="button" class="btn btn-warning btn-sm addProduct" data-status="' . $row["status"] . '">
                     <i class="fas fa-plus"></i>
@@ -80,7 +79,7 @@ if (mysqli_num_rows($result) > 0) {
     }
 } else {
     $output .= '<tr>
-     <td colspan="4">Nothings in the cart</td>
+     <td colspan="4">No data available</td>
  </tr>';
 }
 

@@ -108,12 +108,14 @@
 
                 <td class="number-cell"><?php echo number_format($row['drc'], 2) ?> %</td>
                 <td><?php echo $row['description'] ?></td>
-                <td> ₱
-                    <?php echo number_format($row['milling_cost']) ?>
-                </td>
-                <td> ₱
-                    <?php echo number_format($row['total_production_cost'] / $row['produce_total_weight'], 2) ?>
-                </td>
+                <?php if ($row['status'] == 'For Sale') : ?>
+                    <td>₱<?php echo number_format($row['milling_cost']) ?></td>
+                    <td>₱<?php echo number_format($row['total_production_cost'] / $row['produce_total_weight'], 2) ?></td>
+                <?php else : ?>
+                    <td>-</td>
+                    <td>-</td>
+                <?php endif; ?>
+
                 <td>
                     <?php if ($row['status'] == 'For Sale') : ?>
                         <span class="badge bg-primary"><?php echo $row['status'] ?></span>
@@ -139,7 +141,7 @@
             no_results_text: "Oops, nothing found!"
         });
 
- 
+
 
 
         var table = $('#bale_record_basilan').DataTable({

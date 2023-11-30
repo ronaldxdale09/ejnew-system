@@ -22,7 +22,9 @@ if (isset($_GET['id'])) {
         $record = $result->fetch_assoc();
 
         $ship_id = isset($record['shipment_id']) ? $record['shipment_id'] : '';
+        
         $type = isset($record['type']) ? $record['type'] : '';
+        $particular = isset($record['particular']) ? $record['particular'] : '';
         $ship_destination = isset($record['destination']) ? $record['destination'] : '';
         $ship_source = isset($record['source']) ? $record['source'] : '';
         $ship_date = isset($record['ship_date']) ? $record['ship_date'] : '';
@@ -46,7 +48,9 @@ if (isset($_GET['id'])) {
             <script>
                 $(document).ready(function() {
                     $('#ship_id').val('" . $ship_id . "');
+                    $('#particular').val('" .$particular . "');
                     $('#type').val('" . $type . "');
+                    
                     $('#ship_destination').val('" . $ship_destination . "');
                     $('#ship_source').val('" . $ship_source . "');
                     $('#ship_date').val('" . $ship_date . "');
@@ -83,33 +87,30 @@ if (isset($_GET['id'])) {
             <div class="page-wrapper">
                 <div class="row">
                     <div class="col-sm-12">
-
                         <h2 class="page-title">
                             <b>
                                 <font color="#0C0070">BALE </font>
                                 <font color="#046D56"> SHIPMENT </font>
                             </b>
-                        </h2>
-
-                        <br>
-
+                        </h2>  <hr>
                         <div class="row">
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-12">
-                                        <button type="button" class="btn btn-secondary text-white vouchBtn" onclick="goBack()">
+                                        <button type="button" class="btn trans-btn btn-secondary text-white vouchBtn" onclick="goBack()">
                                             <span class="fas fa-arrow-left"></span> Return
                                         </button>
-                                        <button type="button" class="btn btn-warning btnDraft"><span class="fas fa-info-circle"></span> Save as Draft</button>
+                                        <button type="button" class="btn trans-btn btn-warning btnDraft"><span class="fas fa-info-circle"></span> Save as Draft</button>
 
-                                        <button type="button" class="btn btn-danger btnVoid"> <span class="fas fa-times"></span> Void Shipment</button>
-                                        <button type="button" class="btn btn-primary confirmShipment" id="confirmShipment"><span class="fas fa-check"></span>
-                                        Confirm
+                                        <button type="button" class="btn trans-btn btn-danger btnVoid"> <span class="fas fa-times"></span> Void Shipment</button>
+                                        <button type="button" class="btn trans-btn btn-primary confirmShipment" id="confirmShipment"><span class="fas fa-check"></span>
+                                            Confirm
                                             Shipment</button>
                                     </div>
                                 </div>
 
                                 <br>
+                                <div style="background-color: #2452af; height: 6px;"></div><!-- This is the blue bar -->
 
                                 <div class="card">
                                     <div class="card-body">
@@ -154,6 +155,13 @@ if (isset($_GET['id'])) {
                                                 </div>
                                             </div>
                                             <div class="row">
+
+                                                <div class="col">
+                                                    <label style='font-size:15px' class="col-md-12">Particular/Buyer</label>
+                                                    <div class="col-md-12">
+                                                        <input type="text" class='form-control' name="particular" id="particular" required>
+                                                    </div>
+                                                </div>
                                                 <div class="col">
                                                     <label style='font-size:15px' class="col-md-12">Vessel</label>
                                                     <div class="input-group mb-3">
@@ -167,17 +175,18 @@ if (isset($_GET['id'])) {
                                                         <input type="text" class="form-control" name='ship_info_lading' id='ship_info_lading' tabindex="7" autocomplete='off' style="width: 100px;" />
                                                     </div>
                                                 </div>
-                                                <div class="col">
-                                                    <label style='font-size:15px' class="col-md-12">Remarks</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='ship_remarks' id='ship_remarks' tabindex="7" autocomplete='off' style="width: 100px;" />
-                                                    </div>
-                                                </div>
+
                                                 <div class="col">
                                                     <label style='font-size:15px' class="col-md-12">Recorded by</label>
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" name='ship_recorded' id='ship_recorded' tabindex="7" autocomplete='off' style="width: 100px;" />
                                                     </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <label style='font-size:15px' class="col-md-12">Remarks</label>
+                                                <div class="input-group mb-3">
+                                                    <textarea type="text" class="form-control" name='ship_remarks' id='ship_remarks'  autocomplete='off'></textarea>
                                                 </div>
                                             </div>
 
@@ -194,7 +203,7 @@ if (isset($_GET['id'])) {
                                     <div class="card-body">
                                         <div id="selected_container_list"> </div>
                                         <div class="row">
-                                            <div class="col" >
+                                            <div class="col">
                                                 <label style="font-size:15px;font-weight:bold" class="col-md-12">No. of
                                                     Bales</label>
                                                 <div class="input-group mb-3">
@@ -386,6 +395,26 @@ if (isset($_GET['id'])) {
 
 
 <script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        // Select the card-body which contains the "Shipping Expenses" heading
+        let shippingExpensesContainers = Array.from(document.querySelectorAll('.card-body h4')).filter(h4 => h4.textContent === "Shipping Expenses").map(h4 => h4.parentNode);
+
+        shippingExpensesContainers.forEach(container => {
+            // Select all input fields of type "text" within the current container
+            let inputs = container.querySelectorAll('input[type="text"]');
+
+            inputs.forEach(input => {
+                // Exclude the readonly input fields
+                if (!input.hasAttribute('readonly')) {
+                    input.setAttribute('onkeypress', 'return CheckNumeric()');
+                    input.setAttribute('onkeyup', 'FormatCurrency(this)');
+                }
+            });
+        });
+    });
+
+
+
     // Handle Form Submission
 
     $(document).on('click', '#saveDraftBtn', function(e) {
@@ -482,29 +511,38 @@ if (isset($_GET['id'])) {
 
     });
 
-
-
     function calculateShippingExpenses() {
-        // get the values of the input fields
-        var freight = parseFloat(document.getElementById('ship_exp_freight').value) || 0;
-        var loading = parseFloat(document.getElementById('ship_exp_loading').value) || 0;
-        var processing = parseFloat(document.getElementById('ship_exp_processing').value) || 0;
-        var trucking = parseFloat(document.getElementById('ship_exp_trucking').value) || 0;
-        var cranage = parseFloat(document.getElementById('ship_exp_cranage').value) || 0;
-        var misc = parseFloat(document.getElementById('ship_exp_misc').value) || 0;
+        // Function to remove commas from a string and convert it to a float
+        function parseFloatFromInput(value) {
+            return parseFloat(value.replace(/,/g, '')) || 0;
+        }
+
+        // get the values of the input fields after removing commas
+        var freight = parseFloatFromInput(document.getElementById('ship_exp_freight').value);
+        var loading = parseFloatFromInput(document.getElementById('ship_exp_loading').value);
+        var processing = parseFloatFromInput(document.getElementById('ship_exp_processing').value);
+        var trucking = parseFloatFromInput(document.getElementById('ship_exp_trucking').value);
+        var cranage = parseFloatFromInput(document.getElementById('ship_exp_cranage').value);
+        var misc = parseFloatFromInput(document.getElementById('ship_exp_misc').value);
 
         // calculate total shipping expense
         var totalExpense = freight + loading + processing + trucking + cranage + misc;
 
-        document.getElementById('total_ship_exp').value = totalExpense.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        document.getElementById('total_ship_exp').value = totalExpense.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
 
         // get the number of containers
-        var numContainers = parseFloat(document.getElementById('number_container').value) || 1;
+        var numContainers = parseFloatFromInput(document.getElementById('number_container').value) || 1;
 
         // calculate shipping expense per container
         var costPerContainer = totalExpense / numContainers;
-        
-        document.getElementById('ship_cost_per_container').value = costPerContainer.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+        document.getElementById('ship_cost_per_container').value = costPerContainer.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
     }
 
     // call the function when any of the input values change
@@ -515,5 +553,4 @@ if (isset($_GET['id'])) {
     document.getElementById('ship_exp_cranage').addEventListener('input', calculateShippingExpenses);
     document.getElementById('ship_exp_misc').addEventListener('input', calculateShippingExpenses);
     document.getElementById('number_container').addEventListener('input', calculateShippingExpenses);
-
 </script>

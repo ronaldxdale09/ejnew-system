@@ -1,6 +1,5 @@
 <?php
 include('../../../function/db.php');
-// Retrieve values from the form
 
 // Retrieve values from the form
 $cuplump_sales_id = $_POST['sales_id'];
@@ -8,12 +7,9 @@ $sale_contract = $_POST['sale_contract'];
 $purchase_contract = $_POST['purchase_contract'];
 $trans_date = $_POST['trans_date'];
 $sale_buyer = $_POST['sale_buyer'];
-$shipping_date = $_POST['shipping_date'];
 $sale_source = $_POST['sale_source'];
 $sale_destination = $_POST['sale_destination'];
 $contract_contaier = $_POST['contract_contaier'];
-$total_container = $_POST['number_container'];
-$contract_quantity = $_POST['contract_quantity'];
 $sale_currency = $_POST['sale_currency'];
 $contract_price = $_POST['contract_price'];
 $other_terms = $_POST['other_terms'];
@@ -39,11 +35,8 @@ $query = "UPDATE `sales_cuplump_record`
             `buyer_name`='$sale_buyer',
             `currency`='$sale_currency',
             `transaction_date`='$trans_date',
-            `shipping_date`='$shipping_date',
             `source`='$sale_source',
             `destination`='$sale_destination',
-            `contract_quantity`='$contract_quantity',
-            `contract_container_num`='$contract_contaier',
             `contract_price`='$contract_price',
             `other_terms`='$other_terms',
             `no_containers`='$total_container',
@@ -132,7 +125,6 @@ if (mysqli_query($con, $query)) {
         }
     }
 
-    
     // SQL to get all container_id for a given sales_id
     $sql = "SELECT sales_container_id ,cuplump_sales_id,container_id FROM sales_cuplump_selected_container WHERE cuplump_sales_id = '$cuplump_sales_id'";
     // Execute the query
@@ -147,8 +139,9 @@ if (mysqli_query($con, $query)) {
         mysqli_query($con, $update);
     }
 
-    
+
     echo "success";
 } else {
     echo "Error updating record: " . mysqli_error($con);
 }
+?>

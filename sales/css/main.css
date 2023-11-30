@@ -64,7 +64,7 @@ table tr {
     top: 0px;
     left: 0px;
     height: 100%;
-    width: 240px;
+    width: 234px;
     /* 240px */
     background-color: #1b325f;
     display: block;
@@ -101,7 +101,7 @@ table tr {
 
 #navbar div,
 #navbar a {
-    font-size: 19px;
+    font-size: 17px;
     color: white;
     text-decoration: none;
 }
@@ -238,6 +238,106 @@ table tr {
 }
 
 .form-control {
-    font-size: 20;
+    font-size: 17;
     font-weight: bold;
+}
+
+.custom-table-container {
+    padding: 15px;
+    background-color: #f8f9fa;
+    /* Light background for the container */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* subtle shadow for depth */
+}
+
+.custom-table {
+    font-size: 0.9rem;
+    /* Smaller font size */
+    color: #333;
+    /* Darker font color for better readability */
+}
+
+.custom-table thead th {
+    background-color: #282929;
+    /* Dark header background */
+    color: #fff;
+    /* White text for contrast */
+}
+
+.custom-table tbody tr:hover {
+    background-color: #f2f2f2;
+    /* Hover effect for rows */
+}
+
+.custom-table .badge {
+    font-size: 0.8rem;
+    /* Smaller font size for badges */
+    padding: 0.3em 0.6em;
+    /* Padding for badges */
+}
+
+.custom-table .btnViewRecord {
+    font-size: 0.8rem;
+    /* Smaller buttons */
+    padding: 0.25rem 0.5rem;
+    /* Padding for buttons */
+}
+
+.number-cell {
+    text-align: right;
+    /* Align numbers to the right */
+}
+
+.table-dark th {
+    font-weight: bold;
+    /* Bold header font */
+}
+
+.modal-custom {
+    font-size: 0.9rem;
+}
+
+.modal-custom .modal-header {
+    background-color: #2c2c2c;
+    color: #fff;
+}
+
+.modal-custom label {
+    font-weight: bold;
+}
+
+.modal-custom .form-control {
+    width: 100%;
+    /* Full width inputs */
+}
+
+.modal-custom .input-group {
+    margin-bottom: 15px;
+    /* Spacing between inputs */
+}
+
+.modal-custom .modal-footer button {
+    width: auto;
+    /* Auto width for buttons */
+}
+
+.modal-custom .btn-close {
+    color: #fff;
+}
+
+.trans-btn {
+    border-radius: 25px;
+    padding: 7px 18px;
+    font-size: 12px;
+    text-transform: uppercase;
+    transition: all 0.3s ease 0s;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.trans-btn:hover {
+    background-color: #2c3e50;
+    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
 }

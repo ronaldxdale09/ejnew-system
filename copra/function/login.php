@@ -28,7 +28,7 @@
 			$_SESSION["username"] = $username;
 			$_SESSION["pass"] = $password;
 			if ($userType =='copra'){
-				header('Location: ../transaction.php');
+				header('Location: ../copra/transaction.php');
 			}
 			elseif  ($userType =='finance'){
 				header('Location: ../ledger/ledger-expense.php');
