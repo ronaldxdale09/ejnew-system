@@ -110,9 +110,9 @@ if (isset($_GET['id'])) {
             <hr>
             <div class="row">
                 <div class="col-8">
-                    <button type="button" class="btn trans-btn btn-secondary btnReturn">
+                    <a href="cuplump_sale_record.php" type="button" class="btn trans-btn btn-secondary ">
                         <span class="fas fa-arrow-left"></span> Return
-                    </button>
+                    </a>
                     <button type="button" class="btn trans-btn btn-danger btnDelete"> <span class="fas fa-times"></span>
                         Delete Record</button>
                     <button type="button" class="btn trans-btn btn-warning btnDraft"><span
@@ -165,7 +165,8 @@ if (isset($_GET['id'])) {
 
                                 <div class="row mb-3">
                                     <div class="col-md-3">
-                                        <label for="trans_date">Transaction Date<span class="text-danger">*</span></label>
+                                        <label for="trans_date">Transaction Date<span
+                                                class="text-danger">*</span></label>
                                         <input type="date" class="form-control" id="trans_date" name="trans_date"
                                             required>
                                     </div>
@@ -181,14 +182,15 @@ if (isset($_GET['id'])) {
                                             required>
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="sale_destination">Destination<span class="text-danger">*</span></label>
+                                        <label for="sale_destination">Destination<span
+                                                class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="sale_destination"
                                             id="sale_destination">
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                 
+
                                     <div class="col-md-2">
                                         <label for="sale_currency">Currency <span class="text-danger">*</span></label>
                                         <select class="form-select" id="sale_currency" name="sale_currency" required>
@@ -198,7 +200,8 @@ if (isset($_GET['id'])) {
                                         </select>
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="contract_price">Price per Kilo <span class="text-danger">*</span></label>
+                                        <label for="contract_price">Price per Kilo <span
+                                                class="text-danger">*</span></label>
                                         <div class="input-group">
                                             <span class="input-group-text" id="currency_selected_price"></span>
                                             <input type="number" class="form-control contract_price"
@@ -258,7 +261,8 @@ if (isset($_GET['id'])) {
                                     <label style="font-size:15px" class="col-md-12">Total Selling
                                         Weight</label>
                                     <div class="input-group mb-3">
-                                        <input type="text" readonly class="form-control small-font-input total_selling_weight"
+                                        <input type="text" readonly
+                                            class="form-control small-font-input total_selling_weight"
                                             name="total_selling_weight" id="total_selling_weight" tabindex="7"
                                             autocomplete="off" style="width: 100px;" />
                                         <span class="input-group-text">kg</span>

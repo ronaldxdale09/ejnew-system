@@ -202,19 +202,7 @@ $today = date('Y-m-d');
 
 
                                             <div class="row">
-                                                <div class="col">
-                                                    <label style='font-size:15px' class="col-md-12">No. of Containers</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control"  id='v_contract_container'  autocomplete='off' style="width: 100px;" readonly />
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <label style='font-size:15px' class="col-md-12">Kilo Quantity (e.g 21,000)</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" id='v_contract_quantity'  autocomplete='off' style="width: 100px;"  readonly/>
-                                                        <span class="input-group-text"> kg</span>
-                                                    </div>
-                                                </div>
+                                              
 
                                                 <div class="col">
                                                     <label style='font-size:15px' class="col-md-12">Currency</label>

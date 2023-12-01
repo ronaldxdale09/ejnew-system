@@ -181,6 +181,7 @@ include 'include/navbar.php';
         $(document).ready(function() {
             var table = $('#recording_table-receiving').DataTable({
                 dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
+                "pageLength": 15,
                 order: [
                     [1, 'desc']
                 ],
@@ -195,7 +196,6 @@ include 'include/navbar.php';
                 }],
                 lengthChange: false,
                 orderCellsTop: true,
-                paging: false,
                 info: false,
             });
 
@@ -302,21 +302,6 @@ include 'include/navbar.php';
             $('#v_total_ship_exp').val(parseFloat(total_expense).toLocaleString('en'));
             $('#v_number_container').val(parseFloat(num_containers).toLocaleString('en'));
             $('#v_ship_cost_per_container').val(parseFloat(cost_per_container).toLocaleString('en'));
-
-
-
-
-
-            // var status = $(this).data('status');
-
-            // if (status == "Complete") {
-            //     $('#editButton').hide();
-            // } else if (status == 'Draft') {
-            //     $('#editButton').show();
-            // } else if (status == 'In Progress') {
-            //     $('#editButton').show();
-            // }
-
 
             function fetch_table() {
 

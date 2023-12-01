@@ -24,13 +24,13 @@ if (!$result) {
 
 $output = '
 
-<button type="button" id="addRow" class="btn btn-success">+ Add Container</button>
+<button type="button" id="addRow" class="btn btn-success">+ Add Inventory</button> <hr>
 <table class="table custom-table"  id="rubber-table" >
     <thead style="font-weight: normal !important;">
     <tr>
         <th scope="col" hidden></th>
         <th scope="col" width="15%" style="white-space: nowrap;">Supplier</th>
-        <th scope="col" width="10%" style="white-space: nowrap;">Buying Weight</th>
+        <th scope="col" width="12%" style="white-space: nowrap;">Buying Weight</th>
         <th scope="col" width="9%"  style="white-space: nowrap;">Final DRC</th>
         <th scope="col" style="white-space: nowrap;">Dry/Selling Weight</th>
         <th scope="col" style="white-space: nowrap;">Cost Per Kilo (₱)</th>

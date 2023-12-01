@@ -12,7 +12,7 @@ include "sales_modal/bale_shipment_modal.php";
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    $id =  preg_replace('~\D~', '', $id);
+    $id = preg_replace('~\D~', '', $id);
 
     $sql = "SELECT * FROM bale_shipment_record WHERE shipment_id = $id";
     $result = $con->query($sql);
@@ -22,7 +22,7 @@ if (isset($_GET['id'])) {
         $record = $result->fetch_assoc();
 
         $ship_id = isset($record['shipment_id']) ? $record['shipment_id'] : '';
-        
+
         $type = isset($record['type']) ? $record['type'] : '';
         $particular = isset($record['particular']) ? $record['particular'] : '';
         $ship_destination = isset($record['destination']) ? $record['destination'] : '';
@@ -48,7 +48,7 @@ if (isset($_GET['id'])) {
             <script>
                 $(document).ready(function() {
                     $('#ship_id').val('" . $ship_id . "');
-                    $('#particular').val('" .$particular . "');
+                    $('#particular').val('" . $particular . "');
                     $('#type').val('" . $type . "');
                     
                     $('#ship_destination').val('" . $ship_destination . "');
@@ -92,18 +92,23 @@ if (isset($_GET['id'])) {
                                 <font color="#0C0070">BALE </font>
                                 <font color="#046D56"> SHIPMENT </font>
                             </b>
-                        </h2>  <hr>
+                        </h2>
+                        <hr>
                         <div class="row">
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-12">
-                                        <button type="button" class="btn trans-btn btn-secondary text-white vouchBtn" onclick="goBack()">
+                                        <a href="bale_shipment_record.php" type="button"
+                                            class="btn trans-btn btn-secondary ">
                                             <span class="fas fa-arrow-left"></span> Return
-                                        </button>
-                                        <button type="button" class="btn trans-btn btn-warning btnDraft"><span class="fas fa-info-circle"></span> Save as Draft</button>
+                                        </a>
+                                        <button type="button" class="btn trans-btn btn-warning btnDraft"><span
+                                                class="fas fa-info-circle"></span> Save as Draft</button>
 
-                                        <button type="button" class="btn trans-btn btn-danger btnVoid"> <span class="fas fa-times"></span> Void Shipment</button>
-                                        <button type="button" class="btn trans-btn btn-primary confirmShipment" id="confirmShipment"><span class="fas fa-check"></span>
+                                        <button type="button" class="btn trans-btn btn-danger btnVoid"> <span
+                                                class="fas fa-times"></span> Delete Record</button>
+                                        <button type="button" class="btn trans-btn btn-primary confirmShipment"
+                                            id="confirmShipment"><span class="fas fa-check"></span>
                                             Confirm
                                             Shipment</button>
                                     </div>
@@ -121,13 +126,16 @@ if (isset($_GET['id'])) {
                                                 <div class="col">
                                                     <label style='font-size:15px' class="col-md-12">Shipping ID</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='ship_id' id='ship_id' value='<?php echo $id ?>' readonly autocomplete='off' style="width: 100px;" />
+                                                        <input type="text" class="form-control" name='ship_id'
+                                                            id='ship_id' value='<?php echo $id ?>' readonly
+                                                            autocomplete='off' style="width: 100px;" />
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <label style='font-size:15px' class="col-md-12">Type</label>
                                                     <div class="input-group mb-3">
-                                                        <select class="form-select" id="type" name="type" style="width: 100px;">
+                                                        <select class="form-select" id="type" name="type"
+                                                            style="width: 100px;">
                                                             <option>Select</option>
                                                             <option value="EXPORT">Export</option>
                                                             <option value="LOCAL">Local</option>
@@ -137,56 +145,70 @@ if (isset($_GET['id'])) {
                                                 <div class="col-3">
                                                     <label style='font-size:15px' class="col-md-12">Destination</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='ship_destination' id='ship_destination' tabindex="7" autocomplete='off' style="width: 100px;" />
+                                                        <input type="text" class="form-control" name='ship_destination'
+                                                            id='ship_destination' tabindex="7" autocomplete='off'
+                                                            style="width: 100px;" />
                                                     </div>
                                                 </div>
                                                 <div class="col-3">
                                                     <label style='font-size:15px' class="col-md-12">Source</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='ship_source' id='ship_source' tabindex="7" autocomplete='off' style="width: 100px;" />
+                                                        <input type="text" class="form-control" name='ship_source'
+                                                            id='ship_source' tabindex="7" autocomplete='off'
+                                                            style="width: 100px;" />
                                                     </div>
                                                 </div>
                                                 <div class="col-3">
                                                     <label style='font-size:15px' class="col-md-12">Shipment
                                                         Date</label>
                                                     <div class="col-md-12">
-                                                        <input type="date" class='form-control' id="ship_date" value="<?php echo $today; ?>" name="ship_date">
+                                                        <input type="date" class='form-control' id="ship_date"
+                                                            value="<?php echo $today; ?>" name="ship_date">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
 
                                                 <div class="col">
-                                                    <label style='font-size:15px' class="col-md-12">Particular/Buyer</label>
+                                                    <label style='font-size:15px'
+                                                        class="col-md-12">Particular/Buyer</label>
                                                     <div class="col-md-12">
-                                                        <input type="text" class='form-control' name="particular" id="particular" required>
+                                                        <input type="text" class='form-control' name="particular"
+                                                            id="particular" required>
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <label style='font-size:15px' class="col-md-12">Vessel</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='ship_vessel' id='ship_vessel' tabindex="7" autocomplete='off' style="width: 100px;" />
+                                                        <input type="text" class="form-control" name='ship_vessel'
+                                                            id='ship_vessel' tabindex="7" autocomplete='off'
+                                                            style="width: 100px;" />
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <label style='font-size:15px' class="col-md-12">Bill of
                                                         Lading</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='ship_info_lading' id='ship_info_lading' tabindex="7" autocomplete='off' style="width: 100px;" />
+                                                        <input type="text" class="form-control" name='ship_info_lading'
+                                                            id='ship_info_lading' tabindex="7" autocomplete='off'
+                                                            style="width: 100px;" />
                                                     </div>
                                                 </div>
 
                                                 <div class="col">
                                                     <label style='font-size:15px' class="col-md-12">Recorded by</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name='ship_recorded' id='ship_recorded' tabindex="7" autocomplete='off' style="width: 100px;" />
+                                                        <input type="text" class="form-control" name='ship_recorded'
+                                                            id='ship_recorded' tabindex="7" autocomplete='off'
+                                                            style="width: 100px;" />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <label style='font-size:15px' class="col-md-12">Remarks</label>
                                                 <div class="input-group mb-3">
-                                                    <textarea type="text" class="form-control" name='ship_remarks' id='ship_remarks'  autocomplete='off'></textarea>
+                                                    <textarea type="text" class="form-control" name='ship_remarks'
+                                                        id='ship_remarks' autocomplete='off'></textarea>
                                                 </div>
                                             </div>
 
@@ -198,7 +220,8 @@ if (isset($_GET['id'])) {
                                 <div class="card">
                                     <div class="card-body d-flex justify-content-between align-items-center">
                                         <h4>Containers</h4>
-                                        <button type='button' id="add-row-btn" class="btn btn-success selectContainer">Select Container</button>
+                                        <button type='button' id="add-row-btn"
+                                            class="btn btn-success selectContainer">Select Container</button>
                                     </div>
                                     <div class="card-body">
                                         <div id="selected_container_list"> </div>
@@ -207,7 +230,9 @@ if (isset($_GET['id'])) {
                                                 <label style="font-size:15px;font-weight:bold" class="col-md-12">No. of
                                                     Bales</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name="total_num_bales" id="total_num_bales" tabindex="7" autocomplete="off" style="width: 50px;" readonly>
+                                                    <input type="text" class="form-control" name="total_num_bales"
+                                                        id="total_num_bales" tabindex="7" autocomplete="off"
+                                                        style="width: 50px;" readonly>
                                                     <span class="input-group-text"> pcs</span>
                                                 </div>
                                             </div>
@@ -215,15 +240,20 @@ if (isset($_GET['id'])) {
                                                 <label style="font-size:15px;font-weight:bold" class="col-md-12">Total
                                                     Bale Weight</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name="total_bale_weight" id="total_bale_weight" tabindex="7" autocomplete="off" style="width: 50px;" readonly>
+                                                    <input type="text" class="form-control" name="total_bale_weight"
+                                                        id="total_bale_weight" tabindex="7" autocomplete="off"
+                                                        style="width: 50px;" readonly>
                                                     <span class="input-group-text"> kg</span>
                                                 </div>
                                             </div>
                                             <div class="col" hidden>
-                                                <label style="font-size:15px;font-weight:bold" class="col-md-12">Total Bale Cost</label>
+                                                <label style="font-size:15px;font-weight:bold" class="col-md-12">Total
+                                                    Bale Cost</label>
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text"> ₱</span>
-                                                    <input type="text" class="form-control" name="total_bale_cost" id="total_bale_cost" tabindex="7" autocomplete="off" style="width: 50px;" readonly>
+                                                    <input type="text" class="form-control" name="total_bale_cost"
+                                                        id="total_bale_cost" tabindex="7" autocomplete="off"
+                                                        style="width: 50px;" readonly>
 
                                                 </div>
                                             </div>
@@ -244,7 +274,9 @@ if (isset($_GET['id'])) {
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">₱</span>
                                                     </div>
-                                                    <input type="text" class="form-control" name='freight' id='ship_exp_freight' placeholder="0.00" style="width: 100px;" />
+                                                    <input type="text" class="form-control" name='freight'
+                                                        id='ship_exp_freight' placeholder="0.00"
+                                                        style="width: 100px;" />
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -254,7 +286,9 @@ if (isset($_GET['id'])) {
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">₱</span>
                                                     </div>
-                                                    <input type="text" class="form-control" name='loading_expense' id='ship_exp_loading' placeholder="0.00" style="width: 100px;" />
+                                                    <input type="text" class="form-control" name='loading_expense'
+                                                        id='ship_exp_loading' placeholder="0.00"
+                                                        style="width: 100px;" />
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -264,7 +298,9 @@ if (isset($_GET['id'])) {
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">₱</span>
                                                     </div>
-                                                    <input type="text" class="form-control" name='ship_exp_processing' id='ship_exp_processing' placeholder="0.00" style="width: 100px;" />
+                                                    <input type="text" class="form-control" name='ship_exp_processing'
+                                                        id='ship_exp_processing' placeholder="0.00"
+                                                        style="width: 100px;" />
                                                 </div>
                                             </div>
                                         </div>
@@ -276,7 +312,9 @@ if (isset($_GET['id'])) {
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">₱</span>
                                                     </div>
-                                                    <input type="text" class="form-control" name='ship_exp_trucking' id='ship_exp_trucking' placeholder="0.00" style="width: 100px;" />
+                                                    <input type="text" class="form-control" name='ship_exp_trucking'
+                                                        id='ship_exp_trucking' placeholder="0.00"
+                                                        style="width: 100px;" />
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -286,7 +324,9 @@ if (isset($_GET['id'])) {
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">₱</span>
                                                     </div>
-                                                    <input type="text" class="form-control" name='ship_exp_cranage' id='ship_exp_cranage' placeholder="0.00" style="width: 100px;" />
+                                                    <input type="text" class="form-control" name='ship_exp_cranage'
+                                                        id='ship_exp_cranage' placeholder="0.00"
+                                                        style="width: 100px;" />
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -296,7 +336,8 @@ if (isset($_GET['id'])) {
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">₱</span>
                                                     </div>
-                                                    <input type="text" class="form-control" name='ship_exp_misc' id='ship_exp_misc' placeholder="0.00" style="width: 100px;" />
+                                                    <input type="text" class="form-control" name='ship_exp_misc'
+                                                        id='ship_exp_misc' placeholder="0.00" style="width: 100px;" />
                                                 </div>
                                             </div>
                                         </div>
@@ -309,24 +350,31 @@ if (isset($_GET['id'])) {
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">₱</span>
                                                     </div>
-                                                    <input type="text" readonly class="form-control" name='total_ship_exp' id='total_ship_exp' placeholder="0.00" style="width: 100px;" />
+                                                    <input type="text" readonly class="form-control"
+                                                        name='total_ship_exp' id='total_ship_exp' placeholder="0.00"
+                                                        style="width: 100px;" />
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <label style='font-size:15px;font-weight:bold' class="col-md-12">No. of
                                                     Containers</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" readonly name='number_container' id='number_container' placeholder="0.00" style="width: 100px;" />
+                                                    <input type="text" class="form-control" readonly
+                                                        name='number_container' id='number_container' placeholder="0.00"
+                                                        style="width: 100px;" />
                                                 </div>
                                             </div>
                                             <div class="col">
-                                                <label style='font-size:15px;font-weight:bold' class="col-md-12">Shipping
+                                                <label style='font-size:15px;font-weight:bold'
+                                                    class="col-md-12">Shipping
                                                     Expense per Container</label>
                                                 <div class="input-group mb-3">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">₱</span>
                                                     </div>
-                                                    <input type="text" class="form-control" name='ship_cost_per_container' id='ship_cost_per_container' placeholder="0.00" readonly style="width: 100px;" />
+                                                    <input type="text" class="form-control"
+                                                        name='ship_cost_per_container' id='ship_cost_per_container'
+                                                        placeholder="0.00" readonly style="width: 100px;" />
                                                 </div>
                                             </div>
                                         </div>
@@ -369,7 +417,8 @@ if (isset($_GET['id'])) {
                 <h5 class="modal-title" id="exampleModalLabel">
                     <i class="fas fa-save me-2"></i>Save Shipment Draft
                 </h5>
-                <button type="button" class="btn-close btn-close-white" data-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white" data-dismiss="modal"
+                    aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <p class="text-center">
@@ -417,7 +466,7 @@ if (isset($_GET['id'])) {
 
     // Handle Form Submission
 
-    $(document).on('click', '#saveDraftBtn', function(e) {
+    $(document).on('click', '#saveDraftBtn', function (e) {
         // Set the form action to the desired url
         $('#shipmentForm').attr('action', 'function/bale_shipment_draft.php');
 
@@ -427,7 +476,7 @@ if (isset($_GET['id'])) {
     });
 
 
-    $(document).on('click', '#confirmButton', function(e) {
+    $(document).on('click', '#confirmButton', function (e) {
         // Set the form action to the desired url
         $('#shipmentForm').attr('action', 'function/bale_shipment_confirm.php');
 
@@ -447,7 +496,7 @@ if (isset($_GET['id'])) {
             data: {
                 shipment_id: shipment_id
             },
-            success: function(data) {
+            success: function (data) {
                 $('#selected_container_list').html(data);
             }
         });
@@ -456,10 +505,10 @@ if (isset($_GET['id'])) {
 
 
     // BUTTON SCRIPT TO DISPLAY THE AVAILABLE BALES CONTAINER
-    $('.selectContainer').on('click', function() {
+    $('.selectContainer').on('click', function () {
         $tr = $(this).closest('tr');
 
-        var data = $tr.children("td").map(function() {
+        var data = $tr.children("td").map(function () {
             return $(this).text();
         }).get();
 
@@ -472,7 +521,7 @@ if (isset($_GET['id'])) {
                 data: {
                     shipment_id: shipment_id,
                 },
-                success: function(data) {
+                success: function (data) {
                     $('#container_list').html(data);
                 }
             });
@@ -482,30 +531,30 @@ if (isset($_GET['id'])) {
 
     });
 
-    $('.confirmShipment').on('click', function() {
+    $('.confirmShipment').on('click', function () {
         $tr = $(this).closest('tr');
 
-        var data = $tr.children("td").map(function() {
+        var data = $tr.children("td").map(function () {
             return $(this).text();
         }).get();
 
 
-        var container_id = <?php echo  $id ?>;
+        var container_id = <?php echo $id ?>;
 
         $('#confirmModal').modal('show');
 
     });
 
 
-    $('.btnDraft').on('click', function() {
+    $('.btnDraft').on('click', function () {
         $tr = $(this).closest('tr');
 
-        var data = $tr.children("td").map(function() {
+        var data = $tr.children("td").map(function () {
             return $(this).text();
         }).get();
 
 
-        var container_id = <?php echo  $id ?>;
+        var container_id = <?php echo $id ?>;
 
         $('#draftModal').modal('show');
 

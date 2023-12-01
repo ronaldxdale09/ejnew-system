@@ -97,13 +97,23 @@ include 'include/navbar.php';
                                         <label for="endDate">End Date:</label>
                                         <input type="date" id="endDate" class="form-control">
                                     </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label for="filterLocation"> Location:</label>
+                                        <select id="filterLocation" class="form-control">
+                                            <option selected value="">All</option>
+                                            <option value="Basilan">Basilan</option>
+                                            <option value="Kidapawan">Kidapawan</option>
+
+                                        </select>
+                                    </div>
+
                                 </div>
 
                             </div>
                             <hr>
                             <div class="table-responsive">
                                 <?php
-                                $results  = mysqli_query($con, "SELECT *, bales_container_record.container_id as con_id,
+                                $results = mysqli_query($con, "SELECT *, bales_container_record.container_id as con_id,
                                 bales_container_record.num_bales as total_bales ,
                                 bales_container_record.total_bale_weight as total_weight 
                                 from bales_container_record
@@ -113,7 +123,8 @@ include 'include/navbar.php';
 
 
                                 ?>
-                                <table class="table table-bordered table-hover table-striped" id='recording_table-receiving'>
+                                <table class="table table-bordered table-hover table-striped"
+                                    id='recording_table-receiving'>
                                     <thead class="table-dark text-center" style="font-size: 14px !important">
                                         <tr>
                                             <th scope="col">Status</th>
@@ -168,7 +179,7 @@ include 'include/navbar.php';
                                                     $source_color = 'bg-warning text-dark';
                                                     break;
                                             }
-                                        ?>
+                                            ?>
                                             <tr>
                                                 <td width='10%'>
                                                     <span class="badge <?php echo $status_color; ?>">
@@ -184,10 +195,19 @@ include 'include/navbar.php';
                                                     </span>
 
                                                 </td>
-                                                <td class="text-center"><?php echo $row['con_id']; ?></td>
-                                                <td class="text-center"><?php echo date('M j, Y', strtotime($row['withdrawal_date'])); ?></td>
-                                                <td class="text-center"><?php echo $row['van_no']; ?></td>
-                                                <td><?php echo $row['quality']; ?> @ <?php echo $row['kilo_bale']; ?> kg</td>
+                                                <td class="text-center">
+                                                    <?php echo $row['con_id']; ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php echo date('M j, Y', strtotime($row['withdrawal_date'])); ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php echo $row['van_no']; ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $row['quality']; ?> @
+                                                    <?php echo $row['kilo_bale']; ?> kg
+                                                </td>
                                                 <td class="number-cell">
                                                     <?php echo number_format($row['total_bales'], 0, '.', ','); ?> pcs
                                                 </td>
@@ -200,14 +220,19 @@ include 'include/navbar.php';
                                                 <td class="number-cell" hidden> ₱
                                                     <?php echo number_format($row['total_milling_cost'], 0, '.', ','); ?>
                                                 </td>
-                                                <td><?php echo $row['remarks']; ?></td>
-                                                <td hidden><?php echo $row['recorded_by']; ?></td>
+                                                <td>
+                                                    <?php echo $row['remarks']; ?>
+                                                </td>
+                                                <td hidden>
+                                                    <?php echo $row['recorded_by']; ?>
+                                                </td>
                                                 <td> <span class="badge <?php echo $source_color; ?>">
                                                         <?php echo $row['source'] ?>
                                                     </span>
                                                 </td>
                                                 <td class="text-center">
-                                                    <button type="button" class="btn btn-success btn-sm btnViewRecord" data-status="<?php echo $row['status']; ?>">
+                                                    <button type="button" class="btn btn-success btn-sm btnViewRecord"
+                                                        data-status="<?php echo $row['status']; ?>">
                                                         <i class="fas fa-book"></i>
                                                     </button>
                                                 </td>
@@ -224,7 +249,7 @@ include 'include/navbar.php';
     </div>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             var table = $('#recording_table-receiving').DataTable({
                 dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
                 order: [
@@ -248,18 +273,24 @@ include 'include/navbar.php';
 
 
             // Filter by Payee
-            $('#filterBuyer').on('change', function() {
+            $('#filterBuyer').on('change', function () {
                 table.column(7).search(this.value).draw(); // Assuming Payee is the 5th column
             });
             // Filter by Status
-            $('#filterStatus').on('change', function() {
+            $('#filterStatus').on('change', function () {
                 table.column(0).search(this.value).draw(); // Assuming Payee is the 5th column
             });
+
+            $('#filterLocation').on('change', function () {
+                table.column(11).search(this.value).draw(); // Assuming Payee is the 5th column
+            });
+
+
             // Filter by Month
-            $('#filterMonth').on('change', function() {
+            $('#filterMonth').on('change', function () {
                 var month = parseInt(this.value, 10);
                 $.fn.dataTable.ext.search.push(
-                    function(settings, data, dataIndex) {
+                    function (settings, data, dataIndex) {
                         var dateIssued = new Date(data[2]); // Assuming Date Issued is the 3rd column
                         return isNaN(month) || month === dateIssued.getMonth() + 1;
                     }
@@ -269,12 +300,12 @@ include 'include/navbar.php';
             });
 
             // Filter by Date Range
-            $('#startDate, #endDate').on('change', function() {
+            $('#startDate, #endDate').on('change', function () {
                 var startDate = $('#startDate').val() ? new Date($('#startDate').val()) : null;
                 var endDate = $('#endDate').val() ? new Date($('#endDate').val()) : null;
 
                 $.fn.dataTable.ext.search.push(
-                    function(settings, data, dataIndex) {
+                    function (settings, data, dataIndex) {
                         var dateIssued = new Date(data[2]); // Assuming Date Issued is the 3rd column
                         if (startDate && dateIssued < startDate) {
                             return false;
@@ -289,10 +320,10 @@ include 'include/navbar.php';
                 $.fn.dataTable.ext.search.pop(); // Clear this specific filter
             });
             // Filter by Year
-            $('#filterYear').on('change', function() {
+            $('#filterYear').on('change', function () {
                 var year = parseInt(this.value, 10);
                 $.fn.dataTable.ext.search.push(
-                    function(settings, data, dataIndex) {
+                    function (settings, data, dataIndex) {
                         var dateIssued = new Date(data[2]); // Assuming Date Issued is the 3rd column
                         return isNaN(year) || year === dateIssued.getFullYear();
                     }
@@ -301,12 +332,14 @@ include 'include/navbar.php';
                 $.fn.dataTable.ext.search.pop(); // Clear this specific filter
             });
 
+
+            
         });
 
-        $('.btnViewRecord').on('click', function() {
+        $('.btnViewRecord').on('click', function () {
             $tr = $(this).closest('tr');
 
-            var data = $tr.children("td").map(function() {
+            var data = $tr.children("td").map(function () {
                 return $(this).text();
             }).get();
 
@@ -334,7 +367,7 @@ include 'include/navbar.php';
                         container_id: container_id,
 
                     },
-                    success: function(data) {
+                    success: function (data) {
                         $('#bales_container_record').html(data);
                     }
                 });

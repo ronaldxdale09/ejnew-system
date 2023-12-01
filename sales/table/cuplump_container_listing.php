@@ -24,7 +24,6 @@ if (!$result) {
 
 $output = '
 
-<button type="button" id="addRow" class="btn btn-success">+ Add Inventory</button>
 <table class="table custom-table"  id="rubber-table" >
     <thead style="font-weight: normal !important;">
     <tr>

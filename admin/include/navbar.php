@@ -31,7 +31,7 @@
         <li class="item has-submenu">
             <a tabindex="0">Cuplump</a>
             <ul class="submenu">
-                <li class="subitem"><a href="inv_cuplump.php">Inventory</a></li>
+                <li class="subitem"><a href="inv_cuplump.php">Field Inventory</a></li>
                 <li class="subitem"><a href="cuplump_sale_record.php">Sales</a></li>
                 <li class="subitem"><a href="cuplump_container_record.php">Container</a></li>
                 <li class="subitem"><a href="cuplump_shipment_record.php">Shipment</a></li>

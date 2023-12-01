@@ -114,9 +114,10 @@ if (isset($_GET['id'])) {
                         <div class="row">
                             <div class="col-12">
                                 <div class="col-8 mb-3">
-                                    <button type="button" class="btn trans-btn btn-secondary btnReturn">
+                                    <a href="cuplump_shipment_record.php" type="button"
+                                        class="btn trans-btn btn-secondary ">
                                         <span class="fas fa-arrow-left"></span> Return
-                                    </button>
+                                    </a>
                                     <button type="button" class="btn trans-btn btn-danger btnVoid"> <span
                                             class="fas fa-times"></span>
                                         Void</button>
@@ -384,6 +385,8 @@ if (isset($_GET['id'])) {
                                                 </div>
                                             </div>
                                         </div>
+
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -391,7 +394,6 @@ if (isset($_GET['id'])) {
                 </div>
             </div>
         </div>
-    </div>
     </div>
     <br>
 </body>

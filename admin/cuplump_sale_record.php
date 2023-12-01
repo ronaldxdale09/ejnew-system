@@ -23,6 +23,7 @@ $active = mysqli_fetch_array($sql);
 </style>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<!-- DataTables CSS -->
 
 <body>
     <link rel='stylesheet' href='css/statistic-card.css'>
@@ -47,7 +48,7 @@ $active = mysqli_fetch_array($sql);
                                         <p class="text-uppercase mb-1 text-muted"><b>ACTIVE</b> SALES</p>
                                         <h4>
                                             <i class="text-success font-weight-bold mr-1"></i>
-                                            <?php echo number_format($active['total'] ?? 0,0) ?>
+                                            <?php echo number_format($active['total'] ?? 0, 0) ?>
                                         </h4>
                                         <div>
                                             <span class="text-muted">
@@ -67,7 +68,7 @@ $active = mysqli_fetch_array($sql);
                                         <p class="text-uppercase mb-1 text-muted"><b>TOTAL </b> SALES </p>
                                         <h4>
                                             <i class="text-success font-weight-bold mr-1"></i>
-                                            ₱  <?php echo number_format($sales['total_sales'] ?? 0, 2) ?>
+                                            ₱ <?php echo number_format($sales['total_sales'] ?? 0, 2) ?>
                                         </h4>
                                         <div>
                                             <span class="text-muted">
@@ -87,7 +88,7 @@ $active = mysqli_fetch_array($sql);
                                         <p class="text-uppercase mb-1 text-muted"><b>TOTAL </b>BALANCE </p>
                                         <h4>
                                             <i class="text-success font-weight-bold mr-1"></i>
-                                            ₱  <?php echo number_format($unpaid['unpaid_balance'] ?? 0, 2) ?>
+                                            ₱ <?php echo number_format($unpaid['unpaid_balance'] ?? 0, 2) ?>
                                         </h4>
                                         <div>
                                             <span class="text-muted">
@@ -105,10 +106,7 @@ $active = mysqli_fetch_array($sql);
                         <div style="background-color: #2452af; height: 6px;"></div><!-- This is the blue bar -->
                         <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
 
-                            <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#newWetExport">NEW SALE </button>
                             <hr>
-                            <div class="table-responsive">
-
                                 <table class="table table-bordered table-hover table-striped" id='sales_rec_table'>
                                     <?php
                                     $results  = mysqli_query($con, "SELECT  * FROM sales_cuplump_record"); ?>
@@ -120,7 +118,6 @@ $active = mysqli_fetch_array($sql);
                                             <th scope="col">Date</th>
                                             <th scope="col">Cont. No.</th>
                                             <th scope="col">Buyer</th>
-                                            <th scope="col">Cont. Qty</th>
                                             <th scope="col">Kilo Price</th>
                                             <th scope="col">Tot. Weight</th>
                                             <th scope="col">Ave Cost/Kg</th>
@@ -157,15 +154,14 @@ $active = mysqli_fetch_array($sql);
                                                 <td><?php echo date('M j, Y', strtotime($row['transaction_date'])); ?></td>
                                                 <td class="text-center"><?php echo $row['sale_contract'] ?> |
                                                     <?php echo $row['purchase_contract'] ?> </td>
-                                                <td> <?php echo $row['sale_type'] ?> | <?php echo $row['buyer_name'] ?></td>
-                                                <td> <?php echo $row['contract_quantity'] ?> </td>
+                                                <td> <?php echo $row['buyer_name'] ?></td>
                                                 <td><?php echo $row['currency'] ?> <?php echo number_format($row['contract_price'], 2) ?></td>
                                                 <td> <?php echo $row['total_cuplump_weight'] ?> </td> <!-- total weight -->
-                                                <td>₱<?php echo number_format($row['overall_ave_cost_kilo'], 2) ?></td> <!-- ave cost kilo -->
-                                                <td>₱<?php echo number_format($row['total_sales'],0) ?></td>
-                                                <td>₱<?php echo number_format($row['overall_cost'],0) ?></td>
-                                                <td>₱<?php echo number_format($row['unpaid_balance'],0) ?></td>
-                                                <td>₱<?php echo number_format($row['gross_profit'], 0) ?></td>
+                                                <td>₱ <?php echo number_format($row['overall_ave_cost_kilo'], 2) ?></td> <!-- ave cost kilo -->
+                                                <td>₱ <?php echo number_format($row['total_sales'], 2) ?></td>
+                                                <td>₱ <?php echo number_format($row['overall_cost'], 2) ?></td>
+                                                <td>₱ <?php echo number_format($row['unpaid_balance'], 2) ?></td>
+                                                <td>₱ <?php echo number_format($row['gross_profit'], 2) ?></td>
                                                 <td class="text-center">
                                                     <button type="button" class="btn btn-success btn-sm btnViewRecord
                                                     " data-status="<?php echo $row['status']; ?>" data-cuplump='<?php echo json_encode($row); ?>'>
@@ -178,25 +174,26 @@ $active = mysqli_fetch_array($sql);
                                 </table>
 
 
-                            </div>
-
                             <script>
                                 var table = $('#sales_rec_table').DataTable({
-                                    dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
-                                    order: [
-                                        [1, 'desc']
-                                    ],
+                                    dom: 'Bfrtip',
                                     buttons: [
                                         'excelHtml5',
                                         'pdfHtml5',
-                                        'print'
+                                        'print',
+                                        'colvis'
                                     ],
                                     columnDefs: [{
                                         orderable: false,
                                         targets: -1
+                                    }, {
+                                        targets: [7, 9, 10],
+                                        visible: false
                                     }],
+                                    order: [
+                                        [1, 'desc']
+                                    ],
                                     lengthChange: false,
-                                    orderCellsTop: true,
                                     paging: false,
                                     info: false,
                                 });
@@ -236,32 +233,77 @@ $active = mysqli_fetch_array($sql);
         $('#v_shipping_date').val(cuplump.shipping_date);
         $('#v_sale_source').val(cuplump.source);
         $('#v_sale_destination').val(cuplump.destination);
-        $('#v_contract_container').val(parseFloat(cuplump.contract_container_num).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
-        $('#v_contract_quantity').val(parseFloat(cuplump.contract_quantity).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+        $('#v_contract_container').val(parseFloat(cuplump.contract_container_num).toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }));
+        $('#v_contract_quantity').val(parseFloat(cuplump.contract_quantity).toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }));
         $('#v_currency').val(cuplump.currency);
-        $('#v_contract_price').val(parseFloat(cuplump.contract_price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
-        $('#v_tax_rate').val(parseFloat(cuplump.tax_rate).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
-        $('#v_tax_amount').val(parseFloat(cuplump.tax_amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+        $('#v_contract_price').val(parseFloat(cuplump.contract_price).toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }));
+        $('#v_tax_rate').val(parseFloat(cuplump.tax_rate).toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }));
+        $('#v_tax_amount').val(parseFloat(cuplump.tax_amount).toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }));
         $('#v_other_terms').val(cuplump.other_terms);
         $('#v_number_container').val(cuplump.no_containers);
-        $('#v_total_cuplump_weight').val(parseFloat(cuplump.total_cuplump_weight).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
-        $('#v_overall_ave_kiloCost').val(parseFloat(cuplump.overall_ave_cost_kilo).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
-        $('#v_total_sale').val(parseFloat(cuplump.total_sales).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
-        $('#v_amount_paid').val(parseFloat(cuplump.amount_paid).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
-        $('#v_unpaid_balance').val(parseFloat(cuplump.unpaid_balance).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
-        $('#v_sales_proceeds').val(parseFloat(cuplump.sales_proceed).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
-        $('#v_total_cuplump_cost').val(parseFloat(cuplump.total_cuplump_cost).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
-        $('#v_total_ship_exp').val(parseFloat(cuplump.total_ship_expense).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
-        $('#v_over_all_cost').val(parseFloat(cuplump.overall_cost).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
-        $('#v_gross_profit').val(parseFloat(cuplump.gross_profit).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+        $('#v_total_cuplump_weight').val(parseFloat(cuplump.total_cuplump_weight).toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }));
+        $('#v_overall_ave_kiloCost').val(parseFloat(cuplump.overall_ave_cost_kilo).toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }));
+        $('#v_total_sale').val(parseFloat(cuplump.total_sales).toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }));
+        $('#v_amount_paid').val(parseFloat(cuplump.amount_paid).toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }));
+        $('#v_unpaid_balance').val(parseFloat(cuplump.unpaid_balance).toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }));
+        $('#v_sales_proceeds').val(parseFloat(cuplump.sales_proceed).toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }));
+        $('#v_total_cuplump_cost').val(parseFloat(cuplump.total_cuplump_cost).toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }));
+        $('#v_total_ship_exp').val(parseFloat(cuplump.total_ship_expense).toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }));
+        $('#v_over_all_cost').val(parseFloat(cuplump.overall_cost).toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }));
+        $('#v_gross_profit').val(parseFloat(cuplump.gross_profit).toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }));
 
-        var status = $(this).data('status');
+        // var status = $(this).data('status');
 
-        if (status == "Draft" || status == "In Progress") {
-            $('#editBtn').show();
-        } else {
-            $('#editBtn').hide();
-        }
+        // if (status == "Draft" || status == "In Progress") {
+        //     $('#editBtn').show();
+        // } else {
+        //     $('#editBtn').hide();
+        // }
 
         sales_id = cuplump.cuplump_sales_id;
 
@@ -327,16 +369,7 @@ $active = mysqli_fetch_array($sql);
 
 
     $(document).on('click', '.btnPrint', function(e) {
-        // Check if 'sale_buyer' input is readonly
-        if (!$('#sale_buyer').prop('readonly')) {
-            // If not readonly, show alert and return
-            Swal.fire({
-                icon: 'warning',
-                title: 'Incomplete Form',
-                text: 'Please complete the form before printing.',
-            });
-            return;
-        }
+    
 
         console.log('hello');
 

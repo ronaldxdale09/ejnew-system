@@ -91,12 +91,12 @@ if (isset($_GET['id'])) {
                 <div class="row">
                     <div class="col-12">
                         <div class="col-8">
-                            <button type="button" class="btn trans-btn btn-secondary btnReturn">
+                            <a href="cuplump_container_record.php" type="button" class="btn trans-btn btn-secondary ">
                                 <span class="fas fa-arrow-left"></span> Return
-                            </button>
+                            </a>
                             <button type="button" class="btn trans-btn btn-danger btnVoid"> <span
                                     class="fas fa-times"></span>
-                                Void</button>
+                                    Delete Record</button>
                             <button type="button" class="btn trans-btn btn-warning btnDraft"><span
                                     class="fas fa-info-circle"></span> Save as Draft</button>
                             <button type="button" class="btn trans-btn btn-primary confirmContainer"

@@ -109,7 +109,8 @@ include "sales_modal/cuplump_shipment_modal.php";
                                                 <td>
                                                     <!-- Button for more details or actions -->
                                                     <button type="button" class="btn btn-success btn-sm btnViewRecord"
-                                                        data-id="<?php echo $row['shipment_id']; ?>">
+                                                        data-id="<?php echo $row['shipment_id']; ?>"
+                                                        data-shipment='<?php echo json_encode($row); ?>'>
                                                         <i class="fas fa-eye"></i>
                                                     </button>
                                                 </td>
@@ -156,57 +157,38 @@ include "sales_modal/cuplump_shipment_modal.php";
 
 
 
-
         $('.btnViewRecord').on('click', function () {
-            $tr = $(this).closest('tr');
-            var data = $tr.find("td").map(function () {
-                return $(this).text();
-            }).get();
+            var shipmentData = $(this).data('shipment'); // Extract the shipment data from the button's data-shipment attribute
 
-            $('#v_ship_id').val(data[1]);
-            $('#v_type').val(data[2]);
-            $('#v_date').val(data[3]);
-            $('#v_source').val(data[4]);
-            $('#v_destination').val(data[5]);
-            $('#v_remarks').val(data[10]);
+            // Set values in the modal from the extracted data
+            $('#v_ship_id').val(shipmentData.shipment_id);
+            $('#v_type').val(shipmentData.type);
+            $('#v_date').val(shipmentData.ship_date);
+            $('#v_destination').val(shipmentData.destination);
+            $('#v_source').val(shipmentData.source);
+            $('#v_vessel').val(shipmentData.vessel);
+            $('#v_info_lading').val(shipmentData.bill_lading);
+            $('#v_remarks').val(shipmentData.remarks);
+            $('#v_recorded_by').val(shipmentData.recorded_by);
 
-            var vessel = $(this).data('vessel');
-            var bill_lading = $(this).data('bill_lading');
-            var recorded = $(this).data('recorded');
-            $('#v_vessel').val(vessel);
-            $('#v_bill_lading').val(bill_lading);
-            $('#v_recorded_by').val(recorded);
+            // Financial fields
+            $('#ship_exp_freight').val(parseFloat(shipmentData.freight).toFixed(2));
+            $('#ship_exp_loading').val(parseFloat(shipmentData.loading_unloading).toFixed(2));
+            $('#ship_exp_processing').val(parseFloat(shipmentData.processing_fee).toFixed(2));
+            $('#ship_exp_trucking').val(parseFloat(shipmentData.trucking_expense).toFixed(2));
+            $('#ship_exp_cranage').val(parseFloat(shipmentData.cranage_fee).toFixed(2));
+            $('#ship_exp_misc').val(parseFloat(shipmentData.miscellaneous).toFixed(2));
+            $('#total_ship_exp').val(parseFloat(shipmentData.total_shipping_expense).toFixed(2));
+            $('#number_container').val(shipmentData.no_containers);
+            $('#ship_cost_per_container').val(parseFloat(shipmentData.ship_cost_container).toFixed(2));
+            $('#total-cuplump-weight').val(parseFloat(shipmentData.total_cuplump_weight).toFixed(2));
 
-            var freight = $(this).data('freight');
-            var loading = $(this).data('loading');
-            var processing = $(this).data('processing');
-            var trucking = $(this).data('trucking');
-            var cranage = $(this).data('cranage');
-            var misc = $(this).data('misc');
-            var total_expense = $(this).data('total_expense');
-            var num_containers = $(this).data('num_containers');
-            var cost_per_container = $(this).data('cost_per_container');
-
-            $('#v_ship_exp_freight').val(parseFloat(freight).toLocaleString('en'));
-            $('#v_ship_exp_loading').val(parseFloat(loading).toLocaleString('en'));
-            $('#v_ship_exp_processing').val(parseFloat(processing).toLocaleString('en'));
-            $('#v_ship_exp_trucking').val(parseFloat(trucking).toLocaleString('en'));
-            $('#v_ship_exp_cranage').val(parseFloat(cranage).toLocaleString('en'));
-            $('#v_ship_exp_misc').val(parseFloat(misc).toLocaleString('en'));
-            $('#v_total_ship_exp').val(parseFloat(total_expense).toLocaleString('en'));
-            $('#v_number_container').val(parseFloat(num_containers).toLocaleString('en'));
-            $('#v_ship_cost_per_container').val(parseFloat(cost_per_container).toLocaleString('en'));
-
-
-            // TABLE TO DISPLAY THE SELECTED CONTAINER
+            // Fetch and display the container list
             function fetch_container_list() {
-
                 $.ajax({
                     url: "table/cuplump_shipment_container_record.php",
                     method: "POST",
-                    data: {
-                        shipment_id: data[1]
-                    },
+                    data: { shipment_id: shipmentData.shipment_id },
                     success: function (data) {
                         $('#shipment_container_record').html(data);
                         $("#print_content button").each(function () {
@@ -219,10 +201,9 @@ include "sales_modal/cuplump_shipment_modal.php";
             }
             fetch_container_list();
 
-
-
             $('#cuplumpShipmentRecord').modal('show');
         });
+
     </script>
 
 
