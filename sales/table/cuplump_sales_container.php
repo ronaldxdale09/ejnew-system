@@ -20,7 +20,7 @@ $output .= '<table class="table table-bordered table-hover table-striped" id="re
             <th scope="col">Location</th>
             <th scope="col">Loading Date</th>
             <th scope="col">Cuplump Weight</th>
-            <th scope="col" width="15%">Sale Weight</th>
+            <th scope="col" width="15%">Selling Weight</th>
             <th scope="col">Cuplump Cost</th>
             <th scope="col">Ship Expense</th>
             <th scope="col">Ave. Cost</th>
@@ -32,7 +32,7 @@ $output .= '<table class="table table-bordered table-hover table-striped" id="re
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_array($result)) {
         $total_cuplump_weight += $row['total_weight'];
-        $total_cuplump_selling_weight += $row['cuplump_selling_weight'];
+        $total_cuplump_selling_weight += $row['selling_weight'];
         $total_cuplump_cost += $row["total_cuplump_cost"];
         $total_ship_exp += $row["ship_expense"];
         $number_container++;
@@ -42,14 +42,9 @@ if (mysqli_num_rows($result) > 0) {
             <td class="nowrap">' . $row["van_no"] . '</td>
             <td class="nowrap">' . $row["location"] . '</td>
             <td class="nowrap">' . date("M. j, Y", strtotime($row["loading_date"])) . '</td>
-            <td class="nowrap number-cell">' . number_format($row["total_weight"], 0, ".", ",") . ' kg</td>
-            <td class="nowrap number-cell">
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control selling-weight" value="' . number_format($row["cuplump_selling_weight"]) . '"  onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"/>
-                <span class="input-group-text">kg</span>
-                </div>
-           
-                </td>
+            <td class="nowrap number-cell">' . number_format($row["total_weight"], 2, ".", ",") . ' kg</td>
+            <td class="nowrap number-cell" >' . number_format($row["selling_weight"], 2, ".", ",") . ' kg</td>
+
             <td class="nowrap number-cell">₱ ' . number_format($row["total_cuplump_cost"], 2, ".", ",") . ' </td>
             <td class="nowrap number-cell">₱ ' . number_format($row["ship_expense"], 2, ".", ",") . ' </td>
             <td class="nowrap number-cell">₱ ' . number_format($row["ave_cost"], 2, ".", ",") . ' </td>
@@ -72,41 +67,17 @@ echo $output;
 <script>
     $(document).ready(function () {
 
-        function calculateTotalSaleWeightAndUpdateCost() {
-            let totalSaleWeight = 0;
-            let totalCuplumpCost = parseFloat($('#total_cuplump_cost').val().replace(/,/g, '')) || 0;
-            let overallCost = totalCuplumpCost + parseFloat($('#total_ship_exp').val().replace(/,/g, '')) || 0;
+ 
 
-            // Loop through each selling weight input and add its value to the total
-            $('.selling-weight').each(function () {
-                let weightStr = $(this).val().replace(/,/g, '');
-                let weight = parseFloat(weightStr) || 0;
-                totalSaleWeight += weight;
-            });
-
-            // Update the total sale weight input field
-            $('#total_selling_weight').val(totalSaleWeight.toFixed(2));
-
-            // Calculate and update overall average cost per kilo
-            let overallAverageCost = totalSaleWeight > 0 ? overallCost / totalSaleWeight : 0;
-            $('#overall_ave_kiloCost').val(overallAverageCost.toFixed(2));
-        }
-
-        // Attach the calculation function to the keyup and change events of the selling weight inputs
-        $(document).on('keyup change', '.selling-weight', calculateTotalSaleWeightAndUpdateCost);
-
-        // Initial calculation on page load
-        calculateTotalSaleWeightAndUpdateCost();
-
-
-        // Set the values using PHP variables
-        $('#number_container').val("<?php echo $number_container; ?>");
+       // Set the values using PHP variables
+       $('#number_container').val("<?php echo $number_container; ?>");
         $('#total_cuplump_weight').val("<?php echo number_format($total_cuplump_weight, 2); ?>");
-        $('#total_cuplump_selling_weight').val("<?php echo number_format($total_cuplump_selling_weight, 2); ?>");
+        $('#total_selling_weight').val("<?php echo number_format($total_cuplump_selling_weight, 2); ?>");
         $('#total_cuplump_cost').val("<?php echo number_format($total_cuplump_cost, 2); ?>");
         $('#total_ship_exp').val("<?php echo number_format($total_ship_exp, 2); ?>");
         $('#overall_ave_kiloCost').val("<?php echo number_format($overall_ave_cost, 2); ?>");
         $('#over_all_cost').val("<?php echo number_format($overall_cost, 2); ?>");
+
 
         $('.removeContainer').on('click', function () {
             var $tr = $(this).closest('tr');

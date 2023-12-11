@@ -4,7 +4,7 @@ $output = '';
 
 $sales_id = $_POST['sales_id'];
 
-$result  = mysqli_query($con, "SELECT *,sales_cuplump_container.container_id as con_id from sales_cuplump_container 
+$result = mysqli_query($con, "SELECT *,sales_cuplump_container.container_id as con_id from sales_cuplump_container 
 LEFT JOIN bales_container_selection ON bales_container_selection.container_id =  sales_cuplump_container.container_id 
 where sales_cuplump_container.status ='Shipped Out'
   GROUP BY sales_cuplump_container.container_id");
@@ -31,6 +31,7 @@ $output .= '
                 <th scope="col">Van No.</th>
                 <th scope="col" >Loading Date</th>
                 <th scope="col">Total Weight</th>
+                <th scope="col">Selling Weight</th>
                 <th scope="col">Shipping Exp.</th>
                 <th scope="col">Total Cuplump Cost</th>
                 <th scope="col">Average Cost</th>
@@ -51,9 +52,15 @@ if (mysqli_num_rows($result) > 0) {
         <tr>
             <td class="nowrap">' . $row["con_id"] . '</td>
             <td class="nowrap">' . $row["van_no"] . '</td>
-            <td >' .  date("F j, Y", strtotime($row["loading_date"])) . '</td>
-            <td class="nowrap number-cell">' . number_format($row["total_cuplump_weight"], 0, ".", ",") . ' kg</td>
-
+            <td >' . date("F j, Y", strtotime($row["loading_date"])) . '</td>
+            <td class="nowrap number-cell">' . number_format($row["total_cuplump_weight"], 2, ".", ",") . ' kg</td>
+            <td class="nowrap number-cell">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control selling-weight" value="' . number_format($row["cuplump_selling_weight"], 2) . '"  onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"/>
+            <span class="input-group-text">kg</span>
+            </div>
+       
+            </td>
             <td class="nowrap number-cell" >₱ ' . number_format($row["ship_exp"], 2, ".", ",") . ' </td>
             <td class="nowrap number-cell" >₱ ' . number_format($row["total_cuplump_cost"] + $row["ship_exp"], 2, ".", ",") . ' </td>
             <td class="nowrap number-cell" >₱ ' . number_format($row["ave_cuplump_cost"], 2, ".", ",") . ' </td>
@@ -79,18 +86,18 @@ echo $output;
 
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
 
 
-        $('.addProduct').on('click', function() {
+        $('.addProduct').on('click', function () {
 
 
             $tr = $(this).closest('tr');
-            var data = $tr.children("td").map(function() {
+            var data = $tr.children("td").map(function () {
                 return $(this).text();
             }).get();
 
-            $tr.each(function() {
+            $tr.each(function () {
                 ;
 
 
@@ -100,9 +107,12 @@ echo $output;
                 var van_no = data[1];
                 var date = data[2];
                 var total_weight = data[3];
-                var ship_exp = data[4];
-                var total_cost = data[5];
-                var ave_cost = data[6];
+                // Extracting the selling weight
+                var sellingWeightCell = $tr.find('.selling-weight');
+                var selling_weight = sellingWeightCell.val();
+                var ship_exp = data[5];
+                var total_cost = data[6];
+                var ave_cost = data[7];
 
                 $.ajax({
                     method: "POST",
@@ -112,12 +122,13 @@ echo $output;
                         sales_id: sales_id,
                         van_no: van_no,
                         total_weight: total_weight,
+                        selling_weight: selling_weight,
                         ship_exp: ship_exp,
-                        total_cost:total_cost,
-                        ave_cost:ave_cost
+                        total_cost: total_cost,
+                        ave_cost: ave_cost
 
                     },
-                    success: function(data) {
+                    success: function (data) {
                         console.log('success');
                         console.log(data);
                         fetch_container();

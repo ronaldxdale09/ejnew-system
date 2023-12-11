@@ -121,7 +121,7 @@ while ($arr = mysqli_fetch_array($result)) {
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Less </span>
-                                    </div><input type="text" class="form-control" name="less" id='n_less' required onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" placeholder="(Optional)" autocomplete="off">
+                                    </div><input type="text" class="form-control" name="less" id='n_less' required value='0'onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" placeholder="(Optional)" autocomplete="off">
                                 </div>
                             </div>
                         </div>

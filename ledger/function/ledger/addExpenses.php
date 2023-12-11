@@ -37,9 +37,7 @@ if (isset($_POST['add'])) {
     $results = mysqli_query($con, $query);
 
     if ($results) {
-        header("Location: ../../ledger-expense.php");
         $_SESSION['expenses'] = "successful";
-        exit();
     } else {
         echo "ERROR: Could not be able to execute $query. " . mysqli_error($con);
     }

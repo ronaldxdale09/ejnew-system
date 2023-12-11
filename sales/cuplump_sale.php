@@ -727,11 +727,13 @@ if (isset($_GET['id'])) {
     function calculateSalesTotals() {
         var contract_price = parseFloat($("#contract_price").val().replace(/,/g, "")) || 0;
         var total_cuplump_weight = parseFloat($("#total_cuplump_weight").val().replace(/,/g, "")) || 0;
+        var total_selling_weight = parseFloat($("#total_selling_weight").val().replace(/,/g, "")) || 0;
+
         var sales_proceeds = parseFloat($("#sales_proceeds").val().replace(/,/g, "")) || 0;
         var tax_rate = parseFloat($("#tax_rate").val().replace(/,/g, "")) || 0;
         var over_all_cost = parseFloat($("#over_all_cost").val().replace(/,/g, "")) || 0;
 
-        var total_sale = total_cuplump_weight * contract_price;
+        var total_sale = total_selling_weight * contract_price;
         var tax_amount = sales_proceeds * (tax_rate / 100); // computed tax amount, tax rate should be in percentage.
         var gross_profit = (sales_proceeds - tax_amount) - over_all_cost; // Compute gross profit based on the current sales proceeds and tax amount
 
@@ -751,7 +753,7 @@ if (isset($_GET['id'])) {
         changeGrossProfitColor();
     }
 
-
+    calculateSalesTotals() 
 
 
     $(document).on('click', '.btnPrint', function (e) {
