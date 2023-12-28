@@ -48,7 +48,7 @@ $bales = mysqli_fetch_array($sql);
 
 $sql = mysqli_query($con, "SELECT SUM(remaining_bales) as inventory from  planta_bales_production 
       LEFT JOIN planta_recording on planta_bales_production.recording_id = planta_recording.recording_id
-    where  planta_bales_production.remaining_bales !=0  and planta_recording.source  ='$loc' ");
+    where  (planta_bales_production.remaining_bales !=0  and planta_recording.source  ='$loc') and planta_bales_production.status='Produced'  ");
 $balesCount = mysqli_fetch_array($sql);
 
 

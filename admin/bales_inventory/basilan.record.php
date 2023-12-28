@@ -86,8 +86,12 @@
                 <td hidden>
                     <?php echo $row['bales_prod_id'] ?>
                 </td>
-                <td><?php echo date('M d, Y', strtotime($row['production_date'])); ?></td>
-                <td><?php echo $row['supplier'] ?></td>
+                <td>
+                    <?php echo date('M d, Y', strtotime($row['production_date'])); ?>
+                </td>
+                <td>
+                    <?php echo $row['supplier'] ?>
+                </td>
                 <td style="width:10%">
                     <?php
                     if ($row['lot_num'] == "Outsourced") {
@@ -97,36 +101,68 @@
                     }
                     ?>
                 </td>
-                <td><?php echo $row['bales_type'] ?></td>
-                <td class="number-cell"> <?php echo $row['kilo_per_bale'] ?> kg</td>
-                <td class="number-cell bales-column"> <?php echo number_format($row['number_bales'], 0, '.', ',') ?> pcs </td>
-                <td class="number-cell remaining-column"> <?php echo number_format($row['remaining_bales'], 0, '.', ',') ?> pcs </td>
+                <td>
+                    <?php echo $row['bales_type'] ?>
+                </td>
                 <td class="number-cell">
-                    <?php echo number_format($row['reweight'], 0, '.', ',') ?> kg</td>
+                    <?php echo $row['kilo_per_bale'] ?> kg
+                </td>
+                <td class="number-cell bales-column">
+                    <?php echo number_format($row['number_bales'], 0, '.', ',') ?> pcs
+                </td>
+                <td class="number-cell remaining-column">
+                    <?php echo number_format($row['remaining_bales'], 0, '.', ',') ?> pcs
+                </td>
                 <td class="number-cell">
-                    <?php echo number_format($row['rubber_weight'], 0, '.', ',') ?> kg</td>
+                    <?php echo number_format($row['reweight'], 0, '.', ',') ?> kg
+                </td>
+                <td class="number-cell">
+                    <?php echo number_format($row['rubber_weight'], 0, '.', ',') ?> kg
+                </td>
 
-                <td class="number-cell"><?php echo number_format($row['drc'], 2) ?> %</td>
-                <td><?php echo $row['description'] ?></td>
-                <?php if ($row['status'] == 'For Sale') : ?>
-                    <td>₱<?php echo number_format($row['milling_cost']) ?></td>
-                    <td>₱<?php echo number_format($row['total_production_cost'] / $row['produce_total_weight'], 2) ?></td>
-                <?php else : ?>
+                <td class="number-cell">
+                    <?php echo number_format($row['drc'], 2) ?> %
+                </td>
+                <td>
+                    <?php echo $row['description'] ?>
+                </td>
+                <?php if ($row['status'] == 'For Sale'): ?>
+                    <td>₱
+                        <?php echo number_format($row['milling_cost']) ?>
+                    </td>
+                    <td>₱
+                        <?php echo number_format($row['total_production_cost'] / $row['produce_total_weight'], 2) ?>
+                    </td>
+                <?php else: ?>
                     <td>-</td>
                     <td>-</td>
                 <?php endif; ?>
 
                 <td>
-                    <?php if ($row['status'] == 'For Sale') : ?>
-                        <span class="badge bg-primary"><?php echo $row['status'] ?></span>
-                    <?php elseif ($row['status'] == 'Pressing') : ?>
-                        <span class="badge bg-danger"><?php echo $row['status'] ?></span>
-                    <?php elseif ($row['status'] == 'Purchase') : ?>
-                        <span class="badge bg-info"><?php echo $row['status'] ?></span>
-                    <?php elseif ($row['status'] == 'Complete') : ?>
-                        <span class="badge bg-success"><?php echo $row['status'] ?></span>
-                    <?php else : ?>
-                        <span class="badge"><?php echo $row['status'] ?></span>
+                    <?php if ($row['status'] == 'For Sale'): ?>
+                        <span class="badge bg-primary">
+                            <?php echo $row['status'] ?>
+                        </span>
+                    <?php elseif ($row['status'] == 'Drying'): ?>
+                        <span class="badge bg-warning">
+                            <?php echo $row['status'] ?>
+                        </span>
+                    <?php elseif ($row['status'] == 'Pressing'): ?>
+                        <span class="badge bg-danger">
+                            <?php echo $row['status'] ?>
+                        </span>
+                    <?php elseif ($row['status'] == 'Purchase'): ?>
+                        <span class="badge bg-info">
+                            <?php echo $row['status'] ?>
+                        </span>
+                    <?php elseif ($row['status'] == 'Complete'): ?>
+                        <span class="badge bg-success">
+                            <?php echo $row['status'] ?>
+                        </span>
+                    <?php else: ?>
+                        <span class="badge">
+                            <?php echo $row['status'] ?>
+                        </span>
                     <?php endif; ?>
                 </td>
             </tr>
@@ -135,7 +171,7 @@
 </table>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $(".filterSupplier").chosen({
             search_contains: true,
             no_results_text: "Oops, nothing found!"
@@ -154,39 +190,39 @@
                 "<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'>>",
             "responsive": true,
             "buttons": [{
-                    extend: 'excelHtml5',
-                    text: 'Excel',
-                    exportOptions: {
-                        columns: ':visible'
-                    }
-                },
-                {
-                    extend: 'pdfHtml5',
-                    text: 'PDF',
-                    exportOptions: {
-                        columns: ':visible'
-                    }
-                },
-                {
-                    extend: 'print',
-                    text: 'Print',
-                    exportOptions: {
-                        columns: ':visible'
-                    }
+                extend: 'excelHtml5',
+                text: 'Excel',
+                exportOptions: {
+                    columns: ':visible'
                 }
+            },
+            {
+                extend: 'pdfHtml5',
+                text: 'PDF',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'print',
+                text: 'Print',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            }
             ]
         });
 
         // Filter by Payee
-        $('#filterSupplier').on('change', function() {
+        $('#filterSupplier').on('change', function () {
             table.column(2).search(this.value).draw(); // Assuming Payee is the 5th column
         });
 
         // Filter by Month
-        $('#filterMonth').on('change', function() {
+        $('#filterMonth').on('change', function () {
             var month = parseInt(this.value, 10);
             $.fn.dataTable.ext.search.push(
-                function(settings, data, dataIndex) {
+                function (settings, data, dataIndex) {
                     var dateIssued = new Date(data[1]); // Assuming Date Issued is the 3rd column
                     return isNaN(month) || month === dateIssued.getMonth() + 1;
                 }
@@ -196,12 +232,12 @@
         });
 
         // Filter by Date Range
-        $('#startDate, #endDate').on('change', function() {
+        $('#startDate, #endDate').on('change', function () {
             var startDate = $('#startDate').val() ? new Date($('#startDate').val()) : null;
             var endDate = $('#endDate').val() ? new Date($('#endDate').val()) : null;
 
             $.fn.dataTable.ext.search.push(
-                function(settings, data, dataIndex) {
+                function (settings, data, dataIndex) {
                     var dateIssued = new Date(data[1]); // Assuming Date Issued is the 3rd column
                     if (startDate && dateIssued < startDate) {
                         return false;

@@ -28,20 +28,20 @@ $expense_year = mysqli_fetch_array($getYearTotal);
     <link rel='stylesheet' href='css/statistic-card.css'>
     <link rel='stylesheet' href='css/tab.css'>
     <input type='hidden' id='selected-cart' value=''>
-   
-        <div class="container home-section h-100" style="max-width:95%;">
-            <div class="p-5 bg-white rounded shadow mb-5">
-                <h2 class="page-title text-center">
-                    <b>
-                        <font color="#0C0070">EXPENSE </font>
-                        <font color="#046D56"> RECORD </font>
-                    </b>
-                </h2>
-                <?php include('ledgerTab/expenses.php') ?>
-            </div>
-            <!-- ============================================================== -->
+
+    <div class="container home-section h-100" style="max-width:95%;">
+        <div class="p-5 bg-white rounded shadow mb-5">
+            <h2 class="page-title text-center">
+                <b>
+                    <font color="#0C0070">EXPENSE </font>
+                    <font color="#046D56"> RECORD </font>
+                </b>
+            </h2>
+            <?php include('ledgerTab/expenses.php') ?>
         </div>
-  
+        <!-- ============================================================== -->
+    </div>
+
 </body>
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.12.1/api/sum().js"></script>
 
@@ -57,7 +57,7 @@ include('modal/modal_expenses.php');
 ?>
 
 
-<?php if (isset($_SESSION['expenses'])) : ?>
+<?php if (isset($_SESSION['expenses'])): ?>
     <div class="msg">
         <script>
             Swal.fire({
@@ -65,7 +65,7 @@ include('modal/modal_expenses.php');
                 icon: 'success',
                 title: 'Expense record successfully inserted!',
                 showConfirmButton: false,
-                timer: 1500
+                timer: 1000
             })
         </script>
         <?php
@@ -74,7 +74,26 @@ include('modal/modal_expenses.php');
     </div>
 <?php endif ?>
 
-<?php if (isset($_SESSION['expenses_update'])) : ?>
+
+<?php if (isset($_SESSION['deleted'])): ?>
+    <div class="msg">
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'info',
+                title: 'Expense record successfully deleted!',
+                showConfirmButton: false,
+                timer: 1000
+            })
+        </script>
+        <?php
+        unset($_SESSION['deleted']);
+        ?>
+    </div>
+<?php endif ?>
+
+
+<?php if (isset($_SESSION['updated'])): ?>
     <div class="msg">
         <script>
             Swal.fire({
@@ -82,11 +101,11 @@ include('modal/modal_expenses.php');
                 icon: 'success',
                 title: 'Expense record successfully Update!',
                 showConfirmButton: false,
-                timer: 1500
+                timer: 1000
             })
         </script>
         <?php
-        unset($_SESSION['expenses']);
+        unset($_SESSION['updated']);
         ?>
     </div>
 <?php endif ?>

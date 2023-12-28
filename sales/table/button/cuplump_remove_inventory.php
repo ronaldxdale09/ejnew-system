@@ -8,7 +8,7 @@ include('../../../function/db.php');
     $sql = "DELETE FROM sales_cuplump_shipment_container WHERE container_id = '$container_id' AND shipment_id = '$shipment_id'";
     $results = mysqli_query($con, $sql);
 
-    $sql = "UPDATE sales_cuplump_container 
+    $sql = "UPDATE cuplump_container 
     SET status='Awaiting Sales'
     WHERE container_id='$container_id' AND shipment_id='$shipment_id'";
 

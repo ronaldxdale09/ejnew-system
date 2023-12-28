@@ -1,18 +1,16 @@
 <?php
 $balance_query = mysqli_query($con, "SELECT buyer_name, sum(unpaid_balance) as total_unpaid
-FROM bales_sales_record
-GROUP BY buyer_name
-ORDER BY buyer_name ASC");
+                                      FROM bales_sales_record
+                                      GROUP BY buyer_name
+                                      ORDER BY buyer_name ASC");
 
 $buyer_names = [];
 $unpaid_balances = [];
 if ($balance_query->num_rows > 0) {
-foreach ($balance_query as $data) {
-if ($data['total_unpaid'] > 0) {  // Check if the balance is greater than zero
-$buyer_names[] = $data['buyer_name'];
-$unpaid_balances[] = $data['total_unpaid'];
-}
-}
+    foreach ($balance_query as $data) {
+        $buyer_names[] = $data['buyer_name'];
+        $unpaid_balances[] = $data['total_unpaid'];
+    }
 }
 
 // Rest of the code for drawing the chart, as you have done for the expenses

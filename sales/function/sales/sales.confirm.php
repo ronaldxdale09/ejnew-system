@@ -1,6 +1,10 @@
 <?php
 include('../../../function/db.php');
 
+
+require 'PHPMailer/PHPMailerAutoload.php';
+
+
 // Retrieve values from the form
 $sales_id = $_POST['sales_id'];
 $sale_contract = $_POST['sale_contract'];
@@ -129,8 +133,8 @@ if (mysqli_query($con, $query)) {
         $payment_id = $_POST['payment_id'];
 
         foreach ($pay_details as $index => $details) {
-            $id = isset($payment_id[$index]) ?  $payment_id[$index] : '';
-            $date = isset($pay_date[$index]) ?  $pay_date[$index] : '';
+            $id = isset($payment_id[$index]) ? $payment_id[$index] : '';
+            $date = isset($pay_date[$index]) ? $pay_date[$index] : '';
             $amount = isset($pay_amount[$index]) ? floatval(str_replace(',', '', $pay_amount[$index])) : 0;
             $rate = isset($pay_rate[$index]) ? floatval(str_replace(',', '', $pay_rate[$index])) : 0;
             $equivalent = isset($peso_equivalent[$index]) ? floatval(str_replace(',', '', $peso_equivalent[$index])) : 0;
@@ -186,8 +190,118 @@ if (mysqli_query($con, $query)) {
 
 
 
+    try {
+
+        $total_bale_weight = number_format($total_bale_weight, 2);
+        $total_bale_cost = number_format($total_bale_cost, 2);
+        $total_milling_cost = number_format($total_milling_cost, 2);
+        $total_ship_exp = number_format($total_ship_exp, 2);
+        $total_sale = number_format($total_sale, 2);
+        $amount_unpaid = number_format($amount_unpaid, 2);
+        $unpaid_balance = number_format($unpaid_balance, 2);
+        $sales_proceeds = number_format($sales_proceeds, 2);
+        $over_all_cost = number_format($over_all_cost, 2);
+        $gross_profit = number_format($gross_profit, 2);
+        $tax_rate = number_format($tax_rate, 2);
+        $tax_amount = number_format($tax_amount, 2);
+
+
+        $emailBody = "
+        <html>
+        <head>
+            <style>
+                body { font-family: Arial, sans-serif; }
+                .table { border-collapse: collapse; width: 100%; }
+                .table th, .table td { border: 1px solid #ddd; padding: 8px; }
+                .table th { text-align: left; background-color: #f2f2f2; }
+            </style>
+        </head>
+        <body>
+            <h2>Bales Sales Confirmation</h2>
+            <table class='table'>
+                <tr><th>Sales ID</th><td>{$sales_id}</td></tr>
+                <tr><th>Sale Contract</th><td>{$sale_contract}</td></tr>
+                <tr><th>Purchase Contract</th><td>{$purchase_contract}</td></tr>
+                <tr><th>Sale Type</th><td>{$sale_type}</td></tr>
+                <tr><th>Contract Quality</th><td>{$contract_quality}</td></tr>
+                <tr><th>Transaction Date</th><td>{$trans_date}</td></tr>
+                <tr><th>Sale Buyer</th><td>{$sale_buyer}</td></tr>
+                <tr><th>Shipping Date</th><td>{$shipping_date}</td></tr>
+                <tr><th>Sale Source</th><td>{$sale_source}</td></tr>
+                <tr><th>Sale Destination</th><td>{$sale_destination}</td></tr>
+                <tr><th>Contract Containers</th><td>{$contract_contaier}</td></tr>
+                <tr><th>Contract Quantity</th><td>{$contract_quantity} kg</td></tr>
+                <tr><th>Sale Currency</th><td>{$sale_currency}</td></tr>
+                <tr><th>Contract Price</th><td>{$contract_price}</td></tr>
+            </table>
+
+            <h3>Additional Information</h3>
+            <p>Other Terms: {$other_terms}</p>
+            <p>Number of Containers: <em>{$number_container}</em></p>
+            <p>Total Number of Bales: <em>{$total_num_bales}</em></p>
+            <p>Total Bale Weight: <em>{$total_bale_weight} kg</em></p>
+            <p>Total Bale Cost:₱ <em>{$total_bale_cost}</em></p>
+            <p>Total Milling Cost:₱ <em>{$total_milling_cost}</em></p>
+            <p>Total Shipping Expense:₱ <em>{$total_ship_exp}</em></p>
+            <p>Total Sale: {$sale_currency} <em>{$total_sale}</em></p>
+            <p>Amount Unpaid: {$sale_currency} <em>{$amount_unpaid}</em></p>
+            <p>Unpaid Balance: {$sale_currency} <em>{$unpaid_balance}</em></p>
+            <p>Sales Proceeds:₱ <em>{$sales_proceeds}</em></p>
+            <p>Overall Cost:₱ <em>{$over_all_cost}</em></p>
+            <p>Tax Rate: <em>{$tax_rate}%</em></p>
+            <p>Tax Amount:₱ <em>{$tax_amount}</em></p>
+            <p><b> Gross Profit/Loss:₱ {$gross_profit}</b></p>
+            
+
+        </body>
+        </html>";
+
+
+        $phpmailer = new PHPMailer();
+        
+
+        $phpmailer->isSMTP();
+        $phpmailer->Host = 'smtp.hostinger.com';
+        $phpmailer->SMTPAuth = true;
+        $phpmailer->Port = 587;
+        $phpmailer->Username = 'notif@en-rubber.online';
+        $phpmailer->Password = 'Aetherio@2023';
+
+        // Check if the email address is valid
+    // Check if the email addresses are valid
+if (!PHPMailer::validateAddress('ronaldxdale@gmail.com') || !PHPMailer::validateAddress('richardbnew@gmail.com')) {
+    throw new Exception("Invalid email address");
+}
+
+        $phpmailer->setFrom('notif@en-rubber.online', 'EJN SYSTEM');
+        $phpmailer->addAddress('ronaldxdale@gmail.com');
+        $phpmailer->addAddress('richardbnew@gmail.com.com'); // Add the second email address here
+
+        //Attachments
+        //$phpmailer->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
+        // $phpmailer->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
+
+      
+        // Content
+        $phpmailer->isHTML(true);
+        $phpmailer->Subject = 'Bales Sales Confirmation | EN-RUBBER SYSTEM';
+        $phpmailer->Body = $emailBody;
+
+        $phpmailer->send();
+
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$phpmailer->ErrorInfo}";
+    }
+
+
+
+
+
     echo 'success';
 } else {
     echo 'Update query failed: ' . mysqli_error($con);
     exit();
 }
+
+
+

@@ -95,12 +95,51 @@ if (isset($_GET['id'])) {
         background-color: red !important;
 
     }
+       /* CSS for loading overlay */
+       .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        /* Semi-transparent black background */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+
+    .loading-spinner {
+        font-size: 24px;
+        /* Adjust the size of the spinner */
+        color: #ffffff;
+        /* Text color (white) */
+        padding: 20px;
+        /* Add some padding around the spinner */
+        background-color: #333;
+        /* Background color for the spinner */
+        border-radius: 8px;
+        /* Rounded corners */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        /* Box shadow for a subtle effect */
+    }
 </style>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <body>
+
+
+    <!-- Loading overlay -->
+    <div id="loadingOverlay" class="overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i> Loading...
+        </div>
+    </div>
+
+
     <div class='main-content' style='position:relative; height:100%;'>
         <div class="container home-section h-100" style="max-width:95%;">
             <h1 class="page-title" style="text-align: center;"><B>
@@ -538,14 +577,14 @@ if (isset($_GET['id'])) {
 
 
 
-
+    $('#loadingOverlay').hide();
     $(document).on('click', '#confirmSales', function (e) {
         // Prevent the default form submission
         e.preventDefault();
+        $('#loadingOverlay').show();
 
         // Set the form action to the desired URL
         $('#salesForm').attr('action', 'function/cuplump_sale/sales.confirm.php');
-
         // Submit the form asynchronously using AJAX
         $.ajax({
             type: "POST",
@@ -553,10 +592,17 @@ if (isset($_GET['id'])) {
             data: $('#salesForm').serialize(),
             success: function (response) {
                 if (response.trim() === 'success') {
+                    $('#loadingOverlay').hide();
                     Swal.fire({
-                        icon: 'success',
+                        icon: 'info',
                         title: 'Success',
-                        text: 'Sale transaction completed!',
+                        text: 'Your cuplump sale record has been completed!',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Redirect to the cuplump_container_record.php page
+                            window.location.href = 'cuplump_sale_record.php';
+                        }
                     });
 
                     // Set all inputs to readonly
@@ -576,6 +622,7 @@ if (isset($_GET['id'])) {
             },
             error: function (xhr, status, error) {
                 // Handle the error response
+                $('#loadingOverlay').hide();
                 // Display SweetAlert error popup
                 Swal.fire({
                     icon: 'error',
@@ -604,8 +651,14 @@ if (isset($_GET['id'])) {
                 if (response.trim() === 'success') {
                     Swal.fire({
                         icon: 'info',
-                        title: 'Success',
-                        text: 'Sale Transaction saved as draft!',
+                        title: 'Draft Saved',
+                        text: 'Your cuplump sale record draft has been saved!',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Redirect to the cuplump_container_record.php page
+                            window.location.href = 'cuplump_sale_record.php';
+                        }
                     });
 
                     // Set all inputs to readonly

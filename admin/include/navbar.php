@@ -17,6 +17,16 @@
 
 
         <li class="item has-submenu">
+            <a tabindex="0">Rubber Plant</a>
+            <ul class="submenu">
+                <li class="subitem"><a href="plant_basilan_recording.php">Basilan Plant</a></li>
+                <li class="subitem"><a href="plant_kid_recording.php">Kidapawan Plant</a></li>
+            </ul>
+        </li>
+
+
+
+        <li class="item has-submenu">
             <a tabindex="0">Bales</a>
             <ul class="submenu">
                 <li class="subitem"><a href="inv_bale.php">Inventory</a></li>

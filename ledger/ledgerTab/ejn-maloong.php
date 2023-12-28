@@ -18,7 +18,7 @@
                             <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#maloongToppers">
                                 <i class="fa fa-plus" aria-hidden="true"></i> NEW TRANSACTION
                             </button>
-                            <button type="button" class="btn btn-secondary text-white" data-toggle="modal" data-target="#modal">
+                            <button type="button" class="btn btn-dark text-white" data-toggle="modal" data-target="#modal">
                                 CATEGORY
                             </button>
                         </div>
@@ -81,7 +81,7 @@
                                     <td>₱ <?php echo number_format(floatval($row['topper_total']), 2) ?></td>
 
                                     <td>
-                                        <button type="button" data-maloong='<?php echo json_encode($row); ?>' class="btn btn-sm btnUpdate btn-secondary text-white">
+                                        <button type="button" data-maloong='<?php echo json_encode($row); ?>' class="btn btn-sm btnUpdate btn-success text-white">
                                             <span class="fa fa-edit"></span>
                                         </button>
                                         <button type="button" data-maloong='<?php echo json_encode($row); ?>' class="btn btn-sm btnDelete btn-danger text-white">

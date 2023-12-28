@@ -48,7 +48,7 @@ include "include/navbar.php";
                                     <h2 class="page-title" style="text-align:center;">
                                         <b>
                                             <font color="#0C0070">BASILAN </font>
-                                            <font color="#046D56">BALE INVENTORY </font>
+                                            <font color="#046D56">BALES INVENTORY </font>
                                         </b>
                                     </h2>
                                     <?php include('bales_inventory/basilan.inventory.php') ?>
@@ -58,7 +58,7 @@ include "include/navbar.php";
                                     <h2 class="page-title" style="text-align:center;">
                                         <b>
                                             <font color="#0C0070">KIDAPAWAN </font>
-                                            <font color="#046D56">CUPLUMP INVENTORY </font>
+                                            <font color="#046D56">BALES INVENTORY </font>
                                         </b>
                                     </h2>
                                     <?php include('bales_inventory/kidapawan.inventory.php') ?>

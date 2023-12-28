@@ -15,7 +15,7 @@ $totalCost = preg_replace('/[^0-9.]/', '', $_POST['total_cuplump_cost']);
 $averageCost = preg_replace('/[^0-9.]/', '', $_POST['average_cuplump_cost']);
 
 // Prepare the query for updating container details
-$query = "UPDATE sales_cuplump_container SET cuplump_selling_weight = '$totalSellingWeight',van_no = '$van_no', location = '$location', loading_date = '$loadingDate', 
+$query = "UPDATE cuplump_container SET cuplump_selling_weight = '$totalSellingWeight',van_no = '$van_no', location = '$location', loading_date = '$loadingDate', 
     remarks = '$remarks', recorded_by = '$recordedBy', total_cuplump_weight = '$totalWeight', 
     total_cuplump_cost = '$totalCost', ave_cuplump_cost = '$averageCost', status='Draft'
     WHERE container_id = $container_id";
@@ -28,7 +28,7 @@ if (!mysqli_query($con, $query)) {
 
 // Retrieve existing records
 $existingRecords = array();
-$fetchSql = "SELECT cuplump_inventory_id FROM sales_cuplump_container_inv WHERE sales_cuplump_id = '$container_id'";
+$fetchSql = "SELECT cuplump_inventory_id FROM cuplump_container_inv WHERE container_id= '$container_id'";
 $fetchResult = mysqli_query($con, $fetchSql);
 
 if (!$fetchResult) {
@@ -72,19 +72,19 @@ echo 'success';
 // Define the processInventory function
 function processInventory($con, $container_id, $id, $supplier, $buyingWeight, $dryWeight, $drc, $costPerKilo, $totalCost, $paidAmount, $inv_remarks, &$existingRecords) {
     // Check for existing record
-    $checkSql = "SELECT * FROM sales_cuplump_container_inv WHERE sales_cuplump_id = '$container_id' AND cuplump_inventory_id = '$id'";
+    $checkSql = "SELECT * FROM cuplump_container_inv WHERE container_id= '$container_id' AND cuplump_inventory_id = '$id'";
     $checkResult = mysqli_query($con, $checkSql);
 
     if (mysqli_num_rows($checkResult) > 0) {
         // Update existing record
-        $sql = "UPDATE sales_cuplump_container_inv 
+        $sql = "UPDATE cuplump_container_inv 
                 SET supplier='$supplier', buying_weight='$buyingWeight', dry_weight='$dryWeight', drc='$drc', 
                 cost_per_kilo='$costPerKilo', total_cost='$totalCost', amount_paid='$paidAmount', inv_remarks='$inv_remarks'
-                WHERE sales_cuplump_id = '$container_id' AND cuplump_inventory_id = '$id'";
+                WHERE container_id= '$container_id' AND cuplump_inventory_id = '$id'";
     } else {
         // Insert new record
-        $sql = "INSERT INTO sales_cuplump_container_inv 
-                (sales_cuplump_id, cuplump_inventory_id, supplier, buying_weight, dry_weight, drc, 
+        $sql = "INSERT INTO cuplump_container_inv 
+                (container_id, cuplump_inventory_id, supplier, buying_weight, dry_weight, drc, 
                  cost_per_kilo, total_cost, amount_paid, inv_remarks)
                 VALUES ('$container_id', '$id', '$supplier', '$buyingWeight', '$dryWeight', '$drc', 
                         '$costPerKilo', '$totalCost', '$paidAmount', '$inv_remarks')";
@@ -101,7 +101,7 @@ function processInventory($con, $container_id, $id, $supplier, $buyingWeight, $d
 // Define the deleteExistingRecords function
 function deleteExistingRecords($con, $container_id, $existingRecords) {
     foreach ($existingRecords as $id) {
-        $deleteSql = "DELETE FROM sales_cuplump_container_inv WHERE sales_cuplump_id = '$container_id' AND cuplump_inventory_id = '$id'";
+        $deleteSql = "DELETE FROM cuplump_container_inv WHERE container_id= '$container_id' AND cuplump_inventory_id = '$id'";
         if (!mysqli_query($con, $deleteSql)) {
             die('Error deleting old data: ' . mysqli_error($con));
         }

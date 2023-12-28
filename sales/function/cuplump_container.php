@@ -8,8 +8,8 @@ if (isset($_POST['add'])) {
     $recorded = $_POST['recorded_by'];
 
 
-    $query = "INSERT INTO sales_cuplump_container (van_no,loading_date,remarks,recorded_by,status) 
-                                        VALUES ('$van_no','$date','$remarks','$recorded','On Progress')";
+    $query = "INSERT INTO cuplump_container (van_no,loading_date,remarks,recorded_by,status) 
+                                        VALUES ('$van_no','$date','$remarks','$recorded','In Progress')";
     $results = mysqli_query($con, $query);
 
     if ($results) {
@@ -29,7 +29,7 @@ if (isset($_POST['edit'])) {
     $id = $_POST['id'] ?? '';
 
 
-    $query = "UPDATE sales_cuplump_container SET status='In Progress'
+    $query = "UPDATE cuplump_container SET status='In Progress'
       WHERE container_id  = '$id'";
 
     // Executing the query

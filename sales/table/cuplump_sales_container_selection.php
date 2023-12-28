@@ -4,10 +4,10 @@ $output = '';
 
 $sales_id = $_POST['sales_id'];
 
-$result = mysqli_query($con, "SELECT *,sales_cuplump_container.container_id as con_id from sales_cuplump_container 
-LEFT JOIN bales_container_selection ON bales_container_selection.container_id =  sales_cuplump_container.container_id 
-where sales_cuplump_container.status ='Shipped Out'
-  GROUP BY sales_cuplump_container.container_id");
+$result = mysqli_query($con, "SELECT *,cuplump_container.container_id as con_id from cuplump_container 
+LEFT JOIN bales_container_selection ON bales_container_selection.container_id =  cuplump_container.container_id 
+where cuplump_container.status ='Shipped Out'
+  GROUP BY cuplump_container.container_id");
 
 $total_cost = 0.0;
 $total_weight = 0.0;

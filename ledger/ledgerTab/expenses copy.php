@@ -179,7 +179,7 @@ $results = mysqli_query($con, "SELECT * FROM ledger_expenses  where location='$s
                         data-voucher_no="<?php echo $row['voucher_no'] ?>" 
                         data-particulars="<?php echo $row['particulars'] ?>" 
                         data-date="<?php echo $row['date'] ?>" 
-                        data-type="<?php echo $row['type_expense'] ?>" 
+                        data-type="<?php echo $row['type_expense']?>" 
                         data-amount="<?php echo $row['amount'] ?>" 
                         data-less="<?php echo $row['less'] ?>" 
                         data-total_amount="<?php echo $row['total_amount'] ?>" 

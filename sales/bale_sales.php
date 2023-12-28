@@ -115,12 +115,52 @@ if (isset($_GET['id'])) {
         background-color: red !important;
 
     }
+
+    /* CSS for loading overlay */
+    /* CSS for loading overlay */
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        /* Semi-transparent black background */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+
+    .loading-spinner {
+        font-size: 24px;
+        /* Adjust the size of the spinner */
+        color: #ffffff;
+        /* Text color (white) */
+        padding: 20px;
+        /* Add some padding around the spinner */
+        background-color: #333;
+        /* Background color for the spinner */
+        border-radius: 8px;
+        /* Rounded corners */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        /* Box shadow for a subtle effect */
+    }
 </style>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <body>
+
+    <!-- Loading overlay -->
+    <div id="loadingOverlay" class="overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i> Loading...
+        </div>
+    </div>
+
+
     <div class='main-content' style='position:relative; height:100%;'>
         <div class="container home-section h-100" style="max-width:95%;">
             <br>
@@ -532,6 +572,7 @@ if (isset($_GET['id'])) {
 </html>
 
 <?php include "sales_modal/bale_sales.php"; ?>
+<script src="js/compute_bale_sales.js"></script>
 
 
 
@@ -607,7 +648,6 @@ if (isset($_GET['id'])) {
 </div>
 
 
-
 <script>
     // Function to change the background color of the input field
     function changeGrossProfitColor() {
@@ -659,6 +699,7 @@ if (isset($_GET['id'])) {
 
 
 
+    $('#loadingOverlay').hide();
 
     $(document).on('click', '#confirmButton', function (e) {
         // Prevent the default form submission
@@ -666,7 +707,8 @@ if (isset($_GET['id'])) {
 
         // Set the form action to the desired URL
         $('#salesForm').attr('action', 'function/sales/sales.confirm.php');
-
+        // Show the loading overlay
+        $('#loadingOverlay').show();
         // Submit the form asynchronously using AJAX
         $.ajax({
             type: "POST",
@@ -674,6 +716,8 @@ if (isset($_GET['id'])) {
             data: $('#salesForm').serialize(),
             success: function (response) {
                 if (response.trim() === 'success') {
+                    // Hide the loading overlay when the AJAX request is complete
+                    $('#loadingOverlay').hide();
                     Swal.fire({
                         icon: 'success',
                         title: 'Success',
@@ -699,6 +743,10 @@ if (isset($_GET['id'])) {
             error: function (xhr, status, error) {
                 // Handle the error response
                 // Display SweetAlert error popup
+                // Hide the loading overlay when the AJAX request is error
+                $('#loadingOverlay').hide();
+
+
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
@@ -822,54 +870,6 @@ if (isset($_GET['id'])) {
 
     });
 
-    $("#sale_currency").change(function () {
-        // Get selected value
-        var selectedCurrency = $(this).val();
-
-        // Update the span tag's content
-
-
-        $("#currency_selected_sales").text(selectedCurrency);
-        $("#currency_selected_sales").text(selectedCurrency);
-        $("#currency_selected_paid").text(selectedCurrency);
-        $("#currency_selected_balance").text(selectedCurrency);
-        $("#currency_selected_price").text(selectedCurrency);
-        // Update currency symbol in each payment row
-        $(".payment-currency-symbol").text(selectedCurrency);
-    });
-
-    $(document).on("keyup", "#contract_price, #total_bale_weight, #tax_rate", function () {
-
-        changeGrossProfitColor();
-        computeGrossSales();
-    });
-
-    function computeGrossSales() {
-        var contract_price = parseFloat($("#contract_price").val().replace(/,/g, "")) || 0;
-        var total_bale_weight = parseFloat($("#total_bale_weight").val().replace(/,/g, "")) || 0;
-        var sales_proceeds = parseFloat($("#sales_proceeds").val().replace(/,/g, "")) || 0;
-        var tax_rate = parseFloat($("#tax_rate").val().replace(/,/g, "")) || 0;
-        var over_all_cost = parseFloat($("#over_all_cost").val().replace(/,/g, "")) || 0;
-
-        var total_sale = total_bale_weight * contract_price;
-        var tax_amount = sales_proceeds * (tax_rate / 100); // computed tax amount, tax rate should be in percentage.
-        var gross_profit = (sales_proceeds - tax_amount) - over_all_cost; // Compute gross profit based on the current sales proceeds and tax amount
-
-        $("#gross_profit").val(gross_profit.toLocaleString('en-US', {
-            minimumFractionDigits: 2
-        }));
-
-        $("#total_sale").val(total_sale.toLocaleString('en-US', {
-            minimumFractionDigits: 2
-        }));
-
-        // Update the tax amount field
-        $("#tax_amount").val(tax_amount.toLocaleString('en-US', {
-            minimumFractionDigits: 2
-        }));
-
-        changeGrossProfitColor();
-    }
 
     $(document).on('click', '.btnPrint', function (e) {
         // Check if 'sale_buyer' input is readonly

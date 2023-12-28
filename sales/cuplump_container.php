@@ -8,7 +8,7 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $id = preg_replace('~\D~', '', $id);
 
-    $sql = "SELECT * FROM sales_cuplump_container WHERE container_id = $id";
+    $sql = "SELECT * FROM cuplump_container WHERE container_id = $id";
     $result = $con->query($sql);
 
     if ($result->num_rows > 0) {

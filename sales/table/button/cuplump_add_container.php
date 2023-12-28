@@ -32,7 +32,7 @@ if ($check->num_rows == 1) {
     $results = mysqli_query($con, $sql);
 }
 
-$sql = "UPDATE sales_cuplump_container 
+$sql = "UPDATE cuplump_container 
 SET status='Shipped Out'
 WHERE container_id='$container_id' AND shipment_id='$shipment_id'";
 $results = mysqli_query($con, $sql);

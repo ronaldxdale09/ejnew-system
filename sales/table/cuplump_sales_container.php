@@ -4,7 +4,7 @@ $output = '';
 $sales_id = isset($_POST['sales_id']) ? mysqli_real_escape_string($con, $_POST['sales_id']) : '';
 
 $result = mysqli_query($con, "SELECT * FROM sales_cuplump_selected_container
-LEFT JOIN sales_cuplump_container ON sales_cuplump_container.container_id =  sales_cuplump_selected_container.container_id
+LEFT JOIN cuplump_container ON cuplump_container.container_id =  sales_cuplump_selected_container.container_id
 WHERE cuplump_sales_id = '$sales_id'");
 $total_cuplump_weight = 0;
 $total_cuplump_selling_weight = 0;

@@ -81,10 +81,6 @@ echo $output;
     $(document).ready(function() {
         var counter = 0;
 
-        function formatNumber(num) {
-            return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-        }
-
         function computeSalesProceeds() {
             var totalPaid = 0;
             var sales_proceeds = 0;
@@ -155,7 +151,7 @@ echo $output;
                     <td>
                         <div class="input-group mb-3">
                             <span class="input-group-text">₱</span>
-                            <input type="text" class="form-control  pesoEquivalent" name="peso_equivalent[]">
+                            <input type="text" class="form-control  pesoEquivalent" readonly name="peso_equivalent[]">
                         </div>
                     </td>
                     <td><button class="btn btn-danger removePayment" id="removePayment"><i class="fas fa-trash"></i></button></td>

@@ -63,36 +63,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Executing the query
     $results = mysqli_query($con, $query);
+  
+if ($results) {
+    $query = "SELECT * FROM bales_shipment_container WHERE shipment_id = ?";
+    $stmt = mysqli_prepare($con, $query);
+    mysqli_stmt_bind_param($stmt, 'i', $ship_id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
 
-    if ($results) {
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $container_id = $row['container_id'];
 
-        // Fetch the current record
-        $query = "SELECT * FROM bales_shipment_container WHERE shipment_id='$ship_id'";
-        $result = mysqli_query($con, $query);
+            $updateStatus = ($row['status'] == 'Sold') ? 'Sold' : 'Shipped Out';
 
-        // Check if any rows were returned
-        if (mysqli_num_rows($result) > 0) {
-            $row = mysqli_fetch_assoc($result);
-            $container_id= $row['container_id'];
-            // Check status and perform appropriate update
-            if ($row['status'] == 'Sold') {
-                $updateStatus = 'Sold';
-            } else {
-                $updateStatus = 'Shipped Out';
+            $update = "UPDATE bales_container_record SET status = ?, shipping_expense = ? WHERE container_id = ?";
+            $updateStmt = mysqli_prepare($con, $update);
+            mysqli_stmt_bind_param($updateStmt, 'sdi', $updateStatus, $ship_cost_per_container, $container_id);
+
+            if (!mysqli_stmt_execute($updateStmt)) {
+                echo "ERROR: Could not update bales_container_record for container_id $container_id: " . mysqli_error($con);
             }
-
-            // Update record
-            $update = "UPDATE bales_container_record SET 
-    status = '$updateStatus', shipping_expense='$ship_cost_per_container' WHERE container_id = '$container_id'";
-            mysqli_query($con, $update);
         }
-
-        header("Location: ../bale_shipment_record.php");  // Change this to your desired location
-
-
+        header("Location: ../bale_shipment_record.php");
         exit();
     } else {
-        echo "ERROR: Could not be able to execute the query. " . mysqli_error($con);
+        echo "No matching container record found for shipment_id $ship_id.";
     }
+} else {
+    echo "ERROR: Could not execute the query. " . mysqli_error($con);
+}
     exit();
 }

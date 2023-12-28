@@ -8,7 +8,7 @@
     </div>
 
     <br>
-
+    
     <a class='nav-link' href='dashboard.php'>
         <i class='fa-solid fa-house'></i> <span class='nav-text'>Home</span>
     </a>
@@ -32,6 +32,7 @@
     <a class='nav-link' href='cuplump_sale_record.php'>
         <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>Cuplump Sale</span>
     </a>
+
 
     <a class='nav-link' href='cuplump_container_record.php'>
         <i class='fa-solid fa-dumpster'></i> <span class='nav-text'>Cuplump Container</span>

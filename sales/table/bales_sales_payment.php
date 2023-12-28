@@ -86,61 +86,14 @@ $output .= '
 
 echo $output;
 ?>
+<script src="js/compute_bale_sales.js"></script>
+
+
 <script>
     $(document).ready(function() {
         var counter = 0;
 
-        function formatNumber(num) {
-            return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-        }
-
-        function computeSalesProceeds() {
-            var totalPaid = 0;
-            var sales_proceeds = 0;
-
-            $("#payment-table tbody tr").each(function() {
-                var amountPaidValue = $(this).find(".payAmount").val();
-                var amountPaid = parseFloat(amountPaidValue.replace(/,/g, ''));
-
-                var pesoEquivalentValue = $(this).find(".pesoEquivalent").val();
-                var pesoEquivalent = parseFloat(pesoEquivalentValue.replace(/,/g, ''));
-
-                if (!isNaN(amountPaid) && !isNaN(pesoEquivalent)) {
-                    totalPaid += amountPaid;
-                    sales_proceeds += pesoEquivalent;
-                }
-            });
-
-            document.getElementById("sales_proceeds").value = formatNumber(sales_proceeds.toFixed(2));
-
-            var sales_proceeds_val = parseFloat(document.getElementById("sales_proceeds").value.replace(/,/g, "")) || 0;
-            var over_all_cost = parseFloat(document.getElementById("over_all_cost").value.replace(/,/g, "")) || 0;
-
-            var gross_profit = sales_proceeds_val - over_all_cost;
-            document.getElementById("gross_profit").value = formatNumber(gross_profit.toFixed(2));
-
-            document.getElementById("amount_unpaid").value = formatNumber(totalPaid.toFixed(2));
-
-            var total_sale = parseFloat(document.getElementById("total_sale").value.replace(/,/g, "")) || 0;
-            var amount_unpaid = parseFloat(document.getElementById("amount_unpaid").value.replace(/,/g, "")) || 0;
-            var unpaid_balance = total_sale - amount_unpaid;
-            document.getElementById("unpaid_balance").value = formatNumber(unpaid_balance.toFixed(2));
-            changeGrossProfitColor();
-            computeGrossSales();
-        }
-
-        $("#payment-table").on('input', '.payAmount, .payRate', function() {
-            var $row = $(this).closest("tr");
-            var amountPaid = parseFloat($row.find(".payAmount").val().replace(/,/g, '')) || 0;
-            var payRate = parseFloat($row.find(".payRate").val().replace(/,/g, '')) || 0;
-            var pesoEquivalent = amountPaid * payRate;
-
-            $row.find(".pesoEquivalent").val(formatNumber(pesoEquivalent.toFixed(2)));
-
-            computeSalesProceeds();
-        });
-
-        computeSalesProceeds();
+       
 
         $("#addPayment").click(function() {
             counter++;

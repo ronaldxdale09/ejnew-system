@@ -139,7 +139,7 @@ if (mysqli_query($con, $query)) {
     while ($row = mysqli_fetch_assoc($result)) {
         $container_id = $row['container_id'];
         // SQL to update the status of the corresponding container_id
-        $update = "UPDATE sales_cuplump_container SET status = 'Sold' WHERE container_id = '$container_id'";
+        $update = "UPDATE cuplump_container SET status = 'Sold' WHERE container_id = '$container_id'";
         // Execute the update query
         mysqli_query($con, $update);
     }

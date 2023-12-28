@@ -17,27 +17,30 @@ while ($arr = mysqli_fetch_array($result)) {
 
 
 <!-- Delete Table Row -->
-<div class="modal fade" id="addExpense" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade" id="addExpense" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg  ">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Create New Record</h5>
             </div>
-            <form action="function/ledger/addExpenses.php" id='expense_form' method="POST">
+            <form action="function/ledger/expense_function.php" id='expense_form' method="POST">
 
                 <div class="modal-body">
                     <div class="row">
                         <div class="col">
                             <div class="mb-3">
                                 <label for="product_name" class="form-label">Date of Transaction</label>
-                                <input type="date" class="form-control" name="date" value="<?php echo $dateNow ?>" required>
+                                <input type="date" class="form-control" name="date" value="<?php echo $dateNow ?>"
+                                    required>
                             </div>
                         </div>
 
                         <div class="col">
                             <div class="mb-3">
                                 <label for="product_name" class="form-label">Location</label>
-                                <input type="text" class="form-control" name="location" value="<?php echo $source; ?>" readonly>
+                                <input type="text" class="form-control" name="location" value="<?php echo $source; ?>"
+                                    readonly>
                             </div>
                         </div>
                     </div>
@@ -45,7 +48,8 @@ while ($arr = mysqli_fetch_array($result)) {
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="product_name" class="form-label">Voucher No.</label>
-                                <input type="number" class="form-control" name="voucher" required placeholder="Enter Voucher No.">
+                                <input type="number" class="form-control" name="voucher" required
+                                    placeholder="Enter Voucher No.">
                             </div>
                         </div>
                         <div class="col">
@@ -79,7 +83,8 @@ while ($arr = mysqli_fetch_array($result)) {
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="product_name" class="form-label">Particular</label>
-                                <input type="text" class="form-control" name="particular" required placeholder="Enter particular">
+                                <input type="text" class="form-control" name="particular" required
+                                    placeholder="Enter particular">
                             </div>
                         </div>
                     </div>
@@ -106,7 +111,9 @@ while ($arr = mysqli_fetch_array($result)) {
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">₱</span>
                                     </div>
-                                    <input type="text" class="form-control" name="amount" id='n_amount' required onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete="off">
+                                    <input type="text" class="form-control" name="amount" id='n_amount' required
+                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
+                                        autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -121,7 +128,9 @@ while ($arr = mysqli_fetch_array($result)) {
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Less </span>
-                                    </div><input type="text" class="form-control" name="less" id='n_less' required value='0'onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" placeholder="(Optional)" autocomplete="off">
+                                    </div><input type="text" class="form-control" name="less" id='n_less' required
+                                        value='0' onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
+                                        placeholder="(Optional)" autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -136,7 +145,9 @@ while ($arr = mysqli_fetch_array($result)) {
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Total Amount</span>
-                                    </div><input type="text" class="form-control" name="total_amount" id='n_total' readonly onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete="off">
+                                    </div><input type="text" class="form-control" name="total_amount" id='n_total'
+                                        readonly onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
+                                        autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -146,11 +157,12 @@ while ($arr = mysqli_fetch_array($result)) {
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="product_name" class="form-label">Remarks</label> <br>
-                                <textarea name="remarks" cols="20" rows="3" class="form-control"></textarea>
+                                <textarea name="remarks" cols="20" placeholder="Remarks (Optional)" rows="3" class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
+                
                 <div class="modal-footer">
                     <button type="submit" name='add' class="btn btn-success" id="btn_add_record_expenses">Add
                         Record</button>
@@ -165,8 +177,10 @@ while ($arr = mysqli_fetch_array($result)) {
 
 
 
+
+
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
 
         // Function to compute total amount
         function computeTotalAmount() {
@@ -215,17 +229,42 @@ while ($arr = mysqli_fetch_array($result)) {
     });
 </script>
 
+<!-- Modal to Remove Expenses -->
+<div class="modal fade" id="removeExpenseModal" tabindex="-1" aria-labelledby="removeExpenseLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="removeExpenseLabel">Remove Expense</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="function/ledger/expense_function.php" id="delete_form" method="POST">
+                <div class="modal-body">
+                    <input id="del_id" name="id" hidden>
+                    <p class="text-center text-dark">Are you sure you want to remove this record? This action
+                        cannot be undone.</p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" name="delete" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 
 
 <!-- update -->
 <!-- Update Expense Modal -->
-<div class="modal fade" id="updateExpense" tabindex="-1" role="dialog" aria-labelledby="updateExpenseLabel" aria-hidden="true">
+<div class="modal fade" id="updateExpense" tabindex="-1" role="dialog" aria-labelledby="updateExpenseLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Update Expense Record</h5>
             </div>
-            <form action="function/ledger/updateExpenses.php" id='updateForm' method="POST">
+            <form action="function/ledger/expense_function.php" id="update_form"  method="POST">
                 <input type="hidden" id="update_id" name="id" />
                 <div class="modal-body">
                     <div class="row">
@@ -247,14 +286,14 @@ while ($arr = mysqli_fetch_array($result)) {
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="product_name" class="form-label">Voucher No.</label>
-                                <input type="text" class="form-control" name="voucher" id="u_voucher" required placeholder="Enter Voucher No.">
+                                <input type="text" class="form-control" name="voucher" id="u_voucher" required
+                                    placeholder="Enter Voucher No.">
                             </div>
                         </div>
                         <div class="col">
                             <div class="mb-3">
                                 <label for="product_name" class="form-label">Type</label>
-                                <select class='form-select' name='type' id='u_type' required>
-                                    <option disabled="disabled" value='' selected="selected">Select Type </option>
+                                <select class='form-select' name='type' id='u_typeExpense' required>
                                     <option value='Personal Expenses'>Personal Expenses</option>
                                     <option value='Rubber Expenses'>Rubber Expenses</option>
                                     <option value='Coffee Expenses'>Coffee Expenses</option>
@@ -281,7 +320,8 @@ while ($arr = mysqli_fetch_array($result)) {
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="product_name" class="form-label">Particular</label>
-                                <input type="text" class="form-control" name="particular" id="u_particular" required placeholder="Enter particular">
+                                <input type="text" class="form-control" name="particular" id="u_particular" required
+                                    placeholder="Enter particular">
                             </div>
                         </div>
                     </div>
@@ -304,7 +344,9 @@ while ($arr = mysqli_fetch_array($result)) {
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="amount" class="form-label">Amount</label>
-                                <i class="fa fa-peso-sign"></i> <input type="text" class="form-control" name="amount" id='u_amount' required onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete="off">
+                                <i class="fa fa-peso-sign"></i> <input type="text" class="form-control" name="amount"
+                                    id='u_amount' required onkeypress="return CheckNumeric()"
+                                    onkeyup="FormatCurrency(this)" autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -317,7 +359,9 @@ while ($arr = mysqli_fetch_array($result)) {
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Less </span>
-                                    </div><input type="text" class="form-control" name="less" id='u_less' required onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" placeholder="(Optional)" autocomplete="off">
+                                    </div><input type="text" class="form-control" name="less" id='u_less' required
+                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
+                                        placeholder="(Optional)" autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -332,7 +376,9 @@ while ($arr = mysqli_fetch_array($result)) {
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Total Amount</span>
-                                    </div><input type="text" class="form-control" name="total_amount" id='u_total' readonly onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete="off">
+                                    </div><input type="text" class="form-control" name="total_amount" id='u_total'
+                                        readonly onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
+                                        autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -342,7 +388,8 @@ while ($arr = mysqli_fetch_array($result)) {
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="product_name" class="form-label">Remarks</label> <br>
-                                <textarea name="remarks" id="u_remarks" cols="20" rows="3" class="form-control"></textarea>
+                                <textarea name="remarks" placeholder="Remarks" id="u_remarks" cols="20" rows="3"
+                                    class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
@@ -357,7 +404,8 @@ while ($arr = mysqli_fetch_array($result)) {
 </div>
 <!-- update -->
 
-<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg  ">
         <div class="modal-content">
             <div class="modal-header">
@@ -370,7 +418,8 @@ while ($arr = mysqli_fetch_array($result)) {
 
                             <div class="mb-5">
                                 <label for="category" class="form-label">Add Category</label>
-                                <input type="text" class="form-control" name="name" aria-describedby="category" required>
+                                <input type="text" class="form-control" name="name" aria-describedby="category"
+                                    required>
                                 <div id="category" class="form-text mb-3">Enter category.</div>
                                 <button type="submit" name='add' class="btn btn-success">Add Category</button>
                             </div>
@@ -378,7 +427,7 @@ while ($arr = mysqli_fetch_array($result)) {
                         <div class="col-md-7">
 
                             <?php
-                            $results  = mysqli_query($con, "SELECT * from category_expenses where source='$source' ORDER BY category ASC "); ?>
+                            $results = mysqli_query($con, "SELECT * from category_expenses where source='$source' ORDER BY category ASC "); ?>
                             <table id="expense_category" class="table table-hover" style="width:100%">
                                 <thead class="table-dark">
                                     <tr>
@@ -392,14 +441,20 @@ while ($arr = mysqli_fetch_array($result)) {
                                     <?php
                                     $count = 1;
                                     while ($row = mysqli_fetch_array($results)) {
-                                    ?>
+                                        ?>
                                         <tr>
-                                            <td hidden> <?php echo $row['id'] ?> </td>
-                                            <td> <?php echo $row['category'] ?> </td>
+                                            <td hidden>
+                                                <?php echo $row['id'] ?>
+                                            </td>
                                             <td>
-                                                <button type="button" class="btn btn-info catUpdate"><i class="fa fa-edit"></i></button>
+                                                <?php echo $row['category'] ?>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-info catUpdate"><i
+                                                        class="fa fa-edit"></i></button>
 
-                                                <button class="btn btn-danger m-1 btnDelete" type="button" class="btn btn-info"><i class="fa fa-trash"></i></button>
+                                                <button class="btn btn-danger m-1 btnDelete" type="button"
+                                                    class="btn btn-info"><i class="fa fa-trash"></i></button>
                                             </td>
 
                                         </tr>
@@ -436,7 +491,8 @@ while ($arr = mysqli_fetch_array($result)) {
                     <div class="mb-3 text-center">
                         <input id='u_id' name='id' hidden>
                         <label for="category" class="form-label">Category Name</label>
-                        <input type="text" class="form-control text-center" id="u_name" name="name" aria-describedby="category">
+                        <input type="text" class="form-control text-center" id="u_name" name="name"
+                            aria-describedby="category">
 
                     </div>
 
@@ -479,39 +535,15 @@ while ($arr = mysqli_fetch_array($result)) {
 
 
 
-<!-- MODAL OF REMOVE EXPENSES -->
-<!-- Modal to Remove Expenses -->
-<div class="modal fade" id="removeExpenseModal" tabindex="-1" aria-labelledby="removeExpenseLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="removeExpenseLabel">Remove Expense</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="function/ledger/removeExpenses.php" method="POST">
-                <div class="modal-body">
-                    <input id="del_id" name="id" hidden>
-                    <p class="text-center text-secondary">Are you sure you want to remove this record? This action cannot be undone.</p>
-                </div>
-                <div class="modal-footer justify-content-center">
-                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" name="delete" class="btn btn-danger">Delete</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
 
 <script>
-    $('.catUpdate').on('click', function() {
+    $('.catUpdate').on('click', function () {
 
 
         $('#ModalEdit').modal('show');
         $tr = $(this).closest('tr');
 
-        var data = $tr.children("td").map(function() {
+        var data = $tr.children("td").map(function () {
             return $(this).text();
         }).get();
         $('#u_id').val(data[0]);
@@ -520,13 +552,13 @@ while ($arr = mysqli_fetch_array($result)) {
     });
 
 
-    $('.btnDelete').on('click', function() {
+    $('.btnDelete').on('click', function () {
 
 
         $('#catDelete').modal('show');
         $tr = $(this).closest('tr');
 
-        var data = $tr.children("td").map(function() {
+        var data = $tr.children("td").map(function () {
             return $(this).text();
         }).get();
         $('#d_id').val(data[0]);

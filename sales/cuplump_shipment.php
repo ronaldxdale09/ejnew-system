@@ -556,8 +556,14 @@ if (isset($_GET['id'])) {
                 if (response.trim() === 'success') {
                     Swal.fire({
                         icon: 'success',
-                        title: 'Success',
-                        text: 'Shipment Confirmed!',
+                        title: 'Draft Saved',
+                        text: 'Your shipment is complete!',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Redirect to the cuplump_container_record.php page
+                            window.location.href = 'cuplump_shipment_record.php';
+                        }
                     });
 
                     // Set all inputs to readonly

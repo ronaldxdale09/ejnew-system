@@ -7,8 +7,8 @@
         $buyer = $_POST['n_buyer'];
         $destination = $_POST['destination'];
         $source = $_POST['source'];
-        $vessel = $_POST['vessel'];
-        $bill_lading = $_POST['info_lading'];
+
+
         $remarks = $_POST['remarks'];
         $recorded_by = $_POST['recorded_by'];
 
@@ -26,12 +26,12 @@
         $ship_cost_container = 0;
     
         // Creating the SQL query
-        $query = "INSERT INTO bale_shipment_record (status,type, ship_date, destination, source, vessel, 
-        bill_lading, remarks, recorded_by, freight, loading_unloading, processing_fee,
+        $query = "INSERT INTO bale_shipment_record (status,type, ship_date, destination, source, 
+        remarks, recorded_by, freight, loading_unloading, processing_fee,
          trucking_expense, cranage_fee, miscellaneous, total_shipping_expense, no_containers, 
          ship_cost_container,particular) 
                                 VALUES ('In Progress','$type', '$ship_date', '$destination', 
-                                '$source', '$vessel', '$bill_lading', '$remarks', '$recorded_by',
+                                '$source',  '$remarks', '$recorded_by',
                                  '$freight', '$loading_unloading', '$processing_fee', '$trucking_expense',
                                  '$cranage_fee', '$miscellaneous', '$total_shipping_expense',
                                   '$no_containers', '$ship_cost_container', '$buyer')";

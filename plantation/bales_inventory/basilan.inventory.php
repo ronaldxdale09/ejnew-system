@@ -45,19 +45,24 @@ $loc = str_replace(' ', '', $_SESSION['loc']);
         <tbody>
             <?php while ($row = mysqli_fetch_array($results)) {
                 $unit_cost =($row['total_production_cost'] / $row['produce_total_weight']);
-                ?>
+               
+               
+               ?>
                 <tr>
                     <td>
                         <?php if ($row['status'] == 'For Sale') : ?>
-                            <span class="badge bg-primary"><?php echo $row['status'] ?></span>
+                            <span class="badge bg-dark"><?php echo $row['status'] ?></span>
                         <?php elseif ($row['status'] == 'Complete') : ?>
                             <span class="badge bg-success"><?php echo $row['status'] ?></span>
                         <?php elseif ($row['status'] == 'Pressing') : ?>
                             <span class="badge bg-danger"><?php echo $row['status'] ?></span>
                         <?php elseif ($row['status'] == 'Purchase') : ?>
                             <span class="badge bg-info"><?php echo $row['status'] ?></span>
+                            <?php elseif ($row['status'] == 'Drying'): ?>
+                            <span class="badge bg-warning"><?php echo $row['status'] ?></span>
                         <?php else : ?>
                             <span class="badge"><?php echo $row['status'] ?></span>
+                            
                         <?php endif; ?>
                     </td>
                     <td>

@@ -12,12 +12,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $ship_info_lading = $_POST['ship_info_lading'] ?? '';
     $ship_remarks = $_POST['ship_remarks'] ?? '';
     $ship_recorded = $_POST['ship_recorded'] ?? '';
-    $buyer = $_POST['n_buyer'] ?? '';
+    $particular = $_POST['particular'] ?? '';
+
 
     $total_num_bales = isset($_POST['total_num_bales']) ? preg_replace("/[^0-9.]/", "", $_POST['total_num_bales']) : '';
     $total_bale_weight = isset($_POST['total_bale_weight']) ? preg_replace("/[^0-9.]/", "", $_POST['total_bale_weight']) : '';
     $total_bale_cost = isset($_POST['total_bale_cost']) ? preg_replace("/[^0-9.]/", "", $_POST['total_bale_cost']) : '';
-    
+
     $freight = isset($_POST['freight']) ? preg_replace("/[^0-9.]/", "", $_POST['freight']) : '';
     $loading_expense = isset($_POST['loading_expense']) ? preg_replace("/[^0-9.]/", "", $_POST['loading_expense']) : '';
     $ship_exp_processing = isset($_POST['ship_exp_processing']) ? preg_replace("/[^0-9.]/", "", $_POST['ship_exp_processing']) : '';
@@ -27,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $total_ship_exp = isset($_POST['total_ship_exp']) ? preg_replace("/[^0-9.]/", "", $_POST['total_ship_exp']) : '';
     $number_container = isset($_POST['number_container']) ? preg_replace("/[^0-9.]/", "", $_POST['number_container']) : '';
     $ship_cost_per_container = isset($_POST['ship_cost_per_container']) ? preg_replace("/[^0-9.]/", "", $_POST['ship_cost_per_container']) : '';
-    
+
     echo "<pre>";
     echo "Ship ID: " . $ship_id . "<br/>";
     echo "Type: " . $type . "<br/>";
@@ -52,23 +53,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "Ship Cost per Container: " . $ship_cost_per_container . "<br/>";
     echo "</pre>";
     // // Your SQL update query
-    $query = "UPDATE bale_shipment_record SET status='Draft',type = '$type', ship_date = '$ship_date', 
+    $query = "UPDATE bale_shipment_record SET status='Draft',particular = '$particular',type = '$type', ship_date = '$ship_date', 
     destination = '$ship_destination', source = '$ship_source', vessel = '$ship_vessel', bill_lading = '$ship_info_lading',
      remarks = '$ship_remarks', recorded_by = '$ship_recorded', total_num_bales = '$total_num_bales', total_bale_weight = '$total_bale_weight', 
      total_bale_cost = '$total_bale_cost', freight = '$freight', loading_unloading = '$loading_expense', processing_fee = '$ship_exp_processing', 
      trucking_expense = '$ship_exp_trucking', cranage_fee = '$ship_exp_cranage', miscellaneous = '$ship_exp_misc', 
-     total_shipping_expense = '$total_ship_exp', no_containers = '$number_container',
-      ship_cost_container = '$ship_cost_per_container',particular='$buyer'
+     total_shipping_expense = '$total_ship_exp', no_containers = '$number_container', ship_cost_container = '$ship_cost_per_container'
       WHERE shipment_id  = '$ship_id'";
 
     // Executing the query
     $results = mysqli_query($con, $query);
+  
+if ($results) {
+    $query = "SELECT * FROM bales_shipment_container WHERE shipment_id = ?";
+    $stmt = mysqli_prepare($con, $query);
+    mysqli_stmt_bind_param($stmt, 'i', $ship_id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
 
-    if ($results) {
-        header("Location: ../bale_shipment_record.php");  // Change this to your desired location
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $container_id = $row['container_id'];
+
+            $updateStatus = ($row['status'] == 'Sold') ? 'Sold' : 'Shipped Out';
+
+            $update = "UPDATE bales_container_record SET status = ?, shipping_expense = ? WHERE container_id = ?";
+            $updateStmt = mysqli_prepare($con, $update);
+            mysqli_stmt_bind_param($updateStmt, 'sdi', $updateStatus, $ship_cost_per_container, $container_id);
+
+            if (!mysqli_stmt_execute($updateStmt)) {
+                echo "ERROR: Could not update bales_container_record for container_id $container_id: " . mysqli_error($con);
+            }
+        }
+        header("Location: ../bale_shipment_record.php");
         exit();
     } else {
-        echo "ERROR: Could not be able to execute the query. " . mysqli_error($con);
+        echo "No matching container record found for shipment_id $ship_id.";
     }
+} else {
+    echo "ERROR: Could not execute the query. " . mysqli_error($con);
+}
     exit();
 }

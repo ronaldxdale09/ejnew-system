@@ -35,7 +35,8 @@ include "include/navbar.php";
                         <div style="background-color: #2452af; height: 6px;"></div><!-- This is the blue bar -->
                         <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
 
-                            <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#newWetExport">NEW SALE </button>
+                            <button type="button" class="btn btn-success text-white" data-toggle="modal"
+                                data-target="#newWetExport">NEW SALE </button>
                             <hr>
                             <div class="mb-3">
 
@@ -108,89 +109,90 @@ include "include/navbar.php";
 
                             </div>
                             <div class="table-responsive">
-
                                 <table class="table table-bordered table-hover table-striped" id='sales_rec_table'>
                                     <?php
-                                    $results  = mysqli_query($con, "SELECT  * FROM bales_sales_record"); ?>
+                                    $results = mysqli_query($con, "SELECT * FROM bales_sales_record"); ?>
                                     <thead class="table-dark text-center">
                                         <tr>
                                             <th scope="col">Status</th>
                                             <th scope="col">ID</th>
                                             <th scope="col">Date</th>
-                                            <th scope="col">Contract No.</th>
-                                            <th scope="col">Buyer </th>
-                                            <th scope="col">Bale Quality</th>
-                                            <th scope="col">No. of Bales</th>
-                                            <th scope="col" hidden>No. of Containers</th>
+                                            <th scope="col">Cont. No.</th>
+                                            <th scope="col">Buyer</th>
                                             <th scope="col">Kilo Price</th>
-                                            <th scope="col">Kilo Cost</th>
-                                            <th scope="col" hidden>Sale Proceed</th>
-                                            <th scope="col" hidden>Overall Cost </th>
-                                            <th scope="col">Balance</th>
-                                            <th scope="col" hidden>Profit/Loss</th>
+                                            <th scope="col">Tot. Weight</th>
+                                            <th scope="col">Ave Cost/Kg</th>
+                                            <th scope="col">Tot. Sales</th>
+                                            <th scope="col">Ovr. Cost</th>
+                                            <th scope="col">Unpd. Bal.</th>
+                                            <th scope="col">Gr. Profit</th>
                                             <th></th>
                                         </tr>
                                     </thead>
-                                    <tbody> <?php while ($row = mysqli_fetch_array($results)) {
-                                                $status_color = '';
-                                                switch ($row['status']) {
-                                                    case "Draft":
-                                                        $status_color = 'bg-info';
-                                                        break;
-                                                    case "In Progress":
-                                                        $status_color = 'bg-warning text-dark';
-                                                        break;
-                                                    case "Complete":
-                                                        $status_color = 'bg-success';
-                                                        break;
-                                                }
-
-
-
-
-
+                                    <tbody>
+                                        <?php while ($row = mysqli_fetch_array($results)) {
+                                            $status_color = '';
+                                            switch ($row['status']) {
+                                                case "Draft":
+                                                    $status_color = 'bg-info';
+                                                    break;
+                                                case "In Progress":
+                                                    $status_color = 'bg-warning text-dark';
+                                                    break;
+                                                case "Complete":
+                                                    $status_color = 'bg-success';
+                                                    break;
+                                            }
                                             ?>
                                             <tr>
-
-                                                <td> <span class="badge <?php echo $status_color; ?>">
+                                                <td><span class="badge <?php echo $status_color; ?>">
                                                         <?php echo $row['status'] ?>
-                                                    </span>
-                                                </td>
-                                                <td class="text-center"> <?php echo $row['bales_sales_id'] ?> </td>
-                                                <td><?php echo date('M j, Y', strtotime($row['transaction_date'])); ?></td>
-                                                <td class="text-center"><?php echo $row['sale_contract'] ?> |
-                                                    <?php echo $row['purchase_contract'] ?> </td>
-                                                <td> <?php echo $row['sale_type'] ?> | <?php echo $row['buyer_name'] ?>
-                                                </td>
-                                                <td> <?php echo $row['contract_quality'] ?> @
-                                                    <?php echo $row['contract_kiloPerBale'] ?> kg</td>
-                                                <td> <?php echo $row['total_num_bales'] ?> pcs</td>
-                                                <td class="text-center" hidden><?php echo $row['contract_container_num'] ?>/<?php echo $row['no_containers'] ?>
-                                                </td>
-                                                <td><?php $currency = $row['currency']; // Assuming you get the currency value from a POST request
-                                                    if ($currency == "PHP") {
-                                                        echo "₱";
-                                                    } else {
-                                                        echo $currency;
-                                                    } ?>
-                                                    <?php echo number_format($row['contract_price'], 2) ?> </td>
-                                                <td hidden>₱<?php echo number_format($row['total_sales'], 0) ?> </td>
-                                                <td hidden>₱<?php echo number_format($row['overall_cost'], 0) ?> </td>
-                                                <td>₱<?php echo number_format($row['overall_ave_cost_kilo'], 2) ?> </td>
-                                                <td>₱<?php echo number_format($row['unpaid_balance'], 0) ?> </td>
-                                                <td hidden>₱<?php echo number_format($row['gross_profit'], 0) ?> </td>
-
+                                                    </span></td>
                                                 <td class="text-center">
-                                                    <button type="button" class="btn btn-success btn-sm btnViewRecord" data-status="<?php echo $row['status']; ?>" data-bale='<?php echo json_encode($row); ?>'>
+                                                    <?php echo $row['bales_sales_id'] ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo date('M j, Y', strtotime($row['transaction_date'])); ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php echo $row['sale_contract'] ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $row['buyer_name'] ?>
+                                                </td>
+                                                <td class="nowrap">
+                                                    <?php echo $row['currency'] . ' ' . number_format($row['contract_price'], 2) ?>
+                                                </td>
+                                                <td class="nowrap">
+                                                    <?php echo number_format($row['total_bale_weight'], 2) ?> kg
+                                                </td>
+                                                <td class="nowrap">
+                                                    <?php echo $row['currency'] . ' ' . number_format($row['overall_ave_cost_kilo'], 2) ?>
+                                                </td>
+                                                <td class="nowrap">
+                                                    <?php echo $row['currency'] . ' ' . number_format($row['total_sales'], 0) ?>
+                                                </td>
+                                                <td class="nowrap">
+                                                    <?php echo $row['currency'] . ' ' . number_format($row['overall_cost'], 0) ?>
+                                                </td>
+                                                <td class="nowrap"> 
+                                                    <?php echo $row['currency'] . ' ' . number_format($row['unpaid_balance'], 2) ?>
+                                                </td>
+                                                <td class="nowrap">
+                                                    <?php echo '₱ ' . number_format($row['gross_profit'],0) ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <button type="button" class="btn btn-success btn-sm btnViewRecord"
+                                                        data-status="<?php echo $row['status']; ?>"
+                                                        data-bale='<?php echo json_encode($row); ?>'>
                                                         <i class="fas fa-book"></i>
                                                     </button>
                                                 </td>
-
-
                                             </tr>
                                         <?php } ?>
                                     </tbody>
                                 </table>
+
                             </div>
 
 
@@ -231,18 +233,18 @@ include "include/navbar.php";
 
 
     // Filter by Payee
-    $('#filterBuyer').on('change', function() {
+    $('#filterBuyer').on('change', function () {
         table.column(4).search(this.value).draw(); // Assuming Payee is the 5th column
     });
     // Filter by Status
-    $('#filterStatus').on('change', function() {
+    $('#filterStatus').on('change', function () {
         table.column(0).search(this.value).draw(); // Assuming Payee is the 5th column
     });
     // Filter by Month
-    $('#filterMonth').on('change', function() {
+    $('#filterMonth').on('change', function () {
         var month = parseInt(this.value, 10);
         $.fn.dataTable.ext.search.push(
-            function(settings, data, dataIndex) {
+            function (settings, data, dataIndex) {
                 var dateIssued = new Date(data[2]); // Assuming Date Issued is the 3rd column
                 return isNaN(month) || month === dateIssued.getMonth() + 1;
             }
@@ -252,12 +254,12 @@ include "include/navbar.php";
     });
 
     // Filter by Date Range
-    $('#startDate, #endDate').on('change', function() {
+    $('#startDate, #endDate').on('change', function () {
         var startDate = $('#startDate').val() ? new Date($('#startDate').val()) : null;
         var endDate = $('#endDate').val() ? new Date($('#endDate').val()) : null;
 
         $.fn.dataTable.ext.search.push(
-            function(settings, data, dataIndex) {
+            function (settings, data, dataIndex) {
                 var dateIssued = new Date(data[2]); // Assuming Date Issued is the 3rd column
                 if (startDate && dateIssued < startDate) {
                     return false;
@@ -272,10 +274,10 @@ include "include/navbar.php";
         $.fn.dataTable.ext.search.pop(); // Clear this specific filter
     });
     // Filter by Year
-    $('#filterYear').on('change', function() {
+    $('#filterYear').on('change', function () {
         var year = parseInt(this.value, 10);
         $.fn.dataTable.ext.search.push(
-            function(settings, data, dataIndex) {
+            function (settings, data, dataIndex) {
                 var dateIssued = new Date(data[2]); // Assuming Date Issued is the 3rd column
                 return isNaN(year) || year === dateIssued.getFullYear();
             }
@@ -286,10 +288,10 @@ include "include/navbar.php";
 </script>
 
 <script>
-    $('.btnViewRecord').on('click', function() {
+    $('.btnViewRecord').on('click', function () {
         $tr = $(this).closest('tr');
 
-        var data = $tr.children("td").map(function() {
+        var data = $tr.children("td").map(function () {
             return $(this).text();
         }).get();
 
@@ -406,14 +408,14 @@ include "include/navbar.php";
                 data: {
                     sales_id: sales_id,
                 },
-                success: function(data) {
+                success: function (data) {
 
                     $('#container_selected').html(data);
                     $('#print_content input').prop('readonly', true);
                     $('#print_content textarea').prop('readonly', true);
                     $('#print_content select').prop('disabled',
                         true); //use 'disabled' for select elements
-                    $("#print_content button").each(function() {
+                    $("#print_content button").each(function () {
                         if (this.id !== 'btnPrint') {
                             $(this).hide();
                         }
@@ -432,7 +434,7 @@ include "include/navbar.php";
                 data: {
                     sales_id: sales_id,
                 },
-                success: function(data) {
+                success: function (data) {
 
                     //Your code to remove the box goes here
                     $('#payment_list_table').html(data);
@@ -440,7 +442,7 @@ include "include/navbar.php";
                     $('#print_content textarea').prop('readonly', true);
                     $('#print_content select').prop('disabled',
                         true); //use 'disabled' for select elements
-                    $("#print_content button").each(function() {
+                    $("#print_content button").each(function () {
                         if (this.id !== 'btnPrint') {
                             $(this).hide();
                         }
@@ -465,7 +467,7 @@ include "include/navbar.php";
     });
 
 
-    $(document).on('click', '.btnPrint', function(e) {
+    $(document).on('click', '.btnPrint', function (e) {
 
         console.log('hello');
 
@@ -477,7 +479,7 @@ include "include/navbar.php";
             var tWindow = window.open("");
             $(tWindow.document.body)
                 .html("<img id='Image' src=" + myImage + " style='width:100%;'></img>")
-                .ready(function() {
+                .ready(function () {
                     tWindow.focus();
                     tWindow.print();
                 });

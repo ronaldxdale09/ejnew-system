@@ -9,7 +9,7 @@ $bales_Kidapawan = mysqli_fetch_array($sql);
 $sql = mysqli_query($con, "SELECT SUM(remaining_bales) as inventory from  planta_bales_production 
      LEFT JOIN planta_recording on planta_bales_production.recording_id = planta_recording.recording_id
    where  planta_bales_production.remaining_bales !=0 AND planta_recording.source='Kidapawan' ");
-$balesCount_Kidapawan  = mysqli_fetch_array($sql);
+$balesCount_Kidapawan = mysqli_fetch_array($sql);
 
 
 
@@ -43,7 +43,7 @@ $sql = mysqli_query($con, "SELECT
 
 $data = mysqli_fetch_array($sql);
 $ave_kilo_cost_kidapawan = ($data['total_bale_cost']) / $data['total_weight'];
-$ave_kilo_cost_kidapawan_wMill  = ($data['total_bale_cost'] + $data['overall_milling_cost']) / $data['total_weight'];
+$ave_kilo_cost_kidapawan_wMill = ($data['total_bale_cost'] + $data['overall_milling_cost']) / $data['total_weight'];
 
 
 
@@ -95,14 +95,16 @@ $ave_kilo_cost_kidapawan_wMill  = ($data['total_bale_cost'] + $data['overall_mil
         <div class="stat-card">
             <div class="stat-card__content">
                 <p class="text-uppercase mb-1 text-muted"><b>AVERAGE</b> INVENTORY COST
-                    <span data-toggle="tooltip" data-placement="left" title="Average cost of bale inventory for sale only." style="cursor: pointer; font-size: 15px;">
+                    <span data-toggle="tooltip" data-placement="left"
+                        title="Average cost of bale inventory for sale only." style="cursor: pointer; font-size: 15px;">
                         <i class="fas fa-info-circle"></i>
                     </span>
                 </p>
 
                 <h5>
                     <i class="text-success font-weight-bold mr-1"></i>
-                    ₱ <?php echo number_format($ave_kilo_cost_kidapawan ?? 0, 2) ?>
+                    ₱
+                    <?php echo number_format($ave_kilo_cost_kidapawan ?? 0, 2) ?>
                 </h5>
                 <div>
                     <span class="text-muted">
@@ -119,12 +121,15 @@ $ave_kilo_cost_kidapawan_wMill  = ($data['total_bale_cost'] + $data['overall_mil
     <div class="col-3">
         <div class="stat-card">
             <div class="stat-card__content">
-                <p class="text-uppercase mb-1 text-muted"><b>TOTAL AVERAGE</b> COST <span data-toggle="tooltip" data-placement="left" title="Average cost of bale inventory for sale only." style="cursor: pointer; font-size: 15px;">
+                <p class="text-uppercase mb-1 text-muted"><b>TOTAL AVERAGE</b> COST <span data-toggle="tooltip"
+                        data-placement="left" title="Average cost of bale inventory for sale only."
+                        style="cursor: pointer; font-size: 15px;">
                         <i class="fas fa-info-circle"></i>
                     </span></p>
                 <h5>
                     <i class="text-success font-weight-bold mr-1"></i>
-                    ₱ <?php echo number_format($ave_kilo_cost_kidapawan_wMill ?? 0, 2) ?>
+                    ₱
+                    <?php echo number_format($ave_kilo_cost_kidapawan_wMill ?? 0, 2) ?>
                 </h5>
                 <div>
                     <span class="text-muted">
@@ -142,7 +147,8 @@ $ave_kilo_cost_kidapawan_wMill  = ($data['total_bale_cost'] + $data['overall_mil
 
 <hr>
 
-<table class="table table-bordered table-hover table-striped table-responsive" style='width:100%' id="recording_table-produced-kidapawan">
+<table class="table table-bordered table-hover table-striped table-responsive" style='width:100%'
+    id="recording_table-produced-kidapawan">
 
     <?php
     $results = mysqli_query($con, "SELECT * FROM planta_bales_production 
@@ -176,40 +182,80 @@ $ave_kilo_cost_kidapawan_wMill  = ($data['total_bale_cost'] + $data['overall_mil
         <?php while ($row = mysqli_fetch_array($results)) { ?>
             <tr>
                 <td>
-                    <?php if ($row['status'] == 'For Sale') : ?>
-                        <span class="badge bg-primary"><?php echo $row['status'] ?></span>
-                    <?php elseif ($row['status'] == 'Pressing') : ?>
-                        <span class="badge bg-danger"><?php echo $row['status'] ?></span>
-                    <?php elseif ($row['status'] == 'Purchase') : ?>
-                        <span class="badge bg-info"><?php echo $row['status'] ?></span>
-                    <?php elseif ($row['status'] == 'Complete') : ?>
-                        <span class="badge bg-success"><?php echo $row['status'] ?></span>
-                    <?php else : ?>
-                        <span class="badge"><?php echo $row['status'] ?></span>
+                    <?php if ($row['status'] == 'For Sale'): ?>
+                        <span class="badge bg-primary">
+                            <?php echo $row['status'] ?>
+                        </span>
+                    <?php elseif ($row['status'] == 'Drying'): ?>
+                        <span class="badge bg-warning">
+                            <?php echo $row['status'] ?>
+                        </span>
+                    <?php elseif ($row['status'] == 'Pressing'): ?>
+                        <span class="badge bg-danger">
+                            <?php echo $row['status'] ?>
+                        </span>
+                    <?php elseif ($row['status'] == 'Purchase'): ?>
+                        <span class="badge bg-info">
+                            <?php echo $row['status'] ?>
+                        </span>
+                    <?php elseif ($row['status'] == 'Complete'): ?>
+                        <span class="badge bg-success">
+                            <?php echo $row['status'] ?>
+                        </span>
+                    <?php else: ?>
+                        <span class="badge">
+                            <?php echo $row['status'] ?>
+                        </span>
                     <?php endif; ?>
                 </td>
                 <td>
-                    <span class="badge bg-secondary"><?php echo $row['bales_prod_id'] ?></span>
+                    <span class="badge bg-secondary">
+                        <?php echo $row['bales_prod_id'] ?>
+                    </span>
                 </td>
-                <td><?php echo date('M d, Y', strtotime($row['production_date'])); ?></td>
-                <td><?php echo $row['supplier'] ?></td>
-                <td> <?php echo $row['lot_num'] ?> </td>
-                <td><?php echo $row['bales_type'] ?></td>
-                <td class="number-cell"> <?php echo $row['kilo_per_bale'] ?> kg</td>
-                <td class="number-cell bales-column"> <?php echo number_format($row['number_bales'], 0, '.', ',') ?> pcs </td>
-                <td class="number-cell remaining-column"> <?php echo number_format($row['remaining_bales'], 0, '.', ',') ?> pcs </td>
+                <td>
+                    <?php echo date('M d, Y', strtotime($row['production_date'])); ?>
+                </td>
+                <td>
+                    <?php echo $row['supplier'] ?>
+                </td>
+                <td>
+                    <?php echo $row['lot_num'] ?>
+                </td>
+                <td>
+                    <?php echo $row['bales_type'] ?>
+                </td>
                 <td class="number-cell">
-                    <?php echo number_format($row['reweight'], 0, '.', ',') ?> kg</td>
+                    <?php echo $row['kilo_per_bale'] ?> kg
+                </td>
+                <td class="number-cell bales-column">
+                    <?php echo number_format($row['number_bales'], 0, '.', ',') ?> pcs
+                </td>
+                <td class="number-cell remaining-column">
+                    <?php echo number_format($row['remaining_bales'], 0, '.', ',') ?> pcs
+                </td>
                 <td class="number-cell">
-                    <?php echo number_format($row['rubber_weight'], 0, '.', ',') ?> kg</td>
+                    <?php echo number_format($row['reweight'], 0, '.', ',') ?> kg
+                </td>
+                <td class="number-cell">
+                    <?php echo number_format($row['rubber_weight'], 0, '.', ',') ?> kg
+                </td>
 
-                <td class="number-cell"><?php echo number_format($row['drc'], 2) ?> %</td>
-                <td><?php echo $row['description'] ?></td>
+                <td class="number-cell">
+                    <?php echo number_format($row['drc'], 2) ?> %
+                </td>
+                <td>
+                    <?php echo $row['description'] ?>
+                </td>
 
-                <?php if ($row['status'] == 'For Sale') : ?>
-                    <td>₱<?php echo number_format($row['milling_cost']) ?></td>
-                    <td>₱<?php echo number_format($row['total_production_cost'] / $row['produce_total_weight'], 2) ?></td>
-                <?php else : ?>
+                <?php if ($row['status'] == 'For Sale'): ?>
+                    <td>₱
+                        <?php echo number_format($row['milling_cost']) ?>
+                    </td>
+                    <td>₱
+                        <?php echo number_format($row['total_production_cost'] / $row['produce_total_weight'], 2) ?>
+                    </td>
+                <?php else: ?>
                     <td>-</td>
                     <td>-</td>
                 <?php endif; ?>
@@ -221,10 +267,10 @@ $ave_kilo_cost_kidapawan_wMill  = ($data['total_bale_cost'] + $data['overall_mil
 
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         var table = $('#recording_table-produced-kidapawan').DataTable({
             "order": [
-                [1, 'asc']
+                [1, 'desc']
             ],
             "pageLength": -1,
             "dom": "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
@@ -232,26 +278,26 @@ $ave_kilo_cost_kidapawan_wMill  = ($data['total_bale_cost'] + $data['overall_mil
                 "<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'>>",
             "responsive": true,
             "buttons": [{
-                    extend: 'excelHtml5',
-                    text: 'Excel',
-                    exportOptions: {
-                        columns: ':visible'
-                    }
-                },
-                {
-                    extend: 'pdfHtml5',
-                    text: 'PDF',
-                    exportOptions: {
-                        columns: ':visible'
-                    }
-                },
-                {
-                    extend: 'print',
-                    text: 'Print',
-                    exportOptions: {
-                        columns: ':visible'
-                    }
+                extend: 'excelHtml5',
+                text: 'Excel',
+                exportOptions: {
+                    columns: ':visible'
                 }
+            },
+            {
+                extend: 'pdfHtml5',
+                text: 'PDF',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'print',
+                text: 'Print',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            }
             ]
         });
     });

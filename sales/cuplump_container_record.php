@@ -104,7 +104,7 @@ include 'include/navbar.php';
                             </div>
                             <div class="table-responsive">
                                 <?php
-                                $results  = mysqli_query($con, "SELECT * from sales_cuplump_container ");
+                                $results  = mysqli_query($con, "SELECT * from cuplump_container ");
 
                                 ?>
                                 <table class="table table-bordered table-hover table-striped" id='recording_table-receiving'>

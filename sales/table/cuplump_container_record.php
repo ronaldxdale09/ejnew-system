@@ -13,7 +13,7 @@ include('../../function/db.php');
 $container_id = $_POST['container_id'];
 
 // Query to get the bale info from the database
-$query = "SELECT * FROM sales_cuplump_container_inv WHERE sales_cuplump_id = '$container_id'";
+$query = "SELECT * FROM cuplump_container_inv WHERE container_id= '$container_id'";
 $result = mysqli_query($con, $query);
 
 // Check if the query was successful
@@ -25,7 +25,7 @@ if (!$result) {
 $output = '
 
 <button type="button" id="addRow" class="btn btn-success">+ Add Inventory</button> <hr>
-<table class="table custom-table"  id="rubber-table" >
+<table class="table custom-table cuplump_container"  id="cuplump_container" >
     <thead style="font-weight: normal !important;">
     <tr>
         <th scope="col" hidden></th>
@@ -140,6 +140,7 @@ echo $output;
 <script>
     $(document).ready(function () {
 
+      
         // Function to sanitize and validate input
         function sanitizeInput(value) {
             return parseFloat(value.replace(/,/g, '') || 0);
@@ -160,7 +161,7 @@ echo $output;
             var totalBuyingWeight = 0, totalSellingWeight = 0, totalCost = 0;
 
             // Loop through each row of the table to sum up the weights and costs
-            $('#rubber-table tbody tr').each(function () {
+            $('#cuplump_container tbody tr').each(function () {
                 var weight = sanitizeInput($(this).find('.weight').val());
                 var sellingWeight = sanitizeInput($(this).find('.dry_weight').val());
                 var cost = sanitizeInput($(this).find('.total_cost').val());
@@ -241,7 +242,7 @@ echo $output;
                 '<td><button class="btn btn-sm btn-danger removeRow"><i class="fas fa-trash"></i></button></td>' +
                 '</tr>');
 
-            $("#rubber-table tbody").append(newRow);
+            $("#cuplump_container tbody").append(newRow);
         });
 
 
@@ -250,9 +251,9 @@ echo $output;
             $(this).closest("tr").remove();
             calculateTotalsAndAverages();
         });
+  // Initial calculation on page load
+  calculateTotalsAndAverages();
 
-        // Initial calculation on page load
-        calculateTotalsAndAverages();
     });
 
 

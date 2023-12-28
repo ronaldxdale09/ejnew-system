@@ -34,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     function updateShipment($ship_id, $type, $particular, $ship_destination, $ship_source, $ship_date, $ship_vessel, $ship_info_lading, $ship_remarks, $ship_recorded, $total_cuplump_weight, $freight, $loading_expense, $ship_exp_processing, $ship_exp_trucking, $ship_exp_cranage, $ship_exp_misc, $total_ship_exp, $number_container, $ship_cost_per_container) {
         global $con;
         $query = "UPDATE `sales_cuplump_shipment` SET 
+          `status` = 'Complete', 
                     `type` = '$type', 
                     `particular` = '$particular', 
                     `destination` = '$ship_destination', 
@@ -73,13 +74,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $container_id = $row['container_id'];
 
                 // Fetch and update container details
-                $result = mysqli_query($con, "SELECT * FROM sales_cuplump_container WHERE container_id = '$container_id'");
+                $result = mysqli_query($con, "SELECT * FROM cuplump_container WHERE container_id = '$container_id'");
                 if ($result) {
                     $container_info = mysqli_fetch_assoc($result);
                     $new_average_cuplump_cost = ($container_info['total_cuplump_cost'] + $ship_cost_per_container) / $container_info['total_cuplump_weight'];
 
-                    $update = "UPDATE sales_cuplump_container SET 
+                    $update = "UPDATE cuplump_container SET 
                                 ship_exp = '$ship_cost_per_container',
+                                status = 'Shipped Out',
                                 ave_cuplump_cost = '$new_average_cuplump_cost'
                                WHERE container_id = '$container_id'";
 

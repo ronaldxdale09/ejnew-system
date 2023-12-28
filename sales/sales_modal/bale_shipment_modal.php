@@ -59,24 +59,7 @@ $today = date('Y-m-d');
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Vessel</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='vessel' autocomplete='off'
-                                    style="width: 100px;" required />
-                            </div>
-                        </div>
-                        <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Bill of
-                                Lading</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='info_lading' autocomplete='off'
-                                    style="width: 100px;" />
-                            </div>
-                        </div>
-
-                    </div>
+                  
                     <div class="row">
                         <div class="col">
                             <label style='font-size:15px' class="col-md-12">Remarks</label>
