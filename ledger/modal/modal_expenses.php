@@ -24,7 +24,7 @@ while ($arr = mysqli_fetch_array($result)) {
             <div class="modal-header">
                 <h5 class="modal-title">Create New Record</h5>
             </div>
-            <form action="function/ledger/expense_function.php" id='expense_form' method="POST">
+            <form id='expense_form' method="POST">
 
                 <div class="modal-body">
                     <div class="row">
@@ -164,8 +164,9 @@ while ($arr = mysqli_fetch_array($result)) {
                 </div>
                 
                 <div class="modal-footer">
-                    <button type="submit" name='add' class="btn btn-success" id="btn_add_record_expenses">Add
-                        Record</button>
+                    <button type="submit" class="btn btn-success" id="btn_add_record_expenses">
+                        <i class="fa fa-save"></i> Add Record
+                    </button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
                 </div>
@@ -237,7 +238,7 @@ while ($arr = mysqli_fetch_array($result)) {
                 <h5 class="modal-title" id="removeExpenseLabel">Remove Expense</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="function/ledger/expense_function.php" id="delete_form" method="POST">
+            <form id="delete_form" method="POST">
                 <div class="modal-body">
                     <input id="del_id" name="id" hidden>
                     <p class="text-center text-dark">Are you sure you want to remove this record? This action
@@ -245,7 +246,9 @@ while ($arr = mysqli_fetch_array($result)) {
                 </div>
                 <div class="modal-footer justify-content-center">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" name="delete" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fa fa-trash"></i> Delete
+                    </button>
                 </div>
             </form>
         </div>
@@ -264,7 +267,7 @@ while ($arr = mysqli_fetch_array($result)) {
             <div class="modal-header">
                 <h5 class="modal-title">Update Expense Record</h5>
             </div>
-            <form action="function/ledger/expense_function.php" id="update_form"  method="POST">
+            <form id="update_form" method="POST">
                 <input type="hidden" id="update_id" name="id" />
                 <div class="modal-body">
                     <div class="row">
@@ -395,7 +398,9 @@ while ($arr = mysqli_fetch_array($result)) {
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" name='update' class="btn btn-success">Update Record</button>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-save"></i> Update Record
+                    </button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </form>

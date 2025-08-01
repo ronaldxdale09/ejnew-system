@@ -45,7 +45,7 @@ while ($array = mysqli_fetch_array($result)) {
 
 </html>
 
-<script src="ledgerTab/js/ca.js"></script>
+<!-- <script src="ledgerTab/js/ca.js"></script> Commented out - replaced with server-side AJAX processing -->
 <?php
 include('modal/modal_cashadvance.php');
 ?>

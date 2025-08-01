@@ -1,105 +1,164 @@
 <?php
 include('../../../function/db.php');
 
+// Check if this is an AJAX request
+$isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
+
 function removeCharacters($string)
 {
     $string = preg_replace('/[^0-9]/', '', $string);
     return $string;
 }
 
-if (isset($_POST['add'])) {
-    $date = $_POST['date'];
-    $vouch = removeCharacters($_POST['voucher']);
-    $particular = $_POST['particular'];
-    $category = $_POST['category'];
-    $modetransac = $_POST['mode_transaction'];
-    $remark = $_POST['remarks'];
-    $type = $_POST['type'];
-    $location = $_POST['location'];
-    $amount = str_replace(',', '', $_POST['amount']);
-    $less = str_replace(',', '', $_POST['less']);
-    $total_amount = str_replace(',', '', $_POST['total_amount']);
+function sanitizeInput($con, $input) {
+    return mysqli_real_escape_string($con, trim($input));
+}
 
-    // Check if the selected category already exists in the database
-    $id = null;
-    if (!empty($category)) {
-        $query = "SELECT id FROM category_expenses WHERE category='$category'";
-        $result = mysqli_query($con, $query);
-        if (mysqli_num_rows($result) > 0) {
-            $row = mysqli_fetch_assoc($result);
-            $id = $row['id'];
+function sendResponse($success, $message, $data = null) {
+    global $isAjax;
+    if ($isAjax) {
+        header('Content-Type: application/json');
+        echo json_encode([
+            'success' => $success,
+            'message' => $message,
+            'data' => $data
+        ]);
+        exit();
+    }
+    return false; // Continue with traditional flow
+}
+
+if (isset($_POST['add'])) {
+    // Validate required fields
+    $required = ['date', 'voucher', 'particular', 'category', 'type', 'amount', 'total_amount'];
+    foreach ($required as $field) {
+        if (empty($_POST[$field])) {
+            if (sendResponse(false, "Field '$field' is required")) return;
         }
     }
 
-    // Insert the expense into the database
-    $query = "INSERT INTO ledger_expenses (date,voucher_no,particulars,category,mode_transact,remarks,amount,less,total_amount,location,type_expense) 
-              VALUES ('$date','$vouch','$particular','$category','$modetransac','$remark','$amount','$less','$total_amount','$location','$type')";
-    $results = mysqli_query($con, $query);
+    $date = sanitizeInput($con, $_POST['date']);
+    $vouch = removeCharacters($_POST['voucher']);
+    $particular = sanitizeInput($con, $_POST['particular']);
+    $category = sanitizeInput($con, $_POST['category']);
+    $modetransac = sanitizeInput($con, $_POST['mode_transaction'] ?? '');
+    $remark = sanitizeInput($con, $_POST['remarks'] ?? '');
+    $type = sanitizeInput($con, $_POST['type']);
+    $location = sanitizeInput($con, $_POST['location'] ?? $_SESSION['loc']);
+    $amount = str_replace(',', '', $_POST['amount']);
+    $less = str_replace(',', '', $_POST['less'] ?? '0');
+    $total_amount = str_replace(',', '', $_POST['total_amount']);
 
-    if ($results) {
-        header("Location: ../../ledger-expense.php");
+    // Validate numeric fields
+    if (!is_numeric($amount) || !is_numeric($less) || !is_numeric($total_amount)) {
+        if (sendResponse(false, 'Invalid numeric values')) return;
+    }
 
+    // Use prepared statement for security
+    $stmt = $con->prepare("INSERT INTO ledger_expenses (date, voucher_no, particulars, category, mode_transact, remarks, amount, less, total_amount, location, type_expense) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssssdddss", $date, $vouch, $particular, $category, $modetransac, $remark, $amount, $less, $total_amount, $location, $type);
+
+    if ($stmt->execute()) {
+        $new_id = $con->insert_id;
+        
+        // For AJAX requests, return the new record data
+        $new_record = [
+            'id' => $new_id,
+            'date' => date('M j, Y', strtotime($date)),
+            'particulars' => $particular,
+            'voucher_no' => $vouch,
+            'category' => $category,
+            'type_expense' => $type,
+            'total_amount' => number_format($total_amount, 2)
+        ];
+        
+        if (sendResponse(true, 'Expense added successfully', $new_record)) return;
+        
+        // Traditional redirect for non-AJAX requests
         $_SESSION['expenses'] = "successful";
+        header("Location: ../../ledger-expense.php");
+        exit();
     } else {
-        echo "ERROR: Could not be able to execute $query. " . mysqli_error($con);
+        if (sendResponse(false, 'Database error: ' . $stmt->error)) return;
+        echo "ERROR: Could not execute query. " . $stmt->error;
     }
 }
 
 if (isset($_POST['delete'])) {
-    $id = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
+    $id = filter_var($_POST['id'], FILTER_VALIDATE_INT);
+    if (!$id) {
+        if (sendResponse(false, 'Invalid ID')) return;
+    }
 
+    $stmt = $con->prepare("DELETE FROM ledger_expenses WHERE id = ?");
+    $stmt->bind_param("i", $id);
 
-    $query = "DELETE FROM `ledger_expenses` WHERE id = '$id'";
-
-    if (mysqli_query($con, $query)) {
-        header("Location: ../../ledger-expense.php");
-        $_SESSION['deleted'] = "successful";
-        exit();
+    if ($stmt->execute()) {
+        if ($stmt->affected_rows > 0) {
+            if (sendResponse(true, 'Expense deleted successfully')) return;
+            
+            // Traditional redirect for non-AJAX requests
+            $_SESSION['deleted'] = "successful";
+            header("Location: ../../ledger-expense.php");
+            exit();
+        } else {
+            if (sendResponse(false, 'Record not found')) return;
+            echo "ERROR: Record not found";
+        }
     } else {
-        echo "ERROR: Could not be able to execute $query. " . mysqli_error($con);
+        if (sendResponse(false, 'Database error: ' . $stmt->error)) return;
+        echo "ERROR: Could not execute query. " . $stmt->error;
     }
 }
 
 
 
 if (isset($_POST['update'])) {
-    $id = $_POST['id'];
-    $date = $_POST['date'];
+    $id = filter_var($_POST['id'], FILTER_VALIDATE_INT);
+    if (!$id) {
+        if (sendResponse(false, 'Invalid ID')) return;
+    }
+
+    $date = sanitizeInput($con, $_POST['date']);
     $vouch = removeCharacters($_POST['voucher']);
-    $particular = $_POST['particular'];
-    $category = $_POST['category'];
-    $modetransac = $_POST['mode_transaction'];
-    $remark = $_POST['remarks'];
-    $type = $_POST['type'];
-    $location = $_POST['location'];
+    $particular = sanitizeInput($con, $_POST['particular']);
+    $category = sanitizeInput($con, $_POST['category']);
+    $modetransac = sanitizeInput($con, $_POST['mode_transaction'] ?? '');
+    $remark = sanitizeInput($con, $_POST['remarks'] ?? '');
+    $type = sanitizeInput($con, $_POST['type']);
+    $location = sanitizeInput($con, $_POST['location'] ?? $_SESSION['loc']);
     $amount = str_replace(',', '', $_POST['amount']);
-    $less = str_replace(',', '', $_POST['less']);
+    $less = str_replace(',', '', $_POST['less'] ?? '0');
     $total_amount = str_replace(',', '', $_POST['total_amount']);
 
-    $category = $_POST['category'];
+    // Validate numeric fields
+    if (!is_numeric($amount) || !is_numeric($less) || !is_numeric($total_amount)) {
+        if (sendResponse(false, 'Invalid numeric values')) return;
+    }
 
-    // Update the expense in the database
-    $query = "UPDATE ledger_expenses SET 
-              date='$date', 
-              voucher_no='$vouch', 
-              particulars='$particular', 
-              category='$category', 
-              mode_transact='$modetransac', 
-              remarks='$remark', 
-              amount='$amount', 
-              less='$less', 
-              total_amount='$total_amount', 
-              location='$location', 
-              type_expense='$type' 
-              WHERE id = $id";
-    $results = mysqli_query($con, $query);
+    $stmt = $con->prepare("UPDATE ledger_expenses SET date=?, voucher_no=?, particulars=?, category=?, mode_transact=?, remarks=?, amount=?, less=?, total_amount=?, location=?, type_expense=? WHERE id=?");
+    $stmt->bind_param("ssssssdddssi", $date, $vouch, $particular, $category, $modetransac, $remark, $amount, $less, $total_amount, $location, $type, $id);
 
-    if ($results) {
-        header("Location: ../../ledger-expense.php");
+    if ($stmt->execute()) {
+        $updated_record = [
+            'id' => $id,
+            'date' => date('M j, Y', strtotime($date)),
+            'particulars' => $particular,
+            'voucher_no' => $vouch,
+            'category' => $category,
+            'type_expense' => $type,
+            'total_amount' => number_format($total_amount, 2)
+        ];
+        
+        if (sendResponse(true, 'Expense updated successfully', $updated_record)) return;
+        
+        // Traditional redirect for non-AJAX requests
         $_SESSION['updated'] = "Update successful";
+        header("Location: ../../ledger-expense.php");
         exit();
     } else {
-        echo "ERROR: Could not be able to execute $query. " . mysqli_error($con);
+        if (sendResponse(false, 'Database error: ' . $stmt->error)) return;
+        echo "ERROR: Could not execute query. " . $stmt->error;
     }
 }
 
