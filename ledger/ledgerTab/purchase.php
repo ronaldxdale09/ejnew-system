@@ -190,7 +190,7 @@ foreach ($categories as $category) {
                                     </td>
                                     <td>
                                         <div class="d-flex flex-nowrap">
-                                            <button type="button" class="btn btn-secondary btn-sm text-white btnUpdate" data-purchase='<?php echo json_encode($row); ?>'>
+                                            <button type="button" class="btn btn-primary btn-sm text-white btnUpdate" data-purchase='<?php echo json_encode($row); ?>'>
                                                 <span class="fa fa-edit"></span>
                                             </button>
                                             <button type="button" class="btn btn-danger btn-sm text-white btnDelete" data-purchase='<?php echo json_encode($row); ?>'>

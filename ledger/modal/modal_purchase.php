@@ -153,7 +153,7 @@ $dateNow = $year . "-" . $month . "-" . $day;
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">₱</span>
                                     </div>
-                                    <input type="text" style='text-align:right' name='net_total_amount'  onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" class="form-control">
+                                    <input type="text" style='text-align:right' name='net_total_amount' class="form-control">
                                 </div>
                                 <!--  -->
                             </div>
@@ -164,7 +164,7 @@ $dateNow = $year . "-" . $month . "-" . $day;
                 </div>
                 <div class="modal-footer">
                     <button type="submit" name='add' class="btn btn-success">Submit</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </form>
         </div>
@@ -178,6 +178,13 @@ $dateNow = $year . "-" . $month . "-" . $day;
         for (let input of inputs) {
             input.addEventListener("input", computeTotal);
         }
+        
+        // Add separate event listener for net_total_amount
+        document.querySelector("[name='net_total_amount']").addEventListener("input", function() {
+            let netTotalValue = parseFloat(this.value.replace(/,/g, '')) || 0;
+            let formattedValue = parseFloat(netTotalValue.toFixed(2)).toLocaleString('en-US');
+            document.querySelector("[name='total_amount']").value = formattedValue;
+        });
 
         function computeTotal() {
             let netKilos = parseFloat(document.querySelector("[name='net_kilo']").value.replace(/,/g, '')) || 0;
@@ -189,10 +196,8 @@ $dateNow = $year . "-" . $month . "-" . $day;
             let net_total = (netKilos * price) - cashAdvance - tax - others;
             let totalAmount = (netKilos * price);
 
-
             let formattedNet = parseFloat(net_total.toFixed(2)).toLocaleString('en-US');
             document.querySelector("[name='net_total_amount']").value = formattedNet;
-
 
             let formattedTotalAmount = parseFloat(totalAmount.toFixed(2)).toLocaleString('en-US');
             document.querySelector("[name='total_amount']").value = formattedTotalAmount;
@@ -207,7 +212,9 @@ $dateNow = $year . "-" . $month . "-" . $day;
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel" style="font-size: 18px; font-weight: 600;">Remove Purchase</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body" style="font-size: 16px; padding: 20px;">
                 <form action="function/ledger/removePurchase.php" method="POST">
@@ -217,7 +224,7 @@ $dateNow = $year . "-" . $month . "-" . $day;
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <button type="submit" name="submit" class="btn btn-danger">
                     <!-- You can add an icon here -->
                     <i class="bi bi-trash"></i> Delete
@@ -380,7 +387,7 @@ $dateNow = $year . "-" . $month . "-" . $day;
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">₱</span>
                                     </div>
-                                    <input type="text" style='text-align:right' name='u_net_total_amount' id='u_net_total_amount'  onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"  class="form-control">
+                                    <input type="text" style='text-align:right' name='u_net_total_amount' id='u_net_total_amount' class="form-control">
                                 </div>
                                 <!--  -->
                             </div>
@@ -392,7 +399,7 @@ $dateNow = $year . "-" . $month . "-" . $day;
                 </div>
                 <div class="modal-footer">
                     <button type="submit" name='update' class="btn btn-success">Submit</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </form>
         </div>
@@ -408,6 +415,13 @@ $dateNow = $year . "-" . $month . "-" . $day;
         for (let input of inputs) {
             input.addEventListener("input", u_computeTotal);
         }
+        
+        // Add separate event listener for u_net_total_amount
+        document.querySelector("[name='u_net_total_amount']").addEventListener("input", function() {
+            let netTotalValue = parseFloat(this.value.replace(/,/g, '')) || 0;
+            let formattedValue = parseFloat(netTotalValue.toFixed(2)).toLocaleString('en-US');
+            document.querySelector("[name='u_total_amount']").value = formattedValue;
+        });
 
         function u_computeTotal() {
             console.log("Computing totals..."); // Debug log
@@ -428,11 +442,8 @@ $dateNow = $year . "-" . $month . "-" . $day;
             console.log("Net Total:", net_total);
             console.log("Total Amount:", totalAmount);
 
-
-
             let formattedNet = parseFloat(net_total.toFixed(2)).toLocaleString('en-US');
             document.querySelector("[name='u_net_total_amount']").value = formattedNet;
-
 
             let formattedTotalAmount = parseFloat(totalAmount.toFixed(2)).toLocaleString('en-US');
             document.querySelector("[name='u_total_amount']").value = formattedTotalAmount;
