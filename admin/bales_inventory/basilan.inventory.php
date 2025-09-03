@@ -42,6 +42,7 @@ $sql = mysqli_query($con, "SELECT
 $data = mysqli_fetch_array($sql);
 $ave_kilo_cost_basilan = ($data['total_bale_cost']) / $data['total_weight'];
 $ave_kilo_cost_basilan_wMill = ($data['total_bale_cost'] + $data['overall_milling_cost']) / $data['total_weight'];
+$total_inventory_value = $data['total_bale_cost'] + $data['overall_milling_cost'];
 
 
 
@@ -96,9 +97,9 @@ $ave_kilo_cost_basilan_wMill = ($data['total_bale_cost'] + $data['overall_millin
     <div class="col-3">
         <div class="stat-card">
             <div class="stat-card__content">
-                <p class="text-uppercase mb-1 text-muted"><b>AVERAGE</b> INVENTORY COST
+                <p class="text-uppercase mb-1 text-muted"><b>TOTAL</b> INVENTORY VALUE
                     <span data-toggle="tooltip" data-placement="left"
-                        title="Average cost of bale inventory for sale only." style="cursor: pointer; font-size: 15px;">
+                        title="Total value of all bale inventory for sale." style="cursor: pointer; font-size: 15px;">
                         <i class="fas fa-info-circle"></i>
                     </span>
                 </p>
@@ -106,7 +107,7 @@ $ave_kilo_cost_basilan_wMill = ($data['total_bale_cost'] + $data['overall_millin
                 <h5>
                     <i class="text-success font-weight-bold mr-1"></i>
                     ₱
-                    <?php echo number_format($ave_kilo_cost_basilan ?? 0, 2) ?>
+                    <?php echo number_format($total_inventory_value ?? 0, 2) ?>
                 </h5>
                 <div>
                     <span class="text-muted">
@@ -115,7 +116,7 @@ $ave_kilo_cost_basilan_wMill = ($data['total_bale_cost'] + $data['overall_millin
             </div>
             <div class="stat-card__icon stat-card__icon--warning">
                 <div class="stat-card__icon-circle">
-                    <i class="fa fa-calculator"></i>
+                    <i class="fa fa-money-bill"></i>
                 </div>
             </div>
         </div>
@@ -149,7 +150,8 @@ $ave_kilo_cost_basilan_wMill = ($data['total_bale_cost'] + $data['overall_millin
 
 <hr>
 
-<table class="table table-bordered table-hover table-striped table-responsive" style='width:100%'
+<div class="table-responsive">
+<table class="table table-bordered table-hover table-striped" style='width:100%'
     id="recording_table-produced-basilan">
 
     <?php
@@ -162,23 +164,24 @@ $ave_kilo_cost_basilan_wMill = ($data['total_bale_cost'] + $data['overall_millin
     ?>
 
 
-    <thead class="table-dark" style='font-size:13px'>
+    <thead class="table-dark" style='font-size:14px'>
         <tr>
-            <th>Status</th>
-            <th>Bale ID</th>
-            <th>Date Produced</th>
-            <th>Supplier</th>
-            <th>Lot No.</th>
-            <th>Quality</th>
-            <th>Kilo</th>
-            <th>Produced Bales</th>
-            <th>Remaining Bales</th>
-            <th>Cuplump Weight</th>
-            <th>Bale Weight</th>
-            <th>DRC</th>
-            <th>Description</th>
-            <th>Mill Cost</th>
-            <th>Unit Cost</th>
+            <th style="width: 80px;">Status</th>
+            <th style="width: 70px;">Bale ID</th>
+            <th style="width: 90px;">Date</th>
+            <th style="width: 120px;">Supplier</th>
+            <th style="width: 50px;">Lot No.</th>
+            <th style="width: 70px;">Quality</th>
+            <th style="width: 50px;">Kilo</th>
+            <th style="width: 60px;">Produced</th>
+            <th style="width: 60px;">Remaining</th>
+            <th style="width: 80px;">Cuplump</th>
+            <th style="width: 70px;">Bale Wt</th>
+            <th style="width: 50px;">DRC</th>
+            <th style="width: 100px;">Description</th>
+            <th style="width: 70px;">Mill Cost</th>
+            <th style="width: 70px;">Unit Cost</th>
+            <th style="width: 80px;">Total Cost</th>
         </tr>
     </thead>
     <tbody>
@@ -218,48 +221,53 @@ $ave_kilo_cost_basilan_wMill = ($data['total_bale_cost'] + $data['overall_millin
                         <?php echo $row['bales_prod_id'] ?>
                     </span>
                 </td>
-                <td>
+                <td style="font-size: 14px;">
                     <?php echo date('M d, Y', strtotime($row['production_date'])); ?>
                 </td>
-                <td>
+                <td style="font-size: 14px; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: bold;" title="<?php echo $row['supplier'] ?>">
                     <?php echo $row['supplier'] ?>
                 </td>
-                <td>
+                <td style="font-size: 14px;">
                     <?php echo $row['lot_num'] ?>
                 </td>
-                <td>
+                <td style="font-size: 14px;">
                     <?php echo $row['bales_type'] ?>
                 </td>
-                <td class="number-cell">
-                    <?php echo $row['kilo_per_bale'] ?> kg
+                <td class="number-cell" style="font-size: 14px;">
+                    <?php echo $row['kilo_per_bale'] ?>
                 </td>
-                <td class="number-cell bales-column">
-                    <?php echo number_format($row['number_bales'], 0, '.', ',') ?> pcs
+                <td class="number-cell bales-column" style="font-size: 14px;">
+                    <?php echo number_format($row['number_bales'], 0, '.', ',') ?>
                 </td>
-                <td class="number-cell remaining-column">
-                    <?php echo number_format($row['remaining_bales'], 0, '.', ',') ?> pcs
+                <td class="number-cell remaining-column" style="font-size: 14px;">
+                    <?php echo number_format($row['remaining_bales'], 0, '.', ',') ?>
                 </td>
-                <td class="number-cell">
-                    <?php echo number_format($row['reweight'], 0, '.', ',') ?> kg
+                <td class="number-cell" style="font-size: 14px;">
+                    <?php echo number_format($row['reweight'], 0, '.', ',') ?>
                 </td>
-                <td class="number-cell">
-                    <?php echo number_format($row['rubber_weight'], 0, '.', ',') ?> kg
+                <td class="number-cell" style="font-size: 14px;">
+                    <?php echo number_format($row['rubber_weight'], 0, '.', ',') ?>
                 </td>
 
-                <td class="number-cell">
-                    <?php echo number_format($row['drc'], 2) ?> %
+                <td class="number-cell" style="font-size: 14px;">
+                    <?php echo number_format($row['drc'], 2) ?>%
                 </td>
-                <td>
+                <td style="max-width: 100px; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="<?php echo $row['description'] ?>">
                     <?php echo $row['description'] ?>
                 </td>
                 <?php if ($row['status'] == 'For Sale'): ?>
-                    <td>₱
-                        <?php echo number_format($row['milling_cost']) ?>
+                    <?php 
+                        $unit_cost = $row['total_production_cost'] / $row['produce_total_weight'];
+                        $total_cost = $unit_cost + $row['milling_cost'];
+                    ?>
+                    <td class="number-cell" style="font-size: 14px;">₱<?php echo number_format($row['milling_cost'], 0) ?>
                     </td>
-                    <td>₱
-                        <?php echo number_format($row['total_production_cost'] / $row['produce_total_weight'], 2) ?>
+                    <td class="number-cell" style="font-size: 14px;">₱<?php echo number_format($unit_cost, 0) ?>
+                    </td>
+                    <td class="number-cell" style="font-size: 14px;"><strong>₱<?php echo number_format($total_cost, 0) ?></strong>
                     </td>
                 <?php else: ?>
+                    <td>-</td>
                     <td>-</td>
                     <td>-</td>
                 <?php endif; ?>
@@ -269,6 +277,7 @@ $ave_kilo_cost_basilan_wMill = ($data['total_bale_cost'] + $data['overall_millin
         <?php } ?>
     </tbody>
 </table>
+</div>
 
 <script>
     $(document).ready(function () {
@@ -276,32 +285,45 @@ $ave_kilo_cost_basilan_wMill = ($data['total_bale_cost'] + $data['overall_millin
             "order": [
                 [1, 'desc']
             ],
-            "pageLength": -1,
-            "dom": "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
+            "pageLength": 25,
+            "dom": "<'row'<'col-sm-12 col-md-4'B><'col-sm-12 col-md-4'l><'col-sm-12 col-md-4'f>>" +
                 "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'>>",
+                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+            "scrollX": false,
             "responsive": true,
-            "buttons": [{
-                extend: 'excelHtml5',
-                text: 'Excel',
-                exportOptions: {
-                    columns: ':visible'
+            "columnDefs": [
+                { "visible": false, "targets": [0, 1] }, // Hide Status and Bale ID by default
+                { "className": "text-center", "targets": [6, 7, 8, 11] },
+                { "className": "text-right", "targets": [9, 10, 13, 14, 15] }
+            ],
+            "buttons": [
+                {
+                    extend: 'colvis',
+                    text: 'Show/Hide Columns',
+                    columns: ':not(.noVis)'
+                },
+                {
+                    extend: 'excelHtml5',
+                    text: 'Excel',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    text: 'PDF',
+                    orientation: 'landscape',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'print',
+                    text: 'Print',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
                 }
-            },
-            {
-                extend: 'pdfHtml5',
-                text: 'PDF',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            },
-            {
-                extend: 'print',
-                text: 'Print',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            }
             ]
         });
     });

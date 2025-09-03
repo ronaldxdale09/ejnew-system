@@ -119,7 +119,9 @@ while ($array = mysqli_fetch_array($res)) {
             <select class='dropdown-toggle form-select filter_type'  id='typeFilter' required>
                 <option disabled="disabled" value='' selected="selected">Select Type </option>
                 <option value=''>All</option>
-
+                <option value='Administrative Expenses'>Administrative Expenses	</option>
+                <option value='Rubber Plant & Production'>Rubber Plant & Production	</option>
+                <option value='RTL'>RTL</option>
                 <option value='Personal Expenses'>Personal Expenses</option>
                 <option value='Rubber Expenses'>Rubber Expenses</option>
                 <option value='Coffee Expenses'>Coffee Expenses</option>

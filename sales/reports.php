@@ -15,76 +15,76 @@ include "include/navbar.php";
 </head>
 
 <style>
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        font-family: Arial, sans-serif;
-    }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+}
 
-    th,
-    td {
-        padding: 8px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-    }
+th,
+td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
 
-    th {
-        background-color: #f2f2f2;
-        font-weight: bold;
-    }
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
 
-    tr:nth-child(even) {
-        background-color: #f8f8f8;
-    }
+tr:nth-child(even) {
+    background-color: #f8f8f8;
+}
 
-    tr:hover {
-        background-color: #e0e0e0;
-    }
+tr:hover {
+    background-color: #e0e0e0;
+}
 </style>
 
 <script>
-    async function fetchSalesData() {
-        try {
-            const response = await fetch("sales_data.json");
-            const salesData = await response.json();
-            return salesData;
-        } catch (error) {
-            console.error("Error fetching sales data:", error);
-        }
+async function fetchSalesData() {
+    try {
+        const response = await fetch("sales_data.json");
+        const salesData = await response.json();
+        return salesData;
+    } catch (error) {
+        console.error("Error fetching sales data:", error);
     }
+}
 
-    async function populateTable() {
-        const salesData = await fetchSalesData();
-        if (!salesData) return;
+async function populateTable() {
+    const salesData = await fetchSalesData();
+    if (!salesData) return;
 
-        // Your code for populating the table with sales data goes here
-    }
+    // Your code for populating the table with sales data goes here
+}
 
-    populateTable();
+populateTable();
 
 
-    function sortTable() {
-        let table = document.getElementById("sales-report-table");
-        let rows, switching, i, x, y, shouldSwitch;
-        switching = true;
-        while (switching) {
-            switching = false;
-            rows = table.rows;
-            for (i = 1; i < rows.length - 1; i++) {
-                shouldSwitch = false;
-                x = rows[i].getElementsByTagName("TD")[1];
-                y = rows[i + 1].getElementsByTagName("TD")[1];
-                if (parseFloat(x.innerHTML) < parseFloat(y.innerHTML)) {
-                    shouldSwitch = true;
-                    break;
-                }
-            }
-            if (shouldSwitch) {
-                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                switching = true;
+function sortTable() {
+    let table = document.getElementById("sales-report-table");
+    let rows, switching, i, x, y, shouldSwitch;
+    switching = true;
+    while (switching) {
+        switching = false;
+        rows = table.rows;
+        for (i = 1; i < rows.length - 1; i++) {
+            shouldSwitch = false;
+            x = rows[i].getElementsByTagName("TD")[1];
+            y = rows[i + 1].getElementsByTagName("TD")[1];
+            if (parseFloat(x.innerHTML) < parseFloat(y.innerHTML)) {
+                shouldSwitch = true;
+                break;
             }
         }
+        if (shouldSwitch) {
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+        }
     }
+}
 </script>
 
 <body>
@@ -94,7 +94,7 @@ include "include/navbar.php";
 
     <div class='main-content' style='min-height:100vh;'>
         <div class="container home-section h-100" style="max-width:95%;">
-            <BR>
+            <br>
             <div class="page-wrapper">
                 <div class="row">
                     <div class="col-sm-12">
@@ -730,9 +730,6 @@ include "include/navbar.php";
                                         }
 
 
-
-
-
                                         // Gross Profit Sales
                                         $totalGrossProfitSales = 0;
                                         echo '<tr style="background-color: rgb(252, 252, 210);">';
@@ -771,55 +768,48 @@ include "include/navbar.php";
                                             echo '<td style="text-align: right;"><b>' . ($monthlyGrossProfit != 0 ? ' ' . number_format($monthlyGrossProfit, 0, '.', ',') : '-') . ' </b></td>';
                                         }
                                         echo '</tr>';
-
-
-
-
                                         ?>
-
-
 
                                     </tbody>
                                 </table>
                             </div>
 
                             <script>
-                                var table = $('#sales_rec_table').DataTable({
-                                    dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
-                                    order: [
-                                        [1, 'desc']
-                                    ],
-                                    buttons: [
-                                        'excelHtml5',
-                                        'pdfHtml5',
-                                        'print'
-                                    ],
-                                    columnDefs: [{
-                                        orderable: false,
-                                        targets: -1
-                                    }],
-                                    lengthChange: false,
-                                    orderCellsTop: true,
-                                    paging: false,
-                                    info: false,
-                                });
+                            var table = $('#sales_rec_table').DataTable({
+                                dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
+                                order: [
+                                    [1, 'desc']
+                                ],
+                                buttons: [
+                                    'excelHtml5',
+                                    'pdfHtml5',
+                                    'print'
+                                ],
+                                columnDefs: [{
+                                    orderable: false,
+                                    targets: -1
+                                }],
+                                lengthChange: false,
+                                orderCellsTop: true,
+                                paging: false,
+                                info: false,
+                            });
                             </script>
 
                         </div>
                     </div>
                 </div>
             </div>
+            <footer class="mt-5">
+                <p class="text-center">EN Rubber &copy; 2023 | All Rights Reserved</p>
+                <p class="text-center">Lamitan City, Basilan, Philippines (7302)</p>
+                <p class="text-center"><i>Developer: AetherIO IT Solutions | Email: business@aetherio.tech</i>
+                </p>
+            </footer>
+            <br>
         </div>
     </div>
-
-
-
 </body>
-<footer class="mt-5">
-    <p class="text-center">EN Rubber &copy; 2023 | All Rights Reserved</p>
-    <p class="text-center">Lamitan City, Basilan, Philippines 7302</p>
-    <p class="text-center"><i>Developer: Ronald Dale Fuentebella | Email: ronxdale@gmail.com</i>
-    </p>
-</footer>
+
 
 </html>

@@ -5,11 +5,12 @@ include "../function/db.php";
 include "function/authenticate.php";
 include "include/bootstrap.php";
 include "include/jquery.php";
-//   $loc = $_SESSION['loc'];
+// Location filtering removed - reports show all data
+// $loc = $_SESSION['loc'];
 
 
 
-$loc = $_SESSION['loc'];
+// $loc = $_SESSION['loc'];
 $name = $_SESSION["full_name"];
 ?>
 <html>

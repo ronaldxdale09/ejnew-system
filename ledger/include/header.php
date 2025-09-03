@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 
 <?php
-include "../function/db.php";
+// Remove redundant database include to prevent multiple connections
+// include "../function/db.php";
 include "include/bootstrap.php";
 include "include/jquery.php";
+
+// Validate session and location
 if (!isset($_SESSION['loc']) || empty($_SESSION['loc'])) {
-  header('Location: function/logout.php'); // replace 'logout.php' with your logout script
+  header('Location: ../../function/logout.php'); // Use absolute path to logout
   exit();
 }
 
 $loc = str_replace(' ', '', $_SESSION['loc']);
 $user_name = $_SESSION["full_name"];
-
 
 ?>
 <html>

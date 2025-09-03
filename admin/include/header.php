@@ -8,7 +8,8 @@ include "include/jquery.php";
 
 
 
-$loc = $_SESSION['loc'];
+// Location filtering removed - reports show all data
+// $loc = $_SESSION['loc'];
 $name = $_SESSION["full_name"];
 ?>
 <html>

@@ -57,12 +57,16 @@ while ($arr = mysqli_fetch_array($result)) {
                                 <label for="product_name" class="form-label">Type</label>
                                 <select class='form-select category' name='type' id='type' required>
                                     <option disabled="disabled" value='' selected="selected">Select Type </option>
-                                    <option value='Personal Expenses'>Personal Expenses</option>
-                                    <option value='Rubber Expenses'>Rubber Expenses</option>
-                                    <option value='Coffee Expenses'>Coffee Expenses</option>
-                                    <option value='Copra Expenses'>Copra Expenses</option>
-                                    <option value='NTC Expenses'>NTC Expenses</option>
-                                    <option value='Other Expenses'>Others</option>
+                                    <option value='Administrative Expenses'>Administrative Expenses	</option>
+                <option value='Rubber Plant & Production'>Rubber Plant & Production	</option>
+                <option value='RTL'>RTL</option>
+                <option value='Personal Expenses'>Personal Expenses</option>
+                <option value='Rubber Expenses'>Rubber Expenses</option>
+                <option value='Coffee Expenses'>Coffee Expenses</option>
+                <option value='Copra Expenses'>Copra Expenses</option>
+                <option value='NTC Expenses'>NTC Expenses</option>
+                <option value='Other Expenses'>Others</option>
+
 
                                 </select>
                             </div>

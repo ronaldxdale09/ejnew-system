@@ -29,16 +29,18 @@
 			$_SESSION["pass"] = $password;
 			if ($userType =='copra'){
 				header('Location: ../copra/transaction.php');
+				exit();
 			}
 			elseif  ($userType =='finance'){
 				header('Location: ../ledger/ledger-expense.php');
-				
+				exit();
 			} elseif ($userType == 'admin') {
 				header('Location: ../admin_dashboard.php');
+				exit();
 			}
-
 			elseif  ($userType =='rubber'){
 				header('Location: ../rubber/dashboard.php');
+				exit();
 			}
 		}
 	}
