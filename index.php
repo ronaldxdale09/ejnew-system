@@ -18,8 +18,14 @@
 </head>
 <!-- Fantacy Design -->
 <?php
-include "function/db.php";
-include('function/auto_login.php');
+// Handle database connection errors gracefully
+try {
+    include "function/db.php";
+    include('function/auto_login.php');
+} catch (Exception $e) {
+    error_log('Error loading database connection: ' . $e->getMessage());
+    // Continue to show login page even if auto_login fails
+}
 
 // // Check if the user type is set in the session
 // if (isset($_SESSION['type'])) {
