@@ -1,5 +1,5 @@
 <?php
-include('../../../function/db.php');
+include('../../function/db.php');
 
 $purchase_id = mysqli_real_escape_string($con, $_POST['purchase_id']);
 

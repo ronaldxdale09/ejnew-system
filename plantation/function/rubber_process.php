@@ -197,3 +197,19 @@ if ($_POST['action'] == 'dry_milling') {
         echo "ERROR: Could not execute $query. " . mysqli_error($con);
     }
 }
+
+
+
+if ($_POST['action'] == 'milling_field') {
+
+    $id = $_POST['recording_id'];
+
+    $query = "UPDATE `planta_recording` SET `status`='Field' WHERE recording_id='$id'";
+
+    if (mysqli_query($con, $query)) {
+        header("Location: ../recording.php?tab=2");
+        exit();
+    } else {
+        echo "ERROR: Could not execute $query. " . mysqli_error($con);
+    }
+}

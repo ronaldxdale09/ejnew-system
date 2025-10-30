@@ -11,7 +11,7 @@
         <i class='fa-solid fa-house'></i> <span class='nav-text'>Home</span>
     </a>
     <hr style='color:gray'>
-    <a class='nav-link' href='Transaction.php'>
+    <a class='nav-link' href='transaction.php'>
         <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>Transaction</span>
     </a>
     <a class='nav-link' href='transaction_history.php'>

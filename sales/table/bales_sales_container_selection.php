@@ -93,17 +93,17 @@ echo $output;
 <script>
     $(document).ready(function() {
 
-        var table = $('#cotaniner-selection').DataTable({
-            "order": [
-                [0, 'desc']
-            ],
-            "pageLength": -1,
-            "dom": "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'>>",
-            "responsive": true,
+        // var table = $('#cotaniner-selection').DataTable({
+        //     "order": [
+        //         [0, 'desc']
+        //     ],
+        //     "pageLength": -1,
+        //     "dom": "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
+        //         "<'row'<'col-sm-12'tr>>" +
+        //         "<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'>>",
+        //     "responsive": true,
 
-        });
+        // });
 
         $('.addProduct').on('click', function() {
 

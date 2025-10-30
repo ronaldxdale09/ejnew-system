@@ -2,9 +2,9 @@
 session_start(); 
 // Change this to your connection info.
 $DATABASE_HOST = 'localhost';
-$DATABASE_USER = 'root';
-$DATABASE_PASS = '';
-$DATABASE_NAME = 'copra_db';
+$DATABASE_USER = 'u607598273_ejn';
+$DATABASE_PASS = 'qBrj7QcA;9';
+$DATABASE_NAME = 'u607598273_ejn_db';
 // Try and connect using the info above.
 $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
 if ( mysqli_connect_errno() ) {

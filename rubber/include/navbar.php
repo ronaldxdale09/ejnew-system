@@ -43,8 +43,11 @@ $loc = str_replace(' ', '', $_SESSION['loc']);?>
 
     <?php if (strcasecmp(trim($loc), 'Kidapawan') != 0) : ?>
 
-        <a class='nav-link' href='inventory_bale.php'>
+        <a class='nav-link' href='inv_bale.php'>
             <i class='fa-solid fa-cube'></i> <span class='nav-text'>Bale Inventory</span>
+        </a>
+         <a class='nav-link' href='bale_record.php'>
+            <i class='fa-solid fa-book'></i> <span class='nav-text'>Bale Record</span>
         </a>
         <a class='nav-link' href='inv_cuplump.php'>
             <i class='fa-solid fa-tree'></i> <span class='nav-text'>Cuplump Inventory</span>

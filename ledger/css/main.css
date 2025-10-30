@@ -1,18 +1,17 @@
 /* Base Styles */
 
-html,
-body {
-    height: 100%;
-    width: 100%;
+html {
+    font-size: 15px;
+    /* Base font size for the document */
 }
 
 body {
     background-color: #e9f2f9;
     position: relative;
-}
-
-body.swal2-height-auto {
-    height: 100% !important;
+    font-family: Arial, sans-serif;
+    /* Example font-family */
+    color: #333;
+    /* Default text color */
 }
 
 .hidden {
@@ -26,9 +25,10 @@ body.swal2-height-auto {
     border: 1px solid #c4c4c4;
     border-radius: 5px;
     background-color: #fff;
-    padding: 3px 5px;
+    padding: 0.2em 0.3em;
     box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.1);
-    width: 190px;
+    width: 11.8rem;
+    /* Adjusted width */
 }
 
 
@@ -40,90 +40,45 @@ body.swal2-height-auto {
     border-collapse: collapse;
 }
 
-.list-label {
-    border: solid black 1px;
-}
-
-.list-table {
-    border-spacing: 2px;
-}
-
-.table-fix-head {
-    overflow: auto;
-}
-
-.table-fix-head thead th,
-.sample-table thead th {
+.list-table th,
+.sample-table th {
     background-color: #e9e9e9;
     position: sticky;
     top: 0;
     z-index: 1;
-    padding: 10px;
+    padding: 0.6rem;
+    /* Adjusted padding */
     text-align: left;
 }
 
-table tr {
+.list-table tr,
+.sample-table tr {
     background-color: white;
-    height: 40px;
+    height: 2.5rem;
+    /* Adjusted row height */
 }
 
-.sample-table tbody td {
-    padding: 10px;
+.sample-table td {
+    padding: 0.6rem;
+    /* Adjusted padding */
     border-bottom: 1px solid #dcdcdc;
-}
-
-.sample-table tbody tr:last-child td {
-    border-bottom: none;
-}
-
-.logout-container {
-    padding: 20px;
-    position: static;
-    bottom: 5px;
-    display: flex;
-    align-items: center;
-    width: 100%;
-}
-
-@media only screen and (min-height: 600px) {
-    .logout-container {
-        position: absolute;
-    }
-}
-
-.logout {
-    padding: 8px 5px 8px 8px;
-    border-radius: 15px;
-    position: absolute;
-    right: 15px;
-}
-
-.logout i {
-    margin: 0;
 }
 
 
 /* Main Content Styles */
 
 .main-content {
-    margin: 20px 20px 0 235px;
-    /* adjusted margin-left to 235px */
-    padding: 0;
-    width: calc(100% - 255px);
-    /* adjusted width to 255px */
+    margin: 1.25rem 1.25rem 0 14.7rem;
+    /* Adjusted margins */
+    width: calc(100% - 15.9rem);
+    /* Adjusted width */
     transition: all 0.5s ease-in-out;
 }
 
 .main-container {
-    padding-top: 20px;
+    padding-top: 1.25rem;
     width: 80%;
-    max-width: 80%;
     margin: auto;
-}
-
-.container {
-    height: 100%;
-    padding: 0;
 }
 
 
@@ -131,19 +86,19 @@ table tr {
 
 .custom-card,
 .modal-content {
-    border-radius: 6px;
+    border-radius: 0.4rem;
     background-color: #ffffff;
     overflow: hidden;
 }
 
 .custom-card {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 20px 0;
+    margin: 1.25rem 0;
 }
 
 .card-header,
 .card-body {
-    padding: 15px;
+    padding: 0.9rem;
 }
 
 .card-header {
@@ -160,7 +115,7 @@ table tr {
 
 .modal-header,
 .modal-footer {
-    border-radius: 6px;
+    border-radius: 0.4rem;
 }
 
 .modal-header {
@@ -168,23 +123,16 @@ table tr {
     color: white;
 }
 
-.modal-footer {
-    background-color: rgb(222, 222, 225);
-}
-
 .modal-body {
     background-color: #FFFFFF;
 }
 
 .form-group {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.5em;
 }
 
 .form-control {
-    font-size: 17px;
+    font-size: 1em;
+    /* Adjusted font size */
     font-weight: 600;
-}
-
-#myTable {
-    padding: 10px;
 }

@@ -1,10 +1,22 @@
 <?php
-
+include('../function/db.php'); // Include database connection
 include('include/header.php');
 include "include/navbar.php";
+
+// Validate session
+if (!isset($_SESSION['loc']) || empty($_SESSION['loc'])) {
+    header('Location: ../function/logout.php');
+    exit();
+}
+
 $source = $_SESSION["loc"];
+
+// Add error handling for database queries
 $getExpenseMonthTotal  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(amount) as month_total 
    from ledger_expenses where location='$source' group by year(date), month(date) ORDER BY ID DESC");
+if (!$getExpenseMonthTotal) {
+    error_log("Database error in dashboard: " . mysqli_error($con));
+}
 $sumExpense = mysqli_fetch_array($getExpenseMonthTotal);
 $monthNum  = $sumExpense["month"];
 $dateObj   = DateTime::createFromFormat('!m', $monthNum);
@@ -13,16 +25,25 @@ $dateObj   = DateTime::createFromFormat('!m', $monthNum);
 //PENDING CONTRACT
 $amoutPurchased  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(total_amount) as month_total 
    from ledger_purchase group by year(date), month(date) ORDER BY ID DESC");
+if (!$amoutPurchased) {
+    error_log("Database error in dashboard: " . mysqli_error($con));
+}
 $sumAmountPurchased = mysqli_fetch_array($amoutPurchased);
 
 $sql1  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(ejn_total) as month_total 
    from ledger_maloong group by year(date), month(date) ORDER BY ID DESC");
+if (!$sql1) {
+    error_log("Database error in dashboard: " . mysqli_error($con));
+}
 $maloong = mysqli_fetch_array($sql1);
 
 
 
 $sql  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(total_amount) as month_total 
    from ledger_purchase group by year(date), month(date) ORDER BY ID DESC");
+if (!$sql) {
+    error_log("Database error in dashboard: " . mysqli_error($con));
+}
 $buahan = mysqli_fetch_array($sql);
 
 ?>

@@ -8,8 +8,6 @@ $Currentmonth = date('n');
 $CurrentYear = date('Y');
 
 $source = 'Basilan';
-
-
 ?>
 
 <body>

@@ -119,7 +119,9 @@ while ($array = mysqli_fetch_array($res)) {
             <select class='dropdown-toggle form-select filter_type'  id='typeFilter' required>
                 <option disabled="disabled" value='' selected="selected">Select Type </option>
                 <option value=''>All</option>
-
+                <option value='Administrative Expenses'>Administrative Expenses	</option>
+                <option value='Rubber Plant & Production'>Rubber Plant & Production	</option>
+                <option value='RTL'>RTL</option>
                 <option value='Personal Expenses'>Personal Expenses</option>
                 <option value='Rubber Expenses'>Rubber Expenses</option>
                 <option value='Coffee Expenses'>Coffee Expenses</option>
@@ -251,7 +253,8 @@ while ($array = mysqli_fetch_array($res)) {
 
 
         $(document).ready(function () {
-            var table = $('#expenses_table').DataTable({
+            // Initialize AJAX form handling
+            window.expenseTable = $('#expenses_table').DataTable({
                 "processing": true,
                 "serverSide": true,
                 dom: 'Bfrtip',
@@ -262,7 +265,7 @@ while ($array = mysqli_fetch_array($res)) {
                         action: function (e, dt, node, config) {
                             var params = dt.ajax.params();
                             var query = $.param(params);
-                            window.open('ledgerTab/server_fetch/export_to_excel.php?' + query); // Update the path accordingly
+                            window.open('ledgerTab/server_fetch/export_to_excel.php?' + query);
                         }
                     }
                 ],
@@ -271,12 +274,11 @@ while ($array = mysqli_fetch_array($res)) {
                     "type": "POST",
                     "data": function (data) {
                         data.minDate = $('#fromDate').val();
-                        data.maxDate = $('#toDate').val(); // Ensure this ID matches your HTML
+                        data.maxDate = $('#toDate').val();
                         data.typeFilter = $('#typeFilter').val();
                         data.categoryFilter = $('#categoryFilter').val();
                         data.selectedMonth = $('#monthFilter').val();
                         data.selectedYear = $('#yearFilter').val();
-                        // Add other custom filter data here
                     }
                 },
                 "columns": [
@@ -284,20 +286,110 @@ while ($array = mysqli_fetch_array($res)) {
                     { "data": "particulars" },
                     { "data": "voucher_no" },
                     { "data": "type_expense" },
-
                     { "data": "category" },
                     { "data": "total_amount" },
                     { "data": "action", "orderable": false }
                 ],
                 "order": [[0, "desc"]],
-                "pageLength": 25 // Set the initial page length to 25 rows
-
+                "pageLength": 25
             });
 
             // Event listeners for filter changes
             $('#fromDate, #toDate,#typeFilter,#categoryFilter, #monthFilter, #yearFilter').on('change', function () {
-                table.ajax.reload();
+                window.expenseTable.ajax.reload();
             });
+
+            // AJAX form submission for expenses
+            $(document).on('submit', '#expense_form', function(e) {
+                e.preventDefault();
+                submitExpenseForm(this, 'add');
+            });
+
+            $(document).on('submit', '#update_form', function(e) {
+                e.preventDefault();
+                submitExpenseForm(this, 'update');
+            });
+
+            $(document).on('submit', '#delete_form', function(e) {
+                e.preventDefault();
+                submitExpenseForm(this, 'delete');
+            });
+
+            function submitExpenseForm(form, action) {
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                
+                // Show loading state
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processing...';
+                
+                const formData = new FormData(form);
+                formData.append(action, action);
+                
+                // Add AJAX header
+                $.ajaxSetup({
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                    }
+                });
+                
+                $.ajax({
+                    url: 'function/ledger/expense_function.php',
+                    method: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.success) {
+                            // Show success message
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'success',
+                                title: response.message,
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            
+                            // Reload table
+                            window.expenseTable.ajax.reload(null, false);
+                            
+                            // Close modal and reset form
+                            $(form).closest('.modal').modal('hide');
+                            form.reset();
+                            
+                            // Update statistics
+                            updateExpenseStats();
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: response.message
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX Error:', error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Network Error!',
+                            text: 'Please check your connection and try again.'
+                        });
+                    },
+                    complete: function() {
+                        // Restore button state
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalText;
+                    }
+                });
+            }
+
+            function updateExpenseStats() {
+                // Simple stats update - you can make this more sophisticated
+                setTimeout(() => {
+                    location.reload();
+                }, 1000);
+            }
         });
 
         $(document).ready(function () {

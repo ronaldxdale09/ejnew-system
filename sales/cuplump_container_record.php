@@ -117,7 +117,6 @@ include 'include/navbar.php';
                                             <th scope="col">Total Weight</th>
                                             <th scope="col">Total Cuplump Cost</th>
                                             <th scope="col">Average Cost</th>
-                                            <th scope="col">Remarks</th>
                                             <th scope="col">Recorded by</th>
                                             <th scope="col">Action</th>
                                         </tr>
@@ -178,7 +177,6 @@ include 'include/navbar.php';
 
                                                     ?>
                                                 </td>
-                                                <td><?php echo $row['remarks']; ?></td>
                                                 <td><?php echo $row['recorded_by']; ?></td>
                                                 <td class="text-center">
                                                     <button type="button" class="btn btn-success btn-sm btnViewRecord" data-status="<?php echo $row['status']; ?>">
@@ -289,8 +287,7 @@ include 'include/navbar.php';
             $('#v_date').val(data[2]);
             $('#v_van_no').val(data[3]);
 
-            $('#v_remarks').val(data[7]);
-            $('#v_recorded_by').val(data[8]);
+            $('#v_recorded_by').val(data[7]);
 
             var status = $(this).data('status');
 

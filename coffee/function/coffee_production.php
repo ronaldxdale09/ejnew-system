@@ -3,6 +3,9 @@ include('../../function/db.php');
 
 if (isset($_POST['confirm'])) {
     $production_code = $_POST['prod_code'];
+    
+        $lot_no = $_POST['lot_no'];
+
     $prod_date = $_POST['prod_date'];
     $entry_weight = str_replace(",", "", $_POST['entry_weight']);
     $recovery_weight = str_replace(",", "", $_POST['recovery_weight']);
@@ -24,8 +27,8 @@ if (isset($_POST['confirm'])) {
     echo "Total Weight: " . $total_weight . "<br>";
 
     $query = "INSERT INTO coffee_production_record 
-              (production_code, prod_date, entry_weight, total_weight, recovery_weight, status,no_sack,recorded_by) 
-              VALUES ('$production_code', '$prod_date', '$entry_weight', '$total_weight', '$recovery_weight', '$status', '$no_sack', '$recorded_by')";
+              (production_code, prod_date, entry_weight, total_weight, recovery_weight, status,no_sack,recorded_by,lot_no) 
+              VALUES ('$production_code', '$prod_date', '$entry_weight', '$total_weight', '$recovery_weight', '$status', '$no_sack', '$recorded_by', '$lot_no')";
 
     $results = mysqli_query($con, $query);
     $prod_id = $con->insert_id;

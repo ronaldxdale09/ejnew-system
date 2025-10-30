@@ -1,5 +1,5 @@
 <?php 
-include('../../function/db.php');
+ include('./db.php');
     if (isset($_POST['submit'])) {
     $id = $_POST['my_id'];
     $view_code = $_POST['view_code'];

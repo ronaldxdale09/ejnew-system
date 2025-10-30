@@ -15,7 +15,7 @@ $dateNow = $year . "-" . $month . "-" . $day;
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="function/ledger/addCashAdvance.php" id='myform' method="POST">
+            <form id='cashadvance-form' method="POST">
                 <div class="modal-body">
                     <div class="container-fluid">
                         <div class="row">
@@ -40,11 +40,19 @@ $dateNow = $year . "-" . $month . "-" . $day;
                                 </div>
                                 <br>
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="col-md-12">PARTICULARS</label>
                                             <div class="col-md-12">
                                                 <input type="text" name='particular' class="form-control form-control-line" autocomplete='off' required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-md-12">STATION</label>
+                                            <div class="col-md-12">
+                                                <input type="text" name='station' class="form-control form-control-line" autocomplete='off'>
                                             </div>
                                         </div>
                                     </div>
@@ -54,7 +62,7 @@ $dateNow = $year . "-" . $month . "-" . $day;
                                     <div class="col">
                                         <div class="mb-3">
                                             <label for="product_name" class="form-label">Type</label>
-                                            <select class='form-select category' name='type' required>
+                                            <select class='form-select category' name='category' required>
                                                 <option disabled="disabled" value='' selected="selected">Select Type </option>
                                                 <option value='Employee'>Employee</option>
                                                 <option value='Rubber'>Rubber</option>
@@ -116,7 +124,7 @@ $dateNow = $year . "-" . $month . "-" . $day;
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="../function/ledger/removeCA.php" method="POST">
+                <form id="deleteCashAdvanceForm" method="POST">
                     <input type="text" id="my_id" name="my_id" style="display: none">
                     <!--hide from uder, for db locate id only -->
                     <p>Please confirm to remove this row data of <b id="customer_name" style="text-transform: capitalize;"></b>.</p>
@@ -139,7 +147,7 @@ $dateNow = $year . "-" . $month . "-" . $day;
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">UPDATE CASH ADVANCE</h5>
             </div>
-            <form action="../function/ledger/updateCashAdvance.php" id='submitPurchase' method="POST">
+            <form id='updateCashAdvanceForm' method="POST">
                 <div class="modal-body">
                     <!--this input is to locate id purposes only -->
                     <input type="text" name="my_id" id="my_id" style="display: none">
@@ -166,11 +174,19 @@ $dateNow = $year . "-" . $month . "-" . $day;
                                 </div>
                                 <br>
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="col-md-12">PARTICULARS</label>
                                             <div class="col-md-12">
                                                 <input type="text" name='particular' id="particular" class="form-control form-control-line" autocomplete='off' required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-md-12">STATION</label>
+                                            <div class="col-md-12">
+                                                <input type="text" name='station' id="station" class="form-control form-control-line" autocomplete='off'>
                                             </div>
                                         </div>
                                     </div>
@@ -179,7 +195,7 @@ $dateNow = $year . "-" . $month . "-" . $day;
                                     <div class="col">
                                         <div class="mb-3">
                                             <label for="product_name" class="form-label">Type</label>
-                                            <select class='form-select category' name='type'  id='type'required>
+                                            <select class='form-select category' name='category' id='category' required>
                                                 <option disabled="disabled" value='' selected="selected">Select Type </option>
                                                 <option value='Employee'>Employee</option>
                                                 <option value='Rubber'>Rubber</option>

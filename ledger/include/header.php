@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 
 <?php
+// Remove redundant database include to prevent multiple connections
 include "../function/db.php";
 include "include/bootstrap.php";
 include "include/jquery.php";
-if (!isset($_SESSION['loc']) || empty($_SESSION['loc'])) {
-  header('Location: function/logout.php'); // replace 'logout.php' with your logout script
-  exit();
-}
+
+
 
 $loc = str_replace(' ', '', $_SESSION['loc']);
 $user_name = $_SESSION["full_name"];
-
 
 ?>
 <html>

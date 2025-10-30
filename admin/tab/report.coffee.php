@@ -4,8 +4,8 @@
 
 <?php include('statistical_card/coffee.product.card.php'); ?>
 <div class="card">
+        <h5 class="card-title">Coffee Product Inventory</h5>
     <div class="card-body">
-    <h5 class="card-title">Coffee Product Inventory</h5>
         <?php
         // Prepare SQL statement
         $sql = "SELECT *, coffee_products.coffee_id as prod_id 

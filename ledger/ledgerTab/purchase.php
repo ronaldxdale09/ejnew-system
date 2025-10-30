@@ -143,7 +143,6 @@ foreach ($categories as $category) {
         <div class="row" style="display: flex;">
 
 
-            <?php $results = mysqli_query($con, "SELECT * from ledger_purchase ORDER BY id DESC"); ?>
             <div class="col-md-9 col-sm-12">
                 <div class="table-responsive">
                     <table class="table custom-table table-responsive-lg" id='purchase_table'>
@@ -160,49 +159,8 @@ foreach ($categories as $category) {
                             </tr>
                         </thead>
                         <tbody>
-                            <?php while ($row = mysqli_fetch_array($results)) { ?>
-                                <tr>
-                                    <td>
-                                        <?php echo date('F j, Y', strtotime($row['date'])); ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $row['voucher'] ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $row['category'] ?>
-                                    </td>
-                                    <td style="width:15%;">
-                                        <?php echo $row['customer_name'] ?>
-                                    </td>
-                                    <td>₱<?php echo empty($row['price']) ? "0" : number_format($row['price']); ?>
-                                    </td>
-                                    <td>
-                                        <?php echo empty(floatval($row['net_kilos'])) ? "0" : number_format(floatval($row['net_kilos'])); ?>
-                                        kg
-                                    </td>
-                                    <td style="text-align: right;">
-                                        ₱<?php
-                                            $netTotal = floatval($row['net_total_amount']);
-                                            echo ($netTotal == 0 || empty($row['net_total_amount']))
-                                                ? number_format($row['total_amount'], 2)
-                                                : number_format($row['net_total_amount'], 2);
-                                            ?>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex flex-nowrap">
-                                            <button type="button" class="btn btn-primary btn-sm text-white btnUpdate" data-purchase='<?php echo json_encode($row); ?>'>
-                                                <span class="fa fa-edit"></span>
-                                            </button>
-                                            <button type="button" class="btn btn-danger btn-sm text-white btnDelete" data-purchase='<?php echo json_encode($row); ?>'>
-                                                <span class="fa fa-trash"></span>
-                                            </button>
-                                        </div>
-                                    </td>
-
-                                </tr>
-                            <?php } ?>
+                            <!-- Data loaded via AJAX server-side processing -->
                         </tbody>
-
                     </table>
                 </div>
             </div>
@@ -293,50 +251,32 @@ foreach ($categories as $category) {
     }
 
 
-    $('.btnUpdate').on('click', function() {
-        $tr = $(this).closest('tr');
-
-        var data = $tr.children("td").map(function() {
-            return $(this).text();
-        }).get();
-
+    $(document).on('click', '.btnUpdate', function() {
         var purchase = $(this).data('purchase');
-
         console.log(purchase);
 
         $('#p_id').val(purchase.id);
-
-        $('#u_date').val(purchase.date);
+        $('#u_date').val(purchase.date); // Raw date format from database
         $('#u_voucher').val(purchase.voucher);
         $('#u_category').val(purchase.category);
         $('#name').val(purchase.customer_name);
         $('#u_description').val(purchase.others_desc);
 
-
         $('#u_net_kilo').val(formatToLocaleString(purchase.net_kilos));
-        $('#u_price').val(formatToLocaleString(purchase.net_kilos));
+        $('#u_price').val(formatToLocaleString(purchase.price));
         $('#u_cash_advance').val(formatToLocaleString(purchase.cash_advance));
         $('#u_tax').val(formatToLocaleString(purchase.tax_amount));
         $('#u_others').val(formatToLocaleString(purchase.others));
         $('#u_net_total_amount').val(formatToLocaleString(purchase.net_total_amount));
         $('#u_total_amount').val(formatToLocaleString(purchase.total_amount));
 
-
-
         $('#updatePurchase').modal('show');
-
     });
 
-    $('.btnDelete').on('click', function() {
-
+    $(document).on('click', '.btnDelete', function() {
         var purchase = $(this).data('purchase');
-
         $('#my_id').val(purchase.id);
-
-
-
         $('#removePurchase').modal('show');
-
     });
 
     $.fn.dataTable.ext.search.push(
@@ -362,66 +302,172 @@ foreach ($categories as $category) {
 
 
 
-    var table = $('#purchase_table').DataTable({
-        dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
-        "targets": 'no-sort',
-        "pageLength": 30,
-        "bSort": false,
-        order: [
-            [0, 'desc']
-        ],
-        buttons: [{
-                extend: 'excelHtml5',
-                footer: true,
-                exportOptions: {
-                    columns: [0, 1, 2, 3, 4]
-                }
-            },
+    // Initialize server-side AJAX purchase table
+    window.purchaseTable = $('#purchase_table').DataTable({
+        "processing": true,
+        "serverSide": true,
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'pdf',
             {
-                extend: 'pdfHtml5',
-                footer: true,
-                exportOptions: {
-                    columns: [0, 1, 2, 3, 4]
+                text: 'Export to Excel',
+                action: function (e, dt, node, config) {
+                    var params = dt.ajax.params();
+                    var query = $.param(params);
+                    window.open('ledgerTab/server_fetch/export_to_excel.php?' + query);
                 }
-            },
-            {
-                extend: 'print',
-                footer: true,
-                exportOptions: {
-                    columns: [0, 1, 2, 3, 4]
-                }
-            },
-
+            }
         ],
-
+        "ajax": {
+            "url": "ledgerTab/server_fetch/purchase.php",
+            "type": "POST",
+            "data": function (data) {
+                data.minDate = $('#min').val();
+                data.maxDate = $('#max').val();
+                data.categoryFilter = $('#category_filter').val();
+            }
+        },
+        "columns": [
+            { "data": "date" },
+            { "data": "voucher" },
+            { "data": "category" },
+            { "data": "customer_name" },
+            { "data": "price" },
+            { "data": "net_kilos" },
+            { "data": "net_total_amount" },
+            { "data": "action", "orderable": false }
+        ],
+        "order": [[0, "desc"]],
+        "pageLength": 25,
+        "searchDelay": 500,
+        "language": {
+            processing: '<div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div>',
+            loadingRecords: 'Loading...',
+            emptyTable: 'No purchase records available',
+            info: 'Showing _START_ to _END_ of _TOTAL_ entries',
+            infoEmpty: 'Showing 0 to 0 of 0 entries',
+            infoFiltered: '(filtered from _MAX_ total entries)',
+            search: 'Search:',
+            paginate: {
+                first: 'First',
+                last: 'Last',
+                next: 'Next',
+                previous: 'Previous'
+            }
+        }
     });
 
+    // AJAX form submission for purchases
+    $(document).on('submit', '#purchase-form', function(e) {
+        e.preventDefault();
+        submitPurchaseForm(this, 'add');
+    });
+
+    $(document).on('submit', '#updatePurchaseForm', function(e) {
+        e.preventDefault();
+        submitPurchaseForm(this, 'update');
+    });
+
+    $(document).on('submit', '#deletePurchaseForm', function(e) {
+        e.preventDefault();
+        submitPurchaseForm(this, 'delete');
+    });
+
+    function submitPurchaseForm(form, action) {
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        
+        // Show loading state
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processing...';
+        
+        const formData = new FormData(form);
+        formData.append(action, action);
+        
+        // Add AJAX header
+        $.ajaxSetup({
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            }
+        });
+        
+        $.ajax({
+            url: 'function/ledger/addPurchase.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    // Close modal and reset form immediately
+                    $(form).closest('.modal').modal('hide');
+                    form.reset();
+                    
+                    // Show success message
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: response.message,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    
+                    // Reload DataTable to show updated data
+                    setTimeout(() => {
+                        window.purchaseTable.ajax.reload();
+                    }, 500);
+                    
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: response.message
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX Error:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Network Error!',
+                    text: 'Please check your connection and try again.'
+                });
+            },
+            complete: function() {
+                // Restore button state
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
+        });
+    }
+
+
+    // Event listeners for filters - reload AJAX data
+    $('#min, #max, #category_filter').on('change', function () {
+        window.purchaseTable.ajax.reload();
+    });
 
     $("#min").datepicker({
         onSelect: function() {
-            table.draw();
+            window.purchaseTable.ajax.reload();
         },
         changeMonth: true,
         changeYear: true
     });
     $("#max").datepicker({
         onSelect: function() {
-            table.draw();
+            window.purchaseTable.ajax.reload();
         },
         changeMonth: true,
         changeYear: true
-    });
-
-    // Event listener to the two range filtering inputs to redraw on input
-    $('#min, #max').change(function() {
-        table.draw();
     });
 
     // Quick date filters
     $('#today').on('click', function() {
         var today = new Date();
         $('#min, #max').datepicker('setDate', today);
-        table.draw();
+        window.purchaseTable.ajax.reload();
     });
 
     $('#this-week').on('click', function() {
@@ -430,7 +476,7 @@ foreach ($categories as $category) {
             .getDay());
         $('#min').datepicker('setDate', firstDayOfWeek);
         $('#max').datepicker('setDate', today);
-        table.draw();
+        window.purchaseTable.ajax.reload();
     });
 
     $('#this-month').on('click', function() {
@@ -438,10 +484,6 @@ foreach ($categories as $category) {
         var firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
         $('#min').datepicker('setDate', firstDayOfMonth);
         $('#max').datepicker('setDate', today);
-        table.draw();
-    });
-    $('#category_filter').on('change', function() {
-        var tosearch = this.value;
-        table.search(tosearch).draw();
+        window.purchaseTable.ajax.reload();
     });
 </script>

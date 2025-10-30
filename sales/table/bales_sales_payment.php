@@ -1,6 +1,7 @@
 <?php
 include('../../function/db.php');
 
+
 $sales_id = $_POST['sales_id'];
 
 // Query to get the bale info from the database
@@ -12,7 +13,11 @@ if (!$result) {
     die('Query Failed: ' . mysqli_error($con));
 }
 
-
+// Get the overall cost from your database (add this query)
+$cost_query = "SELECT overall_cost FROM bales_sales_record WHERE bales_sales_id = '$sales_id'"; // Adjust table and column names as needed
+$cost_result = mysqli_query($con, $cost_query);
+$cost_row = mysqli_fetch_assoc($cost_result);
+$overall_cost = $cost_row['overall_cost'] ?? 0; // Default to 0 if not found
 $output = '
 
 <table class="table "  id="payment-table" >
@@ -61,27 +66,18 @@ $output .= '
 </table>
 <br>
 
+<script>
+    function formatNumber(num) {
+        return num.toLocaleString("en-US", {minimumFractionDigits: 2});
+    }
 
-        <script>
+    var sales_proceeds = parseFloat(document.getElementById("sales_proceeds").value.replace(/,/g, "")) || 0;
+    var tax_amount = parseFloat(document.getElementById("tax_amount").value.replace(/,/g, "")) || 0;
+    var overall_cost = ' . $overall_cost . '; // Add this line to define overall_cost
 
-        function formatNumber(num) {
-            return num.toLocaleString("en-US", {minimumFractionDigits: 2});
-        }
-
-
-
-        var sales_proceeds = parseFloat(document.getElementById("sales_proceeds").value.replace(/,/g, "")) || 0;
-        var tax_amount = parseFloat(document.getElementById("tax_amount").value.replace(/,/g, "")) || 0;
-
-        gross_profit =  (sales_proceeds - overall_cost) - tax_amount;
-        document.getElementById("gross_profit").value = formatNumber(gross_profit);
-
-
-
-
-
-
-        </script>
+    gross_profit = (sales_proceeds - overall_cost) - tax_amount;
+    document.getElementById("gross_profit").value = formatNumber(gross_profit);
+</script>
 ';
 
 echo $output;

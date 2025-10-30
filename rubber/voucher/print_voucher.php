@@ -1,4 +1,4 @@
-<?php include('../../function/db.php');
+<?php include('../function/db.php');
  
 ?>
 <style>

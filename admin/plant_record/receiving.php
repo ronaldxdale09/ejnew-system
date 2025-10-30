@@ -1,5 +1,6 @@
 <div class="table-responsive">
-    <table class="table table-bordered table-hover table-striped" id='recording_table-receiving'> <?php
+    <table class="table table-bordered table-hover table-striped" id='recording_table-receiving'>
+        <?php
         $results  = mysqli_query($con, "SELECT * from planta_recording WHERE status='Field' and planta_recording.source='$loc'"); ?>
         <thead class="table-dark">
             <tr>
@@ -14,6 +15,8 @@
                 <th scope="col">Truck No.</th>
                 <th scope="col">Weight</th>
                 <th scope="col">Reweight</th>
+                <th scope="col">Cuplump Cost</th>
+
             </tr>
         </thead>
         <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?>
@@ -31,7 +34,16 @@
                 <td> <?php echo $row['truck_num']?> </td>
                 <td class="number-cell"> <?php echo number_format($row['weight'], 0, '.', ',')?> kg</td>
                 <td class="number-cell"> <?php echo number_format($row['reweight'], 0, '.', ',')?> kg</td>
-              
+                <td class="number-cell">
+                    <?php 
+                    if ($row['trans_type'] == "DRY") {
+                        echo "<i>Dry Purchase</i>"; // Display "Purchase" if trans_type is DRY
+                    } else {
+                        echo "<b>₱ " . number_format($row['purchase_cost'], 2, '.', ','); // Display formatted purchase cost
+                    } 
+                ?> </b>
+                </td>
+
 
 
 
@@ -73,8 +85,10 @@ $('.btnUpdateReceiving').on('click', function() {
 
     var date = data[2];
     var d = new Date(date);
-    var formattedDate = d.getFullYear() + '-' + (d.getMonth()+1).toString().padStart(2, '0') + '-' + d.getDate().toString().padStart(2, '0') + 
-        ' ' + d.getHours().toString().padStart(2, '0') + ':' + d.getMinutes().toString().padStart(2, '0') + ':' + d.getSeconds().toString().padStart(2, '0');
+    var formattedDate = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2, '0') + '-' + d
+        .getDate().toString().padStart(2, '0') +
+        ' ' + d.getHours().toString().padStart(2, '0') + ':' + d.getMinutes().toString().padStart(2, '0') +
+        ':' + d.getSeconds().toString().padStart(2, '0');
     // Now TformatDate should be something like '2023-05-12T08:45'
     var total_cost = $(this).data('total_cost');
     console.log(date);

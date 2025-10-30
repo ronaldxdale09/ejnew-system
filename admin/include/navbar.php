@@ -11,7 +11,17 @@
                 <li class="subitem"><a href="zam.expense.report.php">Zamboanga Report</a></li>
             </ul>
         </li>
-        <li class="item"><a href="purchase_report.php">Purchases Report</a></li>
+     
+
+        <li class="item has-submenu">
+            <a tabindex="0">Purchases</a>
+            <ul class="submenu">
+                <li class="subitem"><a href="purchase_report.php">Purchases Report</a></li>
+                <li class="subitem"><a href="dry_receiving_record.php">Dry Receivng</a></li>
+                <li class="subitem"><a href="cuplumps_purchase_record.php">Cuplumps Purchasing</a></li>
+
+            </ul>
+        </li>
         <li class="item"><a href="sales_reports.php">Sales Report</a></li>
         <li class="item"><a href="copra_record.php">Copra Record</a></li>
 

@@ -258,7 +258,6 @@ if (mysqli_query($con, $query)) {
 
 
         $phpmailer = new PHPMailer();
-        
 
         $phpmailer->isSMTP();
         $phpmailer->Host = 'smtp.hostinger.com';

@@ -1,5 +1,6 @@
 <?php
 
+$loc = str_replace(' ', '', $_SESSION['loc']);
 $current_year = date('Y');
 $previous_year = $current_year - 1;
 
@@ -10,12 +11,9 @@ $total_expense_this_year = mysqli_fetch_array($sql)['sum'];
 $sql = mysqli_query($con, "SELECT SUM(total_amount) as sum FROM ledger_expenses WHERE YEAR(date) = $previous_year");
 $total_expense_last_year = mysqli_fetch_array($sql)['sum'];
 
-// 2. Total Expenses by Location This Year
-$sql = mysqli_query($con, "SELECT SUM(total_amount) as sum FROM ledger_expenses WHERE YEAR(date) = $current_year AND location='Basilan'");
-$total_expense_location1 = mysqli_fetch_array($sql)['sum'];
 
-$sql = mysqli_query($con, "SELECT SUM(total_amount) as sum FROM ledger_expenses WHERE YEAR(date) = $current_year AND location='Zamboanga'");
-$total_expense_location2 = mysqli_fetch_array($sql)['sum'];
+$sql = mysqli_query($con, "SELECT SUM(total_amount) as sum FROM ledger_expenses WHERE YEAR(date) = $current_year AND location='$loc'");
+$total_expense_location = mysqli_fetch_array($sql)['sum'];
 
 
 // 4. Most Frequent Expense Type This Year
@@ -30,6 +28,21 @@ $largest_expense = mysqli_fetch_array($sql)['max'];
 ?>
 <!-- Styles for the statistical cards -->
 <style>
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+
+    .col-md-3 {
+        flex: 0 0 25%;
+        max-width: 25%;
+        padding-right: 15px;
+        padding-left: 15px;
+        display: flex; /* Added flex display */
+    }
+
     .stat-card {
         background-color: #ffffff;
         border-radius: 8px;
@@ -39,8 +52,9 @@ $largest_expense = mysqli_fetch_array($sql)['max'];
         justify-content: space-between;
         padding: 20px;
         margin: 10px 5px;
+        width: 100%; /* Ensures card stretches to full width of its container */
+        flex-direction: row; /* Aligns items in a row */
     }
-
     .stat-card__icon {
         font-size: 24px;
         color: #333;
@@ -90,8 +104,7 @@ $largest_expense = mysqli_fetch_array($sql)['max'];
         <div class="stat-card">
             <div class="stat-card__content">
                 <h6>Total Expenses</h6>
-                <p>Basilan : ₱ <?php echo number_format($total_expense_location1, 2); ?></p>
-                <p>Zamboanga : ₱ <?php echo number_format($total_expense_location2, 2); ?></p>
+                <p><?php echo $loc ?> : ₱ <?php echo number_format($total_expense_location, 2); ?></p>
             </div>
             <div class="stat-card__icon">
                 <i class="fa fa-map-marker-alt"></i>

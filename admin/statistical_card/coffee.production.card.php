@@ -37,7 +37,7 @@ $avg_recovery = mysqli_fetch_array($sql);
         <div class="stat-card">
             <div class="stat-card__content">
                 <p class="text-uppercase mb-1 text-muted"><b>TOTAL COFFEE</b> PRODUCTION</p>
-                <h5><?php echo number_format($total_qty['total_qty'], 0) ?> </h5>
+                <h5><?php echo number_format($total_qty['total_qty'], 0) ?></h5>
             </div>
             <div class="stat-card__icon stat-card__icon--primary">
                 <div class="stat-card__icon-circle">

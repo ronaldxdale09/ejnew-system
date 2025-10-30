@@ -133,8 +133,6 @@ $data_year = mysqli_fetch_assoc($result_year);
             <div class="table-responsive ">
                 <div class="table-responsive">
                     <table class="table table-striped table-hover table-bordered" id='ca_table'>
-                        <?php
-                        $results  = mysqli_query($con, "SELECT * from ledger_cashadvance ORDER BY id DESC"); ?>
                         <thead class="table-dark">
                             <tr>
                                 <th>Voucher #</th>
@@ -147,32 +145,7 @@ $data_year = mysqli_fetch_assoc($result_year);
                             </tr>
                         </thead>
                         <tbody>
-                            <?php while ($row = mysqli_fetch_array($results)) { ?>
-                                <tr>
-                                    <td> <?php echo $row['voucher'] ?> </td>
-                                    <td data-sort="<?php echo strtotime($row['date']); ?>">
-                                        <?php
-                                        $date = new DateTime($row['date']);
-                                        echo $date->format('F j, Y'); // Outputs date as "May 14, 2023"
-                                        ?>
-                                    </td>
-                                    <td> <?php echo $row['customer'] ?> </td>
-                                    <td> <?php echo $row['buying_station'] ?> </td>
-                                    <td> <?php echo $row['category'] ?> </td>
-                                    <td>₱<?php echo number_format($row['amount'], 0) ?></td> <!-- ave cost kilo -->
-
-                                    <td>
-                                        <div class="btn-group" role="group">
-                                            <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#updateCashAdvance" data-bs-id="<?php echo $row['id'] ?>" data-bs-voucher="<?php echo $row['voucher'] ?>" data-bs-date="<?php echo $row['date'] ?>" data-bs-customer="<?php echo $row['customer'] ?>" data-bs-buying_station="<?php echo $row['buying_station'] ?>" data-bs-category="<?php echo $row['category'] ?>" data-bs-amount="<?php echo $row['amount'] ?>" title="Edit">
-                                                <span class="fa fa-edit"></span>
-                                            </button>
-                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#removeCashAdvance" data-bs-id="<?php echo $row['id'] ?>" data-bs-name="<?php echo $row['customer'] ?>" title="Remove">
-                                                <span class="fa fa-trash"></span>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            <?php } ?>
+                            <!-- Data loaded via AJAX server-side processing -->
                         </tbody>
                     </table>
                 </div>
@@ -181,3 +154,178 @@ $data_year = mysqli_fetch_assoc($result_year);
             <!-- END CONTENT -->
         </div>
     </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Initialize server-side AJAX cash advance table
+        window.caTable = $('#ca_table').DataTable({
+        "processing": true,
+        "serverSide": true,
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'pdf',
+            {
+                text: 'Export to Excel',
+                action: function (e, dt, node, config) {
+                    var params = dt.ajax.params();
+                    var query = $.param(params);
+                    window.open('ledgerTab/server_fetch/export_to_excel.php?' + query);
+                }
+            }
+        ],
+        "ajax": {
+            "url": "ledgerTab/server_fetch/cash_advance.php",
+            "type": "POST",
+            "data": function (data) {
+                data.categoryFilter = $('#filterCategory').val();
+                data.monthFilter = $('#filterMonth').val();
+                data.startDate = $('#startDate').val();
+                data.endDate = $('#endDate').val();
+            }
+        },
+        "columns": [
+            { "data": "voucher" },
+            { "data": "date" },
+            { "data": "customer" },
+            { "data": "buying_station" },
+            { "data": "category" },
+            { "data": "amount" },
+            { "data": "action", "orderable": false }
+        ],
+        "order": [[1, "desc"]],
+        "pageLength": 25,
+        "searchDelay": 500,
+        "language": {
+            processing: '<div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div>',
+            loadingRecords: 'Loading...',
+            emptyTable: 'No cash advance records available',
+            info: 'Showing _START_ to _END_ of _TOTAL_ entries',
+            infoEmpty: 'Showing 0 to 0 of 0 entries',
+            infoFiltered: '(filtered from _MAX_ total entries)',
+            search: 'Search:',
+            paginate: {
+                first: 'First',
+                last: 'Last',
+                next: 'Next',
+                previous: 'Previous'
+            }
+        }
+        });
+
+        // Event listeners for filters - reload AJAX data
+        $('#filterCategory, #filterMonth, #startDate, #endDate').on('change', function () {
+            window.caTable.ajax.reload();
+        });
+    });
+
+    // AJAX form submission for cash advances (outside setTimeout to avoid conflicts)
+    $(document).on('submit', '#cashadvance-form', function(e) {
+        e.preventDefault();
+        submitCashAdvanceForm(this, 'add');
+    });
+
+    $(document).on('submit', '#updateCashAdvanceForm', function(e) {
+        e.preventDefault();
+        submitCashAdvanceForm(this, 'update');
+    });
+
+    $(document).on('submit', '#deleteCashAdvanceForm', function(e) {
+        e.preventDefault();
+        submitCashAdvanceForm(this, 'delete');
+    });
+
+    function submitCashAdvanceForm(form, action) {
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        
+        // Show loading state
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processing...';
+        
+        const formData = new FormData(form);
+        formData.append(action, action);
+        
+        // Add AJAX header
+        $.ajaxSetup({
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            }
+        });
+        
+        $.ajax({
+            url: 'function/ledger/addCashAdvance.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    // Close modal and reset form immediately
+                    $(form).closest('.modal').modal('hide');
+                    form.reset();
+                    
+                    // Show success message
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: response.message,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    
+                    // Reload DataTable to show updated data
+                    setTimeout(() => {
+                        if (window.caTable) {
+                            window.caTable.ajax.reload();
+                        }
+                    }, 500);
+                    
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: response.message
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX Error:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Network Error!',
+                    text: 'Please check your connection and try again.'
+                });
+            },
+            complete: function() {
+                // Restore button state
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
+        });
+    }
+
+    // Event handlers for dynamically loaded buttons (outside setTimeout to avoid conflicts)
+    $(document).on('click', '.btnUpdate', function() {
+        var cashadvance = $(this).data('cashadvance');
+        console.log(cashadvance);
+
+        $('#my_id').val(cashadvance.id);
+        $('#date').val(cashadvance.date); // Raw date format from database
+        $('#voucher').val(cashadvance.voucher);
+        $('#particular').val(cashadvance.customer);
+        $('#station').val(cashadvance.buying_station);
+        $('#category').val(cashadvance.category);
+        $('#amount').val(cashadvance.amount.replace(/[₱,]/g, ''));
+
+        $('#updateCashAdvance').modal('show');
+    });
+
+    $(document).on('click', '.btnDelete', function() {
+        var cashadvance = $(this).data('cashadvance');
+        $('#my_id').val(cashadvance.id);
+        $('#customer_name').text(cashadvance.customer);
+        $('#removeCashAdvance').modal('show');
+    });
+</script>

@@ -1,70 +1,83 @@
+<?php
+    // Constants
+    $CurrentYear = date('Y'); // Assuming CurrentYear is based on the current date
+    $locations = ['Basilan', 'Zamboanga', 'Kidapawan'];
+
+    // Initialize arrays to store expenses data
+    $expenses_categories = [];
+    $expenses_totals = [];
+    $total_expenses_per_location = []; // Array to store total expenses per location
+
+    // Fetch and process expenses data for each location
+    foreach ($locations as $location) {
+        $expenses_categories[$location] = [];
+        $expenses_totals[$location] = [];
+
+        // Fetch data from the database
+        $query = "SELECT type_expense, SUM(amount) AS total 
+                FROM ledger_expenses 
+                WHERE YEAR(date)='$CurrentYear' AND location='$location' 
+                GROUP BY type_expense
+                ORDER BY type_expense ASC";
+        $result = mysqli_query($con, $query);
+
+        // Process the results
+        if ($result && $result->num_rows > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $expenses_categories[$location][] = $row['type_expense'];
+                $expenses_totals[$location][] = $row['total'];
+            }
+        }
+        // Calculate total expenses per location
+        $total_expenses_per_location[$location] = array_sum($expenses_totals[$location]);
+    }
+
+    // If you need to get the total of all locations combined
+    $total_expenses_all_locations = array_sum($total_expenses_per_location);
+?>
+
+
+
 <script>
-    b_expense_pie = document.getElementById("expense_pie_basilan");
-    z_expense_pie = document.getElementById("expense_pie_zam");
-    expense_monthly = document.getElementById("expense_monthly");
+b_expense_pie = document.getElementById("expense_pie_basilan");
+z_expense_pie = document.getElementById("expense_pie_zam");
+k_expense_pie = document.getElementById("expense_pie_kidapawan");
 
 
-    function getColorPalette(n) {
-        // A palette of 20 professional-looking colors
-        var palette = ['#4E79A7', '#F28E2B', '#E15759', '#76B7B2', '#59A14F',
-            '#EDC948', '#B07AA1', '#FF9DA7', '#9C755F', '#BAB0AC',
-            '#2F4B7C', '#F45E1D', '#D33F49', '#4FAA9B', '#6BA84A',
-            '#D4A32A', '#90578A', '#FF79A3', '#8B6741', '#838F99'
-        ];
 
-        // Repeat the palette if there are more categories than colors
-        var colors = [];
-        for (var i = 0; i < n; i++) {
-            colors.push(palette[i % palette.length]);
-        }
 
-        return colors;
+function getColorPalette(n) {
+    // A palette of 20 professional-looking colors
+    var palette = ['#4E79A7', '#F28E2B', '#E15759', '#76B7B2', '#59A14F',
+        '#EDC948', '#B07AA1', '#FF9DA7', '#9C755F', '#BAB0AC',
+        '#2F4B7C', '#F45E1D', '#D33F49', '#4FAA9B', '#6BA84A',
+        '#D4A32A', '#90578A', '#FF79A3', '#8B6741', '#838F99'
+    ];
+
+    // Repeat the palette if there are more categories than colors
+    var colors = [];
+    for (var i = 0; i < n; i++) {
+        colors.push(palette[i % palette.length]);
     }
 
-    <?php
-    $expenses_category_basilan = [];
-    $expense_total_basilan = [];
+    return colors;
+}
 
-    $expenses_category_zamboanga = [];
-    $expense_total_zamboanga = [];
 
-    // Fetch data for Basilan
-    $expense_basilan = mysqli_query($con, "SELECT category, year(date) as year, month(date) as month, sum(amount) as total
-    from ledger_expenses 
-    WHERE (month(date)='$Currentmonth' and year(date)='$CurrentYear' ) and location='Basilan'
-    group by year(date), month(date), category");
 
-    if ($expense_basilan->num_rows > 0) {
-        foreach ($expense_basilan as $data) {
-            $expenses_category_basilan[] = $data['category'];
-            $expense_total_basilan[] = $data['total'];
-        }
-    }
-
-    // Fetch data for Zamboanga
-    $expense_zamboanga = mysqli_query($con, "SELECT category, year(date) as year, month(date) as month, sum(amount) as total
-    from ledger_expenses 
-    WHERE (month(date)='$Currentmonth' and year(date)='$CurrentYear' ) and location='Zamboanga'
-    group by year(date), month(date), category");
-
-    if ($expense_zamboanga->num_rows > 0) {
-        foreach ($expense_zamboanga as $data) {
-            $expenses_category_zamboanga[] = $data['category'];
-            $expense_total_zamboanga[] = $data['total'];
-        }
-    }
-    ?>
-
-    new Chart(b_expense_pie, {
+// Function to initialize a pie chart
+function initPieChart(elementId, labels, data, title) {
+    var ctx = document.getElementById(elementId).getContext('2d');
+    new Chart(ctx, {
         type: 'pie',
         data: {
-            labels: <?php echo isset($expenses_category_basilan) ? json_encode($expenses_category_basilan) : json_encode([]); ?>,
+            labels: labels,
             datasets: [{
-                label: 'Operating Expenses Basilan',
-                data: <?php echo isset($expense_total_basilan) ? json_encode($expense_total_basilan) : json_encode([]); ?>,
+                label: title,
+                data: data,
                 borderColor: '#000000',
-                backgroundColor: getColorPalette(<?php echo isset($expenses_category_basilan) ? count($expenses_category_basilan) : 0; ?>),
-                borderWidth: .5
+                backgroundColor: getColorPalette(labels.length),
+                borderWidth: 0.5
             }]
         },
         options: {
@@ -77,112 +90,59 @@
             }
         }
     });
+}
 
-    new Chart(z_expense_pie, {
-        type: 'pie',
-        data: {
-            labels: <?php echo isset($expenses_category_zamboanga) ? json_encode($expenses_category_zamboanga) : json_encode([]); ?>,
-            datasets: [{
-                label: 'Operating Expenses Zamboanga',
-                data: <?php echo isset($expense_total_zamboanga) ? json_encode($expense_total_zamboanga) : json_encode([]); ?>,
-                borderColor: '#000000',
-                backgroundColor: getColorPalette(<?php echo isset($expenses_category_zamboanga) ? count($expenses_category_zamboanga) : 0; ?>),
-                borderWidth: .5
-            }]
-        },
-        options: {
-            maintainAspectRatio: false,
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'bottom'
-                }
-            }
-        }
-    });
+// Initialize charts for Basilan and Zamboanga
+initPieChart('expense_pie_basilan',
+    <?php echo json_encode($expenses_categories['Basilan']); ?>,
+    <?php echo json_encode($expenses_totals['Basilan']); ?>,
+    'Operating Expenses Basilan');
 
-    <?php
-    // Initial Variables
-    $expenses_months = [];
-    $expense_total_basilan = array_fill(0, 12, 0);  // Pre-fill with 0s
-    $expense_total_zamboanga = array_fill(0, 12, 0);  // Pre-fill with 0s
+initPieChart('expense_pie_zam',
+    <?php echo json_encode($expenses_categories['Zamboanga']); ?>,
+    <?php echo json_encode($expenses_totals['Zamboanga']); ?>,
+    'Operating Expenses Zamboanga');
 
-    // Fetch data for Basilan
-    $expense_basilan = mysqli_query($con, "SELECT month(date) as month, sum(amount) as total 
-from ledger_expenses WHERE year(date)='$CurrentYear' AND location='Basilan' group by month(date)
-ORDER BY month(date) ASC");
+initPieChart('expense_pie_kidapawan',
+    <?php echo json_encode($expenses_categories['Kidapawan']); ?>,
+    <?php echo json_encode($expenses_totals['Kidapawan']); ?>,
+    'Operating Expenses Kidapawan');
 
-    if ($expense_basilan->num_rows > 0) {
-        while ($data = $expense_basilan->fetch_assoc()) {
-            $expense_total_basilan[$data['month'] - 1] = $data['total']; // Minus 1 because array index starts at 0
-        }
-    }
 
-    // Fetch data for Zamboanga
-    $expense_zamboanga = mysqli_query($con, "SELECT month(date) as month, sum(amount) as total 
-from ledger_expenses WHERE year(date)='$CurrentYear' AND location='Zamboanga' group by month(date)
-ORDER BY month(date) ASC");
-
-    if ($expense_zamboanga->num_rows > 0) {
-        while ($data = $expense_zamboanga->fetch_assoc()) {
-            $expense_total_zamboanga[$data['month'] - 1] = $data['total'];
-        }
-    }
-
-    // Generate Month Labels
-    for ($i = 1; $i <= 12; $i++) {
-        $expenses_months[] = date("F", mktime(0, 0, 0, $i, 10));
-    }
-    ?>
-
-    new Chart(document.getElementById("expense_monthly"), {
-        type: 'bar',
-        data: {
-            labels: <?php echo json_encode($expenses_months); ?>,
-            datasets: [{
-                    label: 'Basilan Monthly Expenses',
-                    data: <?php echo json_encode($expense_total_basilan); ?>,
-                    borderColor: '#000000',
-                    backgroundColor: "#4E79A7",
-                    borderWidth: .5
-                },
-                {
-                    label: 'Zamboanga Monthly Expenses',
-                    data: <?php echo json_encode($expense_total_zamboanga); ?>,
-                    borderColor: '#000000',
-                    backgroundColor: "#F28E2B", // A different color for clarity
-                    borderWidth: .5
-                }
-            ]
-        },
-        options: {
-            maintainAspectRatio: false,
-            responsive: true,
-            aspectRatio: 1.5,
-            layout: {
-                padding: {
-                    top: 59
-                }
+    new Chart(document.getElementById("expense_total_per_location"), {
+    type: 'bar',
+    data: {
+        labels: ['Basilan', 'Zamboanga', 'Kidapawan'],
+        datasets: [{
+            label: 'Total Expenses Per Location',
+            data: [
+                <?php echo json_encode($total_expenses_per_location['Basilan']); ?>,
+                <?php echo json_encode($total_expenses_per_location['Zamboanga']); ?>,
+                <?php echo json_encode($total_expenses_per_location['Kidapawan']); ?>
+            ],
+            borderColor: '#000000',
+            backgroundColor: ["#4E79A7", "#F28E2B", "#76B7B2"], // Different colors for each location
+            borderWidth: 0.5
+        }]
+    },
+    options: {
+        maintainAspectRatio: false,
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'bottom'
             },
-            plugins: {
-                labels: {
-                    render: 'value',
-                },
-                legend: {
-                    position: 'bottom'
-                },
-                title: {
-                    display: true,
-                    text: 'Monthly Expenses Chart for Basilan and Zamboanga'
-                }
+            title: {
+                display: true,
+                text: 'Total Expenses Per Location for the Current Year'
             }
         }
-    });
+    }
+});
 
+// ALL INVENTORY PIE CHART------------------------------
 
-    // ALL INVENTORY PIE CHART------------------------------
-
-    <?php
+<?php
 
     $sql = mysqli_query($con, "SELECT SUM(reweight) as Cuplump from  planta_recording where status='Field' and source='Basilan'   ");
     $cuplump = mysqli_fetch_array($sql);
@@ -198,57 +158,57 @@ ORDER BY month(date) ASC");
     ?>
 
 
-    new Chart(inventory_all, {
-        options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Overall Inventory (kilo)',
-                    font: {
-                        size: 18,
-                        weight: 'bold'
-                    }
-                },
-                legend: {
-                    display: false // Hide the legend
+new Chart(inventory_all, {
+    options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Overall Inventory (kilo)',
+                font: {
+                    size: 18,
+                    weight: 'bold'
+                }
+            },
+            legend: {
+                display: false // Hide the legend
+            },
+        },
+        maintainAspectRatio: false,
+        aspectRatio: 1.5,
+        scales: {
+            x: {
+                grid: {
+                    display: false,
                 },
             },
-            maintainAspectRatio: false,
-            aspectRatio: 1.5,
-            scales: {
-                x: {
-                    grid: {
-                        display: false,
-                    },
-                },
-                y: {
-                    beginAtZero: true // Start the y-axis from zero
-                }
+            y: {
+                beginAtZero: true // Start the y-axis from zero
             }
-        },
+        }
+    },
 
-        type: 'bar',
-        data: {
-            labels: ['Cuplumps', 'Crumbs', 'Blankets', 'Bales'],
-            datasets: [{
-                data: [<?php echo $cuplump['Cuplump'] ?>, <?php echo $crumb['Crumb'] ?>,
-                    <?php echo $blanket['Blanket'] ?>, <?php echo $bale['Bale'] ?>
-                ],
-                backgroundColor: ['#4E79A7', '#F28E2B', '#E15759', '#76B7B2', '#59A14F'],
-                tension: 0.3,
-                fill: true,
-            }]
-        },
+    type: 'bar',
+    data: {
+        labels: ['Cuplumps', 'Crumbs', 'Blankets', 'Bales'],
+        datasets: [{
+            data: [<?php echo $cuplump['Cuplump'] ?>, <?php echo $crumb['Crumb'] ?>,
+                <?php echo $blanket['Blanket'] ?>, <?php echo $bale['Bale'] ?>
+            ],
+            backgroundColor: ['#4E79A7', '#F28E2B', '#E15759', '#76B7B2', '#59A14F'],
+            tension: 0.3,
+            fill: true,
+        }]
+    },
 
-    });
-
-
+});
 
 
-    // BALE KILO INVENTORY BAR CHART------------------------------
 
-    inventory_bales = document.getElementById("inventory_bales");
-    <?php
+
+// BALE KILO INVENTORY BAR CHART------------------------------
+
+inventory_bales = document.getElementById("inventory_bales");
+<?php
     $bales_types = array();
     $bales_data = array();
 
@@ -281,41 +241,41 @@ ORDER BY month(date) ASC");
     }
     ?>
 
-    new Chart(inventory_bales, {
-        options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Overall Bale Inventory (pcs)',
-                    font: {
-                        size: 18,
-                        weight: 'bold'
-                    }
-                },
-                legend: {
-                    display: true // Show the legend
-                },
-            },
-            maintainAspectRatio: false,
-            aspectRatio: 1.5,
-            scales: {
-                x: {
-                    grid: {
-                        display: false,
-                    },
-                    stacked: true // Stack the x-axis
-                },
-                y: {
-                    beginAtZero: true, // Start the y-axis from zero
-                    stacked: true // Stack the y-axis
+new Chart(inventory_bales, {
+    options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Overall Bale Inventory (pcs)',
+                font: {
+                    size: 18,
+                    weight: 'bold'
                 }
-            }
+            },
+            legend: {
+                display: true // Show the legend
+            },
         },
+        maintainAspectRatio: false,
+        aspectRatio: 1.5,
+        scales: {
+            x: {
+                grid: {
+                    display: false,
+                },
+                stacked: true // Stack the x-axis
+            },
+            y: {
+                beginAtZero: true, // Start the y-axis from zero
+                stacked: true // Stack the y-axis
+            }
+        }
+    },
 
-        type: 'bar',
-        data: {
-            labels: <?php echo json_encode($bales_types); ?>, // Display the bale types
-            datasets: <?php
+    type: 'bar',
+    data: {
+        labels: <?php echo json_encode($bales_types); ?>, // Display the bale types
+        datasets: <?php
                         $colors = ['#4E79A7', '#F28E2B', '#E15759', '#76B7B2', '#59A14F'];
                         $datasets = [];
 
@@ -330,11 +290,11 @@ ORDER BY month(date) ASC");
 
                         echo json_encode($datasets);
                         ?>,
-        },
-    });
+    },
+});
 
-    /////////// KIDAPAWAN //////////////////////
-    <?php
+/////////// KIDAPAWAN //////////////////////
+<?php
 
     $sql = mysqli_query($con, "SELECT SUM(reweight) as Cuplump from  planta_recording where status='Field' and source='Kidapawan'   ");
     $cuplump = mysqli_fetch_array($sql);
@@ -350,57 +310,57 @@ ORDER BY month(date) ASC");
     ?>
 
 
-    new Chart(kidapawan_inventory_all, {
-        options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Overall Inventory (kilo)',
-                    font: {
-                        size: 18,
-                        weight: 'bold'
-                    }
-                },
-                legend: {
-                    display: false // Hide the legend
+new Chart(kidapawan_inventory_all, {
+    options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Overall Inventory (kilo)',
+                font: {
+                    size: 18,
+                    weight: 'bold'
+                }
+            },
+            legend: {
+                display: false // Hide the legend
+            },
+        },
+        maintainAspectRatio: false,
+        aspectRatio: 1.5,
+        scales: {
+            x: {
+                grid: {
+                    display: false,
                 },
             },
-            maintainAspectRatio: false,
-            aspectRatio: 1.5,
-            scales: {
-                x: {
-                    grid: {
-                        display: false,
-                    },
-                },
-                y: {
-                    beginAtZero: true // Start the y-axis from zero
-                }
+            y: {
+                beginAtZero: true // Start the y-axis from zero
             }
-        },
+        }
+    },
 
-        type: 'bar',
-        data: {
-            labels: ['Cuplumps', 'Crumbs', 'Blankets', 'Bales'],
-            datasets: [{
-                data: [<?php echo $cuplump['Cuplump'] ?>, <?php echo $crumb['Crumb'] ?>,
-                    <?php echo $blanket['Blanket'] ?>, <?php echo $bale['Bale'] ?>
-                ],
-                backgroundColor: ['#4E79A7', '#F28E2B', '#E15759', '#76B7B2', '#59A14F'],
-                tension: 0.3,
-                fill: true,
-            }]
-        },
+    type: 'bar',
+    data: {
+        labels: ['Cuplumps', 'Crumbs', 'Blankets', 'Bales'],
+        datasets: [{
+            data: [<?php echo $cuplump['Cuplump'] ?>, <?php echo $crumb['Crumb'] ?>,
+                <?php echo $blanket['Blanket'] ?>, <?php echo $bale['Bale'] ?>
+            ],
+            backgroundColor: ['#4E79A7', '#F28E2B', '#E15759', '#76B7B2', '#59A14F'],
+            tension: 0.3,
+            fill: true,
+        }]
+    },
 
-    });
-
-
+});
 
 
-    // BALE KILO INVENTORY BAR CHART------------------------------
 
-    kidapawan_inventory_bales = document.getElementById("kidapawan_inventory_bales");
-    <?php
+
+// BALE KILO INVENTORY BAR CHART------------------------------
+
+kidapawan_inventory_bales = document.getElementById("kidapawan_inventory_bales");
+<?php
     // Initialize arrays for labels, data, and bale types
     $k_bales_labels = array();
     $k_bales_data = array();
@@ -418,43 +378,45 @@ ORDER BY month(date) ASC");
     }
     ?>
 
-    new Chart(kidapawan_inventory_bales, {
-        options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Overall Bale Inventory (pcs)',
-                    font: {
-                        size: 18,
-                        weight: 'bold'
-                    }
-                },
-                legend: {
-                    display: false // Hide the legend
-                },
-            },
-            maintainAspectRatio: false,
-            aspectRatio: 1.5,
-            scales: {
-                x: {
-                    grid: {
-                        display: false,
-                    }
-                },
-                y: {
-                    beginAtZero: true // Start the y-axis from zero
+new Chart(kidapawan_inventory_bales, {
+    options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Overall Bale Inventory (pcs)',
+                font: {
+                    size: 18,
+                    weight: 'bold'
                 }
+            },
+            legend: {
+                display: false // Hide the legend
+            },
+        },
+        maintainAspectRatio: false,
+        aspectRatio: 1.5,
+        scales: {
+            x: {
+                grid: {
+                    display: false,
+                }
+            },
+            y: {
+                beginAtZero: true // Start the y-axis from zero
             }
-        },
-        type: 'bar',
-        data: {
-            labels: <?php echo json_encode($k_bales_labels); ?>, // Display the bale types
-            datasets: [{
-                data: <?php echo json_encode($k_bales_data); ?>, // Display the remaining bales
-                backgroundColor: ['#4E79A7', '#F28E2B', '#E15759', '#76B7B2', '#59A14F'], // You can modify the colors as needed
-                tension: 0.3,
-                fill: true,
-            }]
-        },
-    });
+        }
+    },
+    type: 'bar',
+    data: {
+        labels: <?php echo json_encode($k_bales_labels); ?>, // Display the bale types
+        datasets: [{
+            data: <?php echo json_encode($k_bales_data); ?>, // Display the remaining bales
+            backgroundColor: ['#4E79A7', '#F28E2B', '#E15759', '#76B7B2',
+                '#59A14F'
+            ], // You can modify the colors as needed
+            tension: 0.3,
+            fill: true,
+        }]
+    },
+});
 </script>

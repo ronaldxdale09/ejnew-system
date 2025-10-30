@@ -1,5 +1,5 @@
 <?php 
-include('../../function/db.php');
+include('db.php');
 
 if (isset($_POST['add'])) {
     $source = $_SESSION['loc'];

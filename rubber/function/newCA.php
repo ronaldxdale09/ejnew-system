@@ -1,5 +1,5 @@
 <?php 
-include('../../function/db.php');
+ include('db.php');
  if (isset($_POST['submit'])) {
     $date = $_POST['date'];
     $seller = $_POST['name'];

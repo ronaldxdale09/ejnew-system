@@ -14,13 +14,17 @@ if (!$result) {
 
 
 $output = '
-
+<style>
+.product-list {
+    width: 30%;
+}
+</style>
 <table class="table table-hover table-bordered table-striped "  id="new_sale_table" >
     <thead class="table-warning">
         <tr>
         <th scope="col" hidden></th>
 
-            <th class="text-center" style="font-weight:bold;">Product</th>
+            <th class="text-center" style="font-weight:bold;" >Product</th>
             <th class="text-center" style="font-weight:bold;">Price</th>
             <th class="text-center" style="font-weight:bold;">Specification</th>
             <th class="text-center" style="font-weight:bold;">Qty</th>
@@ -65,7 +69,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     <tr>
     <td hidden><input type="text"  class="form-control payment_id" name="product_id[]" value="' . $row['sale_line_id'] . '" ></td>
 
-        <td>
+    <td >
             <div class="input-group">
                 ' . $productDropdown . '
             </div>
@@ -188,26 +192,33 @@ echo $output;
             var newRow = `
         <tr>
             <td>
-                <div class="input-group">
+                <div class="input-group text-center">
                 <select class="form-select product-dropdown" name="product[]" style="width: 100px;">
                     <option value="">Select...</option>
                     <?php
-                    $sql = "SELECT unit_price,coffee_name, coffee_id, weight, weight_unit ,case_quantity
-                    FROM coffee_products";
-                    $result = mysqli_query($con, $sql);
-                    if ($result) {
+                 // Get the product dropdown
+                        $sql = "SELECT cp.unit_price, cp.coffee_name, cp.coffee_id, cp.weight, cp.weight_unit, cp.case_quantity, ci.quantity
+                        FROM coffee_products cp
+                        LEFT JOIN coffee_inventory ci ON cp.coffee_id = ci.coffee_id";
+
+                        $result = mysqli_query($con, $sql);
+                        if ($result) {
                         while ($row = mysqli_fetch_assoc($result)) {
-                            $coffeeName = $row['coffee_name'] . '-' . $row['weight'] . '' . $row['weight_unit'];
-                            $coffee_id = $row['coffee_id'];
-                            $price = $row['unit_price'];
+                        $coffeeName = $row['coffee_name'] . '-' . $row['weight'] . '' . $row['weight_unit'];
+                        $coffee_id = $row['coffee_id'];
+                        $price = $row['unit_price'];
+                        $case_qty = $row['case_quantity'];
+                        $weight = $row['weight'];
+                        $weight_unit = $row['weight_unit'];
+                        $inventoryQuantity = isset($row['quantity']) ? $row['quantity'] : 0; // Default to 0 if quantity is not set
 
-                            $case_qty = $row['case_quantity'];
+                        // Check if inventory quantity is greater than 0
+                        $disabledAttribute = ($inventoryQuantity > 0) ? '' : ' disabled';
 
-                            $weight = $row['weight'];
-                            $weight_unit = $row['weight_unit'];
-                            echo "<option value='$coffee_id'  data-case_qty='$case_qty' data-price='$price' data-weight='$weight' data-unit='$weight_unit'>$coffeeName </option>";
+                        echo "<option value='$coffee_id' data-case_qty='$case_qty' data-price='$price' data-weight='$weight' data-unit='$weight_unit'$disabledAttribute>$coffeeName</option>";
                         }
-                    }
+                        }
+
                     ?>
                 </select>
                 </div>
@@ -254,7 +265,7 @@ echo $output;
             // Initialize the new row's "spec[]" dropdown
             var $newRow = $("#new_sale_table tbody tr:last");
             $newRow.find('.product-dropdown').chosen({
-                width: "100%"
+                width: "359px"
             });
 
 

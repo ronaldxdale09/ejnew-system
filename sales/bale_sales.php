@@ -2,154 +2,202 @@
 include('include/header.php');
 include "include/navbar.php";
 
+if (!isset($_GET['id'])) {
+    exit('Invalid request');
+}
 
+// Validate and sanitize input using prepared statement
+$id = filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);
+if (!$id) {
+    exit('Invalid ID format');
+}
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $id = preg_replace('~\D~', '', $id);
+try {
+    // Prepare the statement
+    $stmt = $con->prepare("SELECT 
+        bales_sales_id,
+        sale_contract,
+        purchase_contract,
+        sale_type,
+        contract_quality,
+        transaction_date,
+        recorded_by,
+        remarks,
+        contract_kiloPerBale,
+        buyer_name,
+        shipping_date,
+        source,
+        destination,
+        contract_container_num,
+        contract_quantity,
+        currency,
+        contract_price,
+        other_terms,
+        total_sales,
+        tax_rate,
+        tax_amount
+    FROM bales_sales_record 
+    WHERE bales_sales_id = ? 
+    LIMIT 1");
 
-    $sql = "SELECT * FROM bales_sales_record WHERE bales_sales_id = $id";
-    $result = $con->query($sql);
-
-    if ($result->num_rows > 0) {
-        // Output data of each row
-        $record = $result->fetch_assoc();
-
-        $sale_contract = isset($record['sale_contract']) ? $record['sale_contract'] : '';
-        $purchase_contract = isset($record['purchase_contract']) ? $record['purchase_contract'] : '';
-        $sale_type = isset($record['sale_type']) ? $record['sale_type'] : '';
-        $contract_quality = isset($record['contract_quality']) ? $record['contract_quality'] : '';
-        $transaction_date = isset($record['transaction_date']) ? $record['transaction_date'] : '';
-        $recorded_by = isset($record['recorded_by']) ? $record['recorded_by'] : '';
-        $remarks = isset($record['remarks']) ? $record['remarks'] : '';
-
-        $kilo_bale = isset($record['contract_kiloPerBale']) ? $record['contract_kiloPerBale'] : '';
-
-
-        $sale_buyer = isset($record['buyer_name']) ? htmlspecialchars($record['buyer_name'], ENT_QUOTES, 'UTF-8') : '';
-        $shipping_date = isset($record['shipping_date']) ? htmlspecialchars($record['shipping_date'], ENT_QUOTES, 'UTF-8') : '';
-        $sale_source = isset($record['source']) ? htmlspecialchars($record['source'], ENT_QUOTES, 'UTF-8') : '';
-        $sale_destination = isset($record['destination']) ? htmlspecialchars($record['destination'], ENT_QUOTES, 'UTF-8') : '';
-        $contract_container_num = isset($record['contract_container_num']) ? htmlspecialchars($record['contract_container_num'], ENT_QUOTES, 'UTF-8') : '';
-        $contract_quantity = isset($record['contract_quantity']) ? htmlspecialchars($record['contract_quantity'], ENT_QUOTES, 'UTF-8') : '';
-        $sale_currency = isset($record['currency']) ? htmlspecialchars($record['currency'], ENT_QUOTES, 'UTF-8') : '';
-        $contract_price = isset($record['contract_price']) ? htmlspecialchars($record['contract_price'], ENT_QUOTES, 'UTF-8') : '';
-        $other_terms = isset($record['other_terms']) ? htmlspecialchars($record['other_terms'], ENT_QUOTES, 'UTF-8') : '';
-
-
-        $total_sales = isset($record['total_sales']) ? htmlspecialchars($record['total_sales'], ENT_QUOTES, 'UTF-8') : '0';
-        $tax_rate = isset($record['tax_rate']) ? htmlspecialchars($record['tax_rate'], ENT_QUOTES, 'UTF-8') : '1';
-        $tax_amount = isset($record['tax_amount']) ? htmlspecialchars($record['tax_amount'], ENT_QUOTES, 'UTF-8') : '';
-
-        echo "
-            <script>
-                $(document).ready(function() {
-                    $('#sales_id').val('" . $id . "');
-                    $('#sale_type').val('" . $sale_type . "');
-                    $('#sale_contract').val('" . $sale_contract . "');
-                    $('#purchase_contract').val('" . $purchase_contract . "');
-                    $('#contract_quality').val('" . $contract_quality . "');
-                    $('#trans_date').val('" . $transaction_date . "');
-                    $('#sale_buyer').val('" . $sale_buyer . "');
-                    $('#shipping_date').val('" . $shipping_date . "');
-                    $('#sale_source').val('" . $sale_source . "');
-                    $('#sale_destination').val('" . $sale_destination . "');
-                    $('#contract_contaier').val('" . $contract_container_num . "');
-                    $('#contract_quantity').val('" . $contract_quantity . "');
-                    $('#contract_kilo').val('" . $kilo_bale . "');
-                    $('#contract_price').val('" . $contract_price . "');
-                    $('#other_terms').val('" . $other_terms . "');
-                    $('#total_sale').val('" . number_format($total_sales, 2) . "');
-
-                    $('#tax_rate').val('" . number_format($tax_rate, 2) . "');
-                    $('#tax_amount').val('" . number_format($tax_amount, 2) . "');
-
-
-
-                    $('#sale_currency').val('" . $sale_currency . "');
-
-
-                    var selectedCurrency = $('#sale_currency').val();
-
-                    // Update the span tag's content
-                    $('#currency_selected_sales').text(selectedCurrency);
-                    $('#currency_selected_paid').text(selectedCurrency);
-                    $('#currency_selected_balance').text(selectedCurrency);
-                    $('#currency_selected_price').text(selectedCurrency);
-                    
-
-                    
-
-                });
-                </script>
-            ";
+    if (!$stmt) {
+        throw new Exception("Prepare failed: " . $con->error);
     }
+
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows === 0) {
+        $stmt->close();
+        exit('Record not found');
+    }
+
+    $record = $result->fetch_assoc();
+    $stmt->close();
+
+    // Prepare data for JSON
+    $formData = [
+        'sales_id' => $id,
+        'sale_type' => $record['sale_type'] ?? '',
+        'sale_contract' => $record['sale_contract'] ?? '',
+        'purchase_contract' => $record['purchase_contract'] ?? '',
+        'contract_quality' => $record['contract_quality'] ?? '',
+        'trans_date' => $record['transaction_date'] ?? '',
+        'sale_buyer' => htmlspecialchars($record['buyer_name'] ?? '', ENT_QUOTES, 'UTF-8'),
+        'shipping_date' => htmlspecialchars($record['shipping_date'] ?? '', ENT_QUOTES, 'UTF-8'),
+        'sale_source' => htmlspecialchars($record['source'] ?? '', ENT_QUOTES, 'UTF-8'),
+        'sale_destination' => htmlspecialchars($record['destination'] ?? '', ENT_QUOTES, 'UTF-8'),
+        'contract_contaier' => htmlspecialchars($record['contract_container_num'] ?? '', ENT_QUOTES, 'UTF-8'),
+        'contract_quantity' => htmlspecialchars($record['contract_quantity'] ?? '', ENT_QUOTES, 'UTF-8'),
+        'contract_kilo' => $record['contract_kiloPerBale'] ?? '',
+        'contract_price' => htmlspecialchars($record['contract_price'] ?? '', ENT_QUOTES, 'UTF-8'),
+        'other_terms' => htmlspecialchars($record['other_terms'] ?? '', ENT_QUOTES, 'UTF-8'),
+        'total_sale' => number_format((float)($record['total_sales'] ?? 0), 2),
+        'tax_rate' => number_format((float)($record['tax_rate'] ?? 1), 2),
+        'tax_amount' => number_format((float)($record['tax_amount'] ?? 0), 2),
+        'sale_currency' => htmlspecialchars($record['currency'] ?? '', ENT_QUOTES, 'UTF-8')
+    ];
+
+    // Output JavaScript with single DOM ready callback
+    ?>
+    <script>
+    $(document).ready(function() {
+        // Use const for data that won't change
+        const formData = <?php echo json_encode($formData, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP); ?>;
+        
+        // Batch DOM operations
+        const updates = {
+            // Form field updates
+            '#sales_id': formData.sales_id,
+            '#sale_type': formData.sale_type,
+            '#sale_contract': formData.sale_contract,
+            '#purchase_contract': formData.purchase_contract,
+            '#contract_quality': formData.contract_quality,
+            '#trans_date': formData.trans_date,
+            '#sale_buyer': formData.sale_buyer,
+            '#shipping_date': formData.shipping_date,
+            '#sale_source': formData.sale_source,
+            '#sale_destination': formData.sale_destination,
+            '#contract_contaier': formData.contract_contaier,
+            '#contract_quantity': formData.contract_quantity,
+            '#contract_kilo': formData.contract_kilo,
+            '#contract_price': formData.contract_price,
+            '#other_terms': formData.other_terms,
+            '#total_sale': formData.total_sale,
+            '#tax_rate': formData.tax_rate,
+            '#tax_amount': formData.tax_amount,
+            '#sale_currency': formData.sale_currency
+        };
+
+        // Batch update form fields
+        Object.entries(updates).forEach(([selector, value]) => {
+            $(selector).val(value);
+        });
+
+        // Update currency displays
+        const currencySelectors = [
+            '#currency_selected_sales',
+            '#currency_selected_paid',
+            '#currency_selected_balance',
+            '#currency_selected_price'
+        ];
+        
+        currencySelectors.forEach(selector => {
+            $(selector).text(formData.sale_currency);
+        });
+    });
+    </script>
+    <?php
+
+} catch (Exception $e) {
+    // Log error and show generic message
+    error_log("Error in bales_sales_record.php: " . $e->getMessage());
+    exit('An error occurred while processing your request');
 }
 ?>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-    .trans-btn {
-        border-radius: 25px;
-        padding: 10px 20px;
-        font-size: 14px;
-        text-transform: uppercase;
-        transition: all 0.3s ease 0s;
-        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-    }
+.trans-btn {
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-size: 14px;
+    text-transform: uppercase;
+    transition: all 0.3s ease 0s;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+}
 
-    .trans-btn:hover {
-        background-color: #2c3e50;
-        box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
-        color: #fff;
-        transform: translateY(-7px);
-    }
+.trans-btn:hover {
+    background-color: #2c3e50;
+    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+}
 
-    /* For the font awesome icons */
-    .fas {
-        margin-right: 10px;
-    }
+/* For the font awesome icons */
+.fas {
+    margin-right: 10px;
+}
 
-    .payment-table thead {
-        font-weight: normal;
-        background-color: red !important;
+.payment-table thead {
+    font-weight: normal;
+    background-color: red !important;
 
-    }
+}
 
-    /* CSS for loading overlay */
-    /* CSS for loading overlay */
-    .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.7);
-        /* Semi-transparent black background */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-    }
+/* CSS for loading overlay */
+/* CSS for loading overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Semi-transparent black background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
 
-    .loading-spinner {
-        font-size: 24px;
-        /* Adjust the size of the spinner */
-        color: #ffffff;
-        /* Text color (white) */
-        padding: 20px;
-        /* Add some padding around the spinner */
-        background-color: #333;
-        /* Background color for the spinner */
-        border-radius: 8px;
-        /* Rounded corners */
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        /* Box shadow for a subtle effect */
-    }
+.loading-spinner {
+    font-size: 24px;
+    /* Adjust the size of the spinner */
+    color: #ffffff;
+    /* Text color (white) */
+    padding: 20px;
+    /* Add some padding around the spinner */
+    background-color: #333;
+    /* Background color for the spinner */
+    border-radius: 8px;
+    /* Rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    /* Box shadow for a subtle effect */
+}
 </style>
 
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<link rel="stylesheet" href="css/bale_sales.css">
 
 <body>
 
@@ -319,7 +367,7 @@ if (isset($_GET['id'])) {
                                     </div>
                                 </div>
                                 <div class="col-2">
-                                    <label style='font-size:15px' class="col-md-12">Kilo Quantity (e.g 21,000)</label>
+                                    <label style='font-size:15px' class="col-md-12">Kilo Quantity</label>
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control" name='contract_quantity'
                                             id='contract_quantity' tabindex="7" autocomplete='off'
@@ -649,39 +697,46 @@ if (isset($_GET['id'])) {
 
 
 <script>
-    // Function to change the background color of the input field
-    function changeGrossProfitColor() {
-        // Get the value of gross profit input, remove commas and convert to a number
-        var gross_profit_value = Number($("#gross_profit").val().replace(/,/g, ""));
-
-        // Change the background color of the input field based on the value
-        if (gross_profit_value <= 0) {
-            $("#gross_profit").css('backgroundColor', 'lightcoral');
-        } else if (gross_profit_value >= 0) {
-            $("#gross_profit").css('backgroundColor', 'lightgreen');
-        }
-    }
-    // Call the function when the page loads
+// Run the functions when the window loads
+window.onload = function() {
+    computeGrossSales();
     changeGrossProfitColor();
+    computeSalesProceeds();
+}
+// Function to change the background color of the input field
+function changeGrossProfitColor() {
+    // Get the value of gross profit input, remove commas and convert to a number
+    var gross_profit_value = Number($("#gross_profit").val().replace(/,/g, ""));
 
-    function fetch_container() {
-        var sales_id = <?php echo $id ?>;
-
-        $.ajax({
-            url: "table/bales_sales_container.php",
-            method: "POST",
-            data: {
-                sales_id: sales_id,
-            },
-            success: function (data) {
-                $('#container_selected').html(data);
-            }
-        });
+    // Change the background color of the input field based on the value
+    if (gross_profit_value <= 0) {
+        $("#gross_profit").css('backgroundColor', 'lightcoral');
+    } else if (gross_profit_value >= 0) {
+        $("#gross_profit").css('backgroundColor', 'lightgreen');
     }
-    fetch_container();
+}
 
 
-    function fetch_payment() {
+
+
+function fetch_container() {
+    var sales_id = <?php echo $id ?>;
+
+    $.ajax({
+        url: "table/bales_sales_container.php",
+        method: "POST",
+        data: {
+            sales_id: sales_id,
+        },
+        success: function(data) {
+            $('#container_selected').html(data);
+        }
+    });
+}
+fetch_container();
+
+
+function fetch_payment() {
         var sales_id = <?php echo $id ?>;
 
         $.ajax({
@@ -698,208 +753,202 @@ if (isset($_GET['id'])) {
     fetch_payment();
 
 
+$('#loadingOverlay').hide();
 
-    $('#loadingOverlay').hide();
+$(document).on('click', '#confirmButton', function(e) {
+    // Prevent the default form submission
+    e.preventDefault();
 
-    $(document).on('click', '#confirmButton', function (e) {
-        // Prevent the default form submission
-        e.preventDefault();
-
-        // Set the form action to the desired URL
-        $('#salesForm').attr('action', 'function/sales/sales.confirm.php');
-        // Show the loading overlay
-        $('#loadingOverlay').show();
-        // Submit the form asynchronously using AJAX
-        $.ajax({
-            type: "POST",
-            url: $('#salesForm').attr('action'),
-            data: $('#salesForm').serialize(),
-            success: function (response) {
-                if (response.trim() === 'success') {
-                    // Hide the loading overlay when the AJAX request is complete
-                    $('#loadingOverlay').hide();
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success',
-                        text: 'Sale transaction completed!',
-                    });
-
-                    // Set all inputs to readonly
-                    $('#salesForm input').prop('readonly', true);
-                    $('#salesForm textarea').prop('readonly', true);
-                    $('#salesForm select').prop('disabled', true); //use 'disabled' for select elements
-                    // Disable all buttons inside the form
-                    // Temporarily hide the buttons
-                    $("#print_content button").hide();
-                    $('#confirmModal').modal('hide');
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: response,
-                    });
-                }
-            },
-            error: function (xhr, status, error) {
-                // Handle the error response
-                // Display SweetAlert error popup
-                // Hide the loading overlay when the AJAX request is error
+    // Set the form action to the desired URL
+    $('#salesForm').attr('action', 'function/sales/sales.confirm.php');
+    // Show the loading overlay
+    $('#loadingOverlay').show();
+    // Submit the form asynchronously using AJAX
+    $.ajax({
+        type: "POST",
+        url: $('#salesForm').attr('action'),
+        data: $('#salesForm').serialize(),
+        success: function(response) {
+            if (response.trim() === 'success') {
+                // Hide the loading overlay when the AJAX request is complete
                 $('#loadingOverlay').hide();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Sale transaction completed!',
+                });
 
-
+                // Set all inputs to readonly
+                $('#salesForm input').prop('readonly', true);
+                $('#salesForm textarea').prop('readonly', true);
+                $('#salesForm select').prop('disabled', true); //use 'disabled' for select elements
+                // Disable all buttons inside the form
+                // Temporarily hide the buttons
+                $("#print_content button").hide();
+                $('#confirmModal').modal('hide');
+            } else {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: 'Form submission failed!',
+                    text: response,
                 });
             }
-        });
+        },
+        error: function(xhr, status, error) {
+            // Handle the error response
+            // Display SweetAlert error popup
+            // Hide the loading overlay when the AJAX request is error
+            $('#loadingOverlay').hide();
+
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Form submission failed!',
+            });
+        }
     });
+});
 
 
 
-    $(document).on('click', '#saveDraftBtn', function (e) {
-        // Prevent the default form submission
-        e.preventDefault();
+$(document).on('click', '#saveDraftBtn', function(e) {
+    // Prevent the default form submission
+    e.preventDefault();
 
-        // Set the form action to the desired URL
-        $('#salesForm').attr('action', 'function/sales/sales.draft.php');
+    // Set the form action to the desired URL
+    $('#salesForm').attr('action', 'function/sales/sales.draft.php');
 
-        // Submit the form asynchronously using AJAX
-        $.ajax({
-            type: "POST",
-            url: $('#salesForm').attr('action'),
-            data: $('#salesForm').serialize(),
-            success: function (response) {
-                if (response.trim() === 'success') {
-                    Swal.fire({
-                        icon: 'info',
-                        title: 'Success',
-                        text: 'Sale Transaction saved as draft!',
-                    });
+    // Submit the form asynchronously using AJAX
+    $.ajax({
+        type: "POST",
+        url: $('#salesForm').attr('action'),
+        data: $('#salesForm').serialize(),
+        success: function(response) {
+            if (response.trim() === 'success') {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Success',
+                    text: 'Sale Transaction saved as draft!',
+                });
 
-                    // Set all inputs to readonly
-                    $('#salesForm input').prop('readonly', true);
-                    $('#salesForm textarea').prop('readonly', true);
-                    $('#salesForm select').prop('disabled', true); //use 'disabled' for select elements
-                    // Disable all buttons inside the form
-                    // Temporarily hide the buttons
-                    $("#print_content button").hide();
-                    $('#draftModal').modal('hide');
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: response,
-                    });
-                }
-            },
-            error: function (xhr, status, error) {
-                // Handle the error response
-                // Display SweetAlert error popup
+                // Set all inputs to readonly
+                $('#salesForm input').prop('readonly', true);
+                $('#salesForm textarea').prop('readonly', true);
+                $('#salesForm select').prop('disabled', true); //use 'disabled' for select elements
+                // Disable all buttons inside the form
+                // Temporarily hide the buttons
+                $("#print_content button").hide();
+                $('#draftModal').modal('hide');
+            } else {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: 'Form submission failed!',
+                    text: response,
                 });
             }
-        });
-    });
-
-
-
-    $(document).on('click', '.confirmSales, .btnDraft, .btnVoid', function (e) {
-        // Check if 'sale_buyer' input is readonly
-        if ($('#sale_buyer').prop('readonly')) {
-            // If readonly, show alert and return
+        },
+        error: function(xhr, status, error) {
+            // Handle the error response
+            // Display SweetAlert error popup
             Swal.fire({
-                icon: 'warning',
-                title: 'Form Completed',
-                text: 'This action is not allowed after the form is completed.',
-            });
-            return;
-        }
-
-        $tr = $(this).closest('tr');
-
-        var data = $tr.children("td").map(function () {
-            return $(this).text();
-        }).get();
-
-        var sales_id = <?php echo $id ?>;
-
-        if ($(this).hasClass('confirmSales')) {
-            $('#confirmModal').modal('show');
-        } else if ($(this).hasClass('btnDraft')) {
-            $('#draftModal').modal('show');
-        }
-        // add similar if conditions for other buttons if needed
-    });
-
-
-
-
-    //RETURN JS
-    $('.btnReturn').on('click', function () {
-        $('#confirmReturnModal').modal('show');
-    });
-    $('#confirmReturn').on('click', function () {
-        window.location.href = "bale_sale_record.php";
-    })
-
-    $('.btnContainer').on('click', function () {
-
-        // TABLE TO DISPLAY THE SELECTED CONTAINER
-        function fetch_container_list() {
-            var sales_id = <?php echo $id ?>;
-
-            $.ajax({
-                url: "table/bales_sales_container_selection.php",
-                method: "POST",
-                data: {
-                    sales_id: sales_id,
-                },
-                success: function (data) {
-                    $('#container_selection_modal').html(data);
-                }
+                icon: 'error',
+                title: 'Error',
+                text: 'Form submission failed!',
             });
         }
-        fetch_container_list();
-
-        $('#containerListModal').modal('show');
-
     });
+});
 
 
-    $(document).on('click', '.btnPrint', function (e) {
-        // Check if 'sale_buyer' input is readonly
-        if (!$('#sale_buyer').prop('readonly')) {
-            // If not readonly, show alert and return
-            Swal.fire({
-                icon: 'warning',
-                title: 'Incomplete Form',
-                text: 'Please complete the form before printing.',
-            });
-            return;
-        }
 
-        console.log('hello');
-
-        // Temporarily hide the buttons
-        $("#print_content button").hide();
-
-        html2canvas(document.querySelector("#print_content")).then(canvas => {
-            var myImage = canvas.toDataURL("image/png");
-            var tWindow = window.open("");
-            $(tWindow.document.body)
-                .html("<img id='Image' src=" + myImage + " style='width:100%;'></img>")
-                .ready(function () {
-                    tWindow.focus();
-                    tWindow.print();
-                });
-
-            // Show the buttons again
-            $("#print_content button").show();
+$(document).on('click', '.confirmSales, .btnDraft, .btnVoid', function(e) {
+    // Check if 'sale_buyer' input is readonly
+    if ($('#sale_buyer').prop('readonly')) {
+        // If readonly, show alert and return
+        Swal.fire({
+            icon: 'warning',
+            title: 'Form Completed',
+            text: 'This action is not allowed after the form is completed.',
         });
+        return;
+    }
+
+    $tr = $(this).closest('tr');
+
+    var data = $tr.children("td").map(function() {
+        return $(this).text();
+    }).get();
+
+    var sales_id = <?php echo $id ?>;
+
+    if ($(this).hasClass('confirmSales')) {
+        $('#confirmModal').modal('show');
+    } else if ($(this).hasClass('btnDraft')) {
+        $('#draftModal').modal('show');
+    }
+    // add similar if conditions for other buttons if needed
+});
+
+
+
+
+//RETURN JS
+$('.btnReturn').on('click', function() {
+    $('#confirmReturnModal').modal('show');
+});
+$('#confirmReturn').on('click', function() {
+    window.location.href = "bale_sale_record.php";
+})
+$('.btnContainer').on('click', function() {
+    var sales_id = <?php echo intval($id); ?>;
+
+    $.ajax({
+        url: "table/bales_sales_container_selection.php",
+        method: "POST",
+        data: {
+            sales_id: sales_id
+        },
+        success: function(data) {
+            $('#container_selection_modal').html(data);
+            $('#containerListModal').modal('show');
+        },
+        error: function(xhr, status, error) {
+            console.error("Failed to load container list:", error);
+            alert("Failed to load container list. Please try again.");
+        }
     });
+});
+
+$(document).on('click', '.btnPrint', function(e) {
+    // Check if 'sale_buyer' input is readonly
+    if (!$('#sale_buyer').prop('readonly')) {
+        // If not readonly, show alert and return
+        Swal.fire({
+            icon: 'warning',
+            title: 'Incomplete Form',
+            text: 'Please complete the form before printing.',
+        });
+        return;
+    }
+
+    console.log('hello');
+
+    // Temporarily hide the buttons
+    $("#print_content button").hide();
+
+    html2canvas(document.querySelector("#print_content")).then(canvas => {
+        var myImage = canvas.toDataURL("image/png");
+        var tWindow = window.open("");
+        $(tWindow.document.body)
+            .html("<img id='Image' src=" + myImage + " style='width:100%;'></img>")
+            .ready(function() {
+                tWindow.focus();
+                tWindow.print();
+            });
+
+        // Show the buttons again
+        $("#print_content button").show();
+    });
+});
 </script>

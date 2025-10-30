@@ -75,85 +75,90 @@ echo $output;
 ?>
 
 
-<script>
-    $('.addInventory').on('click', function() {
-        $tr = $(this).closest('tr');
-        var data = $tr.children("td").map(function() {
-            return $(this).text();
-        }).get();
+<script>$('.addInventory').on('click', function() {
+    var $tr = $(this).closest('tr');
+    var data = $tr.children("td").map(function() {
+        return $(this).text().trim();
+    }).get();
 
-        $tr.each(function() {
-            var num_bales = $(this).find(".keyvalue input").val();
+    var num_bales = parseInt($tr.find(".keyvalue input").val(), 10);
+    var max_bales = parseInt($tr.find("td:nth-child(9)").text().replace(/[^\d]/g, ''), 10);
 
-            if (!num_bales || num_bales <= 0) {
-                Swal.fire({
-                    position: 'center',
-                    icon: 'warning',
-                    title: 'Number of bales must be greater than zero',
-                    showConfirmButton: true,
-                });
-                return;
-            }
+    console.log("Input bales:", num_bales);
+    console.log("Max bales:", max_bales);
 
-
-            var max_bales = parseInt($(this).find("td:nth-child(9)")
-                .text()); // Get the number of bales from the row
-
-            if (num_bales > max_bales) {
-                // If input is greater than available bales, show error and return
-                Swal.fire({
-                    position: 'center',
-                    icon: 'error',
-                    title: 'Input exceeds available bales',
-                    showConfirmButton: true,
-                });
-                return;
-            }
-
-            var bales_id = data[0];
-            var planta_id = data[9];
-            var total_weight = data[6];
-            var container_id = <?php echo $_POST['container_id'] ?>;
-
-            console.log(num_bales);
-            console.log(bales_id);
-            console.log(container_id);
-            $.ajax({
-                method: "POST",
-                url: "table/container/addInventory.php",
-                data: {
-                    container_id: container_id,
-                    bales_id: bales_id,
-                    num_bales: num_bales,
-                    planta_id: planta_id,
-                    total_weight: total_weight
-                },
-                success: function(data) {
-                    console.log(data);
-                    fetch_data();
-                    if (data === 'Bales Added!') {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: 'Product Added!',
-                            showConfirmButton: false,
-                            timer: 600
-                        });
-
-
-
-                    } else {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'info',
-                            title: data,
-                            showConfirmButton: false,
-                        });
-                    }
-                }
-            });
+    if (isNaN(num_bales) || num_bales <= 0) {
+        Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'Number of bales must be greater than zero',
+            showConfirmButton: true,
         });
+        return;
+    }
+
+    if (num_bales > max_bales) {
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Input exceeds available bales',
+            showConfirmButton: true,
+        });
+        return;
+    }
+
+    var bales_id = data[0];
+    var planta_id = data[9];
+    var total_weight = parseFloat(data[6].replace(/[^\d.]/g, ''));
+    var container_id = <?php echo json_encode($_POST['container_id']); ?>;
+
+    console.log("Bales ID:", bales_id);
+    console.log("Planta ID:", planta_id);
+    console.log("Total Weight:", total_weight);
+    console.log("Container ID:", container_id);
+
+    $.ajax({
+        method: "POST",
+        url: "table/container/addInventory.php",
+        data: {
+            container_id: container_id,
+            bales_id: bales_id,
+            num_bales: num_bales,
+            planta_id: planta_id,
+            total_weight: total_weight
+        },
+        success: function(response) {
+            fetch_data();
+
+            console.log("Server response:", response);
+            if (response.trim() === 'Bales Added!') {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Product Added!',
+                    showConfirmButton: false,
+                    timer: 600
+                });
+            } else {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'info',
+                    title: response,
+                    showConfirmButton: true,
+                });
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("AJAX Error:", status, error);
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'An error occurred while processing your request',
+                showConfirmButton: true,
+            });
+        }
     });
+});
 
 
 

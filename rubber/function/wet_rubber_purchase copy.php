@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('../../function/db.php');
+include('db.php');
 
 $loc = $_SESSION["loc"];
 $date = $_POST['m_date'];

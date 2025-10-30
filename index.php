@@ -18,14 +18,15 @@
 </head>
 <!-- Fantacy Design -->
 <?php
-// include "function/db.php";
+include "function/db.php";
+include('function/auto_login.php');
 
 // // Check if the user type is set in the session
 // if (isset($_SESSION['type'])) {
 //     $userType = $_SESSION['type'];
 
 //     if ($userType == 'copra') {
-//         header('Location: transaction.php');
+//         header('Location: copra/transaction.php');
 //     } elseif ($userType == 'finance') {
 //         header('Location: ledger/ledger-expense.php');
 //     } elseif ($userType == 'admin') {
@@ -36,6 +37,9 @@
 //         header('Location: plantation/dashboard.php');
 //     } elseif ($userType == 'sales') {
 //         header('Location: sales/dashboard.php');
+//     }
+//     elseif ($userType == 'coffee') {
+//         header('Location: coffee/coffee_product.php');
 //     }
 //     exit(); // Make sure to exit after redirecting
 // } 

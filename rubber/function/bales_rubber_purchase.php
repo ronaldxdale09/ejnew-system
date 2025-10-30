@@ -1,6 +1,6 @@
 <?php 
 
-include('../../function/db.php');
+include('db.php');
 
 function execute_query($con, $query) {
     $result = mysqli_query($con, $query);

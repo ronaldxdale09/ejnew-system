@@ -55,6 +55,13 @@ error_reporting(E_ALL);
 
 
                             <div class="row">
+                                 <div class="col-2">
+                                    <div class="mb-3">
+                                        <label for="amount" class="form-label">Lot #</label>
+                                            <input type="text" class="form-control"  name="lot_no" required>
+                                        
+                                    </div>
+                                </div>
                                 <div class="col-2">
                                     <div class="mb-3">
                                         <label for="amount" class="form-label">No. Sack</label>

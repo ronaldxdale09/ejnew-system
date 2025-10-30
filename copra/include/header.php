@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 
 <?php
-include "../function/db.php";
+include "function/db.php";
 include "include/bootstrap.php";
 include "include/jquery.php";
 //   $loc = $_SESSION['loc'];
 
+  
+// Display all errors
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 
 $loc = $_SESSION['loc'];

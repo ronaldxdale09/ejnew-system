@@ -1,5 +1,5 @@
 <?php
-include('../../function/db.php');
+include('db.php');
 
 
 $id = $_POST['m_id'];

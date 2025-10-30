@@ -3,7 +3,8 @@ include('../../../function/db.php');
 
 if(isset($_POST['bales_id'])) {
     $bales_id = $_POST['bales_id'];
-
+    $recording_id = $_POST['recording_id'];
+    
     // Before deletion, get the number of bales from bales_container_selection
     $sql_select = "SELECT num_bales FROM bales_container_selection WHERE bales_id = $bales_id";
     $result_select = mysqli_query($con, $sql_select);
@@ -37,6 +38,10 @@ if(isset($_POST['bales_id'])) {
         status = 'Produced'
         WHERE bales_prod_id = '$bales_id'";
     mysqli_query($con, $query_update_status);
+
+    $sql = "UPDATE planta_recording SET status = 'For Sale' WHERE recording_id = '$recording_id'";
+    mysqli_query($con, $sql);
+
     
     // After the update, proceed to delete the record from bales_container_selection
     $sql = "DELETE FROM bales_container_selection WHERE bales_id = $bales_id";

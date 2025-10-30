@@ -112,7 +112,9 @@
    }
    
    .subitem a {
-       padding: 10px 15px;
+       padding: 10px 10px;
+       white-space: nowrap;
+       /* Add this line to prevent text from wrapping */
    }
    
    .submenu-active {

@@ -2,6 +2,10 @@
 include "include/header.php";
 include "include/navbar.php";
 
+// Display all errors
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 
 if (isset($_GET['view'])) {

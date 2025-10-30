@@ -131,6 +131,12 @@
                                     //TOTAL
                                     $_SESSION['print_total_1rese'] = $total_first_res;
                                     $_SESSION['print_total_2rese'] = $total_sec_res;
+                                    
+                                    $_SESSION['print_rese_weight_1'] = $rese_weight_1;
+                                    $_SESSION['print_rese_weight_2'] = $rese_weight_2;
+                                    
+
+
                                     ///
 
                                     $_SESSION['print_less'] = $less;

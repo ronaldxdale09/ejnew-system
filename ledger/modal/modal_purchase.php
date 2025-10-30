@@ -16,7 +16,7 @@ $dateNow = $year . "-" . $month . "-" . $day;
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="function/ledger/addPurchase.php" id='submitPurchase' method="POST">
+            <form id='purchase-form' method="POST">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
@@ -163,7 +163,9 @@ $dateNow = $year . "-" . $month . "-" . $day;
                     <!-- end net total and amount -->
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" name='add' class="btn btn-success">Submit</button>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-save"></i> Submit
+                    </button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </form>
@@ -203,6 +205,49 @@ $dateNow = $year . "-" . $month . "-" . $day;
             document.querySelector("[name='total_amount']").value = formattedTotalAmount;
         }
     });
+// --- Modal Logic Fixes ---
+
+// Ensure jQuery and Bootstrap JS are loaded before this script!
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Fix for close/exit buttons
+    // Ensure all close buttons actually close the modal
+    $(document).on('click', '[data-dismiss="modal"]', function() {
+        $(this).closest('.modal').modal('hide');
+    });
+
+    // When opening the delete modal, set the purchase ID
+    window.openRemovePurchaseModal = function(purchaseId) {
+        $('#removePurchase').modal('show');
+        $('#removePurchase #my_id').val(purchaseId);
+    };
+
+    // Handle delete form submission
+    $('#deletePurchaseForm').on('submit', function(e) {
+        e.preventDefault();
+        var purchaseId = $('#removePurchase #my_id').val();
+        // Option 1: AJAX request (recommended)
+        $.ajax({
+            url: 'function/ledger/addPurchase.php', // relative path from modal to handler
+            type: 'POST',
+            data: { my_id: purchaseId, delete: 1 },
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    $('#removePurchase').modal('hide');
+                    location.reload();
+                } else {
+                    alert(response.message || 'Failed to delete purchase.');
+                }
+            },
+            error: function(xhr, status, error) {
+                alert('Failed to delete purchase: ' + (xhr.responseText || error));
+            }
+        });
+        // Option 2: fallback to normal POST (uncomment if needed)
+        // this.submit();
+    });
+});
 </script>
 
 
@@ -217,17 +262,16 @@ $dateNow = $year . "-" . $month . "-" . $day;
                 </button>
             </div>
             <div class="modal-body" style="font-size: 16px; padding: 20px;">
-                <form action="function/ledger/removePurchase.php" method="POST">
-                    <input type="text" id="my_id" name="my_id" hidden> <!-- Use 'hidden' instead of inline styles -->
+                <form id="deletePurchaseForm" method="POST">
+                    <input type="hidden" id="my_id" name="my_id"> <!-- Use 'hidden' instead of inline styles -->
                     <p style="margin-bottom: 20px;">Are you sure you want to remove this purchase entry?</p>
 
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="submit" name="submit" class="btn btn-danger">
-                    <!-- You can add an icon here -->
-                    <i class="bi bi-trash"></i> Delete
+                <button type="submit" class="btn btn-danger">
+                    <i class="fa fa-trash"></i> Delete
                 </button>
             </div>
             </form>
@@ -248,7 +292,7 @@ $dateNow = $year . "-" . $month . "-" . $day;
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="function/ledger/addPurchase.php" id='submitPurchase' method="POST">
+            <form id='updatePurchaseForm' method="POST">
                 <input class='form-control' id="p_id" name="p_id" hidden>
 
                 <div class="modal-body">
@@ -398,7 +442,9 @@ $dateNow = $year . "-" . $month . "-" . $day;
                     <!-- end net total and amount -->
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" name='update' class="btn btn-success">Submit</button>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-save"></i> Update
+                    </button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </form>

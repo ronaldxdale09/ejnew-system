@@ -102,5 +102,3 @@ $("#payment-table").on('input', '.payAmount, .payRate', function() {
 
     computeSalesProceeds();
 });
-
-computeSalesProceeds();

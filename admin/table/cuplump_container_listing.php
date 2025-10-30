@@ -13,7 +13,9 @@ include('../../function/db.php');
 $container_id = $_POST['container_id'];
 
 // Query to get the bale info from the database
-$query = "SELECT * FROM sales_cuplump_container_inv WHERE sales_cuplump_id = '$container_id'";
+$query = "SELECT * FROM cuplump_container_inv 
+LEFT JOIN cuplump_container ON cuplump_container_inv.container_id = cuplump_container.container_id
+WHERE cuplump_container_inv.container_id = '$container_id'";
 $result = mysqli_query($con, $query);
 
 // Check if the query was successful
@@ -35,7 +37,9 @@ $output = '
         <th scope="col">Cost Per Kilo (₱)</th>
         <th scope="col">Total Cost (₱)</th>
         <th scope="col">Amount Paid (₱)</th>
-        <th scope="col">Remarks</th>
+        <th scope="col">Ship. Exp. (₱)</th>
+
+        <th scope="col" hidden>Remarks</th>
     </tr>
 
     </thead>
@@ -53,7 +57,9 @@ while ($row = mysqli_fetch_assoc($result)) {
     $output .= '<td>₱' . number_format($row['cost_per_kilo'], 2) . '</td>';
     $output .= '<td>₱' . number_format($row['total_cost'], 2) . '</td>';
     $output .= '<td>₱' . number_format($row['amount_paid'], ) . '</td>';
-    $output .= '<td>' . $row['inv_remarks'] . '</td>';
+    $output .= '<td>₱' . number_format($row['ship_exp'], ) . '</td>';
+
+    $output .= '<td  hidden>' . $row['inv_remarks'] . '</td>';
 
     $output .= "</tr>";
 }

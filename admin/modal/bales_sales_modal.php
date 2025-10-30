@@ -21,8 +21,6 @@ $today = date('Y-m-d');
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h4>Sale Contract</h4>
 
-
-                                    <button type="button" class="btn btn-dark btnPrint" id="btnPrint"><span class="fas fa-print"></span> Print </button>
                                 </div>
 
                                 <div class="row">

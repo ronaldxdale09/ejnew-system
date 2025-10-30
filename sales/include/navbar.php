@@ -51,11 +51,14 @@
     <a class='nav-link' href='inventory_cuplump.php' hidden>
         <i class='fa-solid fa-warehouse'></i> <span class='nav-text'>Cuplump Inventory</span>
     </a>
+    <hr style='color:gray'>
 
-    <a class='nav-link' href='reports.php'>
-        <i class='fa-solid fa-chart-line'></i> <span class='nav-text'>Sales Report</span>
+    <a class='nav-link' href='report_bales.php'>
+    <i class='fa-solid fa-boxes-stacked'></i> <span class='nav-text'>Bale Sales Report</span>
     </a>
-
+    <a class='nav-link' href='report_cuplump.php'>
+    <i class='fa-solid fa-balance-scale'></i><span class='nav-text'>Cuplump Sales Report</span>
+    </a>
     <div class='logout-container'>
         <a class='nav-text' href='function/logout.php'>
             <i class='fa-solid fa-arrow-right-to-bracket'></i>

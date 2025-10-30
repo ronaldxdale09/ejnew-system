@@ -65,8 +65,9 @@ if (mysqli_num_rows($result) > 0) {
     $output .= '<tr><td colspan="4">No row data</td></tr>';
 }
 
+
 // Calculate the overall cost and average cost per kilo
-$overall_cost = $total_bale_cost  + $total_production_cost;
+$overall_cost = $total_bale_cost  + $total_production_cost + $total_ship_exp;
 $overall_ave_kilo_cost = $total_weight > 0 ? $overall_cost / $total_weight : 0;
 
 $output .= '</table>';

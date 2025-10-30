@@ -211,7 +211,7 @@
             <div class="modal-body">
                 <form action="function/rubber_process.php" method="POST">
                     <input type="text" style='text-align:left' name='recording_id' id='mil_v_recording_id' hidden readonly class="form-control">
-
+                    <input type="hidden" name="action" id="action" value="">
 
                     <!-- START -->
 
@@ -252,9 +252,34 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
-                <button type="submit" name="milling_update" class="btn btn-success">Update</button>
+                <button type="submit" name="milling_field_trans" class="btn btn-dark text-light">Return to Field</button>
+
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+document.querySelector('button[name="milling_field_trans"]').addEventListener('click', function(e) {
+    e.preventDefault(); // Prevent the default submit behavior
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Do you want to transfer the record back to Field?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, transfer it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // If user clicked 'Yes', get the form element
+            var form = document.querySelector('#modal_mil_record form');
+            form.querySelector('#action').value = 'milling_field';
+            // Submit the form
+            form.submit();
+        }
+    });
+});
+</script>
