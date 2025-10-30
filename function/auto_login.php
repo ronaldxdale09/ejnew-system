@@ -1,10 +1,20 @@
 <?php
 
+// Only proceed if connection exists and is valid
+if (!isset($con) || !$con || mysqli_connect_errno()) {
+    return;
+}
+
 if (isset($_COOKIE['user_token'])) {
     $token = mysqli_real_escape_string($con, $_COOKIE['user_token']);
 
     // Verify the token and get user information
-    $stmt = $con->prepare("SELECT * FROM users WHERE token = ?");
+    $stmt = $con->prepare("SELECT * FROM users WHERE token = ? LIMIT 1");
+    if (!$stmt) {
+        error_log('Auto login prepare failed: ' . mysqli_error($con));
+        return;
+    }
+    
     $stmt->bind_param("s", $token);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -50,7 +60,8 @@ if (isset($_COOKIE['user_token'])) {
     $stmt->close();
 }
 
-mysqli_close($con);
+// Don't close connection here - let it be managed by the main db.php
+// mysqli_close($con);
 
 
 
