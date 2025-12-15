@@ -26,9 +26,24 @@
         </select>
     </div>
 
+    <!-- Year Filter -->
+    <div class="d-inline-block mr-4 filter-container">
+        <label for="filterYearKid">Year:</label>
+        <select id="filterYearKid" class="form-select d-inline-block w-auto">
+            <option value="">All</option>
+            <?php
+            $currentYear = date("Y");
+            $startYear = 2022; // Adjust if needed
+            for ($i = $startYear; $i <= $currentYear; $i++) {
+                echo '<option value="' . $i . '">' . $i . '</option>';
+            }
+            ?>
+        </select>
+    </div>
+
     <!-- Month Filter -->
     <div class="d-inline-block mr-4 filter-container"> <!-- Adjusted margin-right -->
-        <label for="filterMonth">Month:</label>
+        <label for="filterMonthKid">Month:</label>
         <select id="filterMonthKid" class="form-select d-inline-block w-auto">
             <option value="">All</option>
             <?php
@@ -54,7 +69,7 @@
     $results = mysqli_query($con, "SELECT * FROM planta_bales_production 
                                    LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
                                    WHERE planta_recording.source='Kidapawan'
-                                   ORDER BY planta_bales_production.recording_id ASC  ");
+                                   ORDER BY planta_bales_production.recording_id DESC  ");
     ?>
 
     <thead class="table-dark" style='font-size:13px'>
@@ -173,12 +188,12 @@
     $(document).ready(function () {
         var table_k = $('#bale_record_kidapawan').DataTable({
             "order": [
-                [1, 'asc']
+                [0, 'desc']
             ],
-            "pageLength": -1,
+            "pageLength": 10,
             "dom": "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
                 "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'>>",
+                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
             "responsive": true,
             "buttons": [{
                 extend: 'excelHtml5',
@@ -204,45 +219,45 @@
             ]
         });
 
-        // Filter by Payee
-        $('#filterSupplierKid').on('change', function () {
-            table_k.column(2).search(this.value).draw(); // Assuming Payee is the 5th column
-        });
-
-        // Filter by Month
-        $('#filterMonthKid').on('change', function () {
-            var month = parseInt(this.value, 10);
-            $.fn.dataTable.ext.search.push(
-                function (settings, data, dataIndex) {
-                    var dateIssued = new Date(data[1]); // Assuming Date Issued is the 3rd column
-                    return isNaN(month) || month === dateIssued.getMonth() + 1;
-                }
-            );
-            table_k.draw();
-            $.fn.dataTable.ext.search.pop(); // Clear this specific filter
-        });
-
-        // Filter by Date Range
-        $('#startDateKid, #endDateKid').on('change', function () {
-            var startDate = $('#startDateKid').val() ? new Date($('#startDateKid').val()) : null;
-            var endDate = $('#endDateKid').val() ? new Date($('#endDateKid').val()) : null;
-
-            $.fn.dataTable.ext.search.push(
-                function (settings, data, dataIndex) {
-                    var dateIssued = new Date(data[1]); // Assuming Date Issued is the 3rd column
-                    if (startDate && dateIssued < startDate) {
-                        return false;
-                    }
-                    if (endDate && dateIssued > endDate) {
-                        return false;
-                    }
+        // Search Filter Logic for Kidapawan
+        $.fn.dataTable.ext.search.push(
+            function (settings, data, dataIndex) {
+                if (settings.nTable.id !== 'bale_record_kidapawan') {
                     return true;
                 }
-            );
-            table_k.draw();
-            $.fn.dataTable.ext.search.pop(); // Clear this specific filter
+
+                var year = parseInt($('#filterYearKid').val(), 10);
+                var month = parseInt($('#filterMonthKid').val(), 10);
+                var min = $('#startDateKid').val() ? new Date($('#startDateKid').val()) : null;
+                var max = $('#endDateKid').val() ? new Date($('#endDateKid').val()) : null;
+                var dateStr = data[1];
+                var date = new Date(dateStr);
+
+                // Year Filter
+                if (!isNaN(year) && date.getFullYear() !== year) {
+                    return false;
+                }
+
+                // Month Filter
+                if (!isNaN(month) && date.getMonth() + 1 !== month) {
+                    return false;
+                }
+
+                // Date Range Filter
+                if (min && date < min) return false;
+                if (max && date > max) return false;
+
+                return true;
+            }
+        );
+
+        $('#filterSupplierKid').on('change', function () {
+            table_k.column(2).search(this.value).draw();
         });
 
+        $('#filterYearKid, #filterMonthKid, #startDateKid, #endDateKid').on('change', function () {
+            table_k.draw();
+        });
 
 
     });

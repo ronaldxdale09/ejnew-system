@@ -3,91 +3,88 @@
 
 <?php
 include('include/header.php');
-include "include/navbar.php";
-
+$year = isset($_GET['year']) ? $_GET['year'] : date("Y");
 ?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sales Report</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-
 <style>
-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: Arial, sans-serif;
-}
+    /* Moved from inline style block */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: Arial, sans-serif;
+    }
 
-th,
-td {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
+    th,
+    td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
 
-th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-}
+    th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+    }
 
-tr:nth-child(even) {
-    background-color: #f8f8f8;
-}
+    tr:nth-child(even) {
+        background-color: #f8f8f8;
+    }
 
-tr:hover {
-    background-color: #e0e0e0;
-}
+    tr:hover {
+        background-color: #e0e0e0;
+    }
 </style>
 
 <script>
-async function fetchSalesData() {
-    try {
-        const response = await fetch("sales_data.json");
-        const salesData = await response.json();
-        return salesData;
-    } catch (error) {
-        console.error("Error fetching sales data:", error);
+    async function fetchSalesData() {
+        try {
+            const response = await fetch("sales_data.json");
+            const salesData = await response.json();
+            return salesData;
+        } catch (error) {
+            console.error("Error fetching sales data:", error);
+        }
     }
-}
 
-async function populateTable() {
-    const salesData = await fetchSalesData();
-    if (!salesData) return;
+    async function populateTable() {
+        const salesData = await fetchSalesData();
+        if (!salesData) return;
+        // Your code for populating the table with sales data goes here
+    }
 
-    // Your code for populating the table with sales data goes here
-}
-
-populateTable();
+    populateTable();
 
 
-function sortTable() {
-    let table = document.getElementById("sales-report-table");
-    let rows, switching, i, x, y, shouldSwitch;
-    switching = true;
-    while (switching) {
-        switching = false;
-        rows = table.rows;
-        for (i = 1; i < rows.length - 1; i++) {
-            shouldSwitch = false;
-            x = rows[i].getElementsByTagName("TD")[1];
-            y = rows[i + 1].getElementsByTagName("TD")[1];
-            if (parseFloat(x.innerHTML) < parseFloat(y.innerHTML)) {
-                shouldSwitch = true;
-                break;
+    function sortTable() {
+        let table = document.getElementById("sales-report-table");
+        let rows, switching, i, x, y, shouldSwitch;
+        switching = true;
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < rows.length - 1; i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[1];
+                y = rows[i + 1].getElementsByTagName("TD")[1];
+                if (parseFloat(x.innerHTML) < parseFloat(y.innerHTML)) {
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
             }
         }
-        if (shouldSwitch) {
-            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-            switching = true;
-        }
     }
-}
+    function updateYear() {
+        var year = document.getElementById("year-select").value;
+        window.location.search = '?year=' + year;
+    }
 </script>
 
 <body>
+    <?php include "include/navbar.php"; ?>
 
 
 
@@ -111,9 +108,39 @@ function sortTable() {
                                 </b>
                             </h2>
 
-                            <h5 class="text-center">(All amounts are in Philippine Peso)</h5>
+                            <!-- Stats Grid for Top Cards -->
+                            <div class="stats-grid mb-4">
+                                <div class="stat-card">
+                                    <div class="stat-icon icon-blue">
+                                        <i class="fas fa-chart-line"></i>
+                                    </div>
+                                    <div class="stat-info">
+                                        <h5>Total Net Sales (<?php echo $year; ?>)</h5>
+                                        <h2 id="totalNetSalesDisplay">Loading...</h2>
+                                    </div>
+                                </div>
 
-                            <hr>
+                                <div class="stat-card">
+                                    <div class="stat-icon icon-yellow">
+                                        <i class="fas fa-coins"></i>
+                                    </div>
+                                    <div class="stat-info">
+                                        <h5>Total Gross Profit (<?php echo $year; ?>)</h5>
+                                        <h2 id="totalGrossProfitDisplay">Loading...</h2>
+                                    </div>
+                                </div>
+
+                                <div class="stat-card">
+                                    <div class="stat-icon icon-green">
+                                        <i class="fas fa-arrow-up"></i>
+                                    </div>
+                                    <div class="stat-info">
+                                        <h5>Highest Month</h5>
+                                        <h2 id="highestMonthDisplay">Loading...</h2>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="table-responsive">
 
                                 <table class="table table-bordered" id="sales-report-table">
@@ -122,8 +149,18 @@ function sortTable() {
 
                                             <th scope="col">Accounts</th>
                                             <th scope="col">
-                                                <select id="year-select" onchange="updateYear()">
-                                                    <option value="2023">2023</option>
+                                            <th scope="col" style="min-width: 150px;">
+                                                <select id="year-select" onchange="updateYear()" class="form-select"
+                                                    style="width:auto; display:inline-block; font-weight: bold;">
+                                                    <option value="2023" <?php if ($year == "2023")
+                                                        echo "selected"; ?>>
+                                                        2023</option>
+                                                    <option value="2024" <?php if ($year == "2024")
+                                                        echo "selected"; ?>>
+                                                        2024</option>
+                                                    <option value="2025" <?php if ($year == "2025")
+                                                        echo "selected"; ?>>
+                                                        2025</option>
                                                 </select>
                                             </th>
                                             <th scope="col">Jan</th>
@@ -159,11 +196,12 @@ function sortTable() {
                                         </tr>
 
                                         <?php
-                                        $year = "2023"; // replace this with your variable or user's input
 
+                                        // $year is defined at the top of the file
+                                        
                                         $netSales = array_fill(1, 12, 0); // initialize an array to hold sales for each month
                                         $totalNetSales = 0; // initialize a variable to hold total net sales
-
+                                        
                                         $salesTypes = ['LOCAL' => 'Bale Local Sales', 'EXPORT' => 'Bale Export Sales'];
                                         foreach ($salesTypes as $type => $label) {
                                             $sales = mysqli_query($con, "SELECT 
@@ -193,15 +231,15 @@ function sortTable() {
                                             while ($row = mysqli_fetch_array($sales)) {
                                                 echo '<tr>';
                                                 echo '<td >&emsp;' . $label . '</td>';
-                                                echo '<td style="text-align: right;"><b>' . number_format((float)$row['total'], 0, '.', ',') . ' </b></td>';
+                                                echo '<td class="text-end fw-bold">' . number_format((float) $row['total'], 0, '.', ',') . ' </td>';
                                                 for ($i = 1; $i <= 12; $i++) {
                                                     $month = date("M", mktime(0, 0, 0, $i, 10)); // get the three-letter month name
                                                     $month = ($month === 'Dec') ? 'Decem' : $month; // use 'Dece' instead of 'Dec'
-                                                    $monthSales = isset($row[$month]) ? (float)$row[$month] : 0;
-                                                    echo '<td style="text-align: right;">' . ($monthSales != 0 ? ' ' . number_format($monthSales, 0, '.', ',') : '-') . '</td>';
+                                                    $monthSales = isset($row[$month]) ? (float) $row[$month] : 0;
+                                                    echo '<td class="text-end">' . ($monthSales != 0 ? ' ' . number_format($monthSales, 0, '.', ',') : '-') . '</td>';
                                                     $netSales[$i] += $monthSales; // add the sales to the corresponding month in net sales
                                                 }
-                                                $totalNetSales += (float)$row['total']; // add the total sales to the total net sales
+                                                $totalNetSales += (float) $row['total']; // add the total sales to the total net sales
                                                 echo '</tr>';
                                             }
                                         }
@@ -233,23 +271,23 @@ function sortTable() {
                                         while ($row = mysqli_fetch_array($reportNetSales)) {
                                             echo '<tr>';
                                             echo '<td >&emsp;Cuplump Sales</td>';
-                                            echo '<td style="text-align: right;"><b>' . number_format((float)$row['total'], 0, '.', ',') . ' </b></td>';
+                                            echo '<td class="text-end fw-bold">' . number_format((float) $row['total'], 0, '.', ',') . ' </td>';
                                             for ($i = 1; $i <= 12; $i++) {
                                                 $month = date("M", mktime(0, 0, 0, $i, 10)); // get the three-letter month name
                                                 $month = ($month === 'Dec') ? 'Decem' : $month; // use 'Dece' instead of 'Dec'
-                                                $monthSales = isset($row[$month]) ? (float)$row[$month] : 0;
-                                                echo '<td style="text-align: right;">' . ($monthSales != 0 ? ' ' . number_format($monthSales, 0, '.', ',') : '-') . '</td>';
+                                                $monthSales = isset($row[$month]) ? (float) $row[$month] : 0;
+                                                echo '<td class="text-end">' . ($monthSales != 0 ? ' ' . number_format($monthSales, 0, '.', ',') : '-') . '</td>';
                                                 $netSales[$i] += $monthSales; // add the sales to the corresponding month in net sales
                                             }
-                                            $totalNetSales += (float)$row['total']; // add the total sales to the total net sales
+                                            $totalNetSales += (float) $row['total']; // add the total sales to the total net sales
                                             echo '</tr>';
                                         }
 
-                                        echo '<tr style="background-color: rgb(210, 252, 225);">';
-                                        echo '<td scope="row"><b>Net Sales </b></td>';
-                                        echo '<td style="text-align: right;"><b>' . number_format($totalNetSales, 0, '.', ',') . ' </b></td>';
+                                        echo '<tr class="table-success">';
+                                        echo '<td scope="row" class="fw-bold">Net Sales </td>';
+                                        echo '<td class="text-end fw-bold">' . number_format($totalNetSales, 0, '.', ',') . ' </td>';
                                         for ($i = 1; $i <= 12; $i++) {
-                                            echo '<td style="text-align: right;"><b>' . ($netSales[$i] != 0 ? ' ' . number_format($netSales[$i], 0, '.', ',') : '-') . ' </b></td>';
+                                            echo '<td class="text-end fw-bold">' . ($netSales[$i] != 0 ? ' ' . number_format($netSales[$i], 0, '.', ',') : '-') . ' </td>';
                                         }
                                         echo '</tr>';
                                         ?>
@@ -304,15 +342,15 @@ function sortTable() {
                                             while ($row = mysqli_fetch_array($cogsQuery)) {
                                                 echo '<tr>';
                                                 echo '<td >&emsp;' . $label . '</td>';
-                                                echo '<td style="text-align: right;"><b>' . number_format((float)$row['total'], 0, '.', ',') . ' </b></td>';
+                                                echo '<td class="text-end fw-bold">' . number_format((float) $row['total'], 0, '.', ',') . ' </td>';
                                                 for ($i = 1; $i <= 12; $i++) {
                                                     $month = date("M", mktime(0, 0, 0, $i, 10)); // get the three-letter month name
                                                     $month = ($month === 'Dec') ? 'Decem' : $month; // use 'Decem' instead of 'Dec'
-                                                    $monthCogs = isset($row[$month]) ? (float)$row[$month] : 0;
-                                                    echo '<td style="text-align: right;">' . ($monthCogs != 0 ? ' ' . number_format($monthCogs, 0, '.', ',') : '-') . '</td>';
+                                                    $monthCogs = isset($row[$month]) ? (float) $row[$month] : 0;
+                                                    echo '<td class="text-end">' . ($monthCogs != 0 ? ' ' . number_format($monthCogs, 0, '.', ',') : '-') . '</td>';
                                                     $cogs[$i] += $monthCogs; // add the COGS to the corresponding month
                                                 }
-                                                $totalCogs += (float)$row['total']; // add the total COGS to the total
+                                                $totalCogs += (float) $row['total']; // add the total COGS to the total
                                                 echo '</tr>';
                                             }
                                         }
@@ -346,24 +384,24 @@ function sortTable() {
                                         while ($row = mysqli_fetch_array($cuplumpCogs)) {
                                             echo '<tr>';
                                             echo '<td >&emsp;Cuplump COGS</td>';
-                                            echo '<td style="text-align: right;"><b>' . number_format((float)$row['total'], 0, '.', ',') . ' </b></td>';
+                                            echo '<td class="text-end fw-bold">' . number_format((float) $row['total'], 0, '.', ',') . ' </td>';
                                             for ($i = 1; $i <= 12; $i++) {
                                                 $month = date("M", mktime(0, 0, 0, $i, 10)); // get the three-letter month name
                                                 $month = ($month === 'Dec') ? 'Decem' : $month; // use 'Dece' instead of 'Dec'
-                                                $monthSales = isset($row[$month]) ? (float)$row[$month] : 0;
-                                                echo '<td style="text-align: right;">' . ($monthSales != 0 ? ' ' . number_format($monthSales, 0, '.', ',') : '-') . '</td>';
+                                                $monthSales = isset($row[$month]) ? (float) $row[$month] : 0;
+                                                echo '<td class="text-end">' . ($monthSales != 0 ? ' ' . number_format($monthSales, 0, '.', ',') : '-') . '</td>';
                                                 $cogs[$i] += $monthSales; // add the sales to the corresponding month in net sales
                                             }
-                                            $totalCogs += (float)$row['total']; // add the total sales to the total net sales
+                                            $totalCogs += (float) $row['total']; // add the total sales to the total net sales
                                             echo '</tr>';
                                         }
 
                                         // TOTALCOGS 
-                                        echo '<tr style="background-color: rgb(252, 210, 210);">';
-                                        echo '<td scope="row"><b>Total COGS </b></td>';
-                                        echo '<td style="text-align: right;"><b>' . number_format($totalCogs, 0, '.', ',') . ' </b></td>';
+                                        echo '<tr class="table-danger">';
+                                        echo '<td scope="row" class="fw-bold">Total COGS </td>';
+                                        echo '<td class="text-end fw-bold">' . number_format($totalCogs, 0, '.', ',') . ' </td>';
                                         for ($i = 1; $i <= 12; $i++) {
-                                            echo '<td style="text-align: right;"><b>' . ($cogs[$i] != 0 ? ' ' . number_format($cogs[$i], 0, '.', ',') : '-') . ' </b></td>';
+                                            echo '<td class="text-end fw-bold">' . ($cogs[$i] != 0 ? ' ' . number_format($cogs[$i], 0, '.', ',') : '-') . ' </td>';
                                         }
                                         echo '</tr>';
 
@@ -395,16 +433,16 @@ function sortTable() {
                                             ");
 
                                         while ($row = mysqli_fetch_array($millingCost)) {
-                                            echo '<tr style="background-color: rgb(252, 210, 210);">';
-                                            echo '<td scope="row"><b>Milling Cost </b></td>';
-                                            echo '<td style="text-align: right;"><b>' . number_format((float)$row['total'], 0, '.', ',') . ' </b></td>';
+                                            echo '<tr class="table-danger">';
+                                            echo '<td class="fw-bold">Milling Cost </td>';
+                                            echo '<td class="text-end fw-bold">' . number_format((float) $row['total'], 0, '.', ',') . ' </td>';
                                             for ($i = 1; $i <= 12; $i++) {
                                                 $month = date("M", mktime(0, 0, 0, $i, 10)); // get the three-letter month name
                                                 $month = ($month === 'Dec') ? 'Decem' : $month; // use 'Decem' instead of 'Dec'
-                                                $monthMillingValue = isset($row[$month]) ? (float)$row[$month] : 0;
+                                                $monthMillingValue = isset($row[$month]) ? (float) $row[$month] : 0;
                                                 $totalMillingCost += $monthMillingValue; // Add the monthly cost to the total
                                                 $monthMilling[$i] = $monthMillingValue; // Correctly update the value inside the array
-                                                echo '<td style="text-align: right;font-weight:bold;">' . ($monthMillingValue != 0 ? ' ' . number_format($monthMillingValue, 0, '.', ',') : '-') . '</td>';
+                                                echo '<td class="text-end fw-bold">' . ($monthMillingValue != 0 ? ' ' . number_format($monthMillingValue, 0, '.', ',') : '-') . '</td>';
                                             }
                                             echo '</tr>';
                                         }
@@ -457,12 +495,12 @@ function sortTable() {
                                         while ($row = mysqli_fetch_array($freightExpense)) {
                                             echo '<tr>';
                                             echo '<td >&emsp; Freight  (All In)</td>';
-                                            echo '<td style="text-align: right;"><b>' . number_format((float)$row['total'], 0, '.', ',') . ' </b></td>';
+                                            echo '<td class="text-end fw-bold">' . number_format((float) $row['total'], 0, '.', ',') . ' </td>';
                                             for ($i = 1; $i <= 12; $i++) {
                                                 $month = date("M", mktime(0, 0, 0, $i, 10)); // get the three-letter month name
                                                 $month = ($month === 'Dec') ? 'Decem' : $month; // use 'Dece' instead of 'Dec'
-                                                $monthFreight = isset($row[$month]) ? (float)$row[$month] : 0;
-                                                echo '<td style="text-align: right;">' . ($monthFreight != 0 ? ' ' . number_format($monthFreight, 0, '.', ',') : '-') . '</td>';
+                                                $monthFreight = isset($row[$month]) ? (float) $row[$month] : 0;
+                                                echo '<td class="text-end">' . ($monthFreight != 0 ? ' ' . number_format($monthFreight, 0, '.', ',') : '-') . '</td>';
                                             }
                                             echo '</tr>';
                                         }
@@ -499,12 +537,12 @@ function sortTable() {
                                         while ($row = mysqli_fetch_array($shippingLoading)) {
                                             echo '<tr>';
                                             echo '<td >&emsp; Loading & Unloading	</td>';
-                                            echo '<td style="text-align: right;"><b>' . number_format((float)$row['total'], 0, '.', ',') . ' </b></td>';
+                                            echo '<td class="text-end fw-bold">' . number_format((float) $row['total'], 0, '.', ',') . ' </td>';
                                             for ($i = 1; $i <= 12; $i++) {
                                                 $month = date("M", mktime(0, 0, 0, $i, 10)); // get the three-letter month name
-                                                $month = ($month === 'Dec') ? 'Decem' : $month; // use 'Dece' instead of 'Dec'
-                                                $monthLoading = isset($row[$month]) ? (float)$row[$month] : 0;
-                                                echo '<td style="text-align: right;">' . ($monthLoading != 0 ? ' ' . number_format($monthLoading, 0, '.', ',') : '-') . '</td>';
+                                                $month = ($month === 'Dec') ? 'Decem' : $month; // use 'Decem' instead of 'Dec'
+                                                $monthLoading = isset($row[$month]) ? (float) $row[$month] : 0;
+                                                echo '<td class="text-end">' . ($monthLoading != 0 ? ' ' . number_format($monthLoading, 0, '.', ',') : '-') . '</td>';
                                             }
                                             echo '</tr>';
                                         }
@@ -542,12 +580,12 @@ function sortTable() {
                                         while ($row = mysqli_fetch_array($shippingProcessing)) {
                                             echo '<tr>';
                                             echo '<td >&emsp; Processing Fee (Phytosanitary)	</td>';
-                                            echo '<td style="text-align: right;"><b>' . number_format((float)$row['total'], 0, '.', ',') . ' </b></td>';
+                                            echo '<td class="text-end fw-bold">' . number_format((float) $row['total'], 0, '.', ',') . ' </td>';
                                             for ($i = 1; $i <= 12; $i++) {
                                                 $month = date("M", mktime(0, 0, 0, $i, 10)); // get the three-letter month name
-                                                $month = ($month === 'Dec') ? 'Decem' : $month; // use 'Dece' instead of 'Dec'
-                                                $monthProcess = isset($row[$month]) ? (float)$row[$month] : 0;
-                                                echo '<td style="text-align: right;">' . ($monthProcess != 0 ? ' ' . number_format($monthProcess, 0, '.', ',') : '-') . '</td>';
+                                                $month = ($month === 'Dec') ? 'Decem' : $month; // use 'Decem' instead of 'Dec'
+                                                $monthProcess = isset($row[$month]) ? (float) $row[$month] : 0;
+                                                echo '<td class="text-end">' . ($monthProcess != 0 ? ' ' . number_format($monthProcess, 0, '.', ',') : '-') . '</td>';
                                             }
                                             echo '</tr>';
                                         }
@@ -585,12 +623,12 @@ function sortTable() {
                                         while ($row = mysqli_fetch_array($shippingTrucking)) {
                                             echo '<tr>';
                                             echo '<td >&emsp; Trucking Expense	</td>';
-                                            echo '<td style="text-align: right;"><b>' . number_format((float)$row['total'], 0, '.', ',') . ' </b></td>';
+                                            echo '<td class="text-end fw-bold">' . number_format((float) $row['total'], 0, '.', ',') . ' </td>';
                                             for ($i = 1; $i <= 12; $i++) {
                                                 $month = date("M", mktime(0, 0, 0, $i, 10)); // get the three-letter month name
-                                                $month = ($month === 'Dec') ? 'Decem' : $month; // use 'Dece' instead of 'Dec'
-                                                $monthSales = isset($row[$month]) ? (float)$row[$month] : 0;
-                                                echo '<td style="text-align: right;">' . ($monthSales != 0 ? ' ' . number_format($monthSales, 0, '.', ',') : '-') . '</td>';
+                                                $month = ($month === 'Dec') ? 'Decem' : $month; // use 'Decem' instead of 'Dec'
+                                                $monthSales = isset($row[$month]) ? (float) $row[$month] : 0;
+                                                echo '<td class="text-end">' . ($monthSales != 0 ? ' ' . number_format($monthSales, 0, '.', ',') : '-') . '</td>';
                                             }
                                             echo '</tr>';
                                         }
@@ -629,12 +667,12 @@ function sortTable() {
                                         while ($row = mysqli_fetch_array($shippingCranage)) {
                                             echo '<tr>';
                                             echo '<td >&emsp; Cranage Fee	</td>';
-                                            echo '<td style="text-align: right;"><b>' . number_format((float)$row['total'], 0, '.', ',') . ' </b></td>';
+                                            echo '<td class="text-end fw-bold">' . number_format((float) $row['total'], 0, '.', ',') . ' </td>';
                                             for ($i = 1; $i <= 12; $i++) {
                                                 $month = date("M", mktime(0, 0, 0, $i, 10)); // get the three-letter month name
-                                                $month = ($month === 'Dec') ? 'Decem' : $month; // use 'Dece' instead of 'Dec'
-                                                $monthSales = isset($row[$month]) ? (float)$row[$month] : 0;
-                                                echo '<td style="text-align: right;">' . ($monthSales != 0 ? ' ' . number_format($monthSales, 0, '.', ',') : '-') . '</td>';
+                                                $month = ($month === 'Dec') ? 'Decem' : $month; // use 'Decem' instead of 'Dec'
+                                                $monthSales = isset($row[$month]) ? (float) $row[$month] : 0;
+                                                echo '<td class="text-end">' . ($monthSales != 0 ? ' ' . number_format($monthSales, 0, '.', ',') : '-') . '</td>';
                                             }
                                             echo '</tr>';
                                         }
@@ -672,13 +710,13 @@ function sortTable() {
 
                                         while ($row = mysqli_fetch_array($query_miscellaneous)) {
                                             echo '<tr>';
-                                            echo '<td >&emsp;<b>Miscellaneous</b></td>';
-                                            echo '<td style="text-align: right;"><b>' . number_format((float)$row['total'], 0, '.', ',') . ' </b></td>';
+                                            echo '<td >&emsp;<span class="fw-bold">Miscellaneous</span></td>';
+                                            echo '<td class="text-end fw-bold">' . number_format((float) $row['total'], 0, '.', ',') . ' </td>';
                                             for ($i = 1; $i <= 12; $i++) {
                                                 $monthMiscName = date("M", mktime(0, 0, 0, $i, 10)); // get the three-letter month name
                                                 $monthMiscName = ($monthMiscName === 'Dec') ? 'Decem' : $monthMiscName; // use 'Decem' instead of 'Dec'
-                                                $monthMiscValue = isset($row[$monthMiscName]) ? (float)$row[$monthMiscName] : 0;
-                                                echo '<td style="text-align: right;">' . ($monthMiscValue != 0 ? ' ' . number_format($monthMiscValue, 0, '.', ',') : '-') . '</td>';
+                                                $monthMiscValue = isset($row[$monthMiscName]) ? (float) $row[$monthMiscName] : 0;
+                                                echo '<td class="text-end">' . ($monthMiscValue != 0 ? ' ' . number_format($monthMiscValue, 0, '.', ',') : '-') . '</td>';
                                             }
                                             echo '</tr>';
                                         }
@@ -715,16 +753,16 @@ function sortTable() {
                                           ");
 
                                         while ($row = mysqli_fetch_array($shippingTotalExpense)) {
-                                            echo '<tr style="background-color: rgb(252, 210, 210);">';
-                                            echo '<td ><b> Total Shipping Expense </b></td>';
-                                            echo '<td style="text-align: right;"><b>' . number_format((float)$row['total'], 0, '.', ',') . ' </b></td>';
+                                            echo '<tr class="table-secondary">';
+                                            echo '<td class="fw-bold"> Total Shipping Expense </td>';
+                                            echo '<td class="text-end fw-bold">' . number_format((float) $row['total'], 0, '.', ',') . ' </td>';
                                             for ($i = 1; $i <= 12; $i++) {
                                                 $monthShip = date("M", mktime(0, 0, 0, $i, 10)); // get the three-letter month name
                                                 $monthShip = ($monthShip === 'Dec') ? 'Decem' : $monthShip; // use 'Decem' instead of 'Dec'
-                                                $monthTotalShipValue = isset($row[$monthShip]) ? (float)$row[$monthShip] : 0;
+                                                $monthTotalShipValue = isset($row[$monthShip]) ? (float) $row[$monthShip] : 0;
                                                 $monthTotalShip[$i] = $monthTotalShipValue; // Store the monthly value
                                                 $total_shipping += $monthTotalShipValue; // add the monthly value to the total shipping expense
-                                                echo '<td style="text-align: right;font-weight:bold;">' . ($monthTotalShipValue != 0 ? ' ' . number_format($monthTotalShipValue, 0, '.', ',') : '-') . '</td>'; // changed from $monthSales to $monthTotalShip
+                                                echo '<td class="text-end fw-bold">' . ($monthTotalShipValue != 0 ? ' ' . number_format($monthTotalShipValue, 0, '.', ',') : '-') . '</td>'; // changed from $monthSales to $monthTotalShip
                                             }
                                             echo '</tr>';
                                         }
@@ -732,8 +770,8 @@ function sortTable() {
 
                                         // Gross Profit Sales
                                         $totalGrossProfitSales = 0;
-                                        echo '<tr style="background-color: rgb(252, 252, 210);">';
-                                        echo '<td scope="row"><b>Gross Profit Sales </b></td>';
+                                        echo '<tr class="table-warning">';
+                                        echo '<td scope="row" class="fw-bold">Gross Profit Sales </td>';
 
 
                                         echo "<script type='text/javascript'>
@@ -745,15 +783,15 @@ function sortTable() {
                                       </script>";
 
                                         $totalGrossProfitSales = $totalNetSales - $totalCogs - $totalMillingCost - $total_shipping; // Add monthly value to the total
-
+                                        
                                         // Print total in the second column
-                                        echo '<td style="text-align: right;"><b>' . number_format($totalGrossProfitSales, 0, '.', ',') . ' </b></td>';
+                                        echo '<td class="text-end fw-bold">' . number_format($totalGrossProfitSales, 0, '.', ',') . ' </td>';
 
                                         for ($i = 1; $i <= 12; $i++) {
-                                            $netSalesValue = isset($netSales[$i]) ? (float)$netSales[$i] : 0;
-                                            $cogsValue = isset($cogs[$i]) ? (float)$cogs[$i] : 0;
-                                            $monthMillingValue = isset($monthMilling[$i]) ? (float)$monthMilling[$i] : 0;
-                                            $monthShippingValue = isset($monthTotalShip[$i]) ? (float)$monthTotalShip[$i] : 0;
+                                            $netSalesValue = isset($netSales[$i]) ? (float) $netSales[$i] : 0;
+                                            $cogsValue = isset($cogs[$i]) ? (float) $cogs[$i] : 0;
+                                            $monthMillingValue = isset($monthMilling[$i]) ? (float) $monthMilling[$i] : 0;
+                                            $monthShippingValue = isset($monthTotalShip[$i]) ? (float) $monthTotalShip[$i] : 0;
                                             $monthlyGrossProfit = $netSalesValue - $cogsValue - $monthMillingValue - $monthShippingValue;
 
                                             echo "<script type='text/javascript'>
@@ -765,7 +803,7 @@ function sortTable() {
                                                 console.log('Gross Profit: " . $monthlyGrossProfit . "');
                                               </script>";
 
-                                            echo '<td style="text-align: right;"><b>' . ($monthlyGrossProfit != 0 ? ' ' . number_format($monthlyGrossProfit, 0, '.', ',') : '-') . ' </b></td>';
+                                            echo '<td class="text-end fw-bold">' . ($monthlyGrossProfit != 0 ? ' ' . number_format($monthlyGrossProfit, 0, '.', ',') : '-') . ' </td>';
                                         }
                                         echo '</tr>';
                                         ?>
@@ -774,26 +812,222 @@ function sortTable() {
                                 </table>
                             </div>
 
+                            <!-- New Charts Section -->
+                            <div class="row mt-4">
+                                <div class="col-md-6 mb-3">
+                                    <div class="stat-card is-column h-100">
+                                        <div class="inv-header">
+                                            <div class="inv-title">Monthly Financial Trend</div>
+                                            <div class="inv-icon" style="background: #e6f7ff; color: #0091ff;"><i
+                                                    class="fas fa-chart-line"></i></div>
+                                        </div>
+                                        <div class="card-body" style="height: 300px; position: relative;">
+                                            <canvas id="salesProfitTrendChart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="stat-card is-column h-100">
+                                        <div class="inv-header">
+                                            <div class="inv-title">Annual Cost & Profit Distribution</div>
+                                            <div class="inv-icon" style="background: #fff7e6; color: #fa8c16;"><i
+                                                    class="fas fa-chart-pie"></i></div>
+                                        </div>
+                                        <div class="card-body" style="height: 300px; position: relative;">
+                                            <canvas id="costDistributionChart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <script>
-                            var table = $('#sales_rec_table').DataTable({
-                                dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
-                                order: [
-                                    [1, 'desc']
-                                ],
-                                buttons: [
-                                    'excelHtml5',
-                                    'pdfHtml5',
-                                    'print'
-                                ],
-                                columnDefs: [{
-                                    orderable: false,
-                                    targets: -1
-                                }],
-                                lengthChange: false,
-                                orderCellsTop: true,
-                                paging: false,
-                                info: false,
-                            });
+                                document.addEventListener("DOMContentLoaded", function () {
+                                    // Update top cards with PHP calculated values after page load
+                                    let totalNetSales = '<?php echo number_format($totalNetSales, 0); ?>';
+                                    let totalGrossProfit = '<?php echo number_format($totalGrossProfitSales, 0); ?>';
+
+                                    // Calculate highest month
+                                    let monthlyProfits = {};
+                                    <?php
+                                    for ($i = 1; $i <= 12; $i++) {
+                                        $netSalesValue = isset($netSales[$i]) ? (float) $netSales[$i] : 0;
+                                        $cogsValue = isset($cogs[$i]) ? (float) $cogs[$i] : 0;
+                                        $monthMillingValue = isset($monthMilling[$i]) ? (float) $monthMilling[$i] : 0;
+                                        $monthShippingValue = isset($monthTotalShip[$i]) ? (float) $monthTotalShip[$i] : 0;
+                                        $monthlyGrossProfit = $netSalesValue - $cogsValue - $monthMillingValue - $monthShippingValue;
+                                        echo "monthlyProfits[$i] = $monthlyGrossProfit;\n";
+                                    }
+                                    ?>
+
+                                    let maxProfit = -Infinity;
+                                    let maxMonth = 0;
+                                    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+                                    for (let i = 1; i <= 12; i++) {
+                                        if (monthlyProfits[i] > maxProfit) {
+                                            maxProfit = monthlyProfits[i];
+                                            maxMonth = i;
+                                        }
+                                    }
+
+                                    document.getElementById('totalNetSalesDisplay').innerText = '₱' + totalNetSales;
+                                    document.getElementById('totalGrossProfitDisplay').innerText = '₱' + totalGrossProfit;
+                                    document.getElementById('highestMonthDisplay').innerText = monthNames[maxMonth - 1] + ' (₱' + new Intl.NumberFormat().format(maxProfit) + ')';
+
+                                    // --- Chart 1: Sales vs Profit Trend ---
+                                    const ctxTrend = document.getElementById('salesProfitTrendChart').getContext('2d');
+
+                                    let labels = monthNames;
+                                    let netSalesData = [];
+                                    let grossProfitData = [];
+
+                                    <?php
+                                    for ($i = 1; $i <= 12; $i++) {
+                                        $ns = isset($netSales[$i]) ? (float) $netSales[$i] : 0;
+
+                                        $cogsVal = isset($cogs[$i]) ? (float) $cogs[$i] : 0;
+                                        $millingVal = isset($monthMilling[$i]) ? (float) $monthMilling[$i] : 0;
+                                        $shippingVal = isset($monthTotalShip[$i]) ? (float) $monthTotalShip[$i] : 0;
+
+                                        $totalMonthlyCost = $cogsVal + $millingVal + $shippingVal;
+                                        $profitVal = $ns - $totalMonthlyCost;
+
+                                        echo "netSalesData.push($ns);\n";
+                                        echo "grossProfitData.push($profitVal);\n";
+                                    }
+                                    ?>
+
+                                    new Chart(ctxTrend, {
+                                        type: 'bar',
+                                        data: {
+                                            labels: labels,
+                                            datasets: [
+                                                {
+                                                    label: 'Net Sales',
+                                                    data: netSalesData,
+                                                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                                                    borderColor: 'rgba(54, 162, 235, 1)',
+                                                    borderWidth: 1,
+                                                    order: 2
+                                                },
+                                                {
+                                                    type: 'line',
+                                                    label: 'Gross Profit',
+                                                    data: grossProfitData,
+                                                    borderColor: 'rgba(75, 192, 192, 1)',
+                                                    backgroundColor: 'rgba(75, 192, 192, 0.1)',
+                                                    borderWidth: 2,
+                                                    tension: 0.3,
+                                                    fill: false,
+                                                    order: 1
+                                                }
+                                            ]
+                                        },
+                                        options: {
+                                            responsive: true,
+                                            maintainAspectRatio: false,
+                                            plugins: {
+                                                legend: {
+                                                    position: 'top',
+                                                },
+                                                tooltip: {
+                                                    callbacks: {
+                                                        label: function (context) {
+                                                            let label = context.dataset.label || '';
+                                                            if (label) {
+                                                                label += ': ';
+                                                            }
+                                                            if (context.parsed.y !== null) {
+                                                                label += new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP' }).format(context.parsed.y);
+                                                            }
+                                                            return label;
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            scales: {
+                                                y: {
+                                                    beginAtZero: true,
+                                                    ticks: {
+                                                        callback: function (value) {
+                                                            return '₱' + value.toLocaleString();
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    });
+
+                                    // --- Chart 2: Annual Cost Distribution ---
+                                    const ctxCost = document.getElementById('costDistributionChart').getContext('2d');
+
+                                    // Calculate totals from PHP variables
+                                    let annualCogs = <?php echo $totalCogs; ?>;
+                                    let annualMilling = <?php echo $totalMillingCost; ?>;
+                                    let annualShipping = <?php echo $total_shipping; ?>;
+                                    let annualProfit = <?php echo $totalGrossProfitSales; ?>;
+
+                                    new Chart(ctxCost, {
+                                        type: 'doughnut',
+                                        data: {
+                                            labels: ['COGS', 'Milling Cost', 'Shipping Expense', 'Gross Profit'],
+                                            datasets: [{
+                                                data: [annualCogs, annualMilling, annualShipping, annualProfit],
+                                                backgroundColor: [
+                                                    '#ff6b6b', // COGS (Red)
+                                                    '#feca57', // Milling (Yellow/Orange)
+                                                    '#54a0ff', // Shipping (Blue)
+                                                    '#1dd1a1'  // Profit (Green)
+                                                ],
+                                                borderWidth: 1
+                                            }]
+                                        },
+                                        options: {
+                                            responsive: true,
+                                            maintainAspectRatio: false,
+                                            plugins: {
+                                                legend: {
+                                                    position: 'right',
+                                                },
+                                                tooltip: {
+                                                    callbacks: {
+                                                        label: function (context) {
+                                                            let label = context.label || '';
+                                                            if (label) {
+                                                                label += ': ';
+                                                            }
+                                                            let value = context.raw;
+                                                            let total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                                            let percentage = ((value / total) * 100).toFixed(1) + "%";
+                                                            return label + new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP' }).format(value) + ' (' + percentage + ')';
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    });
+
+                                });
+
+                                var table = $('#sales_rec_table').DataTable({
+                                    dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
+                                    order: [
+                                        [1, 'desc']
+                                    ],
+                                    buttons: [
+                                        'excelHtml5',
+                                        'pdfHtml5',
+                                        'print'
+                                    ],
+                                    columnDefs: [{
+                                        orderable: false,
+                                        targets: -1
+                                    }],
+                                    lengthChange: false,
+                                    orderCellsTop: true,
+                                    paging: false,
+                                    info: false,
+                                });
                             </script>
 
                         </div>

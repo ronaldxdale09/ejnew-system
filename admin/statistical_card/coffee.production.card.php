@@ -30,54 +30,46 @@ $avg_recovery = mysqli_fetch_array($sql);
 
 ?>
 
-<div class="row">
 
+<div class="d-flex flex-column gap-3">
     <!-- Total Coffee Production Quantity -->
-    <div class="col">
-        <div class="stat-card">
-            <div class="stat-card__content">
-                <p class="text-uppercase mb-1 text-muted"><b>TOTAL COFFEE</b> PRODUCTION</p>
-                <h5><?php echo number_format($total_qty['total_qty'], 0) ?></h5>
+    <div class="p-3 border rounded bg-white">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <div class="text-muted small text-uppercase">Total Production</div>
+                <div class="h4 fw-bold mb-0 text-dark"><?php echo number_format($total_qty['total_qty'], 0); ?></div>
             </div>
-            <div class="stat-card__icon stat-card__icon--primary">
-                <div class="stat-card__icon-circle">
-                    <i class="fa fa-coffee"></i>
-                </div>
+            <div class="text-primary fs-2 opacity-25">
+                <i class="fa fa-coffee"></i>
             </div>
         </div>
     </div>
 
     <!-- Recent Production Record -->
-    <div class="col">
-        <div class="stat-card">
-            <div class="stat-card__content">
-                <p class="text-uppercase mb-1 text-muted"><b>RECENT RECORD</b> CODE</p>
-                <h5><?php echo $recent_record['production_code'] ?></h5>
-                <span class="text-muted">Date: <?php echo $recent_record['prod_date'] ?></span>
+    <div class="p-3 border rounded bg-white">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <div class="text-muted small text-uppercase">Recent Batch</div>
+                <div class="h5 fw-bold mb-0 text-dark"><?php echo $recent_record['production_code']; ?></div>
+                <div class="small text-muted mt-1"><?php echo $recent_record['prod_date']; ?></div>
             </div>
-            <div class="stat-card__icon stat-card__icon--success">
-                <div class="stat-card__icon-circle">
-                    <i class="fa fa-history"></i>
-                </div>
+            <div class="text-success fs-2 opacity-25">
+                <i class="fa fa-history"></i>
             </div>
         </div>
     </div>
 
     <!-- Total Active Production Records -->
-    <div class="col">
-        <div class="stat-card">
-            <div class="stat-card__content">
-                <p class="text-uppercase mb-1 text-muted"><b>TOTAL ACTIVE</b> RECORDS</p>
-                <h5><?php echo number_format($active_records['active_records'], 0) ?></h5>
+    <div class="p-3 border rounded bg-white">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <div class="text-muted small text-uppercase">Active Batches</div>
+                <div class="h4 fw-bold mb-0 text-info">
+                    <?php echo number_format($active_records['active_records'], 0); ?></div>
             </div>
-            <div class="stat-card__icon stat-card__icon--info">
-                <div class="stat-card__icon-circle">
-                    <i class="fa fa-list"></i>
-                </div>
+            <div class="text-info fs-2 opacity-25">
+                <i class="fa fa-list"></i>
             </div>
         </div>
     </div>
-
- 
-
 </div>

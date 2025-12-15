@@ -1,6 +1,9 @@
 <?php
 
-$loc = str_replace(' ', '', $_SESSION['loc']);
+$loc = str_replace(' ', '', $_SESSION['loc'] ?? '');
+// Ensure we don't run queries with empty location if sensitive
+if (empty($loc))
+    $loc = 'Unknown';
 $current_year = date('Y');
 $previous_year = $current_year - 1;
 
@@ -40,7 +43,8 @@ $largest_expense = mysqli_fetch_array($sql)['max'];
         max-width: 25%;
         padding-right: 15px;
         padding-left: 15px;
-        display: flex; /* Added flex display */
+        display: flex;
+        /* Added flex display */
     }
 
     .stat-card {
@@ -52,9 +56,12 @@ $largest_expense = mysqli_fetch_array($sql)['max'];
         justify-content: space-between;
         padding: 20px;
         margin: 10px 5px;
-        width: 100%; /* Ensures card stretches to full width of its container */
-        flex-direction: row; /* Aligns items in a row */
+        width: 100%;
+        /* Ensures card stretches to full width of its container */
+        flex-direction: row;
+        /* Aligns items in a row */
     }
+
     .stat-card__icon {
         font-size: 24px;
         color: #333;
@@ -110,24 +117,25 @@ $largest_expense = mysqli_fetch_array($sql)['max'];
                 <i class="fa fa-map-marker-alt"></i>
             </div>
         </div>
-  
+
     </div>
 
 
 
- <!-- Most Frequent Expense Type This Year -->
-<div class="col-md-3">
-    <div class="stat-card">
-        <div class="stat-card__content">
-            <h6>Most Frequent Expense</h6>
-            <p><?php echo $most_frequent_expense['type_expense']; ?> (<?php echo $most_frequent_expense['count']; ?> times)</p>
-            <small>Total Amount: ₱<?php echo number_format($most_frequent_expense['total'], 2); ?></small>
-        </div>
-        <div class="stat-card__icon">
-            <i class="fa fa-clipboard-list"></i>
+    <!-- Most Frequent Expense Type This Year -->
+    <div class="col-md-3">
+        <div class="stat-card">
+            <div class="stat-card__content">
+                <h6>Most Frequent Expense</h6>
+                <p><?php echo $most_frequent_expense['type_expense']; ?> (<?php echo $most_frequent_expense['count']; ?>
+                    times)</p>
+                <small>Total Amount: ₱<?php echo number_format($most_frequent_expense['total'], 2); ?></small>
+            </div>
+            <div class="stat-card__icon">
+                <i class="fa fa-clipboard-list"></i>
+            </div>
         </div>
     </div>
-</div>
 
     <!-- Largest Expense This Year -->
     <div class="col-md-3">

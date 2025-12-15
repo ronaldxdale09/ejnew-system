@@ -1,12 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<style>
-    .logo {
-        width: 150px;
-        margin-bottom: 20px;
-
-    }
-</style>
 
 <head>
     <meta charset="utf-8">
@@ -50,18 +43,48 @@ try {
 //     exit(); // Make sure to exit after redirecting
 // } 
 ?>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="css/login.css">
 
 <body>
-    <div class="main">
-        <div style="text-align: center; padding: 20px;">
-            <img src="assets/img/icon.png" alt="Logo" class="logo">
+    <div class="login-wrapper">
+        <div class="login-card">
+            <div class="brand-header">
+                <div class="logo-container">
+                    <img src="assets/img/icon.png" alt="Logo" class="logo-img">
+                </div>
+                <h3>EJN Rubber System</h3>
+                <p class="subtitle">Secure Employee Access</p>
+            </div>
+
+            <form method='POST' action='function/login.php' class="login-form">
+                <div class="form-group">
+                    <label class="form-label">Username</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user input-icon"></i>
+                        <input class="form-input" type="text" name='username' placeholder="Enter your username"
+                            required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input class="form-input" type="password" name='password' placeholder="Enter your password"
+                            required>
+                    </div>
+                </div>
+
+                <button type='submit' class="btn-login">
+                    Sign In
+                </button>
+            </form>
+
+            <div class="login-footer">
+                &copy; <?php echo date("Y"); ?> AetherIO IT Solutions
+            </div>
         </div>
-        <form method='POST' action='function/login.php'>
-            <input class="un" type="text" name='username' placeholder="Username">
-            <input class="pass" type="password" name='password' placeholder="Password">
-            <button type='submit' class="submit">Login</button>
-        </form>
     </div>
 </body>
 

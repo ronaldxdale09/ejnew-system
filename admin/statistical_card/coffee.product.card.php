@@ -37,84 +37,51 @@ $total_value = mysqli_fetch_array($sql)['total_value'];
 
 ?>
 
-<div class="row">
 
+
+<div class="row g-3">
     <!-- Total Products -->
-    <div class="col-md-4">
-        <div class="stat-card">
-            <div class="stat-card__content">
-                <h6>Total Products</h6>
-                <p><?php echo number_format($total_products, 0) ?></p>
+    <div class="col-md-3">
+        <div class="p-3 border rounded bg-white h-100">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <div class="text-muted small text-uppercase">Total Products</div>
+                <div class="text-primary opacity-50"><i class="fas fa-box"></i></div>
             </div>
-            <div class="stat-card__icon">
-                <i class="fa fa-box"></i>
+            <div class="h4 fw-bold mb-0 text-dark"><?php echo number_format($total_products, 0); ?></div>
+        </div>
+    </div>
+    
+    <!-- Total Inventory -->
+    <div class="col-md-3">
+        <div class="p-3 border rounded bg-white h-100">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <div class="text-muted small text-uppercase">Total Stock</div>
+                <div class="text-info opacity-50"><i class="fas fa-warehouse"></i></div>
             </div>
+            <div class="h4 fw-bold mb-0 text-dark"><?php echo number_format($total_quantity, 0); ?> <span class="fs-6 text-muted fw-normal">pcs</span></div>
         </div>
     </div>
 
-    <!-- Total Inventory Quantity -->
-    <div class="col-md-4">
-        <div class="stat-card">
-            <div class="stat-card__content">
-                <h6>Total Inventory</h6>
-                <p><?php echo number_format($total_quantity, 0) ?> pcs</p>
+    <!-- Inventory Value -->
+    <div class="col-md-3">
+        <div class="p-3 border rounded bg-white h-100">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <div class="text-muted small text-uppercase">Inventory Value</div>
+                 <div class="text-success opacity-50"><i class="fas fa-coins"></i></div>
             </div>
-            <div class="stat-card__icon">
-                <i class="fa fa-warehouse"></i>
-            </div>
+            <div class="h4 fw-bold mb-0 text-success">₱<?php echo number_format($total_value, 2); ?></div>
         </div>
     </div>
 
-    <!-- Most Stocked Product -->
-    <div class="col-md-4">
-        <div class="stat-card">
-            <div class="stat-card__content">
-                <h6>Most Stocked</h6>
-                <p><?php echo $most_stocked['coffee_name'] ?> (<?php echo $most_stocked['quantity'] ?> pcs)</p>
+    <!-- Most Stocked -->
+    <div class="col-md-3">
+        <div class="p-3 border rounded bg-white h-100">
+             <div class="d-flex justify-content-between align-items-center mb-2">
+                <div class="text-muted small text-uppercase">Top Item</div>
+                 <div class="text-warning opacity-50"><i class="fas fa-trophy"></i></div>
             </div>
-            <div class="stat-card__icon">
-                <i class="fa fa-trophy"></i>
-            </div>
+            <div class="fw-bold text-dark text-truncate" title="<?php echo $most_stocked['coffee_name']; ?>"><?php echo $most_stocked['coffee_name']; ?></div>
+            <div class="small text-muted"><?php echo number_format($most_stocked['quantity'], 0); ?> pcs</div>
         </div>
     </div>
-
-    <!-- Least Stocked Product -->
-    <div class="col-md-4">
-        <div class="stat-card">
-            <div class="stat-card__content">
-                <h6>Least Stocked</h6>
-                <p><?php echo $least_stocked['coffee_name'] ?> (<?php echo $least_stocked['quantity'] ?> pcs)</p>
-            </div>
-            <div class="stat-card__icon">
-                <i class="fa fa-exclamation-circle"></i>
-            </div>
-        </div>
-    </div>
-
-    <!-- Highest Unit Price Product -->
-    <div class="col-md-4">
-        <div class="stat-card">
-            <div class="stat-card__content">
-                <h6>Highest Unit Price</h6>
-                <p><?php echo $highest_price['coffee_name'] ?> (₱<?php echo number_format($highest_price['unit_price'], 2) ?>)</p>
-            </div>
-            <div class="stat-card__icon">
-                <i class="fa fa-tag"></i>
-            </div>
-        </div>
-    </div>
-
-    <!-- Total Inventory Value -->
-    <div class="col-md-4">
-        <div class="stat-card">
-            <div class="stat-card__content">
-                <h6>Total Inventory Value</h6>
-                <p>₱<?php echo number_format($total_value, 2) ?></p>
-            </div>
-            <div class="stat-card__icon">
-                <i class="fa fa-coins"></i>
-            </div>
-        </div>
-    </div>
-
 </div>

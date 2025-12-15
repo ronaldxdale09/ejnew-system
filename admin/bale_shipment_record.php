@@ -103,10 +103,11 @@ include 'include/navbar.php';
                             <hr>
                             <div class="table-responsive">
                                 <?php
-                                $results = mysqli_query($con, "SELECT * FROM bale_shipment_record");
+                                $results = mysqli_query($con, "SELECT * FROM bale_shipment_record ORDER BY shipment_id DESC");
 
                                 ?>
-                                <table class="table table-bordered table-hover table-striped" id='recording_table-receiving'>
+                                <table class="table table-bordered table-hover table-striped"
+                                    id='recording_table-receiving'>
                                     <thead class="table-dark text-center" style="font-size: 14px !important">
                                         <tr>
                                             <th scope="col">Status</th>
@@ -138,7 +139,7 @@ include 'include/navbar.php';
                                                     break;
                                             }
 
-                                        ?>
+                                            ?>
                                             <tr>
                                                 <td> <span class="badge <?php echo $status_color; ?>">
                                                         <?php echo $row['status'] ?>
@@ -148,7 +149,8 @@ include 'include/navbar.php';
                                                 <td><?php echo $row['type']; ?></td>
                                                 <td><?php echo $row['source']; ?></td>
                                                 <td><?php echo $row['destination']; ?></td>
-                                                <td class="number-cell">₱<?php echo number_format($row['total_shipping_expense'], 2, '.', ','); ?>
+                                                <td class="number-cell">
+                                                    ₱<?php echo number_format($row['total_shipping_expense'], 2, '.', ','); ?>
                                                 </td>
                                                 <td class="text-center">
                                                     <?php echo $row['no_containers']; ?>
@@ -160,7 +162,20 @@ include 'include/navbar.php';
                                                     <?php echo number_format($row['total_bale_weight'], 0, '.', ','); ?> kg
                                                 </td>
                                                 <td>
-                                                    <button type="button" class="btn btn-success btn-sm btnViewRecord" data-status="<?php echo $row['status']; ?>" data-vessel="<?php echo $row['vessel']; ?>" data-bill_lading="<?php echo $row['bill_lading']; ?>" data-recorded="<?php echo $row['recorded_by']; ?>" data-freight="<?php echo $row['freight']; ?>" data-loading="<?php echo $row['loading_unloading']; ?>" data-processing="<?php echo $row['processing_fee']; ?>" data-trucking="<?php echo $row['trucking_expense']; ?>" data-cranage="<?php echo $row['cranage_fee']; ?>" data-misc="<?php echo $row['miscellaneous']; ?>" data-total_expense="<?php echo $row['total_shipping_expense']; ?>" data-num_containers="<?php echo $row['no_containers']; ?>" data-cost_per_container="<?php echo $row['ship_cost_container']; ?>">
+                                                    <button type="button" class="btn btn-success btn-sm btnViewRecord"
+                                                        data-status="<?php echo $row['status']; ?>"
+                                                        data-vessel="<?php echo $row['vessel']; ?>"
+                                                        data-bill_lading="<?php echo $row['bill_lading']; ?>"
+                                                        data-recorded="<?php echo $row['recorded_by']; ?>"
+                                                        data-freight="<?php echo $row['freight']; ?>"
+                                                        data-loading="<?php echo $row['loading_unloading']; ?>"
+                                                        data-processing="<?php echo $row['processing_fee']; ?>"
+                                                        data-trucking="<?php echo $row['trucking_expense']; ?>"
+                                                        data-cranage="<?php echo $row['cranage_fee']; ?>"
+                                                        data-misc="<?php echo $row['miscellaneous']; ?>"
+                                                        data-total_expense="<?php echo $row['total_shipping_expense']; ?>"
+                                                        data-num_containers="<?php echo $row['no_containers']; ?>"
+                                                        data-cost_per_container="<?php echo $row['ship_cost_container']; ?>">
                                                         <i class="fas fa-book"></i>
                                                     </button>
                                                 </td>
@@ -178,11 +193,11 @@ include 'include/navbar.php';
     </div>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             var table = $('#recording_table-receiving').DataTable({
                 dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
                 order: [
-                    [0, 'desc']
+                    [1, 'desc']
                 ],
                 buttons: [
                     'excelHtml5',
@@ -200,18 +215,18 @@ include 'include/navbar.php';
             });
 
             // Filter by Payee
-            $('#filterBuyer').on('change', function() {
+            $('#filterBuyer').on('change', function () {
                 table.column(2).search(this.value).draw(); // Assuming Payee is the 5th column
             });
             // Filter by Status
-            $('#filterStatus').on('change', function() {
+            $('#filterStatus').on('change', function () {
                 table.column(0).search(this.value).draw(); // Assuming Payee is the 5th column
             });
             // Filter by Month
-            $('#filterMonth').on('change', function() {
+            $('#filterMonth').on('change', function () {
                 var month = parseInt(this.value, 10);
                 $.fn.dataTable.ext.search.push(
-                    function(settings, data, dataIndex) {
+                    function (settings, data, dataIndex) {
                         var dateIssued = new Date(data[3]); // Assuming Date Issued is the 3rd column
                         return isNaN(month) || month === dateIssued.getMonth() + 1;
                     }
@@ -221,12 +236,12 @@ include 'include/navbar.php';
             });
 
             // Filter by Date Range
-            $('#startDate, #endDate').on('change', function() {
+            $('#startDate, #endDate').on('change', function () {
                 var startDate = $('#startDate').val() ? new Date($('#startDate').val()) : null;
                 var endDate = $('#endDate').val() ? new Date($('#endDate').val()) : null;
 
                 $.fn.dataTable.ext.search.push(
-                    function(settings, data, dataIndex) {
+                    function (settings, data, dataIndex) {
                         var dateIssued = new Date(data[3]); // Assuming Date Issued is the 3rd column
                         if (startDate && dateIssued < startDate) {
                             return false;
@@ -241,10 +256,10 @@ include 'include/navbar.php';
                 $.fn.dataTable.ext.search.pop(); // Clear this specific filter
             });
             // Filter by Year
-            $('#filterYear').on('change', function() {
+            $('#filterYear').on('change', function () {
                 var year = parseInt(this.value, 10);
                 $.fn.dataTable.ext.search.push(
-                    function(settings, data, dataIndex) {
+                    function (settings, data, dataIndex) {
                         var dateIssued = new Date(data[3]); // Assuming Date Issued is the 3rd column
                         return isNaN(year) || year === dateIssued.getFullYear();
                     }
@@ -257,10 +272,10 @@ include 'include/navbar.php';
 
 
 
-        $('.btnViewRecord').on('click', function() {
+        $('.btnViewRecord').on('click', function () {
             $tr = $(this).closest('tr');
 
-            var data = $tr.children("td").map(function() {
+            var data = $tr.children("td").map(function () {
                 return $(this).text();
             }).get();
 
@@ -325,7 +340,7 @@ include 'include/navbar.php';
                         shipment_id: shipment_id,
 
                     },
-                    success: function(data) {
+                    success: function (data) {
                         $('#shipment_container_record').html(data);
                     }
                 });

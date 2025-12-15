@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
+
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #f4f4f4;
@@ -10,52 +11,132 @@ body {
     padding-bottom: 3rem;
 }
 
-.stat-card,
-.stat-card-default {
-    background: #fff;
-    padding: 20px;
-    margin-bottom: 1.25rem;
-    border-radius: 8px;
-    height: auto;
-    /* Adjusted to auto to allow for content flow */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
     width: 100%;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
 }
 
-.stat-card__icon-circle {
-    height: 2.5rem;
-    width: 2.5rem;
-    border-radius: 50%;
-    background: rgba(0, 123, 255, 0.1);
+/* Premium Compact Stat Card Design */
+.stat-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 16px 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    border: 1px solid #f1f5f9;
+    display: flex;
+    align-items: center;
+    /* Align items purely centered */
+    gap: 16px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: auto;
+    /* Allow auto height */
+    min-height: 100px;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
 }
 
-.stat-card__icon-circle i {
-    font-size: clamp(1rem, 2.5vw, 1.5rem);
-    /* Responsive font-size */
-    color: #007bff;
+.stat-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.stat-card__icon.stat-card__icon--success .stat-card__icon-circle {
-    background: rgba(40, 167, 69, 0.2);
+.stat-info h5 {
+    font-family: 'Inter', 'Roboto', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748b;
+    /* Slate 500 */
+    margin: 0 0 4px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.stat-card__icon.stat-card__icon--success .stat-card__icon-circle i {
-    color: #28a745;
+.stat-info h2 {
+    font-family: 'Inter', 'Roboto', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    /* Slate 800 */
+    margin: 0;
+    line-height: 1.2;
 }
 
-.stat-card__icon.stat-card__icon--danger .stat-card__icon-circle {
-    background: rgba(220, 53, 69, 0.2);
+/* Chart Card Specifics */
+.chart-card {
+    flex-direction: column !important;
+    /* Stack children vertically */
+    align-items: stretch !important;
+    /* Stretch children to full width */
+    height: 100%;
+    min-height: 400px;
+    /* Give it enough height */
+    padding: 24px;
 }
 
-.stat-card__icon.stat-card__icon--danger .stat-card__icon-circle i {
-    color: #dc3545;
+.inv-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+    /* Space between header and chart */
 }
+
+.inv-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #334155;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.card-body {
+    width: 100%;
+    flex-grow: 1;
+    position: relative;
+}
+
+/* Icon Color Variants */
+.icon-blue {
+    background: #eff6ff;
+    color: #3b82f6;
+}
+
+/* ... existing variants ... */
+
+.icon-yellow {
+    background: #fefce8;
+    color: #eab308;
+}
+
+.icon-green {
+    background: #f0fdf4;
+    color: #22c55e;
+}
+
+/* Card Variations based on your PHP inline styles, but cleaner if we could use classes.
+   Since PHP uses inline styles for background, we keep the structure but refine the look via CSS where possible.
+*/
+
 
 .stat-card__icon.stat-card__icon--warning .stat-card__icon-circle {
     background: rgba(255, 193, 7, 0.2);
@@ -73,21 +154,43 @@ body {
     color: #007bff;
 }
 
+/* Inventory/Chart Header Styles */
+.inv-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    width: 100%;
+}
 
-/* Responsive styles for mobile screens */
+.inv-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #495057;
+}
 
+.inv-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
 
-/* Responsive styles */
 
 @media (max-width: 768px) {
     .main-content {
         padding-top: 1.25rem;
         padding-bottom: 1.25rem;
     }
+
     .stat-card,
     .stat-card-default {
         padding: 15px;
     }
+
     .stat-card__icon-circle {
         height: 2rem;
         width: 2rem;

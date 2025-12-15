@@ -13,43 +13,71 @@ if ($c_balance_query->num_rows > 0) {
     }
 }
 
+
 // Rest of the code for drawing the chart, as you have done for the expenses
 ?>
 
-<canvas id="c_unpaidBalanceChart"></canvas>
+<canvas id="c_unpaidBalanceChart" height="250"></canvas>
 
 <script>
-new Chart(document.getElementById("c_unpaidBalanceChart"), {
-    type: 'bar',
-    data: {
-        labels: <?php echo json_encode($c_buyer_names); ?>,
-        datasets: [{
-            label: 'Cuplump Sales Outstanding  Balance',
-            data: <?php echo json_encode($c_unpaid_balances); ?>,
-            borderColor: '#000000',
-            backgroundColor: "#4E79A7", // Apply the color palette for 12 months
-            borderWidth: .5
-        }]
-    },
-    options: {
-        indexAxis: 'y',
-        // Elements options apply to all of the options unless overridden in a dataset
-        // In this case, we are setting the border of each horizontal bar to be 2px wide
-        elements: {
-            bar: {
-                borderWidth: 2,
+    var cUnpaidBalanceCanvas = document.getElementById("c_unpaidBalanceChart");
+    if (cUnpaidBalanceCanvas) {
+        new Chart(cUnpaidBalanceCanvas, {
+            type: 'bar',
+            data: {
+                labels: <?php echo json_encode($c_buyer_names); ?>,
+                datasets: [{
+                    label: 'Outstanding Balance',
+                    data: <?php echo json_encode($c_unpaid_balances); ?>,
+                    backgroundColor: 'rgba(67, 24, 255, 0.8)',
+                    borderColor: '#4318FF',
+                    borderWidth: 1,
+                    borderRadius: 4,
+                    barThickness: 20
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: '#fff',
+                        titleColor: '#2B3674',
+                        bodyColor: '#2B3674',
+                        borderColor: '#E0E5F2',
+                        borderWidth: 1,
+                        padding: 10
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            borderDash: [5, 5],
+                            color: '#E0E5F2',
+                            drawBorder: false
+                        },
+                        ticks: {
+                            color: '#A3AED0'
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false,
+                            drawBorder: false
+                        },
+                        ticks: {
+                            color: '#2B3674',
+                            font: {
+                                weight: '500'
+                            }
+                        }
+                    }
+                }
             }
-        },
-        responsive: true,
-        plugins: {
-            title: {
-                display: false,
-                text: 'Bale Sales Outstanding Balance'
-            },
-            legend: {
-                display: false // Hide the legend
-            },
-        }
-    },
-});
+        });
+    }
 </script>

@@ -18,12 +18,25 @@ $source = $_SESSION["loc"];
     <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.12.1/api/sum().js"></script>
 
     <style>
+        /* Table Styles Adjustment */
         .expenseTable th:not(.category),
         .expenseTable td:not(.category) {
+            text-align: right;
+        }
+
+        .expenseTable td.category,
+        .expenseTable th.category {
             text-align: left;
         }
+
+        /* Ensure container respects fixed navbar */
+        .main-content-container {
+            max-width: 98%;
+            margin: 20px auto;
+            padding-bottom: 50px;
+        }
     </style>
-    <div class="container home-section h-100" style="max-width:95%;">
+    <div class="main-content-container">
 
         <h2 class="page-title text-center my-4">
             <b>
@@ -242,9 +255,9 @@ $source = $_SESSION["loc"];
                 window.location.href = currentUrl.toString();
             }
 
-         
 
-           
+
+
         </script>
 
 

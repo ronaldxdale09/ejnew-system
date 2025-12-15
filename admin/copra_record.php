@@ -39,7 +39,9 @@ $row_total_transactions = mysqli_fetch_array($result_total_transactions);
 
 ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"
+    integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
     /* Optional styles for better visuals */
@@ -85,7 +87,8 @@ $row_total_transactions = mysqli_fetch_array($result_total_transactions);
                                 </div>
                                 <div class="info-section">
                                     <span class="stat-title">Total Purchases</span>
-                                    <h2 class="stat-value">₱ <?php echo number_format($row_total_purchase['total_purchase'], 2); ?></h2>
+                                    <h2 class="stat-value">₱
+                                        <?php echo number_format($row_total_purchase['total_purchase'], 2); ?></h2>
                                 </div>
                             </div>
                         </div>
@@ -98,7 +101,8 @@ $row_total_transactions = mysqli_fetch_array($result_total_transactions);
                                 </div>
                                 <div class="info-section">
                                     <span class="stat-title">Average Purchase</span>
-                                    <h2 class="stat-value">₱ <?php echo number_format($row_avg_purchase['avg_purchase'], 2); ?></h2>
+                                    <h2 class="stat-value">₱
+                                        <?php echo number_format($row_avg_purchase['avg_purchase'], 2); ?></h2>
                                 </div>
                             </div>
                         </div>
@@ -111,7 +115,8 @@ $row_total_transactions = mysqli_fetch_array($result_total_transactions);
                                 </div>
                                 <div class="info-section">
                                     <span class="stat-title">Total Tax Paid</span>
-                                    <h2 class="stat-value">₱ <?php echo number_format($row_total_tax['total_tax'], 2); ?></h2>
+                                    <h2 class="stat-value">₱
+                                        <?php echo number_format($row_total_tax['total_tax'], 2); ?></h2>
                                 </div>
                             </div>
                         </div>
@@ -124,7 +129,9 @@ $row_total_transactions = mysqli_fetch_array($result_total_transactions);
                                 </div>
                                 <div class="info-section">
                                     <span class="stat-title">Recent Purchase</span>
-                                    <h2 class="stat-value">₱ <?php echo number_format($row_recent_purchase['amount_paid'], 2); ?> ( <?php echo $row_recent_purchase['date']; ?>)</h2>
+                                    <h2 class="stat-value">₱
+                                        <?php echo number_format($row_recent_purchase['amount_paid'], 2); ?> (
+                                        <?php echo $row_recent_purchase['date']; ?>)</h2>
                                 </div>
                             </div>
                         </div>
@@ -137,7 +144,8 @@ $row_total_transactions = mysqli_fetch_array($result_total_transactions);
                                 </div>
                                 <div class="info-section">
                                     <span class="stat-title">Total Weight</span>
-                                    <h2 class="stat-value"><?php echo number_format($row_total_weight['total_weight'], 0); ?> Kg</h2>
+                                    <h2 class="stat-value">
+                                        <?php echo number_format($row_total_weight['total_weight'], 0); ?> Kg</h2>
                                 </div>
                             </div>
                         </div>
@@ -150,7 +158,8 @@ $row_total_transactions = mysqli_fetch_array($result_total_transactions);
                                 </div>
                                 <div class="info-section">
                                     <span class="stat-title">Transactions</span>
-                                    <h2 class="stat-value"><?php echo $row_total_transactions['total_transactions']; ?></h2>
+                                    <h2 class="stat-value"><?php echo $row_total_transactions['total_transactions']; ?>
+                                    </h2>
                                 </div>
                             </div>
                         </div>
@@ -185,7 +194,9 @@ $row_total_transactions = mysqli_fetch_array($result_total_transactions);
                                                         <i class="fa fa-calendar-alt"></i>
                                                     </span>
                                                 </div>
-                                                <input type="text" id="min" name="min" class="form-control" placeholder="From Date" aria-label="From Date" aria-describedby="from-date-addon" />
+                                                <input type="text" id="min" name="min" class="form-control"
+                                                    placeholder="From Date" aria-label="From Date"
+                                                    aria-describedby="from-date-addon" />
                                             </div>
                                         </div>
 
@@ -197,7 +208,9 @@ $row_total_transactions = mysqli_fetch_array($result_total_transactions);
                                                         <i class="fa fa-calendar-alt"></i>
                                                     </span>
                                                 </div>
-                                                <input type="text" id="max" name="max" class="form-control" placeholder="To Date" aria-label="To Date" aria-describedby="to-date-addon" />
+                                                <input type="text" id="max" name="max" class="form-control"
+                                                    placeholder="To Date" aria-label="To Date"
+                                                    aria-describedby="to-date-addon" />
                                             </div>
                                         </div>
                                     </div>
@@ -209,9 +222,7 @@ $row_total_transactions = mysqli_fetch_array($result_total_transactions);
 
 
                                     <div class="table-responsive">
-                                        <table class="table" id='transaction_history'>
-                                            <?php
-                                            $record  = mysqli_query($con, "SELECT * from copra_transaction ORDER BY id "); ?>
+                                        <table class="table table-hover" id="transaction_history" style="width:100%">
                                             <thead class="table-dark">
                                                 <tr>
                                                     <th scope="col">Invoice</th>
@@ -223,76 +234,11 @@ $row_total_transactions = mysqli_fetch_array($result_total_transactions);
                                                     <th scope="col">Net Weight</th>
                                                     <th scope="col">Amount Paid</th>
                                                     <th scope="col">Action</th>
-                                                    <th scope="col" hidden></th>
-                                                    <th scope="col" hidden></th>
-                                                    <th scope="col" hidden></th>
-                                                    <th scope="col" hidden></th>
-                                                    <th scope="col" hidden></th>
-                                                    <th scope="col" hidden></th>
-                                                    <th scope="col" hidden></th>
-                                                    <th scope="col" hidden></th>
-                                                    <th scope="col" hidden></th>
-                                                    <th scope="col" hidden></th>
-                                                    <th scope="col" hidden></th>
-                                                    <th scope="col" hidden></th>
-                                                    <th scope="col" hidden></th>
-                                                    <th scope="col" hidden></th>
-                                                    <th scope="col" hidden></th>
-                                                    <th scope="col" hidden></th>
-                                                    <th scope="col" hidden></th>
-                                                    <th scope="col" hidden></th>
-                                                    <th scope="col" hidden></th>
-                                                    <th scope="col" hidden></th>
                                                 </tr>
                                             </thead>
-                                            <tbody> <?php while ($row = mysqli_fetch_array($record)) { ?> <tr>
-                                                        <td scope="row"> <?php echo $row['invoice'] ?> </td>
-                                                        <td><?php
-                                                            $date = new DateTime($row['date']);
-                                                            echo $date->format('F d, Y');
-                                                            ?>
-                                                        </td>
-                                                        <td> <?php echo $row['contract'] ?> </td>
-                                                        <td> <?php echo $row['seller'] ?> </td>
-                                                        <td>₱ <?php echo number_format($row['first_res']) ?> </td>
-                                                        <td>₱ <?php echo number_format($row['sec_res']) ?> </td>
-
-                                                        <td> <?php
-
-                                                                $total_weight = $row['rese_weight_1'] +  $row['rese_weight_2'];
-
-                                                                echo number_format($total_weight); ?> Kg </td>
-
-
-                                                        <td>₱ <?php echo number_format(($row['amount_paid'])); ?> </td>
-                                                        <td hidden> </td>
-                                                        <td hidden> <?php echo $row['noSack'] ?> </td>
-                                                        <td hidden> <?php echo $row['gross'] ?> </td>
-                                                        <td hidden> <?php echo $row['tare'] ?> </td>
-                                                        <td hidden> <?php echo $row['net_weight'] ?> </td>
-                                                        <td hidden> <?php echo $row['dust'] ?> </td>
-                                                        <td hidden> <?php echo $row['new_dust'] ?> </td>
-                                                        <td hidden> <?php echo $row['total_dust'] ?> </td>
-                                                        <td hidden> <?php echo $row['moisture'] ?> </td>
-                                                        <td hidden> <?php echo $row['discount'] ?> </td>
-                                                        <td hidden> <?php echo $row['total_moisture'] ?> </td>
-                                                        <td hidden> <?php echo $row['net_res'] ?> </td>
-                                                        <td hidden> <?php echo $row['total_first_res'] ?> </td>
-                                                        <td hidden> <?php echo $row['total_sec_res'] ?> </td>
-                                                        <td hidden> <?php echo $row['total_amount'] ?> </td>
-                                                        <td hidden> <?php echo $row['less'] ?> </td>
-                                                        <td hidden> <?php echo $row['amount_words'] ?> </td>
-                                                        <td hidden> <?php echo $row['rese_weight_1'] ?> </td>
-                                                        <td hidden> <?php echo $row['rese_weight_2'] ?> </td>
-                                                        <td hidden> <?php echo $row['id'] ?> </td>
-                                                        <td>
-                                                            <button type="button" class="btn btn-secondary text-white viewButton" data-copra='<?php echo json_encode($row); ?>'>
-                                                                <i class='fa-solid fa-eye'></i> </button>
-
-                                                        
-                                                        </td>
-                                                    </tr> <?php } ?> </tbody>
-
+                                            <tbody>
+                                                <!-- Data fetched via Ajax -->
+                                            </tbody>
                                         </table>
                                     </div>
                                     <!-- END CONTENT -->
@@ -318,7 +264,7 @@ $row_total_transactions = mysqli_fetch_array($result_total_transactions);
 
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
 
 
 
@@ -336,7 +282,7 @@ $row_total_transactions = mysqli_fetch_array($result_total_transactions);
         function formatNumber(value) {
             if (value) {
                 // Remove all non-numeric values except for the period (.)
-                const sanitizedValue = value.replace(/[^0-9.]/g, '');
+                const sanitizedValue = value.toString().replace(/[^0-9.]/g, '');
 
                 const parsedValue = parseFloat(sanitizedValue);
                 if (isNaN(parsedValue)) {
@@ -348,53 +294,52 @@ $row_total_transactions = mysqli_fetch_array($result_total_transactions);
         }
 
 
-        $('.viewButton').on('click', function() {
+        // Event delegation for dynamically created buttons
+        $('#transaction_history').on('click', '.viewButton', function () {
 
 
             $('#viewHistory').modal('show');
-            $tr = $(this).closest('tr');
+            // $tr = $(this).closest('tr');
             var copra = $(this).data('copra');
+            // console.log(copra);
 
-            var data = $tr.children("td").map(function() {
-                return $(this).text();
-            }).get();
 
-            $('#invoice').val(data[0]);
-            $('#name').val(data[3]);
-            $('#date').val(formatDate(data[1]));
-            $('#contract').val(data[2]);
-            $('#address').val(data[8]);
+            $('#invoice').val(copra.invoice);
+            $('#name').val(copra.seller);
+            $('#date').val(formatDate(copra.date));
+            $('#contract').val(copra.contract);
+            $('#address').val(copra.address); // Check if address exists in your DB response
+
             // purchase info
+            $('#noSack').val(formatNumber(copra.noSack));
+            $('#gross').val(formatNumber(copra.gross));
+            $('#tare').val(formatNumber(copra.tare));
+            $('#net').val(formatNumber(copra.net_weight));
 
-            $('#noSack').val(formatNumber(data[9]));
-            $('#gross').val(formatNumber(data[10]));
-            $('#tare').val(formatNumber(data[11]));
-            $('#net').val(formatNumber(data[12]));
+            $('#dust').val(formatNumber(copra.dust));
+            $('#new-dust').val(formatNumber(copra.new_dust));
+            $('#total-dust').val(formatNumber(copra.total_dust));
 
-            $('#dust').val(formatNumber(data[13]));
-            $('#new-dust').val(formatNumber(data[14]));
-            $('#total-dust').val(formatNumber(data[15]));
+            $('#moisture').val(formatNumber(copra.moisture));
+            $('#discount_reading').val(formatNumber(copra.discount));
+            $('#total-moisture').val(formatNumber(copra.total_moisture));
 
-            $('#moisture').val(formatNumber(data[16]));
-            $('#discount_reading').val(formatNumber(data[17]));
-            $('#total-moisture').val(formatNumber(data[18]));
+            // $('#total-res').val(formatNumber(data[19])); // Check mapping
 
-            $('#total-res').val(formatNumber(data[19]));
+            $('#1resecada').val(formatNumber(copra.first_res));
+            $('#2resecada').val(formatNumber(copra.sec_res));
 
-            $('#1resecada').val(formatNumber(data[4]));
-            $('#2resecada').val(formatNumber(data[5]));
+            $('#total_1res').val(formatNumber(copra.total_first_res));
+            $('#total_2res').val(formatNumber(copra.total_sec_res));
 
-            $('#total_1res').val(formatNumber(data[20]));
-            $('#total_2res').val(formatNumber(data[21]));
+            $('#1rese-weight').val(formatNumber(copra.rese_weight_1));
+            $('#2rese-weight').val(formatNumber(copra.rese_weight_2));
 
-            $('#1rese-weight').val(formatNumber(data[25]));
-            $('#2rese-weight').val(formatNumber(data[26]));
-
-            $('#total-amount').val(formatNumber(data[22]));
-            $('#less').val(formatNumber(data[23]));
-            $('#total-paid').val(formatNumber(data[7]));
-            $('#total-words').val(data[24]); // Assuming this is not a number but actual words.
-            $('#amount-paid').val(formatNumber(data[7]));
+            $('#total-amount').val(formatNumber(copra.total_amount));
+            $('#less').val(formatNumber(copra.less));
+            $('#total-paid').val(formatNumber(copra.amount_paid));
+            $('#total-words').val(copra.amount_words);
+            $('#amount-paid').val(formatNumber(copra.amount_paid));
 
             $('#tax').val(1);
             $('#tax-amount').val(formatNumber(copra.tax_amount));
@@ -402,13 +347,13 @@ $row_total_transactions = mysqli_fetch_array($result_total_transactions);
 
         });
 
-        $('.deleteBtn').on('click', function() {
+        $('.deleteBtn').on('click', function () {
 
 
             $('#deleteRecord').modal('show');
             $tr = $(this).closest('tr');
 
-            var data = $tr.children("td").map(function() {
+            var data = $tr.children("td").map(function () {
                 return $(this).text();
             }).get();
             $('#d_invoice').val(data[0]);
@@ -417,84 +362,48 @@ $row_total_transactions = mysqli_fetch_array($result_total_transactions);
 
         });
 
-    });
-</script>
-
-
-
-<script>
-    // for date
-
-    var minDate, maxDate;
-
-    // Custom filtering function which will search data in column four between two values
-    $.fn.dataTable.ext.search.push(
-        function(settings, data, dataIndex) {
-            var min = minDate.val();
-            var max = maxDate.val();
-            var date = new Date(data[0]);
-
-            if (
-                (min === null && max === null) ||
-                (min === null && date <= max) ||
-                (min <= date && max === null) ||
-                (min <= date && date <= max)
-            ) {
-                return true;
-            }
-            return false;
-        }
-    );
-
-    $(document).ready(function() {
-        // Create date inputs
-        minDate = new DateTime($('#min'), {
-            format: 'MMMM Do YYYY'
+        // Datepicker init
+        $('#min, #max').datepicker({
+            dateFormat: 'yy-mm-dd'
         });
-        maxDate = new DateTime($('#max'), {
-            format: 'MMMM Do YYYY'
-        });
+
+
+        // DataTable Initialization
         var table = $('#transaction_history').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": "fetch/fetchCopraData.php",
+                "type": "POST",
+                "data": function (d) {
+                    d.min = $('#min').val();
+                    d.max = $('#max').val();
+                }
+            },
+            "columns": [
+                { "data": "invoice" },
+                { "data": "date" },
+                { "data": "contract" },
+                { "data": "seller" },
+                { "data": "first_res" },
+                { "data": "sec_res" },
+                { "data": "net_weight" },
+                { "data": "amount_paid" },
+                { "data": "action", "orderable": false }
+            ],
+            "order": [
+                [8, "desc"]
+            ],
             dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
-            order: [
-                [0, 'desc']
-            ],
-            buttons: [{
-                    extend: 'copy',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7]
-                    }
-                },
-                {
-                    extend: 'excelHtml5',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7]
-                    }
-                },
-                {
-                    extend: 'pdfHtml5',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7]
-                    }
-                },
-                {
-                    extend: 'print',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7]
-                    }
-                },
-
-            ],
-            lengthChange: false,
-            orderCellsTop: true,
-
-
-
+            buttons: [
+                'copy', 'excel', 'pdf', 'print'
+            ]
         });
-        $('#min, #max').on('change', function() {
+
+        // Refetch on date change
+        $('#min, #max').on('change', function () {
             table.draw();
         });
-
 
 
     });

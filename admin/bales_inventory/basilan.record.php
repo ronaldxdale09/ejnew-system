@@ -26,6 +26,21 @@
         </select>
     </div>
 
+    <!-- Year Filter -->
+    <div class="filter-container">
+        <label for="filterYear">Year:</label>
+        <select id="filterYear" class="form-select d-inline-block w-auto">
+            <option value="">All</option>
+            <?php
+            $currentYear = date("Y");
+            $startYear = 2022; // Adjust if needed
+            for ($i = $startYear; $i <= $currentYear; $i++) {
+                echo '<option value="' . $i . '">' . $i . '</option>';
+            }
+            ?>
+        </select>
+    </div>
+
     <!-- Month Filter -->
     <div class="filter-container">
         <label for="filterMonth">Month:</label>
@@ -54,7 +69,7 @@
     $results = mysqli_query($con, "SELECT * FROM planta_bales_production 
                                    LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
                                    WHERE planta_recording.source='Basilan'
-                                   ORDER BY planta_bales_production.recording_id ASC  ");
+                                   ORDER BY planta_bales_production.recording_id DESC"); // Changed to DESC for latest records
     ?>
 
 
@@ -177,17 +192,14 @@
             no_results_text: "Oops, nothing found!"
         });
 
-
-
-
         var table = $('#bale_record_basilan').DataTable({
             "order": [
                 [0, 'desc']
             ],
-            "pageLength": -1,
+            "pageLength": 10, // Default to 10 for better load
             "dom": "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
                 "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'>>",
+                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>", // Added info and pagination
             "responsive": true,
             "buttons": [{
                 extend: 'excelHtml5',
@@ -213,45 +225,47 @@
             ]
         });
 
-        // Filter by Payee
-        $('#filterSupplier').on('change', function () {
-            table.column(2).search(this.value).draw(); // Assuming Payee is the 5th column
-        });
-
-        // Filter by Month
-        $('#filterMonth').on('change', function () {
-            var month = parseInt(this.value, 10);
-            $.fn.dataTable.ext.search.push(
-                function (settings, data, dataIndex) {
-                    var dateIssued = new Date(data[1]); // Assuming Date Issued is the 3rd column
-                    return isNaN(month) || month === dateIssued.getMonth() + 1;
-                }
-            );
-            table.draw();
-            $.fn.dataTable.ext.search.pop(); // Clear this specific filter
-        });
-
-        // Filter by Date Range
-        $('#startDate, #endDate').on('change', function () {
-            var startDate = $('#startDate').val() ? new Date($('#startDate').val()) : null;
-            var endDate = $('#endDate').val() ? new Date($('#endDate').val()) : null;
-
-            $.fn.dataTable.ext.search.push(
-                function (settings, data, dataIndex) {
-                    var dateIssued = new Date(data[1]); // Assuming Date Issued is the 3rd column
-                    if (startDate && dateIssued < startDate) {
-                        return false;
-                    }
-                    if (endDate && dateIssued > endDate) {
-                        return false;
-                    }
+        // Search Filter Logic
+        $.fn.dataTable.ext.search.push(
+            function (settings, data, dataIndex) {
+                // Check if this search function is for our table
+                if (settings.nTable.id !== 'bale_record_basilan') {
                     return true;
                 }
-            );
-            table.draw();
-            $.fn.dataTable.ext.search.pop(); // Clear this specific filter
+
+                var year = parseInt($('#filterYear').val(), 10);
+                var month = parseInt($('#filterMonth').val(), 10);
+                var min = $('#startDate').val() ? new Date($('#startDate').val()) : null;
+                var max = $('#endDate').val() ? new Date($('#endDate').val()) : null;
+                var dateStr = data[1]; // Date Produced is column index 1
+                var date = new Date(dateStr);
+
+                // Year Filter
+                if (!isNaN(year) && date.getFullYear() !== year) {
+                    return false;
+                }
+
+                // Month Filter
+                if (!isNaN(month) && date.getMonth() + 1 !== month) {
+                    return false;
+                }
+
+                // Date Range Filter
+                if (min && date < min) return false;
+                if (max && date > max) return false;
+
+                return true;
+            }
+        );
+
+        // Event Listeners
+        $('#filterSupplier').on('change', function () {
+            table.column(2).search(this.value).draw();
         });
 
+        $('#filterYear, #filterMonth, #startDate, #endDate').on('change', function () {
+            table.draw();
+        });
 
     });
 </script>

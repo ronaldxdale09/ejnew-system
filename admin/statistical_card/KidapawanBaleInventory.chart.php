@@ -24,6 +24,7 @@ while ($k_data = mysqli_fetch_assoc($k_bales_query)) {
     $k_bales_data[$k_data['kilo_per_bale']][$index] = $k_data['total_remaining'];
 }
 
+
 // Fill in missing data with zeros
 foreach ($k_bales_data as $kilo => &$k_data) {
     foreach ($k_bales_types as $index => $type) {
@@ -33,58 +34,82 @@ foreach ($k_bales_data as $kilo => &$k_data) {
     }
 }
 ?>
-<canvas id="Kidapawan_inventory_bales"></canvas>
+<canvas id="Kidapawan_inventory_bales" height="300"></canvas>
 <script>
-    inventory_bales = document.getElementById("Kidapawan_inventory_bales");
-    new Chart(inventory_bales, {
-        options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Kidapawan Bale Inventory (pcs)',
-                    font: {
-                        size: 18,
-                        weight: 'bold'
+    var kidapawanInventoryBales = document.getElementById("Kidapawan_inventory_bales");
+    if (kidapawanInventoryBales) {
+        new Chart(kidapawanInventoryBales, {
+            type: 'bar',
+            data: {
+                labels: <?php echo json_encode($k_bales_types); ?>,
+                datasets: <?php
+                // Modern color palette
+                $colors = ['rgba(67, 24, 255, 0.8)', 'rgba(5, 205, 153, 0.8)', 'rgba(255, 181, 71, 0.8)', 'rgba(130, 215, 255, 0.8)', '#4318FF'];
+                $k_datasets = [];
+
+                foreach ($k_bales_data as $kilo => $k_data) {
+                    $k_dataset = [
+                        'label' => $kilo . ' kg/bale',
+                        'data' => $k_data,
+                        'backgroundColor' => array_shift($colors),
+                        'borderRadius' => 4,
+                        'borderWidth' => 0
+                    ];
+                    $k_datasets[] = $k_dataset;
+                }
+
+                echo json_encode($k_datasets);
+                ?>,
+            },
+            options: {
+                plugins: {
+                    title: {
+                        display: false
+                    },
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        align: 'end',
+                        labels: {
+                            usePointStyle: true,
+                            boxWidth: 8
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: '#fff',
+                        titleColor: '#2B3674',
+                        bodyColor: '#2B3674',
+                        borderColor: '#E0E5F2',
+                        borderWidth: 1,
+                        padding: 10
                     }
                 },
-                legend: {
-                    display: true // Show the legend
-                },
-            },
-            maintainAspectRatio: false,
-            aspectRatio: 1.5,
-            scales: {
-                x: {
-                    grid: {
-                        display: false,
+                maintainAspectRatio: false,
+                responsive: true,
+                scales: {
+                    x: {
+                        grid: {
+                            display: false,
+                        },
+                        stacked: true,
+                        ticks: {
+                            color: '#A3AED0'
+                        }
                     },
-                    stacked: true // Stack the x-axis
-                },
-                y: {
-                    beginAtZero: true, // Start the y-axis from zero
-                    stacked: true // Stack the y-axis
+                    y: {
+                        beginAtZero: true,
+                        stacked: true,
+                        grid: {
+                            borderDash: [5, 5],
+                            color: '#E0E5F2',
+                            drawBorder: false
+                        },
+                        ticks: {
+                            color: '#A3AED0'
+                        }
+                    }
                 }
             }
-        },
-
-        type: 'bar',
-        data: {
-            labels: <?php echo json_encode($k_bales_types); ?>, // Display the bale types
-            datasets: <?php
-                        $colors = ['#4E79A7', '#F28E2B', '#E15759', '#76B7B2', '#59A14F'];
-                        $k_datasets = [];
-
-                        foreach ($k_bales_data as $kilo => $k_data) {
-                            $k_dataset = [
-                                'label' => $kilo . ' kilo per bale',
-                                'data' => $k_data,
-                                'backgroundColor' => array_shift($colors)
-                            ];
-                            $k_datasets[] = $k_dataset;
-                        }
-
-                        echo json_encode($k_datasets);
-                        ?>,
-        },
-    });
+        });
+    }
 </script>

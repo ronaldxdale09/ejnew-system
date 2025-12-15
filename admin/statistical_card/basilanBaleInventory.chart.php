@@ -1,4 +1,3 @@
-
 <?php
 $bales_types = array();
 $bales_data = array();
@@ -25,6 +24,7 @@ while ($data = mysqli_fetch_assoc($bales_query)) {
     $bales_data[$data['kilo_per_bale']][$index] = $data['total_remaining'];
 }
 
+
 // Fill in missing data with zeros
 foreach ($bales_data as $kilo => &$data) {
     foreach ($bales_types as $index => $type) {
@@ -34,60 +34,83 @@ foreach ($bales_data as $kilo => &$data) {
     }
 }
 ?>
- <canvas id="basilan_inventory_bales" ></canvas>
+<canvas id="basilan_inventory_bales" height="300"></canvas>
 <script>
 
-inventory_bales = document.getElementById("basilan_inventory_bales");
-new Chart(inventory_bales, {
-    options: {
-        plugins: {
-            title: {
-                display: true,
-                text: 'Overall Bale Inventory (pcs)',
-                font: {
-                    size: 18,
-                    weight: 'bold'
+    var basilanInventoryBales = document.getElementById("basilan_inventory_bales");
+    if (basilanInventoryBales) {
+        new Chart(basilanInventoryBales, {
+            type: 'bar',
+            data: {
+                labels: <?php echo json_encode($bales_types); ?>, // Display the bale types
+                datasets: <?php
+                // Modern color palette
+                $colors = ['rgba(67, 24, 255, 0.8)', 'rgba(5, 205, 153, 0.8)', 'rgba(255, 181, 71, 0.8)', 'rgba(130, 215, 255, 0.8)', '#4318FF'];
+                $datasets = [];
+
+                foreach ($bales_data as $kilo => $data) {
+                    $dataset = [
+                        'label' => $kilo . ' kg/bale',
+                        'data' => $data,
+                        'backgroundColor' => array_shift($colors),
+                        'borderRadius' => 4,
+                        'borderWidth' => 0
+                    ];
+                    $datasets[] = $dataset;
                 }
-            },
-            legend: {
-                display: true // Show the legend
-            },
-        },
-        maintainAspectRatio: false,
-        aspectRatio: 1.5,
-        scales: {
-            x: {
-                grid: {
-                    display: false,
-                },
-                stacked: true // Stack the x-axis
-            },
-            y: {
-                beginAtZero: true, // Start the y-axis from zero
-                stacked: true // Stack the y-axis
-            }
-        }
-    },
 
-    type: 'bar',
-    data: {
-        labels: <?php echo json_encode($bales_types); ?>, // Display the bale types
-        datasets: <?php
-                    $colors = ['#4E79A7', '#F28E2B', '#E15759', '#76B7B2', '#59A14F'];
-                    $datasets = [];
-
-                    foreach ($bales_data as $kilo => $data) {
-                        $dataset = [
-                            'label' => $kilo . ' kilo per bale',
-                            'data' => $data,
-                            'backgroundColor' => array_shift($colors)
-                        ];
-                        $datasets[] = $dataset;
+                echo json_encode($datasets);
+                ?>,
+            },
+            options: {
+                plugins: {
+                    title: {
+                        display: false, // Title handled by HTML card
+                    },
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        align: 'end',
+                        labels: {
+                            usePointStyle: true,
+                            boxWidth: 8
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: '#fff',
+                        titleColor: '#2B3674',
+                        bodyColor: '#2B3674',
+                        borderColor: '#E0E5F2',
+                        borderWidth: 1,
+                        padding: 10
                     }
-
-                    echo json_encode($datasets);
-                    ?>,
-    },
-});
-
+                },
+                maintainAspectRatio: false,
+                responsive: true,
+                scales: {
+                    x: {
+                        grid: {
+                            display: false,
+                        },
+                        stacked: true,
+                        ticks: {
+                            color: '#A3AED0'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        stacked: true,
+                        grid: {
+                            borderDash: [5, 5],
+                            color: '#E0E5F2',
+                            drawBorder: false
+                        },
+                        ticks: {
+                            color: '#A3AED0'
+                        }
+                    }
+                }
+            }
+        });
+    }
 </script>

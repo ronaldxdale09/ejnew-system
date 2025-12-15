@@ -1,326 +1,258 @@
 <?php
+// --- KPI DATA ---
+// 1. Total Bale Inventory (KG)
+$q_inv = mysqli_query($con, "SELECT SUM(remaining_bales * kilo_per_bale) as total_kg, SUM(remaining_bales) as total_pcs FROM planta_bales_production 
+    LEFT JOIN planta_recording on planta_bales_production.recording_id = planta_recording.recording_id
+    WHERE planta_bales_production.remaining_bales !=0 AND planta_recording.source='Kidapawan'");
+$inv_data = mysqli_fetch_array($q_inv);
+$total_kg = $inv_data['total_kg'] ?? 0;
+$total_pcs = $inv_data['total_pcs'] ?? 0;
 
-$sql = mysqli_query($con, "SELECT SUM(remaining_bales * kilo_per_bale) as inventory,planta_recording.status as planta_status  from  planta_bales_production
-   LEFT JOIN planta_recording on planta_bales_production.recording_id = planta_recording.recording_id
-    where planta_bales_production.remaining_bales !=0  AND planta_recording.source='Kidapawan'");
-$bales_Kidapawan = mysqli_fetch_array($sql);
-
-
-$sql = mysqli_query($con, "SELECT SUM(remaining_bales) as inventory from  planta_bales_production 
-     LEFT JOIN planta_recording on planta_bales_production.recording_id = planta_recording.recording_id
-   where  planta_bales_production.remaining_bales !=0 AND planta_recording.source='Kidapawan' ");
-$balesCount_Kidapawan = mysqli_fetch_array($sql);
-
-
-
-
-
-
-
-$sql = mysqli_query($con, "SELECT 
-    SUM(remaining_bales) AS total_bales_count,
-    SUM(remaining_bales * kilo_per_bale) AS total_weight,
-    SUM(total_production_cost / produce_total_weight * remaining_bales * kilo_per_bale) AS total_bale_cost,
-    SUM(milling_cost * remaining_bales * kilo_per_bale) AS overall_milling_cost
+// 2. Valuation
+$q_val = mysqli_query($con, "SELECT 
+    SUM((total_production_cost / produce_total_weight * remaining_bales * kilo_per_bale) + (milling_cost * remaining_bales * kilo_per_bale)) as total_value
     FROM (
         SELECT 
-        planta_bales_production.remaining_bales,
+            planta_bales_production.remaining_bales,
             planta_bales_production.kilo_per_bale,
             planta_recording.total_production_cost,
             planta_recording.produce_total_weight,
-            planta_recording.status,
             planta_recording.milling_cost
-        FROM 
-            bales_container_selection
-            LEFT JOIN planta_bales_production 
-                ON bales_container_selection.bales_id = planta_bales_production.bales_prod_id
-            LEFT JOIN planta_recording 
-                ON planta_bales_production.recording_id = planta_recording.recording_id
-        WHERE 
-        (planta_bales_production.remaining_bales !=0 AND planta_recording.source='Kidapawan') AND planta_recording.status = 'For Sale'
-    ) AS subquery");
+        FROM planta_bales_production 
+        LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
+        WHERE planta_bales_production.remaining_bales !=0 
+          AND planta_recording.source='Kidapawan'
+          AND planta_recording.status = 'For Sale'
+    ) as sub");
+$val_data = mysqli_fetch_array($q_val);
+$total_value = $val_data['total_value'] ?? 0;
+$avg_cost_per_kg = ($total_kg > 0) ? $total_value / $total_kg : 0;
 
 
-$data = mysqli_fetch_array($sql);
-$ave_kilo_cost_kidapawan = ($data['total_bale_cost']) / $data['total_weight'];
-$ave_kilo_cost_kidapawan_wMill = ($data['total_bale_cost'] + $data['overall_milling_cost']) / $data['total_weight'];
-$total_inventory_value_kidapawan = $data['total_bale_cost'] + $data['overall_milling_cost'];
+// --- CHART DATA 1: Quality Breakdown ---
+$q_qual = mysqli_query($con, "SELECT bales_type, SUM(remaining_bales) as count FROM planta_bales_production 
+LEFT JOIN planta_recording on planta_bales_production.recording_id = planta_recording.recording_id
+WHERE remaining_bales != 0 AND planta_recording.source='Kidapawan' GROUP BY bales_type");
+$qual_labels = [];
+$qual_data = [];
+while ($row = mysqli_fetch_assoc($q_qual)) {
+    $qual_labels[] = $row['bales_type'];
+    $qual_data[] = $row['count'];
+}
 
-
-
-
+// --- CHART DATA 2: Top 5 Suppliers (by Volume) ---
+$q_supp = mysqli_query($con, "SELECT supplier, SUM(remaining_bales * kilo_per_bale) as volume FROM planta_bales_production 
+LEFT JOIN planta_recording on planta_bales_production.recording_id = planta_recording.recording_id
+WHERE remaining_bales != 0 AND planta_recording.source='Kidapawan' 
+GROUP BY supplier ORDER BY volume DESC LIMIT 5");
+$supp_labels = [];
+$supp_data = [];
+while ($row = mysqli_fetch_assoc($q_supp)) {
+    $supp_labels[] = $row['supplier'];
+    $supp_data[] = $row['volume'];
+}
 ?>
-<br>
-<div class="row">
-    <div class="col">
-        <div class="stat-card">
-            <div class="stat-card__content">
-                <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY (KG)</p>
-                <h4>
-                    <i class="text-danger font-weight-bold mr-1"></i>
-                    <?php echo number_format($bales_Kidapawan['inventory'] ?? 0, 0) ?> kg
-                </h4>
-                <div>
-                    <span class="text-muted">
-                    </span>
-                </div>
-            </div>
-            <div class="stat-card__icon stat-card__icon--primary">
-                <div class="stat-card__icon-circle">
-                    <i class="fa fa-weight"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="stat-card">
-            <div class="stat-card__content">
-                <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY </p>
-                <h4>
-                    <i class="text-danger font-weight-bold mr-1"></i>
-                    <?php echo number_format($balesCount_Kidapawan['inventory'] ?? 0, 0) ?> pcs
-                </h4>
-                <div>
-                    <span class="text-muted">
-                    </span>
-                </div>
-            </div>
-            <div class="stat-card__icon stat-card__icon--success">
-                <div class="stat-card__icon-circle">
-                    <i class="fa fa-cube"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-3">
-        <div class="stat-card">
-            <div class="stat-card__content">
-                <p class="text-uppercase mb-1 text-muted"><b>TOTAL</b> INVENTORY VALUE
-                    <span data-toggle="tooltip" data-placement="left"
-                        title="Total value of all bale inventory for sale." style="cursor: pointer; font-size: 15px;">
-                        <i class="fas fa-info-circle"></i>
-                    </span>
-                </p>
 
-                <h5>
-                    <i class="text-success font-weight-bold mr-1"></i>
-                    ₱
-                    <?php echo number_format($total_inventory_value_kidapawan ?? 0, 2) ?>
-                </h5>
+<div class="row mb-4">
+    <!-- KPI 1: Inventory KG -->
+    <div class="col-md-3">
+        <div class="stat-card p-3 h-100">
+            <div class="d-flex align-items-center mb-2">
+                <div class="stat-icon icon-primary me-3"><i class="fas fa-weight-hanging"></i></div>
                 <div>
-                    <span class="text-muted">
-                    </span>
-                </div>
-            </div>
-            <div class="stat-card__icon stat-card__icon--warning">
-                <div class="stat-card__icon-circle">
-                    <i class="fa fa-money-bill"></i>
+                    <h6 class="text-muted text-uppercase fs-7 mb-1">Stock (Weight)</h6>
+                    <h3 class="fw-bold mb-0 text-dark"><?php echo number_format($total_kg, 0); ?> <small
+                            class="fs-6 text-muted">kg</small></h3>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-3">
-        <div class="stat-card">
-            <div class="stat-card__content">
-                <p class="text-uppercase mb-1 text-muted"><b>TOTAL AVERAGE</b> COST <span data-toggle="tooltip"
-                        data-placement="left" title="Average cost of bale inventory for sale only."
-                        style="cursor: pointer; font-size: 15px;">
-                        <i class="fas fa-info-circle"></i>
-                    </span></p>
-                <h5>
-                    <i class="text-success font-weight-bold mr-1"></i>
-                    ₱
-                    <?php echo number_format($ave_kilo_cost_kidapawan_wMill ?? 0, 2) ?>
-                </h5>
+    <!-- KPI 2: Inventory Pcs -->
+    <div class="col-md-3">
+        <div class="stat-card p-3 h-100">
+            <div class="d-flex align-items-center mb-2">
+                <div class="stat-icon icon-success me-3"><i class="fas fa-cubes"></i></div>
                 <div>
-                    <span class="text-muted">
-                    </span>
+                    <h6 class="text-muted text-uppercase fs-7 mb-1">Stock (Bales)</h6>
+                    <h3 class="fw-bold mb-0 text-dark"><?php echo number_format($total_pcs, 0); ?> <small
+                            class="fs-6 text-muted">bales</small></h3>
                 </div>
             </div>
-            <div class="stat-card__icon stat-card__icon--danger">
-                <div class="stat-card__icon-circle">
-                    <i class="fa fa-info"></i>
+        </div>
+    </div>
+    <!-- KPI 3: Total Value -->
+    <div class="col-md-3">
+        <div class="stat-card p-3 h-100">
+            <div class="d-flex align-items-center mb-2">
+                <div class="stat-icon icon-warning me-3"><i class="fas fa-money-bill-wave"></i></div>
+                <div>
+                    <h6 class="text-muted text-uppercase fs-7 mb-1">Total Valuation</h6>
+                    <h3 class="fw-bold mb-0 text-dark">₱<?php echo number_format($total_value, 0); ?></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- KPI 4: Avg Cost -->
+    <div class="col-md-3">
+        <div class="stat-card p-3 h-100">
+            <div class="d-flex align-items-center mb-2">
+                <div class="stat-icon icon-danger me-3"><i class="fas fa-tag"></i></div>
+                <div>
+                    <h6 class="text-muted text-uppercase fs-7 mb-1">Avg Cost / Kg</h6>
+                    <h3 class="fw-bold mb-0 text-dark">₱<?php echo number_format($avg_cost_per_kg, 2); ?></h3>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<hr>
+<div class="row">
+    <!-- Table: Inventory List (Full Width) -->
+    <div class="col-12 mb-4">
+        <div class="stat-card h-100 chart-card">
+            <div class="inv-header mb-3">
+                <div class="inv-title">Bale Inventory Details</div>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped w-100" id="kidapawan_inventory_table">
+                        <thead class="table-dark small">
+                            <tr>
+                                <th>Status</th>
+                                <th>Bale ID</th>
+                                <th>Date</th>
+                                <th>Supplier</th>
+                                <th>Lot</th>
+                                <th>Qual</th>
+                                <th>Kg</th>
+                                <th>Prod</th>
+                                <th>Rem</th>
+                                <th>Rewt</th>
+                                <th>Rub.Wt</th>
+                                <th>DRC</th>
+                                <th>Desc</th>
+                                <th>Mill</th>
+                                <th>Unit</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody class="small align-middle">
+                            <!-- Server Side -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<div class="table-responsive">
-<table class="table table-bordered table-hover table-striped" style='width:100%'
-    id="recording_table-produced-kidapawan">
+<div class="row">
+    <!-- Chart 1: Quality Distribution -->
+    <div class="col-lg-6 mb-4">
+        <div class="stat-card h-100 chart-card">
+            <div class="inv-header mb-3">
+                <div class="inv-title">Bale Quality Composition</div>
+            </div>
+            <div class="card-body" style="height: 300px; position: relative;">
+                <canvas id="kidapawanQualChart"></canvas>
+            </div>
+        </div>
+    </div>
 
-    <?php
-    $results = mysqli_query($con, "SELECT * FROM planta_bales_production 
-                                   LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
-                                   WHERE planta_bales_production.status='Produced' and
-                                    (rubber_weight !='0' or rubber_weight !=null)  and
-                                     (remaining_bales !='0' and  planta_recording.source='Kidapawan')
-                                   ORDER BY planta_bales_production.recording_id ASC  ");
-    ?>
-
-    <thead class="table-dark" style='font-size:14px'>
-        <tr>
-            <th style="width: 80px;">Status</th>
-            <th style="width: 70px;">Bale ID</th>
-            <th style="width: 90px;">Date</th>
-            <th style="width: 120px;">Supplier</th>
-            <th style="width: 50px;">Lot No.</th>
-            <th style="width: 70px;">Quality</th>
-            <th style="width: 50px;">Kilo</th>
-            <th style="width: 60px;">Produced</th>
-            <th style="width: 60px;">Remaining</th>
-            <th style="width: 80px;">Cuplump</th>
-            <th style="width: 70px;">Bale Wt</th>
-            <th style="width: 50px;">DRC</th>
-            <th style="width: 100px;">Description</th>
-            <th style="width: 70px;">Mill Cost</th>
-            <th style="width: 70px;">Unit Cost</th>
-            <th style="width: 80px;">Total Cost</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php while ($row = mysqli_fetch_array($results)) { ?>
-            <tr>
-                <td>
-                    <?php if ($row['status'] == 'For Sale'): ?>
-                        <span class="badge bg-primary">
-                            <?php echo $row['status'] ?>
-                        </span>
-                    <?php elseif ($row['status'] == 'Drying'): ?>
-                        <span class="badge bg-warning">
-                            <?php echo $row['status'] ?>
-                        </span>
-                    <?php elseif ($row['status'] == 'Pressing'): ?>
-                        <span class="badge bg-danger">
-                            <?php echo $row['status'] ?>
-                        </span>
-                    <?php elseif ($row['status'] == 'Purchase'): ?>
-                        <span class="badge bg-info">
-                            <?php echo $row['status'] ?>
-                        </span>
-                    <?php elseif ($row['status'] == 'Complete'): ?>
-                        <span class="badge bg-success">
-                            <?php echo $row['status'] ?>
-                        </span>
-                    <?php else: ?>
-                        <span class="badge">
-                            <?php echo $row['status'] ?>
-                        </span>
-                    <?php endif; ?>
-                </td>
-                <td>
-                    <span class="badge bg-secondary">
-                        <?php echo $row['bales_prod_id'] ?>
-                    </span>
-                </td>
-                <td style="font-size: 14px;">
-                    <?php echo date('M d, Y', strtotime($row['production_date'])); ?>
-                </td>
-                <td style="font-size: 13px; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: bold;" title="<?php echo $row['supplier'] ?>">
-                    <?php echo $row['supplier'] ?>
-                </td>
-                <td style="font-size: 14px;">
-                    <?php echo $row['lot_num'] ?>
-                </td>
-                <td style="font-size: 14px;">
-                    <?php echo $row['bales_type'] ?>
-                </td>
-                <td class="number-cell" style="font-size: 14px;">
-                    <?php echo $row['kilo_per_bale'] ?>
-                </td>
-                <td class="number-cell bales-column" style="font-size: 14px;">
-                    <?php echo number_format($row['number_bales'], 0, '.', ',') ?>
-                </td>
-                <td class="number-cell remaining-column" style="font-size: 14px;">
-                    <?php echo number_format($row['remaining_bales'], 0, '.', ',') ?>
-                </td>
-                <td class="number-cell" style="font-size: 14px;">
-                    <?php echo number_format($row['reweight'], 0, '.', ',') ?>
-                </td>
-                <td class="number-cell" style="font-size: 14px;">
-                    <?php echo number_format($row['rubber_weight'], 0, '.', ',') ?>
-                </td>
-
-                <td class="number-cell" style="font-size: 14px;">
-                    <?php echo number_format($row['drc'], 2) ?>%
-                </td>
-                <td style="max-width: 100px; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="<?php echo $row['description'] ?>">
-                    <?php echo $row['description'] ?>
-                </td>
-
-                <?php if ($row['status'] == 'For Sale'): ?>
-                    <?php 
-                        $unit_cost = $row['total_production_cost'] / $row['produce_total_weight'];
-                        $total_cost = $unit_cost + $row['milling_cost'];
-                    ?>
-                    <td class="number-cell" style="font-size: 14px;">₱<?php echo number_format($row['milling_cost'], 0) ?>
-                    </td>
-                    <td class="number-cell" style="font-size: 14px;">₱<?php echo number_format($unit_cost, 0) ?>
-                    </td>
-                    <td class="number-cell" style="font-size: 14px;"><strong>₱<?php echo number_format($total_cost, 0) ?></strong>
-                    </td>
-                <?php else: ?>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                <?php endif; ?>
-
-            </tr>
-        <?php } ?>
-    </tbody>
-</table>
+    <!-- Chart 2: Top Suppliers -->
+    <div class="col-lg-6 mb-4">
+        <div class="stat-card h-100 chart-card">
+            <div class="inv-header mb-3">
+                <div class="inv-title">Top Suppliers by Volume (Kg)</div>
+            </div>
+            <div class="card-body" style="height: 300px; position: relative;">
+                <canvas id="kidapawanSuppChart"></canvas>
+            </div>
+        </div>
+    </div>
 </div>
 
 
 <script>
+    // Chart 1: Quality
+    const ctxKq = document.getElementById('kidapawanQualChart').getContext('2d');
+    new Chart(ctxKq, {
+        type: 'doughnut',
+        data: {
+            labels: <?php echo json_encode($qual_labels); ?>,
+            datasets: [{
+                data: <?php echo json_encode($qual_data); ?>,
+                backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'right' }
+            }
+        }
+    });
+
+    // Chart 2: Suppliers
+    const ctxKs = document.getElementById('kidapawanSuppChart').getContext('2d');
+    new Chart(ctxKs, {
+        type: 'bar',
+        indexAxis: 'y',
+        data: {
+            labels: <?php echo json_encode($supp_labels); ?>,
+            datasets: [{
+                label: 'Volume (Kg)',
+                data: <?php echo json_encode($supp_data); ?>,
+                backgroundColor: '#3b82f6',
+                borderRadius: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                x: { beginAtZero: true }
+            }
+        }
+    });
+
+    // Table
     $(document).ready(function () {
-        var table = $('#recording_table-produced-kidapawan').DataTable({
-            "order": [
-                [1, 'desc']
+        $('#kidapawan_inventory_table').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": "fetch/fetchBaleInventory.php",
+                "type": "POST",
+                "data": { location: 'Kidapawan' }
+            },
+            "columns": [
+                { "data": "status" },
+                { "data": "bales_prod_id" },
+                { "data": "date" },
+                { "data": "supplier" },
+                { "data": "lot_num" },
+                { "data": "quality" },
+                { "data": "kilo" },
+                { "data": "produced", "className": "table-info fw-bold text-center" }, // Highlight produced
+                { "data": "remaining", "className": "bg-success text-white fw-bold text-center" }, // Highlight remaining
+                { "data": "reweight" },
+                { "data": "rubber_weight" },
+                { "data": "drc" },
+                { "data": "description" },
+                { "data": "mill_cost", "className": "text-end" },
+                { "data": "unit_cost", "className": "text-end" },
+                { "data": "total_cost", "className": "text-end" }
             ],
-            "pageLength": 25,
-            "dom": "<'row'<'col-sm-12 col-md-4'B><'col-sm-12 col-md-4'l><'col-sm-12 col-md-4'f>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-            "scrollX": false,
-            "responsive": true,
-            "columnDefs": [
-                { "visible": false, "targets": [0, 1] }, // Hide Status and Bale ID by default
-                { "className": "text-center", "targets": [6, 7, 8, 11] },
-                { "className": "text-right", "targets": [9, 10, 13, 14, 15] }
-            ],
-            "buttons": [
-                {
-                    extend: 'colvis',
-                    text: 'Show/Hide Columns',
-                    columns: ':not(.noVis)'
-                },
-                {
-                    extend: 'excelHtml5',
-                    text: 'Excel',
-                    exportOptions: {
-                        columns: ':visible'
-                    }
-                },
-                {
-                    extend: 'pdfHtml5',
-                    text: 'PDF',
-                    orientation: 'landscape',
-                    exportOptions: {
-                        columns: ':visible'
-                    }
-                },
-                {
-                    extend: 'print',
-                    text: 'Print',
-                    exportOptions: {
-                        columns: ':visible'
-                    }
-                }
-            ]
+            "order": [[2, "desc"]],
+            "pageLength": 10,
+            dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
+            buttons: ['excel', 'print']
         });
     });
 </script>

@@ -1,200 +1,300 @@
-   /* Basic styling */
-   
-   * {
-       box-sizing: border-box;
-       padding: 0;
-       margin: 0;
-   }
-   
-   body {
-       font-family: sans-serif;
-       font-size: 16px;
-   }
-   
-   .nav-bar {
-       background: #1b325f;
-       padding: 0 15px;
-   }
-   
-   a {
-       color: white;
-       text-decoration: none;
-   }
-   
-   .menu,
-   .submenu {
-       list-style-type: none;
-       z-index: 1000;
-   }
-   
-   .logo {
-       font-size: 20px;
-       padding: 7.5px 10px 7.5px 0;
-   }
-   
-   .item {
-       padding: 10px;
-   }
-   
-   .item.button {
-       padding: 9px 5px;
-   }
-   
-   .item:not(.button) a:hover,
-   .item a:hover::after {
-       color: #ccc;
-   }
-   /* Mobile menu */
-   
-   .menu {
-       display: flex;
-       flex-wrap: wrap;
-       justify-content: space-between;
-       align-items: center;
-   }
-   
-   .menu li a {
-       display: block;
-       padding: 15px 5px;
-   }
-   
-   .menu li.subitem a {
-       padding: 15px;
-   }
-   
-   .toggle {
-       order: 1;
-       font-size: 20px;
-   }
-   
-   .item.button {
-       order: 2;
-   }
-   
-   .item {
-       order: 3;
-       color: white;
-       width: 100%;
-       text-align: center;
-       display: none;
-   }
-   
-   .active .item {
-       display: block;
-   }
-   
-   .button.secondary {
-       /* divider between buttons and menu links */
-       border-bottom: 1px #444 solid;
-   }
-   /* Submenu up from mobile screens */
-   
-   .submenu {
-       display: none;
-   }
-   
-   .submenu-active .submenu {
-       display: block;
-   }
-   
-   .has-submenu i {
-       font-size: 12px;
-   }
-   
-   .has-submenu>a::after {
-       font-family: "Font Awesome 5 Free";
-       font-size: 12px;
-       line-height: 16px;
-       font-weight: 900;
-       content: "\f078";
-       color: white;
-       padding-left: 5px;
-   }
-   
-   .subitem a {
-       padding: 10px 10px;
-       white-space: nowrap;
-       /* Add this line to prevent text from wrapping */
-   }
-   
-   .submenu-active {
-       background-color: #111;
-       border-radius: 3px;
-   }
-   /* Tablet menu */
-   
-   @media all and (min-width: 700px) {
-       .menu {
-           justify-content: center;
-       }
-       .logo {
-           flex: 1;
-       }
-       .item.button {
-           width: auto;
-           order: 1;
-           display: block;
-       }
-       .toggle {
-           flex: 1;
-           text-align: right;
-           order: 2;
-       }
-       /* Button up from tablet screen */
-       .menu li.button a {
-           padding: 10px 15px;
-           margin: 5px 0;
-       }
-       .button a {
-           background: #0080ff;
-           border: 1px royalblue solid;
-       }
-       .button.secondary {
-           border: 0;
-       }
-       .button.secondary a {
-           background: transparent;
-           border: 1px #0080ff solid;
-       }
-       .button a:hover {
-           text-decoration: none;
-       }
-       .button:not(.secondary) a:hover {
-           background: royalblue;
-           border-color: darkblue;
-       }
-   }
-   /* Desktop menu */
-   
-   @media all and (min-width: 960px) {
-       .menu {
-           align-items: flex-start;
-           flex-wrap: nowrap;
-           background: none;
-       }
-       .logo {
-           order: 0;
-       }
-       .item {
-           order: 1;
-           position: relative;
-           display: block;
-           width: auto;
-       }
-       .button {
-           order: 2;
-       }
-       .submenu-active .submenu {
-           display: block;
-           position: absolute;
-           left: 0;
-           top: 68px;
-           background: #111;
-       }
-       .toggle {
-           display: none;
-       }
-       .submenu-active {
-           border-radius: 0;
-       }
-   }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+/* Reset & Base */
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-size: 14px;
+    /* Compact base font size */
+    background-color: #f1f5f9;
+    /* Light background for the app body to contrast navbar */
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+}
+
+ul {
+    list-style: none;
+}
+
+/* Navbar Container */
+.navbar {
+    background-color: #1e293b;
+    /* Slate 800 - Premium Dark Blue */
+    color: #f8fafc;
+    height: 60px;
+    /* Compact height */
+    width: 100%;
+    position: relative;
+    z-index: 1000;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.navbar-container {
+    width: 100%;
+    /* Take full width */
+    margin: 0;
+    /* Remove auto margin */
+    padding: 0 40px;
+    /* Increase side padding for aesthetics */
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Logo */
+.logo {
+    font-size: 1.5rem;
+    /* Larger, more premium size */
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #fff;
+    white-space: nowrap;
+    text-transform: uppercase;
+    /* Make it look more like a brand */
+}
+
+/* Desktop Menu */
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    /* Spacing between top-level items */
+    height: 100%;
+}
+
+.nav-item {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.nav-link {
+    display: flex;
+    /* Verify alignment */
+    align-items: center;
+    gap: 6px;
+    padding: 0 12px;
+    height: 36px;
+    /* Button-like hit area */
+    border-radius: 6px;
+    font-weight: 500;
+    color: #e2e8f0;
+    /* Slate 200 - High Contrast */
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.nav-link:hover,
+.nav-item.active .nav-link {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-link i {
+    font-size: 0.7em;
+    /* Compact icon */
+    opacity: 0.7;
+    transition: transform 0.2s;
+}
+
+.nav-item:hover .nav-link i {
+    opacity: 1;
+    transform: rotate(180deg);
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    /* Below the nav item */
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    min-width: 200px;
+    padding: 6px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    display: block;
+    /* Layout readiness */
+}
+
+/* Show dropdown on hover */
+.nav-item:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(5px);
+    /* Slide up effect */
+}
+
+/* Dropdown Links */
+.dropdown-link {
+    display: block;
+    padding: 8px 12px;
+    color: #cbd5e1;
+    font-size: 0.85rem;
+    border-radius: 4px;
+}
+
+.dropdown-link:hover {
+    background-color: #334155;
+    /* Slate 700 */
+    color: #fff;
+}
+
+/* Logout Button Special Styling */
+.logout-btn {
+    background-color: #ef4444;
+    /* Red 500 */
+    color: white !important;
+    gap: 8px;
+    margin-left: 10px;
+    height: 32px;
+}
+
+.logout-btn:hover {
+    background-color: #dc2626;
+    /* Red 600 */
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+}
+
+/* Mobile Menu Toggle (Hamburger) */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.bar {
+    height: 2px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 960px) {
+    .menu-toggle {
+        display: flex;
+    }
+
+    .nav-menu {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: #1e293b;
+        flex-direction: column;
+        align-items: flex-start;
+        /* Left align items */
+        height: auto;
+        padding: 20px 0;
+        gap: 0;
+        border-top: 1px solid #334155;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+        display: none;
+        /* Hidden by default on mobile */
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+
+    .nav-item {
+        width: 100%;
+        height: auto;
+        display: block;
+        /* Stack items */
+    }
+
+    .nav-link {
+        width: 100%;
+        padding: 12px 24px;
+        height: auto;
+        justify-content: space-between;
+        /* Space out text and chevron */
+    }
+
+    .nav-link:hover {
+        background-color: #334155;
+    }
+
+    .nav-item:hover .nav-link i {
+        transform: none;
+        /* Disable hover rotation on mobile */
+    }
+
+    /* Mobile Dropdown Logic */
+    .dropdown-menu {
+        position: static;
+        /* Flow naturally */
+        transform: none;
+        box-shadow: none;
+        border: none;
+        background-color: #0f172a;
+        /* Darker background for nested items */
+        padding: 0;
+        min-width: 100%;
+
+        /* Hidden by default */
+        display: none;
+        opacity: 1;
+        visibility: visible;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    .nav-item.active .dropdown-menu {
+        display: block;
+        max-height: 500px;
+        /* Arbitrary large height */
+    }
+
+    .dropdown-link {
+        padding: 12px 36px;
+        /* Indent sub items */
+    }
+
+    .button-item {
+        padding: 15px 24px;
+    }
+
+    .logout-btn {
+        margin: 0;
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Hamburger Animation */
+    .menu-toggle.is-active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .menu-toggle.is-active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-toggle.is-active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+}

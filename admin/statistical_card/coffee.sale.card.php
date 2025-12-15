@@ -35,70 +35,55 @@ $sql = mysqli_query($con, "SELECT
 ");
 $coffee_sales_growth = mysqli_fetch_array($sql);
 
-?><div class="row">
 
-    <div class="col">
-        <div class="stat-card">
-            <div class="stat-card__content">
-                <p class="text-uppercase mb-1 text-muted"><b>TOTAL COFFEE</b> SALES</p>
-                <h4>
-                    <i class="text-success font-weight-bold mr-1"></i>
-                    ₱ <?php echo number_format($coffee_sales['total_sales'], 0) ?>
-                </h4>
-                <div>
-                    <span class="text-muted">
-                        <?php echo date('F Y'); ?> ₱ <?php echo number_format($coffee_month_sales['monthly_sales'], 0) ?>
-                    </span>
+?>
+<div class="d-flex flex-column gap-3">
+    <!-- Total Sales -->
+    <div class="p-3 border rounded bg-white">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <div class="text-muted small text-uppercase">Total Sales</div>
+                <div class="h4 fw-bold mb-0 text-dark">₱<?php echo number_format($coffee_sales['total_sales'], 0); ?></div>
+                <div class="small text-success mt-1">
+                    <i class="fas fa-arrow-up"></i> This Month: ₱<?php echo number_format($coffee_month_sales['monthly_sales'], 0); ?>
                 </div>
             </div>
-            <div class="stat-card__icon stat-card__icon--success">
-                <div class="stat-card__icon-circle">
-                    <i class="fa fa-money "></i>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="stat-card">
-            <div class="stat-card__content">
-                <p class="text-uppercase mb-1 text-muted"><b>COFFEE SALES </b>UNPAID BALANCE </p>
-                <h4>
-                    <i class="text-danger font-weight-bold mr-1"></i>
-                    ₱ <?php echo number_format($coffee_unpaid['unpaid_balance'] ?? 0, 0) ?>
-                </h4>
-                <div>
-                    <span class="text-muted">
-                        Active Sales: <?php echo number_format($coffee['active'], 0) ?>
-                    </span>
-                </div>
-            </div>
-            <div class="stat-card__icon stat-card__icon--warning">
-                <div class="stat-card__icon-circle">
-                    <i class="fa fa-wallet "></i>
-                </div>
+            <div class="text-success fs-2 opacity-25">
+                <i class="fa fa-money-bill-wave"></i>
             </div>
         </div>
     </div>
 
-
-
-    <div class="col">
-        <div class="stat-card">
-            <div class="stat-card__content">
-                <p class="text-uppercase mb-1 text-muted"><b>COFFEE SALES</b> GROWTH</p>
-                <h4>
-                    <i class="text-danger font-weight-bold mr-1"></i>
-                    <?php echo number_format($coffee_sales_growth['percentage_growth'], 0) ?> %
-                </h4>
-                <span class="text-muted">
-                    <?php echo date('F', strtotime('-1 month')); ?> to <?php echo date('F Y'); ?>
-                </span>
-
-            </div>
-            <div class="stat-card__icon stat-card__icon--danger">
-                <div class="stat-card__icon-circle">
-                    <i class="fa fa-chart-line"></i>
+    <!-- Unpaid Balance -->
+    <div class="p-3 border rounded bg-white">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <div class="text-muted small text-uppercase">Unpaid Balance</div>
+                <div class="h4 fw-bold mb-0 text-danger">₱<?php echo number_format($coffee_unpaid['unpaid_balance'] ?? 0, 0); ?></div>
+                <div class="small text-muted mt-1">
+                    Active Sales: <?php echo number_format($coffee['active'], 0); ?>
                 </div>
+            </div>
+            <div class="text-danger fs-2 opacity-25">
+                <i class="fa fa-wallet"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sales Growth -->
+    <div class="p-3 border rounded bg-white">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <div class="text-muted small text-uppercase">Monthly Growth</div>
+                <div class="h4 fw-bold mb-0 <?php echo $coffee_sales_growth['percentage_growth'] >= 0 ? 'text-success' : 'text-danger'; ?>">
+                    <?php echo number_format($coffee_sales_growth['percentage_growth'], 1); ?>%
+                </div>
+                 <div class="small text-muted mt-1">
+                    vs Last Month
+                </div>
+            </div>
+            <div class="text-primary fs-2 opacity-25">
+                <i class="fa fa-chart-line"></i>
             </div>
         </div>
     </div>

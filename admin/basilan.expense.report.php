@@ -62,7 +62,7 @@ $source = 'Basilan';
 
                         $sqlCondition = implode(' AND ', $whereConditions);
 
-                        $sql_cat = mysqli_query($con, " SELECT YEAR(date) AS year, type_expense, category,
+                        $sql_cat = mysqli_query($con, " SELECT YEAR(date) AS year, type_expense,
                                 sum(CASE WHEN MONTHNAME(date) = 'January' THEN amount END) AS JAN,
                                 sum(CASE WHEN MONTHNAME(date) = 'February' THEN amount END) AS FEB,
                                 sum(CASE WHEN MONTHNAME(date) = 'March' THEN amount END) AS MAR,
@@ -78,7 +78,7 @@ $source = 'Basilan';
                                 SUM(amount) AS total
                                 FROM ledger_expenses
     WHERE {$sqlCondition} and location='$source'
-    GROUP BY YEAR(date), type_expense, category");
+    GROUP BY YEAR(date), type_expense");
                         ?>
 
                         <thead class='table-dark' style="width:100%;font-size: 13px;">
@@ -109,9 +109,9 @@ $source = 'Basilan';
                                     </select>
                                 </th>
 
-                                <th rowspan="2">Category</th>
                                 <th rowspan="2">Total</th>
                                 <th colspan="12" style="text-align: center;">Monthly Breakdown</th>
+                                <th rowspan="2">Action</th>
                             </tr>
                             <tr>
                                 <th>Jan</th>
@@ -138,9 +138,7 @@ $source = 'Basilan';
                                     <td class="category">
                                         <?php echo $row['type_expense'] ?>
                                     </td>
-                                    <td>
-                                        <?php echo empty($row['category']) ? 'N/A' : $row['category']; ?>
-                                    </td>
+
 
                                     <td style='font-weight:bold;background-color: rgb(210, 252, 225)'>
                                         <?php echo empty($row['total']) || $row['total'] == 0 ? "-" : "" . number_format((float) $row['total'], 2, '.', ','); ?>
@@ -181,7 +179,13 @@ $source = 'Basilan';
                                     <td>
                                         <?php echo empty($row['DECE']) || $row['DECE'] == 0 ? "-" : "" . number_format((float) $row['DECE'], 2, '.', ','); ?>
                                     </td>
-
+                                    <td>
+                                        <button type="button" class="btn btn-primary btn-sm view-breakdown"
+                                            data-type-expense="<?php echo $row['type_expense']; ?>"
+                                            data-year="<?php echo $row['year']; ?>">
+                                            <i class="fa fa-eye"></i> View
+                                        </button>
+                                    </td>
 
 
                                 </tr>
@@ -204,8 +208,9 @@ $source = 'Basilan';
                             <th style="background-color: rgb(210, 252, 225);"></th>
                             <th style="background-color: rgb(210, 252, 225);"></th>
                             <th style="background-color: rgb(210, 252, 225);"></th>
-
+                            <!-- Extra one for Action -->
                             <th style="background-color: rgb(210, 252, 225);"></th>
+
                         </tfoot>
 
                     </table>
@@ -214,6 +219,51 @@ $source = 'Basilan';
             </div>
         </div>
 
+        <!-- Breakdown Modal -->
+        <div class="modal fade" id="breakdownModal" tabindex="-1" role="dialog" aria-labelledby="breakdownModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="breakdownModalLabel">Expense Breakdown</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped" id="breakdownTable"
+                                style="width:100%; font-size:13px;">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>Total</th>
+                                        <th>Jan</th>
+                                        <th>Feb</th>
+                                        <th>Mar</th>
+                                        <th>Apr</th>
+                                        <th>May</th>
+                                        <th>Jun</th>
+                                        <th>Jul</th>
+                                        <th>Aug</th>
+                                        <th>Sep</th>
+                                        <th>Oct</th>
+                                        <th>Nov</th>
+                                        <th>Dec</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="breakdownTableBody">
+                                    <!-- AJAX Content -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <br>
 
@@ -242,25 +292,55 @@ $source = 'Basilan';
                 window.location.href = currentUrl.toString();
             }
 
-         
 
-           
+
+
         </script>
 
 
         <script>
+            $(document).on('click', '.view-breakdown', function () {
+                var type = $(this).data('type-expense');
+                var year = $(this).data('year');
+                var locationSource = '<?php echo $source; ?>';
+
+                $('#breakdownModalLabel').text('Expense Breakdown: ' + type + ' (' + year + ')');
+                $('#breakdownTableBody').html('<tr><td colspan="14" class="text-center">Loading...</td></tr>');
+                $('#breakdownModal').modal('show');
+
+                $.ajax({
+                    url: 'fetch/fetchExpenseBreakdown.php',
+                    type: 'POST',
+                    data: {
+                        year: year,
+                        type_expense: type,
+                        location: locationSource
+                    },
+                    success: function (response) {
+                        $('#breakdownTableBody').html(response);
+                    },
+                    error: function () {
+                        $('#breakdownTableBody').html('<tr><td colspan="14" class="text-center text-danger">Error fetching data</td></tr>');
+                    }
+                });
+            });
+
             $(document).ready(function () {
                 var table = $('#table-expenses_all').DataTable({
                     "bPaginate": false,
                     "bInfo": false, // hide showing entries
                     "columnDefs": [{
-                        "targets": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+                        // Exclude last column (Action) from formatting
+                        "targets": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
                         "render": function (data, type, row) {
                             if (type === 'sort' || type === 'type') {
                                 return data.replace(/₱/g, "");
                             }
                             return data;
                         }
+                    }, {
+                        "targets": [15],
+                        "orderable": false
                     }],
 
                     "ordering": false,
@@ -296,19 +376,19 @@ $source = 'Basilan';
                         }
 
                         // Summing for all months
-                        var jan = sumColumn(4); // January is now the 5th column
-                        var feb = sumColumn(5);
-                        var mar = sumColumn(6);
-                        var apr = sumColumn(7);
-                        var may = sumColumn(8);
-                        var jun = sumColumn(9);
-                        var jul = sumColumn(10);
-                        var aug = sumColumn(11);
-                        var sep = sumColumn(12);
-                        var oct = sumColumn(13);
-                        var nov = sumColumn(14);
-                        var dec = sumColumn(15); // December is now the 16th column
-                        var total = sumColumn(3); // Total is the 4th column
+                        var jan = sumColumn(3); // January is now the 3rd column
+                        var feb = sumColumn(4);
+                        var mar = sumColumn(5);
+                        var apr = sumColumn(6);
+                        var may = sumColumn(7);
+                        var jun = sumColumn(8);
+                        var jul = sumColumn(9);
+                        var aug = sumColumn(10);
+                        var sep = sumColumn(11);
+                        var oct = sumColumn(12);
+                        var nov = sumColumn(13);
+                        var dec = sumColumn(14); // December is now the 14th column
+                        var total = sumColumn(2); // Total is the 2nd column
 
                         // Format the sums
                         var formated_1 = parseFloat(jan).toLocaleString(undefined, {
@@ -350,19 +430,19 @@ $source = 'Basilan';
                         var formated_total = parseFloat(total).toLocaleString(undefined, {
                             minimumFractionDigits: 2
                         });
-                        $(api.column(4).footer()).html('' + formated_1);  // January
-                        $(api.column(5).footer()).html('' + formated_2);  // February
-                        $(api.column(6).footer()).html('' + formated_3);  // March
-                        $(api.column(7).footer()).html('' + formated_4);  // April
-                        $(api.column(8).footer()).html('' + formated_5);  // May
-                        $(api.column(9).footer()).html('' + formated_6);  // June
-                        $(api.column(10).footer()).html('' + formated_7); // July
-                        $(api.column(11).footer()).html('' + formated_8); // August
-                        $(api.column(12).footer()).html('' + formated_9); // September
-                        $(api.column(13).footer()).html('' + formated_10); // October
-                        $(api.column(14).footer()).html('' + formated_11); // November
-                        $(api.column(15).footer()).html('' + formated_12); // December
-                        $(api.column(3).footer()).html('' + formated_total); // Total
+                        $(api.column(3).footer()).html('' + formated_1);  // January
+                        $(api.column(4).footer()).html('' + formated_2);  // February
+                        $(api.column(5).footer()).html('' + formated_3);  // March
+                        $(api.column(6).footer()).html('' + formated_4);  // April
+                        $(api.column(7).footer()).html('' + formated_5);  // May
+                        $(api.column(8).footer()).html('' + formated_6);  // June
+                        $(api.column(9).footer()).html('' + formated_7); // July
+                        $(api.column(10).footer()).html('' + formated_8); // August
+                        $(api.column(11).footer()).html('' + formated_9); // September
+                        $(api.column(12).footer()).html('' + formated_10); // October
+                        $(api.column(13).footer()).html('' + formated_11); // November
+                        $(api.column(14).footer()).html('' + formated_12); // December
+                        $(api.column(2).footer()).html('' + formated_total); // Total
 
 
 

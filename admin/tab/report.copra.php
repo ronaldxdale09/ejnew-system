@@ -1,10 +1,10 @@
 <?php
 
-$getMonthTotal  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(net_res) as month_total 
+$getMonthTotal = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(net_res) as month_total 
    from copra_transaction  group by year(date), month(date) ORDER BY ID DESC");
 $sumPurchaced_Copra = mysqli_fetch_array($getMonthTotal);
-$monthNum  = $sumPurchaced_Copra["month"];
-$dateObj   = DateTime::createFromFormat('!m', $monthNum);
+$monthNum = $sumPurchaced_Copra["month"];
+$dateObj = DateTime::createFromFormat('!m', $monthNum);
 $monthName = $dateObj->format('F');
 
 
@@ -35,151 +35,107 @@ $result_total_transactions = mysqli_query($con, "SELECT COUNT(*) as total_transa
 $row_total_transactions = mysqli_fetch_array($result_total_transactions);
 ?>
 
-<br>
-<h4 class="card-header card-title1">COPRA <span>PURCHASES</span></h4>
-<div class="row d-flex flex-wrap justify-content-center">
-    <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center">
-        <div class="modern-stat-card">
-            <div class="icon-section total-purchases-icon">
-                <i class="fa fa-money-bill-wave"></i>
-            </div>
-            <div class="info-section">
-                <span class="stat-title">Total Purchases</span>
-                <h2 class="stat-value">₱ <?php echo number_format($row_total_purchase['total_purchase'], 2); ?></h2>
-            </div>
+
+<!-- STATS ROW -->
+<div class="stats-grid mb-4">
+    <!-- Total Purchases -->
+    <div class="stat-card">
+        <div class="stat-icon" style="background: #e6f7ff; color: #0091ff;">
+            <i class="fa fa-money-bill-wave"></i>
+        </div>
+        <div class="stat-info">
+            <h5>Total Copra Purchases</h5>
+            <h2>₱ <?php echo number_format($row_total_purchase['total_purchase'], 2); ?></h2>
         </div>
     </div>
 
-    <!-- Average Purchase Amount Card -->
-    <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center">
-        <div class="modern-stat-card">
-            <div class="icon-section average-purchase-icon">
-                <i class="fa fa-chart-line"></i>
-            </div>
-            <div class="info-section">
-                <span class="stat-title">Average Purchase</span>
-                <h2 class="stat-value">₱ <?php echo number_format($row_avg_purchase['avg_purchase'], 2); ?></h2>
-            </div>
+    <!-- Avg Purchase -->
+    <div class="stat-card">
+        <div class="stat-icon" style="background: #f6ffed; color: #52c41a;">
+            <i class="fa fa-chart-line"></i>
+        </div>
+        <div class="stat-info">
+            <h5>Average Purchase</h5>
+            <h2>₱ <?php echo number_format($row_avg_purchase['avg_purchase'], 2); ?></h2>
         </div>
     </div>
 
-    <!-- Total Tax Amount Card -->
-    <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center">
-        <div class="modern-stat-card">
-            <div class="icon-section total-tax-icon">
-                <i class="fa fa-receipt"></i>
-            </div>
-            <div class="info-section">
-                <span class="stat-title">Total Tax Paid</span>
-                <h2 class="stat-value">₱ <?php echo number_format($row_total_tax['total_tax'], 2); ?></h2>
-            </div>
+    <!-- Recent -->
+    <div class="stat-card">
+        <div class="stat-icon" style="background: #fff0f6; color: #eb2f96;">
+            <i class="fa fa-clock"></i>
+        </div>
+        <div class="stat-info">
+            <h5>Recent Purchase</h5>
+            <h2 style="font-size: 20px;">₱ <?php echo number_format($row_recent_purchase['amount_paid'], 2); ?></h2>
+            <div class="stat-growth"><span><?php echo $row_recent_purchase['date']; ?></span></div>
         </div>
     </div>
 
-    <!-- Most Recent Purchase Card -->
-    <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center">
-        <div class="modern-stat-card">
-            <div class="icon-section recent-purchase-icon">
-                <i class="fa fa-clock"></i>
-            </div>
-            <div class="info-section">
-                <span class="stat-title">Recent Purchase</span>
-                <h2 class="stat-value">₱ <?php echo number_format($row_recent_purchase['amount_paid'], 2); ?> ( <?php echo $row_recent_purchase['date']; ?>)</h2>
-            </div>
+    <!-- Weight -->
+    <div class="stat-card">
+        <div class="stat-icon" style="background: #fff7e6; color: #fa8c16;">
+            <i class="fa fa-balance-scale"></i>
+        </div>
+        <div class="stat-info">
+            <h5>Total Weight</h5>
+            <h2><?php echo number_format($row_total_weight['total_weight'], 0); ?> Kg</h2>
         </div>
     </div>
-
-    <!-- Total Weight Purchased Card -->
-    <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center">
-        <div class="modern-stat-card">
-            <div class="icon-section total-weight-icon">
-                <i class="fa fa-balance-scale"></i>
-            </div>
-            <div class="info-section">
-                <span class="stat-title">Total Weight</span>
-                <h2 class="stat-value"><?php echo number_format($row_total_weight['total_weight'], 0); ?> Kg</h2>
-            </div>
-        </div>
-    </div>
-
-    <!-- Number of Transactions Card -->
-    <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center">
-        <div class="modern-stat-card">
-            <div class="icon-section transactions-icon">
-                <i class="fa fa-list-ol"></i>
-            </div>
-            <div class="info-section">
-                <span class="stat-title">Transactions</span>
-                <h2 class="stat-value"><?php echo $row_total_transactions['total_transactions']; ?></h2>
-            </div>
-        </div>
-    </div>
-    <!-- Number of Transactions Card -->
 </div>
 
-<!-- LATEST COPRA TRANSACTION -->
-<div class="col-12 col-lg-12 mb-4">
-    <div class="card shadow">
-        <div class="card-body">
-            <div class="row align-items-center mb-3">
-                <div class="col-md-9 col-8">
-                    <h5 class="mb-0">LATEST COPRA TRANSACTION</h5>
-                </div>
-                <div class="col-md-3 col-4 text-md-right text-left">
-                    <a href="copra_record.php" class="btn btn-success btn-sm">
-                        VIEW ALL
-                    </a>
-                </div>
+<div class="row">
+    <!-- CHART -->
+    <div class="col-lg-8 mb-4">
+        <div class="stat-card chart-card h-100">
+            <div class="inv-header">
+                <div class="inv-title">Monthly Copra Purchase Trend</div>
+                <div class="inv-icon"><i class="fas fa-chart-area"></i></div>
             </div>
-            <hr>
-            <div class="table-responsive">
-                <table class="table" id='sellerTable'>
-                    <?php
-                    $record  = mysqli_query($con, "SELECT * from copra_transaction ORDER BY id DESC LIMIT 5 "); ?>
-                    <thead class="table-dark">
-                        <tr>
-                            <th scope="col">Invoice</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Contract</th>
-                            <th scope="col">Seller</th>
-                            <th scope="col">Net Resecada Weight</th>
-                            <th scope="col">Amount Paid</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php while ($row = mysqli_fetch_array($record)) { ?>
+            <div class="card-body" style="height: 350px;">
+                <canvas id="copra_bar"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="col-lg-4 mb-4">
+        <div class="stat-card chart-card h-100">
+            <div class="inv-header">
+                <div class="inv-title">Latest Transactions</div>
+                <a href="copra_record.php" class="btn btn-primary btn-sm rounded-pill px-3">View All</a>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive" style="max-height: 350px; overflow-y: auto;">
+                    <table class="table table-sm table-hover align-middle mb-0">
+                        <thead class="table-light sticky-top">
                             <tr>
-                                <th scope="row"><?php echo $row['id'] ?></th>
-                                <td>
-                                    <?php
-                                    $date = new DateTime($row['date']);
-                                    echo $date->format('F d, Y');
-                                    ?>
-                                </td>
-                                <td><?php echo $row['contract'] ?></td>
-                                <td><?php echo $row['seller'] ?></td>
-                                <td><?php echo number_format($row['net_res']); ?> Kg</td>
-                                <td>₱ <?php echo number_format($row['amount_paid']); ?></td>
+                                <th class="ps-3">Date</th>
+                                <th>Seller</th>
+                                <th>Net (Kg)</th>
+                                <th class="text-end pe-3">Paid</th>
                             </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-<br>
-
-<div class="card card-theme2">
-    <div class="card-body">
-        <h4 class="card-header card-title2">Purchase <span>Trend</span></h4>
-        <div class="row">
-            <div class="col">
-                <div class="card">
-                    <div class="card-body card-content">
-                        <canvas id="copra_bar" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
-                    </div>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $record = mysqli_query($con, "SELECT * from copra_transaction ORDER BY id DESC LIMIT 10");
+                            while ($row = mysqli_fetch_array($record)) {
+                                ?>
+                                <tr>
+                                    <td class="ps-3 text-muted" style="font-size: 13px;">
+                                        <?php echo (new DateTime($row['date']))->format('M d'); ?>
+                                    </td>
+                                    <td class="fw-bold text-dark" style="font-size: 13px;">
+                                        <?php echo mb_strimwidth($row['seller'], 0, 12, ".."); ?>
+                                    </td>
+                                    <td style="font-size: 13px;"><?php echo number_format($row['net_res']); ?></td>
+                                    <td class="text-end pe-3 text-success fw-bold" style="font-size: 13px;">
+                                        ₱<?php echo number_format($row['amount_paid']); ?>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -187,7 +143,7 @@ $row_total_transactions = mysqli_fetch_array($result_total_transactions);
 </div>
 
 <script>
-    copra_bar = document.getElementById("copra_bar");
+    const copra_bar = document.getElementById("copra_bar");
     <?php
     $currentMonth = date("m");
     $currentDay = date("d");
@@ -196,6 +152,8 @@ $row_total_transactions = mysqli_fetch_array($result_total_transactions);
     $today = $currentYear . "-" . $currentMonth . "-" . $currentDay;
 
     $purchased_count = mysqli_query($con, "SELECT year(date) as year ,MONTHNAME(date) as monthname,sum(net_res) as month_total from copra_transaction WHERE year(date)='$currentYear'  group by month(date) ORDER BY date");
+    $month = [];
+    $amount = [];
     if ($purchased_count->num_rows > 0) {
         foreach ($purchased_count as $data) {
             $month[] = $data['monthname'];
@@ -205,28 +163,46 @@ $row_total_transactions = mysqli_fetch_array($result_total_transactions);
     ?>
 
     new Chart(copra_bar, {
+        type: 'line',
+        data: {
+            labels: <?php echo json_encode($month) ?>,
+            datasets: [{
+                label: 'Purchased (Kg)',
+                data: <?php echo json_encode($amount) ?>,
+                backgroundColor: 'rgba(67, 24, 255, 0.1)',
+                borderColor: '#4318FF',
+                borderWidth: 2,
+                pointBackgroundColor: '#ffffff',
+                pointBorderColor: '#4318FF',
+                pointRadius: 4,
+                tension: 0.4,
+                fill: true
+            }]
+        },
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            aspectRatio: 1.5,
             plugins: {
-                title: {
-                    display: true,
-                    text: 'Monthly Copra Purchased Expense',
-                },
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: '#fff',
+                    titleColor: '#2B3674',
+                    bodyColor: '#2B3674',
+                    borderColor: '#E0E5F2',
+                    borderWidth: 1,
+                    padding: 10,
+                    boxPadding: 4
+                }
             },
-        },
-        type: 'line', //Declare the chart type 
-        data: {
-            labels: <?php echo json_encode($month) ?>, //X-axis data 
-            datasets: [{
-                label: 'Purchased',
-                data: <?php echo json_encode($amount) ?>, //Y-axis data 
-                backgroundColor: '#f26c4f',
-                borderColor: '#f26c4f',
-                tension: 0.3,
-                fill: false, //Fills the curve under the line with the babckground color. It's true by default
-            }]
-        },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: { borderDash: [5, 5], color: '#E0E5F2', drawBorder: false }
+                },
+                x: {
+                    grid: { display: false, drawBorder: false }
+                }
+            }
+        }
     });
 </script>
