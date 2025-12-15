@@ -3,11 +3,11 @@ include('db.php');
 
 // Validate POST data exists
 if (!isset($_POST['username']) || !isset($_POST['password'])) {
-    echo "<script type='text/javascript'>
+	echo "<script type='text/javascript'>
             alert('Username and password are required');
             window.location='../index.php';
           </script>";
-    exit();
+	exit();
 }
 
 $username = mysqli_real_escape_string($con, $_POST['username']);
@@ -15,22 +15,22 @@ $password = mysqli_real_escape_string($con, $_POST['password']);
 
 // Validate input
 if (empty($username) || empty($password)) {
-    echo "<script type='text/javascript'>
+	echo "<script type='text/javascript'>
             alert('Username and password are required');
             window.location='../index.php';
           </script>";
-    exit();
+	exit();
 }
 
 // Optimized: Single query instead of two separate queries
 $sql = mysqli_query($con, "SELECT * FROM users WHERE username='$username' AND password='$password' LIMIT 1");
 if (!$sql) {
-    error_log('Login query failed: ' . mysqli_error($con));
-    echo "<script type='text/javascript'>
+	error_log('Login query failed: ' . mysqli_error($con));
+	echo "<script type='text/javascript'>
             alert('Database error occurred');
             window.location='../index.php';
           </script>";
-    exit();
+	exit();
 }
 
 $count = mysqli_num_rows($sql);
@@ -44,7 +44,7 @@ if ($count == 0) {
 			</script>";
 		exit();
 	}
-	
+
 	if (mysqli_num_rows($checkUser) == 0) {
 		echo "<script type='text/javascript'>
 					alert('No Record of Given Username');
@@ -78,15 +78,15 @@ if ($count == 0) {
 	$_SESSION["user"] = $username;
 	$_SESSION["loc"] = $user['loc'];
 	$_SESSION["source"] = $user['loc'];
-	
+
 	// Regenerate session ID for security
 	session_regenerate_id(true);
-	
+
 	if ($userType == 'copra') {
 		header('Location: ../copra/transaction.php');
 		exit();
 	} elseif ($userType == 'finance') {
-		header('Location: ../ledger/ledger-expense.php');
+		header('Location: ../ledger/dashboard.php');
 		exit();
 	} elseif ($userType == 'admin') {
 		header('Location: ../admin/dashboard.php');

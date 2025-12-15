@@ -5,132 +5,104 @@ $year = date("Y");
 $dateNow = $year . "-" . $month . "-" . $day;
 
 ?>
-<!-- Modal -->
-<div class="modal fade" id="cashadvanceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">CASH ADVANCE</h5>
-                <button type="button" class="btn btn-light" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+<!-- NEW ADD CASH ADVANCE MODAL -->
+<div class="modal fade" id="cashadvanceModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content border-0">
+            <div class="modal-header bg-success text-white">
+                <h6 class="modal-title fw-bold"><i class="fa fa-plus-circle me-2"></i>New Cash Advance</h6>
+                <button type="button" class="btn-close btn-close-white" data-dismiss="modal"
+                    aria-label="Close"></button>
             </div>
             <form id='cashadvance-form' method="POST">
                 <div class="modal-body">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="col-md-12">DATE</label>
-                                            <div class="col-md-12">
-                                                <input class='datepicker' value="<?php echo $dateNow; ?>" type="date" id="date" name="date" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="col-md-12">VOUCHER #</label>
-                                            <div class="col-md-8">
-                                                <input type="text" name='voucher' class="form-control form-control-line" autocomplete='off' required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="col-md-12">PARTICULARS</label>
-                                            <div class="col-md-12">
-                                                <input type="text" name='particular' class="form-control form-control-line" autocomplete='off' required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="col-md-12">STATION</label>
-                                            <div class="col-md-12">
-                                                <input type="text" name='station' class="form-control form-control-line" autocomplete='off'>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="mb-3">
-                                            <label for="product_name" class="form-label">Type</label>
-                                            <select class='form-select category' name='category' required>
-                                                <option disabled="disabled" value='' selected="selected">Select Type </option>
-                                                <option value='Employee'>Employee</option>
-                                                <option value='Rubber'>Rubber</option>
-                                                <option value='Coffee'>Coffee</option>
-                                                <option value='Copra'>Copra</option>
-                                                <option value='Toppers '>Toppers</option>
-                                                <option value="Karpentero">Karpentero</option>
+                    <!-- Section 1: Transaction Info -->
+                    <h6 class="text-muted text-uppercase mb-3 small fw-bold">Transaction Info</h6>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <label class="form-label">Date</label>
+                            <input class='form-control' value="<?php echo $dateNow; ?>" type="date" name="date"
+                                required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Voucher No.</label>
+                            <input type="text" name='voucher' class="form-control" placeholder="e.g. CV-1001"
+                                autocomplete='off' required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Station</label>
+                            <input type="text" name='station' class="form-control" autocomplete='off'>
+                        </div>
+                    </div>
 
-                                                <option value="Maloong Contractual">Maloong Contractual</option>
-                                                <option value='Others'>Others</option>
+                    <!-- Section 2: Details -->
+                    <h6 class="text-muted text-uppercase mb-3 small fw-bold">Particulars</h6>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label">Particular/Payee</label>
+                            <input type="text" name='particular' class="form-control" placeholder="Name of person"
+                                autocomplete='off' required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Category (Type)</label>
+                            <select class='form-select' name='category' required>
+                                <option value="" disabled selected>Select Category</option>
+                                <option value='Employee'>Employee</option>
+                                <option value='Rubber'>Rubber</option>
+                                <option value='Coffee'>Coffee</option>
+                                <option value='Copra'>Copra</option>
+                                <option value='Toppers '>Toppers</option>
+                                <option value="Karpentero">Karpentero</option>
+                                <option value="Maloong Contractual">Maloong Contractual</option>
+                                <option value='Others'>Others</option>
+                            </select>
+                        </div>
+                    </div>
 
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <br>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <div class="row no-gutters">
-                                                <label style='font-size:15px;font-weight: bold;' class="col-md-12">Amount: </label>
-                                                <div class="col-md-12">
-                                                    <!--  -->
-                                                    <div class="input-group mb-5">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">₱</span>
-                                                        </div>
-                                                        <input type="text" style='text-align:right' name='amount' class="form-control" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off' required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                    <!-- Section 3: Financials -->
+                    <h6 class="text-muted text-uppercase mb-3 small fw-bold">Financials</h6>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="form-label">Amount</label>
+                            <div class="input-group">
+                                <span class="input-group-text fw-bold">₱</span>
+                                <input type="text" style='text-align:right; font-size: 1.2rem; font-weight: bold;'
+                                    name='amount' class="form-control" onkeypress="return CheckNumeric()"
+                                    onkeyup="FormatCurrency(this)" autocomplete='off' required>
                             </div>
                         </div>
                     </div>
-                    <!-- END BALANCE -->
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" name='submit' class="btn btn-primary">Submit</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" name='submit' class="btn btn-success px-4">Save Record</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-</div>
 
-
-
-<!-- MODAL OF REMOVE CASH ADVANCE -->
-<div class="modal fade" id="removeCashAdvance" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">REMOVE CASH ADVANCE</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<!-- REMOVE MODAL -->
+<div class="modal fade" id="removeCashAdvance" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0">
+            <div class="modal-header bg-danger text-white">
+                <h6 class="modal-title fw-bold"><i class="fa fa-exclamation-triangle me-2"></i>Confirm Deletion</h6>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body p-4 text-center">
                 <form id="deleteCashAdvanceForm" method="POST">
-                    <input type="text" id="my_id" name="my_id" style="display: none">
-                    <!--hide from uder, for db locate id only -->
-                    <p>Please confirm to remove this row data of <b id="customer_name" style="text-transform: capitalize;"></b>.</p>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" name="submit" class="btn btn-danger">Delete</button>
+                    <input type="hidden" id="my_id" name="my_id">
+                    <div class="mb-3">
+                        <i class="fa fa-trash fa-3x text-muted mb-3"></i>
+                        <p class="mb-1">Are you sure you want to delete this cash advance record for:</p>
+                        <h5 id="customer_name" class="fw-bold text-danger"></h5>
+                        <p class="text-muted small">This action cannot be undone.</p>
+                    </div>
+                    <div class="d-flex justify-content-center gap-2">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Delete Record</button>
                     </div>
                 </form>
             </div>
@@ -138,169 +110,79 @@ $dateNow = $year . "-" . $month . "-" . $day;
     </div>
 </div>
 
-
-
-<!-- MODAL OF UPDATE CASH ADVANCE -->
-<div class="modal fade" id="updateCashAdvance" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">UPDATE CASH ADVANCE</h5>
+<!-- UPDATE MODAL -->
+<div class="modal fade" id="updateCashAdvance" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content border-0">
+            <div class="modal-header bg-primary text-white">
+                <h6 class="modal-title fw-bold"><i class="fa fa-edit me-2"></i>Update Cash Advance</h6>
+                <!-- Note: Bootstrap 4 uses close class, 5 uses btn-close. Adjusting for compatibility if needed, but sticking to 5 structure -->
+                <button type="button" class="btn-close btn-close-white" data-dismiss="modal"
+                    aria-label="Close"></button>
             </div>
             <form id='updateCashAdvanceForm' method="POST">
                 <div class="modal-body">
-                    <!--this input is to locate id purposes only -->
-                    <input type="text" name="my_id" id="my_id" style="display: none">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="col-md-12">DATE</label>
-                                            <div class="col-md-12">
-                                                <input class='datepicker' value="<?php echo $today; ?>" type="date" id="date" name="date" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="col-md-12">VOUCHER #</label>
-                                            <div class="col-md-8">
-                                                <input type="text" name='voucher' id="voucher" class="form-control form-control-line" autocomplete='off' required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="col-md-12">PARTICULARS</label>
-                                            <div class="col-md-12">
-                                                <input type="text" name='particular' id="particular" class="form-control form-control-line" autocomplete='off' required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="col-md-12">STATION</label>
-                                            <div class="col-md-12">
-                                                <input type="text" name='station' id="station" class="form-control form-control-line" autocomplete='off'>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="mb-3">
-                                            <label for="product_name" class="form-label">Type</label>
-                                            <select class='form-select category' name='category' id='category' required>
-                                                <option disabled="disabled" value='' selected="selected">Select Type </option>
-                                                <option value='Employee'>Employee</option>
-                                                <option value='Rubber'>Rubber</option>
-                                                <option value='Coffee'>Coffee</option>
-                                                <option value='Copra'>Copra</option>
-                                                <option value='Toppers '>Toppers</option>
-                                                <option value="Karpentero">Karpentero</option>
+                    <input type="hidden" name="my_id" id="my_id">
 
-                                                <option value="Maloong Contractual">Maloong Contractual</option>
-                                                <option value='Others'>Others</option>
+                    <!-- Section 1: Transaction Info -->
+                    <h6 class="text-muted text-uppercase mb-3 small fw-bold">Transaction Info</h6>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <label class="form-label">Date</label>
+                            <input class='form-control' type="date" id="date" name="date" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Voucher No.</label>
+                            <input type="text" name='voucher' id="voucher" class="form-control" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Station</label>
+                            <input type="text" name='station' id="station" class="form-control">
+                        </div>
+                    </div>
 
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
+                    <!-- Section 2: Details -->
+                    <h6 class="text-muted text-uppercase mb-3 small fw-bold">Particulars</h6>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label">Particular/Payee</label>
+                            <input type="text" name='particular' id="particular" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Category</label>
+                            <select class='form-select' name='category' id='category' required>
+                                <option value="" disabled>Select Category</option>
+                                <option value='Employee'>Employee</option>
+                                <option value='Rubber'>Rubber</option>
+                                <option value='Coffee'>Coffee</option>
+                                <option value='Copra'>Copra</option>
+                                <option value='Toppers '>Toppers</option>
+                                <option value="Karpentero">Karpentero</option>
+                                <option value="Maloong Contractual">Maloong Contractual</option>
+                                <option value='Others'>Others</option>
+                            </select>
+                        </div>
+                    </div>
 
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <div class="row no-gutters">
-                                                <label style='font-size:15px;font-weight: bold;' class="col-md-12">Amount: </label>
-                                                <div class="col-md-12">
-                                                    <!--  -->
-                                                    <div class="input-group mb-5">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">₱</span>
-                                                        </div>
-                                                        <input type="text" style='text-align:right' name='amount' class="form-control" id="amount" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off' required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                    <!-- Section 3: Financials -->
+                    <h6 class="text-muted text-uppercase mb-3 small fw-bold">Financials</h6>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="form-label">Amount</label>
+                            <div class="input-group">
+                                <span class="input-group-text fw-bold">₱</span>
+                                <input type="text" style='text-align:right; font-size: 1.2rem; font-weight: bold;'
+                                    name='amount' id="amount" class="form-control" onkeypress="return CheckNumeric()"
+                                    onkeyup="FormatCurrency(this)" required>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" name='submit' id='submit' class="btn btn-success">Save Changes</button>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary px-4">Update Record</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-</div>
-
-
-<script>
-    //scripts to get the value from expenses.php to remove
-    const exampleModalRemove = document.getElementById('removeCashAdvance')
-    exampleModalRemove.addEventListener('show.bs.modal', event => {
-        // Button that triggered the modal
-        const button = event.relatedTarget
-        // Extract info from data-bs-* attributes
-        const idRemove = button.getAttribute('data-bs-id')
-        const name = button.getAttribute('data-bs-name')
-        //
-        // Update the modal's content.
-        const modalTitleRemove = exampleModalRemove.querySelector('.modal-title')
-        const my_idRemove = exampleModalRemove.querySelector('.modal-body #my_id')
-        const customer_name = exampleModalRemove.querySelector('.modal-body #customer_name')
-
-        my_idRemove.value = idRemove
-        customer_name.textContent = `${name}`
-
-    })
-
-    //scripts to get the value from expenses.php to update
-
-    const exampleModal = document.getElementById('updateCashAdvance')
-    exampleModal.addEventListener('show.bs.modal', event => {
-        // Button that triggered the modal
-        const button = event.relatedTarget
-        // Extract info from data-bs-* attributes
-        const id = button.getAttribute('data-bs-id')
-        const voucher = button.getAttribute('data-bs-voucher')
-        const date = button.getAttribute('data-bs-date')
-        const customer = button.getAttribute('data-bs-customer')
-        const buying_station = button.getAttribute('data-bs-buying_station')
-        const category = button.getAttribute('data-bs-category')
-        const amount = button.getAttribute('data-bs-amount')
-
-        // If necessary, you could initiate an AJAX request here
-        // and then do the updating in a callback.
-        //
-        // Update the modal's content.
-        const myID = exampleModal.querySelector('.modal-body #my_id')
-        const voucherID = exampleModal.querySelector('.modal-body #voucher')
-        const dateID = exampleModal.querySelector('.modal-body #date')
-        const customerID = exampleModal.querySelector('.modal-body #particular')
-        const stationID = exampleModal.querySelector('.modal-body #station')
-        const categoryID = exampleModal.querySelector('.modal-body #category')
-        const amountID = exampleModal.querySelector('.modal-body #amount')
-
-
-        myID.value = id
-        voucherID.value = voucher
-        dateID.value = date
-        customerID.value = customer
-        stationID.value = buying_station
-        categoryID.value = category
-        amountID.value = amount
-
-    })
-</script>

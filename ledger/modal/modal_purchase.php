@@ -7,445 +7,285 @@ $dateNow = $year . "-" . $month . "-" . $day;
 ?>
 <!-- Modal -->
 
-<div class="modal fade" id="purchase-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Purchase</h5>
-                <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+<!-- ADD PURCHASE MODAL -->
+<div class="modal fade" id="purchase-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content border-0">
+            <div class="modal-header bg-success text-white">
+                <h6 class="modal-title fw-bold"><i class="fa fa-shopping-cart me-2"></i>New Purchase Entry</h6>
+                <button type="button" class="btn-close btn-close-white" data-dismiss="modal"
+                    aria-label="Close"></button>
             </div>
             <form id='purchase-form' method="POST">
                 <div class="modal-body">
-                    <div class="row">
+                    <!-- Section 1: Transaction Info -->
+                    <h6 class="text-muted text-uppercase mb-3 small fw-bold">Transaction Details</h6>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <label class="form-label">Date</label>
+                            <input class='form-control' value="<?php echo $dateNow; ?>" type="date" id="date"
+                                name="date" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Voucher No.</label>
+                            <input type="text" id='p_voucher' name='p_voucher' class="form-control" required
+                                autocomplete='off'>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Category</label>
+                            <select class='form-select' name='pur_category' id='pur_category' required>
+                                <option disabled selected>Select Category</option>
+                                <?php echo $purCatList; ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Supplier & Scale -->
+                    <h6 class="text-muted text-uppercase mb-3 small fw-bold">Supplier & Weight</h6>
+                    <div class="row g-3 mb-4">
                         <div class="col-md-12">
-                            <div class="mb-3">
-                                <label for="date">Date</label>
-                                <input class='form-control' value="<?php echo $dateNow; ?>" type="date" id="date" name="date" required>
+                            <label class="form-label">Supplier Name</label>
+                            <input type="text" name='name' class="form-control" autocomplete='off' required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Net Kilos</label>
+                            <div class="input-group">
+                                <input type="text" id='p_net-kilos' name='net_kilo' class="form-control"
+                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
+                                    autocomplete='off'>
+                                <span class="input-group-text fw-bold">Kg</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Price per Kilo</label>
+                            <div class="input-group">
+                                <span class="input-group-text fw-bold">₱</span>
+                                <input type="text" style='text-align:right' name='price'
+                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
+                                    class="form-control" autocomplete='off'>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="p_voucher">Voucher</label>
-                                <input type="text" id='p_voucher' name='p_voucher' class="form-control" required autocomplete='off'>
+
+                    <!-- Section 3: Deductions & Adjustments -->
+                    <h6 class="text-muted text-uppercase mb-3 small fw-bold">Deductions & Adjustments</h6>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <label class="form-label">Cash Advance</label>
+                            <div class="input-group">
+                                <span class="input-group-text">₱</span>
+                                <input type="text" style='text-align:right' name='cash_advance' class="form-control"
+                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
+                                    autocomplete='off'>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="pur_category">Category</label>
-                                <select class='form-select' name='pur_category' id='pur_category' required>
-                                    <option disabled="disabled" value='' selected="selected">Select Category</option>
-                                    <?php echo $purCatList; ?>
-                                </select>
+                        <div class="col-md-4">
+                            <label class="form-label">Tax</label>
+                            <div class="input-group">
+                                <span class="input-group-text">₱</span>
+                                <input type="text" style='text-align:right' name='tax' class="form-control"
+                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
+                                    autocomplete='off'>
                             </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Others / Desc</label>
+                            <div class="input-group">
+                                <span class="input-group-text">₱</span>
+                                <input type="text" style='text-align:right' name='others' class="form-control"
+                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
+                                    autocomplete='off'>
+                            </div>
+                            <input type="text" name='description' class="form-control mt-1 form-control-sm"
+                                placeholder="Description (Optional)" autocomplete='off'>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="mb-3">
-                                <label for="p_name">Supplier Name</label>
-                                <input type="text" name='name' class="form-control" autocomplete='off' required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="p_net-kilos">Net Kilos</label>
+
+                    <!-- Section 4: Totals -->
+                    <div class="alert alert-light border">
+                        <div class="row g-3 align-items-end">
+                            <div class="col-md-6">
+                                <label class="form-label text-muted small text-uppercase">Gross Total</label>
                                 <div class="input-group">
-                                    <input type="text" id='p_net-kilos' name='net_kilo' class="form-control" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off'>
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">Kg</span>
-                                    </div>
+                                    <span
+                                        class="input-group-text bg-transparent border-end-0 fw-bold text-muted">₱</span>
+                                    <input type="text" style='text-align:right; font-weight: bold;' name='total_amount'
+                                        readonly class="form-control border-start-0 bg-transparent">
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label style='font-size:15px;font-weight: bold;' class="col-md-12">Price: </label>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">₱</span>
-                                    </div>
-                                    <input type="text" style='text-align:right' name='price' onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" class="form-control" autocomplete='off'>
+                            <div class="col-md-6">
+                                <label class="form-label text-primary small text-uppercase fw-bold">Net Total
+                                    Amount</label>
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-text bg-primary text-white border-0 fw-bold">₱</span>
+                                    <input type="text" style='text-align:right; font-weight: 800; color: #0C0070;'
+                                        name='net_total_amount' class="form-control border-primary">
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- end price -->
-                    <div class="form-group">
-                        <div class="row no-gutters">
-
-                            <div class="col-6 col-md-6">
-                                <label style='font-size:15px' class="col-md-12">Cash Advance :</label>
-                                <!-- new column -->
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">₱</span>
-                                    </div>
-                                    <input type="text" style='text-align:right' name='cash_advance' class="form-control" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off'>
-                                </div>
-                                <!--  -->
-                            </div>
-
-                            <div class="col-6 col-md-6">
-                                <label style='font-size:15px' class="col-md-12">Tax :</label>
-                                <!-- new column -->
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">₱</span>
-                                    </div>
-                                    <input type="text" style='text-align:right' name='tax' class="form-control" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off'>
-                                </div>
-                                <!--  -->
-                            </div>
-                        </div>
-                    </div>
-                    <!-- END Partial Payment -->
-                    <div class="form-group">
-                        <div class="row no-gutters">
-
-                            <div class="col-6 col-md-6">
-                                <label style='font-size:15px' class="col-md-12">Others :</label>
-                                <!-- new column -->
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">₱</span>
-                                    </div>
-                                    <input type="text" style='text-align:right' name='others' class="form-control" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off'>
-                                </div>
-                                <!--  -->
-                            </div>
-                            <div class="col-6 col-md-6">
-                                <label style='font-size:15px' class="col-md-12"></label>
-                                <!-- new column -->
-                                <div class="input-group mb-3">
-
-                                    <input type="text" style='text-align:center' name='description' class="form-control" placeholder="Description" autocomplete='off'>
-                                </div>
-                                <!--  -->
-                            </div>
-
-                        </div>
-                    </div>
-                    <!-- end partial payment -->
-                    <div class="form-group">
-                        <div class="row no-gutters">
-                            <div class="col-6 col-md-6">
-                                <label style='font-size:15px' class="col-md-12">Total Amount :</label>
-                                <!-- new column -->
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">₱</span>
-                                    </div>
-                                    <input type="text" style='text-align:right' name='total_amount' readonly class="form-control">
-                                </div>
-                                <!--  -->
-                            </div>
-                            <div class="col-6 col-md-6">
-                                <label style='font-size:15px' class="col-md-12">Net Total Amount :</label>
-                                <!-- new column -->
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">₱</span>
-                                    </div>
-                                    <input type="text" style='text-align:right' name='net_total_amount' class="form-control">
-                                </div>
-                                <!--  -->
-                            </div>
-                        </div>
-                    </div>
-                    <!-- END Price -->
-                    <!-- end net total and amount -->
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">
-                        <i class="fa fa-save"></i> Submit
-                    </button>
+                <div class="modal-footer bg-light">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success px-4">Save Entry</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const inputs = document.querySelectorAll("[name='net_kilo'], [name='price'], [name='cash_advance'], [name='tax'], [name='others']");
-
-        for (let input of inputs) {
-            input.addEventListener("input", computeTotal);
-        }
-        
-        // Add separate event listener for net_total_amount
-        document.querySelector("[name='net_total_amount']").addEventListener("input", function() {
-            let netTotalValue = parseFloat(this.value.replace(/,/g, '')) || 0;
-            let formattedValue = parseFloat(netTotalValue.toFixed(2)).toLocaleString('en-US');
-            document.querySelector("[name='total_amount']").value = formattedValue;
-        });
-
-        function computeTotal() {
-            let netKilos = parseFloat(document.querySelector("[name='net_kilo']").value.replace(/,/g, '')) || 0;
-            let price = parseFloat(document.querySelector("[name='price']").value.replace(/,/g, '')) || 0;
-            let cashAdvance = parseFloat(document.querySelector("[name='cash_advance']").value.replace(/,/g, '')) || 0;
-            let tax = parseFloat(document.querySelector("[name='tax']").value.replace(/,/g, '')) || 0;
-            let others = parseFloat(document.querySelector("[name='others']").value.replace(/,/g, '')) || 0;
-
-            let net_total = (netKilos * price) - cashAdvance - tax - others;
-            let totalAmount = (netKilos * price);
-
-            let formattedNet = parseFloat(net_total.toFixed(2)).toLocaleString('en-US');
-            document.querySelector("[name='net_total_amount']").value = formattedNet;
-
-            let formattedTotalAmount = parseFloat(totalAmount.toFixed(2)).toLocaleString('en-US');
-            document.querySelector("[name='total_amount']").value = formattedTotalAmount;
-        }
-    });
-// --- Modal Logic Fixes ---
-
-// Ensure jQuery and Bootstrap JS are loaded before this script!
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Fix for close/exit buttons
-    // Ensure all close buttons actually close the modal
-    $(document).on('click', '[data-dismiss="modal"]', function() {
-        $(this).closest('.modal').modal('hide');
-    });
-
-    // When opening the delete modal, set the purchase ID
-    window.openRemovePurchaseModal = function(purchaseId) {
-        $('#removePurchase').modal('show');
-        $('#removePurchase #my_id').val(purchaseId);
-    };
-
-    // Handle delete form submission
-    $('#deletePurchaseForm').on('submit', function(e) {
-        e.preventDefault();
-        var purchaseId = $('#removePurchase #my_id').val();
-        // Option 1: AJAX request (recommended)
-        $.ajax({
-            url: 'function/ledger/addPurchase.php', // relative path from modal to handler
-            type: 'POST',
-            data: { my_id: purchaseId, delete: 1 },
-            dataType: 'json',
-            success: function(response) {
-                if (response.success) {
-                    $('#removePurchase').modal('hide');
-                    location.reload();
-                } else {
-                    alert(response.message || 'Failed to delete purchase.');
-                }
-            },
-            error: function(xhr, status, error) {
-                alert('Failed to delete purchase: ' + (xhr.responseText || error));
-            }
-        });
-        // Option 2: fallback to normal POST (uncomment if needed)
-        // this.submit();
-    });
-});
-</script>
-
-
-<!-- MODAL OF REMOVE EXPENSES -->
-<div class="modal fade" id="removePurchase" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel" style="font-size: 18px; font-weight: 600;">Remove Purchase</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+<!-- REMOVE PURCHASE MODAL -->
+<div class="modal fade" id="removePurchase" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0">
+            <div class="modal-header bg-danger text-white">
+                <h6 class="modal-title fw-bold"><i class="fa fa-exclamation-triangle me-2"></i>Confirm Deletion</h6>
+                <button type="button" class="btn-close btn-close-white" data-dismiss="modal"
+                    aria-label="Close"></button>
             </div>
-            <div class="modal-body" style="font-size: 16px; padding: 20px;">
+            <div class="modal-body p-4 text-center">
                 <form id="deletePurchaseForm" method="POST">
-                    <input type="hidden" id="my_id" name="my_id"> <!-- Use 'hidden' instead of inline styles -->
-                    <p style="margin-bottom: 20px;">Are you sure you want to remove this purchase entry?</p>
-
-
+                    <input type="hidden" id="my_id" name="my_id">
+                    <div class="mb-3">
+                        <i class="fa fa-trash fa-3x text-muted mb-3"></i>
+                        <p class="mb-1">Are you sure you want to delete this purchase entry?</p>
+                        <p class="text-muted small">This action cannot be undone.</p>
+                    </div>
+                    <div class="d-flex justify-content-center gap-2">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Delete Record</button>
+                    </div>
+                </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-danger">
-                    <i class="fa fa-trash"></i> Delete
-                </button>
-            </div>
-            </form>
         </div>
     </div>
 </div>
 
-
-
-
-
-<div class="modal fade" id="updatePurchase" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Purchase</h5>
-                <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+<!-- UPDATE PURCHASE MODAL -->
+<div class="modal fade" id="updatePurchase" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content border-0">
+            <div class="modal-header bg-primary text-white">
+                <h6 class="modal-title fw-bold"><i class="fa fa-edit me-2"></i>Update Purchase Entry</h6>
+                <button type="button" class="btn-close btn-close-white" data-dismiss="modal"
+                    aria-label="Close"></button>
             </div>
             <form id='updatePurchaseForm' method="POST">
                 <input class='form-control' id="p_id" name="p_id" hidden>
-
                 <div class="modal-body">
-                    <div class="row">
+                    <!-- Section 1: Transaction Info -->
+                    <h6 class="text-muted text-uppercase mb-3 small fw-bold">Transaction Details</h6>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <label class="form-label">Date</label>
+                            <input class='form-control' type="date" id="u_date" name="date" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Voucher No.</label>
+                            <input type="text" id='u_voucher' name='u_voucher' class="form-control" required
+                                autocomplete='off'>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Category</label>
+                            <select class='form-select' name='pur_category' id='u_category' required>
+                                <option disabled value="">Select Category</option>
+                                <?php echo $purCatList; ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Supplier & Scale -->
+                    <h6 class="text-muted text-uppercase mb-3 small fw-bold">Supplier & Weight</h6>
+                    <div class="row g-3 mb-4">
                         <div class="col-md-12">
-                            <div class="mb-3">
-                                <label for="date">Date</label>
-                                <input class='form-control' type="date" id="u_date" name="date" required>
+                            <label class="form-label">Supplier Name</label>
+                            <input type="text" name='name' id='name' class="form-control" autocomplete='off' required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Net Kilos</label>
+                            <div class="input-group">
+                                <input type="text" id='u_net_kilo' name='u_net_kilo' class="form-control"
+                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
+                                    autocomplete='off'>
+                                <span class="input-group-text fw-bold">Kg</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Price per Kilo</label>
+                            <div class="input-group">
+                                <span class="input-group-text fw-bold">₱</span>
+                                <input type="text" style='text-align:right' name='u_price' id='u_price'
+                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
+                                    class="form-control" autocomplete='off'>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="p_voucher">Voucher</label>
-                                <input type="text" id='u_voucher' name='u_voucher' class="form-control" required autocomplete='off'>
+
+                    <!-- Section 3: Deductions & Adjustments -->
+                    <h6 class="text-muted text-uppercase mb-3 small fw-bold">Deductions & Adjustments</h6>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <label class="form-label">Cash Advance</label>
+                            <div class="input-group">
+                                <span class="input-group-text">₱</span>
+                                <input type="text" style='text-align:right' name='u_cash_advance' id='u_cash_advance'
+                                    class="form-control" onkeypress="return CheckNumeric()"
+                                    onkeyup="FormatCurrency(this)" autocomplete='off'>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="pur_category">Category</label>
-                                <select class='form-select' name='pur_category' id='u_category' required>
-                                    <option disabled="disabled" value="" selected="selected">Select Category</option>
-                                    <?php echo $purCatList; ?>
-                                </select>
+                        <div class="col-md-4">
+                            <label class="form-label">Tax</label>
+                            <div class="input-group">
+                                <span class="input-group-text">₱</span>
+                                <input type="text" style='text-align:right' name='u_tax' id='u_tax' class="form-control"
+                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
+                                    autocomplete='off'>
                             </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Others / Desc</label>
+                            <div class="input-group">
+                                <span class="input-group-text">₱</span>
+                                <input type="text" style='text-align:right' name='u_others' id='u_others'
+                                    class="form-control" onkeypress="return CheckNumeric()"
+                                    onkeyup="FormatCurrency(this)" autocomplete='off'>
+                            </div>
+                            <input type="text" style='text-align:center' name='u_description' id='u_description'
+                                class="form-control mt-1 form-control-sm" placeholder="Description" autocomplete='off'>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="mb-3">
-                                <label for="p_name">Supplier Name</label>
-                                <input type="text" name='name' id='name' class="form-control" autocomplete='off' required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="p_net-kilos">Net Kilos</label>
+
+                    <!-- Section 4: Totals -->
+                    <div class="alert alert-light border">
+                        <div class="row g-3 align-items-end">
+                            <div class="col-md-6">
+                                <label class="form-label text-muted small text-uppercase">Gross Total</label>
                                 <div class="input-group">
-                                    <input type="text" id='u_net_kilo' name='u_net_kilo' class="form-control" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off'>
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">Kg</span>
-                                    </div>
+                                    <span
+                                        class="input-group-text bg-transparent border-end-0 fw-bold text-muted">₱</span>
+                                    <input type="text" style='text-align:right; font-weight: bold;'
+                                        name='u_total_amount' id='u_total_amount' readonly
+                                        class="form-control border-start-0 bg-transparent">
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label style='font-size:15px;font-weight: bold;' class="col-md-12">Price: </label>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">₱</span>
-                                    </div>
-                                    <input type="text" style='text-align:right' name='u_price' id='u_price' onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" class="form-control" autocomplete='off'>
+                            <div class="col-md-6">
+                                <label class="form-label text-primary small text-uppercase fw-bold">Net Total
+                                    Amount</label>
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-text bg-primary text-white border-0 fw-bold">₱</span>
+                                    <input type="text" style='text-align:right; font-weight: 800; color: #0C0070;'
+                                        name='u_net_total_amount' id='u_net_total_amount'
+                                        class="form-control border-primary">
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- end price -->
-                    <div class="form-group">
-                        <div class="row no-gutters">
-
-                            <div class="col-6 col-md-6">
-                                <label style='font-size:15px' class="col-md-12">Cash Advance :</label>
-                                <!-- new column -->
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">₱</span>
-                                    </div>
-                                    <input type="text" style='text-align:right' name='u_cash_advance' id='u_cash_advance' class="form-control" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off'>
-                                </div>
-                                <!--  -->
-                            </div>
-
-                            <div class="col-6 col-md-6">
-                                <label style='font-size:15px' class="col-md-12">Tax :</label>
-                                <!-- new column -->
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">₱</span>
-                                    </div>
-                                    <input type="text" style='text-align:right' name='u_tax' id='u_tax' class="form-control" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off'>
-                                </div>
-                                <!--  -->
-                            </div>
-                        </div>
-                    </div>
-                    <!-- END Partial Payment -->
-                    <div class="form-group">
-                        <div class="row no-gutters">
-
-                            <div class="col-6 col-md-6">
-                                <label style='font-size:15px' class="col-md-12">Others :</label>
-                                <!-- new column -->
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">₱</span>
-                                    </div>
-                                    <input type="text" style='text-align:right' name='u_others' id='u_others' class="form-control" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off'>
-                                </div>
-                                <!--  -->
-                            </div>
-                            <div class="col-6 col-md-6">
-                                <label style='font-size:15px' class="col-md-12"></label>
-                                <!-- new column -->
-                                <div class="input-group mb-3">
-
-                                    <input type="text" style='text-align:center' name='u_description' id='u_description' class="form-control" placeholder="Description" autocomplete='off'>
-                                </div>
-                                <!--  -->
-                            </div>
-
-                        </div>
-                    </div>
-                    <!-- end partial payment -->
-                    <div class="form-group">
-                        <div class="row no-gutters">
-                            <div class="col-6 col-md-6">
-                                <label style='font-size:15px' class="col-md-12">Total Amount :</label>
-                                <!-- new column -->
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">₱</span>
-                                    </div>
-                                    <input type="text" style='text-align:right' name='u_total_amount' id='u_total_amount' readonly class="form-control">
-                                </div>
-                                <!--  -->
-                            </div>
-                            <div class="col-6 col-md-6">
-                                <label style='font-size:15px' class="col-md-12">Net Total Amount :</label>
-                                <!-- new column -->
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">₱</span>
-                                    </div>
-                                    <input type="text" style='text-align:right' name='u_net_total_amount' id='u_net_total_amount' class="form-control">
-                                </div>
-                                <!--  -->
-                            </div>
-
-                        </div>
-                    </div>
-                    <!-- END Price -->
-                    <!-- end net total and amount -->
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">
-                        <i class="fa fa-save"></i> Update
-                    </button>
+                <div class="modal-footer bg-light">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary px-4">Update Record</button>
                 </div>
             </form>
         </div>
@@ -455,15 +295,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         const inputs = document.querySelectorAll("[name='u_net_kilo'], [name='u_price'], [name='u_cash_advance'], [name='u_tax'], [name='u_others']");
 
         for (let input of inputs) {
             input.addEventListener("input", u_computeTotal);
         }
-        
+
         // Add separate event listener for u_net_total_amount
-        document.querySelector("[name='u_net_total_amount']").addEventListener("input", function() {
+        document.querySelector("[name='u_net_total_amount']").addEventListener("input", function () {
             let netTotalValue = parseFloat(this.value.replace(/,/g, '')) || 0;
             let formattedValue = parseFloat(netTotalValue.toFixed(2)).toLocaleString('en-US');
             document.querySelector("[name='u_total_amount']").value = formattedValue;

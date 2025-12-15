@@ -9,139 +9,215 @@ $sql = "SELECT * FROM category_expenses where source='$source'";
 $result = mysqli_query($con, $sql);
 $categoryList = '';
 while ($arr = mysqli_fetch_array($result)) {
-    $categoryList .= '<option value="' . $arr["category"] . '">' . $arr["category"] . '</option>';
+    $categoryList .= '
+
+<option value="' . $arr["category"] . '">' . $arr["category"] . '</option>';
 }
 ?>
 
-<!-- Create New Record Modal -->
-<div class="modal fade" id="addExpense" tabindex="-1" role="dialog" aria-labelledby="addExpenseTitle"
+
+<!-- Delete Table Row -->
+<div class="modal fade" id="addExpense" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-dialog modal-lg  ">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addExpenseTitle">
-                    <i class="fa fa-plus-circle me-2"></i>New Expense Record
-                </h5>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title">Create New Record</h5>
             </div>
             <form id='expense_form' method="POST">
-                <div class="modal-body">
 
-                    <!-- Section 1: Transaction Basics -->
-                    <h6 class="form-section-title">Transaction Info</h6>
+                <div class="modal-body">
+                    <!-- Section 1: Transaction Details -->
+                    <h6 class="text-muted text-uppercase mb-3" style="font-size: 0.75rem; font-weight: 700;">Transaction
+                        Details</h6>
                     <div class="row g-3">
-                        <div class="col-md-4">
-                            <label for="date" class="form-label">Date</label>
+                        <div class="col-md-6">
+                            <label for="date" class="form-label">Date of Transaction</label>
                             <input type="date" class="form-control" name="date" value="<?php echo $dateNow ?>" required>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label for="location" class="form-label">Location</label>
                             <input type="text" class="form-control" name="location" value="<?php echo $source; ?>"
-                                readonly>
+                                readonly style="background-color: #e9ecef;">
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label for="voucher" class="form-label">Voucher No.</label>
-                            <input type="number" class="form-control" name="voucher" required placeholder="e.g. 1023">
+                            <input type="number" class="form-control" name="voucher" required placeholder="e.g. 1001">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="mode_transaction" class="form-label">Mode of Payment</label>
+                            <select class="form-select" name="mode_transaction" id="mode_transaction" required>
+                                <option value="" disabled selected>Select Mode</option>
+                                <option value="Cash">Cash</option>
+                                <option value="Bank Transfer">Bank Transfer</option>
+                                <option value="Cash Advance">Cash Advance</option>
+                                <option value="Check">Check</option>
+                                <option value="Payable">Payable/On Account</option>
+                            </select>
                         </div>
                     </div>
 
-                    <!-- Section 2: Classification -->
-                    <h6 class="form-section-title mt-4">Classification</h6>
+                    <hr class="my-4" style="border-top: 1px dashed #ccc;">
+
+                    <!-- Section 2: Expense Classification -->
+                    <h6 class="text-muted text-uppercase mb-3" style="font-size: 0.75rem; font-weight: 700;">
+                        Classification</h6>
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label for="type" class="form-label">Expense Type</label>
-                            <select class='form-select' name='type' id='type' required>
-                                <option disabled selected value=''>Select Type</option>
-                                <option value='Administrative Expenses'>Administrative Expenses</option>
-                                <option value='Rubber Plant & Production'>Rubber Plant & Production</option>
-                                <option value='RTL'>RTL</option>
-                                <option value='Personal Expenses'>Personal Expenses</option>
-                                <option value='Rubber Expenses'>Rubber Expenses</option>
-                                <option value='Coffee Expenses'>Coffee Expenses</option>
-                                <option value='Copra Expenses'>Copra Expenses</option>
-                                <option value='NTC Expenses'>NTC Expenses</option>
-                                <option value='Other Expenses'>Others</option>
+                            <select class="form-select category" name="type" id="type" required>
+                                <option value="" disabled selected>Select Type</option>
+                                <option value="Administrative Expenses">Administrative Expenses</option>
+                                <option value="Rubber Plant & Production">Rubber Plant & Production</option>
+                                <option value="RTL">RTL</option>
+                                <option value="Personal Expenses">Personal Expenses</option>
+                                <option value="Rubber Expenses">Rubber Expenses</option>
+                                <option value="Coffee Expenses">Coffee Expenses</option>
+                                <option value="Copra Expenses">Copra Expenses</option>
+                                <option value="NTC Expenses">NTC Expenses</option>
+                                <option value="Other Expenses">Others</option>
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label for="category" class="form-label">Category</label>
-                            <select class='form-select ex_category' name='category' id='n_category' required>
-                                <option disabled selected>Select Category</option>
+                            <label for="n_category" class="form-label">Category</label>
+                            <select class="form-select ex_category" name="category" id="n_category" required>
+                                <option value="" disabled selected>Select Category</option>
                                 <?php echo $categoryList ?>
                             </select>
                         </div>
-                        <div class="col-12">
+                        <div class="col-12 mt-3">
                             <label for="particular" class="form-label">Particulars</label>
                             <input type="text" class="form-control" name="particular" required
-                                placeholder="Description of the expense">
+                                placeholder="Describe the expense">
                         </div>
                     </div>
 
-                    <!-- Section 3: Financials & Payment -->
-                    <div class="financial-card">
-                        <h6 class="form-section-title text-dark mb-3" style="border-bottom-color: #cbd5e1;">Payment
-                            Details</h6>
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label for="mode_transaction" class="form-label">Mode of Payment</label>
-                                <select class='form-select' name='mode_transaction' id='mode_transaction' required>
-                                    <option disabled selected value=''>Select Mode</option>
-                                    <option value="Cash">Cash</option>
-                                    <option value="Bank Transfer">Bank Transfer</option>
-                                    <option value="Cash Advance">Cash Advance</option>
-                                    <option value="Check">Check</option>
-                                    <option value="Payable">Payable/On Account</option>
-                                </select>
-                            </div>
-                            <!-- Amount -->
-                            <div class="col-md-6">
-                                <label for="amount" class="form-label">Amount</label>
-                                <div class="input-group">
-                                    <span class="input-group-text">₱</span>
-                                    <input type="text" class="form-control font-weight-bold" name="amount" id='n_amount'
-                                        required onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
-                                        autocomplete="off" placeholder="0.00">
-                                </div>
-                            </div>
+                    <hr class="my-4" style="border-top: 1px dashed #ccc;">
 
-                            <!-- Less -->
-                            <div class="col-md-6">
-                                <label for="less" class="form-label">Less (Deductions)</label>
-                                <div class="input-group">
-                                    <span class="input-group-text text-danger">-</span>
-                                    <input type="text" class="form-control" name="less" id='n_less' required value='0'
-                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
-                                        placeholder="0.00" autocomplete="off">
-                                </div>
-                            </div>
-
-                            <!-- Total -->
-                            <div class="col-md-6">
-                                <label for="total_amount" class="form-label">Total Amount</label>
-                                <div class="input-group total-display-group">
-                                    <span class="input-group-text">₱</span>
-                                    <input type="text" class="form-control" name="total_amount" id='n_total' readonly
-                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
-                                        autocomplete="off">
-                                </div>
+                    <!-- Section 3: Financials -->
+                    <h6 class="text-muted text-uppercase mb-3" style="font-size: 0.75rem; font-weight: 700;">Financials
+                    </h6>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label for="n_amount" class="form-label">Amount</label>
+                            <div class="input-group">
+                                <span class="input-group-text">₱</span>
+                                <input type="text" class="form-control" name="amount" id="n_amount" required
+                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete="off"
+                                    placeholder="0.00">
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <label for="n_less" class="form-label">Less (Optional)</label>
+                            <div class="input-group">
+                                <span class="input-group-text">-</span>
+                                <input type="text" class="form-control" name="less" id="n_less" required value="0"
+                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
+                                    autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="n_total" class="form-label fw-bold">Total Amount</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light fw-bold">₱</span>
+                                <input type="text" class="form-control fw-bold text-success" name="total_amount"
+                                    id="n_total" readonly onkeypress="return CheckNumeric()"
+                                    onkeyup="FormatCurrency(this)" autocomplete="off" style="font-size: 1.1em;">
+                            </div>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <label for="remarks" class="form-label">Remarks</label>
+                            <textarea name="remarks" class="form-control" placeholder="Add any additional notes here..."
+                                rows="3"></textarea>
+                        </div>
                     </div>
-
-                    <!-- Section 4: Remarks -->
-                    <div class="mt-3">
-                        <label for="remarks" class="form-label">Remarks <span
-                                class="text-muted fw-normal">(Optional)</span></label>
-                        <textarea name="remarks" cols="20" placeholder="Add any additional notes here..." rows="2"
-                            class="form-control"></textarea>
-                    </div>
-
                 </div>
 
-                <div class="modal-footer bg-light">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary px-4" id="btn_add_record_expenses">
-                        <i class="fa fa-save me-1"></i> Save Record
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" id="btn_add_record_expenses">
+                        <i class="fa fa-save"></i> Add Record
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        // Function to compute total amount
+        function computeTotalAmount() {
+            // Get the values from input fields and remove commas
+            let amountStr = document.getElementById('n_amount').value.replace(/,/g, '');
+            let lessStr = document.getElementById('n_less').value.replace(/,/g, '');
+
+            // Convert string to float, if empty then set to 0
+            let amount = parseFloat(amountStr) || 0;
+            let less = parseFloat(lessStr) || 0;
+
+            // Compute total
+            let total = amount - less;
+
+            // Update the total_amount field
+            document.getElementById('n_total').value = total.toFixed(2); // assuming 2 decimal places for currency
+            FormatCurrency(document.getElementById('n_total')); // format the total as currency
+        }
+
+        // Attach the computeTotalAmount function to the keyup event of the amount and less input fields
+        document.getElementById('n_amount').addEventListener('keyup', computeTotalAmount);
+        document.getElementById('n_less').addEventListener('keyup', computeTotalAmount);
+
+        function updateComputeTotalAmount() {
+            // Get the values from input fields and remove commas
+            let amountStr = document.getElementById('u_amount').value.replace(/,/g, '');
+            let lessStr = document.getElementById('u_less').value.replace(/,/g, '');
+
+            // Convert string to float, if empty then set to 0
+            let amount = parseFloat(amountStr) || 0;
+            let less = parseFloat(lessStr) || 0;
+
+            // Compute total
+            let total = amount - less;
+
+            // Update the total_amount field
+            document.getElementById('u_total').value = total.toFixed(2); // assuming 2 decimal places for currency
+            FormatCurrency(document.getElementById('u_total')); // format the total as currency
+        }
+
+        // Attach the computeTotalAmount function to the keyup event of the amount and less input fields
+        document.getElementById('u_amount').addEventListener('keyup', updateComputeTotalAmount);
+        document.getElementById('u_less').addEventListener('keyup', updateComputeTotalAmount);
+
+
+    });
+</script>
+
+<!-- Modal to Remove Expenses -->
+<div class="modal fade" id="removeExpenseModal" tabindex="-1" aria-labelledby="removeExpenseLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="removeExpenseLabel">Remove Expense</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="delete_form" method="POST">
+                <div class="modal-body">
+                    <input id="del_id" name="id" hidden>
+                    <p class="text-center text-dark">Are you sure you want to remove this record? This action
+                        cannot be undone.</p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fa fa-trash"></i> Delete
                     </button>
                 </div>
             </form>
@@ -149,305 +225,283 @@ while ($arr = mysqli_fetch_array($result)) {
     </div>
 </div>
 
-<!-- Calculate Total Script -->
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Function to compute total amount
-        function computeTotalAmount() {
-            let amountStr = document.getElementById('n_amount').value.replace(/,/g, '');
-            let lessStr = document.getElementById('n_less').value.replace(/,/g, '');
-            let amount = parseFloat(amountStr) || 0;
-            let less = parseFloat(lessStr) || 0;
-            let total = amount - less;
-            document.getElementById('n_total').value = total.toFixed(2);
-            FormatCurrency(document.getElementById('n_total'));
-        }
 
-        // Attach listeners
-        const amountInput = document.getElementById('n_amount');
-        const lessInput = document.getElementById('n_less');
-        if (amountInput) amountInput.addEventListener('keyup', computeTotalAmount);
-        if (lessInput) lessInput.addEventListener('keyup', computeTotalAmount);
 
-        // Update Modal Logic
-        function updateComputeTotalAmount() {
-            let amountStr = document.getElementById('u_amount').value.replace(/,/g, '');
-            let lessStr = document.getElementById('u_less').value.replace(/,/g, '');
-            let amount = parseFloat(amountStr) || 0;
-            let less = parseFloat(lessStr) || 0;
-            let total = amount - less;
-            document.getElementById('u_total').value = total.toFixed(2);
-            FormatCurrency(document.getElementById('u_total'));
-        }
 
-        const uAmountInput = document.getElementById('u_amount');
-        const uLessInput = document.getElementById('u_less');
-        if (uAmountInput) uAmountInput.addEventListener('keyup', updateComputeTotalAmount);
-        if (uLessInput) uLessInput.addEventListener('keyup', updateComputeTotalAmount);
-    });
-</script>
-
-<!-- Delete Expense Modal -->
-<div class="modal fade" id="removeExpenseModal" tabindex="-1" aria-labelledby="removeExpenseLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header border-0 pb-0">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form id="delete_form" method="POST">
-                <div class="modal-body text-center pt-0 pb-4 px-4">
-                    <div class="mb-3 text-danger display-1">
-                        <i class="fa fa-times-circle"></i>
-                    </div>
-                    <h4 class="mb-3 fw-bold">Delete Expense?</h4>
-                    <input id="del_id" name="id" hidden>
-                    <p class="text-muted mb-4">Are you sure you want to remove this record? This action cannot be
-                        undone.</p>
-
-                    <div class="d-flex justify-content-center gap-2">
-                        <button type="button" class="btn btn-light px-4" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-danger px-4">Delete Record</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
+<!-- update -->
 <!-- Update Expense Modal -->
 <div class="modal fade" id="updateExpense" tabindex="-1" role="dialog" aria-labelledby="updateExpenseLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">
-                    <i class="fa fa-edit me-2"></i>Edit Expense Record
-                </h5>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title">Update Expense Record</h5>
             </div>
             <form id="update_form" method="POST">
                 <input type="hidden" id="update_id" name="id" />
                 <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="product_name" class="form-label">Date of Transaction</label>
+                                <input type="date" class="form-control" name="date" id='u_date_transaction' required>
+                            </div>
+                        </div>
 
-                    <!-- Section 1: Transaction Basics -->
-                    <h6 class="form-section-title">Transaction Info</h6>
-                    <div class="row g-3">
-                        <div class="col-md-4">
-                            <label for="u_date_transaction" class="form-label">Date</label>
-                            <input type="date" class="form-control" name="date" id='u_date_transaction' required>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="u_location" class="form-label">Location</label>
-                            <input type="text" class="form-control" name="location" id='u_location' readonly>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="u_voucher" class="form-label">Voucher No.</label>
-                            <input type="text" class="form-control" name="voucher" id="u_voucher" required
-                                placeholder="Voucher No.">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="product_name" class="form-label">Location</label>
+                                <input type="text" class="form-control" name="location" id='u_location' readonly>
+                            </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="product_name" class="form-label">Voucher No.</label>
+                                <input type="text" class="form-control" name="voucher" id="u_voucher" required
+                                    placeholder="Enter Voucher No.">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="product_name" class="form-label">Type</label>
+                                <select class='form-select' name='type' id='u_typeExpense' required>
+                                    <option value='Personal Expenses'>Personal Expenses</option>
+                                    <option value='Rubber Expenses'>Rubber Expenses</option>
+                                    <option value='Coffee Expenses'>Coffee Expenses</option>
+                                    <option value='Copra Expenses'>Copra Expenses</option>
+                                    <option value='NTC Expenses'>NTC Expenses</option>
+                                    <option value='Other Expenses'>Others</option>
 
-                    <!-- Section 2: Classification -->
-                    <h6 class="form-section-title mt-4">Classification</h6>
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label for="u_typeExpense" class="form-label">Type</label>
-                            <select class='form-select' name='type' id='u_typeExpense' required>
-                                <option value='Administrative Expenses'>Administrative Expenses</option>
-                                <option value='Rubber Plant & Production'>Rubber Plant & Production</option>
-                                <option value='RTL'>RTL</option>
-                                <option value='Personal Expenses'>Personal Expenses</option>
-                                <option value='Rubber Expenses'>Rubber Expenses</option>
-                                <option value='Coffee Expenses'>Coffee Expenses</option>
-                                <option value='Copra Expenses'>Copra Expenses</option>
-                                <option value='NTC Expenses'>NTC Expenses</option>
-                                <option value='Other Expenses'>Others</option>
-                            </select>
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <label for="u_category" class="form-label">Category</label>
-                            <select class='form-select category' name='category' id='u_category' required>
-                                <option disabled selected value=''>Select Category</option>
-                                <?php echo $categoryList ?>
-                            </select>
-                        </div>
-                        <div class="col-12">
-                            <label for="u_particular" class="form-label">Particulars</label>
-                            <input type="text" class="form-control" name="particular" id="u_particular" required
-                                placeholder="Description">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="product_name" class="form-label">Category</label>
+                                <select class='form-select category' name='category' id='u_category' required>
+                                    <option disabled="disabled" value='' selected="selected">Select Category </option>
+                                    <?php echo $categoryList ?>
+
+                                    <!--PHP echo-->
+                                </select>
+                            </div>
                         </div>
                     </div>
-
-                    <!-- Section 3: Financials -->
-                    <div class="financial-card">
-                        <h6 class="form-section-title text-dark mb-3" style="border-bottom-color: #cbd5e1;">Payment
-                            Details</h6>
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label for="u_mode_transaction" class="form-label">Mode of Transaction</label>
-                                <select class='form-select' name='mode_transaction' id='u_mode_transaction' required>
-                                    <option disabled selected value=''>Select Mode</option>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="product_name" class="form-label">Particular</label>
+                                <input type="text" class="form-control" name="particular" id="u_particular" required
+                                    placeholder="Enter particular">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="product_name" class="form-label">Mode of Transaction</label>
+                                <select class='form-select ' name='mode_transaction' id='u_mode_transaction' required>
+                                    <option disabled="disabled" value='' selected="selected">Select Mode </option>
                                     <option value="Cash">Cash</option>
                                     <option value="Bank Transfer">Bank Transfer</option>
                                     <option value="Cash Advance">Cash Advance</option>
                                     <option value="Check">Check</option>
                                     <option value="Payable">Payable</option>
+
+                                    <!--PHP echo-->
                                 </select>
                             </div>
-                            <div class="col-md-6">
-                                <label for="u_amount" class="form-label">Amount</label>
-                                <div class="input-group">
-                                    <span class="input-group-text">₱</span>
-                                    <input type="text" class="form-control" name="amount" id='u_amount' required
-                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
-                                        autocomplete="off">
-                                </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="amount" class="form-label">Amount</label>
+                                <i class="fa fa-peso-sign"></i> <input type="text" class="form-control" name="amount"
+                                    id='u_amount' required onkeypress="return CheckNumeric()"
+                                    onkeyup="FormatCurrency(this)" autocomplete="off">
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
 
-                            <div class="col-md-6">
-                                <label for="u_less" class="form-label">Less</label>
-                                <div class="input-group">
-                                    <span class="input-group-text text-danger">-</span>
-                                    <input type="text" class="form-control" name="less" id='u_less' required
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Less </span>
+                                    </div><input type="text" class="form-control" name="less" id='u_less' required
                                         onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
                                         placeholder="(Optional)" autocomplete="off">
                                 </div>
                             </div>
+                        </div>
+                    </div>
 
-                            <div class="col-md-6">
-                                <label for="u_total" class="form-label">Total Amount</label>
-                                <div class="input-group total-display-group">
-                                    <span class="input-group-text">₱</span>
-                                    <input type="text" class="form-control" name="total_amount" id='u_total' readonly
-                                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
+                    <div class="row">
+                        <div class="col-md-6">
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Total Amount</span>
+                                    </div><input type="text" class="form-control" name="total_amount" id='u_total'
+                                        readonly onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)"
                                         autocomplete="off">
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Remarks -->
-                    <div class="mt-3">
-                        <label for="u_remarks" class="form-label">Remarks</label>
-                        <textarea name="remarks" placeholder="Remarks" id="u_remarks" cols="20" rows="2"
-                            class="form-control"></textarea>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="product_name" class="form-label">Remarks</label> <br>
+                                <textarea name="remarks" placeholder="Remarks" id="u_remarks" cols="20" rows="3"
+                                    class="form-control"></textarea>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
-                <div class="modal-footer bg-light">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success px-4">
-                        <i class="fa fa-save me-1"></i> Update Record
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-save"></i> Update Record
                     </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+<!-- update -->
 
-<!-- Category Management Modal -->
-<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel"
+<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-dialog modal-lg  ">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="categoryModalLabel"><i class="fa fa-tags me-2"></i>Manage Categories</h5>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title">Category</h5>
             </div>
             <div class="modal-body">
-                <div class="row g-4">
-                    <!-- Add Category Form -->
-                    <div class="col-md-5 border-end">
-                        <h6 class="form-section-title">Add New Category</h6>
-                        <form method='POST' action="function/ledger/addCategory.php">
-                            <div class="mb-3">
-                                <label for="new_cat_name" class="form-label">Category Name</label>
-                                <input type="text" class="form-control" name="name" id="new_cat_name" required
-                                    placeholder="Enter category name">
-                                <div class="form-text">This will be available in the dropdown.</div>
-                            </div>
-                            <button type="submit" name='add' class="btn btn-success w-100"><i
-                                    class="fa fa-plus-circle"></i> Add Category</button>
-                        </form>
-                    </div>
+                <div class="inventory-table">
+                    <div class="row">
+                        <form class="col-md-5" method='POST' a action="function/ledger/addCategory.php">
 
-                    <!-- Category List -->
-                    <div class="col-md-7">
-                        <h6 class="form-section-title">Existing Categories</h6>
-                        <div class="table-card" style="box-shadow: none; border: 1px solid #e2e8f0;">
-                            <?php $results = mysqli_query($con, "SELECT * from category_expenses where source='$source' ORDER BY category ASC "); ?>
-                            <table class="table table-hover mb-0">
-                                <thead class="table-light">
+                            <div class="mb-5">
+                                <label for="category" class="form-label">Add Category</label>
+                                <input type="text" class="form-control" name="name" aria-describedby="category"
+                                    required>
+                                <div id="category" class="form-text mb-3">Enter category.</div>
+                                <button type="submit" name='add' class="btn btn-success">Add Category</button>
+                            </div>
+                        </form>
+                        <div class="col-md-7">
+
+                            <?php
+                            $results = mysqli_query($con, "SELECT * from category_expenses where source='$source' ORDER BY category ASC "); ?>
+                            <table id="expense_category" class="table table-hover" style="width:100%">
+                                <thead class="table-dark">
                                     <tr>
                                         <th hidden></th>
-                                        <th>Name</th>
-                                        <th class="text-end" width="100">Action</th>
+                                        <th>Category Name</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <?php while ($row = mysqli_fetch_array($results)) { ?>
+
+                                <tbody style='font-size:15px'>
+                                    <?php
+                                    $count = 1;
+                                    while ($row = mysqli_fetch_array($results)) {
+                                        ?>
                                         <tr>
-                                            <td hidden><?php echo $row['id'] ?></td>
-                                            <td><span class="fw-medium"><?php echo $row['category'] ?></span></td>
-                                            <td class="text-end">
-                                                <button type="button" class="btn btn-sm btn-outline-info catUpdate"><i
-                                                        class="fa fa-edit"></i></button>
-                                                <button class="btn btn-sm btn-outline-danger btnDelete" type="button"><i
-                                                        class="fa fa-trash"></i></button>
+                                            <td hidden>
+                                                <?php echo $row['id'] ?>
                                             </td>
+                                            <td>
+                                                <?php echo $row['category'] ?>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-info catUpdate"><i
+                                                        class="fa fa-edit"></i></button>
+
+                                                <button class="btn btn-danger m-1 btnDelete" type="button"
+                                                    class="btn btn-info"><i class="fa fa-trash"></i></button>
+                                            </td>
+
                                         </tr>
                                     <?php } ?>
                                 </tbody>
+
                             </table>
                         </div>
                     </div>
                 </div>
+
             </div>
-            <div class="modal-footer bg-light p-2">
-                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
+
     </div>
 </div>
 
-<!-- Edit Category Modal -->
-<div class="modal fade" id="ModalEdit" tabindex="-1" aria-labelledby="editCatLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-sm">
+
+
+
+<!-- update -->
+<div class="modal fade" id="ModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editCatLabel">Update Category</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Update Category List</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method='POST' action="function/ledger/addCategory.php">
-                <div class="modal-body">
-                    <input id='u_id' name='id' hidden>
-                    <div class="mb-3">
-                        <label for="u_name" class="form-label">Category Name</label>
-                        <input type="text" class="form-control" id="u_name" name="name" required>
+            <div class="modal-body">
+                <form class="col-md-12" method='POST' a action="function/ledger/addCategory.php">
+                    <div class="mb-3 text-center">
+                        <input id='u_id' name='id' hidden>
+                        <label for="category" class="form-label">Category Name</label>
+                        <input type="text" class="form-control text-center" id="u_name" name="name"
+                            aria-describedby="category">
+
                     </div>
-                </div>
-                <div class="modal-footer p-2">
-                    <button type="submit" name='update' class="btn btn-success btn-sm w-100">Save Changes</button>
-                </div>
-            </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" name='update' class="btn btn-success">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
 
-<!-- Delete Category Confirmation -->
-<div class="modal fade" id="catDelete" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-sm">
+<!-- Delete -->
+<div class="modal fade" id="catDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-body text-center p-4">
-                <div class="mb-2 text-warning display-4"><i class="fa fa-exclamation-triangle"></i></div>
-                <h6 class="fw-bold">Delete Category?</h6>
-                <p class="text-muted small mb-4">This action cannot be undone.</p>
-                <form method='POST' action="function/ledger/addCategory.php">
-                    <input id='d_id' name='d_id' hidden>
-                    <div class="d-grid gap-2">
-                        <button type="submit" name='delete' class="btn btn-danger">Yes, Delete It</button>
-                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Remove from Category List</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="col-md-12" method='POST' a action="function/ledger/addCategory.php">
+                    <div class="mb-3">
+                        <input id='d_id' name='d_id' hidden>
+                        <div id="category" class="form-text mb-3">Please be advice that it will remove permanently.
+                        </div>
                     </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" name='delete' class="btn btn-danger">Continue</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
                 </form>
             </div>
         </div>
@@ -455,20 +509,35 @@ while ($arr = mysqli_fetch_array($result)) {
 </div>
 
 
+
+
 <script>
-    // Category Management Scripts
     $('.catUpdate').on('click', function () {
+
+
         $('#ModalEdit').modal('show');
         $tr = $(this).closest('tr');
-        var data = $tr.children("td").map(function () { return $(this).text(); }).get();
+
+        var data = $tr.children("td").map(function () {
+            return $(this).text();
+        }).get();
         $('#u_id').val(data[0]);
         $('#u_name').val(data[1]);
+
     });
 
+
     $('.btnDelete').on('click', function () {
+
+
         $('#catDelete').modal('show');
         $tr = $(this).closest('tr');
-        var data = $tr.children("td").map(function () { return $(this).text(); }).get();
+
+        var data = $tr.children("td").map(function () {
+            return $(this).text();
+        }).get();
         $('#d_id').val(data[0]);
+
+
     });
 </script>

@@ -1,7 +1,6 @@
 <?php
 include('include/header.php');
 include "include/navbar.php";
-
 //current month
 $currentMonth = date("m");
 $currentYear = date("Y");
@@ -20,47 +19,40 @@ $expense_month = mysqli_fetch_array($getMonthTotal);
 // Get current year's expenses
 $getYearTotal = mysqli_query($con, "SELECT SUM(amount) AS year_total FROM ledger_expenses WHERE YEAR(date) = '$currentYear'  and location='$source'");
 $expense_year = mysqli_fetch_array($getYearTotal);
+
+
 ?>
 
 <body>
-    <!-- Custom Modern CSS -->
-    <link rel='stylesheet' href='css/modern-expense.css'>
-
-    <!-- Retain existing CSS if needed for other components -->
+    <!-- Rounded tabs -->
     <link rel='stylesheet' href='css/statistic-card.css'>
     <link rel='stylesheet' href='css/tab.css'>
-
+    <link rel='stylesheet' href='css/modern-dashboard.css'>
     <input type='hidden' id='selected-cart' value=''>
 
-    <div class="main-container home-section h-100">
-
-        <!-- Modern Header -->
-        <div class="page-header">
-            <h2 class="page-title">
-                EXPENSE <span>RECORD</span>
-            </h2>
-            <div class="text-muted">
-                <i class="fa fa-map-marker-alt"></i> <?php echo $source; ?>
-            </div>
+    <div class="container home-section h-100" style="max-width:95%;">
+        <div class="p-5 bg-white rounded shadow mb-5">
+            <h2 class="page-title text-center">Expense Record</h2>
+            <?php include('ledgerTab/expenses.php') ?>
         </div>
-
-        <!-- Main Content (Stats, Filters, Table) -->
-        <?php include('ledgerTab/expenses.php') ?>
-
+        <!-- ============================================================== -->
     </div>
 
 </body>
-
-<!-- Include DataTables Sum Plug-in -->
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.12.1/api/sum().js"></script>
+
+
+
 
 </html>
 
+
 <?php
+
 include('modal/modal_expenses.php');
 ?>
 
-<!-- Notifications -->
+
 <?php if (isset($_SESSION['expenses'])): ?>
     <div class="msg">
         <script>
@@ -72,9 +64,12 @@ include('modal/modal_expenses.php');
                 timer: 1000
             })
         </script>
-        <?php unset($_SESSION['expenses']); ?>
+        <?php
+        unset($_SESSION['expenses']);
+        ?>
     </div>
 <?php endif ?>
+
 
 <?php if (isset($_SESSION['deleted'])): ?>
     <div class="msg">
@@ -87,9 +82,12 @@ include('modal/modal_expenses.php');
                 timer: 1000
             })
         </script>
-        <?php unset($_SESSION['deleted']); ?>
+        <?php
+        unset($_SESSION['deleted']);
+        ?>
     </div>
 <?php endif ?>
+
 
 <?php if (isset($_SESSION['updated'])): ?>
     <div class="msg">
@@ -102,6 +100,8 @@ include('modal/modal_expenses.php');
                 timer: 1000
             })
         </script>
-        <?php unset($_SESSION['updated']); ?>
+        <?php
+        unset($_SESSION['updated']);
+        ?>
     </div>
 <?php endif ?>

@@ -9,7 +9,7 @@ if ($purchase_today['total_amount'] == null || $purchase_today['total_amount'] =
     $purchase_today['total_amount'] = 0;
 }
 
-$getMonthTotal  = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(total_amount) as month_total 
+$getMonthTotal = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(total_amount) as month_total 
 from ledger_purchase  group by year(date), month(date) ORDER BY ID DESC");
 $purchase_month = mysqli_fetch_array($getMonthTotal);
 
@@ -38,200 +38,146 @@ foreach ($categories as $category) {
 
 
 ?>
-<style>
-    .custom-table {
-        width: 100%;
-        border-collapse: collapse;
-    }
+<!-- Stats Row -->
+<div class="row mb-4">
+    <!-- Today -->
+    <div class="col-md-4">
+        <div class="stat-card">
+            <div class="stat-card__content">
+                <p class="text-uppercase mb-1 text-muted small fw-bold">Purchased Today</p>
+                <h3>₱<?php echo number_format($purchase_today['total_amount']); ?></h3>
+                <small class="text-muted"><?php echo date("F d, Y"); ?></small>
+            </div>
+            <div class="stat-card__icon stat-card__icon--primary">
+                <i class="fa fa-shopping-cart"></i>
+            </div>
+        </div>
+    </div>
 
-    .custom-table thead {
-        background-color: #f5f5f5;
-        border-bottom: 2px solid #ddd;
-    }
+    <!-- Month -->
+    <div class="col-md-4">
+        <div class="stat-card">
+            <div class="stat-card__content">
+                <p class="text-uppercase mb-1 text-muted small fw-bold">Purchased This Month</p>
+                <h3>₱<?php echo number_format($purchase_month['month_total']); ?></h3>
+                <small class="text-muted"><?php echo date("F"); ?></small>
+            </div>
+            <div class="stat-card__icon stat-card__icon--danger">
+                <i class="fa fa-calendar-alt"></i>
+            </div>
+        </div>
+    </div>
 
-    .custom-table th,
-    .custom-table td {
-        padding: 12px 15px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-    }
+    <!-- Year -->
+    <div class="col-md-4">
+        <div class="stat-card">
+            <div class="stat-card__content">
+                <p class="text-uppercase mb-1 text-muted small fw-bold">Purchased This Year</p>
+                <h3>₱<?php echo number_format($yearly_total); ?></h3>
+                <small class="text-muted"><?php echo date("Y"); ?></small>
+            </div>
+            <div class="stat-card__icon stat-card__icon--success">
+                <i class="fa fa-chart-line"></i>
+            </div>
+        </div>
+    </div>
+</div>
 
-    .custom-table th {
-        font-weight: bold;
-    }
-
-    .custom-table tbody tr:hover {
-        background-color: #f6f6f6;
-    }
-
-    .custom-table td:nth-child(5),
-    .custom-table td:nth-child(6),
-    .custom-table td:nth-child(7) {
-        text-align: right;
-    }
-
-    .btn {
-        margin-right: 5px;
-        /* Space between buttons */
-    }
-
-    .btn:last-child {
-        margin-right: 0;
-    }
-</style>
-
-
-
-<link rel='stylesheet' href='css/statistic-card.css'>
-<div class="card">
-    <div class="card-body">
-        <div class="row" style="display: flex; align-items: center;">
-            <!-- CONTENT -->
-            <div class="row">
-                <div class="col-sm-4">
-                    <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#purchase-modal">
-                        <i class="fa fa-plus" aria-hidden="true"></i> ADD PURCHASE
-                    </button>
-                </div>
-
-                <div class="col-sm-4">
-                    <div class="row">
-                        <div class="col">
-                            <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle" type="button" id="dateDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 155px;">
-                                    Select Date
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dateDropdown">
-                                    <button class="dropdown-item" id="today">Today</button>
-                                    <button class="dropdown-item" id="this-week">This Week</button>
-                                    <button class="dropdown-item" id="this-month">This Month</button>
+<div class="row">
+    <!-- Left Column: Controls & Table -->
+    <div class="col-lg-9">
+        <!-- Control Panel -->
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body p-4">
+                <div class="row g-3 align-items-center">
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-success w-100" data-toggle="modal"
+                            data-target="#purchase-modal">
+                            <i class="fa fa-plus-circle me-2"></i> Add Purchase
+                        </button>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="row g-2">
+                            <div class="col-md-4">
+                                <div class="dropdown w-100">
+                                    <button
+                                        class="btn btn-outline-secondary dropdown-toggle w-100 text-start d-flex justify-content-between align-items-center"
+                                        type="button" id="dateDropdown" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <span>Select Date Range</span>
+                                    </button>
+                                    <div class="dropdown-menu w-100" aria-labelledby="dateDropdown">
+                                        <button class="dropdown-item" id="today">Today</button>
+                                        <button class="dropdown-item" id="this-week">This Week</button>
+                                        <button class="dropdown-item" id="this-month">This Month</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <select class="form-select" name="category" id="category_filter" style="width: 155px;">
-                                    <option disabled selected>Select Category</option>
-                                    <option value="">All</option>
+                            <div class="col-md-4">
+                                <select class="form-select" id="category_filter">
+                                    <option value="" selected>All Categories</option>
                                     <?php echo $purCatList ?>
-                                    <!--PHP echo-->
                                 </select>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <div class="col-sm-4">
-                    <div class="row">
-                        <div class="col-6">
-                            <input type="text" id="min" name="min" class="form-control" placeholder="From Date:" autocomplete="off" style="width: 150px;">
-                        </div>
-                        <div class="col-6">
-                            <input type="text" id="max" name="max" class="form-control" placeholder="To Date:" autocomplete="off" style="width: 150px;">
+                            <!-- Date Inputs -->
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <input type="text" id="min" class="form-control datepicker" placeholder="Start"
+                                        style="font-size: 0.85rem;">
+                                    <input type="text" id="max" class="form-control datepicker" placeholder="End"
+                                        style="font-size: 0.85rem;">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Table -->
+        <div class="table-responsive mb-4">
+            <table class="table table-hover" id='purchase_table'>
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">DATE</th>
+                        <th scope="col">VOUCHER</th>
+                        <th scope="col">CATEGORY</th>
+                        <th scope="col">CUSTOMER</th>
+                        <th scope="col" class="text-end">PRICE</th>
+                        <th scope="col" class="text-end">NET KG</th>
+                        <th scope="col" class="text-end">NET TOTAL</th>
+                        <th scope="col">ACTION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data -->
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-        <hr>
-
-
-        <div class="row" style="display: flex;">
-
-
-            <div class="col-md-9 col-sm-12">
-                <div class="table-responsive">
-                    <table class="table custom-table table-responsive-lg" id='purchase_table'>
-                        <thead class="table-dark" style='font-size:13px'>
-                            <tr>
-                                <th scope="col">DATE</th>
-                                <th scope="col">VOUCHER</th>
-                                <th scope="col">CATEGORY</th>
-                                <th scope="col">CUSTOMER NAME</th>
-                                <th scope="col">PRICE</th>
-                                <th scope="col">NET WEIGHT</th>
-                                <th scope="col">NET TOTAL AMOUNT</th>
-                                <th scope="col">ACTION</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Data loaded via AJAX server-side processing -->
-                        </tbody>
-                    </table>
-                </div>
+    <!-- Right Column: Category Breakdown -->
+    <div class="col-lg-3">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white border-bottom-0 pt-4 pb-0">
+                <h6 class="fw-bold text-uppercase text-muted small">Category Breakdown</h6>
             </div>
-
-            <div class="col-md-3 col-sm-12">
-
-
-
-                <div class="stat-card-default">
-                    <div class="stat-card__content">
-                        <p class="text-uppercase mb-2 text-muted">TOTAL PURCHASE PER CATEGORY</p>
-                        <?php foreach ($category_totals as $category => $total) :
-                            $percentage = ($total / $overall_total) * 100;
-                        ?>
-                            <!-- Display category and its value -->
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span><?php echo $category; ?></span>
-                                <span class="font-weight-bold">₱<?php echo number_format($total); ?></span>
-                            </div>
-
-                            <!-- Display progress bar -->
-                            <div class="progress mb-3" style="height: 8px;">
-                                <div class="progress-bar" role="progressbar" style="width: <?php echo $percentage; ?>%;" aria-valuenow="<?php echo $percentage; ?>" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-
-
-                <div class="stat-card">
-                    <div class="stat-card__content">
-                        <p class="text-uppercase mb-1 text-muted">PURCHASED TODAY</p>
-                        <h5><i class="text-danger font-weight-bold mr-1"></i>
-                            ₱
-                            <?php echo number_format($purchase_today['total_amount']) ?>
-                        </h5>
-                    </div>
-                    <div class="stat-card__icon stat-card__icon--success">
-                        <div class="stat-card__icon-circle">
-                            <i class="fa fa-money" aria-hidden="true"></i>
+            <div class="card-body">
+                <?php foreach ($category_totals as $category => $total):
+                    $percentage = $overall_total > 0 ? ($total / $overall_total) * 100 : 0;
+                    ?>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <span class="small fw-bold text-dark"><?php echo $category; ?></span>
+                            <span class="small text-muted">₱<?php echo number_format($total); ?></span>
+                        </div>
+                        <div class="progress" style="height: 6px; border-radius: 3px;">
+                            <div class="progress-bar bg-primary" role="progressbar"
+                                style="width: <?php echo $percentage; ?>%;" aria-valuenow="<?php echo $percentage; ?>"
+                                aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-card__content">
-                        <p class="text-uppercase mb-1 text-muted">PURCHASED THIS MONTH</p>
-                        <h5><i class="text-danger font-weight-bold mr-1"></i>
-                            ₱
-                            <?php echo number_format($purchase_month['month_total']) ?>
-                        </h5>
-                    </div>
-                    <div class="stat-card__icon stat-card__icon--danger">
-                        <div class="stat-card__icon-circle">
-                            <i class="fa fa-money" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-card__content">
-                        <p class="text-uppercase mb-1 text-muted">PURCHASED THIS YEAR</p>
-                        <h5><i class="text-primary font-weight-bold mr-1"></i>
-                            ₱<?php echo number_format($yearly_total); ?>
-                        </h5>
-                    </div>
-                    <div class="stat-card__icon stat-card__icon--primary">
-                        <div class="stat-card__icon-circle">
-                            <i class="fa fa-calendar" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
@@ -251,7 +197,7 @@ foreach ($categories as $category) {
     }
 
 
-    $(document).on('click', '.btnUpdate', function() {
+    $(document).on('click', '.btnUpdate', function () {
         var purchase = $(this).data('purchase');
         console.log(purchase);
 
@@ -273,29 +219,42 @@ foreach ($categories as $category) {
         $('#updatePurchase').modal('show');
     });
 
-    $(document).on('click', '.btnDelete', function() {
+    $(document).on('click', '.btnDelete', function () {
         var purchase = $(this).data('purchase');
         $('#my_id').val(purchase.id);
         $('#removePurchase').modal('show');
     });
 
     $.fn.dataTable.ext.search.push(
-        function(settings, data, dataIndex) {
-            var min = $('#min').datepicker("getDate");
-            var max = $('#max').datepicker("getDate");
+        function (settings, data, dataIndex) {
+            var minVal = $('#min').val();
+            var maxVal = $('#max').val();
+            var min = minVal ? new Date(minVal) : null;
+            var max = maxVal ? new Date(maxVal) : null;
 
             if (max) {
-                // set max to the next day at 00:00:00.000
-                max.setDate(max.getDate() + 1);
-                max.setHours(0, 0, 0, 0);
+                // set max to the next day at 00:00:00.000 (to include the end date fully)
+                // Actually, if we want inclusive, we usually treat the comparison carefully.
+                // But following original logic:
+                // Original: max.setDate(max.getDate() + 1); max.setHours(0,0,0,0);
+                // If input is YYYY-MM-DD, new Date() creates it a UTC midnight or Local midnight depending on parsing
+                // To be safe, let's treat it as string comparison or simple Day comparison if format matches
+                // But keeping logic similar:
+                max.setDate(max.getDate());
+                max.setHours(23, 59, 59, 999);
+            }
+
+            // Reset min time to start of day
+            if (min) {
+                min.setHours(0, 0, 0, 0);
             }
 
             var startDate = new Date(data[0]);
 
             if (min == null && max == null) return true;
-            if (min == null && startDate < max) return true; // change <= to <
+            if (min == null && startDate <= max) return true;
             if (max == null && startDate >= min) return true;
-            if (startDate < max && startDate >= min) return true; // change <= to <
+            if (startDate <= max && startDate >= min) return true;
             return false;
         }
     );
@@ -358,17 +317,17 @@ foreach ($categories as $category) {
     });
 
     // AJAX form submission for purchases
-    $(document).on('submit', '#purchase-form', function(e) {
+    $(document).on('submit', '#purchase-form', function (e) {
         e.preventDefault();
         submitPurchaseForm(this, 'add');
     });
 
-    $(document).on('submit', '#updatePurchaseForm', function(e) {
+    $(document).on('submit', '#updatePurchaseForm', function (e) {
         e.preventDefault();
         submitPurchaseForm(this, 'update');
     });
 
-    $(document).on('submit', '#deletePurchaseForm', function(e) {
+    $(document).on('submit', '#deletePurchaseForm', function (e) {
         e.preventDefault();
         submitPurchaseForm(this, 'delete');
     });
@@ -376,21 +335,21 @@ foreach ($categories as $category) {
     function submitPurchaseForm(form, action) {
         const submitBtn = form.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;
-        
+
         // Show loading state
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processing...';
-        
+
         const formData = new FormData(form);
         formData.append(action, action);
-        
+
         // Add AJAX header
         $.ajaxSetup({
-            beforeSend: function(xhr) {
+            beforeSend: function (xhr) {
                 xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
             }
         });
-        
+
         $.ajax({
             url: 'function/ledger/addPurchase.php',
             method: 'POST',
@@ -398,12 +357,12 @@ foreach ($categories as $category) {
             processData: false,
             contentType: false,
             dataType: 'json',
-            success: function(response) {
+            success: function (response) {
                 if (response.success) {
                     // Close modal and reset form immediately
                     $(form).closest('.modal').modal('hide');
                     form.reset();
-                    
+
                     // Show success message
                     Swal.fire({
                         position: 'top-end',
@@ -412,12 +371,12 @@ foreach ($categories as $category) {
                         showConfirmButton: false,
                         timer: 1500
                     });
-                    
+
                     // Reload DataTable to show updated data
                     setTimeout(() => {
                         window.purchaseTable.ajax.reload();
                     }, 500);
-                    
+
                 } else {
                     Swal.fire({
                         icon: 'error',
@@ -426,7 +385,7 @@ foreach ($categories as $category) {
                     });
                 }
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error('AJAX Error:', error);
                 Swal.fire({
                     icon: 'error',
@@ -434,7 +393,7 @@ foreach ($categories as $category) {
                     text: 'Please check your connection and try again.'
                 });
             },
-            complete: function() {
+            complete: function () {
                 // Restore button state
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalText;
@@ -448,42 +407,38 @@ foreach ($categories as $category) {
         window.purchaseTable.ajax.reload();
     });
 
-    $("#min").datepicker({
-        onSelect: function() {
-            window.purchaseTable.ajax.reload();
-        },
-        changeMonth: true,
-        changeYear: true
-    });
-    $("#max").datepicker({
-        onSelect: function() {
-            window.purchaseTable.ajax.reload();
-        },
-        changeMonth: true,
-        changeYear: true
-    });
-
-    // Quick date filters
-    $('#today').on('click', function() {
+    // Quick date filters (updated for native date inputs)
+    $('#today').on('click', function () {
         var today = new Date();
-        $('#min, #max').datepicker('setDate', today);
+        var dateString = today.toISOString().split('T')[0];
+        $('#min, #max').val(dateString);
         window.purchaseTable.ajax.reload();
     });
 
-    $('#this-week').on('click', function() {
+    $('#this-week').on('click', function () {
         var today = new Date();
-        var firstDayOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today
-            .getDay());
-        $('#min').datepicker('setDate', firstDayOfWeek);
-        $('#max').datepicker('setDate', today);
+        var firstDayOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay());
+
+        // Handle timezone offset for correct ISO string
+        var offset = today.getTimezoneOffset() * 60000;
+        var todayLocal = new Date(today.getTime() - offset).toISOString().split('T')[0];
+        var firstDayLocal = new Date(firstDayOfWeek.getTime() - offset).toISOString().split('T')[0];
+
+        $('#min').val(firstDayLocal);
+        $('#max').val(todayLocal);
         window.purchaseTable.ajax.reload();
     });
 
-    $('#this-month').on('click', function() {
+    $('#this-month').on('click', function () {
         var today = new Date();
         var firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-        $('#min').datepicker('setDate', firstDayOfMonth);
-        $('#max').datepicker('setDate', today);
+
+        var offset = today.getTimezoneOffset() * 60000;
+        var todayLocal = new Date(today.getTime() - offset).toISOString().split('T')[0];
+        var firstDayLocal = new Date(firstDayOfMonth.getTime() - offset).toISOString().split('T')[0];
+
+        $('#min').val(firstDayLocal);
+        $('#max').val(todayLocal);
         window.purchaseTable.ajax.reload();
     });
 </script>

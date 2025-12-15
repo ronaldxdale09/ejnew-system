@@ -1,9 +1,6 @@
 <?php
 
-$loc = str_replace(' ', '', $_SESSION['loc'] ?? '');
-// Ensure we don't run queries with empty location if sensitive
-if (empty($loc))
-    $loc = 'Unknown';
+$loc = str_replace(' ', '', $_SESSION['loc']);
 $current_year = date('Y');
 $previous_year = $current_year - 1;
 
@@ -29,65 +26,6 @@ $sql = mysqli_query($con, "SELECT MAX(total_amount) as max FROM ledger_expenses 
 $largest_expense = mysqli_fetch_array($sql)['max'];
 
 ?>
-<!-- Styles for the statistical cards -->
-<style>
-    .row {
-        display: flex;
-        flex-wrap: wrap;
-        margin-right: -15px;
-        margin-left: -15px;
-    }
-
-    .col-md-3 {
-        flex: 0 0 25%;
-        max-width: 25%;
-        padding-right: 15px;
-        padding-left: 15px;
-        display: flex;
-        /* Added flex display */
-    }
-
-    .stat-card {
-        background-color: #ffffff;
-        border-radius: 8px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 20px;
-        margin: 10px 5px;
-        width: 100%;
-        /* Ensures card stretches to full width of its container */
-        flex-direction: row;
-        /* Aligns items in a row */
-    }
-
-    .stat-card__icon {
-        font-size: 24px;
-        color: #333;
-        opacity: 0.7;
-    }
-
-    .stat-card__content h6 {
-        font-weight: bold;
-        margin-bottom: 5px;
-    }
-
-    .stat-card__content p {
-        font-size: 16px;
-        color: #555;
-        margin: 0;
-    }
-
-    .text-success {
-        color: green;
-    }
-
-    .text-danger {
-        color: red;
-    }
-</style>
-
 <div class="row">
 
     <!-- Total Expenses This Year vs Previous Year -->
@@ -95,12 +33,12 @@ $largest_expense = mysqli_fetch_array($sql)['max'];
         <div class="stat-card">
             <div class="stat-card__content">
                 <h6>Total Expenses This Year</h6>
-                <p>₱<?php echo number_format($total_expense_this_year, 2); ?></p>
-                <small>
+                <h4>₱<?php echo number_format($total_expense_this_year, 2); ?></h4>
+                <small class="text-muted">
                     Last Year: ₱<?php echo number_format($total_expense_last_year, 2); ?>
                 </small>
             </div>
-            <div class="stat-card__icon">
+            <div class="stat-card__icon stat-card__icon--primary">
                 <i class="fa fa-money-bill-wave"></i>
             </div>
         </div>
@@ -111,27 +49,25 @@ $largest_expense = mysqli_fetch_array($sql)['max'];
         <div class="stat-card">
             <div class="stat-card__content">
                 <h6>Total Expenses</h6>
-                <p><?php echo $loc ?> : ₱ <?php echo number_format($total_expense_location, 2); ?></p>
+                <h4>₱ <?php echo number_format($total_expense_location, 2); ?></h4>
+                <small class="text-muted">Location: <?php echo $loc ?></small>
             </div>
-            <div class="stat-card__icon">
+            <div class="stat-card__icon stat-card__icon--success">
                 <i class="fa fa-map-marker-alt"></i>
             </div>
         </div>
-
     </div>
-
-
 
     <!-- Most Frequent Expense Type This Year -->
     <div class="col-md-3">
         <div class="stat-card">
             <div class="stat-card__content">
                 <h6>Most Frequent Expense</h6>
-                <p><?php echo $most_frequent_expense['type_expense']; ?> (<?php echo $most_frequent_expense['count']; ?>
-                    times)</p>
-                <small>Total Amount: ₱<?php echo number_format($most_frequent_expense['total'], 2); ?></small>
+                <h4><?php echo $most_frequent_expense['type_expense']; ?></h4>
+                <small class="text-muted"><?php echo $most_frequent_expense['count']; ?> times |
+                    ₱<?php echo number_format($most_frequent_expense['total'], 2); ?></small>
             </div>
-            <div class="stat-card__icon">
+            <div class="stat-card__icon stat-card__icon--warning">
                 <i class="fa fa-clipboard-list"></i>
             </div>
         </div>
@@ -142,9 +78,10 @@ $largest_expense = mysqli_fetch_array($sql)['max'];
         <div class="stat-card">
             <div class="stat-card__content">
                 <h6>Largest Expense</h6>
-                <p>₱<?php echo number_format($largest_expense, 2); ?></p>
+                <h4>₱<?php echo number_format($largest_expense, 2); ?></h4>
+                <small class="text-muted">Peak Spending</small>
             </div>
-            <div class="stat-card__icon">
+            <div class="stat-card__icon stat-card__icon--danger">
                 <i class="fa fa-chart-line"></i>
             </div>
         </div>

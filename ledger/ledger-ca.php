@@ -20,26 +20,21 @@ while ($array = mysqli_fetch_array($result)) {
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.12.1/api/sum().js"></script>
 
 <body>
-    <link rel='stylesheet' href='css/statistic-card.css'>
-    <link rel='stylesheet' href='css/tab.css'>
+    <!-- <link rel='stylesheet' href='css/statistic-card.css'> -->
+    <link rel='stylesheet' href='css/modern-dashboard.css'>
+    <!-- <link rel='stylesheet' href='css/tab.css'> -->
     <input type='hidden' id='selected-cart' value=''>
-        <div class="container home-section h-100" style="max-width:95%;">
-            <div class="page-wrapper">
-                <div class="row">
-                    <div class="col-12">
-                        <h2 class="page-title">
-                            <b>
-                                <font color="#0C0070">CASH </font>
-                                <font color="#046D56"> ADVANCES </font>
-                            </b>
-                        </h2>
-                        <br>
+    <div class="container home-section h-100" style="max-width:95%;">
+        <div class="page-wrapper">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="page-title text-center my-4">Cash Advances</h2>
 
-                        <?php include('ledgerTab/cash-advance.php') ?>
-                    </div>
-                    <!-- ============================================================== -->
+                    <?php include('ledgerTab/cash-advance.php') ?>
                 </div>
+                <!-- ============================================================== -->
             </div>
+        </div>
     </div>
 </body>
 
