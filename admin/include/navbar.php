@@ -15,7 +15,6 @@
                 <a href="#" class="nav-link">Expenses <i class="fas fa-chevron-down fa-xs"></i></a>
                 <ul class="dropdown-menu">
                     <li><a href="basilan.expense.php" class="dropdown-link">Basilan Expenses</a></li>
-                    <li><a href="basilan.expense.report.php" class="dropdown-link">Basilan Report</a></li>
                     <li><a href="zam.expense.php" class="dropdown-link">Zamboanga Expenses</a></li>
                     <li><a href="zam.expense.report.php" class="dropdown-link">Zamboanga Report</a></li>
                 </ul>
@@ -30,7 +29,14 @@
                 </ul>
             </li>
 
-            <li class="nav-item"><a href="sales_reports.php" class="nav-link">Sales Report</a></li>
+            <li class="nav-item has-dropdown">
+                <a href="#" class="nav-link">Reports <i class="fas fa-chevron-down fa-xs"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="overall_report.php" class="dropdown-link">Overall Report</a></li>
+                    <li><a href="sales_reports.php" class="dropdown-link">Sales Report</a></li>
+                    <li><a href="basilan.expense.report.php" class="dropdown-link">Basilan Expense Report</a></li>
+                </ul>
+            </li>
             <li class="nav-item"><a href="copra_record.php" class="nav-link">Copra Record</a></li>
 
             <li class="nav-item has-dropdown">

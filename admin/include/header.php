@@ -28,14 +28,20 @@ $name = $_SESSION["full_name"];
     <link href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css" rel="stylesheet">
 
     <!-- Local CSS -->
-    <link rel="stylesheet" href="css/chosen.min.css?v=1.1">
-    <link rel='stylesheet' href='css/main.css?v=1.1'>
-    <link rel='stylesheet' href='css/navbar.css?v=1.1'>
-    <link rel="stylesheet" href="css/statistic-card.css?v=1.1">
+    <link rel="stylesheet"
+        href="css/chosen.min.css?v=<?php echo file_exists('css/chosen.min.css') ? filemtime('css/chosen.min.css') : '1.2'; ?>">
+    <link rel='stylesheet'
+        href='css/main.css?v=<?php echo file_exists('css/main.css') ? filemtime('css/main.css') : '1.2'; ?>'>
+    <link rel='stylesheet'
+        href='css/navbar.css?v=<?php echo file_exists('css/navbar.css') ? filemtime('css/navbar.css') : '1.2'; ?>'>
+    <link rel="stylesheet"
+        href="css/statistic-card.css?v=<?php echo file_exists('css/statistic-card.css') ? filemtime('css/statistic-card.css') : '1.2'; ?>">
 
     <!-- Local JS -->
-    <script src="assets/js/numberFormat.js?v=1.1"></script>
-    <script src="js/sweetalert2@11.js?v=1.1"></script>
+    <script
+        src="assets/js/numberFormat.js?v=<?php echo file_exists('assets/js/numberFormat.js') ? filemtime('assets/js/numberFormat.js') : '1.2'; ?>"></script>
+    <script
+        src="js/sweetalert2@11.js?v=<?php echo file_exists('js/sweetalert2@11.js') ? filemtime('js/sweetalert2@11.js') : '1.2'; ?>"></script>
 
     <!-- External JS Libraries -->
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>

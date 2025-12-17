@@ -264,6 +264,17 @@ ul {
         transition: max-height 0.3s ease;
     }
 
+    /* FIX: Prevent desktop hover transform from breaking mobile layout */
+    /* FIX: Prevent desktop hover transform from breaking mobile layout */
+    .nav-item:hover .dropdown-menu {
+        transform: none !important;
+        position: static !important;
+        display: block;
+        /* Ensure it stays in flow if hovered */
+        width: 100% !important;
+        box-shadow: none !important;
+    }
+
     .nav-item.active .dropdown-menu {
         display: block;
         max-height: 500px;

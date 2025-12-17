@@ -10,7 +10,8 @@ $total_pcs = $inv_data['total_pcs'] ?? 0;
 
 // 2. Valuation
 $q_val = mysqli_query($con, "SELECT 
-    SUM((total_production_cost / produce_total_weight * remaining_bales * kilo_per_bale) + (milling_cost * remaining_bales * kilo_per_bale)) as total_value
+    SUM((total_production_cost / produce_total_weight * remaining_bales * kilo_per_bale) + (milling_cost * remaining_bales * kilo_per_bale)) as total_value,
+    SUM(remaining_bales * kilo_per_bale) as valuated_weight
     FROM (
         SELECT 
             planta_bales_production.remaining_bales,
@@ -22,11 +23,12 @@ $q_val = mysqli_query($con, "SELECT
         LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
         WHERE planta_bales_production.remaining_bales !=0 
           AND planta_recording.source='Basilan'
-          AND planta_recording.status = 'For Sale'
+          AND planta_recording.total_production_cost > 0
     ) as sub");
 $val_data = mysqli_fetch_array($q_val);
 $total_value = $val_data['total_value'] ?? 0;
-$avg_cost_per_kg = ($total_kg > 0) ? $total_value / $total_kg : 0;
+$valuated_weight = $val_data['valuated_weight'] ?? 0;
+$avg_cost_per_kg = ($valuated_weight > 0) ? $total_value / $valuated_weight : 0;
 
 
 // --- CHART DATA 1: Quality Breakdown ---
