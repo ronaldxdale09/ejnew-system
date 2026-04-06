@@ -152,18 +152,10 @@ $year = isset($_GET['year']) ? $_GET['year'] : date("Y");
                                             <th scope="col" style="min-width: 150px;">
                                                 <select id="year-select" onchange="updateYear()" class="form-select"
                                                     style="width:auto; display:inline-block; font-weight: bold;">
-                                                    <option value="2023" <?php if ($year == "2023")
-                                                        echo "selected"; ?>>
-                                                        2023</option>
-                                                    <option value="2024" <?php if ($year == "2024")
-                                                        echo "selected"; ?>>
-                                                        2024</option>
-                                                    <option value="2025" <?php if ($year == "2025")
-                                                        echo "selected"; ?>>
-                                                        2025</option>
-                                                    <option value="2026" <?php if ($year == "2026")
-                                                        echo "selected"; ?>>
-                                                        2026</option>
+                                                    <?php for ($y = 2023; $y <= date("Y"); $y++): ?>
+                                                    <option value="<?php echo $y; ?>" <?php if ($year == $y) echo "selected"; ?>>
+                                                        <?php echo $y; ?></option>
+                                                    <?php endfor; ?>
                                                 </select>
                                             </th>
                                             <th scope="col">Jan</th>
