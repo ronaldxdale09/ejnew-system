@@ -336,3 +336,36 @@ $dateNow = $year . "-" . $month . "-" . $day;
         }
     });
 </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const inputs = document.querySelectorAll("[name='net_kilo'], [name='price'], [name='cash_advance'], [name='tax'], [name='others']");
+
+        for (let input of inputs) {
+            input.addEventListener("input", computeTotal);
+        }
+
+        document.querySelector("[name='net_total_amount']").addEventListener("input", function () {
+            let netTotalValue = parseFloat(this.value.replace(/,/g, '')) || 0;
+            let formattedValue = parseFloat(netTotalValue.toFixed(2)).toLocaleString('en-US');
+            document.querySelector("[name='total_amount']").value = formattedValue;
+        });
+
+        function computeTotal() {
+            let netKilos = parseFloat(document.querySelector("[name='net_kilo']").value.replace(/,/g, '')) || 0;
+            let price = parseFloat(document.querySelector("[name='price']").value.replace(/,/g, '')) || 0;
+            let cashAdvance = parseFloat(document.querySelector("[name='cash_advance']").value.replace(/,/g, '')) || 0;
+            let tax = parseFloat(document.querySelector("[name='tax']").value.replace(/,/g, '')) || 0;
+            let others = parseFloat(document.querySelector("[name='others']").value.replace(/,/g, '')) || 0;
+
+            let net_total = (netKilos * price) - cashAdvance - tax - others;
+            let totalAmount = (netKilos * price);
+
+            let formattedNet = parseFloat(net_total.toFixed(2)).toLocaleString('en-US');
+            document.querySelector("[name='net_total_amount']").value = formattedNet;
+
+            let formattedTotalAmount = parseFloat(totalAmount.toFixed(2)).toLocaleString('en-US');
+            document.querySelector("[name='total_amount']").value = formattedTotalAmount;
+        }
+    });
+</script>

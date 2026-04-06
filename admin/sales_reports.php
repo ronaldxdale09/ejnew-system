@@ -161,6 +161,9 @@ $year = isset($_GET['year']) ? $_GET['year'] : date("Y");
                                                     <option value="2025" <?php if ($year == "2025")
                                                         echo "selected"; ?>>
                                                         2025</option>
+                                                    <option value="2026" <?php if ($year == "2026")
+                                                        echo "selected"; ?>>
+                                                        2026</option>
                                                 </select>
                                             </th>
                                             <th scope="col">Jan</th>
