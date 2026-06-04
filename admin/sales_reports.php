@@ -148,7 +148,6 @@ $year = isset($_GET['year']) ? $_GET['year'] : date("Y");
                                         <tr id="table-header">
 
                                             <th scope="col">Accounts</th>
-                                            <th scope="col">
                                             <th scope="col" style="min-width: 150px;">
                                                 <select id="year-select" onchange="updateYear()" class="form-select"
                                                     style="width:auto; display:inline-block; font-weight: bold;">
