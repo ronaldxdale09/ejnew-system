@@ -815,11 +815,7 @@ body.sales-module .sales-loading {
 }
 
 #payment-table thead th {
-    background: var(--adm-slate-100) !important;
-    color: var(--adm-slate-700) !important;
     font-size: 0.62rem;
-    font-weight: 700;
-    text-transform: uppercase;
 }
 
 .sales-detail-form.is-locked .sales-detail-card__head .btn,
@@ -929,4 +925,36 @@ body.sales-module .sales-loading {
 
 .sales-module .table-dark {
     --bs-table-bg: var(--adm-green-900);
+    --bs-table-color: #fff;
+}
+
+/* ============================================================
+   Sales module — table header visibility
+   admin-theme sets light thead bg; Bootstrap table-dark/success
+   can leave white text → invisible headers without this block.
+   ============================================================ */
+.admin-body.sales-module .table > thead > tr > th,
+.admin-body.sales-module table.dataTable > thead > tr > th,
+.admin-body.sales-module .sales-report-table > thead > tr > th {
+    background: var(--adm-green-900) !important;
+    color: #fff !important;
+    border-color: var(--adm-green-800) !important;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    vertical-align: middle;
+}
+
+.admin-body.sales-module .table.table-success > thead > tr > th,
+.admin-body.sales-module .table > thead.table-success > tr > th,
+.admin-body.sales-module #payment-table > thead > tr > th {
+    background: var(--adm-green-800) !important;
+    color: #fff !important;
+    border-color: var(--adm-green-700) !important;
+}
+
+.admin-body.sales-module .sales-modal .table > thead > tr > th {
+    background: var(--adm-slate-200) !important;
+    color: var(--adm-slate-800) !important;
+    border-bottom: 1px solid var(--adm-slate-300) !important;
 }

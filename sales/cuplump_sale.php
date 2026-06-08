@@ -92,8 +92,6 @@ if (isset($_GET['id'])) {
 
     .payment-table thead {
         font-weight: normal;
-        background-color: red !important;
-
     }
        /* CSS for loading overlay */
        .overlay {
