@@ -11,7 +11,7 @@
     <div class="modal-content">
       <div class="modal-header bg-dark" >
         <h5 class="modal-title text-light" id="exampleModalLongTitle">FREIGHT EXPENSE</h5>
-        <button type="button" class="btn btn-light" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -106,7 +106,7 @@
         </div>
         <div class="modal-footer">
           <button type="submit" name='submit' class="btn btn-primary">Submit</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </form>
     </div>
   </div>

@@ -1,45 +1,47 @@
 <?php
-include('include/header.php');
-include "include/navbar.php";
+include 'include/header.php';
+include 'include/navbar.php';
+require_once __DIR__ . '/dashboard/data.php';
 
-// purchase category
+$source = $_SESSION['loc'] ?? '';
+$purKpis = ledger_purchase_kpis($con, $source);
 
-$pur_category = "SELECT * FROM purchase_category ";
+$pur_category = 'SELECT * FROM purchase_category';
 $pur_result = mysqli_query($con, $pur_category);
 $purCatList = '';
 while ($array = mysqli_fetch_array($pur_result)) {
-    $purCatList .= '
-<option value="' . $array["category"] . '">' . $array["category"] . '</option>';
+    $purCatList .= '<option value="' . adm_esc($array['category']) . '">' . adm_esc($array['category']) . '</option>';
 }
 
-
+ledger_shell_open('General Purchases', 'Record and track purchase transactions.', ['Finance']);
 ?>
-
-
-<body>
-    <link rel='stylesheet' href='css/modern-dashboard.css'>
-    <!-- <link rel='stylesheet' href='css/tab.css'> -->
-    <input type='hidden' id='selected-cart' value=''>
-
-    <div class="container home-section h-100" style="max-width:95%;">
-        <h2 class="page-title text-center my-4">General Purchases</h2>
-        <?php include('ledgerTab/purchase.php') ?>
+    <div class="adm-kpi-grid adm-kpi-grid--strip">
+        <div class="adm-kpi">
+            <div class="adm-kpi__label">Today</div>
+            <div class="adm-kpi__value"><?php echo adm_peso($purKpis['today'], 0); ?></div>
+            <div class="adm-kpi__sub"><?php echo date('M j, Y'); ?></div>
+        </div>
+        <div class="adm-kpi">
+            <div class="adm-kpi__label"><?php echo date('F'); ?> Total</div>
+            <div class="adm-kpi__value"><?php echo adm_peso($purKpis['month'], 0); ?></div>
+            <div class="adm-kpi__sub">This month</div>
+        </div>
+        <div class="adm-kpi">
+            <div class="adm-kpi__label"><?php echo date('Y'); ?> Total</div>
+            <div class="adm-kpi__value"><?php echo adm_peso($purKpis['year'], 0); ?></div>
+            <div class="adm-kpi__sub">Year to date</div>
+        </div>
     </div>
-</body>
 
-</html>
-<!-- Bootstrap script -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous">
-    </script>
+    <?php adm_panel_open('Purchase Transactions'); ?>
+    <?php include 'ledgerTab/purchase.php'; ?>
+    <?php adm_panel_close(); ?>
 
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.12.1/api/sum().js"></script>
-<?php
-include('modal/modal_purchase.php');
-?>
-
+<?php include 'modal/modal_purchase.php'; ?>
 <script>
     $('#purchase-modal').on('shown.bs.modal', function () {
         $('.pur_category', this).chosen();
     });
 </script>
+<?php ledger_shell_close(); ?>

@@ -1,137 +1,77 @@
-<div class="row">
-
-
-    <!-- ============================================================== -->
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <!-- CONTENT -->
-
-                    <div class="row">
-                        <div class="col-sm">
-                            <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#maloongToppers">
-                                <i class="fa fa-plus" aria-hidden="true"></i> NEW TRANSACTION
-                            </button>
-                            <button type="button" class="btn btn-dark text-white" data-toggle="modal" data-target="#modal">
-                                CATEGORY
-                            </button>
-                        </div>
-                        <div class="col-sm">
-                            <div class="row">
-                                <div class="col">
-
-                                </div>
-
-                                <div class="col"><b></b><input type="text" id="min" name="min" class="form-control" placeholder="From Date" /> </div>
-                                <div class="col"><input type="text" id="max" name="max" class="form-control" placeholder="To Date" /> </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <hr>
-                    <div class="table-responsive ">
-                        <table class="table table-bordered table-responsive-lg" id='maloong_toppers'>
-                            <?php
-                            $results  = mysqli_query($con, "SELECT * from ledger_buahantoppers");
-
-                            ?>
-                            <thead class="table-dark">
-                                <tr>
-                                    <th style='text-align:center' colspan="6">DESCRIPTION</th>
-                                    <th style='text-align:center' colspan="2">EJN</th>
-                                    <th style='text-align:center' colspan="3">TOPPERS</th>
-                                    <th style='text-align:center' colspan="1"></th>
-                                </tr>
-                                <tr>
-                                    <th style='background-color:rgb(11, 19, 54)' scope="col">Date</th>
-                                    <th style='background-color:rgb(11, 19, 54)' scope="col">Voucher #</th>
-                                    <th style='background-color:rgb(11, 19, 54)' scope="col">Particulars</th>
-                                    <th style='background-color:rgb(11, 19, 54)' scope="col">Net Kilos</th>
-                                    <th style='background-color:rgb(11, 19, 54)' scope="col">Price</th>
-                                    <th style='background-color:rgb(11, 19, 54)' scope="col">Total Amount</th>
-                                    <th style='background-color:rgb(30, 44, 104) ' scope="col">EJN (%)</th>
-                                    <th style='background-color:rgb(30, 44, 104) ' scope="col">Total</th>
-                                    <th style='background-color:rgb(30, 44, 104)' scope="col">Toppers (%)</th>
-                                    <th style='background-color:rgb(30, 44, 104)' scope="col">Deductions</th>
-                                    <th style='background-color:rgb(30, 44, 104)' scope="col">Total Amount</th>
-
-                                    <th>Actions</th>
-
-                                </tr>
-
-                            </thead>
-                            <tbody>
-                                <?php while ($row = mysqli_fetch_array($results)) { ?>
-                                    <tr>
-                                        <td data-sort="<?php echo strtotime($row['date']); ?>">
-                                            <?php
-                                            $date = new DateTime($row['date']);
-                                            echo $date->format('F j, Y'); // Outputs date as "May 14, 2023"
-                                            ?>
-                                        </td>
-                                        <td><?php echo ($row['voucher']) ?></td>
-                                        <td><?php echo ($row['name']) ?></td>
-                                        <td><?php echo number_format($row['net_kilos']) ?> Kgs</td>
-                                        <td>₱ <?php echo number_format($row['price']) ?></td>
-                                        <td>₱ <?php echo number_format($row['total']) ?></td>
-                                        <td><?php echo number_format(floatval($row['ejn_percent'])) ?> %</td>
-                                        <td>₱ <?php echo number_format(floatval($row['ejn_total'])) ?></td>
-                                        <td><?php echo number_format(floatval($row['toppers_percent'])) ?> %</td>
-
-                                        <td><?php echo ($row['less_category']) ?> : ₱<?php echo number_format(floatval($row['less_toppers'])) ?></td>
-                                        <td>₱ <?php echo number_format(floatval($row['toppers_total'])) ?></td>
-
-                                        <td>
-                                            <div class="btn-group" role="group">
-                                                <button type="button" data-buahantoppers='<?php echo json_encode($row); ?>' class="btn btn-sm  btnUpdate btn-success text-white">
-                                                    <span class="fa fa-edit"></span>
-                                                </button>
-                                                <button type="button" data-buahantoppers='<?php echo json_encode($row); ?>' class="btn btn-sm btnDelete btn-danger text-white">
-                                                    <span class="fa fa-trash"></span>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                <?php } ?>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- END CONTENT -->
-                </div>
-            </div>
+<div class="ledger-toolbar mb-3">
+    <div class="ledger-toolbar__actions">
+        <button type="button" class="ledger-btn ledger-btn--primary" data-bs-toggle="modal" data-bs-target="#buahanToppers">
+            <i class="fas fa-plus"></i> New Transaction
+        </button>
+    </div>
+    <div class="ledger-toolbar__filters">
+        <div class="ledger-filter-field">
+            <label for="min">From</label>
+            <input type="text" id="min" name="min" class="form-control form-control-sm datepicker" placeholder="yyyy-mm-dd" autocomplete="off">
+        </div>
+        <div class="ledger-filter-field">
+            <label for="max">To</label>
+            <input type="text" id="max" name="max" class="form-control form-control-sm datepicker" placeholder="yyyy-mm-dd" autocomplete="off">
         </div>
     </div>
+</div>
 
-
-
-    <script>
-        $('.btnUpdate').on('click', function() {
-            let buahantoppers = $(this).data('buahantoppers');
-       
-            $('#u_id').val(buahantoppers.id);
-            $('#u_date').val(buahantoppers.date);
-            $('#u_voucher').val(buahantoppers.voucher);
-            $('#u_name').val(buahantoppers.name);
-            $('#u_net_kilos').val(buahantoppers.net_kilos.replace(/[^0-9.]/g, ''));
-            $('#u_price').val(buahantoppers.price.replace(/[^0-9.]/g, ''));
-            $('#u_ejn_percent').val(buahantoppers.ejn_percent.replace(/[^0-9.]/g, ''));
-            $('#u_ejn_total').val(buahantoppers.ejn_total.replace(/[^0-9.]/g, ''));
-            $('#u_topper_percent').val(buahantoppers.toppers_percent.replace(/[^0-9.]/g, ''));
-            $('#u_topper_gross').val(buahantoppers.gross_amount.replace(/[^0-9.]/g, ''));
-            $('#u_less_category').val(buahantoppers.less_category);
-            $('#u_less').val(buahantoppers.less_toppers.replace(/[^0-9.]/g, ''));
-            $('#u_topper_total').val(buahantoppers.toppers_total.replace(/[^0-9.]/g, ''));
-
-            $('#updateBuahan').modal('show');
-        });
-        $('.btnDelete').on('click', function() {
-            let buahantoppers = $(this).data('buahantoppers');
-         
-            $('#d_id').val(buahantoppers.id);
-          
-            $('#deleteRecord').modal('show');
-        });
-    </script>
+<div class="table-responsive">
+    <table class="table table-hover ledger-topper-table ledger-topper-table--buahan w-100" id="buahan_toppers">
+        <thead>
+            <tr class="ledger-topper-table__group">
+                <th colspan="6">Description</th>
+                <th colspan="2">EJN</th>
+                <th colspan="3">Toppers</th>
+                <th colspan="1"></th>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <th>Voucher #</th>
+                <th>Particulars</th>
+                <th class="text-end">Net Kilos</th>
+                <th class="text-end">Price</th>
+                <th class="text-end">Total</th>
+                <th class="text-end">EJN %</th>
+                <th class="text-end">Total</th>
+                <th class="text-end">Toppers %</th>
+                <th>Deductions</th>
+                <th class="text-end">Total</th>
+                <th class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $results = mysqli_query($con, 'SELECT * FROM ledger_buahantoppers ORDER BY date DESC');
+            while ($row = mysqli_fetch_array($results)) {
+                $dateObj = new DateTime($row['date']);
+            ?>
+            <tr>
+                <td data-order="<?php echo adm_esc($row['date']); ?>">
+                    <?php echo $dateObj->format('M j, Y'); ?>
+                </td>
+                <td><?php echo adm_esc($row['voucher']); ?></td>
+                <td><?php echo adm_esc($row['name']); ?></td>
+                <td class="text-end"><?php echo number_format(floatval($row['net_kilos']), 2); ?> kg</td>
+                <td class="text-end"><?php echo adm_peso($row['price'], 2); ?></td>
+                <td class="text-end"><?php echo adm_peso($row['total'], 2); ?></td>
+                <td class="text-end"><?php echo number_format(floatval($row['ejn_percent']), 2); ?>%</td>
+                <td class="text-end"><?php echo adm_peso($row['ejn_total'], 2); ?></td>
+                <td class="text-end"><?php echo number_format(floatval($row['toppers_percent']), 2); ?>%</td>
+                <td><?php echo adm_esc($row['less_category']); ?>: <?php echo adm_peso($row['less_toppers'], 2); ?></td>
+                <td class="text-end"><?php echo adm_peso($row['toppers_total'], 2); ?></td>
+                <td class="text-center">
+                    <div class="btn-group btn-group-sm">
+                        <button type="button" data-buahantoppers='<?php echo htmlspecialchars(json_encode($row), ENT_QUOTES, 'UTF-8'); ?>' class="btn btn-success btnUpdate" title="Edit">
+                            <span class="fa fa-edit"></span>
+                        </button>
+                        <button type="button" data-buahantoppers='<?php echo htmlspecialchars(json_encode($row), ENT_QUOTES, 'UTF-8'); ?>' class="btn btnDelete btn-danger" title="Delete">
+                            <span class="fa fa-trash"></span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+</div>

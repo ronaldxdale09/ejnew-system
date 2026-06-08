@@ -1,348 +1,243 @@
-<?php
-$month = date("m");
-$day = date("d");
-$year = date("Y");
-$dateNow = $year . "-" . $month . "-" . $day;
+<?php $dateNow = date('Y-m-d'); ?>
 
-?>
-<!-- Modal -->
-<div class="modal fade" id="maloongToppers" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
-    <div class="modal-dialog " role="document">
+<!-- Add Maloong -->
+<div class="modal fade ledger-modal" id="maloongToppers" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">Maloong Toppers</h5>
-                <button type="button" class="btn text-white close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 class="modal-title"><i class="fas fa-boxes-stacked me-2"></i>New Maloong Transaction</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-
-            <form action="function/ledger/addMaloong.php" id='myform' method="POST">
-                <div class="modal-body p-4">
-
-                    <div class="row">
-                        <div class="col ">
-                            <div class="form-group">
-                                <label for="date">DATE</label>
-                                <input class='form-control ' value="<?php echo $dateNow; ?>" type="date" id="date" name="date" required>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label for='voucher'>VOUCHER #</label>
-                                <input type="text" name='voucher' class="form-control" autocomplete='off' required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for='name'>Particulars</label>
-                        <input type="text" name='name' id='name' class="form-control" autocomplete='off' required>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for='net_kilos'>Net Kilos</label>
-                            <div class="input-group">
-                                <input type="text" name='net_kilos' id='net_kilos' class="form-control text-right" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off'>
-                                <div class="input-group-append">
-                                    <span class="input-group-text">Kg</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for='ejn_price'>EJN Price</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">₱</span>
-                                </div>
-                                <input type="text" name='ejn_price' id='ejn_price' class="form-control text-right" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off'>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for='ejn_total'>EJN Total</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">₱</span>
-                                </div>
-                                <input type="text" name='ejn_total' id='ejn_total' class="form-control text-right" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off'>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for='topper_price'>Toppers Price</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">₱</span>
-                                </div>
-                                <input type="text" name='topper_price' id='topper_price' class="form-control text-right" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off'>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label for='topper_gross'>Gross Amount</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">₱</span>
-                            </div>
-                            <input type="text" name='topper_gross' id='topper_gross' class="form-control text-right" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off'>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="less_category">Less Category</label>
-                            <input class="form-control" list="typeLess" name='less_category' id="less_category" placeholder="Select Subject" autocomplete='off'>
-                            <datalist id='typeLess'>
-                                <option value="No Deductions" selected>No Deductions</option>
-                                <option value="Cash Advance">Cash Advance</option>
-                                <option value="SSS">SSS</option>
-                                <option value="Rice">Rice</option>
-                            </datalist>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for='less'>Less (Toppers)</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">₱</span>
-                                </div>
-                                <input type="text" name='less' id='less' class="form-control text-right" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off'>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-
-                        <div class="col-md-6 mb-3">
-                            <label for='topper_total'>Toppers Total</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">₱</span>
-                                </div>
-                                <input type="text" name='topper_total' id='topper_total' class="form-control text-right" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off' required>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="submit" name='submit' class="btn btn-primary">Submit</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-<div class="modal fade" id="updateMaloong" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
-    <div class="modal-dialog " role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">Update | Maloong Toppers</h5>
-                <button type="button" class="btn text-white close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-            <form action="function/ledger/updateMaloong.php" id='myform' method="POST">
-                <div class="modal-body p-4">
-                    <input class='form-control' type="text" id="u_id" name="id" hidden>
-                    <div class="row">
-                        <div class="col ">
-                            <div class="form-group">
-                                <label for="date">DATE</label>
-                                <input class='form-control ' type="date" id="u_date" name="date" required>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label for='voucher'>VOUCHER #</label>
-                                <input type="text" name='voucher' class="form-control" autocomplete='off' required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for='name'>Particulars</label>
-                        <input type="text" name='name' id='u_name' class="form-control" autocomplete='off' required>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for='net_kilos'>Net Kilos</label>
-                            <div class="input-group">
-                                <input type="text" name='net_kilos' id='u_net_kilos' class="form-control text-right" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off'>
-                                <div class="input-group-append">
-                                    <span class="input-group-text">Kg</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for='ejn_price'>EJN Price</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">₱</span>
-                                </div>
-                                <input type="text" name='ejn_price' id='u_ejn_price' class="form-control text-right" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off'>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for='ejn_total'>EJN Total</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">₱</span>
-                                </div>
-                                <input type="text" name='ejn_total' id='u_ejn_total' class="form-control text-right" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off'>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for='topper_price'>Toppers Price</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">₱</span>
-                                </div>
-                                <input type="text" name='topper_price' id='u_topper_price' class="form-control text-right" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off'>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label for='topper_gross'>Gross Amount</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">₱</span>
-                            </div>
-                            <input type="text" name='topper_gross' id='u_topper_gross' class="form-control text-right" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off'>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="less_category">Less Category</label>
-                            <input class="form-control" list="typeLess" name='less_category' id="u_less_category" placeholder="Select Subject" autocomplete='off'>
-                            <datalist id='typeLess'>
-                                <option value="No Deductions" selected>No Deductions</option>
-                                <option value="Cash Advance">Cash Advance</option>
-                                <option value="SSS">SSS</option>
-                                <option value="Rice">Rice</option>
-                            </datalist>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for='less'>Less (Toppers)</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">₱</span>
-                                </div>
-                                <input type="text" name='less' id='u_less' class="form-control text-right" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off'>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-
-                        <div class="col-md-6 mb-3">
-                            <label for='topper_total'>Toppers Total</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">₱</span>
-                                </div>
-                                <input type="text" name='topper_total' id='u_topper_total' class="form-control text-right" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete='off' required>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="submit" name='submit' class="btn btn-primary">Submit</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-<script>
-    $(function() {
-        $("#net_kilos, #ejn_price, #topper_price, #less").keyup(function() {
-            let net_kilos = $("#net_kilos").val().replace(/,/g, ''),
-                ejn_price = $("#ejn_price").val().replace(/,/g, ''),
-                topper_price = $("#topper_price").val().replace(/,/g, ''),
-                less = $("#less").val().replace(/,/g, '');
-
-            maloongToppers(net_kilos, ejn_price, topper_price, less);
-        });
-    });
-
-    function maloongToppers(net_kilos, ejn_price, topper_price, less) {
-        let nf = new Intl.NumberFormat('en-US');
-
-        let ejn_total = net_kilos * ejn_price;
-        $("#ejn_total").val(nf.format(ejn_total));
-
-        let topper_gross = net_kilos * topper_price;
-        $("#topper_gross").val(nf.format(topper_gross));
-
-        let topper_total = topper_gross - less;
-        $("#topper_total").val(nf.format(topper_total));
-    }
-
-
-    $(function() {
-        $("#u_net_kilos, #u_ejn_price, #u_topper_price, #u_less").keyup(function() {
-            let net_kilos = $("#u_net_kilos").val().replace(/,/g, ''),
-                ejn_price = $("#u_ejn_price").val().replace(/,/g, ''),
-                topper_price = $("#u_topper_price").val().replace(/,/g, ''),
-                less = $("#u_less").val().replace(/,/g, '');
-
-            u_maloongToppers(net_kilos, ejn_price, topper_price, less);
-        });
-    });
-
-    function u_maloongToppers(net_kilos, ejn_price, topper_price, less) {
-        let nf = new Intl.NumberFormat('en-US');
-
-        let ejn_total = net_kilos * ejn_price;
-        $("#u_ejn_total").val(nf.format(ejn_total));
-
-        let topper_gross = net_kilos * topper_price;
-        $("#u_topper_gross").val(nf.format(topper_gross));
-
-        let topper_total = topper_gross - less;
-        $("#u_topper_total").val(nf.format(topper_total));
-    }
-</script>
-
-
-
-
-
-<div class="modal fade" id="deleteRecord" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form action="function/ledger/addMaloong.php" id='myform' method="POST">
-                <div class="modal-header">
-
-                    <h5 class="modal-title" id="deleteModalLabel">Delete Record</h5>
-                    <button type="button" class="btn text-light close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <input type="text" id='d_id' name="id" hidden>
+            <form action="function/ledger/addMaloong.php" id="maloongAddForm" method="POST">
                 <div class="modal-body">
-                    Are you sure you want to delete this record? This action cannot be undone.
+                    <div class="modal-section">Transaction Details</div>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Date</label>
+                            <input class="form-control" value="<?php echo $dateNow; ?>" type="date" name="date" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Voucher No.</label>
+                            <input type="text" name="voucher" class="form-control" autocomplete="off" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Particulars</label>
+                            <input type="text" name="name" class="form-control" autocomplete="off" required placeholder="Customer / description">
+                        </div>
+                    </div>
+
+                    <hr class="my-3">
+                    <div class="modal-section">Weight & EJN</div>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Net Kilos</label>
+                            <div class="input-group">
+                                <input type="text" name="net_kilos" id="net_kilos" class="form-control text-end"
+                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete="off">
+                                <span class="input-group-text">Kg</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">EJN Price</label>
+                            <div class="input-group">
+                                <span class="input-group-text">₱</span>
+                                <input type="text" name="ejn_price" id="ejn_price" class="form-control text-end"
+                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">EJN Total</label>
+                            <div class="input-group">
+                                <span class="input-group-text">₱</span>
+                                <input type="text" name="ejn_total" id="ejn_total" class="form-control text-end bg-light" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-3">
+                    <div class="modal-section">Toppers</div>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Toppers Price</label>
+                            <div class="input-group">
+                                <span class="input-group-text">₱</span>
+                                <input type="text" name="topper_price" id="topper_price" class="form-control text-end"
+                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Gross Amount</label>
+                            <div class="input-group">
+                                <span class="input-group-text">₱</span>
+                                <input type="text" name="topper_gross" id="topper_gross" class="form-control text-end bg-light" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Less Category</label>
+                            <input class="form-control" list="maloongLessList" name="less_category" id="less_category" placeholder="Select or type" autocomplete="off">
+                            <datalist id="maloongLessList">
+                                <option value="No Deductions">
+                                <option value="Cash Advance">
+                                <option value="SSS">
+                                <option value="Rice">
+                            </datalist>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Less (Toppers)</label>
+                            <div class="input-group">
+                                <span class="input-group-text">₱</span>
+                                <input type="text" name="less" id="less" class="form-control text-end"
+                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete="off" placeholder="0">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Toppers Total</label>
+                            <div class="input-group">
+                                <span class="input-group-text ledger-modal-totals__accent">₱</span>
+                                <input type="text" name="topper_total" id="topper_total" class="form-control total-field text-end" required readonly>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger" name='delete'>Delete</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" name="submit" class="btn btn-success"><i class="fas fa-save me-1"></i> Save Transaction</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<!-- Update Maloong -->
+<div class="modal fade ledger-modal" id="updateMaloong" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-pen-to-square me-2"></i>Update Maloong Transaction</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="function/ledger/addMaloong.php" id="maloongUpdateForm" method="POST">
+                <input type="hidden" id="u_id" name="id">
+                <div class="modal-body">
+                    <div class="modal-section">Transaction Details</div>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Date</label>
+                            <input class="form-control" type="date" id="u_date" name="date" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Voucher No.</label>
+                            <input type="text" name="voucher" id="u_voucher" class="form-control" autocomplete="off" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Particulars</label>
+                            <input type="text" name="name" id="u_name" class="form-control" autocomplete="off" required>
+                        </div>
+                    </div>
+
+                    <hr class="my-3">
+                    <div class="modal-section">Weight & EJN</div>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Net Kilos</label>
+                            <div class="input-group">
+                                <input type="text" name="net_kilos" id="u_net_kilos" class="form-control text-end"
+                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete="off">
+                                <span class="input-group-text">Kg</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">EJN Price</label>
+                            <div class="input-group">
+                                <span class="input-group-text">₱</span>
+                                <input type="text" name="ejn_price" id="u_ejn_price" class="form-control text-end"
+                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">EJN Total</label>
+                            <div class="input-group">
+                                <span class="input-group-text">₱</span>
+                                <input type="text" name="ejn_total" id="u_ejn_total" class="form-control text-end bg-light" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-3">
+                    <div class="modal-section">Toppers</div>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Toppers Price</label>
+                            <div class="input-group">
+                                <span class="input-group-text">₱</span>
+                                <input type="text" name="topper_price" id="u_topper_price" class="form-control text-end"
+                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Gross Amount</label>
+                            <div class="input-group">
+                                <span class="input-group-text">₱</span>
+                                <input type="text" name="topper_gross" id="u_topper_gross" class="form-control text-end bg-light" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Less Category</label>
+                            <input class="form-control" list="maloongLessListUpdate" name="less_category" id="u_less_category" autocomplete="off">
+                            <datalist id="maloongLessListUpdate">
+                                <option value="No Deductions">
+                                <option value="Cash Advance">
+                                <option value="SSS">
+                                <option value="Rice">
+                            </datalist>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Less (Toppers)</label>
+                            <div class="input-group">
+                                <span class="input-group-text">₱</span>
+                                <input type="text" name="less" id="u_less" class="form-control text-end"
+                                    onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Toppers Total</label>
+                            <div class="input-group">
+                                <span class="input-group-text ledger-modal-totals__accent">₱</span>
+                                <input type="text" name="topper_total" id="u_topper_total" class="form-control total-field text-end" required readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" name="update" class="btn btn-success"><i class="fas fa-save me-1"></i> Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Maloong -->
+<div class="modal fade ledger-modal ledger-modal--danger" id="deleteRecord" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Transaction</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="function/ledger/addMaloong.php" method="POST">
+                <input type="hidden" id="d_id" name="id">
+                <div class="modal-body text-center">
+                    <i class="fas fa-trash-alt fa-2x text-danger mb-3 d-block opacity-75"></i>
+                    <p class="mb-0">Delete this maloong record? This cannot be undone.</p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger" name="delete">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="js/ledger-maloong-modals.js?v=<?php echo @filemtime(__DIR__ . '/../js/ledger-maloong-modals.js') ?: time(); ?>"></script>

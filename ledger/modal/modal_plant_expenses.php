@@ -132,7 +132,7 @@ while ($arr = mysqli_fetch_array($result)) {
                 <div class="modal-footer">
                     <button type="submit" name='add' class="btn btn-success" id="btn_add_record_expenses">Add
                         Record</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
                 </div>
             </form>
@@ -253,7 +253,7 @@ while ($arr = mysqli_fetch_array($result)) {
                 </div>
                 <div class="modal-footer">
                     <button type="submit" name='update' class="btn btn-success">Update Record</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </form>
         </div>
@@ -321,7 +321,7 @@ while ($arr = mysqli_fetch_array($result)) {
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
 
@@ -337,7 +337,7 @@ while ($arr = mysqli_fetch_array($result)) {
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Update Category List</h5>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form class="col-md-12" method='POST' a action="function/ledger/addCategory.php">
@@ -352,7 +352,7 @@ while ($arr = mysqli_fetch_array($result)) {
             </div>
             <div class="modal-footer">
                 <button type="submit" name='update' class="btn btn-success">Save changes</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </form>
             </div>
         </div>
@@ -365,7 +365,7 @@ while ($arr = mysqli_fetch_array($result)) {
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Remove from Category List</h5>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form class="col-md-12" method='POST' a action="function/ledger/addCategory.php">
@@ -378,7 +378,7 @@ while ($arr = mysqli_fetch_array($result)) {
             </div>
             <div class="modal-footer">
                 <button type="submit" name='delete' class="btn btn-danger">Continue</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
 
                 </form>
             </div>
@@ -404,7 +404,7 @@ while ($arr = mysqli_fetch_array($result)) {
                         cannot be undone.</p>
                 </div>
                 <div class="modal-footer justify-content-center">
-                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" name="delete" class="btn btn-danger">Delete</button>
                 </div>
             </form>

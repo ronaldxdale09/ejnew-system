@@ -1,43 +1,23 @@
 <?php
-include('include/header.php');
-include('include/navbar.php');
+include 'include/header.php';
+include 'include/navbar.php';
+include 'modal/coffee_category.php';
 
-include "modal/coffee_category.php";
-
+ledger_shell_open('Coffee Products', 'Manage product catalog, pricing, and inventory.', ['Coffee']);
+include 'statistical_card/coffee_product.card.php';
+adm_panel_open('Product List');
 ?>
-
-<body>
-    <link rel='stylesheet' href='css/statistic-card.css'>
-
-    <div class="container home-section h-100" style="max-width:95%;">
-        <div class="page-wrapper">
-            <h2 class="page-title">
-                <b>
-                    <font color="#0C0070">COFFEE </font>
-                    <font color="#046D56"> PRODUCTS </font>
-                </b>
-            </h2>
-            <br>
-            <?php
-            include('statistical_card/coffee_product.card.php');
-            ?>
-
-            <div class="card">
-                <div class="card-body">
-
-
-                    <div class="col-sm-4">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#add_product">
-                                <i class="fa fa-add" aria-hidden="true"></i> NEW PRODUCT
-                            </button>
-                            <button type="button" class="btn btn-dark text-white" data-toggle="modal" data-target="#categoryModal">
-                                <i class="fa fa-book" aria-hidden="true"></i> CATEGORY
-                            </button>
-                        </div>
-                    </div>
-                    <hr>
-                    <?php
+    <div class="ledger-toolbar mb-3">
+        <div class="ledger-toolbar__actions">
+            <button type="button" class="ledger-btn ledger-btn--primary" data-bs-toggle="modal" data-bs-target="#add_product">
+                <i class="fas fa-plus"></i> New Product
+            </button>
+            <button type="button" class="ledger-btn ledger-btn--ghost" data-bs-toggle="modal" data-bs-target="#categoryModal">
+                <i class="fas fa-tags"></i> Categories
+            </button>
+        </div>
+    </div>
+<?php
 
                     // Prepare SQL statement
                     $sql = "SELECT *,coffee_products.coffee_id as prod_id FROM coffee_products 
@@ -92,18 +72,9 @@ include "modal/coffee_category.php";
                             </tbody>
                         </table>
                     </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <?php
-    include "modal/coffee_product.php";
-    ?>
-
-
-    <script>
+<?php adm_panel_close(); ?>
+<?php include 'modal/coffee_product.php'; ?>
+<script>
         $('.btnUpdate').on('click', function() {
             $tr = $(this).closest('tr');
 
@@ -123,7 +94,7 @@ include "modal/coffee_category.php";
             $('#qty_case').val(data[4].replace(/[^0-9.]/g, ''));
             $('#case_price').val(data[5].replace(/[^0-9.]/g, ''));
 
-            $('#update_product').modal('show');
+            LedgerModal.show('#update_product');
         });
 
         $('.confirmDelete').on('click', function() {
@@ -135,7 +106,7 @@ include "modal/coffee_category.php";
 
             $('#d_coffee_id').val(data[0]);
 
-            $('#deleteProductModal').modal('show'); // Close the modal
+            LedgerModal.show('#deleteProductModal');
         });
 
 
@@ -177,9 +148,4 @@ include "modal/coffee_category.php";
             });
         });
     </script>
-
-
-
-</body>
-
-</html>
+<?php ledger_shell_close(); ?>

@@ -1,50 +1,30 @@
 <?php
+include 'include/header.php';
+include 'include/navbar.php';
 
-include('include/header.php');
-include('include/navbar.php');
-
-// Prepare SQL statement
-$sql = "SELECT * FROM coffee_customer";
+$sql = 'SELECT * FROM coffee_customer';
 $results = mysqli_query($con, $sql);
-
-// Check for SQL errors
 if (!$results) {
-    die("SQL error: " . mysqli_error($con));
+    die('SQL error: ' . mysqli_error($con));
 }
+
+ledger_shell_open('Coffee Customers', 'Manage customer records and balances.', ['Coffee']);
+adm_panel_open('Customer List');
 ?>
-
-<!DOCTYPE html>
-<html>
-
-<body>
-
-    <div class="container home-section h-100" style="max-width:95%;">
-        <div class="page-wrapper">
-            <div class="row">
-                <div class="col-12">
-                    <br>
-                    <h2 class="page-title">
-                        <b>
-                            <font color="#0C0070">CUSTOMER </font>
-                            <font color="#046D56"> LIST </font>
-                        </b>
-                    </h2>
-                    <br>
-                    <div class="card">
-                        <div class="card-body">
-                            <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#addCustomer">
-                                <i class="fa fa-add" aria-hidden="true"></i> NEW CUSTOMER
-                            </button>
-                            <hr>
-
-                            <?php
-                            if (isset($_SESSION['new_customer_added'])) {
-                                echo '<div class="alert alert-success">New customer added successfully!</div>';
-                                unset($_SESSION['new_customer_added']);
-                            }
-                            ?>
-
-                            <div class="table-responsive">
+    <div class="ledger-toolbar mb-3">
+        <div class="ledger-toolbar__actions">
+            <button type="button" class="ledger-btn ledger-btn--primary" data-bs-toggle="modal" data-bs-target="#addCustomer">
+                <i class="fas fa-plus"></i> New Customer
+            </button>
+        </div>
+    </div>
+    <?php
+    if (isset($_SESSION['new_customer_added'])) {
+        echo '<div class="alert alert-success">New customer added successfully!</div>';
+        unset($_SESSION['new_customer_added']);
+    }
+    ?>
+    <div class="table-responsive">
                                 <table class="table" id='customerTable'>
                                     <thead class="table-dark">
                                         <tr>
@@ -75,14 +55,8 @@ if (!$results) {
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
+<?php adm_panel_close(); ?>
+<script>
         $('.btnUpdate').on('click', function() {
             $tr = $(this).closest('tr');
 
@@ -95,7 +69,7 @@ if (!$results) {
             $('#address').val(data[2]);
             $('#contact').val(data[3].replace(/[^0-9.]/g, ''));
 
-            $('#updateCustomer').modal('show');
+            LedgerModal.show('#updateCustomer');
 
 
         });
@@ -109,7 +83,7 @@ if (!$results) {
 
             $('#d_customer_id').val(data[0]);
 
-            $('#deleteCustomer').modal('show'); // Close the modal
+            LedgerModal.show('#deleteCustomer');
         });
 
 
@@ -150,11 +124,5 @@ if (!$results) {
             });
         });
     </script>
-
-    <?php
-    include "modal/coffee_customer.php";
-    ?>
-
-</body>
-
-</html>
+<?php include 'modal/coffee_customer.php'; ?>
+<?php ledger_shell_close(); ?>

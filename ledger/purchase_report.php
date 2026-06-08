@@ -1,35 +1,20 @@
 <?php
-include('include/header.php');
-include "include/navbar.php";
+include 'include/header.php';
+include 'include/navbar.php';
 
-?>
-<?php
 $Currentmonth = date('n');
 $CurrentYear = date('Y');
 
-$Expensesyear = (isset($_GET['year'])) ? $_GET['year'] : $CurrentYear; // set default 
-$ExpensesMonth = (isset($_GET['month'])) ? $_GET['month'] : $Currentmonth; // set default 
+$Expensesyear = isset($_GET['year']) ? $_GET['year'] : $CurrentYear;
+$ExpensesMonth = isset($_GET['month']) ? $_GET['month'] : $Currentmonth;
+
+ledger_shell_open('Purchase Report', 'Monthly purchase breakdown by category (PHP).', ['Finance']);
 ?>
+<script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.12.1/api/sum().js"></script>
 
-<body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js" integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.12.1/api/sum().js"></script>
-
-        <div class="container home-section h-100" style="max-width:95%;">
-
-            <h2 class="page-title text-center my-4">
-                <b>
-                    <font color="#0C0070">PURCHASE </font>
-                    <font color="#046D56"> REPORT </font>
-                </b>
-                <h5 class="text-center">(All amounts are in Philippine Peso)</h5>
-            </h2>
-
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="table-expenses_all" class="table display nowrap" style="width:100%;">
+<?php adm_panel_open('Monthly Purchases by Category'); ?>
+<div class="table-responsive">
+    <table id="table-expenses_all" class="table display nowrap" style="width:100%;">
                             <?php
 
                             $retail = mysqli_query($con, "SELECT YEAR(date) AS year, category,
@@ -114,18 +99,11 @@ $ExpensesMonth = (isset($_GET['month'])) ? $_GET['month'] : $Currentmonth; // se
                                 <th></th>
                             </tfoot>
                         </table>
-                    </div>
+</div>
 
-                </div>
-            </div>
-            <br>
-
-            <div class="card">
-                <div class="card-body">
-
-
-                        <div class="row">
-
+<?php adm_panel_close(); ?>
+<?php adm_panel_open('Category Breakdown & Chart'); ?>
+<div class="row g-3">
                             <div class="col-sm-8">
 
                                 <div class="top">
@@ -190,11 +168,8 @@ $ExpensesMonth = (isset($_GET['month'])) ? $_GET['month'] : $Currentmonth; // se
                             </div>
                         </div>
 
-                </div>
-            </div>
-
-
-            <script>
+<?php adm_panel_close(); ?>
+<script>
                 function ExpensesfilterYear() {
                     var year = document.getElementById("expenses_filter_year").value;
                     var currentUrl = window.location.href;
@@ -528,7 +503,5 @@ $ExpensesMonth = (isset($_GET['month'])) ? $_GET['month'] : $Currentmonth; // se
 
                 });
             </script>
-        </div>
-</body>
-
-</html>
+<?php adm_panel_close(); ?>
+<?php ledger_shell_close(); ?>

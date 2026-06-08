@@ -1,0 +1,473 @@
+/**
+ * Ledger module — extends admin design system
+ */
+
+.ledger-page {
+    --ledger-accent: var(--adm-green-700, #1a734f);
+}
+
+.ledger-topbar__loc {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.55rem;
+    background: var(--adm-green-100);
+    color: var(--ledger-accent);
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.75rem;
+}
+
+/* Legacy container compatibility */
+.admin-body .container.home-section,
+.admin-body .page-wrapper {
+    max-width: none;
+    padding: 0;
+}
+
+.admin-body .bg-white.rounded.shadow {
+    box-shadow: none !important;
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+}
+
+.admin-body .page-title {
+    display: none;
+}
+
+/* Expense toolbar */
+.ledger-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    align-items: flex-end;
+    margin-bottom: 1rem;
+}
+
+.ledger-toolbar__actions {
+    display: flex;
+    gap: 0.4rem;
+    flex-shrink: 0;
+}
+
+.ledger-toolbar__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.ledger-filter-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 120px;
+}
+
+.ledger-filter-field label {
+    font-size: 0.62rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--adm-slate-500);
+    margin: 0;
+}
+
+.ledger-filter-field .form-select,
+.ledger-filter-field .form-control {
+    font-size: 0.8125rem;
+    border-color: var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+}
+
+.ledger-filter-field--sm {
+    min-width: 100px;
+    max-width: 110px;
+}
+
+.ledger-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    padding: 0.45rem 0.85rem;
+    border-radius: var(--adm-radius-sm);
+    border: none;
+    cursor: pointer;
+    transition: filter 0.15s, transform 0.1s;
+}
+
+.ledger-btn--primary {
+    background: var(--ledger-accent);
+    color: #fff;
+}
+
+.ledger-btn--primary:hover {
+    filter: brightness(1.05);
+    color: #fff;
+}
+
+.ledger-btn--ghost {
+    background: var(--adm-slate-800);
+    color: #fff;
+}
+
+.ledger-btn--ghost:hover {
+    filter: brightness(1.1);
+    color: #fff;
+}
+
+.ledger-table-foot {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.25rem;
+    padding: 0.65rem 0.85rem;
+    margin-top: 0.65rem;
+    background: var(--adm-slate-50);
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+    font-size: 0.8125rem;
+    color: var(--adm-slate-600);
+}
+
+.ledger-table-foot strong {
+    color: var(--adm-slate-800);
+}
+
+/* DataTables in admin shell */
+.admin-body .dataTables_wrapper {
+    font-size: 0.8125rem;
+}
+
+.admin-body table.dataTable thead th {
+    background: var(--adm-slate-800) !important;
+    color: #fff !important;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    border-bottom: none !important;
+}
+
+.admin-body table.dataTable tbody td {
+    vertical-align: middle;
+}
+
+.admin-body .dt-buttons .btn {
+    font-size: 0.75rem;
+    border-radius: var(--adm-radius-sm) !important;
+}
+
+/* Modals */
+.ledger-modal .modal-content {
+    border: none;
+    border-radius: var(--adm-radius);
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.18);
+}
+
+.ledger-modal .modal-header {
+    background: linear-gradient(135deg, var(--adm-green-800), var(--adm-green-700));
+    color: #fff;
+    border: none;
+    padding: 0.85rem 1.15rem;
+}
+
+.ledger-modal .modal-header .modal-title {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.ledger-modal .modal-header .btn-close {
+    filter: invert(1);
+    opacity: 0.85;
+}
+
+.ledger-modal .modal-body {
+    padding: 1.15rem;
+}
+
+.ledger-modal .modal-section {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--adm-slate-500);
+    margin: 0 0 0.65rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px dashed var(--adm-slate-200);
+}
+
+.ledger-modal .modal-footer {
+    background: var(--adm-slate-50);
+    border-top: 1px solid var(--adm-slate-200);
+    padding: 0.75rem 1.15rem;
+}
+
+.ledger-modal .form-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--adm-slate-700);
+}
+
+.ledger-modal .total-field {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--ledger-accent) !important;
+}
+
+.ledger-modal--danger .modal-header {
+    background: linear-gradient(135deg, #991b1b, #dc2626);
+}
+
+.ledger-cat-grid {
+    display: grid;
+    grid-template-columns: minmax(200px, 1fr) minmax(0, 1.4fr);
+    gap: 1rem;
+}
+
+@media (max-width: 768px) {
+    .ledger-cat-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ledger-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .ledger-toolbar__actions {
+        width: 100%;
+    }
+
+    .ledger-toolbar__actions .ledger-btn {
+        flex: 1;
+        justify-content: center;
+    }
+}
+
+/* Dashboard cards in ledger */
+.ledger-dash-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.65rem;
+    margin-bottom: 1.25rem;
+}
+
+.ledger-chart-card {
+    background: var(--adm-white);
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+    box-shadow: var(--adm-shadow);
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.ledger-chart-card__head {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--adm-slate-200);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--adm-slate-800);
+}
+
+.ledger-chart-card__body {
+    padding: 1rem;
+}
+
+.ledger-shortcut-hint {
+    font-size: 0.72rem;
+    color: var(--adm-slate-500);
+    margin-top: 0.35rem;
+}
+
+.ledger-shortcut-hint kbd {
+    background: var(--adm-slate-100);
+    border: 1px solid var(--adm-slate-200);
+    border-radius: 4px;
+    padding: 0.1rem 0.35rem;
+    font-size: 0.68rem;
+}
+
+/* Dashboard layout */
+.ledger-dash-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 0.65rem;
+    margin-bottom: 1rem;
+}
+
+.ledger-dash-charts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.ledger-chart-card--wide {
+    grid-column: 1 / -1;
+}
+
+.ledger-chart-card__body {
+    position: relative;
+    min-height: 220px;
+}
+
+.ledger-chart-card__body--tall {
+    min-height: 260px;
+}
+
+.ledger-chart-card__body canvas {
+    max-height: 240px;
+}
+
+.ledger-dash-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--adm-slate-200);
+}
+
+.ledger-dash-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.75rem;
+    background: var(--adm-white);
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--adm-slate-700);
+    text-decoration: none;
+    transition: border-color 0.15s, color 0.15s;
+}
+
+.ledger-dash-link:hover {
+    border-color: var(--ledger-accent);
+    color: var(--ledger-accent);
+}
+
+@media (max-width: 992px) {
+    .ledger-dash-charts {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Purchase category sidebar */
+.ledger-cat-panel {
+    background: var(--adm-white);
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+    box-shadow: var(--adm-shadow);
+    overflow: hidden;
+    position: sticky;
+    top: 1rem;
+}
+
+.ledger-cat-panel__head {
+    padding: 0.75rem 1rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--adm-slate-700);
+    background: var(--adm-slate-50);
+    border-bottom: 1px solid var(--adm-slate-200);
+}
+
+.ledger-cat-panel__body {
+    padding: 0.85rem 1rem;
+}
+
+.ledger-cat-panel__item + .ledger-cat-panel__item {
+    margin-top: 0.75rem;
+}
+
+.ledger-cat-panel__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    margin-bottom: 0.35rem;
+}
+
+.ledger-cat-panel__row span {
+    color: var(--adm-slate-600);
+}
+
+.ledger-cat-panel__row strong {
+    color: var(--adm-slate-800);
+    white-space: nowrap;
+}
+
+.ledger-cat-panel__bar {
+    height: 4px;
+    background: var(--adm-slate-100);
+    border-radius: 999px;
+}
+
+.ledger-cat-panel__bar .progress-bar {
+    background: var(--ledger-accent);
+}
+
+/* Modal totals block */
+.ledger-modal-totals {
+    background: var(--adm-slate-50);
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+    padding: 0.85rem 1rem;
+}
+
+.ledger-modal-totals__accent {
+    background: var(--adm-green-100) !important;
+    color: var(--ledger-accent) !important;
+    font-weight: 700;
+    border-color: var(--adm-slate-200) !important;
+}
+
+.ledger-modal-totals .total-field {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ledger-accent) !important;
+}
+
+/* Topper transaction tables */
+.ledger-topper-table thead .ledger-topper-table__group th {
+    background: var(--adm-slate-700) !important;
+    color: #fff !important;
+    text-align: center;
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+.ledger-topper-table thead tr:nth-child(2) th:nth-child(-n+4) {
+    background: var(--adm-slate-800) !important;
+}
+
+.ledger-topper-table thead tr:nth-child(2) th:nth-child(n+5):nth-child(-n+6) {
+    background: #1a734f !important;
+}
+
+.ledger-topper-table thead tr:nth-child(2) th:nth-child(n+7):nth-child(-n+9) {
+    background: #7c2d12 !important;
+}
+
+.ledger-topper-table--buahan thead tr:nth-child(2) th:nth-child(-n+6) {
+    background: var(--adm-slate-800) !important;
+}
+
+.ledger-topper-table--buahan thead tr:nth-child(2) th:nth-child(n+7):nth-child(-n+8) {
+    background: #1a734f !important;
+}
+
+.ledger-topper-table--buahan thead tr:nth-child(2) th:nth-child(n+9):nth-child(-n+11) {
+    background: #1e3a5f !important;
+}

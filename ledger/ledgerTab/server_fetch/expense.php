@@ -3,17 +3,22 @@ include('../../../function/db.php');
 
 $source = $_SESSION["loc"];
 
-// DataTables parameters
-$start = $_POST['start'];
-$length = $_POST['length'];
-$columnIndex = $_POST['order'][0]['column'];
-$columnName = $_POST['columns'][$columnIndex]['data'];
-$columnSortOrder = $_POST['order'][0]['dir'];
-$searchValue = $_POST['search']['value'];
+$start = (int) ($_POST['start'] ?? 0);
+$length = (int) ($_POST['length'] ?? 25);
+$order = $_POST['order'] ?? [];
+$columnIndex = isset($order[0]['column']) ? (int) $order[0]['column'] : 0;
+$columns = $_POST['columns'] ?? [];
+$allowedSort = ['date', 'particulars', 'voucher_no', 'type_expense', 'category', 'total_amount'];
+$columnName = $columns[$columnIndex]['data'] ?? 'date';
+if (!in_array($columnName, $allowedSort, true)) {
+    $columnName = 'date';
+}
+$columnSortOrder = (isset($order[0]['dir']) && strtolower($order[0]['dir']) === 'asc') ? 'ASC' : 'DESC';
+$searchValue = $_POST['search']['value'] ?? '';
 
-// Custom filter parameters
-$minDate = $_POST['fromDate'] ?? '';
-$maxDate = $_POST['toDate'] ?? '';
+// Custom filter parameters (support both key names)
+$minDate = $_POST['minDate'] ?? $_POST['fromDate'] ?? '';
+$maxDate = $_POST['maxDate'] ?? $_POST['toDate'] ?? '';
 $categoryFilter = $_POST['categoryFilter'] ?? '';
 $selectedMonth = $_POST['selectedMonth'] ?? '';
 $selectedYear = $_POST['selectedYear'] ?? '';
@@ -109,10 +114,14 @@ while ($row = mysqli_fetch_assoc($results)) {
 
 // JSON response
 $response = array(
-    "draw" => intval($_POST['draw']),
-    "iTotalRecords" => $totalRecords,
-    "iTotalDisplayRecords" => $totalFilteredRecords,
-    "aaData" => $data
+    "draw" => intval($_POST['draw'] ?? 0),
+    "recordsTotal" => (int) $totalRecords,
+    "recordsFiltered" => (int) $totalFilteredRecords,
+    "data" => $data,
+    // legacy fallback
+    "iTotalRecords" => (int) $totalRecords,
+    "iTotalDisplayRecords" => (int) $totalFilteredRecords,
+    "aaData" => $data,
 );
 
 echo json_encode($response);

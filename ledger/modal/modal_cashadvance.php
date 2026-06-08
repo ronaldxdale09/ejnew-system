@@ -1,186 +1,174 @@
 <?php
-$month = date("m");
-$day = date("d");
-$year = date("Y");
-$dateNow = $year . "-" . $month . "-" . $day;
+$month = date('m');
+$day = date('d');
+$year = date('Y');
+$dateNow = $year . '-' . $month . '-' . $day;
 
+$caCategories = [
+    'Employee',
+    'Rubber',
+    'Coffee',
+    'Copra',
+    'Toppers',
+    'Karpentero',
+    'Maloong Contractual',
+    'Others',
+];
+
+function ca_category_options(array $categories, string $selected = ''): string
+{
+    $html = '<option value="" disabled' . ($selected === '' ? ' selected' : '') . '>Select Category</option>';
+    foreach ($categories as $cat) {
+        $sel = ($selected === $cat) ? ' selected' : '';
+        $html .= '<option value="' . adm_esc($cat) . '"' . $sel . '>' . adm_esc($cat) . '</option>';
+    }
+    return $html;
+}
 ?>
-<!-- NEW ADD CASH ADVANCE MODAL -->
-<div class="modal fade" id="cashadvanceModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content border-0">
-            <div class="modal-header bg-success text-white">
-                <h6 class="modal-title fw-bold"><i class="fa fa-plus-circle me-2"></i>New Cash Advance</h6>
-                <button type="button" class="btn-close btn-close-white" data-dismiss="modal"
-                    aria-label="Close"></button>
+<!-- Add Cash Advance -->
+<div class="modal fade ledger-modal" id="cashadvanceModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-plus-circle me-2"></i>New Cash Advance</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id='cashadvance-form' method="POST">
+            <form id="cashadvance-form" method="POST">
                 <div class="modal-body">
-                    <!-- Section 1: Transaction Info -->
-                    <h6 class="text-muted text-uppercase mb-3 small fw-bold">Transaction Info</h6>
-                    <div class="row g-3 mb-4">
+                    <div class="modal-section">Transaction Details</div>
+                    <div class="row g-3 mb-3">
                         <div class="col-md-4">
-                            <label class="form-label">Date</label>
-                            <input class='form-control' value="<?php echo $dateNow; ?>" type="date" name="date"
-                                required>
+                            <label class="form-label" for="ca_date">Date</label>
+                            <input class="form-control" id="ca_date" value="<?php echo $dateNow; ?>" type="date" name="date" required>
                         </div>
                         <div class="col-md-4">
-                            <label class="form-label">Voucher No.</label>
-                            <input type="text" name='voucher' class="form-control" placeholder="e.g. CV-1001"
-                                autocomplete='off' required>
+                            <label class="form-label" for="ca_voucher">Voucher No.</label>
+                            <input type="text" name="voucher" id="ca_voucher" class="form-control" placeholder="e.g. CV-1001" autocomplete="off" required>
                         </div>
                         <div class="col-md-4">
-                            <label class="form-label">Station</label>
-                            <input type="text" name='station' class="form-control" autocomplete='off'>
+                            <label class="form-label" for="ca_station">Station</label>
+                            <input type="text" name="station" id="ca_station" class="form-control" list="ca_station_list" autocomplete="off" placeholder="Buying station">
+                            <?php if (!empty($buyingStation)): ?>
+                            <datalist id="ca_station_list"><?php echo $buyingStation; ?></datalist>
+                            <?php endif; ?>
                         </div>
                     </div>
 
-                    <!-- Section 2: Details -->
-                    <h6 class="text-muted text-uppercase mb-3 small fw-bold">Particulars</h6>
-                    <div class="row g-3 mb-4">
+                    <div class="modal-section">Particulars</div>
+                    <div class="row g-3 mb-3">
                         <div class="col-md-6">
-                            <label class="form-label">Particular/Payee</label>
-                            <input type="text" name='particular' class="form-control" placeholder="Name of person"
-                                autocomplete='off' required>
+                            <label class="form-label" for="ca_particular">Particular / Payee</label>
+                            <input type="text" name="particular" id="ca_particular" class="form-control" placeholder="Name of person" autocomplete="off" required>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Category (Type)</label>
-                            <select class='form-select' name='category' required>
-                                <option value="" disabled selected>Select Category</option>
-                                <option value='Employee'>Employee</option>
-                                <option value='Rubber'>Rubber</option>
-                                <option value='Coffee'>Coffee</option>
-                                <option value='Copra'>Copra</option>
-                                <option value='Toppers '>Toppers</option>
-                                <option value="Karpentero">Karpentero</option>
-                                <option value="Maloong Contractual">Maloong Contractual</option>
-                                <option value='Others'>Others</option>
+                            <label class="form-label" for="ca_category">Category</label>
+                            <select class="form-select" name="category" id="ca_category" required>
+                                <?php echo ca_category_options($caCategories); ?>
                             </select>
                         </div>
                     </div>
 
-                    <!-- Section 3: Financials -->
-                    <h6 class="text-muted text-uppercase mb-3 small fw-bold">Financials</h6>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label class="form-label">Amount</label>
-                            <div class="input-group">
-                                <span class="input-group-text fw-bold">₱</span>
-                                <input type="text" style='text-align:right; font-size: 1.2rem; font-weight: bold;'
-                                    name='amount' class="form-control" onkeypress="return CheckNumeric()"
-                                    onkeyup="FormatCurrency(this)" autocomplete='off' required>
-                            </div>
+                    <div class="modal-section">Financials</div>
+                    <div class="ledger-modal-totals">
+                        <label class="form-label" for="ca_amount">Amount</label>
+                        <div class="input-group">
+                            <span class="input-group-text ledger-modal-totals__accent">₱</span>
+                            <input type="text" name="amount" id="ca_amount" class="form-control text-end total-field"
+                                onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" autocomplete="off" required>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer bg-light">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" name='submit' class="btn btn-success px-4">Save Record</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" name="submit" class="btn btn-success"><i class="fas fa-save me-1"></i> Save Record</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-<!-- REMOVE MODAL -->
-<div class="modal fade" id="removeCashAdvance" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0">
-            <div class="modal-header bg-danger text-white">
-                <h6 class="modal-title fw-bold"><i class="fa fa-exclamation-triangle me-2"></i>Confirm Deletion</h6>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
+<!-- Delete Cash Advance -->
+<div class="modal fade ledger-modal ledger-modal--danger" id="removeCashAdvance" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body p-4 text-center">
-                <form id="deleteCashAdvanceForm" method="POST">
-                    <input type="hidden" id="my_id" name="my_id">
-                    <div class="mb-3">
-                        <i class="fa fa-trash fa-3x text-muted mb-3"></i>
-                        <p class="mb-1">Are you sure you want to delete this cash advance record for:</p>
-                        <h5 id="customer_name" class="fw-bold text-danger"></h5>
-                        <p class="text-muted small">This action cannot be undone.</p>
-                    </div>
-                    <div class="d-flex justify-content-center gap-2">
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-danger">Delete Record</button>
-                    </div>
-                </form>
-            </div>
+            <form id="deleteCashAdvanceForm" method="POST">
+                <input type="hidden" id="delete_ca_id" name="my_id">
+                <div class="modal-body text-center">
+                    <i class="fas fa-trash-alt fa-2x text-danger mb-3 d-block opacity-75"></i>
+                    <p class="mb-1">Delete cash advance record for:</p>
+                    <p class="fw-bold text-danger mb-1" id="delete_ca_customer_name"></p>
+                    <p class="text-muted small mb-0">This action cannot be undone.</p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Delete Record</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
-<!-- UPDATE MODAL -->
-<div class="modal fade" id="updateCashAdvance" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content border-0">
-            <div class="modal-header bg-primary text-white">
-                <h6 class="modal-title fw-bold"><i class="fa fa-edit me-2"></i>Update Cash Advance</h6>
-                <!-- Note: Bootstrap 4 uses close class, 5 uses btn-close. Adjusting for compatibility if needed, but sticking to 5 structure -->
-                <button type="button" class="btn-close btn-close-white" data-dismiss="modal"
-                    aria-label="Close"></button>
+<!-- Update Cash Advance -->
+<div class="modal fade ledger-modal" id="updateCashAdvance" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-edit me-2"></i>Update Cash Advance</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id='updateCashAdvanceForm' method="POST">
+            <form id="updateCashAdvanceForm" method="POST">
+                <input type="hidden" name="my_id" id="update_ca_id">
                 <div class="modal-body">
-                    <input type="hidden" name="my_id" id="my_id">
-
-                    <!-- Section 1: Transaction Info -->
-                    <h6 class="text-muted text-uppercase mb-3 small fw-bold">Transaction Info</h6>
-                    <div class="row g-3 mb-4">
+                    <div class="modal-section">Transaction Details</div>
+                    <div class="row g-3 mb-3">
                         <div class="col-md-4">
-                            <label class="form-label">Date</label>
-                            <input class='form-control' type="date" id="date" name="date" required>
+                            <label class="form-label" for="u_ca_date">Date</label>
+                            <input class="form-control" type="date" id="u_ca_date" name="date" required>
                         </div>
                         <div class="col-md-4">
-                            <label class="form-label">Voucher No.</label>
-                            <input type="text" name='voucher' id="voucher" class="form-control" required>
+                            <label class="form-label" for="u_ca_voucher">Voucher No.</label>
+                            <input type="text" name="voucher" id="u_ca_voucher" class="form-control" required>
                         </div>
                         <div class="col-md-4">
-                            <label class="form-label">Station</label>
-                            <input type="text" name='station' id="station" class="form-control">
+                            <label class="form-label" for="u_ca_station">Station</label>
+                            <input type="text" name="station" id="u_ca_station" class="form-control" list="ca_station_list_update" autocomplete="off">
+                            <?php if (!empty($buyingStation)): ?>
+                            <datalist id="ca_station_list_update"><?php echo $buyingStation; ?></datalist>
+                            <?php endif; ?>
                         </div>
                     </div>
 
-                    <!-- Section 2: Details -->
-                    <h6 class="text-muted text-uppercase mb-3 small fw-bold">Particulars</h6>
-                    <div class="row g-3 mb-4">
+                    <div class="modal-section">Particulars</div>
+                    <div class="row g-3 mb-3">
                         <div class="col-md-6">
-                            <label class="form-label">Particular/Payee</label>
-                            <input type="text" name='particular' id="particular" class="form-control" required>
+                            <label class="form-label" for="u_ca_particular">Particular / Payee</label>
+                            <input type="text" name="particular" id="u_ca_particular" class="form-control" required>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Category</label>
-                            <select class='form-select' name='category' id='category' required>
-                                <option value="" disabled>Select Category</option>
-                                <option value='Employee'>Employee</option>
-                                <option value='Rubber'>Rubber</option>
-                                <option value='Coffee'>Coffee</option>
-                                <option value='Copra'>Copra</option>
-                                <option value='Toppers '>Toppers</option>
-                                <option value="Karpentero">Karpentero</option>
-                                <option value="Maloong Contractual">Maloong Contractual</option>
-                                <option value='Others'>Others</option>
+                            <label class="form-label" for="u_ca_category">Category</label>
+                            <select class="form-select" name="category" id="u_ca_category" required>
+                                <?php echo ca_category_options($caCategories); ?>
                             </select>
                         </div>
                     </div>
 
-                    <!-- Section 3: Financials -->
-                    <h6 class="text-muted text-uppercase mb-3 small fw-bold">Financials</h6>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label class="form-label">Amount</label>
-                            <div class="input-group">
-                                <span class="input-group-text fw-bold">₱</span>
-                                <input type="text" style='text-align:right; font-size: 1.2rem; font-weight: bold;'
-                                    name='amount' id="amount" class="form-control" onkeypress="return CheckNumeric()"
-                                    onkeyup="FormatCurrency(this)" required>
-                            </div>
+                    <div class="modal-section">Financials</div>
+                    <div class="ledger-modal-totals">
+                        <label class="form-label" for="u_ca_amount">Amount</label>
+                        <div class="input-group">
+                            <span class="input-group-text ledger-modal-totals__accent">₱</span>
+                            <input type="text" name="amount" id="u_ca_amount" class="form-control text-end total-field"
+                                onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" required>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer bg-light">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary px-4">Update Record</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success"><i class="fas fa-save me-1"></i> Update Record</button>
                 </div>
             </form>
         </div>

@@ -1,50 +1,26 @@
 <?php
-include('include/header.php');
-include "include/navbar.php";
+include 'include/header.php';
+include 'include/navbar.php';
+require_once __DIR__ . '/dashboard/data.php';
 
-?>
-<?php
-$Currentmonth = date('n');
 $CurrentYear = date('Y');
+$source = $_SESSION['loc'] ?? '';
 
-$source = $_SESSION["loc"];
+ledger_shell_open('Expense Report', 'Monthly expense breakdown by category (PHP).', ['Finance']);
+
+$yearTotal = ledger_dash_scalar($con, "SELECT COALESCE(SUM(total_amount),0) FROM ledger_expenses WHERE location='" . mysqli_real_escape_string($con, $source) . "' AND YEAR(`date`)=" . (int) date('Y'));
 ?>
+    <div class="adm-kpi-grid adm-kpi-grid--strip mb-3">
+        <div class="adm-kpi">
+            <div class="adm-kpi__label"><?php echo (int) date('Y'); ?> Total</div>
+            <div class="adm-kpi__value"><?php echo adm_peso($yearTotal, 0); ?></div>
+            <div class="adm-kpi__sub"><?php echo adm_esc($source); ?></div>
+        </div>
+    </div>
 
-<body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"
-        integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.12.1/api/sum().js"></script>
-
-    <link rel='stylesheet' href='css/modern-dashboard.css'>
-    <style>
-        .expenseTable th:not(.category),
-        .expenseTable td:not(.category) {
-            text-align: left;
-        }
-    </style>
-    <div class="container home-section h-100" style="max-width:95%;">
-
-        <h2 class="page-title text-center my-4">Expense Report</h2>
-
-        <h5 class="text-center">(All amounts are in Philippine Peso)</h5>
-        <?php include "statistical_card/expense.card.php"; ?>
-
-        <div class="card">
-            <div class="card-body">
-
-
-                <div class="table-responsive">
-                    <h4 class="page-title">
-                        <b>
-                            <font color="#0C0070">MONTHLY EXPENSE </font>
-                            <font color="#046D56"> BY CATEGORY </font>
-                        </b>
-                    </h4>
-
-                    <table id="table-expenses_all" class="table  table-responsive-lg display nowrap expenseTable"
-                        style="width:100%;">
+    <?php adm_panel_open('Monthly Expense by Category'); ?>
+    <div class="table-responsive">
+        <table id="table-expenses_all" class="table table-responsive-lg display nowrap expenseTable" style="width:100%;">
                         <?php
 
                         $Expensesyear = isset($_GET['year']) ? $_GET['year'] : $CurrentYear;
@@ -59,19 +35,19 @@ $source = $_SESSION["loc"];
                         $sqlCondition = implode(' AND ', $whereConditions);
 
                         $sql_cat = mysqli_query($con, " SELECT YEAR(date) AS year, type_expense, category,
-                                sum(CASE WHEN MONTHNAME(date) = 'January' THEN amount END) AS JAN,
-                                sum(CASE WHEN MONTHNAME(date) = 'February' THEN amount END) AS FEB,
-                                sum(CASE WHEN MONTHNAME(date) = 'March' THEN amount END) AS MAR,
-                                sum(CASE WHEN MONTHNAME(date) = 'April' THEN amount END) AS APR,
-                                sum(CASE WHEN MONTHNAME(date) = 'May' THEN amount END) AS MAY,
-                                sum(CASE WHEN MONTHNAME(date) = 'June' THEN amount END) AS JUNE,
-                                sum(CASE WHEN MONTHNAME(date) = 'July' THEN amount END) AS JULY,
-                                sum(CASE WHEN MONTHNAME(date) = 'August' THEN amount END) AS AUG,
-                                sum(CASE WHEN MONTHNAME(date) = 'September' THEN amount END) AS SEP,
-                                sum(CASE WHEN MONTHNAME(date) = 'October' THEN amount END) AS OCT,
-                                sum(CASE WHEN MONTHNAME(date) = 'November' THEN amount END) AS NOV,
-                                sum(CASE WHEN MONTHNAME(date) = 'December' THEN amount END) AS DECE,
-                                SUM(amount) AS total
+                                sum(CASE WHEN MONTHNAME(date) = 'January' THEN total_amount END) AS JAN,
+                                sum(CASE WHEN MONTHNAME(date) = 'February' THEN total_amount END) AS FEB,
+                                sum(CASE WHEN MONTHNAME(date) = 'March' THEN total_amount END) AS MAR,
+                                sum(CASE WHEN MONTHNAME(date) = 'April' THEN total_amount END) AS APR,
+                                sum(CASE WHEN MONTHNAME(date) = 'May' THEN total_amount END) AS MAY,
+                                sum(CASE WHEN MONTHNAME(date) = 'June' THEN total_amount END) AS JUNE,
+                                sum(CASE WHEN MONTHNAME(date) = 'July' THEN total_amount END) AS JULY,
+                                sum(CASE WHEN MONTHNAME(date) = 'August' THEN total_amount END) AS AUG,
+                                sum(CASE WHEN MONTHNAME(date) = 'September' THEN total_amount END) AS SEP,
+                                sum(CASE WHEN MONTHNAME(date) = 'October' THEN total_amount END) AS OCT,
+                                sum(CASE WHEN MONTHNAME(date) = 'November' THEN total_amount END) AS NOV,
+                                sum(CASE WHEN MONTHNAME(date) = 'December' THEN total_amount END) AS DECE,
+                                SUM(total_amount) AS total
                                 FROM ledger_expenses
     WHERE {$sqlCondition} and location='$source'
     GROUP BY YEAR(date), type_expense, category");
@@ -205,15 +181,8 @@ $source = $_SESSION["loc"];
                         </tfoot>
 
                     </table>
-                </div>
-
-            </div>
-        </div>
-
-
-        <br>
-
-
+    </div>
+    <?php adm_panel_close(); ?>
 
         <script>
             function filterTable() {
@@ -370,7 +339,4 @@ $source = $_SESSION["loc"];
 
             });
         </script>
-    </div>
-</body>
-
-</html>
+<?php ledger_shell_close(); ?>

@@ -135,9 +135,12 @@ try {
     // JSON response
     $response = [
         "draw" => intval($_POST['draw'] ?? 1),
-        "iTotalRecords" => $totalRecords,
-        "iTotalDisplayRecords" => $totalFilteredRecords,
-        "aaData" => $data
+        "recordsTotal" => (int) $totalRecords,
+        "recordsFiltered" => (int) $totalFilteredRecords,
+        "data" => $data,
+        "iTotalRecords" => (int) $totalRecords,
+        "iTotalDisplayRecords" => (int) $totalFilteredRecords,
+        "aaData" => $data,
     ];
 
     echo json_encode($response);

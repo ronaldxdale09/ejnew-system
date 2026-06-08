@@ -1,430 +1,227 @@
 <?php
-include('../function/db.php'); // Include database connection
-include('include/header.php');
-include "include/navbar.php";
+include 'include/header.php';
+require_once __DIR__ . '/dashboard/data.php';
 
-// Validate session
-if (!isset($_SESSION['loc']) || empty($_SESSION['loc'])) {
-    header('Location: ../function/logout.php');
-    exit();
-}
+include 'include/navbar.php';
 
-$source = $_SESSION["loc"];
-
-// Add error handling for database queries
-$getExpenseMonthTotal = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(amount) as month_total 
-   from ledger_expenses where location='$source' group by year(date), month(date) ORDER BY ID DESC");
-if (!$getExpenseMonthTotal) {
-    error_log("Database error in dashboard: " . mysqli_error($con));
-}
-$sumExpense = mysqli_fetch_array($getExpenseMonthTotal);
-$monthNum = $sumExpense["month"];
-$dateObj = DateTime::createFromFormat('!m', $monthNum);
-
-
-//PENDING CONTRACT
-$amoutPurchased = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(total_amount) as month_total 
-   from ledger_purchase group by year(date), month(date) ORDER BY ID DESC");
-if (!$amoutPurchased) {
-    error_log("Database error in dashboard: " . mysqli_error($con));
-}
-$sumAmountPurchased = mysqli_fetch_array($amoutPurchased);
-
-$sql1 = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(ejn_total) as month_total 
-   from ledger_maloong group by year(date), month(date) ORDER BY ID DESC");
-if (!$sql1) {
-    error_log("Database error in dashboard: " . mysqli_error($con));
-}
-$maloong = mysqli_fetch_array($sql1);
-
-
-
-$sql = mysqli_query($con, "SELECT   year(date) as year,month(date) as month,sum(total_amount) as month_total 
-   from ledger_purchase group by year(date), month(date) ORDER BY ID DESC");
-if (!$sql) {
-    error_log("Database error in dashboard: " . mysqli_error($con));
-}
-$buahan = mysqli_fetch_array($sql);
-
+$source = $_SESSION['loc'];
+$dash = ledger_dashboard_data($con, $source);
+$k = $dash['kpis'];
+$c = $dash['charts'];
+$isZamboanga = ledger_is_zamboanga($source);
 ?>
 
-<body>
+<div class="main-content admin-page ledger-page">
+    <?php adm_page_header(
+        'Dashboard',
+        'Financial overview — expenses, purchases, toppers, cash advance, and coffee sales.',
+        [trim($source)]
+    ); ?>
 
+    <div class="ledger-dash-kpi-grid">
+        <div class="adm-kpi">
+            <div class="adm-kpi__label">Expenses Today</div>
+            <div class="adm-kpi__value"><?php echo adm_peso($k['expense_today'], 0); ?></div>
+            <div class="adm-kpi__sub"><?php echo adm_esc($dash['month_label']); ?> · <?php echo adm_peso($k['expense_month'], 0); ?></div>
+        </div>
+        <div class="adm-kpi">
+            <div class="adm-kpi__label">Purchases Today</div>
+            <div class="adm-kpi__value"><?php echo adm_peso($k['purchase_today'], 0); ?></div>
+            <div class="adm-kpi__sub"><?php echo adm_esc($dash['month_label']); ?> · <?php echo adm_peso($k['purchase_month'], 0); ?></div>
+        </div>
+        <?php if (!$isZamboanga): ?>
+        <div class="adm-kpi">
+            <div class="adm-kpi__label">Cash Advance Today</div>
+            <div class="adm-kpi__value"><?php echo adm_peso($k['ca_today'], 0); ?></div>
+            <div class="adm-kpi__sub"><?php echo (int) $k['ca_count']; ?> this month</div>
+        </div>
+        <div class="adm-kpi">
+            <div class="adm-kpi__label">Maloong (<?php echo adm_esc($dash['month_label']); ?>)</div>
+            <div class="adm-kpi__value"><?php echo adm_peso($k['maloong_month'], 0); ?></div>
+            <div class="adm-kpi__sub">YTD <?php echo adm_peso($k['maloong_year'], 0); ?></div>
+        </div>
+        <div class="adm-kpi">
+            <div class="adm-kpi__label">Buahan (<?php echo adm_esc($dash['month_label']); ?>)</div>
+            <div class="adm-kpi__value"><?php echo adm_peso($k['buahan_month'], 0); ?></div>
+            <div class="adm-kpi__sub">YTD <?php echo adm_peso($k['buahan_year'], 0); ?></div>
+        </div>
+        <div class="adm-kpi">
+            <div class="adm-kpi__label">Coffee Sales</div>
+            <div class="adm-kpi__value"><?php echo adm_peso($k['coffee_month'], 0); ?></div>
+            <div class="adm-kpi__sub">YTD <?php echo adm_peso($k['coffee_year'], 0); ?></div>
+        </div>
+        <?php endif; ?>
+        <div class="adm-kpi">
+            <div class="adm-kpi__label"><?php echo (int) $dash['year']; ?> Expenses</div>
+            <div class="adm-kpi__value"><?php echo adm_peso($k['expense_year'], 0); ?></div>
+            <div class="adm-kpi__sub">Year to date</div>
+        </div>
+        <div class="adm-kpi">
+            <div class="adm-kpi__label"><?php echo (int) $dash['year']; ?> Purchases</div>
+            <div class="adm-kpi__value"><?php echo adm_peso($k['purchase_year'], 0); ?></div>
+            <div class="adm-kpi__sub">Year to date</div>
+        </div>
+    </div>
 
-    <link rel='stylesheet' href='css/statistic-card.css'>
-    <link rel='stylesheet' href='css/modern-dashboard.css'>
-    <input type='hidden' id='selected-cart' value=''>
+    <div class="ledger-dash-charts">
+        <div class="ledger-chart-card ledger-chart-card--wide">
+            <div class="ledger-chart-card__head">Monthly Expenses vs Purchases (<?php echo (int) $dash['year']; ?>)</div>
+            <div class="ledger-chart-card__body ledger-chart-card__body--tall"><canvas id="dashFinanceChart"></canvas></div>
+        </div>
+        <?php if (!$isZamboanga): ?>
+        <div class="ledger-chart-card ledger-chart-card--wide">
+            <div class="ledger-chart-card__head">Maloong vs Buahan Revenue (<?php echo (int) $dash['year']; ?>)</div>
+            <div class="ledger-chart-card__body ledger-chart-card__body--tall"><canvas id="dashTopperChart"></canvas></div>
+        </div>
+        <?php endif; ?>
+        <div class="ledger-chart-card">
+            <div class="ledger-chart-card__head">Expenses by Category (YTD)</div>
+            <div class="ledger-chart-card__body"><canvas id="dashExpenseCatChart"></canvas></div>
+        </div>
+        <div class="ledger-chart-card">
+            <div class="ledger-chart-card__head">Purchases by Category (YTD)</div>
+            <div class="ledger-chart-card__body"><canvas id="dashPurchaseCatChart"></canvas></div>
+        </div>
+        <?php if (!$isZamboanga): ?>
+        <div class="ledger-chart-card">
+            <div class="ledger-chart-card__head">Cash Advance by Station (YTD)</div>
+            <div class="ledger-chart-card__body"><canvas id="dashCaChart"></canvas></div>
+        </div>
+        <?php endif; ?>
+    </div>
 
-    <div class="container home-section h-100" style="max-width:95%;">
-        <div class="page-wrapper">
-            <div class="container-fluid">
-                <!-- ============================================================== -->
-                <h2 class="page-title">Dashboard Overview</h2>
-                <div class="row">
-                    <!-- Expenses Card -->
-                    <div class="col-sm-3 offset-sm-0">
-                        <div class="stat-card">
-                            <div class="stat-card__content">
-                                <p class="text-uppercase mb-1 text-muted">
-                                    <?php echo $today = date("F"); ?> <?php echo $sumExpense['year']; ?> EXPENSES
-                                </p>
-                                <h4>
-                                    ₱<?php echo number_format($sumExpense['month_total']); ?>
-                                </h4>
-                            </div>
-                            <div class="stat-card__icon stat-card__icon--danger">
-                                <i class="fa fa-money-bill-wave"></i>
-                            </div>
-                        </div>
-                    </div>
+    <div class="row g-3">
+        <div class="col-lg-6">
+            <?php adm_panel_open("Today's Expenses"); ?>
+            <div class="table-responsive">
+                <table class="table table-sm table-hover mb-0">
+                    <?php
+                    $loc = mysqli_real_escape_string($con, $source);
+                    $results = mysqli_query($con, "SELECT * FROM ledger_expenses WHERE location='{$loc}' AND DATE(`date`)=CURDATE() ORDER BY id DESC LIMIT 8");
+                    ?>
+                    <thead><tr><th>Date</th><th>VOC</th><th>Particulars</th><th>Category</th><th class="text-end">Amount</th></tr></thead>
+                    <tbody>
+                        <?php if ($results && mysqli_num_rows($results)): ?>
+                            <?php while ($row = mysqli_fetch_array($results)): ?>
+                                <tr>
+                                    <td><?php echo adm_esc($row['date']); ?></td>
+                                    <td><?php echo adm_esc($row['voucher_no']); ?></td>
+                                    <td><?php echo adm_esc($row['particulars']); ?></td>
+                                    <td><?php echo adm_esc($row['category']); ?></td>
+                                    <td class="text-end"><?php echo adm_peso($row['total_amount'], 0); ?></td>
+                                </tr>
+                            <?php endwhile; ?>
+                        <?php else: echo ledger_empty_table_row(5); endif; ?>
+                    </tbody>
+                </table>
+            </div>
+            <?php adm_panel_close(); ?>
+        </div>
 
-                    <!-- Purchased Card -->
-                    <div class="col-sm-3">
-                        <div class="stat-card">
-                            <div class="stat-card__content">
-                                <p class="text-uppercase mb-1 text-muted">
-                                    <?php echo $today = date("F"); ?> <?php echo $sumAmountPurchased['year']; ?>
-                                    PURCHASED
-                                </p>
-                                <h4>
-                                    ₱<?php echo number_format($sumAmountPurchased['month_total']); ?>
-                                </h4>
-                            </div>
-                            <div class="stat-card__icon stat-card__icon--primary">
-                                <i class="fa fa-shopping-cart"></i>
-                            </div>
-                        </div>
-                    </div>
+        <div class="col-lg-6">
+            <?php adm_panel_open('Subscriptions This Month'); ?>
+            <div class="table-responsive">
+                <table class="table table-sm table-hover mb-0">
+                    <?php
+                    $results = mysqli_query($con, "SELECT * FROM ledger_expenses WHERE location='{$loc}' AND category='Subscription'
+                        AND MONTH(`date`)=MONTH(CURDATE()) AND YEAR(`date`)=YEAR(CURDATE()) ORDER BY id DESC LIMIT 8");
+                    ?>
+                    <thead><tr><th>VOC</th><th>Name</th><th>Last Paid</th><th>Next Due</th><th class="text-end">Amount</th></tr></thead>
+                    <tbody>
+                        <?php if ($results && mysqli_num_rows($results)): ?>
+                            <?php while ($row = mysqli_fetch_array($results)): ?>
+                                <tr>
+                                    <td><?php echo adm_esc($row['voucher_no']); ?></td>
+                                    <td><?php echo adm_esc($row['particulars']); ?></td>
+                                    <td><span class="badge bg-success"><?php echo adm_esc($row['date']); ?></span></td>
+                                    <td><span class="badge bg-danger"><?php echo date('Y-m-d', strtotime('+1 month', strtotime($row['date']))); ?></span></td>
+                                    <td class="text-end"><?php echo adm_peso($row['total_amount'], 0); ?></td>
+                                </tr>
+                            <?php endwhile; ?>
+                        <?php else: echo ledger_empty_table_row(5); endif; ?>
+                    </tbody>
+                </table>
+            </div>
+            <?php adm_panel_close(); ?>
+        </div>
 
-                    <!-- EJN Maloong Card -->
-                    <div class="col-sm-3">
-                        <div class="stat-card">
-                            <div class="stat-card__content">
-                                <p class="text-uppercase mb-1 text-muted">
-                                    <?php echo date('F  Y'); ?> EJN Maloong
-                                </p>
-                                <h4>
-                                    ₱<?php echo number_format($maloong['month_total']); ?>
-                                </h4>
-                            </div>
-                            <div class="stat-card__icon stat-card__icon--success">
-                                <i class="fa fa-hand-holding-usd"></i>
-                            </div>
-                        </div>
-                    </div>
+        <?php if (!$isZamboanga): ?>
+        <div class="col-lg-6">
+            <?php adm_panel_open('Cash Advance Today'); ?>
+            <div class="table-responsive">
+                <table class="table table-sm table-hover mb-0">
+                    <?php $results = mysqli_query($con, "SELECT * FROM ledger_cashadvance WHERE DATE(`date`)=CURDATE() ORDER BY id DESC LIMIT 8"); ?>
+                    <thead><tr><th>VOC</th><th>Customer</th><th>Station</th><th>Category</th><th class="text-end">Amount</th></tr></thead>
+                    <tbody>
+                        <?php if ($results && mysqli_num_rows($results)): ?>
+                            <?php while ($row = mysqli_fetch_array($results)): ?>
+                                <tr>
+                                    <td><?php echo adm_esc($row['voucher']); ?></td>
+                                    <td><?php echo adm_esc($row['customer']); ?></td>
+                                    <td><?php echo adm_esc($row['buying_station']); ?></td>
+                                    <td><?php echo adm_esc($row['category']); ?></td>
+                                    <td class="text-end"><?php echo adm_peso($row['amount'], 0); ?></td>
+                                </tr>
+                            <?php endwhile; ?>
+                        <?php else: echo ledger_empty_table_row(5); endif; ?>
+                    </tbody>
+                </table>
+            </div>
+            <?php adm_panel_close(); ?>
+        </div>
 
-                    <!-- EJN Buahan Card -->
-                    <div class="col-sm-3">
-                        <div class="stat-card">
-                            <div class="stat-card__content">
-                                <p class="text-uppercase mb-1 text-muted">
-                                    <?php echo $today = date("F"); ?> <?php echo $buahan['year']; ?> EJN Buahan
-                                </p>
-                                <h4>
-                                    ₱<?php echo number_format($buahan['month_total']); ?>
-                                </h4>
-                            </div>
-                            <div class="stat-card__icon stat-card__icon--warning">
-                                <i class="fa fa-wallet"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="col-lg-6">
+            <?php adm_panel_open('Recent Purchases'); ?>
+            <div class="table-responsive">
+                <table class="table table-sm table-hover mb-0">
+                    <?php $results = mysqli_query($con, "SELECT * FROM ledger_purchase WHERE location='{$loc}' ORDER BY id DESC LIMIT 8"); ?>
+                    <thead><tr><th>Date</th><th>Category</th><th>Customer</th><th class="text-end">Amount</th></tr></thead>
+                    <tbody>
+                        <?php if ($results && mysqli_num_rows($results)): ?>
+                            <?php while ($row = mysqli_fetch_array($results)): ?>
+                                <tr>
+                                    <td><?php echo adm_esc($row['date']); ?></td>
+                                    <td><?php echo adm_esc($row['category']); ?></td>
+                                    <td><?php echo adm_esc($row['customer_name']); ?></td>
+                                    <td class="text-end"><?php echo adm_peso($row['total_amount'], 0); ?></td>
+                                </tr>
+                            <?php endwhile; ?>
+                        <?php else: echo ledger_empty_table_row(4); endif; ?>
+                    </tbody>
+                </table>
+            </div>
+            <?php adm_panel_close(); ?>
+        </div>
+        <?php endif; ?>
+    </div>
 
-                <!-- ============================================================== -->
+    <div class="ledger-dash-links">
+        <a href="ledger-expense.php" class="ledger-dash-link"><i class="fas fa-receipt"></i> Expense Record</a>
+        <a href="expense_report.php" class="ledger-dash-link"><i class="fas fa-chart-bar"></i> Expense Report</a>
+        <?php if (!$isZamboanga): ?>
+        <a href="ledger-purchase.php" class="ledger-dash-link"><i class="fas fa-cart-shopping"></i> Purchases</a>
+        <a href="ledger-ca.php" class="ledger-dash-link"><i class="fas fa-hand-holding-dollar"></i> Cash Advance</a>
+        <a href="ledger-maloong.php" class="ledger-dash-link"><i class="fas fa-boxes-stacked"></i> Maloong</a>
+        <a href="ledger-buahan.php" class="ledger-dash-link"><i class="fas fa-boxes-stacked"></i> Buahan</a>
+        <?php endif; ?>
+    </div>
+</div>
 
-                <div class="row">
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-body">
-                                <canvas id="expenses_bar" style="position: relative; height:40vh; width:80vw"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <br>
-
-                <div class="row">
-                    <div class="col-sm-6">
-                        <!-- start first column -->
-                        <!-- start expense table -->
-                        <div class="card">
-                            <div class="card-body">
-
-                                <div class="row">
-                                    <center>
-                                        <h5>EXPENSES TODAY</h5>
-                                    </center>
-                                </div>
-                                <div class="table-responsive">
-                                    <table class="table" id='expenses_table'> <?php
-                                    $results = mysqli_query($con, "SELECT * from ledger_expenses WHERE DATE(`date`) = CURDATE() ORDER BY id DESC LIMIT 5 ");
-
-                                    ?>
-                                        <thead class="table-dark">
-                                            <tr>
-                                                <th scope="col">DATE</th>
-                                                <th scope="col">VOC</th>
-                                                <th scope="col">PARTICULARS</th>
-                                                <th scope="col">CATEGORY</th>
-                                                <th scope="col">AMOUNT</th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?>
-                                                <tr>
-                                                    <td> <?php echo $row['date'] ?> </td>
-                                                    <td> <?php echo $row['voucher_no'] ?> </td>
-                                                    <td> <?php echo $row['particulars'] ?> </td>
-                                                    <td> <?php echo $row['category'] ?> </td>
-                                                    <td>₱ <?php echo number_format($row['amount']) ?> </td>
-
-                                                </tr> <?php }
-                                        ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end expense table -->
-                        <br>
-                        <div class="card">
-                            <div class="card-body">
-
-                                <div class="row">
-                                    <center>
-                                        <h5>CASH ADVANCE TODAY</h5>
-                                    </center>
-                                </div>
-
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-responsive-lg" id='purchase_table'>
-                                        <?php
-                                        $results = mysqli_query($con, "SELECT * from ledger_cashadvance  WHERE DATE(`date`) = CURDATE() ORDER BY id DESC LIMIT 5"); ?>
-                                        <thead class="table-dark">
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>VOC</th>
-                                                <th>DATE</th>
-                                                <th>CATEGORY</th>
-                                                <th>NAME</th>
-                                                <th>STATION</th>
-                                                <th>TOTAL</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?>
-                                                <tr>
-                                                    <td> <?php echo $row['id'] ?> </td>
-                                                    <td> <?php echo $row['voucher'] ?> </td>
-                                                    <td> <?php echo $row['date'] ?> </td>
-                                                    <td> <?php echo $row['category'] ?> </td>
-                                                    <td> <?php echo $row['customer'] ?> </td>
-                                                    <td> <?php echo $row['buying_station'] ?> </td>
-                                                    <td> <?php echo $row['amount'] ?> </td>
-                                                </tr> <?php } ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end first column -->
-                    </div>
-
-                    <div class="col-sm-6">
-                        <!--  second columnn-->
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <center>
-                                        <h5>SUBSCRIPTIONS</h5>
-                                    </center>
-                                </div>
-                                <div class="table-responsive">
-                                    <table class="table" id='expenses_table'> <?php
-                                    $results = mysqli_query($con, "SELECT * from ledger_expenses WHERE category='Subscription'
-                                    AND  MONTH(date) = MONTH(CURDATE())
-                                        AND YEAR(date) = YEAR(CURDATE()) ORDER BY id DESC LIMIT 10 ");
-
-                                    ?>
-                                        <thead class="table-dark">
-                                            <tr>
-                                                <th scope="col">VOC</th>
-                                                <th scope="col">NAME</th>
-                                                <th scope="col">LAST PAID</th>
-                                                <th scope="col">NEXT PAYMENT</th>
-                                                <th scope="col">AMOUNT</th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?>
-                                                <tr>
-                                                    <td> <?php echo $row['voucher_no'] ?> </td>
-                                                    <td> <?php echo $row['particulars'] ?> </td>
-                                                    <td>
-                                                        <h5><span class="badge bg-success"> <?php echo $row['date'] ?>
-                                                            </span> </h5>
-                                                    </td>
-                                                    <td>
-                                                        <h5><span class="badge bg-danger">
-                                                                <?php echo $date = date('Y-m-d', strtotime('+1 month', strtotime($row['date']))); ?></span>
-                                                        </h5>
-                                                    </td>
-                                                    <td>₱ <?php echo number_format($row['amount']) ?> </td>
-
-                                                </tr> <?php }
-                                        ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <br>
-
-                        <!-- cash advance pie -->
-                        <div class="card">
-                            <div class="card-body">
-                                <canvas id="ca_pie" style="position: relative; height:30vh; width:10vw">></canvas>
-                            </div>
-                        </div>
-                        <!-- end cash advance -->
-                        <!-- end second column -->
-                    </div>
-                </div>
-
+<script>
+window.__ledgerDashboard = <?php echo json_encode([
+    'month_labels' => $c['month_labels'],
+    'expenses' => $c['expenses'],
+    'purchases' => $c['purchases'],
+    'maloong' => $c['maloong'],
+    'buahan' => $c['buahan'],
+    'expense_cat_labels' => $c['expense_categories']['labels'],
+    'expense_cat_values' => $c['expense_categories']['values'],
+    'purchase_cat_labels' => $c['purchase_categories']['labels'],
+    'purchase_cat_values' => $c['purchase_categories']['values'],
+    'ca_labels' => $c['ca_stations']['labels'],
+    'ca_values' => $c['ca_stations']['values'],
+], JSON_HEX_TAG | JSON_HEX_AMP); ?>;
+</script>
+<script src="js/ledger-dashboard.js?v=<?php echo filemtime(__DIR__ . '/js/ledger-dashboard.js'); ?>"></script>
 </body>
-
 </html>
-
-<script>
-    expenses_bar = document.getElementById("expenses_bar");
-
-    <?php
-    $currentMonth = date("m");
-    $currentDay = date("d");
-    $currentYear = date("Y");
-
-    $today = $currentYear . "-" . $currentMonth . "-" . $currentDay;
-
-    $expenses_count = mysqli_query($con, "SELECT year(date) as year ,MONTHNAME(date) as monthname,sum(amount) as month_total from ledger_expenses WHERE year(date)='$currentYear'  group by month(date) ORDER BY date");
-    if ($expenses_count->num_rows > 0) {
-        foreach ($expenses_count as $data) {
-            $month[] = $data['monthname'];
-            $amount[] = $data['month_total'];
-        }
-    }
-    ?>
-
-    new Chart(expenses_bar, {
-        options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Monthly Expenses',
-                    font: {
-                        size: 20, // Increase the font size for the title
-                        weight: 'bold', // Make the title bold
-                        color: 'black' // Set the title color to black
-                    }
-                },
-                legend: {
-                    display: false // Hide the legend
-                },
-            },
-            scales: {
-                x: {
-                    grid: {
-                        display: false // Hide x-axis grid lines
-                    }
-                },
-                y: {
-                    grid: {
-                        display: false // Hide y-axis grid lines
-                    }
-                }
-            }
-        },
-        type: 'bar', // Declare the chart type
-        data: {
-            labels: <?php echo json_encode($month) ?>, // X-axis data
-            datasets: [{
-                label: 'Expenses',
-                data: <?php echo json_encode($amount) ?>, // Y-axis data
-                backgroundColor: 'rgb(52, 152, 219)', // Professional color
-                borderColor: 'rgb(241, 196, 15)', // Border color
-                tension: 0.3,
-                fill: false, // Fills the curve under the line with the background color. It's true by default
-            }]
-        },
-    });
-</script>
-
-
-<script>
-    pie = document.getElementById("ca_pie");
-
-    <?php
-    $expenses_count = mysqli_query($con, "SELECT year(date) as year, MONTHNAME(date) as monthname, sum(amount) as month_total, buying_station as station from ledger_cashadvance group by month(date) ORDER BY date");
-    if ($expenses_count->num_rows > 0) {
-        foreach ($expenses_count as $data) {
-            $category[] = $data['station'];
-            $month[] = $data['monthname'];
-            $expense[] = $data['month_total'];
-        }
-    }
-    ?>
-
-    new Chart(pie, {
-        type: 'doughnut',
-        data: {
-            labels: <?php echo json_encode($category) ?>,
-            datasets: [{
-                data: <?php echo json_encode($expense) ?>,
-                backgroundColor: [
-                    'rgb(52, 152, 219)',
-                    'rgb(155, 89, 182)',
-                    'rgb(46, 204, 113)',
-                    'rgb(230, 126, 34)',
-                    'rgb(241, 196, 15)',
-                    'rgb(26, 188, 156)',
-                    'rgb(22, 160, 133)',
-                    'rgb(231, 76, 60)',
-                    'rgb(192, 57, 43)',
-                    'rgb(149, 165, 166)',
-                    'rgb(127, 140, 141)',
-                    'rgb(41, 128, 185)',
-                    'rgb(44, 62, 80)',
-                    'rgb(39, 174, 96)',
-                    'rgb(243, 156, 18)'
-                ],
-                borderColor: 'white',
-                fill: false,
-            }]
-        },
-
-        options: {
-            maintainAspectRatio: false,
-            responsive: true,
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Cash Advance',
-                    font: {
-                        size: 20, // Increase the font size for the title
-                        weight: 'bold', // Make the title bold
-                        color: 'black' // Set the title color to black
-                    }
-                },
-                legend: {
-                    position: 'right', // Move the legend to the right side
-                },
-            },
-            layout: {
-                padding: {
-                    right: 50, // Add padding on the right side for the labels
-                }
-            },
-        },
-    });
-</script>

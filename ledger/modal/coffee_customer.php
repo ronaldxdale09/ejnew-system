@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark border-bottom">
                 <h5 class="modal-title" id="newCoffeeProductForm">New | Customer </h5>
-                <button type="button" class="btn text-light close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="btn text-light close" data-bs-dismiss="modal" aria-label="Close">
                     <i class="fa fa-times" aria-hidden="true"></i>
                 </button>
             </div>
@@ -26,7 +26,7 @@
                     </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="submit" name='add' class="btn btn-primary">Confirm</button>
             </div>
             </form>
@@ -41,7 +41,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark border-bottom">
                 <h5 class="modal-title" id="newCoffeeProductForm">New | Customer </h5>
-                <button type="button" class="btn text-light close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="btn text-light close" data-bs-dismiss="modal" aria-label="Close">
                     <i class="fa fa-times" aria-hidden="true"></i>
                 </button>
             </div>
@@ -63,7 +63,7 @@
                     </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="submit" name='update' class="btn btn-primary">Confirm</button>
             </div>
             </form>
@@ -82,7 +82,7 @@
 
                 <div class="modal-header">
                     <h5 class="modal-title" id="deleteModalLabel">Delete Customer Details</h5>
-                    <button type="button" class="btn text-light close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="btn text-light close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -90,7 +90,7 @@
                     Are you sure you want to delete this customer information? This action cannot be undone.
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-danger" name='delete'>Delete</button>
                 </div>
             </form>

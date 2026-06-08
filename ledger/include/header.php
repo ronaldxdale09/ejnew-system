@@ -1,83 +1,52 @@
+<?php
+include __DIR__ . '/../../function/db.php';
+require_once __DIR__ . '/ledger-helpers.php';
+ledger_require_location();
+
+$loc = $_SESSION['loc'] ?? '';
+$userDisplay = htmlspecialchars($_SESSION['full_name'] ?? $_SESSION['user'] ?? 'User', ENT_QUOTES, 'UTF-8');
+$locDisplay = htmlspecialchars(trim($loc), ENT_QUOTES, 'UTF-8');
+?>
 <!DOCTYPE html>
-
-<?php
-// Remove redundant database include to prevent multiple connections
-include "../function/db.php";
-include "include/bootstrap.php";
-include "include/jquery.php";
-
-
-
-$loc = str_replace(' ', '', $_SESSION['loc']);
-$user_name = $_SESSION["full_name"];
-
-?>
-<html>
-
+<html lang="en">
 <head>
-  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/chosen.min.css">
-  <link rel='stylesheet' href='css/main.css'>
-  <link rel='stylesheet' href='css/navbar.css'>
-  <script src="assets/js/numberFormat.js"></script>
-  <title>EJN General Ledger</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
+    <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+    <title>EJN General Ledger</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <?php include __DIR__ . '/bootstrap.php'; ?>
+
+    <link href="../admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/chosen.min.css">
+    <link rel="stylesheet" href="../admin/css/admin-theme.css?v=<?php echo filemtime(__DIR__ . '/../../admin/css/admin-theme.css'); ?>">
+    <link rel="stylesheet" href="css/ledger-theme.css?v=<?php echo file_exists(__DIR__ . '/../css/ledger-theme.css') ? filemtime(__DIR__ . '/../css/ledger-theme.css') : '1'; ?>">
+
+    <?php include __DIR__ . '/jquery.php'; ?>
+    <script src="js/ledger-modals.js?v=<?php echo file_exists(__DIR__ . '/../js/ledger-modals.js') ? filemtime(__DIR__ . '/../js/ledger-modals.js') : '1'; ?>"></script>
+
+    <script src="assets/js/numberFormat.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
-
+<body class="admin-body">
 <?php
-include "include/datatables_buttons_css.php";
-include "include/datatables_buttons_js.php";
+include __DIR__ . '/datatables_buttons_css.php';
+include __DIR__ . '/datatables_buttons_js.php';
 ?>
-
-
-<style>
-  .header-design {
-    font-size: 24px;
-    /* Increase font size */
-    font-weight: 600;
-    /* Make it bold */
-    color: #204562;
-    /* Deep blue color */
-    padding-bottom: 10px;
-    /* Add some padding at the bottom */
-    border-bottom: 2px solid #ddd;
-    /* Add a subtle bottom border */
-    margin-bottom: 20px;
-    /* Add some margin after the header */
-    letter-spacing: 0.5px;
-    /* Increase letter spacing for better readability */
-    text-transform: uppercase;
-    text-align: center;
-    /* Center the text */
-
-  }
-
-  input[readonly] {
-    background-color: lightgray;
-  }
-</style>
 <script>
-  function formatWithComma(value) {
-    // Ensure value is a number
-    let parsedValue = parseFloat(value);
-
-    // Ensure parsed value is a valid number
-    if (isNaN(parsedValue)) {
-      return "0.00"; // or some default value, or you can throw an error
-    }
-
-    // Convert to string with 2 decimal places
-    let fixedValue = parsedValue.toFixed(2);
-
-    // Return with comma as thousands separator
-    return parseFloat(fixedValue).toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    });
-  }
+function formatWithComma(value) {
+    var parsedValue = parseFloat(value);
+    if (isNaN(parsedValue)) return '0.00';
+    return parsedValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
 </script>

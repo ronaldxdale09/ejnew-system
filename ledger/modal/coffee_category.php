@@ -76,7 +76,7 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
 
@@ -92,7 +92,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Update Category List</h5>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form class="col-md-12" method='POST' a action="function/addCategory.php">
@@ -106,7 +106,7 @@
             </div>
             <div class="modal-footer">
                 <button type="submit" name='update' class="btn btn-success">Save changes</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </form>
             </div>
         </div>
@@ -119,7 +119,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Remove from Category List</h5>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form class="col-md-12" method='POST' a action="function/addCategory.php">
@@ -132,7 +132,7 @@
             </div>
             <div class="modal-footer">
                 <button type="submit" name='delete' class="btn btn-danger">Continue</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
 
                 </form>
             </div>
@@ -146,7 +146,7 @@
     $('.catUpdate').on('click', function() {
 
 
-        $('#ModalEdit').modal('show');
+        LedgerModal.show('#ModalEdit');
         $tr = $(this).closest('tr');
 
         var data = $tr.children("td").map(function() {
@@ -161,7 +161,7 @@
     $('.btnDelete').on('click', function() {
 
 
-        $('#catDelete').modal('show');
+        LedgerModal.show('#catDelete');
         $tr = $(this).closest('tr');
 
         var data = $tr.children("td").map(function() {

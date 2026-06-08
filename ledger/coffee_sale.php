@@ -1,13 +1,10 @@
 <?php
+include 'include/header.php';
+include 'include/navbar.php';
 
+$id = isset($_GET['id']) ? preg_replace('~\D~', '', $_GET['id']) : '';
 
-include('include/header.php');
-
-
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $id =  preg_replace('~\D~', '', $id);
-
+if ($id) {
     $sql = "SELECT * FROM coffee_sale WHERE coffee_sale_id = $id";
     $result = $con->query($sql);
 
@@ -36,25 +33,9 @@ if (isset($_GET['id'])) {
 }
 ?>
 
-
-
-
-
-<body>
-        <div class="container home-section h-100" style="max-width:95%;">
-            <div class="page-wrapper">
-
-                <br>
-                <h2 class="page-title">
-                    <b>
-                        <font color="#0C0070">COFFEE </font>
-                        <font color="#046D56"> SALE </font>
-                    </b>
-                </h2>
-                <span class="badge bg-warning text-dark">
-                    SALE ID: <?php echo $id ?></span>
-                <br> <br>
-                <div class="card">
+<?php ledger_shell_open('Coffee Sale Entry', 'Create or edit a coffee sale transaction.', ['Coffee', $id ? 'Sale #' . $id : 'New']); ?>
+                <span class="badge bg-warning text-dark mb-3">Sale ID: <?php echo adm_esc($id); ?></span>
+                <div class="card border-0 shadow-sm">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-8">
@@ -158,8 +139,6 @@ if (isset($_GET['id'])) {
                             </div>
                         </div>
                     </div>
-            </div>
-    </div>
 
     </form>
 
@@ -175,7 +154,7 @@ if (isset($_GET['id'])) {
                     Are you sure you want to complete the sales record?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-primary" id="confirmButton">Yes, Proceed</button>
                 </div>
             </div>
@@ -188,7 +167,7 @@ if (isset($_GET['id'])) {
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Confirmation</h5>
-                    <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -197,7 +176,7 @@ if (isset($_GET['id'])) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="confirmReturn">Yes</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
                 </div>
             </div>
         </div>
@@ -206,7 +185,11 @@ if (isset($_GET['id'])) {
     <script>
         $(document).ready(function() {
 
-            sale_id = <?php echo $id ?>;
+            var sale_id = <?php echo $id !== '' ? (int) $id : 'null'; ?>;
+
+            if (!sale_id) {
+                return;
+            }
 
             function fetch_product() {
 
@@ -245,7 +228,7 @@ if (isset($_GET['id'])) {
 
             //RETURN JS
             $('.btnReturn').on('click', function() {
-                $('#confirmReturnModal').modal('show');
+                LedgerModal.show('#confirmReturnModal');
             });
             $('#confirmReturn').on('click', function() {
                 window.location.href = "coffee_sale_record.php";
@@ -272,7 +255,7 @@ if (isset($_GET['id'])) {
                 var sales_id = <?php echo  $id ?>;
 
                 if ($(this).hasClass('confirmSales')) {
-                    $('#confirmModal').modal('show');
+                    LedgerModal.show('#confirmModal');
                 } else if ($(this).hasClass('btnDraft')) {
                     $('#draftModal').modal('show');
                 }
@@ -309,7 +292,7 @@ if (isset($_GET['id'])) {
                             // Disable all buttons inside the form
                             // Temporarily hide the buttons
                             $("#print_content button").hide();
-                            $('#confirmModal').modal('hide');
+                            LedgerModal.hide('#confirmModal');
                         } else {
                             Swal.fire({
                                 icon: 'error',
@@ -367,8 +350,4 @@ if (isset($_GET['id'])) {
 
         });
     </script>
-
-
-</body>
-
-</html>
+<?php ledger_shell_close(); ?>
