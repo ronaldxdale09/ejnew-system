@@ -2,10 +2,7 @@
 include "include/header.php";
 include "include/navbar.php";
 
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
-
+$trans_id = 0;
 if (isset($_GET['id'])) {
     $trans_id = $_GET['id'];
     $trans_id =  preg_replace('~\D~', '', $trans_id);
@@ -137,41 +134,21 @@ if (isset($_GET['id'])) {
 }
 ?>
 
-<body>
-
-    <input type='hidden' id='selected-cart' value=''>
-    <div class='main-content' style='position:relative; height:100%;'>
-        <div class="container home-section h-100" style="max-width:95%;">
-            <div class="container-fluid">
-                <div class="page-wrapper">
-
-                    <div class="page-breadcrumb">
-                        <div class="row align-items-center">
-                            <div class="col-4">
-                                <br>
-                                <h2 class="page-title"><B>
-                                        <font color="#0C0070"> BALES </font>
-                                        <font color="#046D56"> PURCHASE </font>
-                                    </b></h2>
-
-                            </div>
-                            <div class="col-7">
-                                <div class="text-end upgrade-btn">
-                                    <!-- CONTENT -->
-                                    <button type="button" class="btn btn-primary text-white" data-toggle="modal" data-target="#modal_new_transact">New
-                                        Transaction</button>
-                                    <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#add_seller1"><span class="fa fa-plus text-white"></span>
-                                        Add Seller</button>
-                                    <button type="button" class="btn btn-info text-white" data-toggle="modal" data-target="#copraCashAdvance1"><span class="fa fa-plus text-white"></span>
-                                        New Cash Advance</button>
-                                    <button type="button" class="btn btn-dark text-white" data-toggle="modal" data-target="#newContract1"><span class="fa fa-plus text-white"></span>
-                                        New Contract</button>
-
-
-                                </div>
-                            </div>
-                            <div class="row">
-                                <!-- Column -->
+<?php rubber_page_begin('Bale Purchase', 'Enter bale purchase transaction', 'Purchase Entry'); ?>
+<input type="hidden" id="selected-cart" value="">
+<div class="rubber-toolbar text-end mb-3">
+    <button type="button" class="btn btn-primary btn-sm text-white" data-bs-toggle="modal" data-bs-target="#modal_new_transact">New Transaction</button>
+    <button type="button" class="btn btn-success btn-sm text-white" data-bs-toggle="modal" data-bs-target="#add_seller1">
+        <span class="fa fa-plus text-white"></span> Add Seller
+    </button>
+    <button type="button" class="btn btn-info btn-sm text-white" data-bs-toggle="modal" data-bs-target="#copraCashAdvance1">
+        <span class="fa fa-plus text-white"></span> New Cash Advance
+    </button>
+    <button type="button" class="btn btn-dark btn-sm text-white" data-bs-toggle="modal" data-bs-target="#newContract1">
+        <span class="fa fa-plus text-white"></span> New Contract
+    </button>
+</div>
+<div class="row rubber-entry-grid g-2">
                                 <div class="col-lg-4 col-xlg-3 col-md-5">
                                     <div class="card">
                                         <div class="card-body">
@@ -481,14 +458,8 @@ if (isset($_GET['id'])) {
                         </div>
                     </div>
                 </div>
-                <!-- Column -->
             </div>
         </div>
-    </div>
-</body>
-
-</html>
-
 <div class="modal fade" id="clearInventoryModal" tabindex="-1" role="dialog" aria-labelledby="clearInventoryModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -512,7 +483,7 @@ if (isset($_GET['id'])) {
 
 <script>
     function fetch_record() {
-        var purchase_id = <?php echo $trans_id; ?>;
+        var purchase_id = <?php echo (int) $trans_id; ?>;
         $.ajax({
             url: "table/bales_purchase_selection.php",
             method: "POST",
@@ -535,7 +506,7 @@ if (isset($_GET['id'])) {
     });
 
     $('.btnConfirmClear').on('click', function() {
-        var purchase_id = <?php echo $trans_id ?>;
+        var purchase_id = <?php echo (int) $trans_id; ?>;
         console.log('Clearing inventory for Purchase ID: ' + purchase_id);
 
         $.ajax({
@@ -586,8 +557,7 @@ include "include/bales_script.php";
 
 <script>
     $(function() {
-        $(".select_seller").chosen({
-            search_threshold: 10
-        });
+        $(".select_seller").chosen({ search_threshold: 10 });
     });
 </script>
+<?php rubber_page_end(); ?>

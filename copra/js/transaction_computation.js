@@ -76,9 +76,12 @@ function handleOtherContracts(restotal, balance, rese1, rese2, less) {
         document.getElementById("amount-paid-words").value = getWords(amountPaid);;
     }
 
-    if (restotal < balance) {
+    if (restotal <= balance) {
+        document.getElementById("second-res").readOnly = true;
         document.getElementById("1rese-weight").value = nf.format(restotal);
         document.getElementById("total-1res").value = nf.format(rese1 * restotal);
+        document.getElementById("2rese-weight").value = nf.format(0);
+        document.getElementById("total-2res").value = nf.format(0);
 
         const totalAmount = rese1 * restotal;
         document.getElementById("total-amount").value = nf.format(totalAmount);
@@ -90,7 +93,6 @@ function handleOtherContracts(restotal, balance, rese1, rese2, less) {
         document.getElementById("amount-paid").value = nf.format(amountPaid);
 
         document.getElementById("amount-paid-words").value = getWords(amountPaid);
-
     }
 }
 

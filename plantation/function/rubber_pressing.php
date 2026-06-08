@@ -1,6 +1,8 @@
 <?php
 
 include('../../function/db.php');
+require_once __DIR__ . '/../include/plantation-helpers.php';
+plantation_require_post_auth();
 
 // If the update request is set
 if (isset($_POST['action']) && $_POST['action'] == 'pressing_update') {

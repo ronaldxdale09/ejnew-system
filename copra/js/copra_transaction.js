@@ -44,11 +44,15 @@ function GetDetail(str) {
                 balance = $("#balance").val().replace(/,/g, '');
                 restotal = $("#total-res").val().replace(/,/g, '');
                 var contract = document.getElementById("contract").value;
-                if ($contact != 'SPOT')
+                if (contract !== 'SPOT') {
                     if (restotal > balance) {
-                        console.log(restotal);
                         document.getElementById("second-res").readOnly = false;
                     }
+                }
+
+                if (typeof ComputationCopra === 'function') {
+                    ComputationCopra();
+                }
 
 
 

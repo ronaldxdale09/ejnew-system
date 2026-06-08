@@ -42,149 +42,27 @@
    
    $sql = mysqli_query($con, "SELECT SUM(bales_cash_advance) AS total_ca from rubber_seller  where loc='$loc' "); 
    $ca_bales = mysqli_fetch_array($sql);
-   ?>
 
-<body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"
-        integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel='stylesheet' href='css/statistic-card.css'>
-    <input type='hidden' id='selected-cart' value=''>
-    <div class='main-content' style='position:relative; height:100%;'>
-        <div class="container home-section h-100" style="max-width:95%;">
-            <div class="page-wrapper">
-                <div class="container-fluid">
-                    <!-- ============================================================== -->
-                    <div class="row">
-                        <div class="col-sm-3 offset-sm-0">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>WET</b> PURCHASED</p>
-                                    <h3><i class="text-danger font-weight-bold mr-1"></i>
-                                        <?php echo number_format($sumPurchaced_wet['month_total']); ?> KG
-                                    </h3>
-                                    <div>
-                                        <span class="text-muted"> <?php echo $today = date("F, Y"); ?>
-                                            <?php echo $sumPurchaced_wet['year']; ?>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="stat-card__icon stat-card__icon--danger">
-                                    <div class="stat-card__icon-circle">
-                                        <i class="fa fa-weight" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>WET</b> TOTAL PURCHASED</p>
-                                    <h3>₱ <?php echo number_format($sumAmountPurchased['amount_purchased']) ; ?></h2>
-                                        <div>
-                                            <span class="text-muted"> <?php echo $today = date("F, Y"); ?>
-                                                <?php echo $sumPurchaced_wet['year']; ?>
-                                            </span>
-                                        </div>
-                                </div>
-                                <div class="stat-card__icon stat-card__icon--secondary">
-                                    <div class="stat-card__icon-circle">
-                                        <i class="fa fa-money"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3 offset-sm-0">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>BALES</b> PURCHASED</p>
-                                    <h3><i class="text-danger font-weight-bold mr-1"></i>
-                                        <?php echo number_format($sumPurchaced_bales['month_total']); ?> KG
-                                    </h3>
-                                    <div>
-                                        <span class="text-muted"> <?php echo $today = date("F, Y"); ?>
-                                            <?php echo $sumPurchaced_bales['year']; ?>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="stat-card__icon stat-card__icon--warning">
-                                    <div class="stat-card__icon-circle">
-                                        <i class="fa fa-weight" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>BALES</b> TOTAL PURCHASED</p>
-                                    <h3>₱ <?php echo number_format($sumAmountPurchased_bales['amount_purchased']) ; ?>
-                                    </h3>
-                                    <div>
-                                        <span class="text-muted"> <?php echo $today = date("F, Y"); ?>
-                                            <?php echo $sumPurchaced_wet['year']; ?>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="stat-card__icon stat-card__icon--success">
-                                    <div class="stat-card__icon-circle">
-                                        <i class="fa fa-money"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- ============================================================== -->
-
-                    <div class="row">
-                        <div class="col-sm-3 offset-sm-0">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <h3><i class="text-danger font-weight-bold mr-1"></i>
-                                        ₱ <?php echo number_format($ca_wet[0],2); ?>
-                                    </h3>
-                                    <div>
-                                        <p class="text-uppercase mb-1 text-muted"><b>WET</b> TOTAL CASH ADVANCE</p>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3" style='text-align:center;'>
-                            <div class="stat-card" style='text-align:center;'>
-                                <div class="stat-card__content" style='text-align:center;'>
-
-                                    <h3> <?php echo ($contract_wet) ; ?></h2>
-                                        <p class="text-uppercase mb-1 text-muted"><b>WET</b> PENDING CONTRACT</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3 offset-sm-0">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <h3><i class="text-danger font-weight-bold mr-1"></i>
-                                        ₱ <?php echo number_format($ca_bales[0],2); ?>
-                                    </h3>
-                                    <p class="text-uppercase mb-1 text-muted"><b>BALES</b> TOTAL CASH ADVANCE</p>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3" style='text-align:center;'>
-                            <div class="stat-card" style='text-align:center;'>
-                                <div class="stat-card__content" style='text-align:center;'>
-
-                                    <h3> <?php echo ($contract_bales) ; ?></h2>
-                                        <p class="text-uppercase mb-1 text-muted"><b>BALES</b> PENDING CONTRACT</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- =============================================================== -->
-                    <div class="row">
+rubber_shell_open('Dashboard', 'Rubber purchasing overview');
+$periodLabel = date('F Y');
+?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<input type="hidden" id="selected-cart" value="">
+<?php
+rubber_kpi_row([
+    ['label' => 'Cuplump Purchased', 'value' => number_format($sumPurchaced_wet['month_total'] ?? 0) . ' kg', 'sub' => $periodLabel, 'variant' => 'green'],
+    ['label' => 'Cuplump Amount', 'value' => '₱ ' . number_format($sumAmountPurchased['amount_purchased'] ?? 0), 'sub' => $periodLabel, 'variant' => 'blue'],
+    ['label' => 'Bales Purchased', 'value' => number_format($sumPurchaced_bales['month_total'] ?? 0) . ' kg', 'sub' => $periodLabel, 'variant' => 'green'],
+    ['label' => 'Bales Amount', 'value' => '₱ ' . number_format($sumAmountPurchased_bales['amount_purchased'] ?? 0), 'sub' => $periodLabel, 'variant' => 'blue'],
+]);
+rubber_kpi_row([
+    ['label' => 'Cuplump Cash Advance', 'value' => '₱ ' . number_format($ca_wet['total_ca'] ?? 0, 2), 'variant' => 'gold'],
+    ['label' => 'Cuplump Pending Contracts', 'value' => (string) $contract_wet, 'variant' => 'gold'],
+    ['label' => 'Bales Cash Advance', 'value' => '₱ ' . number_format($ca_bales['total_ca'] ?? 0, 2), 'variant' => 'gold'],
+    ['label' => 'Bales Pending Contracts', 'value' => (string) $contract_bales, 'variant' => 'gold'],
+]);
+?>
+<div class="row g-2">
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-body">
@@ -196,9 +74,7 @@
                                     </div>
                                     <hr>
                                     <div class="table-responsive">
-                                        <table class="table" id='sellerTable'>
-                                            <?php
-                                    $record  = mysqli_query($con, "SELECT * from rubber_transaction  where loc='$loc'  ORDER BY id DESC LIMIT 5 "); ?>
+                                        <table class="table" id='dashboard-wet-table'>
                                             <thead class="table-dark" style='font-size:12px'>
                                                 <tr>
                                                     <th scope="col">Invoice</th>
@@ -211,18 +87,7 @@
                                                     <th scope="col">Amount Paid</th>
                                                 </tr>
                                             </thead>
-                                            <tbody style='font-size:15px'>
-                                                <?php while ($row = mysqli_fetch_array($record)) { ?> <tr>
-                                                    <th scope="row"> <?php echo $row['id']?> </th>
-                                                    <td> <?php echo $row['date']?> </td>
-                                                    <td> <?php echo $row['contract']?> </td>
-                                                    <td> <?php echo $row['seller']?> </td>
-                                                    <td>₱ <?php echo number_format($row['price_1'],2);?></td>
-                                                    <td>₱ <?php echo number_format($row['price_2'],2);?></td>
-                                                    <td> <?php echo number_format($row['net_weight']);?> Kg </td>
-
-                                                    <td>₱ <?php echo number_format($row['amount_paid'],2); ?> </td>
-                                                </tr> <?php } ?> </tbody>
+                                            <tbody></tbody>
                                         </table>
                                     </div>
                                 </div>
@@ -249,9 +114,7 @@
                                     </div>
                                     <hr>
                                     <div class="table-responsive">
-                                        <table class="table" id='sellerTable'>
-                                            <?php
-                                    $record  = mysqli_query($con, "SELECT * from bales_transaction  where loc='$loc' ORDER BY id DESC LIMIT 5 "); ?>
+                                        <table class="table" id='dashboard-bales-table'>
                                             <thead class="table-dark" style='font-size:12px'>
                                                 <tr>
                                                     <th scope="col">LOT #</th>
@@ -265,28 +128,7 @@
                                                     <th scope="col">Amount Paid</th>
                                                 </tr>
                                             </thead>
-                                            <tbody> <?php while ($row = mysqli_fetch_array($record)) { ?> <tr>
-                                                    <th scope="row">LOT #<?php echo $row['lot_code']?> </th>
-                                                    <td> <?php echo $row['date']?> </td>
-                                                    <td> <?php echo $row['contract']?> </td>
-                                                    <td> <?php echo $row['seller']?> </td>
-                                                    <td>
-                                                        <?php 
-                                                    if ($row['total_bales_2'] =='0 Bales ') {
-                                                        echo  $row['total_bales_1'].' @ '.$row['kilo_bales_1'].' Kg'; 
-                                                    } else {
-                                                        echo  $row['total_bales_1'].' @ '.$row['kilo_bales_1'].' Kg<br>'; 
-                                                        echo  $row['total_bales_2'].' @ '.$row['kilo_bales_2'].' Kg'; 
-                                                    }
-                                                    
-                                                    ?>
-                                                    </td>
-                                                    <td>₱ <?php echo number_format($row['price_1'],2);?></td>
-                                                    <td>₱ <?php echo number_format($row['price_2'],2);?></td>
-                                                    <td> <?php echo number_format($row['total_net_weight']);?> Kg </td>
-
-                                                    <td>₱ <?php echo number_format($row['amount_paid'],2); ?> </td>
-                                                </tr> <?php } ?> </tbody>
+                                            <tbody></tbody>
                                         </table>
                                     </div>
                                 </div>
@@ -301,10 +143,6 @@
                         </div>
                     </div>
                     <br>
-</body>
-
-</html>
-
 <script>
 wet_line = document.getElementById("wet_line");
 bales_bar = document.getElementById("bales_bar");
@@ -386,3 +224,6 @@ new Chart(bales_bar, {
     },
 });
 </script>
+<script src="js/rubber-datatables-common.js"></script>
+<script src="js/rubber-dashboard.js"></script>
+<?php rubber_shell_close(); ?>

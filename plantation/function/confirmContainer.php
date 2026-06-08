@@ -1,70 +1,51 @@
 <?php
+include '../../function/db.php';
+require_once __DIR__ . '/../include/plantation-helpers.php';
+plantation_require_post_auth();
 
-include('../../function/db.php');
+$ref_no = (int) ($_POST['ref_no'] ?? 0);
+$van_no = mysqli_real_escape_string($con, $_POST['van_no'] ?? '');
+$withdrawal_date = mysqli_real_escape_string($con, $_POST['withdrawal_date'] ?? '');
+$quality = mysqli_real_escape_string($con, $_POST['quality'] ?? '');
+$remarks = mysqli_real_escape_string($con, $_POST['remarks'] ?? '');
+$recorded_by = mysqli_real_escape_string($con, $_POST['recorded_by'] ?? '');
+$total_bale_weight = plantation_clean_numeric($_POST['total_bale_weight'] ?? '0');
+$num_bales = plantation_clean_numeric($_POST['num_bales'] ?? '0');
+$kilo_bale = plantation_clean_numeric($_POST['kilo_bale'] ?? '0');
+$total_bale_cost = plantation_clean_numeric($_POST['total_bale_cost'] ?? '0');
+$total_milling_cost = plantation_clean_numeric($_POST['total_milling_cost'] ?? '0');
+$average_cost = plantation_clean_numeric($_POST['average_cost'] ?? '0');
 
-// Clean and assign POST data to variables
-$ref_no = $_POST['ref_no'];
-$van_no = $_POST['van_no'];
-$withdrawal_date = $_POST['withdrawal_date'];
-$quality = $_POST['quality'];
-$remarks = $_POST['remarks'];
-$recorded_by = $_POST['recorded_by'];
-$total_bale_weight = cleanInput($_POST['total_bale_weight']);
-$num_bales = cleanInput($_POST['num_bales']);
-$kilo_bale = cleanInput($_POST['kilo_bale']);
-$total_bale_cost = cleanInput($_POST['total_bale_cost']);
-$total_milling_cost = cleanInput($_POST['total_milling_cost']);
-$average_cost = cleanInput($_POST['average_cost']);
+if ($ref_no <= 0 || (float) $num_bales <= 0) {
+    http_response_code(400);
+    echo 'Add at least one bale before completing the container.';
+    exit;
+}
 
-// Fetch current status
-$currentStatus = fetchCurrentStatus($ref_no, $con);
-
-// Determine new status
+$statusRow = mysqli_fetch_assoc(mysqli_query($con, "SELECT status FROM bales_container_record WHERE container_id = {$ref_no} LIMIT 1"));
+$currentStatus = $statusRow['status'] ?? '';
 $newStatus = ($currentStatus === 'Sold-Update') ? 'Sold' : 'Awaiting Release';
 
-// Prepare the SQL query
-$query = "UPDATE bales_container_record SET 
-            van_no = '$van_no', 
-            withdrawal_date = '$withdrawal_date', 
-            quality = '$quality', 
-            kilo_bale = '$kilo_bale', 
-            remarks = '$remarks', 
-            recorded_by = '$recorded_by', 
-            num_bales = '$num_bales', 
-            total_bale_weight = '$total_bale_weight',
-            total_bale_cost = '$total_bale_cost',
-            total_milling_cost = '$total_milling_cost',
-            average_kilo_cost = '$average_cost',
-            status = '$newStatus' 
-            WHERE container_id  = '$ref_no'";
+$query = "UPDATE bales_container_record SET
+    van_no = '{$van_no}',
+    withdrawal_date = '{$withdrawal_date}',
+    quality = '{$quality}',
+    kilo_bale = '{$kilo_bale}',
+    remarks = '{$remarks}',
+    recorded_by = '{$recorded_by}',
+    num_bales = '{$num_bales}',
+    total_bale_weight = '{$total_bale_weight}',
+    total_bale_cost = '{$total_bale_cost}',
+    total_milling_cost = '{$total_milling_cost}',
+    average_kilo_cost = '{$average_cost}',
+    status = '{$newStatus}'
+    WHERE container_id = {$ref_no}";
 
-// Execute the query
-$results = mysqli_query($con, $query);
-
-if ($results) {
-    // Redirect on success
-    header("Location: ../container_record.php");
-    $_SESSION['contract'] = "Update successful";
+if (mysqli_query($con, $query)) {
+    $_SESSION['container_complete'] = true;
+    header('Location: ../container_record.php');
     exit();
-} else {
-    // Print error message
-    echo "ERROR: Could not execute $query. " . mysqli_error($con);
 }
 
+echo 'ERROR: Could not execute update. ' . mysqli_error($con);
 exit();
-
-// Function to clean input
-function cleanInput($input) {
-    return preg_replace("/[^0-9\.]/", "", str_replace(',', '', $input));
-}
-
-// Function to fetch current status
-function fetchCurrentStatus($ref_no, $con) {
-    $query_status = "SELECT status FROM bales_container_record WHERE container_id = '$ref_no'";
-    $result_status = mysqli_query($con, $query_status);
-    $record_status = mysqli_fetch_assoc($result_status);
-
-    return $record_status['status'];
-}
-
-?>

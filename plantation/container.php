@@ -1,541 +1,145 @@
 <?php
-include('include/header.php');
-include "include/navbar.php";
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $id =  preg_replace('~\D~', '', $id);
+include 'include/header.php';
+include 'include/navbar.php';
 
-    $sql = "SELECT * FROM bales_container_record WHERE container_id = $id";
-    $result = $con->query($sql);
+$loc = plantation_loc_sql();
+$containerId = isset($_GET['id']) ? (int) preg_replace('/\D/', '', (string) $_GET['id']) : 0;
+$record = plantation_container_load($con, $containerId, $loc);
 
-    if ($result->num_rows > 0) {
-        // Output data of each row
-        $record = $result->fetch_assoc();
-
-       
-        $van_no = isset($record['van_no']) ? $record['van_no'] : '';
-        $withdrawal_date = isset($record['withdrawal_date']) ? $record['withdrawal_date'] : '';
-        $quality = isset($record['quality']) ? $record['quality'] : '';
-        $kilo_bale = isset($record['kilo_bale']) ? $record['kilo_bale'] : '';
-        $remarks = isset($record['remarks']) ? $record['remarks'] : '';
-        $recorded_by = isset($record['recorded_by']) ? $record['recorded_by'] : '';
-
-        echo "
-                <script>
-                    $(document).ready(function() {
-                        $('#ref_no').val('" . $id . "');
-                        $('#van_no').val('" . $van_no . "');
-                        $('#withdrawal_date').val('" . $withdrawal_date . "');
-                        $('#quality').val('" . $quality . "');
-                        $('#kilo_bale').val('" . $kilo_bale . "');
-                        $('#remarks').val('" . $remarks . "');
-                        $('#recorded_by').val('" . $recorded_by . "');
-                    });
-                </script>
-            ";
-    }
+if (!$record) {
+    header('Location: container_record.php');
+    exit();
 }
+
+$status = (string) ($record['status'] ?? 'Draft');
+$editable = plantation_container_editable($status);
+$recordedName = htmlspecialchars($_SESSION['full_name'] ?? $name ?? '', ENT_QUOTES, 'UTF-8');
+
+plantation_shell_open(
+    'Container #' . $containerId,
+    'Withdraw bales, review costs, and complete or save as draft',
+    [$locDisplay ?: 'Plantation', $status]
+);
 ?>
-<style>
-    input.invalid-input {
-        border: 2px solid red !important;
-    }
-</style>
 
-<body>
-    <br>
-    <div class='main-content' style='min-height:100vh;'>
-        <div class="container home-section h-100" style="max-width:95%;">
-            <div class="page-wrapper">
-                <div class="row">
-                    <div class="col-sm-12">
+<div class="plantation-container-workspace" data-container-id="<?php echo $containerId; ?>" data-editable="<?php echo $editable ? '1' : '0'; ?>">
 
-                        <h2 class="page-title">
-                            <b>
-                                <font color="#0C0070">BALE </font>
-                                <font color="#046D56"> CONTAINER </font>
-                            </b>
-                        </h2>
-
-                        <br>
-
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <a href="container_record.php" class="btn btn-secondary text-white returnBtn">
-                                            <span class="fas fa-arrow-left"></span> Return
-                                        </a>
-
-
-                                        <button type="button" class="btn btn-primary confirmSales"><span class="fas fa-check"></span> Complete</button>
-                                        <button type="button" class="btn btn-warning btnDraft"><span class="fas fa-info-circle"></span> Save as Draft</button>
-                                        <button type="button" class="btn btn-danger btnVoid"> <span class="fas fa-times"></span> Void Container</button>
-                                    </div>
-                                </div>
-
-                                <br>
-                                <form action="function/confirmContainer.php" method="POST" id='transaction_form'>
-
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h4>Container Information</h4>
-                                            <hr>
-                                            <form method='POST' id='transaction_form'>
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <label style='font-size:15px' class="col-md-12">Ref No.</label>
-                                                        <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" name='ref_no' id='ref_no' value='<?php echo $id ?>' readonly style="width: 100px;" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <label style='font-size:15px' class="col-md-12">Van
-                                                            No.</label>
-                                                        <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" name='van_no' id='van_no' autocomplete='off' style="width: 100px;" required />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <label style='font-size:15px' class="col-md-12">Withdrawal
-                                                            Date</label>
-                                                        <div class="col-md-12">
-                                                            <input type="date" class='form-control' id="withdrawal_date" name="withdrawal_date" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <label style='font-size:15px' class="col-md-12">Recorded
-                                                            by</label>
-                                                        <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" name='recorded_by' value="<?php echo $name; ?>" id='recorded_by' autocomplete='off' style="width: 100px;" required />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <label style='font-size:15px' class="col-md-12">Bale
-                                                            Quality</label>
-                                                        <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" name='quality' id='quality' autocomplete='off' style="width: 100px;" required />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <label style='font-size:15px' class="col-md-12">Kilo per
-                                                            Bale</label>
-                                                        <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" name='kilo_bale' id='kilo_bale' autocomplete='off' style="width: 100px;" required />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <label style='font-size:15px' class="col-md-12">Particulars</label>
-                                                        <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" name='remarks' id='remarks' autocomplete='off' style="width: 100px;" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                        </div>
-                                    </div>
-
-                                    <br>
-
-                                    <div class="card">
-                                        <div class="card-body d-flex justify-content-between align-items-center">
-                                            <h4>Container Bales</h4>
-                                            <button type="button" class="btn btn-dark text-white btnSelectTrans" id='receiptBtn'>
-                                                <span class="fa fa-book"></span> Select Inventory</button>
-                                        </div>
-                                        <div class="card-body">
-
-                                            <div id='selected_inventory'></div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="plantation-container-toolbar">
+        <a href="container_record.php" class="plantation-btn plantation-btn--ghost">
+            <i class="fas fa-arrow-left"></i> Back to list
+        </a>
+        <div class="plantation-container-toolbar__actions">
+            <?php if ($editable) : ?>
+            <button type="button" class="plantation-btn plantation-btn--primary" id="btnCompleteContainer">
+                <i class="fas fa-check"></i> Complete
+            </button>
+            <button type="button" class="plantation-btn plantation-btn--secondary" id="btnDraftContainer">
+                <i class="fas fa-save"></i> Save draft
+            </button>
+            <button type="button" class="plantation-btn plantation-btn--danger" id="btnVoidContainer">
+                <i class="fas fa-ban"></i> Void
+            </button>
+            <?php else : ?>
+            <span class="plantation-container-readonly-note"><i class="fas fa-lock"></i> This container is read-only (<?php echo adm_esc($status); ?>).</span>
+            <?php endif; ?>
         </div>
     </div>
-    <br>
-</body>
 
-
-<!-- Modal -->
-<div class="modal fade" id="draftModal" tabindex="-1" aria-labelledby="draftModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="draftModalLabel">
-                    <i class="fas fa-file-alt"></i> Save as Draft
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="function/draftContainer.php" method="POST" id='transaction_form'>
-                <div class="modal-body">
-                    <input type="text" name='id' id='draft_id' hidden>
-
-                    <div class="card">
-                        <div class="card-body">
-                            <h4>Save as Draft</h4>
-                            <hr>
-                            <form method='POST' id='transaction_form'>
-                                <div class="row">
-
-                                    <div class="col">
-                                        <label style='font-size:15px' class="col-md-12">Van
-                                            No.</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" name='van_no' id='u_van_no' autocomplete='off' style="width: 100px;" readonly />
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label style='font-size:15px' class="col-md-12">Withdrawal
-                                            Date</label>
-                                        <div class="col-md-12">
-                                            <input type="date" class='form-control' id="u_withdrawal_date" name="withdrawal_date" readonly>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="col">
-                                    <label style='font-size:15px' class="col-md-12">Recorded
-                                        by</label>
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='recorded_by' value="<?php echo $name; ?>" id='u_recorded_by' autocomplete='off' style="width: 100px;" readonly />
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <label style='font-size:15px' class="col-md-12">Bale
-                                            Quality</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" name='quality' id='u_quality' autocomplete='off' style="width: 100px;" readonly />
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label style='font-size:15px' class="col-md-12">Kilo per
-                                            Bale</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" name='kilo_bale' id='u_kilo_bale' autocomplete='off' style="width: 100px;" readonly />
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="col-12">
-                                    <label style='font-size:15px' class="col-md-12">Particulars</label>
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name='remarks' id='u_remarks' autocomplete='off' style="width: 100px;" readonly />
-                                    </div>
-                                </div>
-
-                                <br>
-                                <div class="row">
-                                    <div class="col">
-                                        <label style="font-size:15px" class="col-md-12">No. of Bales</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" name="num_bales" id="u_num_bales" autocomplete="off" style="width: 100px;" readonly />
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label style="font-size:15px" class="col-md-12">Total Bale
-                                            Weight</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" name="total_bale_weight" id="u_total_bale_weight" autocomplete="off" style="width: 100px;" readonly />
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-
-                                <div class="row">
-                                    <div class="col">
-                                        <label style="font-size:15px" class="col-md-12">Total Bale Cost</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" name="total_bale_cost" id="u_total_bale_cost" autocomplete="off" style="width: 100px;" readonly />
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label style="font-size:15px" class="col-md-12">Average Kilo Cost</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" name="average_cost" id="u_average_cost" autocomplete="off" style="width: 100px;" readonly />
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label style="font-size:15px" class="col-md-12">Total Milling Cost</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" name="total_milling_cost" id="u_total_milling_cost" autocomplete="off" style="width: 100px;" readonly />
-                                        </div>
-                                    </div>
-
-                                </div>
-                        </div>
-                    </div>
-
-                    <p>
-                        <i class="fas fa-info-circle"></i>
-                        Do you want to save your progress and continue editing later?
-                    </p>
-
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
-                        <i class="fas fa-times"></i> Cancel
-                    </button>
-                    <button type="submit" class="btn btn-success" name='draft'>
-                        <i class="fas fa-save"></i> Save as Draft
-                    </button>
-                </div>
-            </form>
-        </div>
+    <?php if (!$editable) : ?>
+    <div class="plantation-notice alert alert-info py-2 mb-3" role="note">
+        Editing is disabled for containers with status <strong><?php echo adm_esc($status); ?></strong>. Open from the list to view details or release when awaiting release.
     </div>
+    <?php endif; ?>
+
+    <form action="function/confirmContainer.php" method="POST" id="containerForm">
+        <input type="hidden" name="ref_no" id="ref_no" value="<?php echo $containerId; ?>">
+
+        <?php adm_panel_open('Container Information'); ?>
+        <div class="row g-2 plantation-modal-grid">
+            <div class="col-6 col-md-3 plantation-field">
+                <label for="van_no">Van No.</label>
+                <input type="text" class="form-control form-control-sm" name="van_no" id="van_no"
+                    value="<?php echo adm_esc($record['van_no'] ?? ''); ?>" <?php echo $editable ? '' : 'readonly'; ?> required>
+            </div>
+            <div class="col-6 col-md-3 plantation-field">
+                <label for="withdrawal_date">Withdrawal Date</label>
+                <input type="date" class="form-control form-control-sm" name="withdrawal_date" id="withdrawal_date"
+                    value="<?php echo adm_esc($record['withdrawal_date'] ?? date('Y-m-d')); ?>" <?php echo $editable ? '' : 'readonly'; ?> required>
+            </div>
+            <div class="col-6 col-md-3 plantation-field">
+                <label for="quality">Bale Quality</label>
+                <input type="text" class="form-control form-control-sm" name="quality" id="quality"
+                    value="<?php echo adm_esc($record['quality'] ?? ''); ?>" <?php echo $editable ? '' : 'readonly'; ?> required>
+            </div>
+            <div class="col-6 col-md-3 plantation-field">
+                <label for="kilo_bale">Kilo per Bale</label>
+                <input type="text" class="form-control form-control-sm" name="kilo_bale" id="kilo_bale"
+                    value="<?php echo adm_esc($record['kilo_bale'] ?? ''); ?>" <?php echo $editable ? '' : 'readonly'; ?> required>
+            </div>
+            <div class="col-12 col-md-6 plantation-field">
+                <label for="remarks">Particulars / Buyer</label>
+                <input type="text" class="form-control form-control-sm" name="remarks" id="remarks"
+                    value="<?php echo adm_esc($record['remarks'] ?? ''); ?>" <?php echo $editable ? '' : 'readonly'; ?>>
+            </div>
+            <div class="col-12 col-md-6 plantation-field">
+                <label for="recorded_by">Recorded By</label>
+                <input type="text" class="form-control form-control-sm" name="recorded_by" id="recorded_by"
+                    value="<?php echo adm_esc($record['recorded_by'] ?? $recordedName); ?>" <?php echo $editable ? '' : 'readonly'; ?> required>
+            </div>
+        </div>
+        <?php adm_panel_close(); ?>
+
+        <?php adm_panel_open('Selected Bales'); ?>
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+            <p class="plantation-container-panel-hint mb-0">Add inventory lots to this withdrawal. Totals update automatically.</p>
+            <?php if ($editable) : ?>
+            <button type="button" class="plantation-btn plantation-btn--primary btn-sm" id="btnSelectInventory">
+                <i class="fas fa-boxes-stacked"></i> Select Inventory
+            </button>
+            <?php endif; ?>
+        </div>
+        <div id="selected_inventory"></div>
+        <?php adm_panel_close(); ?>
+    </form>
+
+    <form action="function/draftContainer.php" method="POST" id="draftForm" class="d-none">
+        <input type="hidden" name="id" id="draft_id" value="<?php echo $containerId; ?>">
+        <input type="hidden" name="van_no" id="draft_van_no">
+        <input type="hidden" name="withdrawal_date" id="draft_withdrawal_date">
+        <input type="hidden" name="quality" id="draft_quality">
+        <input type="hidden" name="kilo_bale" id="draft_kilo_bale">
+        <input type="hidden" name="remarks" id="draft_remarks">
+        <input type="hidden" name="recorded_by" id="draft_recorded_by">
+        <input type="hidden" name="num_bales" id="draft_num_bales">
+        <input type="hidden" name="total_bale_weight" id="draft_total_bale_weight">
+        <input type="hidden" name="total_bale_cost" id="draft_total_bale_cost">
+        <input type="hidden" name="average_cost" id="draft_average_cost">
+        <input type="hidden" name="total_milling_cost" id="draft_total_milling_cost">
+    </form>
+
+    <form action="function/container.php" method="POST" id="voidForm" class="d-none">
+        <input type="hidden" name="id" value="<?php echo $containerId; ?>">
+        <input type="hidden" name="void" value="1">
+    </form>
 </div>
 
-
-
-
-<div class="modal fade" id="modal_produced_record" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
+<div class="modal fade plantation-modal" id="inventoryPickerModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl modal-fullscreen-lg-down">
         <div class="modal-content">
-            <div class="modal-header bg-dark text-white">
-                <h5 class="modal-title" id="exampleModalLabel"> Production Record</h5>
-                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" class="text-white">&times;</span>
-                </button>
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-boxes-stacked"></i> Select Bale Inventory</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-
-
-                <hr>
-                <div id='produced_modal_table'></div>
-                <hr>
-
-
+            <div class="modal-body" id="inventory_picker_body">
+                <div class="text-center text-muted py-4">Loading inventory…</div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Modal -->
-<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Confirm Transaction</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Are you sure you want to complete the transaction?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="confirmButton">Yes, Complete</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="voidModal" tabindex="-1" aria-labelledby="draftModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="draftModalLabel">
-                    <i class="fas fa-file-alt"></i> Void Container
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="function/container.php" method="POST" id='transaction_form'>
-                <div class="modal-body">
-                    <input type="text" name='id' id='void_id' hidden>
-                    <p>
-                        <i class="fas fa-info-circle"></i>
-                        Are you sure you want to void this container?
-                    </p>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
-                        <i class="fas fa-times"></i> Cancel
-                    </button>
-                    <button type="submit" class="btn btn-danger" name='void'>
-                        <i class="fas fa-trash"></i> Proceed
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-<script>
-    $('.btnSelectTrans').on('click', function() {
-        $tr = $(this).closest('tr');
-
-        var data = $tr.children("td").map(function() {
-            return $(this).text();
-        }).get();
-
-
-        var container_id = <?php echo  $id ?>;
-        console.log(container_id);
-
-        function fetch_record() {
-
-            $.ajax({
-                url: "table/container_bales_inventory.php",
-                method: "POST",
-                data: {
-                    container_id: container_id,
-
-                },
-                success: function(data) {
-                    $('#produced_modal_table').html(data);
-
-
-                }
-            });
-        }
-        fetch_record();
-        $('#modal_produced_record').modal('show');
-
-    });
-
-
-    document.getElementById("confirmButton").addEventListener("click", function(e) {
-        var fields = ['ref_no', 'van_no', 'withdrawal_date', 'quality', 'kilo_bale',
-            'recorded_by'
-        ];
-        var isEmpty = false;
-
-        fields.forEach(function(field) {
-            var inputElement = document.getElementById(field);
-            if (!inputElement.value) {
-                inputElement.classList.add('invalid-input');
-                isEmpty = true;
-            } else {
-                inputElement.classList.remove('invalid-input');
-            }
-        });
-
-        if (isEmpty) {
-            e.preventDefault(); // Stop form submission
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Please fill all the required fields!',
-            });
-        } else {
-            document.getElementById("transaction_form").submit();
-        }
-    });
-
-
-
-    $('.confirmSales').on('click', function() {
-        $tr = $(this).closest('tr');
-
-        var data = $tr.children("td").map(function() {
-            return $(this).text();
-        }).get();
-
-
-        var container_id = <?php echo  $id ?>;
-
-        $('#confirmModal').modal('show');
-
-    });
-
-
-
-    $('.btnDraft').on('click', function() {
-        $tr = $(this).closest('tr');
-
-        var data = $tr.children("td").map(function() {
-            return $(this).text();
-        }).get();
-
-        var id = <?php echo  $id ?>;
-
-        var vanNo = $('#van_no').val();
-        var withdrawalDate = $('#withdrawal_date').val();
-        var quality = $('#quality').val();
-        var kiloBale = $('#kilo_bale').val();
-        var remarks = $('#remarks').val();
-        var recordedBy = $('#recorded_by').val();
-
-
-        var num_bales = $('#num_bales').val();
-        var total_bale_weight = $('#total_bale_weight').val();
-        var total_bale_cost = $('#total_bale_cost').val();
-        var ave_kilo_cost = $('#average_cost').val();
-        var total_milling_cost = $('#total_milling_cost').val();
-
-        $('#u_van_no').val(vanNo);
-        $('#u_withdrawal_date').val(withdrawalDate);
-        $('#u_quality').val(quality);
-        $('#u_kilo_bale').val(kiloBale);
-        $('#u_remarks').val(remarks);
-        $('#u_recorded_by').val(recordedBy);
-
-        $('#u_num_bales').val(num_bales);
-        $('#u_total_bale_weight').val(total_bale_weight);
-
-
-        $('#u_total_bale_cost').val(total_bale_cost);
-        $('#u_average_cost').val(ave_kilo_cost);
-        $('#u_total_milling_cost').val(total_milling_cost);
-
-
-        $('#draft_id').val(id);
-
-        $('#draftModal').modal('show');
-
-    });
-
-
-    $('.btnVoid').on('click', function() {
-        // $tr = $(this).closest('tr');
-
-        // var data = $tr.children("td").map(function() {
-        //     return $(this).text();
-        // }).get();
-
-        // var id = <?php echo  $id ?>;
-
-        // $('#void_id').val(id);
-
-        // $('#voidModal').modal('show');
-
-        Swal.fire({
-            icon: 'info',
-            title: 'Oops...',
-            text: 'This function is currently under maintenance!'
-        })
-    });
-
-
-
-    function fetch_data() {
-        var container_id = $('#ref_no').val();
-        $.ajax({
-            url: "table/contaner_selectedList.php",
-            method: "POST",
-            data: {
-                container_id: container_id,
-            },
-            success: function(data) {
-                $('#selected_inventory').html(data);
-
-            }
-        });
-    }
-    fetch_data();
-</script>
+<script src="js/plantation-container.js?v=<?php echo filemtime(__DIR__ . '/js/plantation-container.js'); ?>"></script>
+<?php plantation_consume_flashes(); ?>
+<?php plantation_shell_close(); ?>

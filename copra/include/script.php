@@ -351,7 +351,7 @@ function parseNum(string $money) : float
 if (isset($_GET['view'])){
     $view = $_GET['view'];
 
-$sql = mysqli_query($con, "SELECT  * from transaction_record where invoice='$view'  ");
+$sql = mysqli_query($con, "SELECT  * from copra_transaction where invoice='$view'  ");
 $record = mysqli_fetch_array($sql);
 
 ?>

@@ -1,44 +1,21 @@
-<?php 
-   include('include/header.php');
-   include "include/navbar.php";
+<?php
+include 'include/header.php';
+include 'include/navbar.php';
 
-
-
-
+rubber_page_begin('Cuplump Purchase', 'Wet rubber purchase records', 'Purchase Records');
 ?>
-
 <style>
 .number-cell {
     text-align: right;
 }
 </style>
-
-<body>
-    <link rel='stylesheet' href='css/statistic-card.css'>
-    <div class='main-content' style='min-height:100vh;'>
-        <div class="container home-section h-100" style="max-width:95%;">
-            <div class="page-wrapper">
-                <div class="row">
-                    <div class="col-sm-12">
-
-                        <h2 class="page-title">
-                            <b>
-                                <font color="#0C0070">Cuplump </font>
-                                <font color="#046D56"> Purchase </font>
-                            </b>
-                        </h2>
-
-                        <br>
-
-
-                        <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
-                            <button type="button" class="btn btn-primary text-white" data-toggle="modal"
-                                data-target="#createNew">NEW PURCHASE</button>
-                            <hr>
-                            <div class="table-responsive">
+<div class="rubber-toolbar">
+    <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#createNew">
+        <i class="fas fa-plus me-1"></i> New Purchase
+    </button>
+</div>
+<div class="table-responsive">
                                 <table class="table" id='wet_record_table'>
-                                    <?php
-                  $record  = mysqli_query($con, "SELECT * from rubber_transaction   where loc='$loc' ORDER BY id DESC  "); ?>
                                     <thead class="table-dark" style='font-size:15px'>
                                         <tr>
                                             <th scope="col">Invoice</th>
@@ -54,48 +31,7 @@
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody style='font-size:17px'> <?php while ($row = mysqli_fetch_array($record)) { ?>
-                                        <tr>
-                                            <td scope="row"> <?php echo $row['id']?> </td>
-                                            <td><?php echo date('M j, Y', strtotime($row['date'])); ?></td>
-                                            <td> <?php echo $row['seller']?> </td>
-                                            <td> <?php echo $row['address']?> </td>
-                                            <td style="text-align: right">₱
-                                                <?php echo number_format($row['price_1'], 2)?></td>
-                                            <td style="text-align: right">₱
-                                                <?php echo number_format($row['price_2'], 2)?></td>
-                                            <td style="text-align: right">
-                                                <?php $total_weight = $row['total_weight_1'] +  $row['total_weight_2']; echo number_format($total_weight);?>
-                                                kg </td>
-                                            <td style="text-align: right">₱
-                                                <?php echo number_format($row['total_amount'])?> </td>
-                                            <td style="text-align: right">₱ <?php echo number_format($row['less'])?>
-                                            </td>
-                                            <td style="text-align: right">₱
-                                                <?php echo number_format(($row['amount_paid'] )); ?> </td>
-                                            <td>
-                                                <button type="button" class="btn btn-sm btn-primary wetBtnView"
-                                                    data-id="<?php echo $row['id']; ?>"
-                                                    data-contract="<?php echo $row['contract']; ?>"
-                                                    data-date="<?php echo $row['date']; ?>"
-                                                    data-seller="<?php echo $row['seller']; ?>"
-                                                    data-address="<?php echo $row['address']; ?>"
-                                                    data-gross="<?php echo $row['gross']; ?>"
-                                                    data-tare="<?php echo $row['tare']; ?>"
-                                                    data-net_weight="<?php echo $row['net_weight']; ?>"
-                                                    data-price_1="<?php echo $row['price_1']; ?>"
-                                                    data-price_2="<?php echo $row['price_2']; ?>"
-                                                    data-total_weight_1="<?php echo $row['total_weight_1']; ?>"
-                                                    data-total_weight_2="<?php echo $row['total_weight_2']; ?>"
-                                                    data-total_amount="<?php echo $row['total_amount']; ?>"
-                                                    data-less="<?php echo $row['less']; ?>"
-                                                    data-amount_paid="<?php echo $row['amount_paid']; ?>"
-                                                    data-amount_words="<?php echo $row['amount_words']; ?>">
-                                                    <i class='fas fa-edit'></i>
-                                                </button>
-                                            </td>
-                                        </tr> <?php } ?>
-                                    </tbody>
+                                    <tbody></tbody>
                                     <tfoot>
                                         <th></th>
                                         <th></th>
@@ -110,56 +46,6 @@
                                 </table>
                             </div>
 
-                            <script>
-                            $(document).ready(function() {
-                                var table = $('#wet_record_table').DataTable({
-                                    "order": [
-                                        [1, 'asc']
-                                    ],
-                                    "pageLength": -1,
-                                    "dom": "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
-                                        "<'row'<'col-sm-12'tr>>" +
-                                        "<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'>>",
-                                    "responsive": true,
-                                    "buttons": [{
-                                            extend: 'excelHtml5',
-                                            text: 'Excel',
-                                            exportOptions: {
-                                                columns: ':visible'
-                                            }
-                                        },
-                                        {
-                                            extend: 'pdfHtml5',
-                                            text: 'PDF',
-                                            exportOptions: {
-                                                columns: ':visible'
-                                            }
-                                        },
-                                        {
-                                            extend: 'print',
-                                            text: 'Print',
-                                            exportOptions: {
-                                                columns: ':visible'
-                                            }
-                                        }
-                                    ]
-                                });
-                            });
-                            </script>
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-</body>
-
-</html>
 <div class="modal fade" id="createNew" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -456,62 +342,12 @@
 </div>
 
 <script>
-$('.wetBtnView').on('click', function() {
-    $tr = $(this).closest('tr');
-
-    var data = $tr.children("td").map(function() {
-        return $(this).text();
-    }).get();
-
-    var id = $(this).data('id');
-    var contract = $(this).data('contract');
-    var date = $(this).data('date');
-    var seller = $(this).data('seller');
-    var address = $(this).data('address');
-    var gross = $(this).data('gross');
-    var tare = $(this).data('tare');
-    var net_weight = $(this).data('net_weight');
-    var price_1 = $(this).data('price_1');
-    var price_2 = $(this).data('price_2');
-    var total_weight_1 = $(this).data('total_weight_1');
-    var total_weight_2 = $(this).data('total_weight_2');
-    var total_amount = $(this).data('total_amount');
-    var less = $(this).data('less');
-    var amount_paid = $(this).data('amount_paid');
-    var amount_words = $(this).data('amount_words');
-
-    $('#v_invoice').val(id.toLocaleString());
-    $('#w_id').val(id.toLocaleString());
-    $('#v_contract').val(contract);
-    $('#v_date').val(date);
-    $('#v_seller').val(seller);
-    $('#address').val(address);
-    $('#gross').val(gross.toLocaleString());
-    $('#tare').val(tare.toLocaleString());
-    $('#net').val(net_weight.toLocaleString());
-    $('#first_price').val(price_1.toLocaleString());
-    $('#first-weight').val(total_weight_1.toLocaleString());
-    $('#first_total').val((price_1 * total_weight_1).toLocaleString(undefined, {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    }));
-    $('#second_price').val(price_2.toLocaleString());
-    $('#second-weight').val(total_weight_2.toLocaleString());
-    $('#second_total').val((price_2 * total_weight_2).toLocaleString(undefined, {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    }));
-    $('#total-amount').val(total_amount.toLocaleString());
-    $('#cash_advance').val(less.toLocaleString());
-    $('#amount-paid').val(amount_paid.toLocaleString());
-    $('#amount-paid-words').val(amount_words);
-
-    $('#viewRecord').modal('show');
-});
-
 $('#removeBtn').click(function() {
-    var id = $('#w_id').val(); // get the id from viewRecord modal
-    $('#remove_w_id').val(id); // set the id to the confirmationModal
-    $('#confirmationModal').modal('show'); // Open the confirmation modal
+    var id = $('#w_id').val();
+    $('#remove_w_id').val(id);
+    $('#confirmationModal').modal('show');
 });
 </script>
+<script src="js/rubber-datatables-common.js"></script>
+<script src="js/rubber-cuplump-purchase.js"></script>
+<?php rubber_page_end(); ?>

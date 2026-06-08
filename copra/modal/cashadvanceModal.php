@@ -1,155 +1,115 @@
-<?php $month = date("m");
-$day = date("d");
-$year = date("Y");
-$today = $year . "-" . $month . "-" . $day;
-$today = $year . "-" . $month . "-" . $day;
-$loc = str_replace(' ', '', $_SESSION['loc']);
-
-$seller = "SELECT * FROM copra_seller  ";
-$result = mysqli_query($con, $seller);
-$sellerList = '';
-while ($arr = mysqli_fetch_array($result)) {
-    $sellerList .= '
-<option value="' . $arr["name"] . '">[ ' . $arr["id"] . ' ]      ' . $arr["name"] . '</option>';
-}
-
-
+<?php
+$today = date('Y-m-d');
+$sellerList = copra_seller_options($con);
 ?>
-<div class="modal fade" id="copraCashAdvance" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade copra-modal" id="copraCashAdvance" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">RUBBER | CASH AGREEMENT</h5>
-                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 class="modal-title"><i class="fas fa-money-bill-wave me-1"></i> New Cash Advance</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form action="function/newCA.php" method="POST">
-                    <!-- ... START -->
-                    <div class="form-group">
-                        <div class="row no-gutters">
-                            <div class="col-6 col-md-6">
-                                <div class="input-group mb-1">
-                                    <input class='datepicker' value="<?php echo $today; ?>" type="date" id="date" name="date" required>
-                                </div>
-                            </div>
-                            <!--end  -->
-                            <div class="col-6 col-md-6">
-                                <div class="input-group mb-1">
-                                    <select class="form-select" name='ca_category' id='ca_category' style='width:200px' required>
-                                        <option disabled="disabled" selected="selected" value="">Select Category
-                                        </option>
-                                        <option value='copra'>Copra</option>
-                                        <option value='ntc'>NTC</option>
-                                        <option value='trucking'>Trucking</option>
-                                        <option value='others'>Others</option>
-                                        <option value='Rubber'>Rubber</option>
-                                    </select>
-
-                                </div>
-                            </div>
-                            <!--  end-->
+            <form action="function/newCA.php" method="POST">
+                <div class="modal-body">
+                    <div class="row g-2 copra-modal-grid">
+                        <div class="col-6 copra-field">
+                            <label for="ca_date">Date</label>
+                            <input type="date" class="form-control form-control-sm" id="ca_date" name="date" value="<?php echo $today; ?>" required>
                         </div>
-                    </div>
-                    <hr>
-                    <center>
-                        <div class="form-group">
-                            <div class="row no-gutters">
-                                <div class="col">
-                                    <div class="input-group mb-12">
-                                        <label class="col-md-12">Seller</label>
-                                        <div class="col-md-12">
-                                            <select required="required" class='ca_seller col-md-12' name='name' id='name'>
-                                                <option disabled="disabled" selected="selected" value="">Select Seller
-                                                </option>
-                                                <?php echo $sellerList; ?>
-                                            </select>
-                                        </div>
-
-                                    </div>
-                                </div>
-
+                        <div class="col-6 copra-field">
+                            <label for="ca_category">Category</label>
+                            <select class="form-select form-select-sm" name="ca_category" id="ca_category" required>
+                                <option value="" disabled selected>Select category</option>
+                                <option value="copra">Copra</option>
+                                <option value="ntc">NTC</option>
+                                <option value="trucking">Trucking</option>
+                                <option value="others">Others</option>
+                            </select>
+                        </div>
+                        <div class="col-12 copra-field">
+                            <label for="ca_seller_name">Seller</label>
+                            <select class="ca_seller form-select form-select-sm" name="name" id="ca_seller_name" required>
+                                <option value="" disabled selected>Select seller</option>
+                                <?php echo $sellerList; ?>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <div id="ca_current_balance" class="copra-ca-current-balance d-none">
+                                Current balance: <strong id="ca_current_balance_value">₱ 0.00</strong>
                             </div>
                         </div>
-                    </center>
-                    <hr>
-                    <div class="form-group">
-                        <div class="row no-gutters">
-                            <div class="col-12 col-sm-5 col-md-12">
-                                <label class="col-md-12">Cash Advance</label>
-
-                                <div class="input-group mb-1">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroup-sizing-default" style='color:black;font-weight: bold;'>₱</span>
-                                    </div>
-                                    <input type="text" style='text-align:right' name='ca_amount' required class="form-control" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
-                                </div>
-                                <!--  -->
+                        <div class="col-12 copra-field">
+                            <label for="ca_amount">Amount</label>
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text">₱</span>
+                                <input type="text" class="form-control text-end" name="ca_amount" id="ca_amount" required onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
                             </div>
                         </div>
                     </div>
-                    <!-- END -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" name="submit" class="btn btn-sm btn-success">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade copra-modal" id="editCA" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-pen me-1"></i> Update Cash Advance</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" name='submit' class="btn btn-success text-white">Submit</button>
-                </form>
-            </div>
+            <form action="function/newCA.php" method="POST">
+                <input type="hidden" id="e_id" name="id">
+                <div class="modal-body">
+                    <div class="row g-2 copra-modal-grid">
+                        <div class="col-6 copra-field">
+                            <label>Seller</label>
+                            <input type="text" class="form-control form-control-sm" id="e_name" readonly>
+                        </div>
+                        <div class="col-6 copra-field">
+                            <label>Address</label>
+                            <input type="text" class="form-control form-control-sm" id="e_address" readonly>
+                        </div>
+                        <div class="col-12 copra-field">
+                            <label for="cash_advance">Cash advance balance</label>
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text">₱</span>
+                                <input type="text" class="form-control text-end" id="cash_advance" name="cash_advance" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" name="update" class="btn btn-sm btn-success">Update</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
 <script>
-    $('#copraCashAdvance').on('shown.bs.modal', function() {
-        $('.ca_seller', this).chosen();
+$('#copraCashAdvance').on('shown.bs.modal', function () {
+    $('.ca_seller', this).chosen({ width: '100%', search_threshold: 10 });
+});
+
+$('#ca_seller_name').on('change', function () {
+    var seller = $(this).val();
+    var $wrap = $('#ca_current_balance');
+    var $value = $('#ca_current_balance_value');
+    if (!seller) {
+        $wrap.addClass('d-none');
+        return;
+    }
+    $.post('include/fetch/fetchCopraCashAdvance.php', { name: seller }, function (amount) {
+        var parsed = parseFloat(String(amount || '0').replace(/,/g, '')) || 0;
+        $value.text('₱ ' + parsed.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+        $wrap.removeClass('d-none');
     });
+});
 </script>
-
-
-
-
-<div class="modal fade" id="editCA" tabindex="-1" role="dialog" aria-labelledby="editCAModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editCAModalLabel">UPDATE | CASH AGREEMENT</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="function/newCA.php" method="POST">
-                    <input type='text' class='form-control' id='e_id' name='id' hidden>
-                    <div class="form-group row">
-                        <div class="col-6">
-                            <input type='text' class='form-control' id='e_name' readonly>
-                        </div>
-                        <div class="col-6">
-                            <input type='text' class='form-control' id='e_address' readonly>
-                        </div>
-                    </div>
-
-                    <hr>
-
-                    <div class="form-group row">
-                        <div class="col">
-                            <label>Cash Advance</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" style='color:black;font-weight: bold;'>₱</span>
-                                </div>
-                                <input type="text" style='text-align:right' name='cash_advance' id='cash_advance' required class="form-control" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
-                            </div>
-                        </div>
-                        
-                    </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" name='update' class="btn btn-success">Submit</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>

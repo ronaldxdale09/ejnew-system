@@ -3,7 +3,10 @@
 <?php
 
 include('../../function/db.php');
-$recording_id = $_POST['recording_id'];
+require_once __DIR__ . '/../include/plantation-helpers.php';
+plantation_require_post_auth();
+
+$recording_id = $_POST['recording_id'] ?? '';
 
 // Select all records from planta_bales_production with the given recording_id
 $select_query = "SELECT * FROM planta_bales_production WHERE recording_id = '$recording_id'";

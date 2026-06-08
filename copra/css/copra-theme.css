@@ -1,0 +1,702 @@
+/**
+ * Copra module — compact admin design (warm brown/gold accent)
+ */
+
+.copra-page {
+    --copra-accent: var(--adm-gold);
+    --copra-accent-dark: #9a6f1f;
+}
+
+.copra-sidebar.admin-sidebar {
+    background: linear-gradient(180deg, #3d2c1e 0%, #2a1f15 100%);
+}
+
+.copra-module .admin-nav-link.active {
+    background: rgba(201, 146, 42, 0.28);
+    box-shadow: inset 3px 0 0 var(--adm-gold);
+    color: #fff;
+}
+
+.copra-module .adm-page-header {
+    margin-bottom: 0.75rem;
+}
+
+.copra-module .adm-page-header h1 {
+    font-size: 1.15rem;
+}
+
+.copra-module .adm-page-header p {
+    font-size: 0.78rem;
+    margin-bottom: 0;
+}
+
+.copra-module .adm-card__head {
+    padding: 0.55rem 0.85rem;
+}
+
+.copra-module .adm-card__head h3 {
+    font-size: 0.82rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.copra-module .adm-card__body {
+    padding: 0.75rem 0.85rem;
+}
+
+.copra-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    align-items: center;
+    margin-bottom: 0.65rem;
+}
+
+.copra-toolbar .btn-sm {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.32rem 0.7rem;
+}
+
+.copra-filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: flex-end;
+    margin-bottom: 0.65rem;
+    padding: 0.55rem 0.65rem;
+    background: var(--adm-slate-50);
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+}
+
+.copra-filter-bar label {
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--adm-slate-500);
+    margin-bottom: 0.15rem;
+}
+
+.copra-filter-bar .form-control {
+    font-size: 0.78rem;
+    padding: 0.28rem 0.5rem;
+    min-width: 140px;
+}
+
+.number-cell {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.copra-module .adm-kpi-grid {
+    grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+    gap: 0.55rem;
+    margin-bottom: 0.75rem;
+}
+
+.copra-module .adm-kpi {
+    padding: 0.6rem 0.75rem;
+    border-radius: var(--adm-radius-sm);
+    box-shadow: none;
+}
+
+.copra-module .adm-kpi:hover {
+    border-color: rgba(201, 146, 42, 0.45);
+}
+
+.copra-module .adm-kpi__label {
+    font-size: 0.62rem;
+    margin-bottom: 0.25rem;
+}
+
+.copra-module .adm-kpi__value {
+    font-size: 1.05rem;
+    line-height: 1.15;
+}
+
+.copra-module .adm-kpi__sub {
+    font-size: 0.68rem;
+    margin-top: 0.2rem;
+}
+
+.admin-body.copra-module table.dataTable thead th,
+.admin-body.copra-module .table > thead > tr > th {
+    background: #3d2c1e !important;
+    color: #fff !important;
+    border-color: #2a1f15 !important;
+    font-weight: 700;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.4rem 0.5rem;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.admin-body.copra-module table.dataTable tbody td,
+.copra-module .table tbody td {
+    vertical-align: middle;
+    font-size: 0.78rem;
+    padding: 0.35rem 0.5rem;
+}
+
+.copra-module .table tbody .badge {
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.25em 0.5em;
+}
+
+.copra-module .table .btn-sm,
+.copra-module .table .btn {
+    padding: 0.2rem 0.45rem;
+    font-size: 0.72rem;
+}
+
+.admin-body.copra-module .dataTables_wrapper .dataTables_filter input {
+    border-radius: var(--adm-radius-sm);
+    border: 1px solid var(--adm-slate-200);
+    padding: 0.28rem 0.55rem;
+    font-size: 0.78rem;
+}
+
+.admin-body.copra-module .dt-buttons .btn {
+    font-size: 0.72rem;
+    padding: 0.25rem 0.55rem;
+}
+
+/* Modals above sidebar */
+body.copra-module .modal {
+    z-index: 1200 !important;
+    background-color: transparent !important;
+}
+
+body.copra-module .modal-backdrop {
+    z-index: 1190 !important;
+}
+
+body.copra-module .swal2-container {
+    z-index: 1300 !important;
+}
+
+body.copra-module .chosen-container.chosen-with-drop {
+    z-index: 1210 !important;
+}
+
+.copra-module .modal.copra-modal .modal-content,
+.copra-module .modal .modal-content {
+    border: none;
+    border-radius: var(--adm-radius);
+    box-shadow: var(--adm-shadow-lg);
+    overflow: hidden;
+}
+
+.copra-module .modal .modal-header {
+    background: linear-gradient(135deg, #3d2c1e, #6b4f2a);
+    color: #fff;
+    padding: 0.6rem 0.85rem;
+    border-bottom: none;
+}
+
+.copra-module .modal .modal-header .btn-close,
+.copra-module .modal .modal-header .close {
+    filter: invert(1) grayscale(1);
+    opacity: 0.85;
+}
+
+.copra-module .modal .modal-title {
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+.copra-module .modal .modal-body {
+    padding: 0.75rem 0.85rem;
+    background: var(--adm-slate-50);
+}
+
+.copra-module .modal .modal-footer {
+    padding: 0.55rem 0.85rem;
+    background: #fff;
+    border-top: 1px solid var(--adm-slate-200);
+    gap: 0.35rem;
+}
+
+.copra-module .modal .form-control,
+.copra-module .modal .form-select {
+    font-size: 0.78rem;
+    padding: 0.3rem 0.5rem;
+}
+
+.copra-module .modal .chosen-container {
+    width: 100% !important;
+    font-size: 0.78rem;
+}
+
+/* Transaction entry layout */
+.copra-purchase {
+    display: grid;
+    grid-template-columns: minmax(240px, 280px) minmax(0, 1fr);
+    grid-template-rows: 1fr auto;
+    grid-template-areas:
+        "sidebar main"
+        "footer footer";
+    gap: 0.75rem;
+    align-items: start;
+}
+
+.copra-purchase__sidebar {
+    grid-area: sidebar;
+    background: #fff;
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+    padding: 0.85rem;
+    position: sticky;
+    top: calc(var(--adm-topbar-height, 56px) + 0.75rem);
+}
+
+.copra-purchase__main {
+    grid-area: main;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    min-width: 0;
+}
+
+.copra-purchase__footer {
+    grid-area: footer;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    padding: 0.65rem 0.85rem;
+    background: #fff;
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+    position: sticky;
+    bottom: 0.5rem;
+    z-index: 10;
+    box-shadow: 0 -4px 12px rgba(15, 23, 42, 0.06);
+}
+
+.copra-purchase__status {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding-bottom: 0.65rem;
+    margin-bottom: 0.65rem;
+    border-bottom: 1px solid var(--adm-slate-200);
+}
+
+.copra-purchase__status-label {
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--adm-slate-500);
+}
+
+.copra-purchase__extras {
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px dashed var(--adm-slate-200);
+}
+
+.copra-field {
+    margin-bottom: 0.55rem;
+}
+
+.copra-field label {
+    display: block;
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--adm-slate-600);
+    margin-bottom: 0.2rem;
+}
+
+.copra-field-row {
+    display: flex;
+    gap: 0.45rem;
+    align-items: flex-end;
+}
+
+.copra-field--grow {
+    flex: 1;
+    min-width: 0;
+}
+
+.copra-field--action {
+    flex: 0 0 auto;
+    min-width: 72px;
+}
+
+.copra-calc-section {
+    background: #fff;
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+    padding: 0.75rem 0.85rem;
+}
+
+.copra-calc-section__title {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #6b4f2a;
+    margin: 0 0 0.55rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--adm-slate-100);
+}
+
+.copra-calc-label {
+    display: block;
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: var(--adm-slate-600);
+    margin-bottom: 0.2rem;
+}
+
+.copra-readonly {
+    background-color: var(--adm-slate-50) !important;
+    color: var(--adm-slate-700);
+}
+
+.copra-amount-paid {
+    font-size: 1rem !important;
+    min-height: 2.25rem;
+}
+
+.copra-calc-section--payment {
+    background: linear-gradient(180deg, #fff 0%, #faf8f5 100%);
+    border-color: rgba(201, 146, 42, 0.25);
+}
+
+.copra-rese-grid {
+    display: grid;
+    grid-template-columns: 72px repeat(3, minmax(0, 1fr));
+    gap: 0.45rem 0.55rem;
+    align-items: center;
+}
+
+.copra-rese-grid__head {
+    font-size: 0.58rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--adm-slate-500);
+    text-align: center;
+}
+
+.copra-rese-grid__label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--adm-slate-700);
+}
+
+.copra-module .copra-purchase .input-group-text {
+    font-size: 0.72rem;
+    padding: 0.25rem 0.45rem;
+    background: var(--adm-slate-100);
+    border-color: var(--adm-slate-200);
+    color: var(--adm-slate-600);
+    min-width: 2.25rem;
+    justify-content: center;
+}
+
+.copra-module .copra-purchase .form-control,
+.copra-module .copra-purchase .form-select {
+    font-size: 0.78rem;
+}
+
+.copra-module .copra-purchase .chosen-container {
+    width: 100% !important;
+    font-size: 0.78rem;
+}
+
+.copra-module .copra-purchase .chosen-container-single .chosen-single {
+    height: 31px;
+    line-height: 29px;
+    font-size: 0.78rem;
+    border-color: var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+    background: #fff;
+    box-shadow: none;
+}
+
+@media (max-width: 992px) {
+    .copra-purchase {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "sidebar"
+            "main"
+            "footer";
+    }
+
+    .copra-purchase__sidebar {
+        position: static;
+    }
+
+    .copra-rese-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .copra-rese-grid__head:first-child,
+    .copra-rese-grid__label {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 576px) {
+    .copra-rese-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .copra-purchase__footer {
+        position: static;
+    }
+
+    .copra-purchase__footer .btn {
+        flex: 1 1 100%;
+    }
+}
+
+/* Legacy aliases */
+.copra-transaction-grid {
+    display: contents;
+}
+
+.copra-transaction-panel {
+    display: contents;
+}
+
+.copra-modal-grid .copra-field label {
+    display: block;
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--adm-slate-600);
+    margin-bottom: 0.15rem;
+}
+
+.copra-module .copra-modal .form-control-sm,
+.copra-module .copra-modal .form-select-sm {
+    font-size: 0.78rem;
+}
+
+.copra-login-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #faf8f5 0%, #ede4d8 100%);
+    padding: 1rem;
+}
+
+.copra-login-card {
+    width: 100%;
+    max-width: 380px;
+    background: #fff;
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius);
+    box-shadow: var(--adm-shadow-lg);
+    padding: 2rem 1.75rem;
+}
+
+.copra-login-card__brand {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.copra-login-card__brand img {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 0.5rem;
+}
+
+.copra-login-card__brand h1 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #3d2c1e;
+    margin: 0;
+}
+
+.copra-login-card__brand p {
+    font-size: 0.78rem;
+    color: var(--adm-slate-500);
+    margin: 0.25rem 0 0;
+}
+
+.copra-status-badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.25rem 0.55rem;
+}
+
+.copra-module .main-content.admin-page,
+.copra-module .main-content {
+    min-height: calc(100vh - var(--adm-topbar-height, 56px));
+}
+
+.copra-module .container.home-section,
+.copra-module .page-wrapper {
+    max-width: none !important;
+    padding: 0 !important;
+}
+
+.copra-module .card {
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+    box-shadow: none;
+}
+
+.copra-module .card .card-body {
+    padding: 0.75rem;
+}
+
+.copra-module .btn-primary {
+    background: #6b4f2a;
+    border-color: #6b4f2a;
+}
+
+.copra-module .btn-primary:hover {
+    background: #3d2c1e;
+    border-color: #3d2c1e;
+}
+
+.copra-module #navbar {
+    display: none !important;
+}
+
+.copra-module .modern-stat-card {
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+    box-shadow: none;
+}
+
+.copra-quick-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-bottom: 0.75rem;
+}
+
+.copra-quick-actions__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.42rem 0.75rem;
+    border-radius: var(--adm-radius-sm);
+    border: 1px solid var(--adm-slate-200);
+    background: #fff;
+    color: var(--adm-slate-700);
+    font-size: 0.74rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.copra-quick-actions__item:hover {
+    border-color: rgba(201, 146, 42, 0.55);
+    background: rgba(201, 146, 42, 0.06);
+    color: #3d2c1e;
+}
+
+.copra-quick-actions__item i {
+    color: var(--adm-gold);
+}
+
+.copra-dash-table thead th {
+    font-size: 0.62rem !important;
+}
+
+.copra-dash-table tbody td {
+    font-size: 0.76rem;
+}
+
+.copra-link {
+    color: #6b4f2a;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.copra-link:hover {
+    color: #3d2c1e;
+    text-decoration: underline;
+}
+
+.copra-dash-recent__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.copra-dash-recent__label {
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--adm-slate-500);
+}
+
+.copra-dash-recent__item strong {
+    font-size: 1.1rem;
+    color: #3d2c1e;
+}
+
+.copra-dash-recent__item small {
+    color: var(--adm-slate-500);
+    font-size: 0.72rem;
+}
+
+.copra-ca-tabs {
+    border-bottom: 1px solid var(--adm-slate-200);
+    margin-bottom: 0.65rem;
+}
+
+.copra-ca-tabs .nav-link {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--adm-slate-600);
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 0.45rem 0.85rem;
+}
+
+.copra-ca-tabs .nav-link.active {
+    color: #6b4f2a;
+    background: transparent;
+    border-bottom-color: var(--adm-gold);
+}
+
+.copra-ca-tab-content {
+    padding-top: 0.15rem;
+}
+
+.copra-filter-bar__hint {
+    flex: 1 1 220px;
+    font-size: 0.72rem;
+    color: var(--adm-slate-500);
+    align-self: center;
+}
+
+.copra-ca-current-balance {
+    font-size: 0.78rem;
+    color: var(--adm-slate-600);
+    padding: 0.45rem 0.55rem;
+    background: var(--adm-slate-50);
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+}
+
+.copra-ca-current-balance strong {
+    color: #3d2c1e;
+}
+
+@media (max-width: 768px) {
+    .copra-module .adm-kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

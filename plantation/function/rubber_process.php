@@ -1,5 +1,7 @@
 <?php
 include('../../function/db.php');
+require_once __DIR__ . '/../include/plantation-helpers.php';
+plantation_require_post_auth();
 
 //TRANSFER FROM RECEIVING TO MILLING
 if (isset($_POST['milling'])) {

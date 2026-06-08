@@ -1,0 +1,434 @@
+/**
+ * Rubber module — compact admin-green design system
+ */
+
+.rubber-page {
+    --rubber-accent: var(--adm-green-700);
+    --rubber-accent-dark: var(--adm-green-800);
+}
+
+/* ── Layout density ── */
+.rubber-module .adm-page-header {
+    margin-bottom: 0.75rem;
+}
+
+.rubber-module .adm-page-header h1 {
+    font-size: 1.15rem;
+}
+
+.rubber-module .adm-page-header p {
+    font-size: 0.78rem;
+    margin-bottom: 0;
+}
+
+.rubber-module .adm-card__head {
+    padding: 0.55rem 0.85rem;
+}
+
+.rubber-module .adm-card__head h3 {
+    font-size: 0.82rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.rubber-module .adm-card__body {
+    padding: 0.75rem 0.85rem;
+}
+
+.rubber-module .admin-nav-link.active {
+    background: rgba(26, 143, 95, 0.35);
+    box-shadow: inset 3px 0 0 var(--adm-green-600);
+    color: #fff;
+}
+
+.rubber-topbar__loc {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.22rem 0.5rem;
+    background: var(--adm-green-100);
+    color: var(--adm-green-800);
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.72rem;
+}
+
+/* ── Toolbar & filters ── */
+.rubber-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    align-items: center;
+    margin-bottom: 0.65rem;
+}
+
+.rubber-toolbar .btn-sm {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.32rem 0.7rem;
+}
+
+.rubber-filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: flex-end;
+    margin-bottom: 0.65rem;
+    padding: 0.55rem 0.65rem;
+    background: var(--adm-slate-50);
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+}
+
+.rubber-filter-bar label {
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--adm-slate-500);
+    margin-bottom: 0.15rem;
+}
+
+.rubber-filter-bar .form-control {
+    font-size: 0.78rem;
+    padding: 0.28rem 0.5rem;
+    min-width: 140px;
+}
+
+.number-cell {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ── KPI / stat cards ── */
+.rubber-module .adm-kpi-grid {
+    grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+    gap: 0.55rem;
+    margin-bottom: 0.75rem;
+}
+
+.rubber-module .adm-kpi {
+    padding: 0.6rem 0.75rem;
+    border-radius: var(--adm-radius-sm);
+    box-shadow: none;
+    transition: border-color 0.15s ease;
+}
+
+.rubber-module .adm-kpi:hover {
+    border-color: var(--adm-green-300);
+}
+
+.rubber-module .adm-kpi__label {
+    font-size: 0.62rem;
+    margin-bottom: 0.25rem;
+}
+
+.rubber-module .adm-kpi__value {
+    font-size: 1.05rem;
+    line-height: 1.15;
+}
+
+.rubber-module .adm-kpi__sub {
+    font-size: 0.68rem;
+    margin-top: 0.2rem;
+}
+
+.rubber-module .stat-card {
+    background: var(--adm-white);
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+    padding: 0.6rem 0.75rem;
+    margin-bottom: 0;
+    box-shadow: none;
+    min-height: auto;
+}
+
+.rubber-module .stat-card:hover {
+    transform: none;
+    border-color: var(--adm-green-300);
+}
+
+.rubber-module .stat-card__content h2,
+.rubber-module .stat-card__content h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.rubber-module .stat-card__content p {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.2rem !important;
+}
+
+.rubber-module .stat-card__icon-circle {
+    height: 32px;
+    width: 32px;
+}
+
+.rubber-module .stat-card__icon-circle i {
+    font-size: 0.85rem;
+}
+
+/* ── Tables & DataTables ── */
+.admin-body.rubber-module table.dataTable thead th,
+.admin-body.rubber-module .table > thead > tr > th,
+.admin-body.rubber-module table.dataTable > thead > tr > th {
+    background: var(--adm-green-900) !important;
+    color: #fff !important;
+    border-color: var(--adm-green-800) !important;
+    font-weight: 700;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.4rem 0.5rem;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.admin-body.rubber-module table.dataTable tbody td,
+.rubber-module .table tbody td {
+    vertical-align: middle;
+    font-size: 0.78rem;
+    padding: 0.35rem 0.5rem;
+}
+
+.rubber-module .table tbody .badge {
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.25em 0.5em;
+}
+
+.rubber-module .table .btn-sm,
+.rubber-module .table .btn {
+    padding: 0.2rem 0.45rem;
+    font-size: 0.72rem;
+}
+
+.admin-body.rubber-module .dataTables_wrapper .dataTables_filter input {
+    border-radius: var(--adm-radius-sm);
+    border: 1px solid var(--adm-slate-200);
+    padding: 0.28rem 0.55rem;
+    font-size: 0.78rem;
+}
+
+.admin-body.rubber-module .dt-buttons .btn {
+    font-size: 0.72rem;
+    padding: 0.25rem 0.55rem;
+}
+
+.rubber-module .table-dark {
+    --bs-table-bg: var(--adm-green-900);
+    --bs-table-color: #fff;
+}
+
+/* ── Modals (all modals in rubber module) ── */
+/* Above admin sidebar (1100) and topbar (1050) */
+body.rubber-module .modal {
+    z-index: 1200 !important;
+    background-color: transparent !important;
+}
+
+body.rubber-module .modal-backdrop {
+    z-index: 1190 !important;
+}
+
+body.rubber-module .swal2-container {
+    z-index: 1300 !important;
+}
+
+body.rubber-module .chosen-container.chosen-with-drop {
+    z-index: 1210 !important;
+}
+
+.rubber-module .modal.rubber-modal .modal-content,
+.rubber-module .modal .modal-content {
+    border: none;
+    border-radius: var(--adm-radius);
+    box-shadow: var(--adm-shadow-lg);
+    overflow: hidden;
+}
+
+.rubber-module .modal .modal-dialog {
+    max-width: 480px;
+}
+
+.rubber-module .modal.modal-lg .modal-dialog,
+.rubber-module .modal .modal-dialog.modal-lg {
+    max-width: 720px;
+}
+
+.rubber-module .modal.modal-xl .modal-dialog,
+.rubber-module .modal .modal-dialog.modal-xl {
+    max-width: 960px;
+}
+
+.rubber-module .modal .modal-header {
+    background: linear-gradient(135deg, var(--adm-green-900), var(--adm-green-700));
+    color: #fff;
+    padding: 0.6rem 0.85rem;
+    border-bottom: none;
+}
+
+.rubber-module .modal .modal-header .btn-close,
+.rubber-module .modal .modal-header .close {
+    filter: invert(1) grayscale(1);
+    opacity: 0.85;
+}
+
+.rubber-module .modal .modal-title {
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+.rubber-module .modal .modal-body {
+    padding: 0.75rem 0.85rem;
+    background: var(--adm-slate-50);
+}
+
+.rubber-module .modal .modal-footer {
+    padding: 0.55rem 0.85rem;
+    background: #fff;
+    border-top: 1px solid var(--adm-slate-200);
+    gap: 0.35rem;
+}
+
+.rubber-module .modal .modal-footer .btn {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.75rem;
+}
+
+.rubber-modal-grid,
+.rubber-module .modal .row.g-2 {
+    --bs-gutter-x: 0.5rem;
+    --bs-gutter-y: 0.45rem;
+}
+
+.rubber-field label,
+.rubber-module .modal .rubber-field label,
+.rubber-module .modal label.form-label {
+    display: block;
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--adm-slate-600);
+    margin-bottom: 0.15rem;
+}
+
+.rubber-module .modal .form-control,
+.rubber-module .modal .form-select {
+    font-size: 0.78rem;
+    padding: 0.3rem 0.5rem;
+}
+
+.rubber-module .modal .input-group-text {
+    font-size: 0.72rem;
+    padding: 0.3rem 0.45rem;
+    background: var(--adm-slate-100);
+    border-color: var(--adm-slate-200);
+}
+
+.rubber-module .modal .chosen-container {
+    width: 100% !important;
+    font-size: 0.78rem;
+}
+
+.rubber-module .modal table.table thead th {
+    background: var(--adm-slate-200) !important;
+    color: var(--adm-slate-800) !important;
+    font-size: 0.58rem;
+}
+
+.rubber-modal-confirm {
+    text-align: center;
+    padding: 0.5rem 0;
+}
+
+.rubber-delete-icon {
+    font-size: 1.75rem;
+    color: var(--adm-danger);
+    margin-bottom: 0.35rem;
+}
+
+/* ── Purchase entry forms (wet/bales) ── */
+.rubber-module .legacy-rubber-panel,
+.rubber-module .rubber-entry-grid {
+    font-size: 0.78rem;
+}
+
+.rubber-module .rubber-entry-grid .form-control,
+.rubber-module .rubber-entry-grid .form-select {
+    font-size: 0.78rem;
+    padding: 0.3rem 0.5rem;
+}
+
+.rubber-module .rubber-entry-grid label {
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--adm-slate-600);
+    margin-bottom: 0.15rem;
+}
+
+.rubber-module .card .card-body {
+    padding: 0.75rem;
+}
+
+.rubber-module .card .card-body h5 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* ── Legacy compatibility ── */
+.rubber-module .main-content.admin-page,
+.rubber-module .main-content {
+    min-height: calc(100vh - var(--adm-topbar-height, 56px));
+}
+
+.rubber-module .page-title,
+.rubber-module h1.page-title,
+.rubber-module h2.page-title {
+    display: none;
+}
+
+.rubber-module .container.home-section {
+    max-width: none !important;
+    padding: 0 !important;
+}
+
+.rubber-module .container-fluid.shadow,
+.rubber-module .card {
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+    box-shadow: none;
+}
+
+.rubber-module .btn-primary {
+    background: var(--adm-green-700);
+    border-color: var(--adm-green-700);
+}
+
+.rubber-module .btn-primary:hover {
+    background: var(--adm-green-800);
+    border-color: var(--adm-green-800);
+}
+
+.rubber-module .btn-success {
+    background: var(--adm-success);
+    border-color: var(--adm-success);
+}
+
+.rubber-module #navbar {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    .rubber-module .adm-kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

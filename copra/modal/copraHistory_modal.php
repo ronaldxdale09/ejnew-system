@@ -36,7 +36,7 @@ full width */
 
                 </button>
             </div>
-            <form action="function/ledger/addExpenses.php" id='myform' method="POST">
+            <form id="historyPrintForm" method="POST" action="#">
                 <div class="modal-body">
                     <div class="container-fluid">
                         <div id='print_content'>

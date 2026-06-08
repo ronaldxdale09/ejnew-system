@@ -1,14 +1,12 @@
 <!-- Confirm Transaction -->
-<form action="function/save_purchase.php" id='newPurchase' method="POST">
-    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form action="function/save_purchase.php" id="newPurchase" method="POST">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Confrim Transaction</h5>
-                    <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5 class="modal-title" id="exampleModalLabel">Confirm Transaction</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
@@ -163,48 +161,89 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type='submit' id='confirmPurchase' name='confirmPurchase'
+                    <button type="button" id="confirmPurchase" name="confirmPurchase"
                         class="btn btn-success text-white">Submit</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
-</form>
-</div>
-</div>
-</div>
+            </form>
+        </div>
+    </div>
 </div>
 <!--END Confirm Transaction -->
 <script>
-$('#newPurchase').submit(function() {
-    return false;
-});
-$('#confirmPurchase').click(function() {
-    $("#confirmModal").modal("hide");
-    $.post($('#newPurchase').attr('action'), $('#newPurchase :input').serializeArray(), function(result) {
-        $('#result').html(result);
-        Swal.fire({
-            title: "Good job!",
-            text: "Transaction Was Successful!",
-            type: "success"
-        }).then(function() {
-            $(document).ready(function() {
-                const span = document.getElementById('trans_status');
-                span.innerHTML = `<span class="badge alert-success">COMPLETED</span>`;
+(function () {
+    function copraNum(val) {
+        return parseFloat(String(val || '').replace(/,/g, '')) || 0;
+    }
 
-            });
-
-
-
-            document.getElementById("receiptBtn").click();
-            $_SESSION['transaction'] =
-                'COMPLETED';
-
-
-
-        });
+    $('#newPurchase').on('submit', function (e) {
+        e.preventDefault();
     });
-});
-// INPUT BOX VALIDATION
+
+    $('#confirmPurchase').on('click', function (e) {
+        e.preventDefault();
+        var $btn = $(this);
+        $btn.prop('disabled', true);
+
+        $.ajax({
+            url: $('#newPurchase').attr('action'),
+            type: 'POST',
+            data: $('#newPurchase').serializeArray(),
+            success: function (result) {
+                handleSaveResponse(String(result || '').trim(), $btn);
+            },
+            error: function (xhr) {
+                var response = String(xhr.responseText || '').trim();
+                if (response) {
+                    handleSaveResponse(response, $btn);
+                    return;
+                }
+
+                $btn.prop('disabled', false);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Save failed',
+                    text: 'Unable to reach the server. Please try again.'
+                });
+            }
+        });
+
+    function handleSaveResponse(response, $btn) {
+        if ($('#result').length) {
+            $('#result').html(response);
+        }
+
+        if (response !== 'success') {
+            $btn.prop('disabled', false);
+            Swal.fire({
+                icon: 'error',
+                title: 'Save failed',
+                text: response || 'Unable to save transaction. Please try again.'
+            });
+            return;
+        }
+
+        CopraModal.hide('#confirmModal');
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Good job!',
+            text: 'Transaction was successful!'
+        }).then(function () {
+            var span = document.getElementById('trans_status');
+            if (span) {
+                span.className = 'badge bg-success';
+                span.textContent = 'COMPLETED';
+            }
+
+            var receiptBtn = document.getElementById('receiptBtn');
+            if (receiptBtn) {
+                receiptBtn.click();
+            }
+        });
+    }
+    });
+})();
 </script>
 
 

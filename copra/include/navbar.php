@@ -1,38 +1,71 @@
-<nav id='navbar'>
-    <div id='toggle-nav-btn'>
-        <i class='fa-solid fa-ellipsis'></i>
+<?php
+require_once __DIR__ . '/copra-helpers.php';
+$currentPage = basename($_SERVER['PHP_SELF'] ?? '');
+$topbarTitle = copra_resolve_topbar_title($currentPage);
+$base = $copra_base ?? '';
+?>
+<div class="admin-sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
+
+<aside class="admin-sidebar copra-sidebar" id="adminSidebar" aria-label="Copra navigation">
+    <div class="admin-sidebar__brand">
+        <img src="<?php echo $base; ?>assets/img/logo.png" alt="EJN Copra" width="36" height="36">
+        <div>
+            <strong>EJN Copra</strong>
+            <small>Purchasing</small>
+        </div>
     </div>
-    <div class='nav-title' style='font-weight:bold;'>
-        <img src='assets/img/logo.png' alt='Q-cart Logo' width='35' height='35' style='margin-right:5px;'> <span class='nav-text'>EJN Copra</span>
-    </div>";
 
-    <hr style='color:gray'>
-    <a class='nav-link' href='dashboard.php'>
-        <i class='fa-solid fa-house'></i> <span class='nav-text'>Home</span>
-    </a>
-    <hr style='color:gray'>
-    <a class='nav-link' href='transaction.php'>
-        <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>Transaction</span>
-    </a>
-    <a class='nav-link' href='transaction_history.php'>
-        <i class='fa-solid fa-book'></i> <span class='nav-text'>Transaction Record</span>
-    </a>
-    <a class='nav-link' href='seller.php'>
-        <i class='fa-solid fa-user'></i> <span class='nav-text'>Seller</span>
-    </a>
-    <a class='nav-link' href='contract-purchase.php'>
-        <i class='fa-solid fa-boxes-stacked'></i> <span class='nav-text'>Purchase Contract</span>
-    </a>
+    <nav class="admin-sidebar__nav">
+        <div class="admin-nav-group">
+            <a href="<?php echo $base; ?>dashboard.php" class="admin-nav-link<?php echo copra_nav_active('dashboard.php', $currentPage); ?>">
+                <i class="fas fa-house"></i> Home
+            </a>
+        </div>
 
-    <a class='nav-link' href='copra-ca.php'>
-        <i class='fa-solid fa-money'></i> <span class='nav-text'>Cash Advance</span>
-    </a>
+        <div class="admin-nav-group">
+            <span class="admin-nav-group__label">Purchasing</span>
+            <a href="<?php echo $base; ?>transaction.php" class="admin-nav-link<?php echo copra_nav_active('transaction.php', $currentPage); ?>">
+                <i class="fas fa-cash-register"></i> Transaction
+            </a>
+            <a href="<?php echo $base; ?>transaction_history.php" class="admin-nav-link<?php echo copra_nav_active('transaction_history.php', $currentPage); ?>">
+                <i class="fas fa-book"></i> Transaction Record
+            </a>
+        </div>
 
-    <div class='logout-container'>
-        <span class='nav-text'></span>
-        <a class='nav-link logout' href='function/logout.php'>
-            <i class='fa-solid fa-arrow-right-to-bracket'></i>
+        <div class="admin-nav-group">
+            <span class="admin-nav-group__label">Master Data</span>
+            <a href="<?php echo $base; ?>seller.php" class="admin-nav-link<?php echo copra_nav_active(['seller.php', 'seller_profile.php'], $currentPage); ?>">
+                <i class="fas fa-user"></i> Sellers
+            </a>
+            <a href="<?php echo $base; ?>contract-purchase.php" class="admin-nav-link<?php echo copra_nav_active('contract-purchase.php', $currentPage); ?>">
+                <i class="fas fa-boxes-stacked"></i> Purchase Contract
+            </a>
+            <a href="<?php echo $base; ?>copra-ca.php" class="admin-nav-link<?php echo copra_nav_active('copra-ca.php', $currentPage); ?>">
+                <i class="fas fa-money-bill-wave"></i> Cash Advance
+            </a>
+        </div>
+    </nav>
+
+    <div class="admin-sidebar__footer">
+        <a href="<?php echo $base; ?>function/logout.php" class="admin-sidebar__logout">
+            <i class="fas fa-right-from-bracket"></i> Sign Out
         </a>
     </div>
-</nav>
-<script src='assets/js/navbar.js'></script>";
+</aside>
+
+<header class="admin-topbar">
+    <button type="button" class="admin-topbar__menu" id="sidebarToggle" aria-label="Open menu">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="admin-topbar__title"><?php echo adm_esc($topbarTitle); ?></div>
+    <div class="admin-topbar__spacer"></div>
+    <div class="admin-topbar__meta">
+        <span><?php echo date('M j, Y'); ?></span>
+        <div class="admin-topbar__user">
+            <i class="fas fa-user-circle"></i>
+            <?php echo $userDisplay; ?>
+        </div>
+    </div>
+</header>
+
+<script src="<?php echo $base; ?>js/copra-nav.js?v=<?php echo file_exists(__DIR__ . '/../js/copra-nav.js') ? filemtime(__DIR__ . '/../js/copra-nav.js') : '1'; ?>"></script>

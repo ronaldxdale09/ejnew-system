@@ -7,9 +7,10 @@
     $address = $_POST['address'];
     $contact = $_POST['contact'];
 
-    $query = "UPDATE `seller` SET `name`='$name',`address`='$address', `contact`='$contact' WHERE id='$id'";
+    $query = "UPDATE `copra_seller` SET `name`='$name',`address`='$address', `contact`='$contact' WHERE id='$id'";
                              
     if(mysqli_query($con, $query)) {  
+        $_SESSION['update'] = 'successful';
         header("Location: ../seller_profile.php?view=$view_code");
         exit();
     } else {  

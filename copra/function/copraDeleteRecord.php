@@ -22,24 +22,20 @@
                             }
 
                             if ($contract !== "SPOT") {
-                              
-                                $sqlContract = mysqli_query($con, "SELECT * FROM `copra_contract` WHERE contract_no='$contract'"); 
+                                $sqlContract = mysqli_query($con, "SELECT * FROM `copra_contract` WHERE contract_no='$contract'");
                                 $arr = mysqli_fetch_array($sqlContract);
-                           
-                                echo $contractBalance = ($row['rese_weight_1']) + ($arr['balance']);
 
-                                echo $contractDelivered =  ($row['rese_weight_1']) - ($arr['delivered']);
+                                $contractBalance = floatval($arr['balance']) + floatval($row['rese_weight_1']);
+                                $contractDelivered = floatval($arr['delivered']) - floatval($row['rese_weight_1']);
 
-                                if ($contractDelivered == $arr['contract_quantity']){
+                                if ($contractDelivered >= floatval($arr['contract_quantity'])) {
                                     $status = 'COMPLETED';
                                 } else {
                                     $status = 'UPDATED';
                                 }
-                            
+
                                 $query1 = " UPDATE `copra_contract` SET `delivered`='$contractDelivered' ,`balance`='$contractBalance' ,status='$status' WHERE `contract_no`='$contract'";
                                 $results1 = mysqli_query($con, $query1);
-                               
-                     
                             }
                             
                          
@@ -47,9 +43,8 @@
                                 $results = mysqli_query($con, $query);
                                    
                                     if ($results) {
-                                  
                                         header("Location: ../transaction_history.php");
-                                        $_SESSION['seller']= "successful";
+                                        $_SESSION['record_deleted'] = "successful";
                                         exit();
                                     } else {
                                         echo "ERROR: Could not be able to execute $query. ".mysqli_error($con);

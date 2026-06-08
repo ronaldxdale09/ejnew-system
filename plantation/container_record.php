@@ -3,126 +3,156 @@ include 'include/header.php';
 include 'include/navbar.php';
 
 $loc = plantation_loc_sql();
+$locEsc = mysqli_real_escape_string($con, $loc);
+$stats = plantation_container_record_stats($con, $loc);
+
+$results = mysqli_query(
+    $con,
+    "SELECT container_id AS con_id, status, withdrawal_date, van_no, quality, kilo_bale,
+            num_bales AS total_bales, total_bale_weight AS total_weight,
+            total_bale_cost, total_milling_cost, remarks, recorded_by
+     FROM bales_container_record
+     WHERE status != 'Void' AND source = '{$locEsc}'
+     ORDER BY
+        CASE
+            WHEN status IN ('Draft', 'In Progress', 'Awaiting Release', 'Sold-Update') THEN 1
+            WHEN status IN ('Released', 'Shipped Out') THEN 2
+            WHEN status = 'Sold' THEN 3
+            ELSE 4
+        END ASC,
+        container_id DESC"
+);
 
 plantation_shell_open('Container', 'Bale container withdrawal and release records', [$locDisplay ?: 'Plantation']);
 include 'modal/modal_container.php';
 ?>
 
-<style>.number-cell { text-align: right; }</style>
+<div class="plantation-container-record">
+    <div class="plantation-kpi-strip plantation-container-record__kpis">
+        <article class="plantation-kpi-tile plantation-kpi-tile--bale">
+            <span class="plantation-kpi-tile__icon" aria-hidden="true"><i class="fas fa-boxes-stacked"></i></span>
+            <div class="plantation-kpi-tile__main">
+                <span class="plantation-kpi-tile__label">Containers</span>
+                <span class="plantation-kpi-tile__value"><?php echo number_format($stats['total']); ?></span>
+            </div>
+        </article>
+        <article class="plantation-kpi-tile plantation-kpi-tile--field">
+            <span class="plantation-kpi-tile__icon" aria-hidden="true"><i class="fas fa-file-pen"></i></span>
+            <div class="plantation-kpi-tile__main">
+                <span class="plantation-kpi-tile__label">Draft / Active</span>
+                <span class="plantation-kpi-tile__value"><?php echo number_format($stats['draft'] + $stats['in_progress']); ?></span>
+            </div>
+        </article>
+        <article class="plantation-kpi-tile plantation-kpi-tile--drying">
+            <span class="plantation-kpi-tile__icon" aria-hidden="true"><i class="fas fa-hourglass-half"></i></span>
+            <div class="plantation-kpi-tile__main">
+                <span class="plantation-kpi-tile__label">Awaiting Release</span>
+                <span class="plantation-kpi-tile__value"><?php echo number_format($stats['awaiting']); ?></span>
+            </div>
+        </article>
+        <article class="plantation-kpi-tile plantation-kpi-tile--bale">
+            <span class="plantation-kpi-tile__icon" aria-hidden="true"><i class="fas fa-truck-ramp-box"></i></span>
+            <div class="plantation-kpi-tile__main">
+                <span class="plantation-kpi-tile__label">Released / Sold</span>
+                <span class="plantation-kpi-tile__value"><?php echo number_format($stats['released'] + $stats['sold']); ?></span>
+            </div>
+        </article>
+        <article class="plantation-kpi-tile plantation-kpi-tile--excess">
+            <span class="plantation-kpi-tile__icon" aria-hidden="true"><i class="fas fa-weight-hanging"></i></span>
+            <div class="plantation-kpi-tile__main">
+                <span class="plantation-kpi-tile__label">Total Weight</span>
+                <span class="plantation-kpi-tile__value"><?php echo number_format($stats['total_weight'], 0); ?><small>kg</small></span>
+            </div>
+        </article>
+    </div>
 
-<?php adm_panel_open('Bale Container'); ?>
-<div class="d-flex flex-wrap gap-2 mb-3">
-    <button type="button" class="plantation-btn plantation-btn--primary" data-bs-toggle="modal" data-bs-target="#newContainer">
-        <i class="fas fa-plus"></i> New Container
-    </button>
+    <?php adm_panel_open('Bale Container'); ?>
+    <div class="plantation-container-record__toolbar">
+        <button type="button" class="plantation-btn plantation-btn--primary" data-bs-toggle="modal" data-bs-target="#newContainer">
+            <i class="fas fa-plus"></i> New Container
+        </button>
+        <div class="plantation-container-record__filters" role="group" aria-label="Filter by status">
+            <button type="button" class="plantation-status-chip is-active" data-status-filter="">All</button>
+            <button type="button" class="plantation-status-chip" data-status-filter="Draft">Draft</button>
+            <button type="button" class="plantation-status-chip" data-status-filter="In Progress">In Progress</button>
+            <button type="button" class="plantation-status-chip" data-status-filter="Awaiting Release">Awaiting</button>
+            <button type="button" class="plantation-status-chip" data-status-filter="Released">Released</button>
+            <button type="button" class="plantation-status-chip" data-status-filter="Sold">Sold</button>
+        </div>
+    </div>
+
+    <div class="adm-table-wrap plantation-container-record__table-wrap">
+        <table class="table table-hover plantation-record-table" id="containerRecordTable" width="100%">
+            <thead>
+                <tr>
+                    <th>Status</th>
+                    <th>Ref</th>
+                    <th>Withdrawal</th>
+                    <th>Van No.</th>
+                    <th>Quality</th>
+                    <th class="text-end">Kilo/Bale</th>
+                    <th class="text-end">Bales</th>
+                    <th class="text-end">Weight</th>
+                    <th class="text-end">Bale Cost</th>
+                    <th>Particulars</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php while ($row = mysqli_fetch_array($results)) :
+                $conId = (int) $row['con_id'];
+                $status = (string) ($row['status'] ?? '');
+                $statusRank = plantation_container_status_sort_rank($status);
+                $editable = plantation_container_editable($status);
+                $withdrawal = !empty($row['withdrawal_date']) ? date('M d, Y', strtotime($row['withdrawal_date'])) : '—';
+                $withdrawalSort = !empty($row['withdrawal_date']) ? strtotime($row['withdrawal_date']) : 0;
+                ?>
+                <tr <?php echo plantation_tr_attrs([
+                    'container-id' => $conId,
+                    'status' => $status,
+                    'withdrawal-date' => $withdrawal,
+                    'van-no' => $row['van_no'] ?? '',
+                    'quality' => $row['quality'] ?? '',
+                    'kilo-bale' => plantation_format_kilo_bale($row['kilo_bale'] ?? ''),
+                    'remarks' => $row['remarks'] ?? '',
+                    'recorded-by' => $row['recorded_by'] ?? '',
+                ]); ?>>
+                    <td data-order="<?php echo $statusRank; ?>" data-search="<?php echo adm_esc($status); ?>"><?php echo plantation_container_status_badge($status); ?></td>
+                    <td data-order="<?php echo $conId; ?>">
+                        <?php if ($editable) : ?>
+                        <a href="container.php?id=<?php echo $conId; ?>" class="plantation-record-link">#<?php echo $conId; ?></a>
+                        <?php else : ?>
+                        <span class="plantation-record-ref">#<?php echo $conId; ?></span>
+                        <?php endif; ?>
+                    </td>
+                    <td data-order="<?php echo (int) $withdrawalSort; ?>"><?php echo adm_esc($withdrawal); ?></td>
+                    <td><?php echo adm_esc($row['van_no'] ?? '—'); ?></td>
+                    <td><span class="badge bg-light text-dark border"><?php echo adm_esc($row['quality'] ?? '—'); ?></span></td>
+                    <td class="text-end number-cell"><?php echo plantation_format_kilo_bale($row['kilo_bale'] ?? ''); ?></td>
+                    <td class="text-end number-cell"><?php echo number_format((float) ($row['total_bales'] ?? 0), 0); ?> <small class="text-muted">pcs</small></td>
+                    <td class="text-end number-cell"><?php echo number_format((float) ($row['total_weight'] ?? 0), 0); ?> <small class="text-muted">kg</small></td>
+                    <td class="text-end number-cell">₱ <?php echo number_format((float) ($row['total_bale_cost'] ?? 0), 0); ?></td>
+                    <td class="plantation-record-particulars"><?php echo adm_esc($row['remarks'] ?? '—'); ?></td>
+                    <td class="text-end">
+                        <div class="btn-group btn-group-sm plantation-record-actions" role="group">
+                            <?php if ($editable) : ?>
+                            <a href="container.php?id=<?php echo $conId; ?>" class="btn btn-outline-primary" title="Edit container">
+                                <i class="fas fa-pen"></i>
+                            </a>
+                            <?php endif; ?>
+                            <button type="button" class="btn btn-outline-secondary btn-view-container" title="View details">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            <?php endwhile; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php adm_panel_close(); ?>
 </div>
-<div class="table-responsive">
-    <?php
-    $results = mysqli_query($con, "SELECT *, bales_container_record.container_id as con_id,
-        bales_container_record.num_bales as total_bales,
-        bales_container_record.total_bale_weight as total_weight
-        FROM bales_container_record
-        LEFT JOIN bales_container_selection ON bales_container_selection.container_id = bales_container_record.container_id
-        WHERE status !='Void' AND source = '$loc'
-        GROUP BY bales_container_record.container_id");
-    ?>
-    <table class="table table-bordered table-hover table-striped" id="recording_table-receiving">
-        <thead class="table-dark text-center">
-            <tr>
-                <th scope="col">Status</th>
-                <th scope="col">Ref No.</th>
-                <th scope="col">Withdrawal Date</th>
-                <th scope="col">Van No.</th>
-                <th scope="col">Bale Quality</th>
-                <th scope="col">Kilo per Bale</th>
-                <th scope="col">No. of Bales</th>
-                <th scope="col">Total Weight</th>
-                <th scope="col">Bale Cost</th>
-                <th scope="col" hidden>Milling Cost</th>
-                <th scope="col">Particulars</th>
-                <th scope="col" hidden>Recorded By</th>
-                <th scope="col">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php while ($row = mysqli_fetch_array($results)) {
-            $status_color = match ($row['status']) {
-                'Draft' => 'bg-info',
-                'In Progress' => 'bg-warning',
-                'Awaiting Release' => 'bg-secondary',
-                'Released' => 'bg-primary',
-                'Shipped Out' => 'bg-dark',
-                'Sold', 'Sold-Update' => 'bg-success',
-                default => 'bg-secondary',
-            };
-            ?>
-            <tr>
-                <td><span class="badge <?php echo $status_color; ?>"><?php echo $row['status']; ?></span></td>
-                <td><?php echo $row['con_id']; ?></td>
-                <td><?php echo date('M d, Y', strtotime($row['withdrawal_date'])); ?></td>
-                <td><?php echo $row['van_no']; ?></td>
-                <td><?php echo $row['quality']; ?></td>
-                <td class="number-cell"><?php echo $row['kilo_bale']; ?></td>
-                <td class="number-cell"><?php echo number_format($row['total_bales'], 0, '.', ','); ?> pcs</td>
-                <td class="number-cell"><?php echo number_format($row['total_weight'], 0, '.', ','); ?> kg</td>
-                <td class="number-cell">₱<?php echo number_format($row['total_bale_cost'], 0, '.', ','); ?></td>
-                <td class="number-cell" hidden>₱<?php echo number_format($row['total_milling_cost'], 2, '.', ','); ?></td>
-                <td><?php echo $row['remarks']; ?></td>
-                <td hidden><?php echo $row['recorded_by']; ?></td>
-                <td class="text-center">
-                    <button type="button" class="btn btn-success btn-sm btnViewRecord" data-status="<?php echo htmlspecialchars($row['status'], ENT_QUOTES); ?>">
-                        <i class="fas fa-book"></i>
-                    </button>
-                </td>
-            </tr>
-        <?php } ?>
-        </tbody>
-    </table>
-</div>
-<?php adm_panel_close(); ?>
 
-<script>
-$(document).ready(function () {
-    $('#recording_table-receiving').DataTable({
-        dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
-        order: [[1, 'desc']],
-        buttons: ['excelHtml5', 'pdfHtml5', 'print'],
-        columnDefs: [{ orderable: false, targets: -1 }],
-        lengthChange: false,
-        orderCellsTop: true,
-        paging: false,
-        info: false
-    });
-
-    $(document).on('click', '.btnViewRecord', function () {
-        var $tr = $(this).closest('tr');
-        var data = $tr.children('td').map(function () { return $(this).text(); }).get();
-        var status = $(this).data('status');
-
-        $('#v_id').val((data[1] || '').trim());
-        $('#v_date').val((data[2] || '').trim());
-        $('#v_van').val((data[3] || '').trim());
-        $('#v_quality').val((data[4] || '').trim());
-        $('#v_kilo').val((data[5] || '').trim());
-        $('#v_remarks').val((data[10] || '').trim());
-        $('#v_recorded').val((data[11] || '').trim());
-
-        if (status === 'Awaiting Release') {
-            $('#releaseButton').show();
-        } else {
-            $('#releaseButton').hide();
-        }
-
-        var containerId = (data[1] || '').trim();
-        $.ajax({
-            url: 'table/contaner_bales_record.php',
-            method: 'POST',
-            data: { container_id: containerId },
-            success: function (html) { $('#bales_container_record').html(html); }
-        });
-
-        PlantationModal.show('#viewContainer');
-    });
-});
-</script>
+<script src="js/plantation-container-record.js?v=<?php echo filemtime(__DIR__ . '/js/plantation-container-record.js'); ?>"></script>
+<?php plantation_consume_flashes(); ?>
 <?php plantation_shell_close(); ?>

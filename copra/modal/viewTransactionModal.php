@@ -1,134 +1,59 @@
-<div class="modal fade viewTransaction" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg  ">
+<div class="modal fade copra-modal viewTransaction" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Copra Purchase Record</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 class="modal-title"><i class="fas fa-book me-1"></i> Recent Copra Purchases</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body p-0">
                 <div class="table-responsive">
-                    <table class="table" id='copra_transaction'>
-                        <?php
-                                    $record  = mysqli_query($con, "SELECT * from copra_transaction ORDER BY id DESC LIMIT 5 "); ?>
+                    <table class="table table-sm table-hover mb-0">
                         <thead class="table-dark">
                             <tr>
-                                <th width="5%">Invoice</th>
-                                <th scope="col">Date</th>
-                                <th width="10%">Contract</th>
-                                <th scope="col">Seller</th>
-                               
-                                <th scope="col">Price</th>
-                                <th scope="col">Net Resecada Weight </th>
-                                <th scope="col">Amount Paid</th>
-                                <th scope="col">Action</th>
+                                <th>Invoice</th>
+                                <th>Date</th>
+                                <th>Contract</th>
+                                <th>Seller</th>
+                                <th class="text-end">1st price</th>
+                                <th class="text-end">Net res.</th>
+                                <th class="text-end">Paid</th>
+                                <th></th>
                             </tr>
                         </thead>
-                        <tbody> <?php while ($row = mysqli_fetch_array($record)) { ?> <tr>
-                                <th width="5%"> <?php echo $row['invoice']?> </th>
-                                <td> <?php echo $row['date']?> </td>
-                                <td width="10%"> <?php echo $row['contract']?> </td>
-                                <td> <?php echo $row['seller']?> </td>
-                             
-                                <td>₱  <?php echo number_format($row['first_res']);?> Kg </td>
-                                <td> <?php echo number_format($row['net_res']);?> Kg </td>
-                                <td>₱ <?php echo number_format($row['amount_paid']); ?> </td>
-                                <td> <a href="transaction.php?view=<?php echo $row['invoice']; ?>"
-                                        class="btn btn-dark ">
-                                        <i class='fa-solid fa-add'></i></a> </td>
-                            </tr> <?php } ?> </tbody>
+                        <tbody>
+                            <?php
+                            $record = mysqli_query($con, 'SELECT * FROM copra_transaction ORDER BY id DESC LIMIT 10');
+                            if ($record && mysqli_num_rows($record) > 0) :
+                                while ($row = mysqli_fetch_array($record)) :
+                            ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($row['invoice'], ENT_QUOTES, 'UTF-8'); ?></td>
+                                <td><?php echo htmlspecialchars($row['date'], ENT_QUOTES, 'UTF-8'); ?></td>
+                                <td><?php echo htmlspecialchars($row['contract'], ENT_QUOTES, 'UTF-8'); ?></td>
+                                <td><?php echo htmlspecialchars($row['seller'], ENT_QUOTES, 'UTF-8'); ?></td>
+                                <td class="text-end">₱ <?php echo number_format(floatval($row['first_res']), 2); ?></td>
+                                <td class="text-end"><?php echo number_format(floatval($row['net_res'])); ?> kg</td>
+                                <td class="text-end">₱ <?php echo number_format(floatval($row['amount_paid']), 2); ?></td>
+                                <td class="text-nowrap">
+                                    <a href="transaction.php?view=<?php echo urlencode($row['invoice']); ?>" class="btn btn-sm btn-outline-primary" title="Open">
+                                        <i class="fas fa-arrow-up-right-from-square"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <?php
+                                endwhile;
+                            else :
+                            ?>
+                            <tr><td colspan="8" class="text-center text-muted py-4">No transactions yet.</td></tr>
+                            <?php endif; ?>
+                        </tbody>
                     </table>
                 </div>
-
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a href="transaction_history.php" class="btn btn-sm btn-outline-primary">View full record</a>
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
-
     </div>
 </div>
-
-
-<script>
-// for date
-
-var minDate, maxDate;
-
-// Custom filtering function which will search data in column four between two values
-$.fn.dataTable.ext.search.push(
-    function(settings, data, dataIndex) {
-        var min = minDate.val();
-        var max = maxDate.val();
-        var date = new Date(data[0]);
-
-
-        if (
-            (min === null && max === null) ||
-            (min === null && date <= max) ||
-            (min <= date && max === null) ||
-            (min <= date && date <= max)
-        ) {
-            return true;
-        }
-        return false;
-    }
-);
-
-
-// for date filter
-
-
-$(document).ready(function() {
-    // Create date inputs
-    minDate = new DateTime($('#p_min'), {
-        format: 'YYYY-MM-DD'
-    });
-    maxDate = new DateTime($('#p_max'), {
-        format: 'YYYY-MM-DD'
-    });
-
-    // DataTables initialisation
-    var table = $('#copra_transaction').DataTable({
-        order: [
-            [0, 'desc']
-        ],
-        "targets": 'no-sort',
-        "bSort": false,
-        dom: 'Bfrtip',
-        buttons: [{
-                extend: 'excelHtml5',
-                exportOptions: {
-                    columns: [1, 2, 3, 4, 5]
-                }
-            },
-            {
-                extend: 'pdfHtml5',
-                exportOptions: {
-                    columns: [1, 2, 3, 4, 5]
-                }
-            },
-            {
-                extend: 'print',
-                exportOptions: {
-                    columns: [1, 2, 3, 4, 5]
-                }
-            },
-
-
-
-        ],
-        orderCellsTop: true,
-
-
-
-    });
-
-    // Refilter the table
-    $('#p_min, #p_max').on('change', function() {
-        purchase_table.draw();
-    });
-});
-</script>

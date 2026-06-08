@@ -1,79 +1,91 @@
 <?php
+require_once __DIR__ . '/rubber-helpers.php';
+$currentPage = basename($_SERVER['PHP_SELF'] ?? '');
+$topbarTitle = rubber_resolve_topbar_title($currentPage);
+$navLoc = str_replace(' ', '', $_SESSION['loc'] ?? '');
+$base = $rubber_base ?? '';
+?>
+<div class="admin-sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
 
-$loc = str_replace(' ', '', $_SESSION['loc']);?>
-<nav id='navbar'>
-    <div id='toggle-nav-btn'>
-        <i class='fa-solid fa-ellipsis'></i>
+<aside class="admin-sidebar" id="adminSidebar" aria-label="Rubber navigation">
+    <div class="admin-sidebar__brand">
+        <img src="<?php echo $base; ?>assets/img/logo.png" alt="EJN Rubber" width="36" height="36">
+        <div>
+            <strong>EJN Rubber</strong>
+            <small>Purchasing</small>
+        </div>
     </div>
-    <div class='nav-title' style='font-weight:bold;'>
-        <img src='assets/img/logo.png' alt='Q-cart Logo' width='35' height='35' style='margin-right:5px;'>
-        <span class='nav-text'>EJN RUBBER</span>
 
+    <nav class="admin-sidebar__nav">
+        <div class="admin-nav-group">
+            <a href="<?php echo $base; ?>dry_receiving_record.php" class="admin-nav-link<?php echo rubber_nav_active('dry_receiving_record.php', $currentPage); ?>">
+                <i class="fas fa-truck"></i> DRY Receiving
+            </a>
+            <?php if (strcasecmp(trim($navLoc), 'Kidapawan') !== 0): ?>
+            <a href="<?php echo $base; ?>ejn_rubber_record.php" class="admin-nav-link<?php echo rubber_nav_active('ejn_rubber_record.php', $currentPage); ?>">
+                <i class="fas fa-truck-ramp-box"></i> EJN Rubber
+            </a>
+            <?php endif; ?>
+        </div>
 
-    </div>
+        <div class="admin-nav-group">
+            <span class="admin-nav-group__label">Purchasing</span>
+            <a href="<?php echo $base; ?>cuplumps_purchase_record.php" class="admin-nav-link<?php echo rubber_nav_active(['cuplumps_purchase_record.php', 'wet_rubber.php'], $currentPage); ?>">
+                <i class="fas fa-cash-register"></i> Cuplump Purchasing
+            </a>
+            <a href="<?php echo $base; ?>bales_purchase_record.php" class="admin-nav-link<?php echo rubber_nav_active(['bales_purchase_record.php', 'bales_rubber.php'], $currentPage); ?>">
+                <i class="fas fa-cash-register"></i> Bales Purchasing
+            </a>
+        </div>
 
-    <!-- <hr style='color:gray'> -->
-    <!-- <a class='nav-link' href='dashboard.php'>
-        <i class='fa-solid fa-house'></i> <span class='nav-text'>Home</span>
-    </a> -->
+        <div class="admin-nav-group">
+            <span class="admin-nav-group__label">Inventory &amp; Records</span>
+            <?php if (strcasecmp(trim($navLoc), 'Kidapawan') !== 0): ?>
+            <a href="<?php echo $base; ?>inv_bale.php" class="admin-nav-link<?php echo rubber_nav_active(['inv_bale.php', 'inventory_bale.php'], $currentPage); ?>">
+                <i class="fas fa-cube"></i> Bale Inventory
+            </a>
+            <a href="<?php echo $base; ?>bale_record.php" class="admin-nav-link<?php echo rubber_nav_active('bale_record.php', $currentPage); ?>">
+                <i class="fas fa-book"></i> Bale Record
+            </a>
+            <a href="<?php echo $base; ?>inv_cuplump.php" class="admin-nav-link<?php echo rubber_nav_active(['inv_cuplump.php', 'inventory_cuplump.php'], $currentPage); ?>">
+                <i class="fas fa-tree"></i> Cuplump Inventory
+            </a>
+            <?php endif; ?>
+            <a href="<?php echo $base; ?>contract-purchase.php" class="admin-nav-link<?php echo rubber_nav_active('contract-purchase.php', $currentPage); ?>">
+                <i class="fas fa-boxes-stacked"></i> Purchase Contract
+            </a>
+            <a href="<?php echo $base; ?>cash-advance.php" class="admin-nav-link<?php echo rubber_nav_active('cash-advance.php', $currentPage); ?>">
+                <i class="fas fa-money-bill-wave"></i> Cash Advance
+            </a>
+            <a href="<?php echo $base; ?>seller.php" class="admin-nav-link<?php echo rubber_nav_active('seller.php', $currentPage); ?>">
+                <i class="fas fa-user"></i> Sellers
+            </a>
+        </div>
+    </nav>
 
-    <hr style='color:gray'>
-
-    <a class='nav-link' href='dry_receiving_record.php'>
-        <i class='fa-solid fa-truck'></i> <span class='nav-text'>DRY Receiving</span>
-    </a>
-
-    <?php if (strcasecmp(trim($loc), 'Kidapawan') != 0) : ?>
-        <a class='nav-link' href='ejn_rubber_record.php'>
-            <i class='fa-solid fa-truck'></i> <span class='nav-text'>EJN Rubber</span>
-        </a>
-    <?php endif; ?>
-
-    <hr style='color:gray'>
-
-    <a class='nav-link' href='cuplumps_purchase_record.php'>
-        <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>Cuplump Purchasing</span>
-    </a>
-
-    <a class='nav-link' href='bales_purchase_record.php'>
-        <i class='fa-solid fa-cash-register'></i> <span class='nav-text'>Bales Purchasing</span>
-    </a>
-
-    <hr style='color:gray'>
-
-    <?php if (strcasecmp(trim($loc), 'Kidapawan') != 0) : ?>
-
-        <a class='nav-link' href='inv_bale.php'>
-            <i class='fa-solid fa-cube'></i> <span class='nav-text'>Bale Inventory</span>
-        </a>
-         <a class='nav-link' href='bale_record.php'>
-            <i class='fa-solid fa-book'></i> <span class='nav-text'>Bale Record</span>
-        </a>
-        <a class='nav-link' href='inv_cuplump.php'>
-            <i class='fa-solid fa-tree'></i> <span class='nav-text'>Cuplump Inventory</span>
-        </a>
-    <?php endif; ?>
-
-
-
-    <a class='nav-link' href='contract-purchase.php'>
-        <i class='fa-solid fa-boxes-stacked'></i> <span class='nav-text'>Purchase Contract</span>
-    </a>
-
-    <a class='nav-link' href='cash-advance.php'>
-        <i class='fa-solid fa-money'></i> <span class='nav-text'>Cash Advance</span>
-    </a>
-
-    <a class='nav-link' href='seller.php'>
-        <i class='fa-solid fa-user'></i> <span class='nav-text'>Sellers</span>
-    </a>
-
-
-    <div class='logout-container'>
-        <span class='nav-text'></span>
-        <a class='nav-link logout' href='function/logout.php'>
-            <i class='fa-solid fa-arrow-right-to-bracket'></i>
+    <div class="admin-sidebar__footer">
+        <a href="<?php echo $base; ?>function/logout.php" class="admin-sidebar__logout">
+            <i class="fas fa-right-from-bracket"></i> Sign Out
         </a>
     </div>
-</nav>
-<script src='assets/js/navbar.js'></script>
+</aside>
+
+<header class="admin-topbar">
+    <button type="button" class="admin-topbar__menu" id="sidebarToggle" aria-label="Open menu">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="admin-topbar__title"><?php echo adm_esc($topbarTitle); ?></div>
+    <div class="admin-topbar__spacer"></div>
+    <div class="admin-topbar__meta">
+        <?php if ($locDisplay): ?>
+            <span class="rubber-topbar__loc"><i class="fas fa-location-dot"></i> <?php echo adm_esc($locDisplay); ?></span>
+        <?php endif; ?>
+        <span><?php echo date('M j, Y'); ?></span>
+        <div class="admin-topbar__user">
+            <i class="fas fa-user-circle"></i>
+            <?php echo $userDisplay; ?>
+        </div>
+    </div>
+</header>
+
+<script src="<?php echo $base; ?>js/rubber-nav.js?v=<?php echo file_exists(__DIR__ . '/../js/rubber-nav.js') ? filemtime(__DIR__ . '/../js/rubber-nav.js') : '1'; ?>"></script>

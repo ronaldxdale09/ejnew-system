@@ -63,17 +63,131 @@
     opacity: 0.75;
 }
 
+/* Compact inventory KPI strip (recording page) */
+.plantation-kpi-strip {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.45rem;
+    margin-bottom: 0.65rem;
+}
+
+.plantation-kpi-tile {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 2.85rem;
+    padding: 0.35rem 0.5rem;
+    background: var(--adm-white);
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+    box-shadow: none;
+    min-width: 0;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.plantation-kpi-tile:hover {
+    border-color: rgba(26, 115, 79, 0.35);
+    box-shadow: 0 1px 3px rgba(15, 41, 34, 0.06);
+}
+
+.plantation-kpi-tile__icon {
+    flex: 0 0 1.65rem;
+    width: 1.65rem;
+    height: 1.65rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    color: var(--plantation-accent);
+    background: rgba(26, 115, 79, 0.1);
+}
+
+.plantation-kpi-tile--field .plantation-kpi-tile__icon { color: #15803d; background: #dcfce7; }
+.plantation-kpi-tile--milling .plantation-kpi-tile__icon { color: #475569; background: #f1f5f9; }
+.plantation-kpi-tile--drying .plantation-kpi-tile__icon { color: #b45309; background: #fef3c7; }
+.plantation-kpi-tile--bale .plantation-kpi-tile__icon { color: #1d4ed8; background: #dbeafe; }
+.plantation-kpi-tile--excess .plantation-kpi-tile__icon { color: #92400e; background: #fde68a; }
+
+.plantation-kpi-tile__main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.05rem;
+    line-height: 1.1;
+}
+
+.plantation-kpi-tile__label {
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--adm-slate-500);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.plantation-kpi-tile__value {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--adm-slate-900);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.plantation-kpi-tile__value small {
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: var(--adm-slate-500);
+    margin-left: 0.12rem;
+}
+
+.plantation-kpi-tile__meta {
+    display: none;
+}
+
+@media (min-width: 1100px) {
+    .plantation-kpi-tile--excess .plantation-kpi-tile__main {
+        gap: 0;
+    }
+
+    .plantation-kpi-tile--excess .plantation-kpi-tile__meta {
+        display: block;
+        font-size: 0.52rem;
+        color: var(--adm-slate-400);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+        line-height: 1.05;
+    }
+}
+
+.plantation-kpi-tile--excess.is-negative .plantation-kpi-tile__value {
+    color: #b45309;
+}
+
+.plantation-kpi-tile--excess.is-positive .plantation-kpi-tile__value {
+    color: var(--plantation-accent);
+}
+
+.plantation-module .adm-page-header {
+    margin-bottom: 0.55rem;
+}
+
 .plantation-notice {
     display: flex;
-    gap: 0.65rem;
+    gap: 0.5rem;
     align-items: flex-start;
-    padding: 0.65rem 0.85rem;
-    margin-bottom: 1rem;
+    padding: 0.45rem 0.7rem;
+    margin-bottom: 0.55rem;
     background: var(--adm-slate-50);
     border: 1px solid var(--adm-slate-200);
     border-left: 3px solid var(--plantation-accent);
     border-radius: var(--adm-radius-sm);
-    font-size: 0.8125rem;
+    font-size: 0.75rem;
     color: var(--adm-slate-700);
 }
 
@@ -298,6 +412,139 @@ body.plantation-module .plantation-loading {
     max-height: min(40vh, 320px);
 }
 
+/* Container view modal */
+.plantation-view-modal .modal-header {
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.plantation-view-modal__head {
+    flex: 1;
+    min-width: 0;
+}
+
+.plantation-view-modal__eyebrow {
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin: 0 0 0.15rem;
+}
+
+.plantation-view-modal__badge {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 0.35rem;
+}
+
+.plantation-view-modal__badge .badge {
+    font-size: 0.62rem;
+    font-weight: 600;
+    vertical-align: middle;
+}
+
+.plantation-view-meta {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.55rem 0.75rem;
+    padding: 0.75rem;
+    background: linear-gradient(180deg, var(--adm-slate-50), var(--adm-white));
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+    margin-bottom: 0.85rem;
+}
+
+.plantation-view-meta__item--wide {
+    grid-column: span 2;
+}
+
+.plantation-view-meta__label {
+    display: block;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--adm-slate-500);
+    margin-bottom: 0.15rem;
+}
+
+.plantation-view-meta__value {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--adm-slate-800);
+    line-height: 1.35;
+    word-break: break-word;
+}
+
+.plantation-view-bales__loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 1.25rem;
+    font-size: 0.8125rem;
+    color: var(--adm-slate-500);
+    background: var(--adm-slate-50);
+    border: 1px dashed var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+}
+
+.plantation-container-view-summary {
+    margin-bottom: 0.65rem;
+}
+
+.plantation-container-view-summary .adm-kpi {
+    padding: 0.45rem 0.55rem;
+}
+
+.plantation-container-view-summary .adm-kpi__label {
+    font-size: 0.58rem;
+}
+
+.plantation-container-view-summary .adm-kpi__value {
+    font-size: 0.85rem;
+}
+
+.plantation-view-bales__table {
+    max-height: min(45vh, 360px);
+}
+
+.plantation-view-bales__table .plantation-detail-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    box-shadow: 0 1px 0 var(--adm-slate-200);
+}
+
+.plantation-view-bale-id {
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    color: var(--plantation-accent);
+}
+
+.plantation-detail-table tfoot .plantation-detail-table__foot td {
+    background: var(--adm-slate-50);
+    border-top: 2px solid var(--adm-slate-200);
+    font-size: 0.75rem;
+    padding: 0.45rem 0.5rem;
+}
+
+.plantation-view-modal__footer {
+    gap: 0.35rem;
+}
+
+@media (max-width: 768px) {
+    .plantation-view-meta {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .plantation-view-meta__item--wide {
+        grid-column: span 2;
+    }
+}
+
 .plantation-detail-table {
     font-size: 0.78rem;
     margin-bottom: 0 !important;
@@ -395,6 +642,233 @@ body.plantation-module .plantation-loading {
     margin-top: 0.1rem;
 }
 
+/* Container workspace */
+.plantation-container-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.65rem;
+    margin-bottom: 0.75rem;
+}
+
+.plantation-container-toolbar__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+
+.plantation-container-readonly-note {
+    font-size: 0.78rem;
+    color: var(--adm-slate-500);
+}
+
+.plantation-container-panel-hint {
+    font-size: 0.75rem;
+    color: var(--adm-slate-500);
+}
+
+.plantation-container-summary {
+    margin-bottom: 0.75rem !important;
+}
+
+.plantation-container-summary .adm-kpi {
+    padding: 0.45rem 0.55rem;
+    min-height: auto;
+}
+
+.plantation-container-summary .adm-kpi__label {
+    font-size: 0.58rem;
+}
+
+.plantation-container-summary .adm-kpi__value {
+    font-size: 0.95rem;
+}
+
+.plantation-container-picker__filter label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--adm-slate-600);
+}
+
+.plantation-field .form-control.is-invalid {
+    border-color: var(--adm-danger, #dc3545);
+}
+
+@media (max-width: 768px) {
+    .plantation-container-toolbar__actions {
+        width: 100%;
+    }
+
+    .plantation-container-toolbar__actions .plantation-btn {
+        flex: 1 1 auto;
+        justify-content: center;
+    }
+}
+
+/* Container record list */
+.plantation-container-record__kpis {
+    margin-bottom: 0.75rem;
+}
+
+.plantation-container-record__toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.65rem;
+    margin-bottom: 0.75rem;
+}
+
+.plantation-container-record__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.plantation-status-chip {
+    border: 1px solid var(--adm-slate-200);
+    background: var(--adm-white);
+    color: var(--adm-slate-600);
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 0.28rem 0.55rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.plantation-status-chip:hover {
+    border-color: rgba(26, 115, 79, 0.35);
+    color: var(--plantation-accent);
+}
+
+.plantation-status-chip.is-active {
+    background: rgba(26, 115, 79, 0.1);
+    border-color: rgba(26, 115, 79, 0.45);
+    color: var(--plantation-accent);
+}
+
+.plantation-container-record__table-wrap {
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+    background: var(--adm-white);
+    padding: 0.35rem;
+}
+
+.plantation-record-table {
+    margin-bottom: 0 !important;
+    font-size: 0.78rem;
+}
+
+.plantation-record-table thead th {
+    background: var(--adm-slate-800) !important;
+    color: #fff !important;
+    font-size: 0.62rem !important;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.45rem 0.55rem !important;
+    white-space: nowrap;
+    border: none !important;
+}
+
+.plantation-record-table tbody td {
+    padding: 0.42rem 0.55rem !important;
+    vertical-align: middle;
+    border-color: var(--adm-slate-100) !important;
+}
+
+.plantation-record-table tbody tr:hover {
+    background: rgba(26, 115, 79, 0.04);
+}
+
+.plantation-record-link {
+    font-weight: 700;
+    color: var(--plantation-accent);
+    text-decoration: none;
+}
+
+.plantation-record-link:hover {
+    text-decoration: underline;
+}
+
+.plantation-record-ref {
+    font-weight: 700;
+    color: var(--adm-slate-800);
+    font-variant-numeric: tabular-nums;
+}
+
+.plantation-record-particulars {
+    max-width: 140px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--adm-slate-600);
+}
+
+.plantation-record-actions .btn {
+    padding: 0.2rem 0.45rem;
+}
+
+.plantation-dt-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.55rem;
+}
+
+.plantation-dt-export .dt-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.plantation-dt-export .dt-buttons .btn {
+    margin: 0 !important;
+    font-size: 0.72rem;
+    padding: 0.28rem 0.55rem;
+}
+
+.plantation-dt-search label {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin: 0;
+    font-size: 0.72rem;
+    color: var(--adm-slate-500);
+}
+
+.plantation-dt-search input {
+    min-width: 200px;
+    font-size: 0.78rem;
+    padding: 0.28rem 0.55rem;
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+}
+
+.plantation-dt-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.45rem;
+    margin-top: 0.55rem;
+    font-size: 0.72rem;
+    color: var(--adm-slate-500);
+}
+
+.plantation-dt-bottom .pagination {
+    margin: 0;
+}
+
+.plantation-dt-bottom .page-link {
+    font-size: 0.72rem;
+    padding: 0.2rem 0.45rem;
+}
+
 @media (max-width: 960px) {
     .plantation-module .admin-topbar__meta > span:not(.plantation-topbar__loc) {
         display: none;
@@ -404,8 +878,8 @@ body.plantation-module .plantation-loading {
         font-size: 0.78rem;
     }
 
-    .adm-kpi-grid.plantation-kpi-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+    .plantation-kpi-strip {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
     .plantation-module .main-content,
@@ -421,8 +895,8 @@ body.plantation-module .plantation-loading {
         font-size: 0.68rem !important;
     }
 
-    .adm-kpi-grid.plantation-kpi-grid {
-        grid-template-columns: 1fr 1fr;
+    .plantation-kpi-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .plantation-module .dataTables_wrapper .dt-buttons {
@@ -448,8 +922,8 @@ body.plantation-module .plantation-loading {
 }
 
 @media (max-width: 480px) {
-    .adm-kpi-grid.plantation-kpi-grid {
-        grid-template-columns: 1fr;
+    .plantation-kpi-strip {
+        grid-template-columns: 1fr 1fr;
     }
 
     .plantation-topbar__loc {

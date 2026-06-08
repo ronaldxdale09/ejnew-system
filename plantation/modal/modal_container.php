@@ -61,49 +61,60 @@ $today = date('Y-m-d');
     </div>
 </div>
 
-<div class="modal fade plantation-modal" id="viewContainer" tabindex="-1" aria-labelledby="viewContainerLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-xl modal-fullscreen-md-down">
+<div class="modal fade plantation-modal plantation-view-modal" id="viewContainer" tabindex="-1" aria-labelledby="viewContainerLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl modal-fullscreen-lg-down">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="viewContainerLabel">Container Details</h5>
+                <div class="plantation-view-modal__head">
+                    <p class="plantation-view-modal__eyebrow">Container record</p>
+                    <h5 class="modal-title" id="viewContainerLabel">
+                        <span id="v_ref_label">Container Details</span>
+                        <span id="v_status_badge" class="plantation-view-modal__badge"></span>
+                    </h5>
+                </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="function/container.php" method="POST">
                 <input type="hidden" id="v_id" name="id">
                 <div class="modal-body">
-                    <div class="row g-2 plantation-modal-grid">
-                        <div class="col-6 col-md-3 plantation-field">
-                            <label for="v_van">Van No.</label>
-                            <input type="text" class="form-control form-control-sm" id="v_van" readonly>
+                    <section class="plantation-view-meta" aria-label="Container information">
+                        <div class="plantation-view-meta__item">
+                            <span class="plantation-view-meta__label">Van No.</span>
+                            <span class="plantation-view-meta__value" id="v_van">—</span>
                         </div>
-                        <div class="col-6 col-md-3 plantation-field">
-                            <label for="v_date">Withdrawal Date</label>
-                            <input type="text" class="form-control form-control-sm" id="v_date" readonly>
+                        <div class="plantation-view-meta__item">
+                            <span class="plantation-view-meta__label">Withdrawal Date</span>
+                            <span class="plantation-view-meta__value" id="v_date">—</span>
                         </div>
-                        <div class="col-6 col-md-3 plantation-field">
-                            <label for="v_quality">Quality</label>
-                            <input type="text" class="form-control form-control-sm" id="v_quality" readonly>
+                        <div class="plantation-view-meta__item">
+                            <span class="plantation-view-meta__label">Quality</span>
+                            <span class="plantation-view-meta__value" id="v_quality">—</span>
                         </div>
-                        <div class="col-6 col-md-3 plantation-field">
-                            <label for="v_kilo">Kilo per Bale</label>
-                            <input type="text" class="form-control form-control-sm" id="v_kilo" readonly>
+                        <div class="plantation-view-meta__item">
+                            <span class="plantation-view-meta__label">Kilo per Bale</span>
+                            <span class="plantation-view-meta__value" id="v_kilo">—</span>
                         </div>
-                        <div class="col-12 col-md-6 plantation-field">
-                            <label for="v_remarks">Particulars</label>
-                            <input type="text" class="form-control form-control-sm" id="v_remarks" readonly>
+                        <div class="plantation-view-meta__item plantation-view-meta__item--wide">
+                            <span class="plantation-view-meta__label">Particulars</span>
+                            <span class="plantation-view-meta__value" id="v_remarks">—</span>
                         </div>
-                        <div class="col-12 col-md-6 plantation-field">
-                            <label for="v_recorded">Recorded By</label>
-                            <input type="text" class="form-control form-control-sm" id="v_recorded" readonly>
+                        <div class="plantation-view-meta__item">
+                            <span class="plantation-view-meta__label">Recorded By</span>
+                            <span class="plantation-view-meta__value" id="v_recorded">—</span>
+                        </div>
+                    </section>
+
+                    <h6 class="plantation-modal-section">Bales in Container</h6>
+                    <div id="bales_container_record" class="plantation-view-bales">
+                        <div class="plantation-view-bales__loading">
+                            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i> Loading bales…
                         </div>
                     </div>
-                    <p class="plantation-modal-section">Bales in Container</p>
-                    <div id="bales_container_record" class="plantation-modal-table-wrap"></div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer plantation-view-modal__footer">
                     <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-sm btn-warning" id="editButton" name="edit"><i class="fas fa-pen"></i> Edit</button>
-                    <button type="submit" class="btn btn-sm btn-primary" id="releaseButton" name="released"><i class="fas fa-shipping-fast"></i> Release</button>
+                    <button type="submit" class="btn btn-sm btn-warning" id="editButton" name="edit"><i class="fas fa-pen"></i> Open to Edit</button>
+                    <button type="submit" class="btn btn-sm btn-primary" id="releaseButton" name="released"><i class="fas fa-shipping-fast"></i> Release Container</button>
                 </div>
             </form>
         </div>

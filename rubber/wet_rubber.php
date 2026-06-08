@@ -72,8 +72,8 @@ if (isset($_GET['id'])) {
                 });
             </script>
         ";
-    } 
-
+    }
+}
 
 $_SESSION['transaction'] ='ONGOING';
 //seller list
@@ -110,8 +110,6 @@ $year = date("Y");
 
 $today = $year . "-" . $month . "-" . $day;
 
-
-}
 ?>
 <style>
 .border-box {
@@ -124,36 +122,20 @@ $today = $year . "-" . $month . "-" . $day;
 
 .big-checkbox .form-check-input {
     transform: scale(1.5);
-    /* Adjust size as needed */
 }
 </style>
 
-<body>
-
-    <input type='hidden' id='selected-cart' value=''>
-    <div class='main-content' style='position:relative; height:100%;'>
-        <div class="container home-section h-100" style="max-width:95%;">
-            <div class="container-fluid">
-                <div class="page-wrapper">
-
-                    <div class="page-breadcrumb">
-                        <div class="row align-items-center">
-                            <div class="col-4">
-                                <br>
-                                <h2 class="page-title"><B>
-                                        <font color="#0C0070"> CUPLUMP </font>
-                                        <font color="#046D56"> PURCHASE </font>
-                                    </b></h2>
-                            </div>
-                            <div class="text-end col">
-                                <button type="button" class="btn btn-dark text-white receiptBtn" id='receiptBtn'>
-                                    <span class="fa fa-print"></span> Print Receipt </button>
-                                <button type="button" class="btn btn-secondary text-white vouchBtn" id='vouchBtn'>
-                                    <span class="fa fa-print"></span> Print Voucher </button>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <!-- Column -->
+<?php rubber_page_begin('Cuplump Purchase', 'Enter cuplump purchase transaction', 'Purchase Entry'); ?>
+<input type="hidden" id="selected-cart" value="">
+<div class="rubber-toolbar text-end mb-3">
+    <button type="button" class="btn btn-dark btn-sm text-white receiptBtn" id="receiptBtn">
+        <span class="fa fa-print"></span> Print Receipt
+    </button>
+    <button type="button" class="btn btn-secondary btn-sm text-white vouchBtn" id="vouchBtn">
+        <span class="fa fa-print"></span> Print Voucher
+    </button>
+</div>
+<div class="row rubber-entry-grid g-2">
                             <div class="col-lg-4 col-xlg-3 col-md-5">
                                 <div class="card">
                                     <div class="card-body">
@@ -298,15 +280,15 @@ $today = $year . "-" . $month . "-" . $day;
                                 <div class="col">
                                     <div class="text-center upgrade-btn">
                                         <!-- CONTENT -->
-                                        <button type="button" class="btn btn-secondary text-white" data-toggle="modal"
-                                            data-target="#add_seller1"><span class="fa fa-plus text-white"></span>
-                                            New Seller</button>
-                                        <button type="button" class="btn btn-info text-white" data-toggle="modal"
-                                            data-target="#copraCashAdvance1"><span class="fa fa-plus text-white"></span>
-                                            New CA</button>
-                                        <button type="button" class="btn btn-dark text-white" data-toggle="modal"
-                                            data-target="#newContract1"><span class="fa fa-plus text-white"></span>
-                                            New Contract</button>
+                                        <button type="button" class="btn btn-secondary btn-sm text-white" data-bs-toggle="modal" data-bs-target="#add_seller1">
+                                            <span class="fa fa-plus text-white"></span> New Seller
+                                        </button>
+                                        <button type="button" class="btn btn-info btn-sm text-white" data-bs-toggle="modal" data-bs-target="#copraCashAdvance1">
+                                            <span class="fa fa-plus text-white"></span> New CA
+                                        </button>
+                                        <button type="button" class="btn btn-dark btn-sm text-white" data-bs-toggle="modal" data-bs-target="#newContract1">
+                                            <span class="fa fa-plus text-white"></span> New Contract
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -520,26 +502,13 @@ $today = $year . "-" . $month . "-" . $day;
                                 </div> <br>
                                 <div class="row">
                                     <div class="text-end col-12">
-                                        <button type="button" class="btn btn-success text-white confirm"
-                                            id='confirm'>Confirm Transaction</button>
-                                        <button type="button" class="btn btn-primary text-white" data-toggle="modal"
-                                            data-target="#modal_new_transact">New
-                                            Transaction</button>
+                                        <button type="button" class="btn btn-success text-white confirm" id="confirm">Confirm Transaction</button>
+                                        <button type="button" class="btn btn-primary text-white" data-bs-toggle="modal" data-bs-target="#modal_new_transact">New Transaction</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-</body>
 <script type="text/javascript" src="js/wet_rubber.js"></script>
-
-</html>
-
 <script>
 $(document).ready(function() {
     $('#supplier_check').on('change', function() {
@@ -548,23 +517,17 @@ $(document).ready(function() {
     });
 });
 </script>
-
 <?php
-
 include "modal/transactionModal.php";
 include "modal/wetModalScript.php";
-
 include "modal/contractModal.php";
 include "modal/cashadvanceModal.php";
 include "modal/addseller_modal.php";
 include "include/script.php";
 ?>
-
-
 <script>
 $(function() {
-    $(".select_seller").chosen({
-        search_threshold: 10
-    });
+    $(".select_seller").chosen({ search_threshold: 10 });
 });
 </script>
+<?php rubber_page_end(); ?>

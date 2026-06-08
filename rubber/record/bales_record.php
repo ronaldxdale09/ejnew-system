@@ -1,194 +1,188 @@
-<?php 
- 
-   $seller = "SELECT * FROM rubber_seller WHERE loc='$loc' ";
-   $result = mysqli_query($con, $seller);
-   $sellerList='';
-   while($arr = mysqli_fetch_array($result))
-   {
-   $sellerList .= '
-        <option value="'.$arr["name"].'">'.$arr["name"].'</option>';
-   }
+<?php
+
+include '../include/header.php';
+
+include '../include/navbar.php';
 
 
-   
 
-   ?>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+$seller = "SELECT * FROM rubber_seller WHERE loc='$loc' ";
 
-<body>
+$result = mysqli_query($con, $seller);
 
-    <div class="row">
-        <div class="col-12">
-            <!-- CONTENT -->
-            <div class="row">
-                <div class="col-4">
-                    <h4><b> BALES RECORD </b></h4>
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <select class='form-select' id='seller_filter'>
-                            <option disabled="disabled" selected>Select Supplier </option>
-                            <option value=''>All</option>
-                            <?php echo $sellerList?>
-                            <!--PHP echo-->
-                        </select>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <input type="text" id="min2" name="min" class="form-control" placeholder="From Date" />
-                </div>
-                <div class="col-3">
-                    <input type="text" id="max2" name="max" class="form-control" placeholder="To Date" />
-                </div>
-            </div>
-            <br>
-            <h6 class="card-title m-t-40">
-                <i class="m-r-5 font-18 mdi mdi-numeric-1-box-multiple-outline"></i>Copra
-                Purchased Record
-            </h6>
+$sellerList = '';
 
-            <div class="table-responsive">
-                <table class="table table-striped table-hover table-bordered" id="bales_table">
-                    <thead class="table-dark">
-                        <tr>
-                            <th scope="col">Invoice</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Contract</th>
-                            <th scope="col">Seller</th>
-                            <th scope="col">LOT #</th>
-                            <th scope="col">Entry Weight</th>
-                            <th scope="col">Net Weight</th>
-                            <th scope="col">First Price</th>
-                            <th scope="col">Second Price</th>
-                            <th scope="col">Cash Advance</th>
-                            <th scope="col">Amount Paid</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php while ($row = mysqli_fetch_array($record)) { ?>
-                        <tr>
-                            <td scope="row"><?php echo $row['id'] ?></td>
-                            <td><?php echo date("F j, Y", strtotime($row['date'])) ?></td>
-                            <td><?php echo $row['contract'] ?></td>
-                            <td><?php echo $row['seller'] ?></td>
-                            <td><?php echo $row['lot_code'] ?></td>
-                            <td><?php echo number_format($row['entry']) ?> Kg</td>
-                            <td><?php echo number_format($row['net_weight_1'] + $row['net_weight_2']) ?> Kg</td>
-                            <td>₱ <?php echo number_format($row['price_1'], 2) ?></td>
-                            <td>₱ <?php echo number_format($row['price_2'], 2) ?></td>
-                            <td>₱ <?php echo number_format($row['less'], 2) ?></td>
-                            <td>₱ <?php echo number_format($row['amount_paid'], 2) ?></td>
-                            <td>
-                                <button type="button" class="btn btn-dark btnView"><i class="fa fa-eye"></i></button>
-                                <button type="button" class="btn btn-danger btnBalesDelete"><i
-                                        class="fa fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        <?php } ?>
-                    </tbody>
-                    <tfoot>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tfoot>
-                </table>
-            </div>
-            <!-- END CONTENT -->
-        </div>
+while ($arr = mysqli_fetch_array($result)) {
+
+    $sellerList .= '<option value="' . $arr["name"] . '">' . $arr["name"] . '</option>';
+
+}
+
+
+
+rubber_page_begin('Bale Purchase Record', 'Historical bale purchase records', 'Purchase Records');
+
+?>
+
+<div class="row mb-3 align-items-end">
+
+    <div class="col-md-4">
+
+        <label class="form-label">Supplier</label>
+
+        <select class="form-select" id="seller_filter">
+
+            <option disabled="disabled" selected>Select Supplier</option>
+
+            <option value="">All</option>
+
+            <?php echo $sellerList; ?>
+
+        </select>
+
     </div>
 
-</body>
+    <div class="col-md-4">
+
+        <label class="form-label">From Date</label>
+
+        <input type="text" id="min2" name="min" class="form-control" placeholder="From Date" />
+
+    </div>
+
+    <div class="col-md-4">
+
+        <label class="form-label">To Date</label>
+
+        <input type="text" id="max2" name="max" class="form-control" placeholder="To Date" />
+
+    </div>
+
+</div>
+
+<div class="table-responsive">
+
+    <table class="table table-striped table-hover table-bordered w-100" id="bales_table">
+
+        <thead class="table-dark">
+
+            <tr>
+
+                <th scope="col">Invoice</th>
+
+                <th scope="col">Date</th>
+
+                <th scope="col">Contract</th>
+
+                <th scope="col">Seller</th>
+
+                <th scope="col">LOT #</th>
+
+                <th scope="col">Entry Weight</th>
+
+                <th scope="col">Net Weight</th>
+
+                <th scope="col">First Price</th>
+
+                <th scope="col">Second Price</th>
+
+                <th scope="col">Cash Advance</th>
+
+                <th scope="col">Amount Paid</th>
+
+                <th scope="col">Action</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody></tbody>
+
+    </table>
+
+</div>
 
 
 
-</html>
+<div class="modal fade" id="viewBalesRecord" tabindex="-1" role="dialog" aria-hidden="true">
 
-<script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.12.1/api/sum().js"></script>
-<script type="text/javascript">
-var minDate1, maxDate1;
+    <div class="modal-dialog modal-lg">
 
-// Custom filtering function which will search data in column four between two values
-$.fn.dataTable.ext.search.push(
-    function(settings, data, dataIndex) {
-        var min = minDate1.val();
-        var max = maxDate1.val();
-        var date = new Date(data[1]);
+        <div class="modal-content">
 
-        if (
-            (min === null && max === null) ||
-            (min === null && date <= max) ||
-            (min <= date && max === null) ||
-            (min <= date && date <= max)
-        ) {
-            return true;
-        }
-        return false;
-    }
-);
+            <div class="modal-header">
 
+                <h5 class="modal-title">Bale Purchase Record</h5>
 
-minDate1 = new DateTime($('#min2'), {
-    format: 'MMMM Do YYYY'
-});
-maxDate1 = new DateTime($('#max2'), {
-    format: 'MMMM Do YYYY'
-});
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+
+            <div class="modal-body"><div id="bales_rec"></div></div>
+
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
 
 
+<div class="modal fade" id="deleteRec" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">Delete Record</h5>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+
+            <form action="../function/records_delete.php" method="POST">
+
+                <div class="modal-body text-center">
+
+                    <p>Confirm to delete record</p>
+
+                    <input type="text" name="d_bales_id" id="d_bales_id" class="form-control" readonly />
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="submit" name="bales_remove" class="btn btn-danger">Confirm</button>
+
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
 
 
-$(document).ready(function() {
 
+<script src="../js/rubber-datatables-common.js"></script>
 
-    table = $('#bales_table').DataTable({
-        dom: 'Bfrtip',
-        order: [
-            [0, 'desc']
-        ],
-        buttons: [
-            'excel', 'pdf', 'print',
+<script src="../js/rubber-bales-record-history.js"></script>
 
-        ],
-        drawCallback: function() {
-            var api = this.api();
-            var sum = 0;
-            var formated = 0;
-            //to show first th
-            $(api.column(8).footer()).html('Total');
+<?php if (isset($_SESSION['deleted'])) : ?>
+<script>Swal.fire({ icon: 'success', title: 'Record deleted', timer: 1800, showConfirmButton: false });</script>
+<?php unset($_SESSION['deleted']); endif; ?>
 
+<?php rubber_page_end(); ?>
 
-            sum = api.column(9, {
-                page: 'current'
-            }).data().sum();
-
-            //to format this sum
-            formated = parseFloat(sum).toLocaleString(undefined, {
-                minimumFractionDigits: 2
-            });
-            $(api.column(9).footer()).html('P ' + formated);
-
-
-        }
-
-    });
-
-    $('#min2, #max2').on('change', function() {
-        table.draw();
-    });
-
-    $('#seller_filter').on('change', function() {
-        table.search(this.value).draw();
-    });
-
-});
-</script>

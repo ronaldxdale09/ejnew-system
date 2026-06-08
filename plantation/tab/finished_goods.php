@@ -33,10 +33,14 @@
     <table class="table table-bordered table-hover table-striped table-responsive" style='width:100%' id="recording_table-completed">
 
         <?php
-        $results = mysqli_query($con, "SELECT * FROM planta_bales_production 
-       LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
-       WHERE planta_bales_production.status='Produced' and (rubber_weight !='0' or rubber_weight !=null) and (remaining_bales !='0' and planta_recording.source='$loc')
-       ORDER BY planta_bales_production.recording_id ASC ");
+        $results = mysqli_query($con, "SELECT p.*, r.supplier, r.lot_num, r.location, r.drc, r.produce_total_weight, r.production_expense, r.prod_expense_desc, r.milling_cost
+       FROM planta_bales_production p
+       LEFT JOIN planta_recording r ON p.recording_id = r.recording_id
+       WHERE p.status='Produced'
+         AND COALESCE(p.rubber_weight, 0) != 0
+         AND COALESCE(p.remaining_bales, 0) != 0
+         AND r.source='$locEsc'
+       ORDER BY p.recording_id ASC");
         ?>
 
 

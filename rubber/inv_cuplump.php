@@ -1,46 +1,24 @@
-<?php 
-   include('include/header.php');
-   include "include/navbar.php";
+<?php
+include 'include/header.php';
+include 'include/navbar.php';
 
-   $loc = str_replace(' ', '', $_SESSION['loc']);
-   $sql = mysqli_query($con, "SELECT SUM(reweight) as inventory from  planta_recording where status='Field'  and source='$loc'  "); 
-   $cuplumps = mysqli_fetch_array($sql);
+$sql = mysqli_query($con, "SELECT SUM(reweight) as inventory from  planta_recording where status='Field'  and source='$loc'  ");
+$cuplumps = mysqli_fetch_array($sql);
 
-   $sql = mysqli_query($con, "SELECT SUM(crumbed_weight) as inventory from  planta_recording where status='Milling' and source='$loc'  "); 
-   $milling = mysqli_fetch_array($sql);
+$sql = mysqli_query($con, "SELECT SUM(crumbed_weight) as inventory from  planta_recording where status='Milling' and source='$loc'  ");
+$milling = mysqli_fetch_array($sql);
 
-   
-   $sql = mysqli_query($con, "SELECT SUM(dry_weight) as inventory from  planta_recording where status='Drying' and source='$loc'  "); 
-   $drying = mysqli_fetch_array($sql);
+$sql = mysqli_query($con, "SELECT SUM(dry_weight) as inventory from  planta_recording where status='Drying' and source='$loc'  ");
+$drying = mysqli_fetch_array($sql);
 
-
-
-
+rubber_page_begin('Cuplump Inventory', 'Cuplump stock summary', 'Inventory');
 ?>
-
 <style>
 .number-cell {
     text-align: right;
 }
 </style>
-
-<body>
-    <link rel='stylesheet' href='css/statistic-card.css'>
-    <div class='main-content' style='min-height:100vh;'>
-        <div class="container home-section h-100" style="max-width:95%;">
-            <div class="page-wrapper">
-                <div class="row">
-                    <div class="col-sm-12">
-
-                        <h2 class="page-title">
-                            <b>
-                                <font color="#0C0070">Cuplump </font>
-                                <font color="#046D56"> Inventory </font>
-                            </b>
-                        </h2>
-
-                        <br>
-                        <div class="row">
+<div class="row">
                             <div class="col">
                                 <div class="stat-card">
                                     <div class="stat-card__content">
@@ -111,14 +89,8 @@
 
                         </div>
 
-                        <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
-                            <div class="table-responsive">
+<div class="table-responsive mt-3">
                                 <table class="table table-bordered table-hover table-striped" id='inventory-table'>
-                                    <?php
-                                    $results  = mysqli_query($con, "SELECT DISTINCT planta_recording.*, rubber_transaction.total_amount as total_amount, rubber_transaction.net_weight as net_weight 
-                                    FROM planta_recording
-                                    LEFT JOIN rubber_transaction ON planta_recording.purchased_id = rubber_transaction.id
-                                    WHERE planta_recording.status = 'Field' and planta_recording.source='$loc' ");?>
                                     <thead class="table-dark">
                                         <tr>
 
@@ -133,77 +105,10 @@
                                             <th scope="col">Reweight</th>
                                         </tr>
                                     </thead>
-                                    <tbody> <?php while ($row = mysqli_fetch_array($results)) { ?>
-                                        <tr>
-
-                                            <td><span class="badge bg-success"> <?php echo $row['status']?> </span></td>
-                                            <td> <span class="badge bg-secondary"> <?php echo $row['trans_type']?> </span> <span
-                                                    class="badge bg-dark"><?php echo $row['recording_id']?></span>
-                                            </td>
-                                            <td><?php echo date('M d, Y H:i', strtotime($row['receiving_date'])); ?>
-                                            </td>
-                                            <td> <?php echo $row['supplier']?> </td>
-                                            <td> <?php echo $row['lot_num']?> </td>
-                                            <td> <?php echo $row['driver']?> </td>
-                                            <td> <?php echo $row['truck_num']?> </td>
-                                            <td class="number-cell">
-                                                <?php echo number_format($row['weight'], 0, '.', ',')?> kg</td>
-                                            <td class="number-cell">
-                                                <?php echo number_format($row['reweight'], 0, '.', ',')?> kg</td>
-
-                                        </tr>
-                                        <?php } ?>
-                                    </tbody>
+                                    <tbody></tbody>
                                 </table>
                             </div>
 
-                            <script>
-                            $(document).ready(function() {
-                                var table = $('#inventory-table').DataTable({
-                                    "order": [
-                                        [1, 'asc']
-                                    ],
-                                    "pageLength": -1,
-                                    "dom": "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
-                                        "<'row'<'col-sm-12'tr>>" +
-                                        "<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'>>",
-                                    "responsive": true,
-                                    "buttons": [{
-                                            extend: 'excelHtml5',
-                                            text: 'Excel',
-                                            exportOptions: {
-                                                columns: ':visible'
-                                            }
-                                        },
-                                        {
-                                            extend: 'pdfHtml5',
-                                            text: 'PDF',
-                                            exportOptions: {
-                                                columns: ':visible'
-                                            }
-                                        },
-                                        {
-                                            extend: 'print',
-                                            text: 'Print',
-                                            exportOptions: {
-                                                columns: ':visible'
-                                            }
-                                        }
-                                    ]
-                                });
-                            });
-                            </script>
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-</body>
-
-</html>
+<script src="js/rubber-datatables-common.js"></script>
+<script src="js/rubber-cuplump-inventory.js"></script>
+<?php rubber_page_end(); ?>

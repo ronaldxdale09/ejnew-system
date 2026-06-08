@@ -1,44 +1,21 @@
-<?php 
-   include('include/header.php');
-   include "include/navbar.php";
-   $loc = str_replace(' ', '', $_SESSION['loc']);
+<?php
+include 'include/header.php';
+include 'include/navbar.php';
 
-
+rubber_page_begin('Bales Purchase', 'Bale rubber purchase records', 'Purchase Records');
 ?>
-
 <style>
 .number-cell {
     text-align: right;
 }
 </style>
-
-<body>
-    <link rel='stylesheet' href='css/statistic-card.css'>
-    <div class='main-content' style='min-height:100vh;'>
-        <div class="container home-section h-100" style="max-width:95%;">
-            <div class="page-wrapper">
-                <div class="row">
-                    <div class="col-sm-12">
-
-                        <h2 class="page-title">
-                            <b>
-                                <font color="#0C0070">Bale </font>
-                                <font color="#046D56"> Purchase </font>
-                            </b>
-                        </h2>
-
-                        <br>
-
-
-                        <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
-                            <button type="button" class="btn btn-primary text-white" data-toggle="modal"
-                                data-target="#createNew">NEW PURCHASE</button>
-                            <hr>
-
-                            <div class="table-responsive">
+<div class="rubber-toolbar">
+    <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#createNew">
+        <i class="fas fa-plus me-1"></i> New Purchase
+    </button>
+</div>
+<div class="table-responsive">
                                 <table class="table" id='bales_table'>
-                                    <?php
-                                 $record  = mysqli_query($con, "SELECT * from bales_transaction where loc='$loc' ORDER BY id DESC");?>
                                     <thead class="table-dark" style='font-size:15px'>
                                         <tr>
                                             <th scope="col">Invoice</th>
@@ -55,55 +32,7 @@
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody style='font-size:17px'> <?php while ($row = mysqli_fetch_array($record)) { ?>
-                                        <tr>
-                                            <td scope="row"> <?php echo $row['id']?> </td>
-                                            <td><?php echo date('M j, Y', strtotime($row['date'])); ?></td>
-                                            <td> <?php echo $row['contract']?> </td>
-                                            <td> <?php echo $row['seller']?> </td>
-                                            <td> <?php echo $row['lot_code']?> </td>
-                                            <td style="text-align: right"> <?php echo number_format($row['entry'])?> kg
-                                            </td>
-                                            <td style="text-align: right"> <?php         
-                                                    echo number_format($row['total_net_weight']);?> kg </td>
-
-                                            <td style="text-align: right">₱
-                                                <?php echo number_format($row['price_1'],2)?> </td>
-                                            <td style="text-align: right">₱
-                                                <?php echo number_format($row['price_2'],2)?> </td>
-                                            <td style="text-align: right">₱ <?php echo number_format($row['less'],0)?>
-                                            </td>
-                                            <td style="text-align: right">₱
-                                                <?php echo number_format(($row['amount_paid']),0); ?> </td>
-                                            <td>
-                                                <button type="button" class="btn btn-sm btn-primary btnView"
-                                                    data-id="<?php echo $row['id']; ?>"
-                                                    data-invoice="<?php echo $row['invoice']; ?>"
-                                                    data-date="<?php echo $row['date']; ?>"
-                                                    data-address="<?php echo $row['address']; ?>"
-                                                    data-contract="<?php echo $row['contract']; ?>"
-                                                    data-seller="<?php echo $row['seller']; ?>"
-                                                    data-delivery_date="<?php echo $row['delivery_date']; ?>"
-                                                    data-lot_code="<?php echo $row['lot_code']; ?>"
-                                                    data-entry="<?php echo $row['entry']; ?>"
-                                                    data-total_net_weight="<?php echo $row['total_net_weight']; ?>"
-                                                    data-drc="<?php echo $row['drc']; ?>"
-                                                    data-price_1="<?php echo $row['price_1']; ?>"
-                                                    data-price_2="<?php echo $row['price_2']; ?>"
-                                                    data-first_total="<?php echo $row['first_total']; ?>"
-                                                    data-second_total="<?php echo $row['second_total']; ?>"
-                                                    data-total_amount="<?php echo $row['total_amount']; ?>"
-                                                    data-less="<?php echo $row['less']; ?>"
-                                                    data-amount_paid="<?php echo $row['amount_paid']; ?>"
-                                                    data-words_amount="<?php echo $row['words_amount']; ?>"
-                                                    data-loc="<?php echo $row['loc']; ?>"
-                                                    data-production_id="<?php echo $row['production_id']; ?>"
-                                                    data-recorded_by="<?php echo $row['recorded_by']; ?>">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                            </td>
-                                        </tr> <?php } ?>
-                                    </tbody>
+                                    <tbody></tbody>
                                     <tfoot>
                                         <th></th>
                                         <th></th>
@@ -121,56 +50,6 @@
                                 </table>
                             </div>
 
-                            <script>
-                            $(document).ready(function() {
-                                var table = $('#bales_table').DataTable({
-                                    "order": [
-                                        [1, 'desc']
-                                    ],
-                                    "pageLength": -1,
-                                    "dom": "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
-                                        "<'row'<'col-sm-12'tr>>" +
-                                        "<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'>>",
-                                    "responsive": true,
-                                    "buttons": [{
-                                            extend: 'excelHtml5',
-                                            text: 'Excel',
-                                            exportOptions: {
-                                                columns: ':visible'
-                                            }
-                                        },
-                                        {
-                                            extend: 'pdfHtml5',
-                                            text: 'PDF',
-                                            exportOptions: {
-                                                columns: ':visible'
-                                            }
-                                        },
-                                        {
-                                            extend: 'print',
-                                            text: 'Print',
-                                            exportOptions: {
-                                                columns: ':visible'
-                                            }
-                                        }
-                                    ]
-                                });
-                            });
-                            </script>
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-</body>
-
-</html>
 <div class="modal fade" id="createNew" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -509,95 +388,12 @@
 </div>
 
 <script>
-$('.btnView').on('click', function() {
-    $tr = $(this).closest('tr');
-
-    var data = $tr.children("td").map(function() {
-        return $(this).text();
-    }).get();
-
-    var id = $(this).data('id');
-    var invoice = $(this).data('invoice');
-    var date = $(this).data('date');
-    var address = $(this).data('address');
-    var contract = $(this).data('contract');
-    var seller = $(this).data('seller');
-    var delivery_date = $(this).data('delivery_date');
-    var lot_code = $(this).data('lot_code');
-    var entry = $(this).data('entry');
-    var net_weight_1 = $(this).data('net_weight_1');
-    var net_weight_2 = $(this).data('net_weight_2');
-    var total_net_weight = $(this).data('total_net_weight');
-    var kilo_bales_1 = $(this).data('kilo_bales_1');
-    var kilo_bales_2 = $(this).data('kilo_bales_2');
-    var total_bales_1 = $(this).data('total_bales_1');
-    var total_bales_2 = $(this).data('total_bales_2');
-    var bales_compute = $(this).data('bales_compute');
-    var drc = $(this).data('drc');
-    var price_1 = $(this).data('price_1');
-    var price_2 = $(this).data('price_2');
-    var first_total = $(this).data('first_total');
-    var second_total = $(this).data('second_total');
-    var total_amount = $(this).data('total_amount');
-    var less = $(this).data('less');
-    var amount_paid = $(this).data('amount_paid');
-    var words_amount = $(this).data('words_amount');
-    var loc = $(this).data('loc');
-    var production_id = $(this).data('production_id');
-    var recorded_by = $(this).data('recorded_by');
-
-    function fetch_record() {
-        var purchase_id = id;
-        $.ajax({
-            url: "table/bales_purchase_selection.php",
-            method: "POST",
-            data: {
-                purchase_id: purchase_id,
-
-            },
-            success: function(data) {
-                $('#selected_inventory').html(data);
-
-
-            }
-        });
-    }
-    fetch_record();
-
-
-
-
-
-    $('#recording_id').val(id);
-    $('#v_date').val(date);
-    $('#contract').val(contract);
-    $('#name').val(seller);
-    $('#address').val(address);
-    $('#total_ca').val(total_amount); // I'm not sure which field corresponds to 'total_ca' 
-    $('#net_weight_1').val(net_weight_1);
-    $('#kilo_bales_1').val(kilo_bales_1);
-    $('#total_bales_1').val(total_bales_1);
-    $('#net_weight_2').val(net_weight_2);
-    $('#kilo_bales_2').val(kilo_bales_2);
-    $('#total_bales_2').val(total_bales_2);
-    $('#entry').val(entry);
-    $('#drc').val(drc);
-    $('#total_net_weight').val(total_net_weight);
-    $('#bales_compute').val(bales_compute);
-    $('#price_1').val(price_1);
-    $('#first_total').val(first_total);
-    $('#price_2').val(price_2);
-    $('#second_total').val(second_total);
-    $('#total_amount').val(total_amount);
-    $('#cash_advance').val(less); // I'm not sure which field corresponds to 'cash_advance'
-    $('#amount_paid').val(amount_paid);
-    $('#amount-paid-words').val(words_amount);
-    $('#viewRecord').modal('show');
-});
-
 $('#removeBtn').click(function() {
-    var id = $('#recording_id').val(); // get the id from viewRecord modal
-    $('#remove_id').val(id); // set the id to the confirmationModal
-    $('#confirmationModal').modal('show'); // Open the confirmation modal
+    var id = $('#recording_id').val();
+    $('#remove_id').val(id);
+    $('#confirmationModal').modal('show');
 });
 </script>
+<script src="js/rubber-datatables-common.js"></script>
+<script src="js/rubber-bales-purchase.js"></script>
+<?php rubber_page_end(); ?>

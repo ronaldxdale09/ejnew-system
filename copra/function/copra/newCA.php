@@ -26,7 +26,7 @@
                                    
                                     if ($results) {
 
-                                        header("Location: ../..//copra-ca.php");
+                                        header("Location: ../copra-ca.php");
                                         $_SESSION['copra_ca']= "successful";
 
                                     } else {
