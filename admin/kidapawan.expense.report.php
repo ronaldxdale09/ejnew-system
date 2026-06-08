@@ -9,44 +9,16 @@ $CurrentYear = date('Y');
 
 $source = 'Kidapawan';
 ?>
-
-<body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"
-        integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.12.1/api/sum().js"></script>
-
-    <style>
-        .expenseTable th:not(.category),
-        .expenseTable td:not(.category) {
-            text-align: left;
-        }
-    </style>
-    <div class="container home-section h-100" style="max-width:95%;">
-
-        <h2 class="page-title text-center my-4">
-            <b>
-                <font color="#0C0070">KIDAPAWAN EXPENSE </font>
-                <font color="#046D56"> REPORT </font>
-            </b>
-        </h2>
-
-        <h5 class="text-center">(All amounts are in Philippine Peso)</h5>
-        <?php include "statistical_card/expense.card.php"; ?>
-
-        <div class="card">
-            <div class="card-body">
-
-
-                <div class="table-responsive">
-                    <h4 class="page-title">
-                        <b>
-                            <font color="#0C0070">MONTHLY EXPENSE </font>
-                            <font color="#046D56"> BY CATEGORY </font>
-                        </b>
-                    </h4>
-
+<script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.12.1/api/sum().js"></script>
+<style>
+    .expenseTable th:not(.category),
+    .expenseTable td:not(.category) { text-align: left; }
+</style>
+<div class="main-content admin-page">
+    <?php adm_page_header('Kidapawan Expense Report', 'Monthly expense breakdown by category — all amounts in Philippine Peso (₱).', ['Kidapawan']); ?>
+    <?php include "statistical_card/expense.card.php"; ?>
+    <?php adm_panel_open('Monthly Expense by Category'); ?>
+    <div class="table-responsive adm-table-wrap">
                     <table id="table-expenses_all" class="table  table-responsive-lg display nowrap expenseTable"
                         style="width:100%;">
                         <?php
@@ -209,10 +181,8 @@ $source = 'Kidapawan';
                         </tfoot>
 
                     </table>
-                </div>
-
-            </div>
-        </div>
+    </div>
+    <?php adm_panel_close(); ?>
 
 
         <br>
@@ -374,7 +344,7 @@ $source = 'Kidapawan';
 
             });
         </script>
-    </div>
+</div>
 </body>
 
 </html>

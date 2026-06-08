@@ -25,10 +25,8 @@
     ?>
 
 </head>
-
-<body>
-    <div class='main-content' style='min-height:100vh;'>
-        <div class="container home-section h-100" style="max-width:95%;">
+    <div class="main-content admin-page">
+    <div class="container home-section h-100" style="max-width:95%;">
             <br>
             <div class="page-wrapper">
                 <div class="row">
@@ -446,6 +444,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous">
         </script>
+</div>
 </body>
 
 </html>

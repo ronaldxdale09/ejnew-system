@@ -1,0 +1,721 @@
+/**
+ * Operations pages — inventory tabs, plant pipeline, sales/records
+ */
+
+/* ── Shell ── */
+.ops-page .container.home-section,
+.ops-page .page-wrapper {
+    max-width: none !important;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.ops-page .page-title {
+    display: none !important;
+}
+
+.ops-page hr[style*="black"],
+.ops-page hr[style*="background-color: black"] {
+    display: none !important;
+}
+
+.ops-page .alert-dark {
+    background: var(--adm-green-100);
+    border: 1px solid rgba(26, 115, 79, 0.2);
+    color: var(--adm-green-900);
+    border-radius: var(--adm-radius-sm);
+    font-size: 0.8125rem;
+    padding: 0.65rem 1rem;
+    margin-bottom: 1rem;
+}
+
+.ops-page .alert-dark .close,
+.ops-page .alert-dark .btn.close {
+    color: var(--adm-green-800);
+    opacity: 0.7;
+}
+
+.ops-page h2:not(.adm-page-header h1):not(.adm-card__head h3) {
+    font-family: var(--adm-font) !important;
+    font-size: 0.9375rem !important;
+    font-weight: 700 !important;
+    text-align: left !important;
+    padding: 0.65rem 0 !important;
+    margin: 0 0 0.75rem !important;
+    background: transparent !important;
+    border-bottom: 1px solid var(--adm-slate-200) !important;
+    color: var(--adm-slate-800) !important;
+}
+
+.ops-page div[style*="background-color: #2452af"],
+.ops-page div[style*="background-color:#2452af"] {
+    display: none !important;
+}
+
+.ops-page .container-fluid.shadow.p-3.mb-5.bg-white.rounded {
+    border: 1px solid var(--adm-slate-200) !important;
+    border-radius: var(--adm-radius) !important;
+    box-shadow: var(--adm-shadow) !important;
+    padding: 1rem !important;
+    margin-bottom: 1rem !important;
+    background: var(--adm-white) !important;
+}
+
+/* ── Plant pipeline KPI row ── */
+.ops-page .stat-card {
+    background: var(--adm-white);
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+    padding: 0.75rem 1rem;
+    box-shadow: var(--adm-shadow);
+    height: 100%;
+}
+
+.ops-page .stat-card__inner p,
+.ops-page .stat-card .text-muted {
+    font-size: 0.65rem !important;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--adm-slate-500) !important;
+    margin-bottom: 0.25rem !important;
+}
+
+.ops-page .stat-card h4 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--adm-slate-900);
+    margin: 0;
+}
+
+.ops-page .row > .col,
+.ops-page .row > [class*="col-"] {
+    margin-bottom: 0.65rem;
+}
+
+/* ── Radio-tab wrappers (plant + inventory) ── */
+.ops-tabs-shell {
+    width: 100%;
+}
+
+.ops-page .wrapper,
+.ops-page .wrapper.ops-tabs {
+    max-width: none;
+    width: 100%;
+    margin: 0 0 1rem;
+    padding: 0;
+    border-radius: var(--adm-radius);
+    background: var(--adm-white);
+    border: 1px solid var(--adm-slate-200);
+    box-shadow: var(--adm-shadow);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Hide native radio controls — labels act as tabs */
+.ops-page .wrapper > input[type="radio"],
+.ops-tabs > input[type="radio"] {
+    position: absolute !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    pointer-events: none !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+}
+
+.ops-page .wrapper nav,
+.ops-tabs nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    height: auto;
+    min-height: auto;
+    padding: 0.75rem;
+    background: var(--adm-slate-50);
+    border-bottom: 1px solid var(--adm-slate-200);
+    position: relative;
+}
+
+.ops-page .wrapper nav .slider,
+.ops-tabs nav .slider {
+    display: none !important;
+}
+
+.ops-page .wrapper nav label,
+.ops-tabs nav label {
+    flex: 1 1 140px;
+    min-width: 0;
+    z-index: 1;
+    margin: 0;
+    padding: 0.65rem 0.85rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--adm-slate-600);
+    background: var(--adm-white);
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+    transition: background 0.15s, color 0.15s, border-color 0.15s, box-shadow 0.15s;
+    text-align: center;
+    cursor: pointer;
+    line-height: 1.35;
+    user-select: none;
+}
+
+.ops-page .wrapper nav label i,
+.ops-tabs nav label i {
+    margin-right: 0.35rem;
+    opacity: 0.85;
+}
+
+.ops-page .wrapper nav label:hover,
+.ops-tabs nav label:hover {
+    background: var(--adm-green-100);
+    border-color: var(--adm-green-600);
+    color: var(--adm-green-800);
+}
+
+.ops-page .wrapper nav label .badge,
+.ops-tabs nav label .badge {
+    font-size: 0.65rem;
+    vertical-align: middle;
+    margin-left: 0.35rem;
+    background: var(--adm-green-100);
+    color: var(--adm-green-800);
+    font-weight: 700;
+}
+
+/* Universal tab active states (by position — works for any tab ids) */
+.ops-tabs > input[type="radio"]:nth-of-type(1):checked ~ nav label:nth-of-type(1),
+.ops-tabs > input[type="radio"]:nth-of-type(2):checked ~ nav label:nth-of-type(2),
+.ops-tabs > input[type="radio"]:nth-of-type(3):checked ~ nav label:nth-of-type(3),
+.ops-tabs > input[type="radio"]:nth-of-type(4):checked ~ nav label:nth-of-type(4),
+.ops-tabs > input[type="radio"]:nth-of-type(5):checked ~ nav label:nth-of-type(5),
+.ops-tabs > input[type="radio"]:nth-of-type(6):checked ~ nav label:nth-of-type(6) {
+    background: var(--adm-green-800) !important;
+    border-color: var(--adm-green-800) !important;
+    color: #fff !important;
+    box-shadow: 0 2px 8px rgba(26, 115, 79, 0.25);
+}
+
+.ops-tabs > input[type="radio"]:checked ~ nav label .badge {
+    background: rgba(255, 255, 255, 0.22) !important;
+    color: #fff !important;
+}
+
+/* Universal panel visibility */
+.ops-tabs section .content,
+.ops-page .wrapper section .content {
+    display: none;
+}
+
+.ops-tabs > input[type="radio"]:nth-of-type(1):checked ~ section .content:nth-of-type(1),
+.ops-tabs > input[type="radio"]:nth-of-type(2):checked ~ section .content:nth-of-type(2),
+.ops-tabs > input[type="radio"]:nth-of-type(3):checked ~ section .content:nth-of-type(3),
+.ops-tabs > input[type="radio"]:nth-of-type(4):checked ~ section .content:nth-of-type(4),
+.ops-tabs > input[type="radio"]:nth-of-type(5):checked ~ section .content:nth-of-type(5),
+.ops-tabs > input[type="radio"]:nth-of-type(6):checked ~ section .content:nth-of-type(6) {
+    display: block;
+    animation: opsFadeIn 0.2s ease;
+}
+
+/* Legacy id-based tabs (non ops-tabs class wrappers) */
+.ops-page .wrapper:not(.ops-tabs) > input[type="radio"] {
+    position: absolute !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    pointer-events: none !important;
+}
+
+.ops-page #home:checked ~ nav label.home,
+.ops-page #blog:checked ~ nav label.blog,
+.ops-page #drying:checked ~ nav label.drying,
+.ops-page #code:checked ~ nav label.code,
+.ops-page #help:checked ~ nav label.help,
+.ops-page #about:checked ~ nav label.about {
+    background: var(--adm-green-800) !important;
+    border-color: var(--adm-green-800) !important;
+    color: #fff !important;
+}
+
+.ops-page #home:checked ~ section .content-1,
+.ops-page #blog:checked ~ section .content-2,
+.ops-page #drying:checked ~ section .content-3,
+.ops-page #code:checked ~ section .content-4,
+.ops-page #help:checked ~ section .content-5,
+.ops-page #about:checked ~ section .content-6 {
+    display: block;
+}
+
+.ops-page .wrapper section {
+    padding: 0.875rem 1rem 1rem;
+}
+
+.ops-page .wrapper section .content .title {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--adm-slate-500);
+    margin: 0 0 0.75rem;
+}
+
+.ops-page .wrapper section hr {
+    display: none;
+}
+
+/* ── Record page filters ── */
+.ops-page .adm-record-filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 0.65rem;
+    margin-bottom: 1rem;
+    padding: 0.75rem 1rem;
+    background: var(--adm-white);
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius);
+    box-shadow: var(--adm-shadow);
+}
+
+.ops-page .adm-record-filters label {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--adm-slate-500);
+    margin-bottom: 0.2rem;
+}
+
+.ops-page .adm-record-filters .form-control,
+.ops-page .adm-record-filters .form-select {
+    font-size: 0.8125rem;
+    border-color: var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+    min-height: 31px;
+}
+
+/* Legacy bootstrap filter rows → compact grid */
+.ops-page .container-fluid.shadow .row:has(select),
+.ops-page .container-fluid.shadow .row:has(.form-control) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 0.65rem;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.ops-page .container-fluid.shadow .row > [class*="col-"] {
+    width: 100%;
+    max-width: 100%;
+    flex: none;
+    padding: 0;
+    margin-bottom: 0;
+}
+
+.ops-page .container-fluid.shadow .row label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--adm-slate-500);
+    margin-bottom: 0.2rem;
+}
+
+/* ── Cards & tables ── */
+.ops-page > .card,
+.ops-page .card {
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius);
+    box-shadow: var(--adm-shadow);
+}
+
+.ops-page .card-body {
+    padding: 1rem;
+}
+
+.ops-page .table {
+    font-size: 0.8125rem;
+}
+
+.ops-page .table thead th {
+    background: var(--adm-slate-50) !important;
+    color: var(--adm-slate-700);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    border-bottom: 1px solid var(--adm-slate-200) !important;
+    white-space: nowrap;
+}
+
+.ops-page .table-dark {
+    background: var(--adm-slate-800) !important;
+}
+
+.ops-page .number-cell,
+.ops-page td.text-end,
+.ops-page th.text-end {
+    text-align: right !important;
+}
+
+/* DataTables in ops pages */
+.ops-page .dataTables_wrapper .dataTables_length,
+.ops-page .dataTables_wrapper .dataTables_filter {
+    margin: 0.5rem 0;
+    font-size: 0.8125rem;
+}
+
+.ops-page .dataTables_wrapper .dataTables_filter input {
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+    padding: 0.3rem 0.55rem;
+    font-size: 0.8125rem;
+}
+
+@media (max-width: 768px) {
+    .ops-page .wrapper nav {
+        flex-direction: column;
+    }
+
+    .ops-page .wrapper nav label {
+        width: 100%;
+    }
+}
+
+/* ── Plant KPI row ── */
+.ops-page .page-wrapper > .container-fluid > .row:first-child,
+.ops-page .page-wrapper > .container-fluid > .row.mb-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.65rem;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.ops-page .page-wrapper > .container-fluid > .row:first-child > .col,
+.ops-page .page-wrapper > .container-fluid > .row:first-child > [class*="col-"] {
+    width: 100%;
+    max-width: 100%;
+    flex: none;
+    padding: 0;
+    margin-bottom: 0;
+}
+
+/* ── Record panel toolbar ── */
+.ops-page .adm-record-panel,
+.ops-page .container-fluid.shadow.p-3.mb-5.bg-white.rounded {
+    position: relative;
+}
+
+.ops-page .adm-record-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.65rem;
+    border-bottom: 1px solid var(--adm-slate-200);
+}
+
+.ops-page .adm-record-toolbar__hint {
+    font-size: 0.75rem;
+    color: var(--adm-slate-500);
+}
+
+.ops-page .adm-record-toolbar__hint i {
+    margin-right: 0.35rem;
+    color: var(--adm-green-700);
+}
+
+.ops-page .adm-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--adm-font);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--adm-radius-sm);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.ops-page .adm-btn--ghost {
+    background: var(--adm-white);
+    border-color: var(--adm-slate-200);
+    color: var(--adm-slate-700);
+}
+
+.ops-page .adm-btn--ghost:hover {
+    background: var(--adm-slate-50);
+    border-color: var(--adm-slate-300);
+}
+
+.ops-page .adm-btn--sm {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.65rem;
+}
+
+/* Action buttons in record panels */
+.ops-page .adm-record-panel > .btn-success,
+.ops-page .container-fluid.shadow > .btn-success {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    padding: 0.4rem 0.85rem;
+    border-radius: var(--adm-radius-sm);
+    margin-bottom: 0.65rem;
+}
+
+.ops-page .adm-record-panel hr,
+.ops-page .container-fluid.shadow > hr {
+    margin: 0.65rem 0;
+    border-color: var(--adm-slate-200);
+    opacity: 1;
+}
+
+/* Stat cards row on sale pages */
+.ops-page .page-wrapper > .row > .col-3,
+.ops-page .page-wrapper .row .col-3 {
+    flex: 1 1 160px;
+    max-width: none;
+}
+
+.ops-page .page-wrapper > .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.ops-page .page-wrapper > .row > [class*="col-"] {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* Inventory tab content */
+.ops-page .inventory-table .content {
+    animation: opsFadeIn 0.2s ease;
+}
+
+@keyframes opsFadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Override legacy statistic-card body bg inside admin shell */
+.admin-body.ops-page,
+.admin-body .ops-page {
+    background: var(--adm-slate-100);
+}
+
+.ops-page .stat-card {
+    min-height: auto;
+    padding: 0.75rem 1rem;
+}
+
+/* Badge status pills in tables */
+.ops-page .badge {
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.3em 0.55em;
+    border-radius: 999px;
+}
+
+/* View/detail buttons */
+.ops-page .btn-sm {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--adm-radius-sm);
+}
+
+/* DataTables export buttons */
+.ops-page .dt-buttons .btn {
+    font-size: 0.75rem !important;
+    padding: 0.3rem 0.65rem !important;
+    border-radius: var(--adm-radius-sm) !important;
+    margin-right: 0.25rem;
+}
+
+.ops-page .dataTables_wrapper .top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Bales inventory page */
+.ops-inv-shell {
+    width: 100%;
+}
+
+.ops-inv-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.ops-inv-kpi {
+    background: var(--adm-white);
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+    padding: 0.85rem 1rem;
+    box-shadow: var(--adm-shadow);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.ops-inv-kpi__icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--adm-radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+}
+
+.ops-inv-kpi__icon--primary { background: #dbeafe; color: #1d4ed8; }
+.ops-inv-kpi__icon--success { background: #dcfce7; color: #15803d; }
+.ops-inv-kpi__icon--warning { background: #fef3c7; color: #b45309; }
+.ops-inv-kpi__icon--danger  { background: #fee2e2; color: #b91c1c; }
+
+.ops-inv-kpi__label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--adm-slate-500);
+    margin-bottom: 0.15rem;
+}
+
+.ops-inv-kpi__value {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--adm-slate-900);
+    line-height: 1.2;
+}
+
+.ops-inv-kpi__value small {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--adm-slate-500);
+}
+
+.ops-inv-panel {
+    background: var(--adm-white);
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius);
+    box-shadow: var(--adm-shadow);
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.ops-inv-panel__head {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--adm-slate-200);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--adm-slate-800);
+}
+
+.ops-inv-panel__body {
+    padding: 0.75rem 1rem 1rem;
+}
+
+.ops-inv-panel__body--chart {
+    height: 280px;
+    position: relative;
+}
+
+.ops-inv-panel__empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--adm-slate-400);
+    font-size: 0.8125rem;
+}
+
+.ops-inv-charts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+.ops-cell-ellipsis {
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.8125rem;
+}
+
+.ops-page .table td.bg-success {
+    background-color: var(--adm-green-700) !important;
+}
+
+.ops-page .table td.table-info {
+    background-color: #dbeafe !important;
+}
+
+@media (max-width: 992px) {
+    .ops-inv-charts {
+        grid-template-columns: 1fr;
+    }
+
+    .ops-tabs nav label {
+        flex: 1 1 100%;
+    }
+}
+
+/* Legacy inline filter rows on record pages */
+.ops-page .filter-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.ops-page .mb-3:has(.filter-container) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 0.65rem;
+    padding: 0.75rem 1rem;
+    background: var(--adm-white);
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius);
+    box-shadow: var(--adm-shadow);
+    margin-bottom: 1rem;
+}
+
+.ops-page .mb-3:has(.filter-container) label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--adm-slate-500);
+    margin: 0;
+}
+
+.ops-page .mb-3:has(.filter-container) .form-control,
+.ops-page .mb-3:has(.filter-container) .form-select,
+.ops-page .mb-3:has(.filter-container) select {
+    font-size: 0.8125rem;
+    min-height: 31px;
+}
+
+/* Plant page legacy h2 override */
+.ops-page .inventory-table > .container-fluid > h2 {
+    display: none !important;
+}

@@ -108,15 +108,12 @@ $drying = mysqli_fetch_array($sql);
         text-align: right;
     }
 </style>
-
-<body>
     <link rel='stylesheet' href='css/statistic-card.css'>
-    <link rel='stylesheet' href='css/tab-style.css'>
 
 
     <input type='hidden' id='selected-cart' value=''>
-    <div class='main-content' style='position:relative; height:100%;'>
-        <div class="container home-section h-100" style="max-width:95%;">
+    <?php adm_ops_shell_open(); ?>
+    <div class="container home-section h-100" style="max-width:95%;">
             <div class="page-wrapper">
                 <div class="container-fluid">
                     <div class="row">
@@ -215,87 +212,43 @@ $drying = mysqli_fetch_array($sql);
                             </div>
                         </div>
                     </div>
-
-                    <style>
-                        h2 {
-                            font-family: Arial, sans-serif; /* Modern, clean font */
-                            text-align: center; /* Center align the text */
-                            padding: 10px 0; /* Add some padding above and below the text */
-                            background-color: #D6EAF8; /* Light blue background for contrast */
-                            border-bottom: 2px solid #AED6F1; /* A subtle border for definition */
-                            margin-top: 20px; /* Space at the top */
-                            
-                        }
-                    </style>
-                    <div class="alert alert-dark alert-dismissible">
+<div class="alert alert-dark alert-dismissible">
                         <a href="#" class="btn close" data-dismiss="alert" aria-label="close">&times;</a>
                         <strong>Important Notice:</strong> To ensure the integrity and reliability of our system, it is imperative that data is continuously updated and maintained for utmost accuracy. We appreciate your diligence in upholding these standards at all times.
                     </div>
                     <div class="inventory-table">
-             
                         <div class="container-fluid">
-                        <h2><b> KIDAPAWAN RUBBER PROCESSING RECORDING </b> </h2>
-                            <div class="wrapper" id="myTab">
-                                <input type="radio" name="slider" id="home" <?php if ($tab == '') {
-                                                                                echo 'checked';
-                                                                            } else {
-                                                                                echo '';
-                                                                            } ?>>
-                                <input type="radio" name="slider" id="blog" <?php if ($tab == '2') {
-                                                                                echo 'checked';
-                                                                            } else {
-                                                                                echo '';
-                                                                            } ?>>
-                                <input type="radio" name="slider" id="drying" <?php if ($tab == '3') {
-                                                                                    echo 'checked';
-                                                                                } else {
-                                                                                    echo '';
-                                                                                } ?>>
-                                <input type="radio" name="slider" id="code" <?php if ($tab == '4') {
-                                                                                echo 'checked';
-                                                                            } else {
-                                                                                echo '';
-                                                                            } ?>>
-                                <input type="radio" name="slider" id="help" <?php if ($tab == '5') {
-                                                                                echo 'checked';
-                                                                            } else {
-                                                                                echo '';
-                                                                            } ?>>
+                            <?php
+                            adm_ops_tabs_open('plantPipelineTabs', [
+                                ['id' => 'tab-receiving', 'label' => 'Receiving', 'icon' => 'truck', 'badge' => $receiving_count, 'panel' => 'content-1'],
+                                ['id' => 'tab-milling', 'label' => 'Milling', 'icon' => 'cogs', 'badge' => $milling_count, 'panel' => 'content-2'],
+                                ['id' => 'tab-drying', 'label' => 'Drying', 'icon' => 'sun', 'badge' => $drying_count, 'panel' => 'content-3'],
+                                ['id' => 'tab-pressing', 'label' => 'Pressing', 'icon' => 'toolbox', 'badge' => $pressing_count, 'panel' => 'content-4'],
+                                ['id' => 'tab-produced', 'label' => 'Produced', 'icon' => 'check', 'badge' => $produced_count, 'panel' => 'content-5'],
+                            ], adm_ops_plant_active_tab($tab), 'Kidapawan processing pipeline');
 
-                                <nav>
-                                    <label for="home" class="home"><i class="fas fa-truck"></i> Receiving <span class="badge bg-primary"> <?php echo $receiving_count ?> </span></label>
-                                    <label for="blog" class="blog"><i class="fas fa-cogs"></i> Milling <span class="badge bg-primary"> <?php echo $milling_count ?> </span></label>
-                                    <label for="drying" class="drying"><i class="fas fa-sun"></i> Drying <span class="badge bg-primary"> <?php echo $drying_count ?> </span></label>
-                                    <label for="code" class="code"><i class="fas fa-toolbox"></i> Pressing <span class="badge bg-primary"> <?php echo $pressing_count ?> </span></label>
-                                    <label for="help" class="help"><i class="fas fa-check"></i> Produced <span class="badge bg-primary"> <?php echo $produced_count ?> </span></label>
+                            adm_ops_tab_begin('content-1');
+                            include 'plant_record/receiving.php';
+                            adm_ops_tab_end();
 
-                                    <div class="slider"></div>
-                                </nav>
-                                <section>
-                                    <div class="content content-1">
-                                        <div class="title">CUPLUMP INVENTORY </div>
-                                 
-                                        <hr>
-                                        <?php include('plant_record/receiving.php') ?>
-                                    </div>
-                                    <div class="content content-2">
-                                        <div class="title">MILLING CRUMBS</div>
-                                        <?php include('plant_record/milling.php') ?>
-                                    </div>
-                                    <div class="content content-3">
-                                        <div class="title">DRYING BLANKET</div>
-                                        <?php include('plant_record/drying.php') ?>
-                                    </div>
-                                    <div class="content content-4">
-                                        <div class="title">BALE PRESSING</div>
-                                        <?php include('plant_record/pressing.php') ?>
-                                    </div>
-                                    <div class="content content-5">
-                                        <div class="title">BALE INVENTORY</div>
-                                        <?php include('plant_record/finished_goods.php') ?>
-                                </section>
-                            </div>
+                            adm_ops_tab_begin('content-2');
+                            include 'plant_record/milling.php';
+                            adm_ops_tab_end();
 
+                            adm_ops_tab_begin('content-3');
+                            include 'plant_record/drying.php';
+                            adm_ops_tab_end();
+
+                            adm_ops_tab_begin('content-4');
+                            include 'plant_record/pressing.php';
+                            adm_ops_tab_end();
+
+                            adm_ops_tab_begin('content-5');
+                            include 'plant_record/finished_goods.php';
+                            adm_ops_tab_end();
+
+                            adm_ops_tabs_close();
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -304,6 +257,7 @@ $drying = mysqli_fetch_array($sql);
         </div>
     </div>
 
+</div>
 </body>
 <script src="js/recording.js"></script>
 

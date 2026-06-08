@@ -65,7 +65,20 @@ $total_shipping_cuplump = fetchData($con, "SELECT SUM(total_ship_expense) as tot
 $month_shipping_cuplump = fetchData($con, "SELECT SUM(total_ship_expense) as month_ship_expense_cuplump FROM sales_cuplump_record WHERE MONTH(transaction_date) = MONTH(CURRENT_DATE()) AND YEAR(transaction_date) = YEAR(CURRENT_DATE())");
 $prev_month_shipping_cuplump = fetchData($con, "SELECT SUM(total_ship_expense) as prev_month_ship_expense_cuplump FROM sales_cuplump_record WHERE MONTH(transaction_date) = MONTH(CURRENT_DATE() - INTERVAL 1 MONTH) AND YEAR(transaction_date) = YEAR(CURRENT_DATE() - INTERVAL 1 MONTH)");
 
-// Sales Growth for Cuplump
+// Executive summary KPIs
+$total_expenses_year = fetchData($con, "SELECT SUM(total_amount) as total FROM ledger_expenses WHERE YEAR(date) = YEAR(CURRENT_DATE())");
+$month_expenses = fetchData($con, "SELECT SUM(total_amount) as total FROM ledger_expenses WHERE MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE())");
+
+$combined_sales_year = ($bale_sales['total_sales'] ?? 0) + ($cuplump_sales['total_sales'] ?? 0);
+$combined_sales_month = ($bale_month_sales['monthly_sales'] ?? 0) + ($cuplump_month_sales['monthly_sales'] ?? 0);
+$combined_profit_year = ($gross_profit_year['total_gross_profit'] ?? 0) + ($gross_profit_cuplump_year['total_gross_profit_cuplump'] ?? 0);
+$combined_profit_month = ($gross_profit_month['monthly_gross_profit'] ?? 0) + ($gross_profit_cuplump_month['monthly_gross_profit_cuplump'] ?? 0);
+$combined_shipping_year = ($total_shipping['total_ship_expense'] ?? 0) + ($total_shipping_cuplump['total_ship_expense_cuplump'] ?? 0);
+$combined_unpaid = ($bale_unpaid['unpaid_balance'] ?? 0) + ($cuplump_unpaid['unpaid_balance'] ?? 0);
+$combined_active_sales = ($bale_active['active'] ?? 0) + ($cuplump_active['active'] ?? 0);
+
+// Coffee sales (current year)
+$coffee_sales_year = fetchData($con, "SELECT SUM(coffee_total_amount) as total FROM coffee_sale WHERE YEAR(coffee_date) = YEAR(CURRENT_DATE())");
 $cuplump_sales_growth = fetchData($con, "SELECT CASE WHEN last_month_sales = 0 THEN NULL ELSE ((current_month_sales - last_month_sales) / last_month_sales * 100) END AS percentage_growth FROM (SELECT SUM(CASE WHEN MONTH(transaction_date) = MONTH(CURRENT_DATE()) AND YEAR(transaction_date) = YEAR(CURRENT_DATE()) THEN total_sales ELSE 0 END) AS current_month_sales, SUM(CASE WHEN MONTH(transaction_date) = MONTH(DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND YEAR(transaction_date) = YEAR(DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) THEN total_sales ELSE 0 END) AS last_month_sales FROM sales_cuplump_record) AS sales_data");
 
 

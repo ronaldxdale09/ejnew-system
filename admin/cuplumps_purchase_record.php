@@ -12,11 +12,9 @@
     text-align: right;
 }
 </style>
-
-<body>
     <link rel='stylesheet' href='css/statistic-card.css'>
-    <div class='main-content' style='min-height:100vh;'>
-        <div class="container home-section h-100" style="max-width:95%;">
+    <div class="main-content admin-page">
+    <div class="container home-section h-100" style="max-width:95%;">
             <div class="page-wrapper">
                 <div class="row">
                     <div class="col-sm-12">
@@ -202,6 +200,7 @@
 
 
 
+</div>
 </body>
 
 </html>

@@ -10,11 +10,9 @@ $loc = str_replace(' ', '', $_SESSION['loc']);
         text-align: right;
     }
 </style>
-
-<body>
     <input type='hidden' id='selected-cart' value=''>
-    <div class='main-content' style='position:relative; height:100%;'>
-        <div class="container home-section h-100" style="max-width:95%;">
+    <div class="main-content admin-page">
+    <div class="container home-section h-100" style="max-width:95%;">
             <div class="page-wrapper">
                 <div class="container-fluid">
                     <h2 class="page-title">
@@ -144,6 +142,7 @@ $loc = str_replace(' ', '', $_SESSION['loc']);
             </div>
         </div>
     </div>
+</div>
 </body>
 
 </html>

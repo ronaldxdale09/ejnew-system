@@ -2,12 +2,10 @@
 include('include/header.php');
 include('include/navbar.php');
 ?>
-
-<body>
     <link rel='stylesheet' href='css/statistic-card.css'>
 
-    <div class='main-content' style='position:relative; height:100%;'>
-        <div class="container home-section h-100" style="max-width:95%;">
+    <?php adm_ops_shell_open(); ?>
+    <div class="container home-section h-100" style="max-width:95%;">
             <div class="page-wrapper">
                 <h2 class="page-title">
                     <b>
@@ -17,8 +15,7 @@ include('include/navbar.php');
                 </h2>
                 <br>
                 <?php include('statistical_card/coffee.product.card.php'); ?>
-                <div class="card">
-                    <div class="card-body">
+                <?php adm_panel_open('Product Inventory'); ?>
 
                         <?php
 
@@ -73,8 +70,7 @@ include('include/navbar.php');
                             </table>
                         </div>
 
-                    </div>
-                </div>
+                <?php adm_panel_close(); ?>
             </div>
         </div>
     </div>
@@ -138,6 +134,7 @@ include('include/navbar.php');
 
 
 
+</div>
 </body>
 
 </html>

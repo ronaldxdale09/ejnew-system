@@ -10,14 +10,12 @@
 
 
    ?>
-
-<body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"
         integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel='stylesheet' href='css/statistic-card.css'>
     <input type='hidden' id='selected-cart' value=''>
-    <div class='main-content' style='position:relative; height:100%;'>
+    <div class="main-content admin-page" style='position:relative; height:100%;'>
         <div class="container home-section h-100" style="max-width:100%;">
             <div class="page-wrapper">
                 <div class="container-fluid">
@@ -85,6 +83,7 @@
         </div>
     </div>
 
+</div>
 </body>
 
 </html>

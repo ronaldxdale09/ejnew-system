@@ -3,10 +3,8 @@ include('include/header.php');
 include('include/navbar.php');
 
 ?>
-
-<body>
-    <div class='main-content' style='position:relative; height:100%;'>
-        <div class="container home-section h-100" style="max-width:95%;">
+    <?php adm_ops_shell_open(); ?>
+    <div class="container home-section h-100" style="max-width:95%;">
             <div class="page-wrapper"> <br>
                 <h2 class="page-title">
                     <b>
@@ -15,14 +13,8 @@ include('include/navbar.php');
                     </b>
                 </h2>
                 <br>
-                <?php     include "statistical_card/coffee.production.card.php"; ?>
-                <br>
-                <div class="card">
-                    <div class="card-body">
-                        <div class="col-sm-4">
-                        
-                        </div>
-                        <hr>
+                <?php include "statistical_card/coffee.production.card.php"; ?>
+                <?php adm_panel_open('Production Records'); ?>
                         <?php
 
                         // Prepare SQL statement
@@ -66,8 +58,7 @@ include('include/navbar.php');
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                </div>
+                <?php adm_panel_close(); ?>
             </div>
         </div>
     </div>
@@ -146,6 +137,7 @@ include('include/navbar.php');
 
 
 
+</div>
 </body>
 
 </html>

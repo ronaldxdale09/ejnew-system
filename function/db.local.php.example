@@ -1,0 +1,31 @@
+<?php
+/**
+ * Optional local overrides — copy this file to db.local.php (gitignored).
+ *
+ * Production site: https://en-rubber.online/
+ * Local dev:        http://localhost/ejnew-system/
+ *
+ * Examples:
+ *
+ * Force local credentials even when testing on a staging URL:
+ *   return ['environment' => 'local'];
+ *
+ * Force production when debugging from localhost:
+ *   return ['environment' => 'production'];
+ *
+ * Custom credentials (e.g. different local DB name):
+ *   return [
+ *       'host' => '127.0.0.1',
+ *       'user' => 'root',
+ *       'pass' => '',
+ *       'name' => 'ejn_db',
+ *   ];
+ */
+
+return [
+    // 'environment' => 'local',
+    // 'host' => 'localhost',
+    // 'user' => 'root',
+    // 'pass' => '',
+    // 'name' => 'ejn_db',
+];

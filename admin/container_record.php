@@ -11,11 +11,9 @@ include 'include/navbar.php';
 </style>
 
 <?php include 'modal/modal_container.php'; ?>
-
-<body>
     <link rel='stylesheet' href='css/statistic-card.css'>
-    <div class='main-content' style='min-height:100vh;'>
-        <div class="container home-section h-100" style="max-width:95%;">
+    <?php adm_ops_shell_open(); ?>
+    <div class="container home-section h-100" style="max-width:95%;">
             <div class="page-wrapper">
                 <div class="row">
                     <div class="col-sm-12">
@@ -29,7 +27,7 @@ include 'include/navbar.php';
 
                         <br>
 
-                        <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
+                        <div class="container-fluid shadow p-3 mb-5 bg-white rounded adm-record-panel">
                         <div class="mb-3">
 
 <!-- Filters -->
@@ -340,6 +338,7 @@ include 'include/navbar.php';
     </script>
 
 
+</div>
 </body>
 
 </html>

@@ -1,506 +1,210 @@
-<style>
-    .vertical-alignment-helper {
-        display: table;
-        height: 100%;
-        width: 100%;
-        pointer-events: none;
-    }
-
-    .vertical-align-center {
-        /* To center vertically */
-        display: table-cell;
-        vertical-align: middle;
-        pointer-events: none;
-    }
-
-    .modal-content {
-        /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
-        width: inherit;
-        max-width: inherit;
-        /* For Bootstrap 4 - to avoid the modal window stretching 
-full width */
-        height: inherit;
-        /* To center horizontally */
-        margin: 0 auto;
-        pointer-events: all;
-    }
-</style>
-
-<!-- Modal -->
-<div class="modal fade" id="viewHistory" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+<!-- View transaction modal -->
+<div class="modal fade adm-copra-modal" id="viewHistory" tabindex="-1" aria-labelledby="copraModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">TRANSACTION RECORD INVOICE #TEST</h5>
-                <button type="button" class="btn btn-light text-dark btnPrint" id="btnPrint"><span class="fas fa-print"></span> Print </button>
-
-                </button>
+            <div class="modal-header adm-copra-modal__header">
+                <div>
+                    <span class="adm-copra-modal__eyebrow">Copra purchase transaction</span>
+                    <h5 class="modal-title" id="copraModalTitle">Transaction details</h5>
+                    <p class="adm-copra-modal__subtitle" id="copraModalSubtitle">—</p>
+                </div>
+                <div class="adm-copra-modal__header-actions">
+                    <button type="button" class="btn btn-print btnPrint" id="btnPrint">
+                        <i class="fas fa-print"></i> Print
+                    </button>
+                    <button type="button" class="adm-copra-modal__close" data-dismiss="modal" aria-label="Close">&times;</button>
+                </div>
             </div>
-            <form action="function/ledger/addExpenses.php" id='myform' method="POST">
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        <div id='print_content'>
 
-                            <div class="row">
-                                <!-- Column -->
-                                <!-- Column -->
-                                <div class="col-lg-12">
-                                    <div class="card">
-                                        <div class="card-body">
+            <div class="modal-body">
+                <div id="copra_print_content">
 
-                                            <div class="row">
-                                                <div class="col-sm-4">
-                                                    <div class="form-group">
-                                                        <label class="col-md-12">Invoice</label>
-                                                        <div class="col-md-12">
-                                                            <input type="text" name='invoice' id='invoice' class="form-control form-control-line" readonly>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <div class="form-group">
-                                                        <label class="col-md-12">Date</label>
-                                                        <div class="col-md-12 ">
-                                                            <input type="text" class='form-control' id="date" name="date" readonly>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <div class="form-group">
-                                                        <label class="col-md-12">Contract</label>
-                                                        <input type="text" name='contract' id='contract' class="form-control form-control-line" readonly>
-                                                    </div>
-                                                </div>
-                                            </div>
+                    <!-- Transaction info -->
+                    <section class="adm-copra-modal__section">
+                        <h6 class="adm-copra-modal__section-title"><i class="fas fa-file-invoice"></i> Transaction info</h6>
+                        <div class="adm-copra-modal__grid adm-copra-modal__grid--4">
+                            <div class="adm-copra-modal__field">
+                                <label for="invoice">Invoice</label>
+                                <input type="text" id="invoice" name="invoice" class="form-control" readonly>
+                            </div>
+                            <div class="adm-copra-modal__field">
+                                <label for="date">Date</label>
+                                <input type="text" id="date" name="date" class="form-control" readonly>
+                            </div>
+                            <div class="adm-copra-modal__field">
+                                <label for="contract">Contract</label>
+                                <input type="text" id="contract" name="contract" class="form-control" readonly>
+                            </div>
+                            <div class="adm-copra-modal__field adm-copra-modal__field--wide">
+                                <label for="name">Seller</label>
+                                <input type="text" id="name" name="name" class="form-control" readonly>
+                            </div>
+                            <input type="hidden" id="address" name="address">
+                        </div>
+                    </section>
 
-
-                                            <div class="row">
-                                                <div class="col-sm-5">
-                                                    <div class="form-group">
-                                                        <label class="col-md-12">Seller </label>
-                                                        <input type="text" name='name' id='name' class="form-control form-control-line" readonly>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="container">
-                                                <!-- -->
-                                                <div class="form-group">
-                                                    <div class="row no-gutters">
-                                                        <div class="col-12 col-sm-5 col-md-4">
-                                                            <!--  -->
-                                                            <label style='font-size:15px' class="col-md-12">No. of
-                                                                Sack
-                                                                :</label>
-                                                            <div class="input-group mb-3">
-                                                                <input type="text" class="form-control" id='noSack' name='noSack' readonly />
-                                                                <div class="input-group-append">
-                                                                    <span class="input-group-text">Sk</span>
-                                                                </div>
-                                                            </div>
-                                                            <!--  -->
-                                                        </div>
-                                                        <div class="col-6 col-md-4">
-                                                            <label style='font-size:15px' class="col-md-12">Gross
-                                                                Weight
-                                                                (Kilos)</label>
-                                                            <!-- new column -->
-                                                            <div class="input-group mb-3">
-                                                                <input type="text" class="form-control" id='gross' name='gross' readonly />
-                                                                <div class="input-group-append">
-                                                                    <span class="input-group-text">Kg</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--end  -->
-                                                        <div class="col-6 col-md-4">
-                                                            <label style='font-size:15px' class="col-md-12">Deductable
-                                                                Tare Kilos</label>
-                                                            <!-- new column -->
-                                                            <div class="input-group mb-3">
-                                                                <input type="text" class="form-control" id='tare' name='tare' readonly />
-                                                                <div class="input-group-append">
-                                                                    <span class="input-group-text">Kg</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--  end-->
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="row no-gutters">
-                                                        <div class="col-12 col-sm-5 col-md-5">
-                                                            <!--  -->
-                                                            <div class="input-group mb-1">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text" id="inputGroup-sizing-default" style='color:black;font-weight: bold;'>Net
-                                                                        Weight</span>
-                                                                </div>
-                                                                <input type="text" style='text-align:right' name='net' id='net' class="form-control" readonly>
-                                                                <div class="input-group-append">
-                                                                    <span class="input-group-text">Kg</span>
-                                                                </div>
-                                                            </div>
-                                                            <!--  -->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                                <div class="form-group">
-                                                    <div class="row no-gutters">
-                                                        <div class="col-12 col-sm-5 col-md-3">
-                                                            <!--  -->
-                                                            <div class="input-group mb-1">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text" style='color:black;font-weight: bold;'>DUST</span>
-                                                                </div>
-                                                                <input type="text" class="form-control" aria-label="Default" id="dust" name='dust' readonly>
-                                                                <div class="input-group-append">
-                                                                    <span class="input-group-text">%</span>
-                                                                </div>
-                                                            </div>
-                                                            <!--  -->
-                                                        </div>
-                                                        <div class="col-6 col-md-4">
-                                                            <!--  -->
-                                                            <div class="input-group mb-1">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text" id="inputGroup-sizing-default" style='color:black;font-weight: bold;'>NEW</span>
-                                                                </div>
-                                                                <input type="text" class="form-control" id='new-dust' name='new-dust' readonly>
-                                                                <div class="input-group-append">
-                                                                    <span class="input-group-text">Kg</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--  total dust-->
-                                                        <div class="col-6 col-md-4">
-                                                            <div class="input-group mb-1">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text" id="inputGroup-sizing-default" style='color:black;font-weight: bold;'> :
-                                                                    </span>
-                                                                </div>
-                                                                <input type="text" class="form-control" id='total-dust' name='total-dust' aria-label="Default" aria-describedby="inputGroup-sizing-default" readonly>
-                                                                <div class="input-group-append">
-                                                                    <span class="input-group-text">Kg</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- end -->
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="row no-gutters">
-                                                        <div class="col-12 col-sm-5 col-md-3">
-                                                            <!--  -->
-                                                            <div class="input-group mb-1">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text" id="inputGroup-sizing-default" style='color:black;font-weight: bold;'>Moisture</span>
-                                                                </div>
-                                                                <input type="text" class="form-control" name='moisture' id='moisture' aria-label="Default" readonly>
-                                                            </div>
-                                                            <!--  -->
-                                                            <br>
-                                                        </div>
-                                                        <div class="col-6 col-md-4">
-                                                            <!--  -->
-                                                            <div class="input-group mb-1">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text" id="inputGroup-sizing-default" style='color:black;font-weight: bold;'>P /
-                                                                        D</span>
-                                                                </div>
-                                                                <input type="text" class="form-control" name='discount_reading' id='discount_reading' aria-label="Default" aria-describedby="inputGroup-sizing-default" readonly>
-                                                            </div>
-                                                            <!--  -->
-                                                        </div>
-                                                        <!--  total moisture-->
-                                                        <div class="col-6 col-md-4">
-                                                            <div class="input-group mb-1">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text" id="inputGroup-sizing-default" style='color:black;font-weight: bold;'> :
-                                                                    </span>
-                                                                </div>
-                                                                <input type="text" class="form-control" id='total-moisture' name='total-moisture' readonly>
-                                                                <div class="input-group-append">
-                                                                    <span class="input-group-text">Kg</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- end -->
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <div class="row no-gutters">
-                                                        <div class="col-12 col-sm-7 col-md-8">
-                                                            <!--  -->
-                                                            <div class="input-group mb-1">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text" id="inputGroup-sizing-default" style='color:black;font-weight: bold;'>Net
-                                                                        Resecada
-                                                                        Weight (Total)</span>
-                                                                </div>
-                                                                <input type="text" class="form-control" readonly id='total-res' name='total-res' />
-                                                                <div class="input-group-append">
-                                                                    <span class="input-group-text">Kg</span>
-                                                                </div>
-                                                            </div>
-                                                            <!--  -->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <hr>
-
-                                                <!--  -->
-
-                                                <!-- RASE-->
-                                                <div class="form-group">
-                                                    <div class="row no-gutters">
-                                                        <label style='font-size:15px' class="col-md-12">1st Rese
-                                                            :</label>
-                                                        <div class="col-12 col-sm-5 col-md-4">
-                                                            <!--  -->
-                                                            <div class="input-group mb-3">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text">₱</span>
-                                                                </div>
-                                                                <input type="text" class="form-control" name='1resecada' id='1resecada' readonly />
-                                                            </div>
-                                                        </div>
-                                                        <!--  -->
-                                                        <div class="col-6 col-md-4">
-                                                            <!-- new column -->
-                                                            <div class="input-group mb-3">
-
-                                                                <input type="text" style='text-align:right' id='1rese-weight' class="form-control" readonly>
-                                                                <div class="input-group-append">
-                                                                    <span class="input-group-text">Kg</span>
-                                                                </div>
-                                                            </div>
-                                                            <!--  -->
-                                                        </div>
-
-                                                        <div class="col-6 col-md-4">
-                                                            <!-- new column -->
-                                                            <div class="input-group mb-3">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text">₱</span>
-                                                                </div>
-                                                                <input type="text" style='text-align:right' id='total_1res' name='total_1res' class="form-control" readonly>
-                                                            </div>
-                                                            <!--  -->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- RASE 2-->
-                                                <div class="form-group">
-                                                    <div class="row no-gutters">
-                                                        <label style='font-size:15px' class="col-md-12">2nd Rese
-                                                            :</label>
-                                                        <div class="col-12 col-sm-5 col-md-4">
-                                                            <div class="input-group mb-3">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text">₱</span>
-                                                                </div>
-                                                                <input type="text" class="form-control" id='2resecada' name='2resecada' readonly />
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-6 col-md-4">
-                                                            <!-- new column -->
-                                                            <div class="input-group mb-3">
-
-                                                                <input type="text" style='text-align:right' id='2rese-weight' class="form-control" readonly>
-                                                                <div class="input-group-append">
-                                                                    <span class="input-group-text">Kg</span>
-                                                                </div>
-                                                            </div>
-                                                            <!--  -->
-                                                        </div>
-
-                                                        <div class="col-6 col-md-4">
-                                                            <!-- new column -->
-                                                            <div class="input-group mb-3">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text">₱</span>
-                                                                </div>
-                                                                <input type="text" style='text-align:right' name='total_2res' id='total_2res' class="form-control" readonly>
-                                                            </div>
-                                                            <!--  -->
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <hr>
-
-                                                <!-- start-->
-                                                <!-- RASE 3-->
-                                                <div class="form-group">
-                                                    <div class="row no-gutters">
-                                                        <div class="col-12 col-sm-7 col-md-8">
-                                                            <!--  -->
-                                                            <div class="input-group mb-1">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text" id="inputGroup-sizing-default" style='color:black;font-weight: bold;'>Total
-                                                                        Amount ₱</span>
-                                                                </div>
-                                                                <input type="text" class="form-control" id='total-amount' name='total-amount' readonly />
-
-                                                            </div>
-                                                            <!--  -->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="row no-gutters">
-                                                        <div class="col-12 col-sm-7 col-md-8">
-                                                            <!--  -->
-                                                            <div class="input-group mb-1">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text" id="inputGroup-sizing-default" style='color:black;font-weight: bold;'>Less/CA
-                                                                        ₱</span>
-                                                                </div>
-                                                                <input type="text" style='text-align:left' id='less' name='less' class="form-control" readonly />
-
-                                                            </div>
-                                                            <!--  -->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="row no-gutters">
-                                                        <div class="col">
-                                                            <!--  -->
-                                                            <div class="input-group mb-1">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text" id="inputGroup-sizing-default" style='color:black;font-weight: bold;'>Withholding
-                                                                        Tax</span>
-                                                                </div>
-                                                                <input type="text" style='text-align:right' id='tax' readonly onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" class="form-control" tabindex="10" autocomplete='off' />
-                                                                <div class="input-group-append">
-                                                                    <span class="input-group-text">%</span>
-                                                                </div>
-                                                            </div>
-                                                            <!--  -->
-                                                        </div>
-                                                        <div class="col">
-                                                            <!--  -->
-                                                            <div class="input-group mb-1">
-                                                                <span class="input-group-text" id="inputGroup-sizing-default" style='color:black;font-weight: bold;'>Tax Amount</span>
-                                                                <input type="text" style='text-align:right' readonly id='tax-amount' class="form-control" readonly />
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div> <br>
-                                                <!--  end-->
-                                                <!-- start-->
-                                                <div class="form-group">
-                                                    <div class="row no-gutters">
-                                                        <div class="col-12 col-sm-7 col-md-8">
-                                                            <!--  -->
-                                                            <div class="input-group mb-1">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text" id="inputGroup-sizing-default" style='color:black;font-weight: bold;'>Amount
-                                                                        Paid ₱</span>
-                                                                </div>
-                                                                <input type="text" style='text-align:left' name='amount-paid' id='amount-paid' class="form-control" readonly />
-
-                                                            </div>
-
-
-                                                            <!--  -->
-                                                        </div>
-                                                        <input type="text" style='text-align:center' name='total-words' id='total-words' class="form-control" hidden readonly>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                    <!-- Weights -->
+                    <section class="adm-copra-modal__section">
+                        <h6 class="adm-copra-modal__section-title"><i class="fas fa-weight-hanging"></i> Weights</h6>
+                        <div class="adm-copra-modal__grid adm-copra-modal__grid--4">
+                            <div class="adm-copra-modal__field adm-copra-modal__input-suffix" data-suffix="sacks">
+                                <label for="noSack">No. of sacks</label>
+                                <input type="text" id="noSack" name="noSack" class="form-control" readonly>
+                            </div>
+                            <div class="adm-copra-modal__field adm-copra-modal__input-suffix" data-suffix="kg">
+                                <label for="gross">Gross weight</label>
+                                <input type="text" id="gross" name="gross" class="form-control" readonly>
+                            </div>
+                            <div class="adm-copra-modal__field adm-copra-modal__input-suffix" data-suffix="kg">
+                                <label for="tare">Tare deduction</label>
+                                <input type="text" id="tare" name="tare" class="form-control" readonly>
+                            </div>
+                            <div class="adm-copra-modal__field adm-copra-modal__field--highlight adm-copra-modal__input-suffix" data-suffix="kg">
+                                <label for="net">Net weight</label>
+                                <input type="text" id="net" name="net" class="form-control" readonly>
                             </div>
                         </div>
-                    </div>
-                    <!-- END BALANCE -->
+                    </section>
+
+                    <!-- Quality adjustments -->
+                    <section class="adm-copra-modal__section">
+                        <h6 class="adm-copra-modal__section-title"><i class="fas fa-flask"></i> Quality adjustments</h6>
+                        <div class="adm-copra-modal__grid adm-copra-modal__grid--3">
+                            <div class="adm-copra-modal__field adm-copra-modal__input-suffix" data-suffix="%">
+                                <label for="dust">Dust</label>
+                                <input type="text" id="dust" name="dust" class="form-control" readonly>
+                            </div>
+                            <div class="adm-copra-modal__field adm-copra-modal__input-suffix" data-suffix="kg">
+                                <label for="new-dust">New dust</label>
+                                <input type="text" id="new-dust" name="new-dust" class="form-control" readonly>
+                            </div>
+                            <div class="adm-copra-modal__field adm-copra-modal__input-suffix" data-suffix="kg">
+                                <label for="total-dust">Total dust</label>
+                                <input type="text" id="total-dust" name="total-dust" class="form-control" readonly>
+                            </div>
+                            <div class="adm-copra-modal__field">
+                                <label for="moisture">Moisture</label>
+                                <input type="text" id="moisture" name="moisture" class="form-control" readonly>
+                            </div>
+                            <div class="adm-copra-modal__field">
+                                <label for="discount_reading">P / D reading</label>
+                                <input type="text" id="discount_reading" name="discount_reading" class="form-control" readonly>
+                            </div>
+                            <div class="adm-copra-modal__field adm-copra-modal__input-suffix" data-suffix="kg">
+                                <label for="total-moisture">Total moisture</label>
+                                <input type="text" id="total-moisture" name="total-moisture" class="form-control" readonly>
+                            </div>
+                            <div class="adm-copra-modal__field adm-copra-modal__field--wide adm-copra-modal__field--highlight adm-copra-modal__input-suffix" data-suffix="kg">
+                                <label for="total-res">Net resecada weight (total)</label>
+                                <input type="text" id="total-res" name="total-res" class="form-control" readonly>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Resecada pricing -->
+                    <section class="adm-copra-modal__section">
+                        <h6 class="adm-copra-modal__section-title"><i class="fas fa-tags"></i> Resecada pricing</h6>
+
+                        <div class="adm-copra-modal__resecada-row">
+                            <span class="adm-copra-modal__resecada-label">1st resecada</span>
+                            <div class="adm-copra-modal__field adm-copra-modal__field--money">
+                                <label for="1resecada">Price / kg</label>
+                                <input type="text" id="1resecada" name="1resecada" class="form-control" readonly>
+                            </div>
+                            <div class="adm-copra-modal__field adm-copra-modal__input-suffix" data-suffix="kg">
+                                <label for="1rese-weight">Weight</label>
+                                <input type="text" id="1rese-weight" class="form-control" readonly>
+                            </div>
+                            <div class="adm-copra-modal__field adm-copra-modal__field--money">
+                                <label for="total_1res">Subtotal</label>
+                                <input type="text" id="total_1res" name="total_1res" class="form-control" readonly>
+                            </div>
+                        </div>
+
+                        <div class="adm-copra-modal__resecada-row">
+                            <span class="adm-copra-modal__resecada-label">2nd resecada</span>
+                            <div class="adm-copra-modal__field adm-copra-modal__field--money">
+                                <label for="2resecada">Price / kg</label>
+                                <input type="text" id="2resecada" name="2resecada" class="form-control" readonly>
+                            </div>
+                            <div class="adm-copra-modal__field adm-copra-modal__input-suffix" data-suffix="kg">
+                                <label for="2rese-weight">Weight</label>
+                                <input type="text" id="2rese-weight" class="form-control" readonly>
+                            </div>
+                            <div class="adm-copra-modal__field adm-copra-modal__field--money">
+                                <label for="total_2res">Subtotal</label>
+                                <input type="text" id="total_2res" name="total_2res" class="form-control" readonly>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Payment summary -->
+                    <section class="adm-copra-modal__section">
+                        <h6 class="adm-copra-modal__section-title"><i class="fas fa-money-bill-wave"></i> Payment summary</h6>
+                        <div class="adm-copra-modal__grid adm-copra-modal__grid--3">
+                            <div class="adm-copra-modal__field adm-copra-modal__field--money">
+                                <label for="total-amount">Total amount</label>
+                                <input type="text" id="total-amount" name="total-amount" class="form-control" readonly>
+                            </div>
+                            <div class="adm-copra-modal__field adm-copra-modal__field--money">
+                                <label for="less">Less / cash advance</label>
+                                <input type="text" id="less" name="less" class="form-control" readonly>
+                            </div>
+                            <div class="adm-copra-modal__field">
+                                <label for="tax">Withholding tax</label>
+                                <input type="text" id="tax" class="form-control" readonly>
+                            </div>
+                            <div class="adm-copra-modal__field adm-copra-modal__field--money">
+                                <label for="tax-amount">Tax amount</label>
+                                <input type="text" id="tax-amount" class="form-control" readonly>
+                            </div>
+                            <div class="adm-copra-modal__field adm-copra-modal__field--wide adm-copra-modal__field--highlight adm-copra-modal__field--money">
+                                <label for="amount-paid">Amount paid</label>
+                                <input type="text" id="amount-paid" name="amount-paid" class="form-control" readonly>
+                            </div>
+                            <input type="hidden" id="total-paid" name="total-paid">
+                            <input type="hidden" id="total-words" name="total-words">
+                        </div>
+                    </section>
+
                 </div>
-                <div class="modal-footer">
+            </div>
+
+            <div class="modal-footer">
+                <div class="adm-copra-modal__footer-paid">
+                    <span class="adm-copra-modal__footer-paid-label">Amount paid</span>
+                    <span class="adm-copra-modal__footer-paid-value" id="copraModalAmountPaid">₱0</span>
+                </div>
+                <div class="adm-copra-modal__footer-actions">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete confirmation modal -->
+<div class="modal fade adm-copra-delete" id="deleteRecord" tabindex="-1" aria-labelledby="deleteRecordTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteRecordTitle">Delete record</h5>
+                <button type="button" class="adm-copra-modal__close text-dark" data-dismiss="modal" aria-label="Close">&times;</button>
+            </div>
+            <form action="function/copraDeleteRecord.php" method="POST">
+                <div class="modal-body">
+                    <div class="adm-copra-delete__icon"><i class="fas fa-trash-alt"></i></div>
+                    <p class="adm-copra-delete__text">This will permanently delete the copra transaction. This action cannot be undone.</p>
+                    <div class="adm-copra-delete__invoice" id="deleteInvoiceDisplay">—</div>
+                    <input type="hidden" name="d_invoice" id="d_invoice">
+                    <input type="hidden" name="d_id" id="d_id">
+                    <input type="hidden" name="d_contract" id="d_contract">
+                </div>
+                <div class="modal-footer justify-content-center gap-2">
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</button>
+                    <button type="submit" name="remove" class="btn btn-danger btn-sm">Delete record</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
-
-<!-- PRINT Transaction -->
-<div class="modal fade" id="deleteRecord" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog " role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">DELETE RECORD</h5>
-                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="function/copraDeleteRecord.php" method="POST">
-                    <!--  total dust-->
-                    <center>
-                        <div class="col-6 col-md-12">
-                            <div class="input-group mb-12">
-                                <label style='font-size:25px' class="col-md-12">Confirm to delete record</label>
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroup-sizing-default" style='color:black;font-weight: bold;'>Invoice</span>
-                                </div>
-                                <input type="text" style='text-align:left' name='d_invoice' id='d_invoice' class="form-control" readonly />
-                                <input type="text" style='text-align:left' name='d_id' id='d_id' class="form-control" readonly />
-                                <input type="text" style='text-align:left' name='d_contract' id='d_contract' class="form-control" hidden readonly />
-
-
-                            </div>
-                        </div>
-                        <center>
-                            <!-- end -->
-
-            </div>
-            <div class="modal-footer">
-                <button type='submit' name='remove' class="btn btn-danger text-white">Confirm</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<script>
-    $(document).on('click', '.btnPrint', function(e) {
-
-        console.log('hello');
-
-        // Temporarily hide the buttons
-        $("#print_content button").hide();
-
-        html2canvas(document.querySelector("#print_content")).then(canvas => {
-            var myImage = canvas.toDataURL("image/png");
-            var tWindow = window.open("");
-            $(tWindow.document.body)
-                .html("<img id='Image' src=" + myImage + " style='width:100%;'></img>")
-                .ready(function() {
-                    tWindow.focus();
-                    tWindow.print();
-                });
-
-            // Show the buttons again
-            $("#print_content button").show();
-        });
-    });
-</script>

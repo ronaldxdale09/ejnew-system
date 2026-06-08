@@ -9,11 +9,9 @@ include "modal/cuplump_shipment_modal.php";
         text-align: right;
     }
 </style>
-
-<body>
     <link rel='stylesheet' href='css/statistic-card.css'>
-    <div class='main-content' style='min-height:100vh;'>
-        <div class="container home-section h-100" style="max-width:95%;">
+    <?php adm_ops_shell_open(); ?>
+    <div class="container home-section h-100" style="max-width:95%;">
             <div class="page-wrapper">
                 <div class="row">
                     <div class="col-sm-12">
@@ -27,7 +25,7 @@ include "modal/cuplump_shipment_modal.php";
 
 
                         <div style="background-color: #2452af; height: 6px;"></div><!-- This is the blue bar -->
-                        <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
+                        <div class="container-fluid shadow p-3 mb-5 bg-white rounded adm-record-panel">
 
                             <button type="button" class="btn btn-success text-white" data-toggle="modal"
                                 data-target="#newShipment">NEW SHIPMENT</button>
@@ -207,6 +205,7 @@ include "modal/cuplump_shipment_modal.php";
     </script>
 
 
+</div>
 </body>
 
 </html>

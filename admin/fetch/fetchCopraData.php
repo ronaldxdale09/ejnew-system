@@ -1,9 +1,11 @@
 <?php
 include('../../function/db.php');
 
+header('Content-Type: application/json; charset=utf-8');
+
 $request = $_POST;
 
-$columns = array(
+$columns = [
     0 => 'invoice',
     1 => 'date',
     2 => 'contract',
@@ -12,86 +14,96 @@ $columns = array(
     5 => 'sec_res',
     6 => 'net_weight',
     7 => 'amount_paid',
-    8 => 'id'
-);
+    8 => 'id',
+];
 
-// DataTables parameters
-$start = $request['start'];
-$length = $request['length'];
-$columnIndex = $request['order'][0]['column'];
-$columnName = $columns[$columnIndex] ?? 'id';
-$columnSortOrder = $request['order'][0]['dir'];
-$searchValue = $request['search']['value'];
+$start = intval($request['start'] ?? 0);
+$length = intval($request['length'] ?? 25);
+$columnIndex = intval($request['order'][0]['column'] ?? 1);
+$columnSortOrder = strtolower($request['order'][0]['dir'] ?? 'desc') === 'asc' ? 'ASC' : 'DESC';
+$searchValue = trim($request['search']['value'] ?? '');
 
-// Custom filter parameters
-$minDate = $request['min'] ?? '';
-$maxDate = $request['max'] ?? '';
+$minDate = trim($request['min'] ?? '');
+$maxDate = trim($request['max'] ?? '');
+$year = trim($request['year'] ?? '');
+$seller = trim($request['seller'] ?? '');
 
-// Base query
-$sql = "SELECT * FROM copra_transaction WHERE 1=1 ";
+$where = ['1=1'];
 
-// Filtering for search
-if (!empty($searchValue)) {
-    $sql .= "AND (invoice LIKE '%" . mysqli_real_escape_string($con, $searchValue) . "%' OR 
-                  contract LIKE '%" . mysqli_real_escape_string($con, $searchValue) . "%' OR 
-                  seller LIKE '%" . mysqli_real_escape_string($con, $searchValue) . "%') ";
+if ($searchValue !== '') {
+    $escaped = mysqli_real_escape_string($con, $searchValue);
+    $where[] = "(invoice LIKE '%{$escaped}%' OR contract LIKE '%{$escaped}%' OR seller LIKE '%{$escaped}%')";
 }
 
-// Filtering for date
-if (!empty($minDate) && !empty($maxDate)) {
-    $minDate = date('Y-m-d', strtotime($minDate));
-    $maxDate = date('Y-m-d', strtotime($maxDate));
-    $sql .= "AND DATE(date) BETWEEN '$minDate' AND '$maxDate' ";
-} elseif (!empty($minDate)) {
-    $minDate = date('Y-m-d', strtotime($minDate));
-    $sql .= "AND DATE(date) >= '$minDate' ";
-} elseif (!empty($maxDate)) {
-    $maxDate = date('Y-m-d', strtotime($maxDate));
-    $sql .= "AND DATE(date) <= '$maxDate' ";
+if ($year !== '' && $year !== 'all') {
+    $where[] = 'YEAR(date) = ' . intval($year);
 }
 
-// Get filtered count
-$queryFiltered = mysqli_query($con, $sql);
-$totalFiltered = mysqli_num_rows($queryFiltered);
+if ($seller !== '') {
+    $where[] = "seller = '" . mysqli_real_escape_string($con, $seller) . "'";
+}
 
-// Ordering
-$sql .= "ORDER BY " . $columnName . " " . $columnSortOrder . " LIMIT " . $start . ", " . $length;
+if ($minDate !== '' && $maxDate !== '') {
+    $min = mysqli_real_escape_string($con, date('Y-m-d', strtotime($minDate)));
+    $max = mysqli_real_escape_string($con, date('Y-m-d', strtotime($maxDate)));
+    $where[] = "DATE(date) BETWEEN '{$min}' AND '{$max}'";
+} elseif ($minDate !== '') {
+    $min = mysqli_real_escape_string($con, date('Y-m-d', strtotime($minDate)));
+    $where[] = "DATE(date) >= '{$min}'";
+} elseif ($maxDate !== '') {
+    $max = mysqli_real_escape_string($con, date('Y-m-d', strtotime($maxDate)));
+    $where[] = "DATE(date) <= '{$max}'";
+}
 
+$whereSql = implode(' AND ', $where);
+
+$countFilteredSql = "SELECT COUNT(*) AS total FROM copra_transaction WHERE {$whereSql}";
+$countFilteredResult = mysqli_query($con, $countFilteredSql);
+$totalFiltered = intval(mysqli_fetch_assoc($countFilteredResult)['total'] ?? 0);
+
+$columnName = $columns[$columnIndex] ?? 'date';
+if ($columnName === 'net_weight') {
+    $orderCol = '(rese_weight_1 + rese_weight_2)';
+} else {
+    $orderCol = $columnName;
+}
+
+$sql = "SELECT * FROM copra_transaction WHERE {$whereSql} ORDER BY {$orderCol} {$columnSortOrder} LIMIT {$start}, {$length}";
 $query = mysqli_query($con, $sql);
-$data = array();
+$data = [];
 
 while ($row = mysqli_fetch_assoc($query)) {
-    $total_weight = $row['rese_weight_1'] + $row['rese_weight_2'];
+    $totalWeight = floatval($row['rese_weight_1'] ?? 0) + floatval($row['rese_weight_2'] ?? 0);
+    $rowJson = json_encode($row, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
 
-    // Prepare JSON for view button
-    $rowJson = htmlspecialchars(json_encode($row), ENT_QUOTES, 'UTF-8');
-
-    $data[] = array(
-        "invoice" => $row['invoice'],
-        "date" => date('F d, Y', strtotime($row['date'])),
-        "contract" => $row['contract'],
-        "seller" => $row['seller'],
-        "first_res" => '₱ ' . number_format($row['first_res']),
-        "sec_res" => '₱ ' . number_format($row['sec_res']),
-        "net_weight" => number_format($total_weight) . ' Kg',
-        "amount_paid" => '₱ ' . number_format($row['amount_paid']),
-        "action" => "<button type='button' class='btn btn-secondary text-white viewButton' data-copra='$rowJson'><i class='fa-solid fa-eye'></i></button>"
-    );
+    $data[] = [
+        'invoice' => '<span class="badge bg-secondary">' . htmlspecialchars($row['invoice'] ?? '', ENT_QUOTES, 'UTF-8') . '</span>',
+        'date' => !empty($row['date']) ? date('M j, Y', strtotime($row['date'])) : '-',
+        'contract' => htmlspecialchars($row['contract'] ?? '-', ENT_QUOTES, 'UTF-8'),
+        'seller' => '<span class="fw-semibold">' . htmlspecialchars($row['seller'] ?? '-', ENT_QUOTES, 'UTF-8') . '</span>',
+        'first_res' => '₱' . number_format(floatval($row['first_res'] ?? 0), 2),
+        'sec_res' => '₱' . number_format(floatval($row['sec_res'] ?? 0), 2),
+        'net_weight' => number_format($totalWeight, 0) . ' kg',
+        'amount_paid' => '<strong>₱' . number_format(floatval($row['amount_paid'] ?? 0), 2) . '</strong>',
+        'action' => "<button type='button' class='btn btn-success btn-sm viewButton' data-copra='{$rowJson}' title='View details'><i class='fas fa-eye'></i></button>",
+    ];
 }
 
-// Get total number of records (unfiltered)
-$totalQuery = "SELECT COUNT(*) as total FROM copra_transaction";
-$totalResult = mysqli_query($con, $totalQuery);
-$totalRow = mysqli_fetch_assoc($totalResult);
-$totalRecords = $totalRow['total'];
+$totalQuery = "SELECT COUNT(*) AS total FROM copra_transaction";
+$totalRecords = intval(mysqli_fetch_assoc(mysqli_query($con, $totalQuery))['total'] ?? 0);
 
-// JSON response
-$response = array(
-    "draw" => intval($request['draw']),
-    "iTotalRecords" => intval($totalRecords),
-    "iTotalDisplayRecords" => intval($totalFiltered),
-    "aaData" => $data
-);
+$sumSql = "SELECT COALESCE(SUM(amount_paid), 0) AS total_paid, COALESCE(SUM(rese_weight_1 + rese_weight_2), 0) AS total_weight
+    FROM copra_transaction WHERE {$whereSql}";
+$sums = mysqli_fetch_assoc(mysqli_query($con, $sumSql));
 
-echo json_encode($response);
-?>
+echo json_encode([
+    'draw' => intval($request['draw'] ?? 0),
+    'recordsTotal' => $totalRecords,
+    'recordsFiltered' => $totalFiltered,
+    'data' => $data,
+    'totals' => [
+        'paid' => floatval($sums['total_paid'] ?? 0),
+        'weight' => floatval($sums['total_weight'] ?? 0),
+        'count' => $totalFiltered,
+    ],
+]);

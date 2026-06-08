@@ -24,11 +24,9 @@ $active = mysqli_fetch_array($sql);
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <!-- DataTables CSS -->
-
-<body>
     <link rel='stylesheet' href='css/statistic-card.css'>
-    <div class='main-content' style='min-height:100vh;'>
-        <div class="container home-section h-100" style="max-width:95%;">
+    <?php adm_ops_shell_open(); ?>
+    <div class="container home-section h-100" style="max-width:95%;">
 
             <div class="page-wrapper">
                 <div class="row">
@@ -105,7 +103,7 @@ $active = mysqli_fetch_array($sql);
                         </div>
 
                         <div style="background-color: #2452af; height: 6px;"></div><!-- This is the blue bar -->
-                        <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
+                        <div class="container-fluid shadow p-3 mb-5 bg-white rounded adm-record-panel">
                             <div class="mb-3">
 
                                 <!-- Filters -->
@@ -297,6 +295,7 @@ $active = mysqli_fetch_array($sql);
 
 
 
+</div>
 </body>
 
 </html>

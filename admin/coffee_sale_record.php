@@ -1,14 +1,11 @@
+<?php
+include('include/header.php');
+include('include/navbar.php');
+?>
 <link rel='stylesheet' href='css/statistic-card.css'>
 
-<body>
-    <?php
-    include('include/header.php');
-    include('include/navbar.php');
-
-    ?>
-
-    <div class='main-content' style='min-height:100vh;'>
-        <div class="container home-section h-100" style="max-width:95%;">
+<?php adm_ops_shell_open(); ?>
+    <div class="container home-section h-100" style="max-width:95%;">
             <div class="page-wrapper">
                 <div class="row">
                     <div class="col-sm-12">
@@ -20,7 +17,7 @@
                         </h1>
                         <hr>
                         <?php include('statistical_card/coffee.sale.card.php'); ?>
-                        <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
+                        <div class="container-fluid shadow p-3 mb-5 bg-white rounded adm-record-panel">
                             <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#newCoffeeSale">NEW SALE</button>
                             <hr>
                             <div class="table-responsive">
@@ -216,6 +213,7 @@
     </script>
 
 
+</div>
 </body>
 
 </html>

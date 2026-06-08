@@ -1,79 +1,31 @@
 <?php
 include('include/header.php');
-include "include/navbar.php";
-
-
+include 'include/navbar.php';
 ?>
 
-<style>
-    .bales-column {
-        background-color: rgb(230, 236, 245) !important;
-        font-weight: bold;
-    }
+<link rel="stylesheet" href="css/statistic-card.css">
 
-    .remaining-column {
-        background-color: rgb(245, 230, 236) !important;
-        font-weight: bold;
-    }
+<?php adm_ops_shell_open(); ?>
 
-    .bg-orange {
-        background-color: orange;
-    }
-</style>
+<?php
+adm_ops_tabs_open('baleInventoryTabs', [
+    ['id' => 'tab-basilan', 'label' => 'Basilan Inventory', 'icon' => 'warehouse', 'panel' => 'content-1'],
+    ['id' => 'tab-kidapawan', 'label' => 'Kidapawan Inventory', 'icon' => 'warehouse', 'panel' => 'content-2'],
+], 'tab-basilan', 'Bales inventory locations');
 
-<body>
-    <link rel='stylesheet' href='css/statistic-card.css'>
-    <link rel='stylesheet' href='css/inventory.tab.css'>
-    <div class='main-content' style='min-height:100vh;'>
-        <div class="container home-section h-100" style="max-width:95%;">
-            <div class="page-wrapper">
+adm_ops_tab_begin('content-1');
+include 'bales_inventory/basilan.inventory.php';
+adm_ops_tab_end();
 
+adm_ops_tab_begin('content-2');
+include 'bales_inventory/kidapawan.inventory.php';
+adm_ops_tab_end();
 
-                <div class="inventory-table">
-                    <div class="container-fluid">
+adm_ops_tabs_close();
+?>
 
-                        <div class="wrapper" id="myTab">
-                            <input type="radio" name="slider" id="home" checked>
-                            <input type="radio" name="slider" id="blog">
-                            <nav class='nav_tab my_special_tab'>
-                                <label for="home" class="home"><i class="fas fa-book"></i> Basilan Inventory</label>
-                                <label for="blog" class="blog"><i class="fas fa-list"></i> Kidapawan Inventory</label>
-                                <div class="slider"></div>
-                            </nav>
+</div>
 
-                            <section>
-                                <div class="content content-1">
-                                    <hr style="height:3px; background-color: black;">
-
-                                    <h2 class="page-title" style="text-align:center;">
-                                        <b>
-                                            <font color="#0C0070">BASILAN </font>
-                                            <font color="#046D56">BALES INVENTORY </font>
-                                        </b>
-                                    </h2>
-                                    <?php include('bales_inventory/basilan.inventory.php') ?>
-                                </div>
-                                <div class="content content-2">
-                                    <hr style="height:3px; background-color: black;">
-                                    <h2 class="page-title" style="text-align:center;">
-                                        <b>
-                                            <font color="#0C0070">KIDAPAWAN </font>
-                                            <font color="#046D56">BALES INVENTORY </font>
-                                        </b>
-                                    </h2>
-                                    <?php include('bales_inventory/kidapawan.inventory.php') ?>
-                                </div>
-
-
-                            </section>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+<script src="js/bale-inventory.js?v=<?php echo file_exists('js/bale-inventory.js') ? filemtime('js/bale-inventory.js') : '1'; ?>"></script>
 </body>
-
 </html>

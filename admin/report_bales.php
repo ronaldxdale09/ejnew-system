@@ -81,14 +81,8 @@ function sortTable() {
     }
 }
 </script>
-
-<body>
-
-
-
-
-    <div class='main-content' style='min-height:100vh;'>
-        <div class="container home-section h-100" style="max-width:95%;">
+    <div class="main-content admin-page">
+    <div class="container home-section h-100" style="max-width:95%;">
             <BR>
             <div class="page-wrapper">
                 <div class="row">
@@ -713,6 +707,7 @@ function sortTable() {
     }
     </script>
 
+</div>
 </body>
 <footer class="mt-5">
     <p class="text-center">EN Rubber &copy; 2023 | All Rights Reserved</p>

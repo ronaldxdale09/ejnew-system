@@ -4,6 +4,7 @@
 include "../function/db.php";
 include "include/bootstrap.php";
 include "include/jquery.php";
+include __DIR__ . '/ops-helpers.php';
 //   $loc = $_SESSION['loc'];
 
 
@@ -20,7 +21,12 @@ $name = $_SESSION["full_name"];
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="expires" content="0">
     <!-- Favicon -->
-    <link rel='icon' href='assets/img/logo.png' size='10x10' />
+    <link rel='icon' href='assets/img/logo.svg' type='image/svg+xml' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Bootstrap & DataTables CSS -->
     <link href="assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -34,6 +40,14 @@ $name = $_SESSION["full_name"];
         href='css/main.css?v=<?php echo file_exists('css/main.css') ? filemtime('css/main.css') : '1.2'; ?>'>
     <link rel='stylesheet'
         href='css/navbar.css?v=<?php echo file_exists('css/navbar.css') ? filemtime('css/navbar.css') : '1.2'; ?>'>
+    <link rel="stylesheet"
+        href="css/admin-theme.css?v=<?php echo file_exists('css/admin-theme.css') ? filemtime('css/admin-theme.css') : '1'; ?>">
+    <?php if (adm_is_ops_page()): ?>
+    <link rel="stylesheet"
+        href="css/ops-theme.css?v=<?php echo file_exists('css/ops-theme.css') ? filemtime('css/ops-theme.css') : '1'; ?>">
+    <script src="js/ops-tabs.js?v=<?php echo file_exists('js/ops-tabs.js') ? filemtime('js/ops-tabs.js') : '1'; ?>"></script>
+    <script src="js/ops-filters.js?v=<?php echo file_exists('js/ops-filters.js') ? filemtime('js/ops-filters.js') : '1'; ?>"></script>
+    <?php endif; ?>
     <link rel="stylesheet"
         href="css/statistic-card.css?v=<?php echo file_exists('css/statistic-card.css') ? filemtime('css/statistic-card.css') : '1.2'; ?>">
 
@@ -60,14 +74,15 @@ $name = $_SESSION["full_name"];
         integrity="sha512-hVy4KxCKgnXi2ok7rlnlPma4JHXI1VPQeempoaclV1GwRHrDeaiuS1pI6DVldaj5oh6Opy2XJ2CTljQLPkaMrQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <title>EJN RUBBER</title>
+    <title>EJN Admin</title>
 </head>
 
-<!-- <script src='assets/js/navbar.js'></script> -->
+<body class="admin-body">
 <?php
+include __DIR__ . '/adm-helpers.php';
+include __DIR__ . '/ops-helpers.php';
 include "include/datatables_buttons_css.php";
 include "include/datatables_buttons_js.php";
-
 ?>
 <style>
     .dataTables_length {
