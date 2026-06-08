@@ -74,11 +74,19 @@ include 'dashboard/dashboard_computation.php';
         <div class="adm-grid-2">
             <div class="adm-card">
                 <div class="adm-card__head"><h3>Monthly Sales Trend</h3></div>
-                <div class="adm-card__body adm-card__body--chart"><?php include 'statistical_card/saleProceedTrend.php'; ?></div>
+                <div class="adm-card__body adm-card__body--chart"><?php
+                    $canvasId = 'trend_sales';
+                    $chartYear = (int) $CurrentYear;
+                    include 'statistical_card/saleProceedTrend.php';
+                ?></div>
             </div>
             <div class="adm-card">
                 <div class="adm-card__head"><h3>Gross Profit Trend</h3></div>
-                <div class="adm-card__body adm-card__body--chart"><?php include 'statistical_card/grossProfitTrend.php'; ?></div>
+                <div class="adm-card__body adm-card__body--chart"><?php
+                    $canvasId = 'trend_grossprofit';
+                    $chartYear = (int) $CurrentYear;
+                    include 'statistical_card/grossProfitTrend.php';
+                ?></div>
             </div>
         </div>
     </section>
@@ -159,8 +167,7 @@ include 'dashboard/dashboard_computation.php';
     </section>
 </div>
 
-<?php include 'dashboard/dashboard_script.php'; ?>
-<?php include 'dashboard/purchase_script.php'; ?>
+<script src="js/admin-dashboard.js?v=<?php echo file_exists(__DIR__ . '/js/admin-dashboard.js') ? filemtime(__DIR__ . '/js/admin-dashboard.js') : '1'; ?>"></script>
 
 </body>
 </html>

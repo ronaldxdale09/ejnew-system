@@ -1,35 +1,41 @@
 <?php
-$currentMonth = date('n') - 1; // Returns month number (January = 0, February = 1, ...)
+$currentMonth = date('n') - 1;
+$chartYear = (int) ($chartYear ?? $currentYear ?? $CurrentYear ?? date('Y'));
+$canvasId = $canvasId ?? 'trend_sales';
 
-// Initialize the sales arrays with 12 nulls for each month of the year.
-$bales_sales = array_fill(0, 12, null);
-$cuplump_sales = array_fill(0, 12, null);
+$bales_sales_monthly = array_fill(0, 12, null);
+$cuplump_sales_monthly = array_fill(0, 12, null);
 
-// Query to get bales data
-$bales_sql = "SELECT MONTH(transaction_date) as month, SUM(sales_proceed) as monthly_sales FROM bales_sales_record WHERE YEAR(transaction_date) = $currentYear GROUP BY MONTH(transaction_date) ORDER BY MONTH(transaction_date)";
+$yearEsc = (int) $chartYear;
+$bales_sql = "SELECT MONTH(transaction_date) AS month, SUM(sales_proceed) AS monthly_sales
+              FROM bales_sales_record
+              WHERE YEAR(transaction_date) = {$yearEsc}
+              GROUP BY MONTH(transaction_date)
+              ORDER BY MONTH(transaction_date)";
 $bales_query = mysqli_query($con, $bales_sql);
 while ($row = mysqli_fetch_assoc($bales_query)) {
-    $bales_sales[$row['month'] - 1] = $row['monthly_sales'];
+    $bales_sales_monthly[$row['month'] - 1] = $row['monthly_sales'];
 }
 
-// Query for cuplump gross profit
-$cuplump_sql = "SELECT MONTH(transaction_date) as month, SUM(sales_proceed) as monthly_sales FROM sales_cuplump_record WHERE YEAR(transaction_date) = $currentYear GROUP BY MONTH(transaction_date) ORDER BY MONTH(transaction_date)";
+$cuplump_sql = "SELECT MONTH(transaction_date) AS month, SUM(sales_proceed) AS monthly_sales
+                FROM sales_cuplump_record
+                WHERE YEAR(transaction_date) = {$yearEsc}
+                GROUP BY MONTH(transaction_date)
+                ORDER BY MONTH(transaction_date)";
 $cuplump_query = mysqli_query($con, $cuplump_sql);
 while ($row = mysqli_fetch_assoc($cuplump_query)) {
-    $cuplump_sales[$row['month'] - 1] = $row['monthly_sales'];
+    $cuplump_sales_monthly[$row['month'] - 1] = $row['monthly_sales'];
 }
 
-// Set zeros to all null values up to the current month for bales_sales
 for ($i = 0; $i <= $currentMonth; $i++) {
-    if ($bales_sales[$i] === null) {
-        $bales_sales[$i] = 0;
+    if ($bales_sales_monthly[$i] === null) {
+        $bales_sales_monthly[$i] = 0;
     }
 }
 
-// Set zeros to all null values up to the current month for cuplump_sales
 for ($i = 0; $i <= $currentMonth; $i++) {
-    if ($cuplump_sales[$i] === null) {
-        $cuplump_sales[$i] = 0;
+    if ($cuplump_sales_monthly[$i] === null) {
+        $cuplump_sales_monthly[$i] = 0;
     }
 }
 
@@ -37,19 +43,25 @@ for ($i = 0; $i <= $currentMonth; $i++) {
 $months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 ?>
 
-<canvas id="trend_sales"></canvas>
+<canvas id="<?php echo htmlspecialchars($canvasId, ENT_QUOTES); ?>"></canvas>
 
 <script>
-    // Ensure the element exists before initializing
-    var saleProfitsCanvas = document.getElementById("trend_sales");
-    if (saleProfitsCanvas) {
-        new Chart(saleProfitsCanvas, {
+(function () {
+    var canvas = document.getElementById(<?php echo json_encode($canvasId); ?>);
+    if (!canvas || typeof Chart === 'undefined') {
+        return;
+    }
+    var existing = Chart.getChart(canvas);
+    if (existing) {
+        existing.destroy();
+    }
+    new Chart(canvas, {
             type: 'line',
             data: {
                 labels: <?php echo json_encode($months); ?>,
                 datasets: [{
                     label: 'Bales Sales',
-                    data: <?php echo json_encode($bales_sales); ?>,
+                    data: <?php echo json_encode($bales_sales_monthly); ?>,
                     backgroundColor: 'rgba(67, 24, 255, 0.1)',
                     borderColor: '#4318FF',
                     pointBackgroundColor: '#ffffff',
@@ -61,7 +73,7 @@ $months = ["January", "February", "March", "April", "May", "June", "July", "Augu
                 },
                 {
                     label: 'Cuplump Sales',
-                    data: <?php echo json_encode($cuplump_sales); ?>,
+                    data: <?php echo json_encode($cuplump_sales_monthly); ?>,
                     backgroundColor: 'rgba(130, 215, 255, 0.1)',
                     borderColor: '#82D7FF', // Changed to rgba(130, 215, 255, 1) hex equivalent
                     pointBackgroundColor: '#ffffff',
@@ -117,5 +129,5 @@ $months = ["January", "February", "March", "April", "May", "June", "July", "Augu
                 }
             }
         });
-    }
+})();
 </script>

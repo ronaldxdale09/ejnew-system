@@ -977,6 +977,17 @@
     background: transparent !important;
 }
 
+.adm-dashboard-tab-charts {
+    margin-bottom: 0.75rem;
+}
+
+.adm-dashboard-tab-table .adm-card__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
 @keyframes admFadeIn {
     from { opacity: 0; transform: translateY(6px); }
     to { opacity: 1; transform: translateY(0); }

@@ -58,6 +58,9 @@ document.addEventListener('DOMContentLoaded', function () {
             document.querySelectorAll('[data-adm-panel]').forEach(function (panel) {
                 panel.classList.toggle('active', panel.getAttribute('data-adm-panel') === target);
             });
+            if (typeof window.admResizeActiveTabCharts === 'function') {
+                window.setTimeout(window.admResizeActiveTabCharts, 60);
+            }
         });
     });
 });
