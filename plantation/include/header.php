@@ -1,91 +1,43 @@
+<?php
+include __DIR__ . '/../../function/db.php';
+require_once __DIR__ . '/plantation-helpers.php';
+
+$loc = plantation_require_auth();
+$name = $_SESSION['user'] ?? '';
+$userDisplay = htmlspecialchars($_SESSION['full_name'] ?? $name ?: 'User', ENT_QUOTES, 'UTF-8');
+$locDisplay = htmlspecialchars(trim($_SESSION['loc'] ?? ''), ENT_QUOTES, 'UTF-8');
+?>
 <!DOCTYPE html>
-
-<?php
-include "../function/db.php";
-include "include/bootstrap.php";
-include "include/jquery.php";
-
-if (!isset($_SESSION['loc']) || empty($_SESSION['loc'])) {
-  header('Location: function/logout.php'); // replace 'logout.php' with your logout script
-  exit();
-}
-
-
-$loc = str_replace(' ', '', $_SESSION['loc']);
-$name =   $_SESSION["user"];
-?>
-<html>
-
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets/img/logo.png" type="image/png">
+    <title>EJN Rubber — Plantation</title>
 
-  <link href="assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/chosen.min.css">
-  <link rel='stylesheet' href='css/main.css'>
-  <link rel='icon' href='assets/img/logo.png' size='10x10' />
-  <script src="assets/js/numberFormat.js"></script>
-  <script src="js/sweetalert2@11.js"></script>
-  <title>EJN RUBBER</title>
-  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <?php include __DIR__ . '/bootstrap.php'; ?>
+
+    <link href="../admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/chosen.min.css">
+    <link rel="stylesheet" href="../admin/css/admin-theme.css?v=<?php echo filemtime(__DIR__ . '/../../admin/css/admin-theme.css'); ?>">
+    <link rel="stylesheet" href="css/plantation-theme.css?v=<?php echo file_exists(__DIR__ . '/../css/plantation-theme.css') ? filemtime(__DIR__ . '/../css/plantation-theme.css') : '1'; ?>">
+
+    <?php include __DIR__ . '/jquery.php'; ?>
+    <script src="js/plantation-modals.js?v=<?php echo file_exists(__DIR__ . '/../js/plantation-modals.js') ? filemtime(__DIR__ . '/../js/plantation-modals.js') : '1'; ?>"></script>
+    <script src="js/plantation-format.js?v=<?php echo file_exists(__DIR__ . '/../js/plantation-format.js') ? filemtime(__DIR__ . '/../js/plantation-format.js') : '1'; ?>"></script>
+
+    <script src="assets/js/numberFormat.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <?php include __DIR__ . '/datatables_buttons_css.php'; ?>
+    <?php include __DIR__ . '/datatables_buttons_js.php'; ?>
 </head>
-<?php
-include "include/datatables_buttons_css.php";
-include "include/datatables_buttons_js.php";
-
-?>
-<style>
-  .dataTables_length {
-    margin-top: 10px;
-    margin-left: 20px;
-  }
-
-  /* #process_supplier[readonly] {
-  background-color: #fff;
-}
-
-#process_weight[readonly] {
-  background-color: #fff;
-}
-
-#process_lot_no[readonly] {
-  background-color: #fff;
-} */
-
-  .logout-btn {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    color: #212529;
-    text-align: center;
-    text-decoration: none;
-    vertical-align: middle;
-    background-color: transparent;
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    border-radius: 0.25rem;
-    transition: all 0.15s ease-in-out;
-  }
-
-  .logout-btn:hover {
-    color: #007bff;
-    background-color: rgba(0, 0, 0, 0.075);
-    border-color: rgba(0, 0, 0, 0.2);
-  }
-
-  .logout-btn i {
-    margin-right: 0.5rem;
-  }
-
-  .loading {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.8);
-    z-index: 9999;
-    text-align: center;
-    line-height: 100vh;
-  }
-</style>
+<body class="admin-body plantation-module">

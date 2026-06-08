@@ -1,0 +1,56 @@
+<?php
+include '../../function/db.php';
+require_once __DIR__ . '/../include/datatables-ssp.php';
+require_once __DIR__ . '/../include/sales-helpers.php';
+
+sales_ssp_require_auth();
+$request = $_POST;
+$filters = sales_ssp_filters($request);
+$searchValue = trim($request['search']['value'] ?? '');
+
+$sortColumns = [
+    'status', 'bales_sales_id', 'transaction_date', 'sale_contract', 'buyer_name',
+    'contract_price', 'total_bale_weight', 'overall_ave_cost_kilo', 'total_sales',
+    'overall_cost', 'unpaid_balance', 'gross_profit',
+];
+
+[$start, $length] = sales_ssp_paging($request, 30);
+[$orderCol, $orderDir] = sales_ssp_sort($request, $sortColumns, 'bales_sales_id', 'DESC');
+
+$baseFrom = 'FROM bales_sales_record WHERE 1=1';
+$filterSql = '';
+sales_ssp_append_filters($con, $filters, 'transaction_date', ['buyer_name'], $filterSql);
+
+if ($searchValue !== '') {
+    $q = mysqli_real_escape_string($con, $searchValue);
+    $filterSql .= " AND (status LIKE '%$q%' OR buyer_name LIKE '%$q%' OR sale_contract LIKE '%$q%' OR CAST(bales_sales_id AS CHAR) LIKE '%$q%')";
+}
+
+$total = sales_ssp_scalar($con, "SELECT COUNT(*) AS total $baseFrom", $request);
+$filtered = sales_ssp_scalar($con, "SELECT COUNT(*) AS total $baseFrom $filterSql", $request);
+
+$sql = "SELECT * $baseFrom $filterSql ORDER BY $orderCol $orderDir LIMIT $start, $length";
+$result = sales_ssp_query($con, $sql, $request);
+$data = [];
+
+while ($row = mysqli_fetch_assoc($result)) {
+    $cur = htmlspecialchars($row['currency'] ?? '₱', ENT_QUOTES, 'UTF-8');
+    $json = htmlspecialchars(json_encode($row, JSON_HEX_APOS | JSON_HEX_QUOT), ENT_QUOTES, 'UTF-8');
+    $data[] = [
+        'status' => sales_status_badge($row['status'] ?? ''),
+        'bales_sales_id' => (int) $row['bales_sales_id'],
+        'transaction_date' => date('M j, Y', strtotime($row['transaction_date'])),
+        'sale_contract' => htmlspecialchars($row['sale_contract'] ?? '', ENT_QUOTES, 'UTF-8'),
+        'buyer_name' => htmlspecialchars($row['buyer_name'] ?? '', ENT_QUOTES, 'UTF-8'),
+        'contract_price' => $cur . ' ' . number_format(floatval($row['contract_price']), 2),
+        'total_bale_weight' => number_format(floatval($row['total_bale_weight']), 2) . ' kg',
+        'overall_ave_cost_kilo' => $cur . ' ' . number_format(floatval($row['overall_ave_cost_kilo']), 2),
+        'total_sales' => $cur . ' ' . number_format(floatval($row['total_sales']), 0),
+        'overall_cost' => $cur . ' ' . number_format(floatval($row['overall_cost']), 0),
+        'unpaid_balance' => $cur . ' ' . number_format(floatval($row['unpaid_balance']), 2),
+        'gross_profit' => '₱ ' . number_format(floatval($row['gross_profit']), 0),
+        'action' => '<button type="button" class="btn btn-sm btn-outline-success btnViewRecord" data-status="' . htmlspecialchars($row['status'] ?? '', ENT_QUOTES) . '" data-bale=\'' . $json . '\'><i class="fas fa-book"></i></button>',
+    ];
+}
+
+sales_ssp_response($request, $total, $filtered, $data);

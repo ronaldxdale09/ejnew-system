@@ -13,7 +13,7 @@ $total_production_cost = 0;
 $number_container = 0;
 $total_ship_exp = 0;
 
-$output .= '<table class="table table-bordered table-hover table-striped" id="recording_table-receiving">
+$output .= '<table class="table table-sm table-hover mb-0" id="recording_table-receiving">
            <thead class="table-dark" style="font-size: 12px !important" >
            <tr>
            <th scope="col">ID</th>
@@ -81,7 +81,7 @@ echo $output;
         $('#total_bale_weight').val("<?php echo number_format($total_weight, 2); ?>");
         $('#total_bale_cost').val("<?php echo number_format($total_bale_cost, 2); ?>");
         $('#total_ship_exp').val("<?php echo number_format($total_ship_exp, 2); ?>");
-        $('#total_production_cost').val("<?php echo number_format($total_production_cost, 2); ?>");
+        $('#total_milling_cost').val("<?php echo number_format($total_production_cost, 2); ?>");
         $('#number_container').val("<?php echo $number_container; ?>");
 
         // Use the computed overall cost and average kilo cost
@@ -99,19 +99,23 @@ echo $output;
                     container_id: containerId,
                     sales_id: "<?php echo $sales_id; ?>"
                 },
-                success: function (response) {
-                    console.log('success');
-                    console.log(response);
-                    fetch_container();
+                success: function () {
+                    if (typeof fetch_bale_container === 'function') {
+                        fetch_bale_container();
+                    }
                     Swal.fire({
                         position: 'center',
                         icon: 'info',
-                        title: 'Container Removed!',
+                        title: 'Container Removed',
                         showConfirmButton: false,
-                        timer: 1000
+                        timer: 900
                     });
                 }
             });
         });
+
+        if (typeof computeGrossSales === 'function') {
+            computeGrossSales();
+        }
     });
 </script>

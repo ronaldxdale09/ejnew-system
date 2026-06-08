@@ -3,7 +3,7 @@
 include('../../function/db.php');
 
 // If the update request is set
-if ($_POST['action'] == 'pressing_update') {
+if (isset($_POST['action']) && $_POST['action'] == 'pressing_update') {
     $id = $_POST['recording_id'];
 
     // Cleanse and prepare variables
@@ -22,7 +22,7 @@ if ($_POST['action'] == 'pressing_update') {
         if ($kilo_bale == 0 || $weight == 0 || $bale_num == 0) continue; // Skip if any values are zero
         $total_weight += $weight;
 
-        // Debugging data
+        // Debugging data (disabled in production)
         displayDebuggingData($bales_type, $bales_id, $kilo_bale, $weight, $bale_num, $excess, $expense);
 
         // Check if this bale production already exists
@@ -32,7 +32,6 @@ if ($_POST['action'] == 'pressing_update') {
     // Delete remaining bales from the database
     deleteRemainingBales($id, $existingBales, $con);
 
-    echo "Total weight: " . $total_weight;
     $rubber_drc = calculateRubberDrc($total_weight, $entry_weight);
 
     // Prepare additional variables
@@ -80,15 +79,6 @@ function prepareBalesVariables($index)
 // Function to display debugging data
 function displayDebuggingData($bales_type, $bales_id, $kilo_bale, $weight, $bale_num, $excess, $expense)
 {
-    echo "Debugging data: <br>";
-    echo "bales_type: $bales_type <br>";
-    echo "bales_id: $bales_id <br>";
-    echo "kilo_bale: $kilo_bale <br>";
-    echo "weight: $weight <br>";
-    echo "bale_num: $bale_num <br>";
-    echo "excess: $excess <br>";
-    echo "expense: $expense <br>";
-    echo "------------------------- <br>";
 }
 
 // Function to check and update bale production
@@ -146,7 +136,6 @@ function calculateTotalProductionCost($id, $expense, $con)
         $row = mysqli_fetch_assoc($result);
         $purchase_cost = $row['purchase_cost'];
         $total_production_cost = floatval($purchase_cost) + floatval($expense);
-        echo "total purchase Cost: $total_production_cost <br>";
         return $total_production_cost;
     } else {
         echo "Error: Query did not return a result.";
@@ -163,6 +152,7 @@ function updatePlantaRecording($id, $rubber_drc, $total_weight, $expense, $expen
     $result = mysqli_query($con, $query);
     if ($result) {
         header("Location: ../recording.php?tab=4");
+        exit();
     } else {
         echo "Error updating record: " . mysqli_error($con);
     }
@@ -170,7 +160,7 @@ function updatePlantaRecording($id, $rubber_drc, $total_weight, $expense, $expen
 
 
 
-if ($_POST['action'] == 'press_drying') {
+if (isset($_POST['action']) && $_POST['action'] == 'press_drying') {
 
     $id = $_POST['recording_id'];
 

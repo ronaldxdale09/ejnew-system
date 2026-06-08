@@ -79,10 +79,8 @@ if (isset($_GET['id'])) {
 ?>
 
 
-<body>
-
-    <br>
-    <div class='main-content' style='min-height:100vh;'>
+<?php sales_shell_open('Bale Shipment Detail', 'Edit bale shipment and container assignments'); ?>
+    <div class="sales-page-inner">
         <div class="container home-section h-100" style="max-width:95%;">
             <div class="page-wrapper">
                 <div class="row">
@@ -389,7 +387,6 @@ if (isset($_GET['id'])) {
         </div>
     </div>
     <br>
-</body>
 
 <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -603,3 +600,4 @@ if (isset($_GET['id'])) {
     document.getElementById('ship_exp_misc').addEventListener('input', calculateShippingExpenses);
     document.getElementById('number_container').addEventListener('input', calculateShippingExpenses);
 </script>
+<?php sales_shell_close(); ?>

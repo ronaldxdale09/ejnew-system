@@ -14,38 +14,48 @@ $("#sale_currency").change(function() {
     $(".payment-currency-symbol").text(selectedCurrency);
 });
 
-$(document).on("keyup", "#contract_price, #total_bale_weight, #tax_rate", function() {
-
-    changeGrossProfitColor();
+$(document).on("keyup change", "#contract_price, #total_bale_weight", function() {
     computeGrossSales();
-    computeSalesProceeds();
 });
 
+$(document).on("keyup change", "#tax_rate", function() {
+    computeGrossProfit();
+});
+
+function parseMoney(val) {
+    return parseFloat(String(val || '').replace(/,/g, '')) || 0;
+}
+
+function formatMoney(num) {
+    return parseMoney(num).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function computeGrossProfit() {
+    var sales_proceeds = parseMoney($("#sales_proceeds").val());
+    var tax_rate = parseMoney($("#tax_rate").val());
+    var over_all_cost = parseMoney($("#over_all_cost").val());
+    var tax_amount = sales_proceeds * (tax_rate / 100);
+    var gross_profit = (sales_proceeds - tax_amount) - over_all_cost;
+
+    $("#tax_amount").val(formatMoney(tax_amount));
+    $("#gross_profit").val(formatMoney(gross_profit));
+    if (typeof changeGrossProfitColor === 'function') {
+        changeGrossProfitColor();
+    }
+}
+
 function computeGrossSales() {
-    var contract_price = parseFloat($("#contract_price").val().replace(/,/g, "")) || 0;
-    var total_bale_weight = parseFloat($("#total_bale_weight").val().replace(/,/g, "")) || 0;
-    var sales_proceeds = parseFloat($("#sales_proceeds").val().replace(/,/g, "")) || 0;
-    var tax_rate = parseFloat($("#tax_rate").val().replace(/,/g, "")) || 0;
-    var over_all_cost = parseFloat($("#over_all_cost").val().replace(/,/g, "")) || 0;
-
+    var contract_price = parseMoney($("#contract_price").val());
+    var total_bale_weight = parseMoney($("#total_bale_weight").val());
     var total_sale = total_bale_weight * contract_price;
-    var tax_amount = sales_proceeds * (tax_rate / 100); // computed tax amount, tax rate should be in percentage.
-    var gross_profit = (sales_proceeds - tax_amount) - over_all_cost; // Compute gross profit based on the current sales proceeds and tax amount
 
-    $("#gross_profit").val(gross_profit.toLocaleString('en-US', {
-        minimumFractionDigits: 2
-    }));
+    $("#total_sale").val(formatMoney(total_sale));
 
-    $("#total_sale").val(total_sale.toLocaleString('en-US', {
-        minimumFractionDigits: 2
-    }));
+    var totalPaid = parseMoney($("#amount_unpaid").val());
+    var unpaid_balance = total_sale - totalPaid;
+    $("#unpaid_balance").val(formatMoney(unpaid_balance));
 
-    // Update the tax amount field
-    $("#tax_amount").val(tax_amount.toLocaleString('en-US', {
-        minimumFractionDigits: 2
-    }));
-
-    changeGrossProfitColor();
+    computeGrossProfit();
 }
 
 
@@ -62,34 +72,22 @@ function computeSalesProceeds() {
     var sales_proceeds = 0;
 
     $("#payment-table tbody tr").each(function() {
-        var amountPaidValue = $(this).find(".payAmount").val();
-        var amountPaid = parseFloat(amountPaidValue.replace(/,/g, ''));
+        var amountPaid = parseMoney($(this).find(".payAmount").val());
+        var pesoEquivalent = parseMoney($(this).find(".pesoEquivalent").val());
 
-        var pesoEquivalentValue = $(this).find(".pesoEquivalent").val();
-        var pesoEquivalent = parseFloat(pesoEquivalentValue.replace(/,/g, ''));
-
-        if (!isNaN(amountPaid) && !isNaN(pesoEquivalent)) {
+        if (amountPaid || pesoEquivalent) {
             totalPaid += amountPaid;
             sales_proceeds += pesoEquivalent;
         }
     });
 
-    document.getElementById("sales_proceeds").value = formatNumber(sales_proceeds.toFixed(2));
+    $("#sales_proceeds").val(formatMoney(sales_proceeds));
+    $("#amount_unpaid").val(formatMoney(totalPaid));
 
-    var sales_proceeds_val = parseFloat(document.getElementById("sales_proceeds").value.replace(/,/g, "")) || 0;
-    var over_all_cost = parseFloat(document.getElementById("over_all_cost").value.replace(/,/g, "")) || 0;
+    var total_sale = parseMoney($("#total_sale").val());
+    $("#unpaid_balance").val(formatMoney(total_sale - totalPaid));
 
-    var gross_profit = sales_proceeds_val - over_all_cost;
-    document.getElementById("gross_profit").value = formatNumber(gross_profit.toFixed(2));
-
-    document.getElementById("amount_unpaid").value = formatNumber(totalPaid.toFixed(2));
-
-    var total_sale = parseFloat(document.getElementById("total_sale").value.replace(/,/g, "")) || 0;
-    var amount_unpaid = parseFloat(document.getElementById("amount_unpaid").value.replace(/,/g, "")) || 0;
-    var unpaid_balance = total_sale - amount_unpaid;
-    document.getElementById("unpaid_balance").value = formatNumber(unpaid_balance.toFixed(2));
-    changeGrossProfitColor();
-    computeGrossSales();
+    computeGrossProfit();
 }
 
 $("#payment-table").on('input', '.payAmount, .payRate', function() {
@@ -98,7 +96,7 @@ $("#payment-table").on('input', '.payAmount, .payRate', function() {
     var payRate = parseFloat($row.find(".payRate").val().replace(/,/g, '')) || 0;
     var pesoEquivalent = amountPaid * payRate;
 
-    $row.find(".pesoEquivalent").val(formatNumber(pesoEquivalent.toFixed(2)));
+    $row.find(".pesoEquivalent").val(formatMoney(pesoEquivalent));
 
     computeSalesProceeds();
 });

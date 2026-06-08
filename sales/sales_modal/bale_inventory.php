@@ -4,8 +4,8 @@ $today = date('Y-m-d');
 
 $rubberTypes = ['5L', 'SPR-5', 'SPR-10', 'SPR-20', 'Off Color'];
 ?>
-<div class="modal fade" id="purchaseModal" tabindex="-1" role="dialog" aria-labelledby="newContainerLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+<div class="modal fade sales-modal" id="purchaseModal" tabindex="-1" role="dialog" aria-labelledby="newContainerLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable sales-modal-dialog--wide" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="newContainerLabel">Bale Outside Purchase</h5>
@@ -14,123 +14,96 @@ $rubberTypes = ['5L', 'SPR-5', 'SPR-10', 'SPR-20', 'Off Color'];
                 </button>
             </div>
             <form action="function/balePurchase.php" method="POST">
-
-                <div class="modal-body">
-
-                    <div class="row">
-                        <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Purchase Type</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class='form-control' value="Outsource" name="purchase_type" readonly>
-                            </div>
+                <div class="modal-body sales-modal-body--compact">
+                    <div class="row g-2 sales-modal-grid">
+                        <div class="col-6 col-md-4 sales-field">
+                            <label for="purchase_type">Purchase Type</label>
+                            <input type="text" class="form-control form-control-sm" value="Outsource" name="purchase_type" id="purchase_type" readonly>
                         </div>
-                        <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Purchase Date</label>
-                            <div class="col-md-12">
-                                <input type="date" class='form-control' value="<?php echo $today; ?>" name="n_date" require>
-                            </div>
+                        <div class="col-6 col-md-4 sales-field">
+                            <label for="n_date">Purchase Date</label>
+                            <input type="date" class="form-control form-control-sm" value="<?php echo $today; ?>" name="n_date" id="n_date" require>
                         </div>
-
-                        <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Recorded by:</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='recorded_by' value='<?php echo $name ?>' autocomplete='off' style="width: 100px;" />
-                            </div>
+                        <div class="col-6 col-md-4 sales-field">
+                            <label for="recorded_by">Recorded By</label>
+                            <input type="text" class="form-control form-control-sm" name="recorded_by" id="recorded_by" value="<?php echo $name ?>" autocomplete="off">
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Supplier</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='supplier' autocomplete='off' style="width: 100px;" required />
-                            </div>
+                        <div class="col-6 col-md-6 sales-field">
+                            <label for="supplier">Supplier</label>
+                            <input type="text" class="form-control form-control-sm" name="supplier" id="supplier" autocomplete="off" required>
                         </div>
-
-                        <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Location</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='location' autocomplete='off' style="width: 100px;" required />
-                            </div>
+                        <div class="col-6 col-md-6 sales-field">
+                            <label for="location">Location</label>
+                            <input type="text" class="form-control form-control-sm" name="location" id="location" autocomplete="off" required>
                         </div>
-
-                    </div>
-                    <div class="row">
-
-                        <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Driver (Optional)</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='driver' autocomplete='off' style="width: 100px;" />
-                            </div>
+                        <div class="col-6 col-md-6 sales-field">
+                            <label for="driver">Driver <span class="sales-field__suffix">(optional)</span></label>
+                            <input type="text" class="form-control form-control-sm" name="driver" id="driver" autocomplete="off">
                         </div>
-                        <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Truck Number (Optional)</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='truck_num' autocomplete='off' style="width: 100px;" />
-                            </div>
+                        <div class="col-6 col-md-6 sales-field">
+                            <label for="truck_num">Truck Number <span class="sales-field__suffix">(optional)</span></label>
+                            <input type="text" class="form-control form-control-sm" name="truck_num" id="truck_num" autocomplete="off">
                         </div>
                     </div>
-                    <button class="btn btn-warning" type="button" id="addRow">+ Add Bale</button> <br> <br>
-                    <table class="table table-bordered" id="rubber-table">
-                        <thead>
-                            <tr>
-                                <th scope="col" width="15%">Quality</th>
-                                <th scope="col" width="15%">Kilo Per Bale</th>
-                                <th scope="col">Weight (kg)</th>
-                                <th scope="col">No. of Bale</th>
-                                <th scope="col" width="25%">Remarks</th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
 
-                        </tbody>
-                    </table>
-                    <hr>
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label class="form-label">Total Purchase Cost</label>
-                            <div class="input-group">
+                    <div class="sales-modal-section__row">
+                        <p class="sales-modal-section">Bale Lines</p>
+                        <button class="btn btn-sm btn-outline-warning" type="button" id="addRow"><i class="fas fa-plus"></i> Add Bale</button>
+                    </div>
+                    <div class="sales-modal-table-wrap">
+                        <table class="table table-bordered" id="rubber-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col" width="15%">Quality</th>
+                                    <th scope="col" width="15%">Kilo Per Bale</th>
+                                    <th scope="col">Weight (kg)</th>
+                                    <th scope="col">No. of Bale</th>
+                                    <th scope="col" width="25%">Remarks</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p class="sales-modal-section">Cost Summary</p>
+                    <div class="row g-2 sales-modal-grid">
+                        <div class="col-6 col-md-6 sales-field sales-field--currency">
+                            <label for="purchase_cost">Total Purchase Cost</label>
+                            <div class="input-group input-group-sm">
                                 <span class="input-group-text">₱</span>
-                                <input type="text" style='font-size:19px' class="form-control text-center" id="purchase_cost" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" name="purchase_cost" required>
+                                <input type="text" class="form-control form-control-sm text-center" id="purchase_cost" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" name="purchase_cost" required>
                             </div>
                         </div>
-
-                        <div class="col">
-                            <label class="form-label">Total Weight</label>
-                            <div class="input-group">
-                                <input type="text" style='font-size:19px' class="form-control text-center" name='total_weight' id="total_weight" readonly>
-                                <span class="input-group-text">kg</span>
-                            </div>
+                        <div class="col-6 col-md-6 sales-field sales-field--currency">
+                            <label for="total_weight">Total Weight <span class="sales-field__suffix">kg</span></label>
+                            <input type="text" class="form-control form-control-sm text-center" name="total_weight" id="total_weight" readonly>
                         </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label class="form-label">List of Expenses</label>
-                            <div class="input-group">
-                                <input type="text" style='font-size:19px' class="form-control text-center" name='expense_desc'>
-                            </div>
+                        <div class="col-12 col-md-6 sales-field">
+                            <label for="expense_desc">List of Expenses</label>
+                            <input type="text" class="form-control form-control-sm text-center" name="expense_desc" id="expense_desc">
                         </div>
-                        <div class="col-3">
-                            <label class="form-label">Expense Amount</label>
-                            <div class="input-group">
+                        <div class="col-6 col-md-3 sales-field sales-field--currency">
+                            <label for="expense_amount">Expense Amount</label>
+                            <div class="input-group input-group-sm">
                                 <span class="input-group-text">₱</span>
-                                <input type="text" style='font-size:19px' class="form-control text-center" name='expense'  id='expense_amount' onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
+                                <input type="text" class="form-control form-control-sm text-center" name="expense" id="expense_amount" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)">
                             </div>
                         </div>
-                        <div class="col-3">
-                            <label class="form-label">Average Kilo Cost</label>
-                            <div class="input-group">
+                        <div class="col-6 col-md-3 sales-field sales-field--currency sales-field--highlight">
+                            <label for="average_kilo_cost">Average Kilo Cost</label>
+                            <div class="input-group input-group-sm">
                                 <span class="input-group-text">₱</span>
-                                <input type="text" style='font-size:19px' readonly class="form-control text-center" id='average_kilo_cost' name='average_kilo_cost'>
+                                <input type="text" readonly class="form-control form-control-sm text-center" id="average_kilo_cost" name="average_kilo_cost">
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" name='new'>Proceed</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-sm btn-primary" name="new">Proceed</button>
                 </div>
             </form>
         </div>
@@ -150,13 +123,13 @@ $rubberTypes = ['5L', 'SPR-5', 'SPR-10', 'SPR-20', 'Off Color'];
 
             var newRow = $('<tr>' +
                 '<td>' +
-                '<select class="form-control type" name="type[]" autocomplete="off" step="any" style="font-weight:normal;">' +
+                '<select class="form-control form-control-sm type" name="type[]" autocomplete="off" step="any" style="font-weight:normal;">' +
                 '<option selected="selected" disabled value="" style="font-weight:normal;">Select...</option>' +
                 selectOptions + '</select>' +
                 '</td>' +
                 '<td>' +
-                '<div class="input-group">' +
-                '<select class="form-control kilo_bale" name="kilo_bale[]" id="kilo_bale_new' + counter + '" style="font-weight:normal;">' +
+                '<div class="input-group input-group-sm">' +
+                '<select class="form-control form-control-sm kilo_bale" name="kilo_bale[]" id="kilo_bale_new' + counter + '" style="font-weight:normal;">' +
                 '<option selected="selected" disabled value="" style="font-weight:normal;">Select...</option>' +
                 '<option value="35">35.00 kg</option>' +
                 '<option value="33.33">33.33 kg</option>' +
@@ -164,21 +137,21 @@ $rubberTypes = ['5L', 'SPR-5', 'SPR-10', 'SPR-20', 'Off Color'];
                 '</div>' +
                 '</td>' +
                 '<td>' +
-                '<div class="input-group">' +
-                '<input type="text" class="form-control weight" name="weight[]" id="weight_new' + counter +
+                '<div class="input-group input-group-sm">' +
+                '<input type="text" class="form-control form-control-sm weight" name="weight[]" id="weight_new' + counter +
                 '" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" readonly>' +
                 '</div>' +
                 '</td>' +
                 '<td>' +
-                '<div class="input-group">' +
-                '<input type="text" class="form-control bale_num" name="bale_num[]" id="bale_num_new' + counter +
+                '<div class="input-group input-group-sm">' +
+                '<input type="text" class="form-control form-control-sm bale_num" name="bale_num[]" id="bale_num_new' + counter +
                 '" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" disabled>' +
                 '</div>' +
                 '</td>' +
                 '<td>' +
-                '<input type="text" class="form-control" name="description[]" autocomplete="off" step="any">' +
+                '<input type="text" class="form-control form-control-sm" name="description[]" autocomplete="off" step="any">' +
                 '</td>' +
-                '<td><button class="btn btn-danger removeRow"><i class="fas fa-trash"></i></button></td>' +
+                '<td><button class="btn btn-sm btn-danger removeRow"><i class="fas fa-trash"></i></button></td>' +
                 '</tr>');
             counter++;
             $("#rubber-table tbody").append(newRow);

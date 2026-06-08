@@ -1,155 +1,47 @@
-<!DOCTYPE html>
-
 <?php
-include "../function/db.php";
-include "function/authenticate.php";
-//   $loc = $_SESSION['loc'];
+include __DIR__ . '/../../function/db.php';
+require_once __DIR__ . '/sales-helpers.php';
 
-
-
-$loc = $_SESSION['loc'] ?? 'Basilan';
-$name = $_SESSION["full_name"];
+$sales_loc = sales_require_auth();
+$name = $_SESSION['user'] ?? '';
+$userDisplay = htmlspecialchars($_SESSION['full_name'] ?? $name ?: 'User', ENT_QUOTES, 'UTF-8');
+$locDisplay = htmlspecialchars(trim($_SESSION['loc'] ?? $_SESSION['source'] ?? ''), ENT_QUOTES, 'UTF-8');
 ?>
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#2452af">
-    <link href="assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" href="assets/img/logo.png" type="image/png">
+    <title>EJN Rubber — Sales</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link href="../admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/chosen.min.css">
-    <link rel="stylesheet" href="static/css/buttons.bootstrap4.min.css">
-    <link rel="stylesheet" href="static/css/buttons.dataTables.min.css">
-    <link href="css/includes/dataTables.bootstrap5.min.css" rel="stylesheet">
-    <link href="css/includes/buttons.dataTables.min.css" rel="stylesheet">
-    <link href="css/includes/responsive.dataTables.min.css" rel="stylesheet">
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css'
-        integrity='sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=='
-        crossorigin='anonymous' referrerpolicy='no-referrer' />
-    <!-- date filter -->
-    <link rel="stylesheet" type="text/css" href="css/includes/dataTables.dateTime.min.css" />
-    <link rel='icon' href='assets/img/logo.png' size='10x10' />
+    <link rel="stylesheet" href="../admin/css/admin-theme.css?v=<?php echo filemtime(__DIR__ . '/../../admin/css/admin-theme.css'); ?>">
+    <link rel="stylesheet" href="css/sales-theme.css?v=<?php echo file_exists(__DIR__ . '/../css/sales-theme.css') ? filemtime(__DIR__ . '/../css/sales-theme.css') : '1'; ?>">
 
-    <title>EJN RUBBER</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="css/statistic-card.css">
+    <?php include __DIR__ . '/jquery.php'; ?>
+    <script src="js/sales-modals.js?v=<?php echo file_exists(__DIR__ . '/../js/sales-modals.js') ? filemtime(__DIR__ . '/../js/sales-modals.js') : '1'; ?>"></script>
+
+    <script src="assets/js/numberFormat.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <?php include __DIR__ . '/datatables_buttons_css.php'; ?>
+    <?php include __DIR__ . '/datatables_buttons_js.php'; ?>
+
+    <script>
+    const setFormattedValue = (elementId, value) => {
+        var el = document.getElementById(elementId);
+        if (!el) return;
+        el.value = Number(value || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    };
+    </script>
 </head>
-
-<style>
-.dataTables_length {
-    margin-top: 10px;
-    margin-left: 20px;
-}
-
-.floating-refresh-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background-color: #0095ff;
-    color: #ffffff;
-    font-size: 24px;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
-    transition: background-color 0.2s ease-in-out;
-    z-index: 9999;
-}
-
-.floating-refresh-button:hover {
-    background-color: green;
-}
-
-@keyframes spinning {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-/* Move the animation property to the :hover state */
-.floating-refresh-button:hover i {
-    animation: spinning 2s linear infinite;
-}
-
-.modal-content {
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-.modal-header {
-    border-bottom: none;
-}
-
-.modal-footer {
-    border-top: none;
-}
-
-.nowrap {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.flex-container {
-    display: flex;
-    justify-content: space-between;
-    font-weight: bold;
-    width: 100%;
-}
-
-.separator {
-    border-top: 1px solid #000;
-    /* Change color as needed */
-    margin: 4px 0;
-    /* Add some vertical spacing */
-}
-
-.stat-card__content {
-    font-family: Arial, sans-serif;
-    color: #333;
-}
-
-.card-header {
-    font-family: 'Arial', sans-serif;
-    /* Use a modern, clean font */
-    /* Slightly larger font size */
-    font-weight: 800;
-    /* Semi-bold weight */
-    color: #333333;
-    /* Darker text color */
-    text-align: center;
-    /* Centered text */
-    text-transform: uppercase;
-    /* Uppercase letters */
-    margin-bottom: 15px;
-    /* Space below the header */
-    border-bottom: 2px solid #f0f0f0;
-    /* Underline with a light color */
-    padding-bottom: 10px;
-    /* Padding below the text */
-}
-</style>
-
-
-<script>
-// Helper function to set formatted value to an element
-const setFormattedValue = (elementId, value) => {
-    document.getElementById(elementId).value = value.toLocaleString('en-US', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    });
-};
-</script>
-
-<?php include "include/footer.php";?>
+<body class="admin-body sales-module">

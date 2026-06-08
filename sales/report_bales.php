@@ -1,143 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <?php
-include('include/header.php');
-include "include/navbar.php";
+include 'include/header.php';
+include 'include/navbar.php';
+require_once 'include/sales-report-helpers.php';
 
+sales_shell_open('Bale Sales Report', 'Monthly sales, COGS, and gross profit summary');
 ?>
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sales Report</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-
-<style>
-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: Arial, sans-serif;
-}
-
-th,
-td {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-}
-
-tr:nth-child(even) {
-    background-color: #f8f8f8;
-}
-
-tr:hover {
-    background-color: #e0e0e0;
-}
-</style>
-
-<script>
-async function fetchSalesData() {
-    try {
-        const response = await fetch("sales_data.json");
-        const salesData = await response.json();
-        return salesData;
-    } catch (error) {
-        console.error("Error fetching sales data:", error);
-    }
-}
-
-async function populateTable() {
-    const salesData = await fetchSalesData();
-    if (!salesData) return;
-
-    // Your code for populating the table with sales data goes here
-}
-
-populateTable();
-
-
-function sortTable() {
-    let table = document.getElementById("sales-report-table");
-    let rows, switching, i, x, y, shouldSwitch;
-    switching = true;
-    while (switching) {
-        switching = false;
-        rows = table.rows;
-        for (i = 1; i < rows.length - 1; i++) {
-            shouldSwitch = false;
-            x = rows[i].getElementsByTagName("TD")[1];
-            y = rows[i + 1].getElementsByTagName("TD")[1];
-            if (parseFloat(x.innerHTML) < parseFloat(y.innerHTML)) {
-                shouldSwitch = true;
-                break;
-            }
-        }
-        if (shouldSwitch) {
-            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-            switching = true;
-        }
-    }
-}
-</script>
-
-<body>
-
-
-
-
-    <div class='main-content' style='min-height:100vh;'>
-        <div class="container home-section h-100" style="max-width:95%;">
-            <BR>
-            <div class="page-wrapper">
-                <div class="row">
-                    <div class="col-sm-12">
-
-
-                        <div style="background-color: #2452af; height: 6px;"></div><!-- This is the blue bar -->
-                        <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
-
-
-                            <h2 class="page-title text-center my-4">
-                                <b>
-                                    <font color="#0C0070">BALE SALES </font>
-                                    <font color="#046D56"> REPORT </font>
-                                </b>
-                            </h2>
-
-                            <h5 class="text-center">(All amounts are in Philippine Peso)</h5>
-
-                            <hr>
-                            <div class="table-responsive">
-
-                                <table class="table table-bordered" id="sales-report-table">
-                                    <thead>
-                                        <tr id="table-header">
-
-                                            <th scope="col">Accounts</th>
-                                            <th scope="col">
-                                                <select id="yearFilter" onchange="filterTable()">
-                                                    <?php
-                                            // Fetch year parameter from URL
-                                            $selectedYear = isset($_GET['year']) ? $_GET['year'] : '';
-
-                                            $yearsQuery = mysqli_query($con, "SELECT DISTINCT YEAR(transaction_date) AS year FROM bales_sales_record ORDER BY year DESC");
-                                            while ($yearOption = mysqli_fetch_assoc($yearsQuery)) {
-                                                // Check if the year matches the selected year from the URL
-                                                $selected = ($yearOption['year'] == $selectedYear) ? 'selected' : '';
-                                                echo "<option value='{$yearOption['year']}' $selected>{$yearOption['year']}</option>";
-                                            }
-                                            ?>
-                                                </select>
-
-
-                                            </th>
+<?php adm_panel_open('Bale Sales Report'); ?>
+<?php sales_render_report_year_filter('bales_sales_record', 'transaction_date'); ?>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover sales-report-table" id="sales-report-table">
+        <thead>
+            <tr>
+                <th scope="col">Accounts</th>
+                <th scope="col">Total</th>
                                             <th scope="col">Jan</th>
                                             <th scope="col">Feb</th>
                                             <th scope="col">Mar</th>
@@ -172,8 +47,7 @@ function sortTable() {
 
                                         <?php
                                         
-                                        $CurrentYear = date('Y');
-                                        $year = isset($_GET['year']) ? $_GET['year'] : $CurrentYear;
+                                        $year = sales_report_year();
 
                                         $netSales = array_fill(1, 12, 0); // initialize an array to hold sales for each month
                                         $totalNetSales = 0; // initialize a variable to hold total net sales
@@ -612,15 +486,7 @@ function sortTable() {
                                         echo '<td scope="row"><b>Gross Profit Sales </b></td>';
 
 
-                                        echo "<script type='text/javascript'>
-                                        console.log('Total Gross Profit Sales: " . $totalGrossProfitSales . "');
-                                        console.log('Total Net Sales: " . $totalNetSales . "');
-                                        console.log('Total COGS: " . $totalCogs . "');
-                                        console.log('Total Milling Cost: " . $totalMillingCost . "');
-                                        console.log('Total Shipping: " . $total_shipping . "');
-                                      </script>";
-
-                                        $totalGrossProfitSales = $totalNetSales - $totalCogs - $totalMillingCost - $total_shipping; // Add monthly value to the total
+                                        $totalGrossProfitSales = $totalNetSales - $totalCogs - $totalMillingCost - $total_shipping;
 
                                         // Print total in the second column
                                         echo '<td style="text-align: right;"><b>' . number_format($totalGrossProfitSales, 0, '.', ',') . ' </b></td>';
@@ -632,16 +498,7 @@ function sortTable() {
                                             $monthShippingValue = isset($monthTotalShip[$i]) ? (float)$monthTotalShip[$i] : 0;
                                             $monthlyGrossProfit = $netSalesValue - $cogsValue - $monthMillingValue - $monthShippingValue;
 
-                                            echo "<script type='text/javascript'>
-                                                console.log('Month: " . $i . "');
-                                                console.log('Net Sales: " . $netSalesValue . "');
-                                                console.log('COGS: " . $cogsValue . "');
-                                                console.log('Milling Cost: " . $monthMillingValue . "');
-                                                console.log('Shipping Cost: " . $monthShippingValue . "');
-                                                console.log('Gross Profit: " . $monthlyGrossProfit . "');
-                                              </script>";
-
-                                            echo '<td style="text-align: right;"><b>' . ($monthlyGrossProfit != 0 ? ' ' . number_format($monthlyGrossProfit, 0, '.', ',') : '-') . ' </b></td>';
+                                            echo '<td class="amount-cell"><b>' . ($monthlyGrossProfit != 0 ? sales_report_cell($monthlyGrossProfit) : '-') . '</b></td>';
                                         }
                                         echo '</tr>';
 
@@ -656,58 +513,19 @@ function sortTable() {
                                 </table>
                             </div>
 
-                            <script>
-                            var table = $('#sales_rec_table').DataTable({
-                                dom: '<"top"<"left-col"B><"center-col"f>>lrtip',
-                                order: [
-                                    [1, 'desc']
-                                ],
-                                buttons: [
-                                    'excelHtml5',
-                                    'pdfHtml5',
-                                    'print'
-                                ],
-                                columnDefs: [{
-                                    orderable: false,
-                                    targets: -1
-                                }],
-                                lengthChange: false,
-                                orderCellsTop: true,
-                                paging: false,
-                                info: false,
-                            });
-                            </script>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <script>
-    function filterTable() {
-        var year = document.getElementById("yearFilter").value;
-        var currentUrl = new URL(window.location.href);
-
-        // Update or add the 'year' parameter
-        if (year) {
-            currentUrl.searchParams.set("year", year);
-        } else {
-            currentUrl.searchParams.delete("year");
-        }
-
-        window.location.href = currentUrl.toString();
-    }
-    </script>
-
-</body>
-<footer class="mt-5">
-    <p class="text-center">EN Rubber &copy; 2023 | All Rights Reserved</p>
-    <p class="text-center">Lamitan City, Basilan, Philippines 7302</p>
-    <p class="text-center"><i>Developer: Ronald Dale Fuentebella | Email: ronxdale@gmail.com</i>
-    </p>
-</footer>
-
-</html>
+<script src="js/sales-datatables-common.js"></script>
+<script>
+$(function () {
+    if (!$.fn.DataTable || !$('#sales-report-table').length) return;
+    $('#sales-report-table').DataTable({
+        dom: SalesDt.dom,
+        paging: false,
+        searching: false,
+        info: false,
+        ordering: false,
+        buttons: ['excelHtml5', 'pdfHtml5', 'print']
+    });
+});
+</script>
+<?php adm_panel_close(); ?>
+<?php sales_shell_close(); ?>

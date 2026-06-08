@@ -1,226 +1,36 @@
 <?php
+include 'include/header.php';
+include 'include/navbar.php';
 
-include('include/header.php');
-include "include/navbar.php";
+$loc = plantation_loc_sql();
+$kpis = plantation_inventory_kpis($con, $loc);
 
-
-error_reporting(0); // Suppress all warnings
-
-$loc = str_replace(' ', '', $_SESSION['loc']);
-
-
-$sql = mysqli_query($con, "SELECT SUM(reweight) as inventory from  planta_recording where status='Field' and source='$loc'  ");
-$cuplumps = mysqli_fetch_array($sql);
-
-$sql = mysqli_query($con, "SELECT SUM(crumbed_weight) as inventory from  planta_recording where status='Milling'  and source='$loc'   ");
-$milling = mysqli_fetch_array($sql);
-
-
-$sql = mysqli_query($con, "SELECT SUM(dry_weight) as inventory from  planta_recording where status='Drying'   and source='$loc' ");
-$drying = mysqli_fetch_array($sql);
-
-
-$sql = mysqli_query($con, "SELECT SUM(produce_total_weight) as inventory from  planta_recording where (status='For Sale' or status='Purchase')  and source='$loc'  ");
-$bales = mysqli_fetch_array($sql);
-
-
-
-$sql = mysqli_query($con, "SELECT SUM(remaining_bales) as inventory from  planta_bales_production 
-      LEFT JOIN planta_recording on planta_bales_production.recording_id = planta_recording.recording_id
-    where  (planta_bales_production.remaining_bales !=0  and planta_recording.source  ='$loc') and planta_bales_production.status='Produced'  ");
-$balesCount = mysqli_fetch_array($sql);
-
-
-
-$loc = 'Basilan'; // Please replace with your location value
-$Currentmonth = date('n');
-$CurrentYear = date('Y');
+plantation_shell_open('Plantation Dashboard', 'Inventory overview and production metrics for ' . adm_esc($locDisplay), [$locDisplay ?: 'Plantation']);
+plantation_render_inventory_kpis($kpis);
 ?>
+<div class="plantation-notice alert alert-dismissible fade show" role="alert">
+    <div><strong>Important Notice:</strong> Keep data updated at all times to ensure accuracy across receiving, milling, drying, pressing, and bale inventory.</div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
 
-
-<body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js" integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel='stylesheet' href='css/statistic-card.css'>
-    <input type='hidden' id='selected-cart' value=''>
-    <div class='main-content' style='position:relative; height:100%;'>
-        <div class="container home-section h-100" style="max-width:100%;">
-            <div class="page-wrapper">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>CUPLUMP</b> INVENTORY</p>
-                                    <h3>
-                                        <i class="text-danger font-weight-bold mr-1"></i>
-                                        <?php echo number_format($cuplumps['inventory'] ?? 0, 0) ?> kg
-                                    </h3>
-                                    <div>
-                                        <span class="text-muted">
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="stat-card__icon stat-card__icon--danger">
-                                    <div class="stat-card__icon-circle">
-                                        <i class="fa fa-weight" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>CRUMB</b> INVENTORY</p>
-
-                                    <h3>
-                                        <i class="text-danger font-weight-bold mr-1"></i>
-                                        <?php echo number_format($milling['inventory'] ?? 0, 0) ?> kg
-                                    </h3>
-
-                                    <div>
-                                        <span class="text-muted">
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="stat-card__icon stat-card__icon--secondary">
-                                    <div class="stat-card__icon-circle">
-                                        <i class="fas fa-tint"></i><i class="fas fa-wind"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>BLANKET</b> INVENTORY</p>
-
-                                    <h3>
-                                        <i class="text-danger font-weight-bold mr-1"></i>
-                                        <?php echo number_format($drying['inventory'] ?? 0, 0) ?> kg
-                                    </h3>
-
-                                    <div>
-                                        <span class="text-muted">
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="stat-card__icon stat-card__icon--warning">
-                                    <div class="stat-card__icon-circle">
-                                        <i class="fa fa-weight" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col" hidden>
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY (KG)</p>
-                                    <h3>
-                                        <i class="text-danger font-weight-bold mr-1"></i>
-                                        <?php echo number_format($bales['inventory'] ?? 0, 0) ?> kg
-                                    </h3>
-                                    <div>
-                                        <span class="text-muted">
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="stat-card__icon stat-card__icon--success">
-                                    <div class="stat-card__icon-circle">
-                                        <i class="fa fa-money"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="stat-card">
-                                <div class="stat-card__content">
-                                    <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY </p>
-                                    <h3>
-                                        <i class="text-danger font-weight-bold mr-1"></i>
-                                        <?php echo number_format($balesCount['inventory'] ?? 0, 0) ?> pcs
-                                    </h3>
-                                    <div>
-                                        <span class="text-muted">
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="stat-card__icon stat-card__icon--success">
-                                    <div class="stat-card__icon-circle">
-                                        <i class="fa fa-money"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="alert alert-primary alert-dismissible">
-                        <a href="#" class="btn close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>Important Notice:</strong> To ensure the integrity and reliability of our system, it is imperative that data is continuously updated and maintained for utmost accuracy. We appreciate your diligence in upholding these standards at all times.
-                    </div>
-
-                    <div class="row">
-                        <div class="card" style="width:100%;max-width:100%;">
-                            <div class="card-body" style="width:100%;max-width:100%;">
-                                <h5>INVENTORY OVERVIEW</h5>
-                                <div class="row" style="display: flex; align-items: stretch;">
-                                    <div class="col" style="display: flex;">
-                                        <div class="card" style="width: 100%;">
-                                            <div class="card-body" style="height: 400px; position: relative;">
-                                                <canvas id="inventory_all" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col" style="display: flex;">
-                                        <div class="card" style="width: 100%;">
-                                            <div class="card-body" style="height: 400px; position: relative;">
-                                                <canvas id="inventory_baleskilo" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: 100%;"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <br>
-
-
-                    <div class="row" hidden>
-                        <div class="card" style="width:100%;max-width:100%;">
-                            <div class="card-body" style="width:100%;max-width:100%;">
-                                <h5>PRODUCTION VOLUME</h5>
-
-                                <div class="row">
-                                    <div class="col" style="display: flex;">
-                                        <div class="card" style="width: 100%;">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <canvas id="monthly_production" height="300"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
+<?php adm_panel_open('Inventory Overview'); ?>
+<div class="row g-3">
+    <div class="col-md-6">
+        <div class="plantation-chart-card">
+            <div class="plantation-chart-card__head">Stage Distribution</div>
+            <div class="plantation-chart-card__body"><canvas id="inventory_all"></canvas></div>
         </div>
     </div>
+    <div class="col-md-6">
+        <div class="plantation-chart-card">
+            <div class="plantation-chart-card__head">Bale Weight by Type</div>
+            <div class="plantation-chart-card__body"><canvas id="inventory_baleskilo"></canvas></div>
+        </div>
+    </div>
+</div>
+<?php adm_panel_close(); ?>
 
-</body>
-
-</html>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     // ALL INVENTORY PIE CHART------------------------------
 
@@ -471,3 +281,4 @@ where (status='For Sale' or status='Purchase')   and source='$loc'  ");
         },
     });
 </script>
+<?php plantation_shell_close(); ?>

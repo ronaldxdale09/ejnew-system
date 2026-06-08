@@ -1,85 +1,45 @@
-<?php  
+<?php
 include('../../function/db.php');
 
-$recording_id = $_POST['recording_id'];
- 
+$recording_id = $_POST['recording_id'] ?? '';
+$recording_id = mysqli_real_escape_string($con, $recording_id);
 
-$sql  = "SELECT * from planta_bales_production
-WHERE recording_id='$recording_id' "; 
-$output='';
+$sql = "SELECT * FROM planta_bales_production WHERE recording_id='$recording_id'";
+$result = mysqli_query($con, $sql);
 
-
-$result = mysqli_query($con, $sql);  
-$output = '
-<table class="table table-bordered" id="rubber-record">
-    <thead  class="table-success" style="font-size:13px">
+if (!$result || mysqli_num_rows($result) === 0) {
+    echo '<p class="plantation-empty-state mb-0">No bale production records for this transaction.</p>';
+    exit;
+}
+?>
+<table class="table table-sm table-bordered plantation-detail-table mb-0">
+    <thead>
         <tr>
-        <th scope="col" width="8%">Bale ID</th>
-            <th scope="col" width="22%">Quality</th>
-            <th scope="col" width="20%">Kilo Per Bale</th>
-            <th scope="col">Weight (kg)</th>
-            <th scope="col">No. of Bale</th>
-            <th scope="col">Excess</th>
-            <th scope="col">Description (Buyer)</th>
+            <th>Bale ID</th>
+            <th>Quality</th>
+            <th class="text-end">Kilo/Bale</th>
+            <th class="text-end">Weight</th>
+            <th class="text-end">No. Bales</th>
+            <th class="text-end">Excess</th>
+            <th>Buyer / Description</th>
         </tr>
     </thead>
-    <tbody>';
-
-if(mysqli_num_rows($result) > 0) {  
-    while($arr = mysqli_fetch_array($result)) {  
-        $kilo_per_bale = $arr["kilo_per_bale"] == "0" ? "-" : $arr["kilo_per_bale"];
-        $weight = $arr["rubber_weight"] == "0" ? "-" : $arr["rubber_weight"];
-        $num_bales = $arr["number_bales"] == "0" ? "-" : $arr["number_bales"];
-        $excess = $arr["bales_excess"] == "0" ? "-" : $arr["bales_excess"];
-
-        $output .= '
+    <tbody>
+    <?php while ($arr = mysqli_fetch_array($result)) {
+        $kilo = $arr['kilo_per_bale'] == '0' ? '—' : htmlspecialchars($arr['kilo_per_bale'], ENT_QUOTES);
+        $weight = $arr['rubber_weight'] == '0' ? '—' : number_format((float) $arr['rubber_weight'], 0);
+        $num = $arr['number_bales'] == '0' ? '—' : number_format((float) $arr['number_bales'], 0);
+        $excess = $arr['bales_excess'] == '0' ? '—' : number_format((float) $arr['bales_excess'], 0);
+        ?>
         <tr>
-        <td>
-                <input type="text" class="form-control"  autocomplete="off" step="any"
-                value="'.$arr["bales_prod_id"].'" style="border:none;" readonly>
-            </td>
-            <td>
-                <input type="text" class="form-control"  autocomplete="off" step="any"
-                value="'.$arr["bales_type"].'" style="border:none;" readonly>
-            </td>
-            <td>
-                <div class="input-group">
-                    <input type="text" class="form-control" value="'.$kilo_per_bale.'" readonly>
-                </div>
-            </td>
-            <td>
-                <div class="input-group">
-                    <input type="text" class="form-control" value="'.$weight.'"
-                        onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" readonly>
-                </div>
-            </td>
-            <td>
-                <div class="input-group">
-                    <input type="text" class="form-control" value="'.$num_bales.'"
-                        onkeypress="return CheckNumeric()" readonly onkeyup="FormatCurrency(this)">
-                </div>
-            </td>
-            <td>
-                <div class="input-group">
-                    <input type="text" class="form-control" value="'.$excess.'"
-                        onkeypress="return CheckNumeric()" readonly onkeyup="FormatCurrency(this)">
-                    <span class="input-group-text">kg</span>
-                </div>
-            </td>
-            <td>
-            <input type="text" class="form-control"  autocomplete="off" step="any"
-            value="'.$arr["description"].'" style="border:none;" readonly>
-        </td>
-        </tr>';
-    }
-}
-
-$output .= '
+            <td><?php echo (int) $arr['bales_prod_id']; ?></td>
+            <td><?php echo htmlspecialchars($arr['bales_type'], ENT_QUOTES); ?></td>
+            <td class="text-end"><?php echo $kilo; ?></td>
+            <td class="text-end"><?php echo $weight === '—' ? '—' : $weight . ' kg'; ?></td>
+            <td class="text-end"><?php echo $num; ?></td>
+            <td class="text-end"><?php echo $excess === '—' ? '—' : $excess . ' kg'; ?></td>
+            <td><?php echo htmlspecialchars($arr['description'] ?? '', ENT_QUOTES); ?></td>
+        </tr>
+    <?php } ?>
     </tbody>
-</table>';
-
-echo $output;
-?>
-
-
-
+</table>

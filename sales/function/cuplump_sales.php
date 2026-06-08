@@ -9,23 +9,22 @@ if (isset($_POST['new'])) {
     $sale_type = $_POST['sale_type'];
     $remarks = $_POST['remarks'];
     $sale_buyer = $_POST['sale_buyer'];
-    $sale_currency = $_POST['sale_currency']; // Retrieve the sale currency
-    $contract_price = $_POST['contract_price']; // Retrieve the contract price
+    $sale_currency = $_POST['sale_currency'];
+    $contract_price = $_POST['contract_price'];
 
-    // Echoing values for debugging
-    echo "Date: " . $date . "<br>";
-    echo "Recorded By: " . $recorded_by . "<br>";
-    echo "Contract: " . $contract . "<br>";
-    echo "Purchase Contract: " . $purchase_contract . "<br>";
-    echo "Sale Type: " . $sale_type . "<br>";
-    echo "Remarks: " . $remarks . "<br>";
-    echo "Sale Buyer: " . $sale_buyer . "<br>";
-    echo "Sale Currency: " . $sale_currency . "<br>"; // Echo sale currency
-    echo "Contract Price: " . $contract_price . "<br>"; // Echo contract price
-
-    // Creating the SQL query
-    $query = "INSERT INTO sales_cuplump_record (buyer_name, transaction_date, status, sale_contract, purchase_contract, sale_type, remarks, recorded_by, currency, contract_price) 
-                                VALUES ('$sale_buyer', '$date', 'In Progress', '$contract', '$purchase_contract', '$sale_type', '$remarks', '$recorded_by', '$sale_currency', '$contract_price')";
+    $query = "INSERT INTO sales_cuplump_record (
+        buyer_name, transaction_date, status, sale_contract, purchase_contract, sale_type,
+        remarks, recorded_by, currency, contract_price, source, destination,
+        no_containers, total_cuplump_weight, total_cuplump_cost, total_ship_expense,
+        overall_ave_cost_kilo, total_sales, tax_rate, tax_amount, amount_paid,
+        unpaid_balance, sales_proceed, overall_cost, gross_profit
+    ) VALUES (
+        '$sale_buyer', '$date', 'In Progress', '$contract', '$purchase_contract', '$sale_type',
+        '$remarks', '$recorded_by', '$sale_currency', '$contract_price', '', '',
+        0, 0, 0, 0,
+        0, 0, 0, 0, 0,
+        0, 0, 0, 0
+    )";
 
     // Executing the query
     $results = mysqli_query($con, $query);

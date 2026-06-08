@@ -2,504 +2,312 @@
 $today = date('Y-m-d');
 ?>
 
-<!-- create Table Row -->
-<div class="modal fade" id="newWetExport" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-md  ">
+<!-- New Bale Sale -->
+<div class="modal fade sales-modal" id="newWetExport" tabindex="-1" aria-labelledby="newBaleSaleLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered sales-modal-dialog--wide">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"> NEW BALES EXPORT TRANSACTION</h5>
+                <h5 class="modal-title" id="newBaleSaleLabel">New Bale Sale</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method='POST' action='function/bale_sales.php'>
-
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="product_name" class="form-label">Date of Transaction</label>
-                                <input type="date" class="form-control" name="date" value="<?php echo $today; ?>"
-                                    required placeholder="Date of Transaction">
-                            </div>
+            <form method="POST" action="function/bale_sales.php">
+                <div class="modal-body sales-modal-body--compact">
+                    <div class="row g-2 sales-modal-grid">
+                        <div class="col-6 col-md-4 sales-field">
+                            <label for="new_date">Transaction Date</label>
+                            <input type="date" class="form-control form-control-sm" name="date" id="new_date" value="<?php echo $today; ?>" required>
                         </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="product_name" class="form-label">Recorded By</label>
-                                <input type="text" class="form-control" name="recorded_by" placeholder="Recorded By"
-                                    value='<?php echo $name ?>' required>
-                            </div>
+                        <div class="col-6 col-md-4 sales-field">
+                            <label for="new_recorded_by">Recorded By</label>
+                            <input type="text" class="form-control form-control-sm" name="recorded_by" id="new_recorded_by" value="<?php echo htmlspecialchars($name ?? '', ENT_QUOTES); ?>" required>
                         </div>
-
-
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Sale Type</label>
-                            <div class="input-group mb-3">
-                                <select class="form-select" name="sale_type" style="width: 100px;" required>
-                                    <option selected disabled>Select...</option>
-                                    <option value="EXPORT">Export</option>
-                                    <option value="LOCAL">Local</option>
-                                </select>
-                            </div>
+                        <div class="col-6 col-md-4 sales-field">
+                            <label for="new_sale_type">Sale Type</label>
+                            <select class="form-select form-select-sm" name="sale_type" id="new_sale_type" required>
+                                <option value="" selected disabled>Select…</option>
+                                <option value="EXPORT">Export</option>
+                                <option value="LOCAL">Local</option>
+                            </select>
                         </div>
-
-                        <div class="col">
-                            <label style='font-size:15px' class="col-md-12">EN Sale Contract</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='contract' autocomplete='off'
-                                    style="width: 100px;" required>
-                            </div>
+                        <div class="col-6 col-md-4 sales-field">
+                            <label for="new_contract">EN Sale Contract</label>
+                            <input type="text" class="form-control form-control-sm" name="contract" id="new_contract" autocomplete="off" required>
                         </div>
-
-                        <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Purchase Contract</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" name='purchase_contract' style="width: 100px;"
-                                    required />
-                            </div>
+                        <div class="col-6 col-md-4 sales-field">
+                            <label for="new_purchase_contract">Purchase Contract</label>
+                            <input type="text" class="form-control form-control-sm" name="purchase_contract" id="new_purchase_contract" required>
                         </div>
-
-                    </div>
-
-                    <div class="col">
-                        <label style='font-size:15px' class="col-md-12">Buyer Name</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" name='sale_buyer' id='sale_buyer' autocomplete='off'
-                                style="width: 100px;" required />
+                        <div class="col-6 col-md-4 sales-field">
+                            <label for="new_buyer">Buyer Name</label>
+                            <input type="text" class="form-control form-control-sm" name="sale_buyer" id="sale_buyer" autocomplete="off" required>
                         </div>
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Quality</label>
-                            <div class="input-group mb-3">
-                                <select class="form-select" name="quality" required>
-                                    <option disabled selected>Select...</option>
-                                    <option value="SPR5">5L</option>
-                                    <option value="SPR5">SPR-5</option>
-                                    <option value="SPR10">SPR-10</option>
-                                    <option value="SPR20">SPR-20</option>
-                                    <option value="Offcolor">Off Color</option>
-                                </select>
-                            </div>
+                        <div class="col-6 col-md-3 sales-field">
+                            <label for="new_quality">Quality</label>
+                            <select class="form-select form-select-sm" name="quality" id="new_quality" required>
+                                <option value="" disabled selected>Select…</option>
+                                <option value="SPR5">5L / SPR-5</option>
+                                <option value="SPR10">SPR-10</option>
+                                <option value="SPR20">SPR-20</option>
+                                <option value="Offcolor">Off Color</option>
+                            </select>
                         </div>
-
-                        <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Kilo per Bale</label>
-                            <div class="input-group mb-3">
-                                <select class="form-select" name="kilo_bale" style="width: 100px;" required>
-                                    <option selected disabled>Select...</option>
-                                    <option value="35">35.00 kg</option>
-                                    <option value="33.33">33.33 kg</option>
-                                </select>
-                            </div>
+                        <div class="col-6 col-md-3 sales-field">
+                            <label for="new_kilo">Kilo per Bale</label>
+                            <select class="form-select form-select-sm" name="kilo_bale" id="new_kilo" required>
+                                <option value="" selected disabled>Select…</option>
+                                <option value="35">35.00 kg</option>
+                                <option value="33.33">33.33 kg</option>
+                            </select>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Currency</label>
-                            <div class="input-group mb-3">
-                                <select class="form-select" id="sale_currency" name="sale_currency"
-                                    style="width: 100px;" required>
-                                    <option selected disabled>Choose...</option>
-                                    <option value="PHP">PHP ₱</option>
-                                    <option value="USD">USD $</option>
-                                </select>
-                            </div>
+                        <div class="col-6 col-md-3 sales-field">
+                            <label for="sale_currency">Currency</label>
+                            <select class="form-select form-select-sm" id="sale_currency" name="sale_currency" required>
+                                <option value="" selected disabled>Choose…</option>
+                                <option value="PHP">PHP ₱</option>
+                                <option value="USD">USD $</option>
+                            </select>
                         </div>
-                        <div class="col">
-                            <label style='font-size:15px' class="col-md-12">Price per Kilo</label>
-                            <div class="input-group mb-3">
-                            <input type="number" class="form-control contract_price" name="contract_price" id="contract_price" step="0.01" required>
-
-                            </div>
+                        <div class="col-6 col-md-3 sales-field">
+                            <label for="contract_price">Price per Kilo</label>
+                            <input type="number" class="form-control form-control-sm contract_price" name="contract_price" id="contract_price" step="0.01" required>
                         </div>
-                    </div>
-
-                    <div class="col">
-                        <label for="product_name" class="form-label">Remarks</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" name="remarks" placeholder="Enter Remark">
+                        <div class="col-12 sales-field">
+                            <label for="new_remarks">Remarks</label>
+                            <input type="text" class="form-control form-control-sm" name="remarks" id="new_remarks" placeholder="Optional">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" name='new' class="btn btn-success">Proceed</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" name="new" class="btn btn-sm btn-success">Proceed</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-
-
-
-<div class="modal fade" id='viewSalesRecord' tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-xl  ">
+<!-- View Bale Sale Record -->
+<div class="modal fade sales-modal" id="viewSalesRecord" tabindex="-1" aria-labelledby="viewBaleSaleLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable sales-modal-dialog--full">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">BALE SALE RECORD</h5>
-                <button type="button" class="btn text-light close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 class="modal-title" id="viewBaleSaleLabel">Bale Sale Record</h5>
+                <div class="sales-modal-actions ms-auto me-2">
+                    <button type="button" class="btn btn-sm btn-light btnPrint" id="btnPrint"><i class="fas fa-print"></i> Print</button>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method='POST' action='function/bale_sales.php'>
-                <div class="modal-body">
-                    <div id='print_content'>
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h4>Sale Contract</h4>
+            <form method="POST" action="function/bale_sales.php">
+                <div class="modal-body sales-modal-body--compact">
+                    <div id="print_content">
+                        <ul class="nav nav-tabs sales-modal-tabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="bale-tab-contract" data-bs-toggle="tab" data-bs-target="#bale-pane-contract" type="button" role="tab">Contract</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="bale-tab-volume" data-bs-toggle="tab" data-bs-target="#bale-pane-volume" type="button" role="tab">Volume &amp; Cost</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="bale-tab-payment" data-bs-toggle="tab" data-bs-target="#bale-pane-payment" type="button" role="tab">Payment &amp; Profit</button>
+                            </li>
+                        </ul>
 
-
-                                    <button type="button" class="btn btn-dark btnPrint" id="btnPrint"><span
-                                            class="fas fa-print"></span> Print </button>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-2">
-                                        <label style='font-size:15px' class="col-md-12"> Sales ID
-                                        </label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" readonly class="form-control" id='v_sale_id'
-                                                name='sale_id' readonly autocomplete='off' style="width: 100px;">
+                        <div class="tab-content">
+                            <!-- Contract -->
+                            <div class="tab-pane fade show active sales-modal-pane" id="bale-pane-contract" role="tabpanel">
+                                <div class="row g-2 sales-modal-grid">
+                                    <div class="col-4 col-md-2 sales-field">
+                                        <label for="v_sale_id">Sales ID</label>
+                                        <input type="text" readonly class="form-control form-control-sm" id="v_sale_id" name="sale_id">
+                                    </div>
+                                    <div class="col-4 col-md-2 sales-field">
+                                        <label for="v_sale_contract">EN Contract</label>
+                                        <input type="text" readonly class="form-control form-control-sm" id="v_sale_contract">
+                                    </div>
+                                    <div class="col-4 col-md-2 sales-field">
+                                        <label for="v_purchase_contract">Purchase Contract</label>
+                                        <input type="text" readonly class="form-control form-control-sm" id="v_purchase_contract">
+                                    </div>
+                                    <div class="col-4 col-md-2 sales-field">
+                                        <label for="v_sale_type">Sale Type</label>
+                                        <input type="text" readonly class="form-control form-control-sm" id="v_sale_type">
+                                    </div>
+                                    <div class="col-4 col-md-2 sales-field">
+                                        <label for="v_contract_quality">Quality</label>
+                                        <input type="text" readonly class="form-control form-control-sm" id="v_contract_quality">
+                                    </div>
+                                    <div class="col-4 col-md-2 sales-field">
+                                        <label for="v_trans_date">Transaction Date</label>
+                                        <input type="text" readonly class="form-control form-control-sm" id="v_trans_date">
+                                    </div>
+                                    <div class="col-6 col-md-3 sales-field">
+                                        <label for="v_sale_buyer">Buyer</label>
+                                        <input type="text" readonly class="form-control form-control-sm" id="v_sale_buyer">
+                                    </div>
+                                    <div class="col-6 col-md-3 sales-field">
+                                        <label for="v_shipping_date">Shipping Date</label>
+                                        <input type="text" readonly class="form-control form-control-sm" id="v_shipping_date">
+                                    </div>
+                                    <div class="col-6 col-md-2 sales-field">
+                                        <label for="v_sale_source">Source</label>
+                                        <input type="text" readonly class="form-control form-control-sm" id="v_sale_source">
+                                    </div>
+                                    <div class="col-6 col-md-2 sales-field">
+                                        <label for="v_sale_destination">Destination</label>
+                                        <input type="text" readonly class="form-control form-control-sm" id="v_sale_destination">
+                                    </div>
+                                    <div class="col-6 col-md-2 sales-field">
+                                        <label for="v_contract_container">Containers</label>
+                                        <input type="text" readonly class="form-control form-control-sm" id="v_contract_container">
+                                    </div>
+                                    <div class="col-6 col-md-3 sales-field sales-field--currency">
+                                        <label for="v_contract_quantity">Quantity <span class="sales-field__suffix">kg</span></label>
+                                        <input type="text" readonly class="form-control form-control-sm" id="v_contract_quantity">
+                                    </div>
+                                    <div class="col-6 col-md-2 sales-field">
+                                        <label for="v_currency">Currency</label>
+                                        <input type="text" readonly class="form-control form-control-sm" id="v_currency">
+                                    </div>
+                                    <div class="col-6 col-md-3 sales-field sales-field--currency">
+                                        <label for="v_contract_price">Price / Kilo</label>
+                                        <div class="input-group input-group-sm">
+                                            <span class="input-group-text" id="currency_selected_price"></span>
+                                            <input type="text" readonly class="form-control form-control-sm" id="v_contract_price">
                                         </div>
                                     </div>
-                                    <div class="col-2">
-                                        <label style='font-size:15px' class="col-md-12">EN Sale Contract</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" readonly class="form-control" id='v_sale_contract'
-                                                autocomplete='off' style="width: 100px;">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-2">
-                                        <label style='font-size:15px' class="col-md-12"> Purchase Contract</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" readonly class="form-control" id='v_purchase_contract'
-                                                style="width: 100px;" />
-                                        </div>
-                                    </div>
-
-                                    <div class="col">
-                                        <label style='font-size:15px' class="col-md-12">Sale Type</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" readonly class="form-control" id='v_sale_type'
-                                                style="width: 100px;" />
-                                        </div>
-                                    </div>
-
-                                    <div class="col">
-                                        <label style='font-size:15px' class="col-md-12">Quality</label>
-                                        <div class="input-group mb-3">
-
-                                            <input type="text" readonly class="form-control" id='v_contract_quality'
-                                                style="width: 100px;" />
-                                        </div>
-                                    </div>
-
-                                    <div class="col-3">
-                                        <label style='font-size:15px' class="col-md-12">Transaction Date </label>
-                                        <div class="col-md-12">
-                                            <input type="text" class='form-control' id="v_trans_date">
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-
-                                <div class="row">
-                                    <div class="col">
-                                        <label style='font-size:15px' class="col-md-12">Buyer Name</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" readonly class="form-control" id='v_sale_buyer'
-                                                autocomplete='off' style="width: 100px;" />
-                                        </div>
-                                    </div>
-
-                                    <div class="col">
-                                        <label style='font-size:15px' class="col-md-12">Shipping Date</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" readonly class="form-control" id='v_shipping_date'
-                                                autocomplete='off' style="width: 100px;" />
-                                        </div>
-                                    </div>
-
-                                    <div class="col">
-                                        <label style='font-size:15px' class="col-md-12">Source</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" readonly class="form-control" id='v_sale_source'
-                                                autocomplete='off' style="width: 100px;" />
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label style='font-size:15px' class="col-md-12">Destination</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" readonly class="form-control" id='v_sale_destination'
-                                                autocomplete='off' style="width: 100px;" />
-                                        </div>
-                                    </div>
-
-                                    <div class="col">
-                                        <label style='font-size:15px' class="col-md-12">Containers</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" readonly class="form-control" id='v_contract_contaier'
-                                                autocomplete='off' style="width: 100px;" />
-                                        </div>
+                                    <div class="col-12 sales-field">
+                                        <label for="v_other_terms">Other Terms</label>
+                                        <input type="text" readonly class="form-control form-control-sm" name="other_terms" id="v_other_terms">
                                     </div>
                                 </div>
+                            </div>
 
-
-                                <div class="row">
-                                    <div class="col-3">
-                                        <label style='font-size:15px' class="col-md-12">Quantity</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" readonly id='v_contract_quantity'
-                                                autocomplete='off' style="width: 100px;" />
-                                            <span class="input-group-text"> kg</span>
-                                        </div>
+                            <!-- Volume -->
+                            <div class="tab-pane fade sales-modal-pane" id="bale-pane-volume" role="tabpanel">
+                                <div class="sales-modal-section__row">
+                                    <p class="sales-modal-section">Bale Volume &amp; Costing</p>
+                                    <button type="button" id="btnContainer" class="btn btn-sm btn-outline-warning btnContainer"><i class="fas fa-box"></i> Select Container</button>
+                                </div>
+                                <div id="container_selected" class="sales-modal-table-wrap"></div>
+                                <div class="sales-modal-summary">
+                                    <div class="sales-field" hidden>
+                                        <label for="v_number_container">Containers</label>
+                                        <input type="text" readonly class="form-control form-control-sm" id="v_number_container">
                                     </div>
-
-                                    <div class="col">
-                                        <label style='font-size:15px' class="col-md-12">Currency</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" readonly id='v_currency'
-                                                autocomplete='off' style="width: 100px;" />
-
-                                        </div>
+                                    <div class="sales-field">
+                                        <label for="v_total_num_bales">Total Bales</label>
+                                        <input type="text" readonly class="form-control form-control-sm" id="v_total_num_bales">
                                     </div>
-
-
-                                    <div class="col">
-                                        <label style='font-size:15px' class="col-md-12">Price per Kilo</label>
-                                        <div class="input-group mb-3">
-                                            <input type="number" readonly class="form-control contract_price"
-                                                id='v_contract_price'>
-                                        </div>
+                                    <div class="sales-field sales-field--currency">
+                                        <label for="v_total_bale_weight">Total Weight <span class="sales-field__suffix">kg</span></label>
+                                        <input type="text" readonly class="form-control form-control-sm" id="v_total_bale_weight">
                                     </div>
-                                    <div class="col-6">
-                                        <label style='font-size:15px' class="col-md-12">Other Terms
-                                            (Optional)</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" readonly class="form-control" name='other_terms'
-                                                id='v_other_terms'>
+                                    <div class="sales-field sales-field--currency">
+                                        <label for="v_overall_ave_kiloCost">Avg Cost / Kilo</label>
+                                        <div class="input-group input-group-sm">
+                                            <span class="input-group-text">≈ ₱</span>
+                                            <input type="text" readonly class="form-control form-control-sm" id="v_overall_ave_kiloCost">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <br>
-
-                        <div class="card">
-                            <div class="card-body">
-
-                                <div class="row">
-                                    <div class="col-12 d-flex justify-content-between align-items-center">
-                                        <h4>Bale Volume and Costing</h4>
-                                        <button type='button' id='btnContainer' class="btn btn-warning btnContainer">
-                                            <i class="fas fa-box"></i> Select Container
-                                        </button>
-                                    </div>
+                            <!-- Payment -->
+                            <div class="tab-pane fade sales-modal-pane" id="bale-pane-payment" role="tabpanel">
+                                <div class="sales-modal-section__row">
+                                    <p class="sales-modal-section">Payment Details</p>
+                                    <button type="button" id="addPayment" class="btn btn-sm btn-outline-warning addPayment"><i class="fas fa-money-bill"></i> Add Payment</button>
                                 </div>
-
-                                <hr>
-
-                                <div id='container_selected'></div>
-
-
-                                <div class="row">
-                                    <div class="col" hidden>
-                                        <label style='font-size:15px' class="col-md-12">No. of Containers</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" id='v_number_container'
-                                                style="width: 100px;" readonly />
+                                <div class="sales-modal-summary">
+                                    <div class="sales-field sales-field--currency">
+                                        <label for="v_total_sale">Total Sales</label>
+                                        <div class="input-group input-group-sm">
+                                            <span class="input-group-text" id="currency_selected_sales"></span>
+                                            <input type="text" readonly class="form-control form-control-sm" id="v_total_sale">
                                         </div>
                                     </div>
-                                    <div class="col">
-                                        <label style='font-size:15px' class="col-md-12">Total No. of Bales</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" id='v_total_num_bales'
-                                                style="width: 100px;" readonly />
+                                    <div class="sales-field sales-field--currency">
+                                        <label for="v_amount_paid">Amount Paid</label>
+                                        <div class="input-group input-group-sm">
+                                            <span class="input-group-text" id="currency_selected_paid"></span>
+                                            <input type="text" readonly class="form-control form-control-sm" id="v_amount_paid">
                                         </div>
                                     </div>
-                                    <div class="col">
-                                        <label style='font-size:15px' class="col-md-12">Total Bale Weight</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" id='v_total_bale_weight'
-                                                style="width: 100px;" readonly />
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label style='font-size:15px' class="col-md-12">Overall Average Cost per
-                                            Kilo</label>
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">≈ ₱</span>
-                                            </div>
-                                            <input type="text" class="form-control" id='v_overall_ave_kiloCost'
-                                                style="width: 100px;" readonly />
+                                    <div class="sales-field sales-field--currency">
+                                        <label for="v_unpaid_balance">Unpaid Balance</label>
+                                        <div class="input-group input-group-sm">
+                                            <span class="input-group-text" id="currency_selected_balance"></span>
+                                            <input type="text" readonly class="form-control form-control-sm" id="v_unpaid_balance">
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                                <div id="payment_list_table" class="sales-modal-table-wrap"></div>
 
-
-                        <br>
-
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-12 d-flex justify-content-between align-items-center">
-                                        <h4>Payment Details</h4>
-                                        <button type="button" id="addPayment" class="btn btn-warning addPayment">
-                                            <i class="fas fa-money"></i> Add Payment
-                                        </button>
-
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col">
-                                        <label style='font-size:15px' class="col-md-12">TOTAL SALES</label>
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id='currency_selected_sales'></span>
-                                            <input type="text" class="form-control" id='v_total_sale' readonly
-                                                autocomplete='off' style="width: 100px;" />
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label style='font-size:15px' class="col-md-12">AMOUNT PAID</label>
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id='currency_selected_paid'></span>
-                                            <input type="text" class="form-control" id='v_amount_paid' readonly
-                                                autocomplete='off' style="width: 100px;" />
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label style='font-size:15px' class="col-md-12">UNPAID BALANCE</label>
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id='currency_selected_balance'></span>
-                                            <input type="text" class="form-control" id='v_unpaid_balance' readonly
-                                                autocomplete='off' style="width: 100px;" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <hr>
-                                <div id='payment_list_table'> </div>
-                            </div>
-
-                        </div>
-
-                        <br>
-
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-12 d-flex justify-content-between align-items-center">
-                                        <h4>Sale Proceeds</h4>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col">
-                                        <label style="font-size:15px" class="col-md-12">SALE PROCEEDS</label>
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">₱</span>
-                                            </div>
-                                            <input type="text" class="form-control" id="v_sales_proceeds" readonly
-                                                style="width: 100px;" />
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label style="font-size:15px" class="col-md-12">Tax Rate</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" id="v_tax_rate"
-                                                style="width: 100px;" />
-                                            <span class="input-group-text">%</span>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label style="font-size:15px" class="col-md-12">Withholding Tax Amount</label>
-                                        <div class="input-group mb-3">
+                                <p class="sales-modal-section">Sale Proceeds &amp; Profit</p>
+                                <div class="row g-2 sales-modal-grid">
+                                    <div class="col-6 col-md-3 sales-field sales-field--currency">
+                                        <label for="v_sales_proceeds">Sale Proceeds</label>
+                                        <div class="input-group input-group-sm">
                                             <span class="input-group-text">₱</span>
-                                            <input type="text" class="form-control" readonly id="v_tax_amount"
-                                                style="width: 100px;" />
+                                            <input type="text" readonly class="form-control form-control-sm" id="v_sales_proceeds">
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4">
-                                        <!-- SUM OF TOTAL BALE AND PRODUCTION COST AND TOTAL SHIPPING EXPENSE -->
-                                        <label style="font-size:15px" class="col-md-12">OVERALL COST</label>
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">₱</span>
-                                            </div>
-                                            <input type="text" class="form-control" id="v_over_all_cost" readonly
-                                                style="width: 100px;" />
-                                        </div>
+                                    <div class="col-6 col-md-2 sales-field">
+                                        <label for="v_tax_rate">Tax Rate <span class="sales-field__suffix">%</span></label>
+                                        <input type="text" readonly class="form-control form-control-sm" id="v_tax_rate">
                                     </div>
-                                    <div class="col">
-                                        <label style='font-size:15px' class="col-md-12">Total Bale Cost</label>
-                                        <div class="input-group mb-3">
+                                    <div class="col-6 col-md-3 sales-field sales-field--currency">
+                                        <label for="v_tax_amount">Withholding Tax</label>
+                                        <div class="input-group input-group-sm">
                                             <span class="input-group-text">₱</span>
-                                            <input type="text" class="form-control" id='v_total_bale_cost'
-                                                style="width: 100px;" readonly />
+                                            <input type="text" readonly class="form-control form-control-sm" id="v_tax_amount">
                                         </div>
                                     </div>
-                                    <div class="col">
-                                        <label style='font-size:15px' class="col-md-12">Total Milling Cost</label>
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">₱</span>
-                                            </div>
-                                            <input type="text" class="form-control" id='v_total_milling_cost'
-                                                style="width: 100px;" readonly />
+                                    <div class="col-6 col-md-2 sales-field sales-field--currency">
+                                        <label for="v_total_bale_cost">Bale Cost</label>
+                                        <div class="input-group input-group-sm">
+                                            <span class="input-group-text">₱</span>
+                                            <input type="text" readonly class="form-control form-control-sm" id="v_total_bale_cost">
                                         </div>
                                     </div>
-                                    <div class="col">
-                                        <label style='font-size:15px' class="col-md-12">Total Shipping Expense</label>
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">₱</span>
-                                            </div>
-                                            <input type="text" class="form-control" id='v_total_ship_exp'
-                                                style="width: 100px;" readonly />
+                                    <div class="col-6 col-md-2 sales-field sales-field--currency">
+                                        <label for="v_total_milling_cost">Milling Cost</label>
+                                        <div class="input-group input-group-sm">
+                                            <span class="input-group-text">₱</span>
+                                            <input type="text" readonly class="form-control form-control-sm" id="v_total_milling_cost">
                                         </div>
                                     </div>
-                                </div>
-                                <hr>
-                                <div class="row justify-content-center">
-                                    <div class="col-6">
-                                        <!-- DIFFERENCE SALE PROCEEDS AND OVERALL COST -->
-                                        <label style="font-size:15px" class="col-md-12">GROSS PROFIT/LOSS</label>
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" style='font-size:20px'>₱</span>
-                                            </div>
-                                            <input type="text" class="form-control" id="v_gross_profit"
-                                                style='font-size:20px' readonly style="width: 100px;" />
+                                    <div class="col-6 col-md-2 sales-field sales-field--currency">
+                                        <label for="v_total_ship_exp">Ship Expense</label>
+                                        <div class="input-group input-group-sm">
+                                            <span class="input-group-text">₱</span>
+                                            <input type="text" readonly class="form-control form-control-sm" id="v_total_ship_exp">
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-2 sales-field sales-field--currency">
+                                        <label for="v_over_all_cost">Overall Cost</label>
+                                        <div class="input-group input-group-sm">
+                                            <span class="input-group-text">₱</span>
+                                            <input type="text" readonly class="form-control form-control-sm" id="v_over_all_cost">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-4 sales-field sales-field--highlight">
+                                        <label for="v_gross_profit">Gross Profit / Loss</label>
+                                        <div class="input-group input-group-sm">
+                                            <span class="input-group-text">₱</span>
+                                            <input type="text" readonly class="form-control form-control-sm" id="v_gross_profit">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div style="background-color: #2452af; height: 6px;"></div><!-- This is the blue bar -->
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" id='editBtn' name='edit' class="btn btn-warning"> <span
-                            class="fas fa-pencil"></span> Edit</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" id="editBtn" name="edit" class="btn btn-sm btn-warning"><i class="fas fa-pencil"></i> Edit</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
+            </form>
         </div>
-        </form>
     </div>
 </div>

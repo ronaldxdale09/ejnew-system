@@ -2,7 +2,7 @@
 include('../../function/db.php');
 if (isset($_POST['new'])) {
     $loc = str_replace(' ', '', $_SESSION['loc']);
-    $container_no = $_POST['container_no'];
+    $container_no = $_POST['container_no'] ?? $_POST['van_no'] ?? '';
     $withdrawal_date = $_POST['n_date'];
     $quality = $_POST['quality'];
     $kilo_bale = $_POST['kilo_bale'];
@@ -28,7 +28,6 @@ if (isset($_POST['new'])) {
 if (isset($_POST['edit'])) {
 
     $id = $_POST['id'];
-    echo $id;
 
     $sql = "SELECT * FROM bales_container_record WHERE container_id  = '$id'";
     $result = mysqli_query($con, $sql);
@@ -70,7 +69,6 @@ if (isset($_POST['edit'])) {
 if (isset($_POST['void'])) {
 
     $id = $_POST['id'];
-    echo $id;
 
     $sql = "UPDATE bales_container_record SET 
        status = 'Void'
@@ -85,7 +83,6 @@ if (isset($_POST['void'])) {
 if (isset($_POST['released'])) {
 
     $id = $_POST['id'];
-    echo $id;
 
     $sql = "UPDATE bales_container_record SET 
    status = 'Released'

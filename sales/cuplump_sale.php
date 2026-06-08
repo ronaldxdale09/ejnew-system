@@ -1,6 +1,6 @@
 <?php
-include('include/header.php');
-include "include/navbar.php";
+include 'include/header.php';
+include 'include/navbar.php';
 
 
 
@@ -127,48 +127,18 @@ if (isset($_GET['id'])) {
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
-<body>
-
-
-    <!-- Loading overlay -->
-    <div id="loadingOverlay" class="overlay">
-        <div class="loading-spinner">
-            <i class="fas fa-spinner fa-spin"></i> Loading...
-        </div>
-    </div>
-
-
-    <div class='main-content' style='position:relative; height:100%;'>
-        <div class="container home-section h-100" style="max-width:95%;">
-            <h1 class="page-title" style="text-align: center;"><B>
-                    <font color="#0C0070"> RUBBER CUPLUMP </font>
-                    <font color="#046D56"> SALE </font>
-                </b></h1>
-            <hr>
-            <div class="row">
-                <div class="col-8">
-                    <a href="cuplump_sale_record.php" type="button" class="btn trans-btn btn-secondary ">
-                        <span class="fas fa-arrow-left"></span> Return
-                    </a>
-                    <button type="button" class="btn trans-btn btn-danger btnDelete"> <span class="fas fa-times"></span>
-                        Delete Record</button>
-                    <button type="button" class="btn trans-btn btn-warning btnDraft"><span
-                            class="fas fa-info-circle"></span> Save as Draft</button>
-                    <button type="button" class="btn trans-btn btn-primary confirmSales" id="confirmSales"><span
-                            class="fas fa-check"></span>
-                        Confirm
-                        Sales</button>
-                </div>
-                <div class="col"></div>
-                <div class="col">
-
-                    <button type="button" class="btn btn-dark btnPrint"><span class="fas fa-print"></span> Print
-                    </button>
-
-                </div>
-            </div>
+<?php sales_shell_open('Cuplump Sale Detail', 'Edit cuplump sale contract and payments'); ?>
+<div id="loadingOverlay" class="overlay sales-loading" style="display:none;">
+    <div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
+</div>
+<?php adm_panel_open('Sale Contract'); ?>
+<div class="sales-toolbar mb-3">
+    <a href="cuplump_sale_record.php" class="btn btn-secondary btn-sm"><i class="fas fa-arrow-left"></i> Return</a>
+    <button type="button" class="btn btn-danger btn-sm btnDelete"><i class="fas fa-times"></i> Delete</button>
+    <button type="button" class="btn btn-warning btn-sm btnDraft"><i class="fas fa-save"></i> Save as Draft</button>
+    <button type="button" class="btn btn-primary btn-sm confirmSales" id="confirmSales"><i class="fas fa-check"></i> Confirm Sales</button>
+    <button type="button" class="btn btn-dark btn-sm btnPrint"><i class="fas fa-print"></i> Print</button>
+</div>
             <form id="salesForm" action="" method="post">
                 <div id='print_content'>
                     <div class="card">
@@ -177,7 +147,6 @@ if (isset($_GET['id'])) {
                             <h4 class="card-title">Sale Contract</h4>
                             <hr>
 
-                            <form action="function/cuplump_shipment.php" method="POST">
                                 <div class="row mb-3">
                                     <div class="col-md-2">
                                         <label for="sales_id">Sales ID</label>
@@ -252,10 +221,8 @@ if (isset($_GET['id'])) {
                                         <input type="text" class="form-control" name="other_terms" id="other_terms">
                                     </div>
                                 </div>
-                            </form>
                         </div>
                     </div>
-
 
                     <br>
 
@@ -460,15 +427,8 @@ if (isset($_GET['id'])) {
                     <br>
                 </div>
             </form>
-        </div>
-
-    </div>
-
-</body>
-
-</html>
-
-<?php include "sales_modal/bale_sales.php"; ?>
+<?php adm_panel_close(); ?>
+<?php include 'sales_modal/bale_sales.php'; ?>
 
 
 
@@ -841,3 +801,4 @@ if (isset($_GET['id'])) {
         });
     });
 </script>
+<?php sales_shell_close(); ?>

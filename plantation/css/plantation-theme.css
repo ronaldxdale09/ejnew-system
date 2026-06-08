@@ -1,0 +1,458 @@
+/**
+ * Plantation module — extends admin design system
+ */
+
+.plantation-page {
+    --plantation-accent: var(--adm-green-700, #1a734f);
+}
+
+/* ── Sidebar (plantation refinements) ── */
+.plantation-module .admin-sidebar {
+    background: linear-gradient(180deg, var(--adm-slate-900) 0%, #0f2922 55%, var(--adm-green-900) 100%);
+}
+
+.plantation-module .admin-nav-link.active {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: inset 3px 0 0 rgba(255, 255, 255, 0.55);
+    color: #fff;
+}
+
+.plantation-module .admin-nav-link:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.plantation-module .admin-sidebar__logout {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: rgba(255, 255, 255, 0.78);
+    font-weight: 500;
+}
+
+.plantation-module .admin-sidebar__logout:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.22);
+    color: #fff;
+}
+
+.plantation-module .admin-topbar__title {
+    font-weight: 600;
+    color: var(--adm-slate-800);
+}
+
+.plantation-topbar__loc {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.55rem;
+    background: var(--adm-green-100, #e8f5ef);
+    color: var(--plantation-accent);
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.75rem;
+}
+
+.admin-body .container.home-section,
+.admin-body .page-wrapper {
+    max-width: none;
+    padding: 0;
+}
+
+.plantation-kpi-grid .adm-kpi__value small {
+    font-size: 0.65em;
+    font-weight: 600;
+    opacity: 0.75;
+}
+
+.plantation-notice {
+    display: flex;
+    gap: 0.65rem;
+    align-items: flex-start;
+    padding: 0.65rem 0.85rem;
+    margin-bottom: 1rem;
+    background: var(--adm-slate-50);
+    border: 1px solid var(--adm-slate-200);
+    border-left: 3px solid var(--plantation-accent);
+    border-radius: var(--adm-radius-sm);
+    font-size: 0.8125rem;
+    color: var(--adm-slate-700);
+}
+
+.plantation-notice strong {
+    color: var(--adm-slate-800);
+}
+
+/* Process workflow tabs */
+.plantation-process-tabs .wrapper {
+    background: var(--adm-white);
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+    box-shadow: var(--adm-shadow);
+    overflow: hidden;
+}
+
+.plantation-process-tabs nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    padding: 0.65rem;
+    background: var(--adm-slate-50);
+    border-bottom: 1px solid var(--adm-slate-200);
+    position: relative;
+}
+
+.plantation-process-tabs nav label {
+    flex: 1 1 auto;
+    min-width: 120px;
+    margin: 0 !important;
+    padding: 0.45rem 0.65rem !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    text-align: center;
+    border-radius: var(--adm-radius-sm) !important;
+    border: 1px solid var(--adm-slate-200) !important;
+    background: var(--adm-white) !important;
+    color: var(--adm-slate-700) !important;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.plantation-process-tabs nav label .badge {
+    font-size: 0.62rem;
+    vertical-align: middle;
+}
+
+.plantation-process-tabs input[type="radio"] {
+    display: none;
+}
+
+.plantation-process-tabs nav .slider {
+    display: none;
+}
+
+.plantation-process-tabs #home:checked ~ nav label.home,
+.plantation-process-tabs #blog:checked ~ nav label.blog,
+.plantation-process-tabs #drying:checked ~ nav label.drying,
+.plantation-process-tabs #code:checked ~ nav label.code,
+.plantation-process-tabs #help:checked ~ nav label.help {
+    background: var(--plantation-accent) !important;
+    color: #fff !important;
+    border-color: var(--plantation-accent) !important;
+}
+
+.plantation-process-tabs section .content {
+    display: none;
+    padding: 1rem;
+}
+
+.plantation-process-tabs #home:checked ~ section .content-1,
+.plantation-process-tabs #blog:checked ~ section .content-2,
+.plantation-process-tabs #drying:checked ~ section .content-3,
+.plantation-process-tabs #code:checked ~ section .content-4,
+.plantation-process-tabs #help:checked ~ section .content-5 {
+    display: block;
+}
+
+.plantation-process-tabs .content .title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--adm-slate-500);
+    margin-bottom: 0.65rem;
+}
+
+.plantation-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    padding: 0.45rem 0.85rem;
+    border-radius: var(--adm-radius-sm);
+    border: none;
+    cursor: pointer;
+}
+
+.plantation-btn--primary {
+    background: var(--plantation-accent);
+    color: #fff;
+}
+
+.plantation-btn--primary:hover {
+    filter: brightness(1.05);
+    color: #fff;
+}
+
+/* ── Modals ── */
+/* Above admin sidebar (1100) and sidebar backdrop (1090) */
+body.plantation-module .modal {
+    z-index: 1200 !important;
+    background-color: transparent !important;
+}
+
+body.plantation-module .modal-backdrop {
+    z-index: 1190 !important;
+}
+
+body.plantation-module .swal2-container {
+    z-index: 1300 !important;
+}
+
+body.plantation-module .plantation-loading {
+    z-index: 1250;
+}
+
+.plantation-module .modal-content,
+.plantation-modal .modal-content {
+    border: none;
+    border-radius: var(--adm-radius);
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.18);
+}
+
+.plantation-module .modal-header,
+.plantation-modal .modal-header {
+    background: linear-gradient(135deg, var(--adm-green-900), var(--adm-green-700));
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1rem;
+}
+
+.plantation-module .modal-header .modal-title,
+.plantation-modal .modal-header .modal-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+.plantation-module .modal-header .btn-close,
+.plantation-module .modal-header .close,
+.plantation-modal .modal-header .btn-close,
+.plantation-modal .modal-header .close {
+    filter: invert(1);
+    opacity: 0.85;
+    padding: 0.35rem;
+}
+
+.plantation-module .modal-body,
+.plantation-modal .modal-body {
+    padding: 0.85rem 1rem 1rem;
+}
+
+.plantation-module .modal-footer,
+.plantation-modal .modal-footer {
+    background: var(--adm-slate-50);
+    border-top: 1px solid var(--adm-slate-200);
+    padding: 0.55rem 1rem;
+}
+
+.plantation-modal-section {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--adm-slate-500);
+    margin: 0.85rem 0 0.45rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid var(--adm-slate-200);
+}
+
+.plantation-modal-section:first-child {
+    margin-top: 0;
+}
+
+.plantation-field label {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--adm-slate-500);
+    margin-bottom: 0.2rem;
+}
+
+.plantation-field__suffix {
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--adm-slate-400);
+}
+
+.plantation-field .form-control-sm {
+    font-size: 0.8125rem;
+    padding: 0.3rem 0.5rem;
+    min-height: 1.85rem;
+    background: var(--adm-slate-50);
+    border-color: var(--adm-slate-200);
+}
+
+.plantation-field .form-control-sm:focus {
+    box-shadow: none;
+    border-color: var(--adm-slate-300);
+}
+
+.plantation-modal-table-wrap {
+    margin-top: 0.35rem;
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+    overflow: auto;
+    max-height: min(40vh, 320px);
+}
+
+.plantation-detail-table {
+    font-size: 0.78rem;
+    margin-bottom: 0 !important;
+}
+
+.plantation-detail-table thead th {
+    background: var(--adm-slate-100) !important;
+    color: var(--adm-slate-700) !important;
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.4rem 0.5rem;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--adm-slate-200);
+}
+
+.plantation-detail-table tbody td {
+    padding: 0.35rem 0.5rem;
+    vertical-align: middle;
+}
+
+.plantation-empty-state {
+    font-size: 0.8125rem;
+    color: var(--adm-slate-500);
+    padding: 0.65rem;
+    text-align: center;
+    background: var(--adm-slate-50);
+    border-radius: var(--adm-radius-sm);
+}
+
+/* Legacy modal polish inside page shell — inherits green theme */
+.plantation-page .modal-header {
+    background: linear-gradient(135deg, var(--adm-green-900), var(--adm-green-700));
+    color: #fff;
+    border: none;
+}
+
+.admin-body table.dataTable thead th {
+    background: var(--adm-slate-800) !important;
+    color: #fff !important;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.admin-body table.dataTable tbody td {
+    vertical-align: middle;
+    font-size: 0.8125rem;
+}
+
+.admin-body .dataTables_wrapper {
+    font-size: 0.8125rem;
+}
+
+.plantation-chart-card {
+    background: var(--adm-white);
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+    box-shadow: var(--adm-shadow);
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.plantation-chart-card__head {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--adm-slate-200);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--adm-slate-800);
+}
+
+.plantation-chart-card__body {
+    padding: 1rem;
+    min-height: 320px;
+    position: relative;
+}
+
+.plantation-module .adm-panel {
+    overflow-x: auto;
+}
+
+.plantation-module .table-responsive {
+    -webkit-overflow-scrolling: touch;
+}
+
+.plantation-module .btnViewRecord,
+.plantation-module .btn-success.btn-sm {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.55rem;
+}
+
+.plantation-notice .btn-close {
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
+
+@media (max-width: 960px) {
+    .plantation-module .admin-topbar__meta > span:not(.plantation-topbar__loc) {
+        display: none;
+    }
+
+    .plantation-module .admin-topbar__user {
+        font-size: 0.78rem;
+    }
+
+    .adm-kpi-grid.plantation-kpi-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .plantation-module .main-content,
+    .plantation-module .admin-page {
+        padding-left: 0.85rem;
+        padding-right: 0.85rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .plantation-process-tabs nav label {
+        min-width: calc(50% - 0.35rem);
+        font-size: 0.68rem !important;
+    }
+
+    .adm-kpi-grid.plantation-kpi-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .plantation-module .dataTables_wrapper .dt-buttons {
+        flex-wrap: wrap;
+    }
+
+    .plantation-module .dataTables_filter input {
+        max-width: 140px;
+    }
+
+    .plantation-chart-card__body {
+        min-height: 240px;
+        padding: 0.65rem;
+    }
+
+    .plantation-modal .modal-body {
+        padding: 0.65rem 0.75rem 0.85rem;
+    }
+
+    .plantation-field .form-control-sm {
+        font-size: 0.78rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .adm-kpi-grid.plantation-kpi-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .plantation-topbar__loc {
+        display: none;
+    }
+}

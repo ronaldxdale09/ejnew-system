@@ -4,23 +4,16 @@ include('../../function/db.php');
 
 $sales_id = $_POST['sales_id'];
 
-// Query to get the bale info from the database
+// Query to get payment rows
 $query = "SELECT * FROM bales_sales_payment WHERE sales_id = '$sales_id'";
 $result = mysqli_query($con, $query);
 
-// Check if the query was successful
 if (!$result) {
     die('Query Failed: ' . mysqli_error($con));
 }
 
-// Get the overall cost from your database (add this query)
-$cost_query = "SELECT overall_cost FROM bales_sales_record WHERE bales_sales_id = '$sales_id'"; // Adjust table and column names as needed
-$cost_result = mysqli_query($con, $cost_query);
-$cost_row = mysqli_fetch_assoc($cost_result);
-$overall_cost = $cost_row['overall_cost'] ?? 0; // Default to 0 if not found
 $output = '
-
-<table class="table "  id="payment-table" >
+<table class="table table-sm mb-0" id="payment-table">
 <thead class="table-success text-center" style="font-size: 14px !important" >
         <tr style="font-weight: normal;">
             <th scope="col" hidden></th>
@@ -63,68 +56,48 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 $output .= '
     </tbody>
-</table>
-<br>
-
-<script>
-    function formatNumber(num) {
-        return num.toLocaleString("en-US", {minimumFractionDigits: 2});
-    }
-
-    var sales_proceeds = parseFloat(document.getElementById("sales_proceeds").value.replace(/,/g, "")) || 0;
-    var tax_amount = parseFloat(document.getElementById("tax_amount").value.replace(/,/g, "")) || 0;
-    var overall_cost = ' . $overall_cost . '; // Add this line to define overall_cost
-
-    gross_profit = (sales_proceeds - overall_cost) - tax_amount;
-    document.getElementById("gross_profit").value = formatNumber(gross_profit);
-</script>
-';
+</table>';
 
 echo $output;
 ?>
 <script src="js/compute_bale_sales.js"></script>
-
-
 <script>
     $(document).ready(function() {
         var counter = 0;
 
-       
-
         $("#addPayment").click(function() {
             counter++;
-            // Get the selected currency
-            var selectedCurrency = $("#sale_currency").val();
+            var selectedCurrency = $("#sale_currency").val() || 'PHP';
 
-            // Append the row
             var newRow = `
                 <tr>
-                    <td hidden><input type="text" class="form-control payment_id" name="payment_id[]"></td>
-                    <td><input type="date" class="form-control" name="pay_date[]"></td>
-                    <td><input type="text" class="form-control weight" name="pay_details[]"></td>
+                    <td hidden><input type="text" class="form-control form-control-sm payment_id" name="payment_id[]"></td>
+                    <td><input type="date" class="form-control form-control-sm" name="pay_date[]"></td>
+                    <td><input type="text" class="form-control form-control-sm" name="pay_details[]"></td>
                     <td>
-                        <div class="input-group mb-3">
+                        <div class="input-group input-group-sm">
                             <span class="input-group-text payment-currency-symbol">${selectedCurrency}</span>
-                            <input type="text" class="form-control weight payAmount"  onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" name="pay_amount[]">
+                            <input type="text" class="form-control payAmount" onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" name="pay_amount[]">
                         </div>
                     </td>
-                    <td><input type="text"  class="form-control weight payRate" name="pay_rate[]"></td>
+                    <td><input type="text" class="form-control form-control-sm payRate" name="pay_rate[]" value="1"></td>
                     <td>
-                        <div class="input-group mb-3">
+                        <div class="input-group input-group-sm">
                             <span class="input-group-text">₱</span>
-                            <input type="text" class="form-control weight pesoEquivalent" name="peso_equivalent[]">
+                            <input type="text" class="form-control pesoEquivalent" name="peso_equivalent[]">
                         </div>
                     </td>
-                    <td><button class="btn btn-danger removePayment" id="removePayment"><i class="fas fa-trash"></i></button></td>
-                </tr>
-                `;
+                    <td><button type="button" class="btn btn-danger btn-sm removePayment"><i class="fas fa-trash"></i></button></td>
+                </tr>`;
             $("#payment-table tbody").append(newRow);
         });
+
         $(document).on("click", ".removePayment", function(event) {
             event.preventDefault();
-            var row = $(this).closest("tr");
-            row.remove();
-            computeSalesProceeds();
+            $(this).closest("tr").remove();
+            if (typeof computeSalesProceeds === 'function') computeSalesProceeds();
         });
+
+        if (typeof computeSalesProceeds === 'function') computeSalesProceeds();
     });
 </script>

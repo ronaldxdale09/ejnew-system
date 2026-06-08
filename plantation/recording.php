@@ -8,11 +8,8 @@ if (isset($_GET['tab'])) {
 }
 
 
-$loc = str_replace(' ', '', $_SESSION['loc']);
-
-
-
-
+$loc = plantation_loc_sql();
+$kpis = plantation_inventory_kpis($con, $loc);
 
 $excess = 0;
 $excessUsed = 0;
@@ -79,152 +76,24 @@ $pressing_count = $pressing['Total'];
 // For 'produced' status
 $sql_produced = mysqli_query($con, "SELECT COUNT(*) as Total FROM planta_bales_production 
 LEFT JOIN planta_recording ON planta_bales_production.recording_id = planta_recording.recording_id
-WHERE planta_bales_production.status='Produced' and (rubber_weight !='0' or rubber_weight !=null) and (remaining_bales !='0' and planta_recording.source='$loc')
-ORDER BY planta_bales_production.recording_id ASC");
+WHERE planta_bales_production.status='Produced'
+AND COALESCE(planta_bales_production.rubber_weight, 0) != 0
+AND COALESCE(planta_bales_production.remaining_bales, 0) != 0
+AND planta_recording.source='$loc'");
 $produced = mysqli_fetch_array($sql_produced);
 $produced_count = $produced['Total'];
 
-$sql = mysqli_query($con, "SELECT SUM(reweight) as inventory from  planta_recording where status='Field' and planta_recording.source ='$loc'   ");
-$cuplumps = mysqli_fetch_array($sql);
-
-$sql = mysqli_query($con, "SELECT SUM(crumbed_weight) as inventory from  planta_recording where status='Milling'  and planta_recording.source  ='$loc'   ");
-$milling = mysqli_fetch_array($sql);
-
-
-$sql = mysqli_query($con, "SELECT SUM(dry_weight) as inventory from  planta_recording where status='Drying' and planta_recording.source  ='$loc'  ");
-$drying = mysqli_fetch_array($sql);
-
-
+plantation_shell_open('Rubber Processing', 'Receiving through bale production workflow', [$locDisplay ?: 'Plantation']);
+plantation_render_inventory_kpis($kpis);
 ?>
+<div class="plantation-notice alert alert-dismissible fade show" role="alert">
+    <div><strong>Important Notice:</strong> Keep data updated at all times to ensure accuracy across all processing stages.</div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
 
-
-<?php include('modal/modal_receiving.php'); ?>
-<?php include('modal/modal_milling.php'); ?>
-<?php include('modal/modal_drying.php'); ?>
-<?php include('modal/modal_pressing.php'); ?>
-<?php include('modal/modal_produced.php'); ?>
-
-<style>
-    .number-cell {
-        text-align: right;
-    }
-</style>
-
-<body>
-    <link rel='stylesheet' href='css/statistic-card.css'>
-    <link rel='stylesheet' href='css/tab-style.css'>
-
-
-    <input type='hidden' id='selected-cart' value=''>
-    <div class='main-content' style='position:relative; height:100%;'>
-        <div class="container home-section h-100" style="max-width:95%;">
-            <div class="page-wrapper">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col">
-                            <div class="stat-card stat-card--cuplump">
-                                <div class="stat-card__content">
-                                    <div class="stat-card__inner">
-                                        <p class="text-uppercase mb-1 text-muted"><b>CUPLUMP</b> INVENTORY
-                                            <i class="fas fa-warehouse"></i>
-                                        </p>
-                                        <h4>
-                                            <?php echo number_format($cuplumps['inventory'] ?? 0, 0) ?> kg
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col">
-                            <div class="stat-card stat-card--crumb">
-                                <div class="stat-card__content">
-                                    <div class="stat-card__inner">
-                                        <p class="text-uppercase mb-1 text-muted"><b>CRUMB</b> INVENTORY
-                                            <i class="fas fa-cogs"></i>
-                                        </p>
-                                        <h4>
-                                            <?php echo number_format($milling['inventory'] ?? 0, 0) ?> kg
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="stat-card stat-card--blanket">
-                                <div class="stat-card__content">
-                                    <div class="stat-card__inner">
-                                        <p class="text-uppercase mb-1 text-muted"><b>BLANKET</b> INVENTORY
-                                            <i class="fas fa-sun"></i>
-                                        </p>
-                                        <h4>
-                                            <i class="text-danger font-weight-bold mr-1"></i>
-                                            <?php echo number_format($drying['inventory'] ?? 0, 0) ?> kg
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="stat-card stat-card--bale-inventory">
-                                <div class="stat-card__content">
-                                    <div class="stat-card__inner">
-                                        <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY
-                                            <i class="fas fa-weight-hanging"></i>
-                                        </p>
-                                        <h4>
-                                            <i class="text-danger font-weight-bold mr-1"></i>
-                                            <?php echo number_format($bales['inventory'] ?? 0, 0) ?> kg
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="stat-card stat-card--bale-inventory-count">
-                                <div class="stat-card__content">
-                                    <div class="stat-card__inner">
-                                        <p class="text-uppercase mb-1 text-muted"><b>BALE</b> INVENTORY
-                                            <i class="fas fa-cubes"></i>
-                                        </p>
-                                        <h4>
-                                            <i class="text-danger font-weight-bold mr-1"></i>
-                                            <?php echo number_format($balesCount['inventory'] ?? 0, 0) ?> pcs
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col" hidden>
-                            <div class="stat-card stat-card--total-excess">
-                                <div class="stat-card__content">
-                                    <div class="stat-card__inner">
-                                        <p class="text-uppercase mb-1 text-muted"><b>TOTAL</b> EXCESS
-                                            <i class="fas fa-plus"></i>
-                                        </p>
-                                        <h4>
-                                            <i class="text-danger font-weight-bold mr-1"></i>
-                                            <?php echo number_format($total_excess ?? 0, 0) ?> kg
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="alert alert-dark alert-dismissible">
-                        <a href="#" class="btn close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>Important Notice:</strong> To ensure the integrity and reliability of our system, it is imperative that data is continuously updated and maintained for utmost accuracy. We appreciate your diligence in upholding these standards at all times.
-                    </div>
-                    <div class="inventory-table">
-                        <div class="container-fluid">
-                            <div class="wrapper" id="myTab">
+<?php adm_panel_open('Processing Workflow'); ?>
+<div class="plantation-process-tabs inventory-table">
+    <div class="wrapper" id="myTab">
                                 <input type="radio" name="slider" id="home" <?php if ($tab == '') {
                                                                                 echo 'checked';
                                                                             } else {
@@ -263,8 +132,9 @@ $drying = mysqli_fetch_array($sql);
                                 <section>
                                     <div class="content content-1">
                                         <div class="title">CUPLUMP INVENTORY </div>
-                                        <button type="button" class="btn btn-primary text-white" data-toggle="modal" data-target="#newReceiving">
-                                            <i class="fa fa-add" aria-hidden="true"></i> NEW RECEIVING </button>
+                                        <button type="button" class="plantation-btn plantation-btn--primary" data-bs-toggle="modal" data-bs-target="#newReceiving">
+                                            <i class="fa fa-plus" aria-hidden="true"></i> New Receiving
+                                        </button>
 
                                         <hr>
                                         <?php include('tab/receiving.php') ?>
@@ -282,20 +152,22 @@ $drying = mysqli_fetch_array($sql);
                                         <?php include('tab/pressing.php') ?>
                                     </div>
                                     <div class="content content-5">
-                                        <div class="title">BALE INVENTORY</div>
+                                        <div class="title">Bale Inventory</div>
                                         <?php include('tab/finished_goods.php') ?>
+                                    </div>
                                 </section>
                             </div>
+</div>
+<?php adm_panel_close(); ?>
 
-                        </div>
-                    </div>
-                </div>
+<style>.number-cell { text-align: right; }</style>
 
-            </div>
-        </div>
-    </div>
-
-</body>
+<?php
+include 'modal/modal_receiving.php';
+include 'modal/modal_milling.php';
+include 'modal/modal_drying.php';
+include 'modal/modal_pressing.php';
+include 'modal/modal_produced.php';
+?>
 <script src="js/recording.js"></script>
-
-</html>
+<?php plantation_shell_close(); ?>

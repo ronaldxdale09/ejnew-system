@@ -8,7 +8,7 @@ if (isset($_GET['id'])) {
 <?php
 include('include/header.php');
 include "include/navbar.php";
-include "sales_modal/bale_shipment_modal.php";
+include "sales_modal/cuplump_shipment_modal.php";
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -93,10 +93,8 @@ if (isset($_GET['id'])) {
 
 
 
-<body>
-
-    <br>
-    <div class='main-content' style='min-height:100vh;'>
+<?php sales_shell_open('Cuplump Shipment Detail', 'Edit cuplump shipment and container assignments'); ?>
+    <div class="sales-page-inner">
         <div class="container home-section h-100" style="max-width:95%;">
             <div class="page-wrapper">
                 <div class="row">
@@ -396,7 +394,6 @@ if (isset($_GET['id'])) {
         </div>
     </div>
     <br>
-</body>
 
 
 
@@ -751,3 +748,4 @@ if (isset($_GET['id'])) {
     document.getElementById('ship_exp_misc').addEventListener('input', calculateShippingExpenses);
     document.getElementById('number_container').addEventListener('input', calculateShippingExpenses);
 </script>
+<?php sales_shell_close(); ?>

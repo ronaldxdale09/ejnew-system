@@ -184,7 +184,7 @@ if (isset($_POST['press_transfer'])) {
 }
 
 
-if ($_POST['action'] == 'dry_milling') {
+if (isset($_POST['action']) && $_POST['action'] == 'dry_milling') {
 
     $id = $_POST['recording_id'];
 
@@ -200,14 +200,14 @@ if ($_POST['action'] == 'dry_milling') {
 
 
 
-if ($_POST['action'] == 'milling_field') {
+if (isset($_POST['action']) && $_POST['action'] == 'milling_field') {
 
     $id = $_POST['recording_id'];
 
     $query = "UPDATE `planta_recording` SET `status`='Field' WHERE recording_id='$id'";
 
     if (mysqli_query($con, $query)) {
-        header("Location: ../recording.php?tab=2");
+        header("Location: ../recording.php");
         exit();
     } else {
         echo "ERROR: Could not execute $query. " . mysqli_error($con);

@@ -1,80 +1,45 @@
 <?php
-include('include/header.php');
-include "include/navbar.php";
-include "sales_modal/bale_inventory.php";
+include 'include/header.php';
+include 'include/navbar.php';
+include 'sales_modal/bale_inventory.php';
 
+sales_shell_open('Bale Inventory', 'Produced bale stock by location', [$locDisplay ?: 'Sales']);
 ?>
 
 <style>
-    .bales-column {
-        background-color: rgb(230, 236, 245) !important;
-        font-weight: bold;
-    }
-
-    .remaining-column {
-        background-color: rgb(245, 230, 236) !important;
-        font-weight: bold;
-    }
-
-    .bg-orange {
-        background-color: orange;
-    }
+    .bales-column { background-color: rgb(230, 236, 245) !important; font-weight: bold; }
+    .remaining-column { background-color: rgb(245, 230, 236) !important; font-weight: bold; }
 </style>
 
-<body>
-    <link rel='stylesheet' href='css/statistic-card.css'>
-    <link rel='stylesheet' href='css/inventory.tab.css'>
-    <div class='main-content' style='min-height:100vh;'>
-        <div class="container home-section h-100" style="max-width:95%;">
-            <div class="page-wrapper">
+<ul class="nav nav-tabs sales-inventory-nav mb-3" id="baleInventoryTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="basilan-tab-btn" data-bs-toggle="tab" data-bs-target="#basilan-tab-pane"
+            type="button" role="tab" aria-controls="basilan-tab-pane" aria-selected="true">
+            <i class="fas fa-book me-1"></i> Basilan Inventory
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="kidapawan-tab-btn" data-bs-toggle="tab" data-bs-target="#kidapawan-tab-pane"
+            type="button" role="tab" aria-controls="kidapawan-tab-pane" aria-selected="false">
+            <i class="fas fa-list me-1"></i> Kidapawan Inventory
+        </button>
+    </li>
+</ul>
 
-
-                <div class="inventory-table">
-                    <div class="container-fluid">
-
-                        <div class="wrapper" id="myTab">
-                            <input type="radio" name="slider" id="home" checked>
-                            <input type="radio" name="slider" id="blog">
-                            <nav>
-                                <label for="home" class="home"><i class="fas fa-book"></i> Basilan Inventory</label>
-                                <label for="blog" class="blog"><i class="fas fa-list"></i> Kidapawan Inventory</label>
-
-
-                                <div class="slider"></div>
-                            </nav>
-                            <section>
-                                <div class="content content-1">
-                                    <hr style="height:3px; background-color: black;">
-
-                                    <h2 class="page-title" style="text-align:center;">
-                                        <b>
-                                            <font color="#0C0070">BASILAN </font>
-                                            <font color="#046D56">BALE INVENTORY </font>
-                                        </b>
-                                    </h2>
-                                    <?php include('bales_inventory/basilan.inventory.php') ?>
-                                </div>
-                                <div class="content content-2">
-                                    <hr style="height:3px; background-color: black;">
-                                    <h2 class="page-title" style="text-align:center;">
-                                        <b>
-                                            <font color="#0C0070">KIDAPAWAN </font>
-                                            <font color="#046D56">CUPLUMP INVENTORY </font>
-                                        </b>
-                                    </h2>
-                                    <?php include('bales_inventory/kidapawan.inventory.php') ?>
-                                </div>
-
-
-                            </section>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="tab-content sales-inventory-tabs" id="baleInventoryTabContent">
+    <div class="tab-pane fade show active" id="basilan-tab-pane" role="tabpanel" aria-labelledby="basilan-tab-btn">
+        <?php adm_panel_open('Basilan Bale Inventory'); ?>
+        <?php include 'bales_inventory/basilan.inventory.php'; ?>
+        <?php adm_panel_close(); ?>
     </div>
-   
-</body>
+    <div class="tab-pane fade" id="kidapawan-tab-pane" role="tabpanel" aria-labelledby="kidapawan-tab-btn">
+        <?php adm_panel_open('Kidapawan Bale Inventory'); ?>
+        <?php include 'bales_inventory/kidapawan.inventory.php'; ?>
+        <?php adm_panel_close(); ?>
+    </div>
+</div>
 
-</html>
+<link rel="stylesheet" href="css/statistic-card.css">
+<script src="js/sales-datatables-common.js"></script>
+<script src="js/sales-bale-inventory.js?v=<?php echo filemtime(__DIR__ . '/js/sales-bale-inventory.js'); ?>"></script>
+<?php sales_shell_close(); ?>

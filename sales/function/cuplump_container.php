@@ -4,12 +4,17 @@ if (isset($_POST['add'])) {
 
     $van_no = $_POST['van_no'];
     $date = $_POST['date'];
-    $remarks = $_POST['remarks'];
+    $remarks = $_POST['remarks'] ?? '';
     $recorded = $_POST['recorded_by'];
+    $location = trim($_POST['location'] ?? $_SESSION['loc'] ?? $_SESSION['source'] ?? '');
 
-
-    $query = "INSERT INTO cuplump_container (van_no,loading_date,remarks,recorded_by,status) 
-                                        VALUES ('$van_no','$date','$remarks','$recorded','In Progress')";
+    $query = "INSERT INTO cuplump_container (
+        van_no, location, loading_date, remarks, recorded_by, status,
+        total_cuplump_weight, cuplump_selling_weight, total_cuplump_cost, ave_cuplump_cost, ship_exp
+    ) VALUES (
+        '$van_no', '$location', '$date', '$remarks', '$recorded', 'In Progress',
+        0, 0, 0, 0, 0
+    )";
     $results = mysqli_query($con, $query);
 
     if ($results) {

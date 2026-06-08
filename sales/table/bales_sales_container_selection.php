@@ -162,18 +162,19 @@ echo $output;
 
                     },
                     success: function(data) {
-                        console.log('success');
-                        console.log(data);
-                        fetch_container();
-                        changeGrossProfitColor();
-                        computeGrossSales();
+                        if (typeof fetch_bale_container === 'function') {
+                            fetch_bale_container();
+                        }
+                        if (typeof SalesModal !== 'undefined') {
+                            SalesModal.hide('#containerListModal');
+                        }
                         Swal.fire({
                             position: 'center',
                             icon: 'success',
-                            title: 'Inventory Added!',
+                            title: 'Container Added',
                             showConfirmButton: false,
-                            timer: 1000
-                        })
+                            timer: 900
+                        });
                     }
                 });
             });
