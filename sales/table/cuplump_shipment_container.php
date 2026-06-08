@@ -1,126 +1,69 @@
 <?php
 include('../../function/db.php');
 
-$shipment_id = $_POST['shipment_id'];
+$shipment_id = isset($_POST['shipment_id']) ? (int) $_POST['shipment_id'] : 0;
+$excludeSql = "
+    SELECT sc.container_id FROM sales_cuplump_shipment_container sc
+    INNER JOIN sales_cuplump_shipment s ON s.shipment_id = sc.shipment_id
+    WHERE s.status IN ('In Progress', 'Draft')
+      AND sc.shipment_id != '$shipment_id'
+";
+$result = mysqli_query($con, "
+    SELECT * FROM cuplump_container
+    WHERE status = 'Awaiting Shipment'
+      AND container_id NOT IN ($excludeSql)
+    ORDER BY container_id DESC
+");
 
-$output = '';
-$van_no = 0;
-$result  = mysqli_query($con, "SELECT * from cuplump_container where status='Awaiting Shipment' ");
-// $total_bales = 0;
-// $total_weight = 0;
-// $number_container = 0;
-$output .= '
-<table class="table table-bordered table-hover table-striped" id="recording_table-receiving">
-           <thead class="table-dark" style="font-size: 12px !important" >
-           <tr>
-                                                        <th scope="col">Container ID.</th>
-                                                        <th scope="col">Container No.</th>
-                                                        <th scope="col">Loading Date</th>
-                                                        <th scope="col">Total Weight</th>
-                                                        <th scope="col">Ave Cost</th>
-                                                        <th scope="col">Total Cost</th>
-                                                        <th scope="col">Remarks</th>
-                                                        <th scope="col">Recorded by</th>
-                                                        <th scope="col"></th>
-       </tr>
-           </thead>';
-
-if (mysqli_num_rows($result) > 0) {
-    while ($row = mysqli_fetch_array($result)) {
-
-        $output .= '
-        <tr>
-            <td>' . $row["container_id"] . '</td>
-            <td>' . $row["van_no"] . '</td>
-            <td>' . $row["loading_date"] . '</td>
-            <td>' . number_format($row["total_cuplump_weight"], 2) . ' kg</td>
-            <td>₱ ' . number_format($row["ave_cuplump_cost"], 2) . ' </td>
-            <td>₱ ' . number_format($row["total_cuplump_cost"], 2) . ' </td>
-            <td>' . $row["remarks"] . '</td>
-            <td>' . $row["recorded_by"] . '</td>
-            <td><button type="button" id="addCuplump" class="btn btn-warning btn-sm addCuplump"><i
-            class="fa fa-plus"></i></button> </td>
-        </tr>
-        ';
-    }
-} else {
-    $output .= '<tr>
-     <td colspan="4">No data available</td>
- </tr>';
+if (!$result) {
+    die('Query failed: ' . mysqli_error($con));
 }
 
-$output .= '</table>
-<hr>
-   
+$rowCount = mysqli_num_rows($result);
+if ($rowCount === 0) {
+    echo '<div class="sales-inv-empty"><i class="fas fa-inbox"></i><p>No containers awaiting shipment.</p></div>';
+    exit;
+}
 
-
-';
-
-echo $output;
-
+$rowsHtml = '';
+while ($row = mysqli_fetch_assoc($result)) {
+    $loadingDate = $row['loading_date'] ?? '';
+    $rowsHtml .= '<tr'
+        . ' data-container-id="' . (int) $row['container_id'] . '"'
+        . ' data-van-no="' . htmlspecialchars($row['van_no'] ?? '', ENT_QUOTES) . '"'
+        . ' data-loading-date="' . htmlspecialchars($loadingDate, ENT_QUOTES) . '"'
+        . ' data-total-weight="' . (float) ($row['total_cuplump_weight'] ?? 0) . '"'
+        . ' data-ave-cost="' . (float) ($row['ave_cuplump_cost'] ?? 0) . '"'
+        . ' data-total-cost="' . (float) ($row['total_cuplump_cost'] ?? 0) . '"'
+        . '>';
+    $rowsHtml .= '<td>' . (int) $row['container_id'] . '</td>';
+    $rowsHtml .= '<td>' . htmlspecialchars($row['van_no'] ?? '', ENT_QUOTES) . '</td>';
+    $rowsHtml .= '<td>' . ($loadingDate ? date('M j, Y', strtotime($loadingDate)) : '—') . '</td>';
+    $rowsHtml .= '<td class="text-end">' . number_format((float) ($row['total_cuplump_weight'] ?? 0), 2) . ' kg</td>';
+    $rowsHtml .= '<td class="text-end">₱' . number_format((float) ($row['ave_cuplump_cost'] ?? 0), 2) . '</td>';
+    $rowsHtml .= '<td class="text-end">₱' . number_format((float) ($row['total_cuplump_cost'] ?? 0), 2) . '</td>';
+    $rowsHtml .= '<td>' . htmlspecialchars($row['remarks'] ?? '', ENT_QUOTES) . '</td>';
+    $rowsHtml .= '<td>' . htmlspecialchars($row['recorded_by'] ?? '', ENT_QUOTES) . '</td>';
+    $rowsHtml .= '<td class="text-center"><button type="button" class="btn btn-success btn-sm addCuplump"><i class="fas fa-plus"></i></button></td>';
+    $rowsHtml .= '</tr>';
+}
 ?>
 
-
-<script>
-    $(document).ready(function() {
-
-
-
-        $('.addCuplump').on('click', function() {
-
-
-            $tr = $(this).closest('tr');
-            var data = $tr.children("td").map(function() {
-                return $(this).text();
-            }).get();
-
-            $tr.each(function() {
-                ;
-
-
-                var container_id = data[0];
-                var shipment_id = <?php echo $shipment_id ?>;
-
-                var van_no = data[1];
-                var date = data[2];
-                var total_weight = data[3];
-                var ave_cost = data[4];
-                var total_cost = data[5];
-
-         
-                $.ajax({
-                    method: "POST",
-                    url: "table/button/cuplump_add_container.php",
-                    data: {
-                        container_id: container_id,
-                        date: date,
-                        shipment_id: shipment_id,
-                        van_no: van_no,
-                        total_weight: total_weight,
-                        ave_cost: ave_cost,
-                        total_cost: total_cost
-
-                    },
-                    success: function(data) {
-                        console.log('success');
-                        console.log(data);
-                        fetch_container_list();
-                        calculateShippingExpenses()
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: 'Container Added!',
-                            showConfirmButton: false,
-                            timer: 1000
-                        })
-                    }
-                });
-            });
-
-
-        });
-
-
-
-    });
-</script>
+<div class="sales-inv-table-wrap">
+    <table class="table table-sm sales-inv-table mb-0" id="recording_table-receiving">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Van No.</th>
+                <th>Loading</th>
+                <th class="text-end">Weight</th>
+                <th class="text-end">Avg ₱/kg</th>
+                <th class="text-end">Total ₱</th>
+                <th>Remarks</th>
+                <th>Recorded</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody><?php echo $rowsHtml; ?></tbody>
+    </table>
+</div>

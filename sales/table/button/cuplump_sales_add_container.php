@@ -31,8 +31,9 @@ if ($check->num_rows == 1) {
 
     $results = mysqli_query($con, $sql);
 } else {
-    $sql = "INSERT INTO sales_cuplump_selected_container (container_id,selling_weight,cuplump_sales_id, van_no,total_weight,total_cuplump_cost,ship_expense,ave_cost) 
-    VALUES ('$container_id','$selling_weight','$sales_id','$van_no', '$total_weight',  '$total_cost',  '$ship_exp', '$ave_cost')";
+    $remarks = mysqli_real_escape_string($con, $_POST['remarks'] ?? '');
+    $sql = "INSERT INTO sales_cuplump_selected_container (container_id,selling_weight,cuplump_sales_id, van_no,total_weight,total_cuplump_cost,ship_expense,ave_cost,remarks) 
+    VALUES ('$container_id','$selling_weight','$sales_id','$van_no', '$total_weight',  '$total_cost',  '$ship_exp', '$ave_cost', '$remarks')";
     $results = mysqli_query($con, $sql);
 }
 

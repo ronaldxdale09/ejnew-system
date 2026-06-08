@@ -45,7 +45,10 @@ while ($row = mysqli_fetch_assoc($result)) {
         'no_containers' => (int) ($row['no_containers'] ?? 0),
         'total_num_bales' => number_format(floatval($row['total_num_bales'] ?? 0), 0) . ' pcs',
         'total_bale_weight' => number_format(floatval($row['total_bale_weight'] ?? 0), 0) . ' kg',
-        'action' => '<button type="button" class="btn btn-sm btn-outline-success btnViewRecord" data-shipment=\'' . $json . '\'><i class="fas fa-book"></i></button>',
+        'action' => '<div class="d-flex gap-1 justify-content-center">'
+            . '<a href="bale_shipment.php?id=' . (int) $row['shipment_id'] . '" class="btn btn-sm btn-primary" title="Edit"><i class="fas fa-pen"></i></a>'
+            . '<button type="button" class="btn btn-sm btn-outline-success btnViewRecord" data-shipment=\'' . $json . '\'><i class="fas fa-eye"></i></button>'
+            . '</div>',
     ];
 }
 

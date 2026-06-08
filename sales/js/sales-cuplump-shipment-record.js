@@ -29,7 +29,7 @@
         $.ajax({
             url: 'table/cuplump_shipment_container_record.php',
             method: 'POST',
-            data: { shipment_id: s.shipment_id },
+            data: { shipment_id: s.shipment_id, readonly: 1 },
             success: function (html) {
                 $('#shipment_container_record').html(html);
                 $('#print_content button').not('#btnPrint').hide();

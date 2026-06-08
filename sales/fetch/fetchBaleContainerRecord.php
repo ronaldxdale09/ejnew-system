@@ -78,7 +78,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         'total_weight' => number_format(floatval($row['total_weight']), 0, '.', ',') . ' kg',
         'remarks' => htmlspecialchars($row['remarks'] ?? '', ENT_QUOTES, 'UTF-8'),
         'source' => htmlspecialchars($row['source'] ?? '', ENT_QUOTES, 'UTF-8'),
-        'action' => '<button type="button" class="btn btn-sm btn-outline-success btnViewRecord" data-status="' . htmlspecialchars($row['status'] ?? '', ENT_QUOTES) . '" data-container=\'' . $json . '\'><i class="fas fa-book"></i></button>',
+        'action' => '<button type="button" class="btn btn-sm btn-outline-success btnViewRecord" data-status="' . htmlspecialchars($row['status'] ?? '', ENT_QUOTES) . '" data-container=\'' . $json . '\'><i class="fas fa-eye"></i></button>',
     ];
 }
 

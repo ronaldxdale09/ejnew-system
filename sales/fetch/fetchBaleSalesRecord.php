@@ -49,7 +49,10 @@ while ($row = mysqli_fetch_assoc($result)) {
         'overall_cost' => $cur . ' ' . number_format(floatval($row['overall_cost']), 0),
         'unpaid_balance' => $cur . ' ' . number_format(floatval($row['unpaid_balance']), 2),
         'gross_profit' => '₱ ' . number_format(floatval($row['gross_profit']), 0),
-        'action' => '<button type="button" class="btn btn-sm btn-outline-success btnViewRecord" data-status="' . htmlspecialchars($row['status'] ?? '', ENT_QUOTES) . '" data-bale=\'' . $json . '\'><i class="fas fa-book"></i></button>',
+        'action' => '<div class="d-flex gap-1 justify-content-center">'
+            . '<a href="bale_sales.php?id=' . (int) $row['bales_sales_id'] . '" class="btn btn-sm btn-primary" title="Edit"><i class="fas fa-pen"></i></a>'
+            . '<button type="button" class="btn btn-sm btn-outline-success btnViewRecord" data-status="' . htmlspecialchars($row['status'] ?? '', ENT_QUOTES) . '" data-bale=\'' . $json . '\'><i class="fas fa-eye"></i></button>'
+            . '</div>',
     ];
 }
 

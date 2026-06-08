@@ -15,7 +15,7 @@ $today = date('Y-m-d');
                     <div class="row g-2 sales-modal-grid">
                         <div class="col-6 col-md-3 sales-field">
                             <label for="new_cuplump_type">Type</label>
-                            <select class="form-select form-select-sm" name="type" id="new_cuplump_type">
+                            <select class="form-select form-select-sm" name="type" id="new_cuplump_type" required>
                                 <option value="" selected disabled>Select…</option>
                                 <option value="EXPORT">Export</option>
                                 <option value="LOCAL">Local</option>
@@ -23,19 +23,19 @@ $today = date('Y-m-d');
                         </div>
                         <div class="col-6 col-md-3 sales-field">
                             <label for="new_cuplump_date">Shipment Date</label>
-                            <input type="date" class="form-control form-control-sm" name="n_date" id="new_cuplump_date" value="<?php echo $today; ?>">
+                            <input type="date" class="form-control form-control-sm" name="n_date" id="new_cuplump_date" value="<?php echo $today; ?>" required>
                         </div>
                         <div class="col-6 col-md-3 sales-field">
                             <label for="new_cuplump_source">Source</label>
-                            <input type="text" class="form-control form-control-sm" name="source" id="new_cuplump_source" autocomplete="off">
+                            <input type="text" class="form-control form-control-sm" name="source" id="new_cuplump_source" autocomplete="off" required>
                         </div>
                         <div class="col-6 col-md-3 sales-field">
                             <label for="new_cuplump_destination">Destination</label>
-                            <input type="text" class="form-control form-control-sm" name="destination" id="new_cuplump_destination" autocomplete="off">
+                            <input type="text" class="form-control form-control-sm" name="destination" id="new_cuplump_destination" autocomplete="off" required>
                         </div>
                         <div class="col-6 col-md-6 sales-field">
                             <label for="new_cuplump_particular">Particular</label>
-                            <input type="text" class="form-control form-control-sm" name="particular" id="new_cuplump_particular" autocomplete="off">
+                            <input type="text" class="form-control form-control-sm" name="particular" id="new_cuplump_particular" autocomplete="off" required>
                         </div>
                         <div class="col-6 col-md-3 sales-field">
                             <label for="new_cuplump_recorded">Recorded By</label>

@@ -45,7 +45,10 @@ while ($row = mysqli_fetch_assoc($result)) {
         'no_containers' => (int) ($row['no_containers'] ?? 0) . ' container/s',
         'total_cuplump_weight' => number_format(floatval($row['total_cuplump_weight'] ?? 0), 2) . ' kg',
         'total_cuplump_cost' => '₱' . number_format(floatval($row['total_cuplump_cost'] ?? 0), 2),
-        'action' => '<button type="button" class="btn btn-sm btn-outline-success btnViewRecord" data-shipment=\'' . $json . '\'><i class="fas fa-eye"></i></button>',
+        'action' => '<div class="d-flex gap-1 justify-content-center">'
+            . '<a href="cuplump_shipment.php?id=' . (int) $row['shipment_id'] . '" class="btn btn-sm btn-primary" title="Edit"><i class="fas fa-pen"></i></a>'
+            . '<button type="button" class="btn btn-sm btn-outline-success btnViewRecord" data-shipment=\'' . $json . '\'><i class="fas fa-eye"></i></button>'
+            . '</div>',
     ];
 }
 

@@ -152,10 +152,9 @@ if (mysqli_query($con, $query)) {
                     rate='$rate', pesos_equivalent='$equivalent'
                 WHERE sales_id = '$sales_id' AND payment_id = '$id'";
             } else {
-                // Insert new row
                 $sql = "INSERT INTO bales_sales_payment 
-                (sales_id, payment_id, currency, date, details, amount_paid, rate, pesos_equivalent)
-                VALUES ('$sales_id', '$id', '$sale_currency',  '$date', '$details', '$amount', '$rate', '$equivalent')";
+                (sales_id, currency, date, details, amount_paid, rate, pesos_equivalent)
+                VALUES ('$sales_id', '$sale_currency', '$date', '$details', '$amount', '$rate', '$equivalent')";
             }
 
             $result = mysqli_query($con, $sql);

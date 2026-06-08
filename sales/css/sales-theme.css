@@ -551,7 +551,8 @@ body.sales-module .sales-loading {
 
 .sales-detail-toolbar--locked .btnVoid,
 .sales-detail-toolbar--locked .btnDraft,
-.sales-detail-toolbar--locked .confirmContainer {
+.sales-detail-toolbar--locked .confirmContainer,
+.sales-detail-toolbar--locked .confirmShipment {
     display: none !important;
 }
 
@@ -559,7 +560,8 @@ body.sales-module .sales-loading {
     padding: 0;
 }
 
-.sales-detail-card__body--flush > #container_listing {
+.sales-detail-card__body--flush > #container_listing,
+.sales-detail-card__body--flush > #selected_container_list {
     padding: 0.65rem 0.85rem 0.75rem;
 }
 
@@ -596,7 +598,8 @@ body.sales-module .sales-loading {
     margin-bottom: 0 !important;
 }
 
-.sales-inv-table thead th {
+.admin-body.sales-module .sales-inv-table thead th,
+.sales-page .sales-inv-table thead th {
     position: sticky;
     top: 0;
     z-index: 1;
@@ -608,7 +611,9 @@ body.sales-module .sales-loading {
     letter-spacing: 0.04em;
     padding: 0.4rem 0.45rem;
     white-space: nowrap;
-    border: none;
+    border: none !important;
+    border-bottom: none !important;
+    vertical-align: middle;
 }
 
 .sales-inv-table tbody td {
@@ -746,7 +751,8 @@ body.sales-module .sales-loading {
     margin-bottom: 0 !important;
 }
 
-.sales-detail-table-wrap .table thead th {
+.admin-body.sales-module .sales-detail-table-wrap .table thead th,
+.sales-page .sales-detail-table-wrap .table thead th {
     background: var(--adm-green-900) !important;
     color: #fff !important;
     font-size: 0.58rem;
@@ -756,6 +762,8 @@ body.sales-module .sales-loading {
     padding: 0.35rem 0.45rem;
     white-space: nowrap;
     vertical-align: middle;
+    border: none !important;
+    border-bottom: none !important;
 }
 
 .sales-detail-table-wrap .table tbody td {
@@ -818,6 +826,7 @@ body.sales-module .sales-loading {
 .sales-detail-form.is-locked #addPayment,
 .sales-detail-form.is-locked #addRow,
 .sales-detail-form.is-locked .btnContainer,
+.sales-detail-form.is-locked .selectContainer,
 .sales-detail-form.is-locked .removeContainer,
 .sales-detail-form.is-locked .removePayment,
 .sales-detail-form.is-locked .removeRow {
