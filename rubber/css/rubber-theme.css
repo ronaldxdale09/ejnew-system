@@ -432,3 +432,98 @@ body.rubber-module .chosen-container.chosen-with-drop {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+/* ── Wet cuplump purchase entry ── */
+.rubber-wet-grid {
+    font-size: 0.78rem;
+}
+
+.rubber-wet-panel {
+    background: var(--adm-white);
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.rubber-wet-panel__head {
+    padding: 0.55rem 0.85rem;
+    background: linear-gradient(135deg, var(--adm-green-900), var(--adm-green-700));
+    color: #fff;
+}
+
+.rubber-wet-panel__head h6 {
+    margin: 0;
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.rubber-wet-panel__body {
+    padding: 0.85rem;
+    flex: 1;
+}
+
+.rubber-wet-panel__foot {
+    padding: 0.55rem 0.85rem;
+    border-top: 1px solid var(--adm-slate-200);
+    background: var(--adm-slate-50);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.rubber-wet-subpanel {
+    padding: 0.55rem 0.65rem;
+    background: var(--adm-slate-50);
+    border: 1px dashed var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+}
+
+.rubber-wet-price-block {
+    padding: 0.65rem;
+    margin-bottom: 0.55rem;
+    background: var(--adm-white);
+    border: 1px solid var(--adm-slate-200);
+    border-radius: var(--adm-radius-sm);
+}
+
+.rubber-wet-price-block__title {
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--adm-green-800);
+    margin-bottom: 0.45rem;
+}
+
+.rubber-wet-totals {
+    padding: 0.75rem;
+    background: linear-gradient(180deg, var(--adm-green-50), var(--adm-white));
+    border: 1px solid var(--adm-green-200);
+    border-radius: var(--adm-radius-sm);
+}
+
+.rubber-wet-words {
+    font-style: italic;
+    color: var(--adm-slate-600);
+    background: var(--adm-white);
+}
+
+.rubber-wet-check .form-check-input {
+    transform: scale(1.15);
+    margin-top: 0.2rem;
+}
+
+.rubber-status-badge {
+    font-size: 0.72rem;
+    letter-spacing: 0.03em;
+}
+
+.rubber-module .chosen-container-single .chosen-single {
+    height: calc(1.5em + 0.5rem + 2px);
+    line-height: 1.5;
+    font-size: 0.78rem;
+    border-radius: var(--adm-radius-sm);
+}

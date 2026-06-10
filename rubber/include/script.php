@@ -1,5 +1,3 @@
-<script type="text/javascript" src="js/getWords.js"></script>
-
 <script type="text/javascript">
 $(document).ready(function() {
     var nf = new Intl.NumberFormat('en-US');

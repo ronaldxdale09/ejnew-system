@@ -398,6 +398,19 @@ body {
     color: var(--slate-500);
 }
 
+.login-footer p {
+    margin: 0;
+}
+
+.login-version {
+    margin-bottom: 0.35rem !important;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--slate-700);
+}
+
 /* ── Tablet & desktop: split layout ── */
 @media (min-width: 768px) {
     .login-page {

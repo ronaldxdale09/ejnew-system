@@ -17,6 +17,7 @@
 <body>
 <?php
 require_once __DIR__ . '/function/db.config.php';
+require_once __DIR__ . '/function/app_version.php';
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -94,7 +95,8 @@ if ($con) {
                 </form>
 
                 <footer class="login-footer">
-                    &copy; <?php echo date('Y'); ?> AetherIO IT Solutions
+                    <p class="login-version"><?php echo htmlspecialchars(ejn_app_version_label(), ENT_QUOTES, 'UTF-8'); ?></p>
+                    <p>&copy; <?php echo date('Y'); ?> AetherIO IT Solutions</p>
                 </footer>
             </div>
         </main>

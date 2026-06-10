@@ -11,6 +11,46 @@ if (!function_exists('rubber_loc_sql')) {
     }
 }
 
+if (!function_exists('rubber_root_path')) {
+    function rubber_root_path(string $relative = ''): string
+    {
+        $root = dirname(__DIR__);
+        if ($relative === '') {
+            return $root;
+        }
+        return $root . '/' . ltrim($relative, '/');
+    }
+}
+
+if (!function_exists('rubber_mtime')) {
+    /** Cache-bust token from file modification time (changes when asset changes). */
+    function rubber_mtime(string $absolutePath): string
+    {
+        return is_file($absolutePath) ? (string) filemtime($absolutePath) : '1';
+    }
+}
+
+if (!function_exists('rubber_asset')) {
+    /** Relative path from rubber module root, e.g. css/rubber-theme.css */
+    function rubber_asset(string $relativePath, string $base = ''): string
+    {
+        $ver = rubber_mtime(rubber_root_path($relativePath));
+        return $base . ltrim($relativePath, '/') . '?v=' . $ver;
+    }
+}
+
+if (!function_exists('rubber_nocache_headers')) {
+    function rubber_nocache_headers(): void
+    {
+        if (headers_sent()) {
+            return;
+        }
+        header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+        header('Pragma: no-cache');
+        header('Expires: Wed, 11 Jan 1984 05:00:00 GMT');
+    }
+}
+
 if (!function_exists('rubber_logout_url')) {
     function rubber_logout_url(): string
     {
@@ -157,5 +197,39 @@ if (!function_exists('rubber_seller_options')) {
             }
         }
         return $html;
+    }
+}
+
+if (!function_exists('rubber_wet_contract_options')) {
+    function rubber_wet_contract_options(mysqli $con, string $loc): string
+    {
+        $html = '';
+        $locEsc = mysqli_real_escape_string($con, $loc);
+        $sql = "SELECT contract_no, seller FROM rubber_contract
+                WHERE loc='$locEsc' AND type='WET' AND (status='PENDING' OR status='UPDATED')
+                ORDER BY contract_no ASC";
+        $result = mysqli_query($con, $sql);
+        if (!$result) {
+            return $html;
+        }
+        while ($row = mysqli_fetch_assoc($result)) {
+            $no = htmlspecialchars($row['contract_no'] ?? '', ENT_QUOTES, 'UTF-8');
+            $seller = htmlspecialchars($row['seller'] ?? '', ENT_QUOTES, 'UTF-8');
+            if ($no !== '') {
+                $html .= '<option value="' . $no . '">[ ' . $no . ' ] ' . $seller . '</option>';
+            }
+        }
+        return $html;
+    }
+}
+
+if (!function_exists('rubber_transaction_status_badge')) {
+    function rubber_transaction_status_badge(string $status): string
+    {
+        $status = strtoupper(trim($status));
+        if ($status === 'COMPLETED') {
+            return '<span class="badge bg-success rubber-status-badge" id="trans_status">COMPLETED</span>';
+        }
+        return '<span class="badge bg-danger rubber-status-badge" id="trans_status">ONGOING</span>';
     }
 }

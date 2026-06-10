@@ -88,4 +88,4 @@ $base = $rubber_base ?? '';
     </div>
 </header>
 
-<script src="<?php echo $base; ?>js/rubber-nav.js?v=<?php echo file_exists(__DIR__ . '/../js/rubber-nav.js') ? filemtime(__DIR__ . '/../js/rubber-nav.js') : '1'; ?>"></script>
+<script src="<?php echo rubber_asset('js/rubber-nav.js', $base); ?>"></script>
