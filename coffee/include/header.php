@@ -25,7 +25,7 @@ $name =   $_SESSION["user"];
   <link rel="stylesheet" href="css/chosen.min.css">
   <link rel='stylesheet' href='css/statistic-card.css'>
 
-  <link rel='icon' href='assets/img/logo.png' size='10x10' />
+  <link rel='icon' href='assets/img/icon.png' type='image/png' />
   <script src="assets/js/numberFormat.js"></script>
   <script src="js/sweetalert2@11.js"></script>
   <title>EJN COFFEE</title>

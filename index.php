@@ -38,8 +38,7 @@ if ($con) {
             <div class="hero-overlay"></div>
 
             <div class="hero-content">
-                <img src="assets/img/icon.png" alt="" class="hero-logo">
-                <h1 class="hero-title">EJN Rubber System</h1>
+                <img src="assets/img/logo.png" alt="EJN Rubber" class="hero-logo">
                 <p class="hero-tagline">Integrated operations for rubber, copra, and coffee — from field to export.</p>
 
                 <ul class="hero-features">
@@ -53,11 +52,7 @@ if ($con) {
         <main class="login-main">
             <div class="login-card">
                 <div class="brand-mobile">
-                    <img src="assets/img/icon.png" alt="EJN" class="brand-icon">
-                    <div>
-                        <h2>EJN Rubber System</h2>
-                        <p>Secure employee access</p>
-                    </div>
+                    <img src="assets/img/logo.png" alt="EJN Rubber" class="brand-logo">
                 </div>
 
                 <header class="form-header">

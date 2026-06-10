@@ -21,7 +21,7 @@ $name = $_SESSION["full_name"];
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="expires" content="0">
     <!-- Favicon -->
-    <link rel='icon' href='assets/img/logo.svg' type='image/svg+xml' />
+    <link rel="icon" href="assets/img/icon.png" type="image/png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

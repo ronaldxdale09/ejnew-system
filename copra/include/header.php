@@ -13,7 +13,7 @@ $copra_base = '';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="<?php echo $copra_base; ?>assets/img/logo.png" type="image/png">
+    <link rel="icon" href="<?php echo $copra_base; ?>assets/img/icon.png" type="image/png">
     <title>EJN Copra</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -16,7 +16,7 @@ function ledger_submenu_open(array $pages, string $current): string
 
 <aside class="admin-sidebar" id="adminSidebar" aria-label="Ledger navigation">
     <div class="admin-sidebar__brand">
-        <img src="assets/img/logo.svg" alt="EJN Rubber" width="36" height="36">
+        <img src="assets/img/logo.png" alt="EJN Rubber" height="32">
         <div>
             <strong>EJN Ledger</strong>
             <small><?php echo adm_esc($locDisplay ?: 'General'); ?></small>

@@ -23,7 +23,7 @@ $opsFinancePurch = ['purchase_report.php', 'dry_receiving_record.php', 'cuplumps
 
 <aside class="admin-sidebar" id="adminSidebar" aria-label="Admin navigation">
     <div class="admin-sidebar__brand">
-        <img src="assets/img/logo.svg" alt="EJN Rubber" width="36" height="36">
+        <img src="assets/img/logo.png" alt="EJN Rubber" height="32">
         <div>
             <strong>EJN Rubber</strong>
             <small>Admin Console</small>

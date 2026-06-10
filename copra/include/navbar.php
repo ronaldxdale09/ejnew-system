@@ -8,7 +8,7 @@ $base = $copra_base ?? '';
 
 <aside class="admin-sidebar copra-sidebar" id="adminSidebar" aria-label="Copra navigation">
     <div class="admin-sidebar__brand">
-        <img src="<?php echo $base; ?>assets/img/logo.png" alt="EJN Copra" width="36" height="36">
+        <img src="<?php echo $base; ?>assets/img/logo.png" alt="EJN Copra" height="32">
         <div>
             <strong>EJN Copra</strong>
             <small>Purchasing</small>

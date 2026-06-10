@@ -3,7 +3,7 @@
         <i class='fa-solid fa-ellipsis'></i>
     </div>
     <div class='nav-title' style='font-weight:bold;'>
-        <img src='assets/img/logo.png' alt='Q-cart Logo' width='35' height='35' style='margin-right:5px;'>
+        <img src='assets/img/logo.png' alt='EJN Rubber' height='32' style='margin-right:5px;'>
         <span class='nav-text'>EJN RUBBER</span>
 
 

@@ -13,7 +13,7 @@ $locDisplay = htmlspecialchars(trim($loc), ENT_QUOTES, 'UTF-8');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
-    <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+    <link rel="icon" href="assets/img/icon.png" type="image/png">
     <title>EJN General Ledger</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">

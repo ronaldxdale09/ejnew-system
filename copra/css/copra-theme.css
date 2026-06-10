@@ -511,9 +511,11 @@ body.copra-module .chosen-container.chosen-with-drop {
 }
 
 .copra-login-card__brand img {
-    width: 48px;
-    height: 48px;
-    margin-bottom: 0.5rem;
+    width: min(100%, 240px);
+    height: auto;
+    margin: 0 auto 0.75rem;
+    display: block;
+    object-fit: contain;
 }
 
 .copra-login-card__brand h1 {

@@ -75,12 +75,13 @@
 }
 
 .admin-sidebar__brand img {
-    width: 36px;
-    height: 36px;
+    width: auto;
+    max-width: 140px;
+    height: 32px;
     object-fit: contain;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 4px;
+    border-radius: 0;
+    background: transparent;
+    padding: 0;
 }
 
 .admin-sidebar__brand strong {

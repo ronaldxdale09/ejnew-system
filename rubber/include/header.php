@@ -25,7 +25,7 @@ $adminThemeVer = rubber_mtime(__DIR__ . '/../../admin/css/admin-theme.css');
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <link rel="icon" href="<?php echo $rubber_base; ?>assets/img/logo.png" type="image/png">
+    <link rel="icon" href="<?php echo $rubber_base; ?>assets/img/icon.png" type="image/png">
     <title>EJN Rubber</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">

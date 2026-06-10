@@ -6,7 +6,7 @@ $topbarTitle = sales_resolve_topbar_title($currentPage);
 
 <aside class="admin-sidebar" id="adminSidebar" aria-label="Sales navigation">
     <div class="admin-sidebar__brand">
-        <img src="assets/img/logo.png" alt="EJN Rubber" width="36" height="36">
+        <img src="assets/img/logo.png" alt="EJN Rubber" height="32">
         <div>
             <strong>EJN Rubber</strong>
             <small>Sales</small>

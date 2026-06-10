@@ -122,12 +122,15 @@ body {
 }
 
 .hero-logo {
-    width: auto;
-    height: 48px;
-    max-width: 120px;
-    margin-bottom: 1rem;
+    width: min(100%, 320px);
+    height: auto;
+    margin: 0 auto 1rem;
+    display: block;
     object-fit: contain;
-    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.25));
+    background: rgba(255, 255, 255, 0.96);
+    padding: 0.85rem 1.1rem;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
 }
 
 .hero-title {
@@ -207,33 +210,16 @@ body {
 .brand-mobile {
     display: flex;
     align-items: center;
-    gap: 0.875rem;
+    justify-content: center;
     margin-bottom: 1.5rem;
     padding-bottom: 1.25rem;
     border-bottom: 1px solid var(--slate-100);
 }
 
-.brand-icon {
-    width: 44px;
-    height: 44px;
+.brand-logo {
+    width: min(100%, 260px);
+    height: auto;
     object-fit: contain;
-    border-radius: 10px;
-    background: var(--slate-100);
-    padding: 6px;
-}
-
-.brand-mobile h2 {
-    margin: 0;
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--slate-900);
-    line-height: 1.2;
-}
-
-.brand-mobile p {
-    margin: 0.15rem 0 0;
-    font-size: 0.8rem;
-    color: var(--slate-500);
 }
 
 .form-header {
@@ -434,8 +420,8 @@ body {
     }
 
     .hero-logo {
-        height: 56px;
-        max-width: 140px;
+        width: min(100%, 360px);
+        height: auto;
         margin-bottom: 1.5rem;
     }
 
@@ -512,8 +498,9 @@ body {
     }
 
     .hero-logo {
-        width: 40px;
-        margin-bottom: 0.5rem;
+        width: min(100%, 220px);
+        height: auto;
+        margin-bottom: 0.75rem;
     }
 
     .hero-title {
