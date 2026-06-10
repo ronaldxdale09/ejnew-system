@@ -23,7 +23,13 @@ $average_cost = plantation_clean_numeric($_POST['average_cost'] ?? '0');
 
 $statusRow = mysqli_fetch_assoc(mysqli_query($con, "SELECT status FROM bales_container_record WHERE container_id = {$ref_no} LIMIT 1"));
 $currentStatus = $statusRow['status'] ?? 'In Progress';
-$newStatus = in_array($currentStatus, ['Sold', 'Sold-Update'], true) ? 'Sold-Update' : 'In Progress';
+if (in_array($currentStatus, ['Sold', 'Sold-Update'], true)) {
+    $newStatus = 'Sold-Update';
+} elseif ($currentStatus === 'Awaiting Release') {
+    $newStatus = 'Awaiting Release';
+} else {
+    $newStatus = 'In Progress';
+}
 
 $query = "UPDATE bales_container_record SET
     van_no = '{$van_no}',

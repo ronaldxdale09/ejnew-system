@@ -251,7 +251,7 @@ if (!function_exists('plantation_container_status_badge')) {
 if (!function_exists('plantation_container_editable')) {
     function plantation_container_editable(string $status): bool
     {
-        return in_array($status, ['Draft', 'In Progress', 'Sold-Update'], true);
+        return in_array($status, ['Draft', 'In Progress', 'Awaiting Release', 'Sold-Update'], true);
     }
 }
 

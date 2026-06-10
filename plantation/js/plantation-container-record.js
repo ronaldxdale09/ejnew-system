@@ -117,7 +117,7 @@
 
             if (row.status === 'Awaiting Release') {
                 $('#releaseButton').show();
-                $('#editButton').hide();
+                $('#editButton').show();
             } else if (row.status === 'Draft' || row.status === 'In Progress' || row.status === 'Sold-Update') {
                 $('#releaseButton').hide();
                 $('#editButton').show();

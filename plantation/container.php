@@ -47,7 +47,7 @@ plantation_shell_open(
 
     <?php if (!$editable) : ?>
     <div class="plantation-notice alert alert-info py-2 mb-3" role="note">
-        Editing is disabled for containers with status <strong><?php echo adm_esc($status); ?></strong>. Open from the list to view details or release when awaiting release.
+        Editing is disabled for containers with status <strong><?php echo adm_esc($status); ?></strong>. Open from the list to view details.
     </div>
     <?php endif; ?>
 
