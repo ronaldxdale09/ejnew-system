@@ -230,26 +230,33 @@ $('#newPurchase').submit(function() {
 $('#confirmPurchase').click(function() {
     $("#confirmModal").modal("hide");
     $.post($('#newPurchase').attr('action'), $('#newPurchase :input').serializeArray(), function(result) {
+        var text = (result || '').toString().trim();
+        if (text.indexOf('ERROR:') === 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Transaction failed',
+                text: text.replace(/^ERROR:\s*/, '')
+            });
+            return;
+        }
+
         $('#result').html(result);
         Swal.fire({
             title: "Good job!",
             text: "Transaction Was Successful!",
-            type: "success"
+            icon: "success"
         }).then(function() {
-            $(document).ready(function() {
-                const span = document.getElementById('trans_status');
-                span.innerHTML = `<span class="badge alert-success">COMPLETED</span>`;
-
-            });
-
-
-
+            const span = document.getElementById('trans_status');
+            if (span) {
+                span.innerHTML = '<span class="badge alert-success">COMPLETED</span>';
+            }
             document.getElementById("receiptBtn").click();
-            $_SESSION['transaction'] =
-                'COMPLETED';
-
-
-
+        });
+    }).fail(function() {
+        Swal.fire({
+            icon: 'error',
+            title: 'Transaction failed',
+            text: 'Could not reach the server. Please try again.'
         });
     });
 });

@@ -1,81 +1,125 @@
-<?php 
+<?php
+include 'db.php';
 
-include('db.php');
-
-function execute_query($con, $query) {
-    $result = mysqli_query($con, $query);
-    if(!$result) {
-        throw new Exception("Failed to execute query: $query. Error: " . mysqli_error($con));
+function bales_post(string $key, $default = ''): string
+{
+    if (!isset($_POST[$key])) {
+        return (string) $default;
     }
-    return $result;
+
+    return is_scalar($_POST[$key]) ? trim((string) $_POST[$key]) : (string) $default;
+}
+
+function bales_num(string $key): float
+{
+    return (float) str_replace(',', '', bales_post($key, '0'));
+}
+
+function bales_esc(string $value): string
+{
+    global $con;
+    return mysqli_real_escape_string($con, $value);
 }
 
 try {
-
-    $seller = $_POST['m_name'];
-    $loc = $_SESSION["loc"];
-    $invoice = $_POST['m_invoice'];
-    $date = $_POST['m_date'];
-    $address = $_POST['m_address'];
-    $contract = $_POST['m_contract'];
-
-    $lot_number = $_POST['m_lot_number'];
-    $delivery_date = $_POST['m_delivery_date'];
-
-    $bales_count = $_POST['m_bales_count'];
-
-    $entry = floatval(str_replace(',', '', $_POST['m_entry']));
-    $total_net_weight = floatval(str_replace(',', '', $_POST['m_total_net_weight']));
-    $drc = floatval(str_replace(',', '', $_POST['m_drc']));
-    $excess = floatval(str_replace(',', '', $_POST['m_excess']));
-
-    
-    $price_1 = floatval(str_replace(',', '', $_POST['m_price_1']));
-    $price_2 = floatval(str_replace(',', '', $_POST['m_price_2']));
-    $first_total = floatval(str_replace(',', '', $_POST['m_first_total']));
-    $second_total = floatval(str_replace(',', '', $_POST['m_second_total']));
-    $prod_id = floatval(str_replace(',', '', $_POST['m_prod_id']));
-    $total_amount = floatval(str_replace(',', '', $_POST['m_total_amount']));
-    $less = floatval(str_replace(',', '', $_POST['m_less']));
-    $amount_paid = floatval(str_replace(',', '', $_POST['m_total-paid']));
-    
-    $words_amount =  $_POST['m_total-words'];
-
-
-    $prepared_by = $_POST['prepared_by'];
-    $approved_by = $_POST['approved_by'];
-    $received_by = $_POST['received_by'];
-
-
-
-    // UPDATE CONTRACT
-    if ($contract !='SPOT') {
-        // Calculate new delivered and balance values here...
-        $query = "UPDATE `rubber_contract` SET 
-            `delivered` = '$newDelivered', 
-            `balance`='$newBalance',
-            `status`='$status' 
-            WHERE `contract_no` ='$contract' AND `type`='WET' and `loc`='Basilan'";
-        execute_query($con, $query);
+    $id = (int) bales_post('m_invoice', '0');
+    if ($id <= 0) {
+        throw new Exception('Invalid purchase ID. Reload the page and try again.');
     }
 
-    // Update Seller Cash Advance
-    $seller_ca_query = "SELECT * FROM rubber_seller WHERE name='$seller'";
-    $row = mysqli_fetch_array(execute_query($con, $seller_ca_query));
-    $seller_ca = $row['cash_advance'];
-    $total_ca = max(0, $seller_ca - $less);
-    $query = "UPDATE  rubber_seller SET bales_cash_advance = '$total_ca' where name='$seller'";
-    execute_query($con, $query);
+    $loc = str_replace(' ', '', (string) ($_SESSION['loc'] ?? ''));
+    if ($loc === '') {
+        throw new Exception('Session expired. Please sign in again.');
+    }
 
-    $query = "UPDATE bales_transaction 
-    SET production_id = '$prod_id',
-        invoice = '$invoice',
-        contract = '$contract',
-        date = '$date',
-        address = '$address',
-        seller = '$seller',
+    $seller = bales_post('m_name');
+    $date = bales_post('m_date');
+    $address = bales_post('m_address');
+    $contract = bales_post('m_contract', 'SPOT');
+    $lot_number = bales_post('m_lot_number');
+    $delivery_date = bales_post('m_delivery_date');
+    $words_amount = bales_post('m_total-words');
+    $prepared_by = bales_post('prepared_by');
+    $approved_by = bales_post('approved_by');
+    $received_by = bales_post('received_by');
+
+    if ($date === '' || $seller === '') {
+        throw new Exception('Date and seller are required.');
+    }
+
+    $bales_count = (int) bales_num('m_bales_count');
+    $entry = bales_num('m_entry');
+    $total_net_weight = bales_num('m_total_net_weight');
+    $drc = bales_num('m_drc');
+    $excess = bales_num('m_excess');
+    $price_1 = bales_num('m_price_1');
+    $price_2 = bales_num('m_price_2');
+    $first_total = bales_num('m_first_total');
+    $second_total = bales_num('m_second_total');
+    $prod_id = (int) bales_num('m_prod_id');
+    $total_amount = bales_num('m_total_amount');
+    $less = bales_num('m_less');
+    $amount_paid = bales_num('m_total-paid');
+
+    $locEsc = bales_esc($loc);
+    $idEsc = bales_esc((string) $id);
+    $sellerEsc = bales_esc($seller);
+    $contractEsc = bales_esc($contract);
+
+    if ($contract !== '' && $contract !== 'SPOT') {
+        $contractResult = mysqli_query(
+            $con,
+            "SELECT delivered, balance FROM rubber_contract
+             WHERE contract_no='$contractEsc' AND type='BALES' AND loc='$locEsc' LIMIT 1"
+        );
+        $contractInfo = $contractResult ? mysqli_fetch_assoc($contractResult) : null;
+
+        if (!$contractInfo) {
+            throw new Exception('Contract not found or already completed.');
+        }
+
+        $previous_delivered = (float) ($contractInfo['delivered'] ?? 0);
+        $balanceBefore = bales_num('m_balance');
+        $deliveredWeight = $total_net_weight > 0 ? $total_net_weight : $entry;
+        $newDelivered = $previous_delivered + $deliveredWeight;
+        $newBalance = $balanceBefore - $deliveredWeight;
+        $status = abs($newBalance) < 0.0001 ? 'COMPLETED' : 'UPDATED';
+
+        if (!mysqli_query(
+            $con,
+            "UPDATE rubber_contract
+             SET delivered='$newDelivered', balance='$newBalance', status='$status'
+             WHERE contract_no='$contractEsc' AND type='BALES' AND loc='$locEsc'"
+        )) {
+            throw new Exception('Failed to update contract: ' . mysqli_error($con));
+        }
+    }
+
+    $sellerRow = mysqli_query($con, "SELECT bales_cash_advance FROM rubber_seller WHERE name='$sellerEsc' LIMIT 1");
+    $row = $sellerRow ? mysqli_fetch_assoc($sellerRow) : null;
+    $seller_ca = (float) ($row['bales_cash_advance'] ?? 0);
+    $total_ca = max(0, $seller_ca - $less);
+
+    if (!mysqli_query($con, "UPDATE rubber_seller SET bales_cash_advance='$total_ca' WHERE name='$sellerEsc'")) {
+        throw new Exception('Failed to update seller cash advance: ' . mysqli_error($con));
+    }
+
+    $dateEsc = bales_esc($date);
+    $addressEsc = bales_esc($address);
+    $lotEsc = bales_esc($lot_number);
+    $wordsEsc = bales_esc($words_amount);
+    $deliveryEsc = bales_esc($delivery_date);
+    $invoiceEsc = $idEsc;
+
+    $query = "UPDATE bales_transaction SET
+        production_id = '$prod_id',
+        invoice = '$invoiceEsc',
+        contract = '$contractEsc',
+        date = '$dateEsc',
+        address = '$addressEsc',
+        seller = '$sellerEsc',
         entry = '$entry',
-        excess= '$excess',
+        excess = '$excess',
         total_net_weight = '$total_net_weight',
         drc = '$drc',
         total_bales_pcs = '$bales_count',
@@ -86,43 +130,50 @@ try {
         total_amount = '$total_amount',
         less = '$less',
         amount_paid = '$amount_paid',
-        words_amount = '$words_amount',
-        delivery_date = '$delivery_date',
-        lot_code = '$lot_number'
-    WHERE id = '$invoice'"; 
-    
-    execute_query($con, $query);
+        words_amount = '$wordsEsc',
+        delivery_date = " . ($delivery_date !== '' ? "'$deliveryEsc'" : 'NULL') . ",
+        lot_code = '$lotEsc'
+    WHERE id = '$idEsc'";
 
+    if (!mysqli_query($con, $query)) {
+        throw new Exception('Transaction failed: ' . mysqli_error($con));
+    }
 
-    // Update Planta Recording
-    $planta_recording_query = "SELECT * FROM planta_recording WHERE recording_id='$prod_id'";
-    $row = mysqli_fetch_array(execute_query($con, $planta_recording_query));
-    $expenses = $row['production_expense'];
-    $produce_total_weight = $row['produce_total_weight'];
-    $total_prod_cost = $total_amount + $expenses;
-    $unit_cost = $total_prod_cost / $produce_total_weight;
-    $query = "UPDATE  planta_recording SET 
-        purchase_cost = '$total_amount',
-        total_production_cost='$total_prod_cost',
-        bales_average_cost='$unit_cost',
-        status = 'For Sale' 
-        where recording_id='$prod_id'";
-    execute_query($con, $query);
+    if ($prod_id > 0) {
+        $plantaResult = mysqli_query(
+            $con,
+            "SELECT production_expense, produce_total_weight FROM planta_recording WHERE recording_id='$prod_id' LIMIT 1"
+        );
+        $prow = $plantaResult ? mysqli_fetch_assoc($plantaResult) : null;
 
+        if ($prow) {
+            $expenses = (float) ($prow['production_expense'] ?? 0);
+            $produce_total_weight = (float) ($prow['produce_total_weight'] ?? 0);
+            if ($produce_total_weight > 0) {
+                $total_prod_cost = $total_amount + $expenses;
+                $unit_cost = $total_prod_cost / $produce_total_weight;
+                mysqli_query(
+                    $con,
+                    "UPDATE planta_recording SET
+                        purchase_cost = '$total_amount',
+                        total_production_cost = '$total_prod_cost',
+                        bales_average_cost = '$unit_cost',
+                        status = 'For Sale'
+                     WHERE recording_id = '$prod_id'"
+                );
+            }
+        }
+    }
 
-
-
-    // Everything was successful
-    $_SESSION['invoice'] = $invoice;
+    $_SESSION['invoice'] = $id;
     $_SESSION['lot_code'] = $lot_number;
-    $_SESSION['print_invoice'] = $invoice;
+    $_SESSION['print_invoice'] = $id;
     $_SESSION['prepared_by'] = $prepared_by;
     $_SESSION['approved_by'] = $approved_by;
     $_SESSION['received_by'] = $received_by;
     $_SESSION['transaction'] = 'COMPLETED';
+
     echo 'success';
 } catch (Exception $e) {
-    echo "ERROR: " . $e->getMessage();
+    echo 'ERROR: ' . $e->getMessage();
 }
-
-?>
