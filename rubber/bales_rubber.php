@@ -82,6 +82,7 @@ $balesFormInit = [
         'seller' => $sellerName,
         'contract' => $currentContract,
         'less' => (string) ($record['less'] ?? ''),
+        'amount_paid' => (string) ($record['amount_paid'] ?? ''),
         'total_net_weight' => (string) ($record['total_net_weight'] ?? ''),
         'production_id' => (string) ($record['production_id'] ?? ''),
     ],

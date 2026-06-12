@@ -218,12 +218,11 @@ try {
 
     mysqli_begin_transaction($con);
 
+    $sameSeller = $isUpdate && strcasecmp($oldSeller, $seller) === 0;
+
     if ($isUpdate) {
         if ($oldContract !== '' && strcasecmp($oldContract, 'SPOT') !== 0) {
             bales_contract_apply($con, $oldContract, $locEsc, -$oldWeight);
-        }
-        if ($oldSeller !== '') {
-            bales_adjust_seller_ca($con, $oldSeller, $oldLess);
         }
         if ($oldProdId > 0 && $oldProdId !== $prod_id) {
             bales_apply_planta_cost($con, $oldProdId, 0, false);
@@ -243,11 +242,35 @@ try {
     }
 
     $sellerCa = (float) ($row['bales_cash_advance'] ?? 0);
-    if ($less > $sellerCa + 0.0001) {
-        throw new Exception('Cash advance deduction exceeds available bales cash advance.');
-    }
 
-    bales_adjust_seller_ca($con, $seller, -$less);
+    if ($isUpdate && $sameSeller && abs($less - $oldLess) < 0.0001) {
+        // Cash advance unchanged for this seller; skip seller balance adjustment.
+    } elseif ($sameSeller) {
+        $availableCa = $sellerCa + $oldLess;
+        if ($less > $availableCa + 0.0001) {
+            throw new Exception('Cash advance deduction exceeds available bales cash advance.');
+        }
+        bales_adjust_seller_ca($con, $seller, $oldLess - $less);
+    } else {
+        if ($isUpdate && $oldSeller !== '') {
+            bales_adjust_seller_ca($con, $oldSeller, $oldLess);
+        }
+
+        if (strcasecmp($oldSeller, $seller) !== 0) {
+            $sellerRow = mysqli_query($con, "SELECT bales_cash_advance FROM rubber_seller WHERE name='$sellerEsc' LIMIT 1");
+            $row = $sellerRow ? mysqli_fetch_assoc($sellerRow) : null;
+            if (!$row) {
+                throw new Exception('Seller not found.');
+            }
+            $sellerCa = (float) ($row['bales_cash_advance'] ?? 0);
+        }
+
+        if ($less > $sellerCa + 0.0001) {
+            throw new Exception('Cash advance deduction exceeds available bales cash advance.');
+        }
+
+        bales_adjust_seller_ca($con, $seller, -$less);
+    }
 
     $dateEsc = bales_esc($date);
     $addressEsc = bales_esc($address);

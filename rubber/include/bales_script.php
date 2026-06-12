@@ -58,6 +58,20 @@ function computeBalesRubber() {
     $("#amount-paid-words").val(words);
 }
 
+function preserveEditCashFields() {
+    if (!window.BALES_IS_EDIT || !window.BALES_ORIGINAL) {
+        return;
+    }
+
+    var nf = new Intl.NumberFormat('en-US');
+    var less = parseFloat(String(window.BALES_ORIGINAL.less || '').replace(/,/g, '')) || 0;
+    var amountPaid = parseFloat(String(window.BALES_ORIGINAL.amount_paid || '').replace(/,/g, '')) || 0;
+
+    $("#cash_advance").val(nf.format(less));
+    $("#amount_paid").val(nf.format(amountPaid));
+    $("#amount-paid-words").val(numToWords(amountPaid));
+}
+
 function contractSet(contract) {
     $.get("include/fetch/fetchContract.php", {
         contract: contract.replace(/,/g, '')
@@ -82,15 +96,17 @@ function contractSet(contract) {
             $('#net_weight_2, #price_2, #kilo_bales_2').prop('disabled', false);
         }
 
-        fetchAddress(myObj[4]);
-        fetchCashAdvance(myObj[4]);
-        $("#balance").val(myObj[2]);
-        $("#quantity").val(myObj[0]);
-        if (myObj[3]) {
-            $("#price_1").val(myObj[3]);
+        if (!window.BALES_IS_EDIT) {
+            fetchAddress(myObj[4]);
+            fetchCashAdvance(myObj[4]);
+            $("#balance").val(myObj[2]);
+            $("#quantity").val(myObj[0]);
+            if (myObj[3]) {
+                $("#price_1").val(myObj[3]);
+            }
+            $('#name').val(myObj[4]).trigger('chosen:updated');
+            computeBalesRubber();
         }
-        $('#name').val(myObj[4]).trigger('chosen:updated');
-        computeBalesRubber();
     })
 }
 
@@ -113,7 +129,11 @@ function fetchCashAdvance(name) {
         name: name
     }, function(available) {
         var pool = parseFloat(String(available || '').replace(/,/g, '')) || 0;
-        if (window.BALES_IS_EDIT && window.BALES_ORIGINAL && name === window.BALES_ORIGINAL.seller) {
+        var editingSameSeller = window.BALES_IS_EDIT
+            && window.BALES_ORIGINAL
+            && name === window.BALES_ORIGINAL.seller;
+
+        if (editingSameSeller) {
             pool += parseFloat(String(window.BALES_ORIGINAL.less || '').replace(/,/g, '')) || 0;
         }
 
@@ -131,7 +151,12 @@ function fetchCashAdvance(name) {
             }
             $('#cash_advance').prop('readOnly', false);
         }
-        computeBalesRubber();
+
+        if (editingSameSeller) {
+            preserveEditCashFields();
+        } else {
+            computeBalesRubber();
+        }
     });
 }
 </script>
