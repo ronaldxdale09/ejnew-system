@@ -39,7 +39,7 @@
             $('#contract').val($btn.data('contract'));
             $('#name').val($btn.data('seller'));
             $('#address').val($btn.data('address'));
-            $('#total_ca').val($btn.data('total_amount'));
+            $('#total_ca').val($btn.data('less'));
             $('#net_weight_1').val($btn.data('net_weight_1'));
             $('#kilo_bales_1').val($btn.data('kilo_bales_1'));
             $('#total_bales_1').val($btn.data('total_bales_1'));

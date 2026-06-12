@@ -62,7 +62,15 @@ function contractSet(contract) {
     $.get("include/fetch/fetchContract.php", {
         contract: contract.replace(/,/g, '')
     }, function(response) {
-        var myObj = JSON.parse(response);
+        var myObj;
+        try {
+            myObj = JSON.parse(response);
+        } catch (e) {
+            return;
+        }
+        if (!Array.isArray(myObj)) {
+            return;
+        }
 
         if (contract == "SPOT") {
             $('#name').prop('disabled', false);
@@ -78,7 +86,11 @@ function contractSet(contract) {
         fetchCashAdvance(myObj[4]);
         $("#balance").val(myObj[2]);
         $("#quantity").val(myObj[0]);
+        if (myObj[3]) {
+            $("#price_1").val(myObj[3]);
+        }
         $('#name').val(myObj[4]).trigger('chosen:updated');
+        computeBalesRubber();
     })
 }
 

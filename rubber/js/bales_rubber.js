@@ -26,7 +26,7 @@ function bales_compute(price_1, price_2, less) {
     //     return nf.format(total.toFixed(2));
     // }
 
-    $("#first_total").val((price_1 * total_net));
+    $("#first_total").val(nf.format((Number(price_1) * Number(total_net)).toFixed(2)));
     // $("#second_total").val(computeTotal(price_2, net_2));
 
     // Compute total amount and amount paid

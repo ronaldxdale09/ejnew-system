@@ -3,11 +3,13 @@ include('../function/db.php');
 
 
 $loc = $_SESSION["loc"];
-$purchase_id = $_POST['purchase_id'];
-$sql  = "SELECT *,dry_price_transfer.price as dry_price FROM planta_recording 
+$purchase_id = (int) ($_POST['purchase_id'] ?? 0);
+$sql  = "SELECT *, dry_price_transfer.price as dry_price FROM planta_recording
 LEFT JOIN dry_price_transfer ON planta_recording.purchased_id = dry_price_transfer.dry_id
-WHERE planta_recording.status='Purchase' and (produce_total_weight !='0' or produce_total_weight IS NOT NULL) and planta_recording.source='$loc'
-ORDER BY planta_recording.recording_id ASC ";
+WHERE planta_recording.status='Purchase'
+  AND (produce_total_weight != '0' OR produce_total_weight IS NOT NULL)
+  AND planta_recording.source='" . mysqli_real_escape_string($con, $loc) . "'
+ORDER BY planta_recording.recording_id ASC";
 
 $result = mysqli_query($con, $sql);
 if (!$result) {
@@ -54,8 +56,7 @@ if (mysqli_num_rows($result) > 0) {
             <td>' . number_format($arr['weight'], 0, '.', ',') . ' kg</td>
             <td>' . number_format($arr['produce_total_weight'], 0, '.', ',') . ' kg</td>
             <td>' . ($arr['drc'] ? number_format($arr['drc'], 2) : '-') . ' %</td>
-            <td scope="col">  <button type="button" class="btn btn-warning text-dark btnSelectInventory"
-            id="receiptBtn">Select</button></td>
+            <td scope="col"><button type="button" class="btn btn-warning text-dark btnSelectInventory">Select</button></td>
         </tr>';
     }
 }
@@ -78,10 +79,8 @@ echo $output;
 
 
 
-        var purchase_id = <?php echo $purchase_id ?>;
-        console.log(purchase_id)
-        var recording_id = ($tr.data('recording_id'));
-        var $tr = $(this).closest('tr');
+        var purchase_id = <?php echo (int) $purchase_id; ?>;
+        var recording_id = $tr.data('recording_id');
         var entryWeight = $tr.data('entry-weight');
         var netWeight = $tr.data('net-weight');
         var drc = $tr.data('drc');
@@ -107,6 +106,7 @@ echo $output;
         $('#weight_1').val(total_weight);
 
         $('#recording_id').val(recording_id);
+        $('#prod_id').val(recording_id);
         $('#m_lot_number').val(lot_number);
         $('#m_delivery_date').val(receiving_date);
         $('#m_prod_id').val(recording_id);
@@ -120,13 +120,16 @@ echo $output;
                 'purchase_id': purchase_id
             },
             success: function(response) {
-                // Do something on success
-                console.log('Response: ', response);
+                if (response.indexOf('Error') === 0) {
+                    Swal.fire({ icon: 'error', title: 'Inventory error', text: response });
+                    return;
+                }
                 $('#lot_code').val(lot_number);
-                $('#prod_id').val(recording_id);
+                if (typeof window.fetch_bales_inventory === 'function') {
+                    window.fetch_bales_inventory();
+                }
                 nameChange(supplier);
-                fetch_record();
-                computeBalesRubber()
+                computeBalesRubber();
             },
             error: function(error) {
                 // Do something on error

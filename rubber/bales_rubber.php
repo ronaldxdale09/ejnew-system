@@ -2,137 +2,87 @@
 include "include/header.php";
 include "include/navbar.php";
 
-$trans_id = 0;
-if (isset($_GET['id'])) {
-    $trans_id = $_GET['id'];
-    $trans_id =  preg_replace('~\D~', '', $trans_id);
-
-    $sql = "SELECT * FROM bales_transaction WHERE id = $trans_id";
-    $result = $con->query($sql);
-
-    if ($result->num_rows > 0) {
-        // Output data of each row
-        $record = $result->fetch_assoc();
-
-        $contract = isset($record['contract']) ? $record['contract'] : 'SPOT';
-        $seller = isset($record['seller']) ? $record['seller'] : '';
-        $date = isset($record['date']) ? $record['date'] : '';
-        $address = isset($record['address']) ? $record['address'] : '';
-        $entry = isset($record['entry']) ? $record['entry'] : 0;
-        $lot_code = isset($record['lot_code']) ? $record['lot_code'] : '';
-        $total_net_weight = isset($record['total_net_weight']) ? $record['total_net_weight'] : 0;
-
-        $price_1 = isset($record['price_1']) ? $record['price_1'] : 0;
-        $first_total = isset($record['first_total']) ? $record['first_total'] : 0;
-        $price_2 = isset($record['price_2']) ? $record['price_2'] : 0;
-        $second_total = isset($record['second_total']) ? $record['second_total'] : 0;
-        $total_amount = isset($record['total_amount']) ? $record['total_amount'] : 0;
-        $cash_advance = isset($record['less']) ? $record['less'] : 0;
-        $amount_paid = isset($record['amount_paid']) ? $record['amount_paid'] : 0;
-        $amount_words = isset($record['words_amount']) ? $record['words_amount'] : '';
-        $recorded_by = isset($record['recorded_by']) ? $record['recorded_by'] : '';
-        $drc = isset($record['drc']) ? $record['drc'] : 0; // If drc refers to dry rubber content
-        $production_id = isset($record['production_id']) ? $record['production_id'] : 0; // If drc refers to dry rubber content
-
-        // Debugging code
-        echo "
-    <script>
-        console.log('contract: " . $contract . "');
-        console.log('seller: " . $seller . "');
-        console.log('date: " . $date . "');
-        console.log('address: " . $address . "');
-        console.log('entry: " . $entry . "');
-
-        console.log('total_net_weight: " . $total_net_weight . "');
-
-        console.log('price_1: " . $price_1 . "');
-        console.log('first_total: " . $first_total . "');
-        console.log('price_2: " . $price_2 . "');
-        console.log('second_total: " . $second_total . "');
-        console.log('total_amount: " . $total_amount . "');
-        console.log('cash_advance: " . $cash_advance . "');
-        console.log('amount_paid: " . $amount_paid . "');
-        console.log('amount_words: " . $amount_words . "');
-        console.log('loc: " . $loc . "');
-        console.log('recorded_by: " . $recorded_by . "');
-        console.log('drc: " . $drc . "');
-    </script>
-";
-        echo "
-            <script>
-                $(document).ready(function() {
-                    $('#invoice').val('" . $trans_id . "');
-                    $('#date').val('" . $date . "');
-                    $('#contract').val('" . $contract . "');
-                    $('#name').val('" . $seller . "').trigger('chosen:updated');
-
-                    $('#lot_code').val('" . $lot_code . "');
-                    $('#prod_id').val('" . $production_id . "');
-                    $('#address').val('" . $address . "');
-                    $('#entry').val('" . $entry . "');
-                    $('#total_net_weight').val('" . $total_net_weight . "');
-                    $('#price_1').val('" . $price_1 . "');
-                    $('#first_total').val('" . $first_total . "');
-
-                    $('#price_2').val('" . $price_2 . "');
-                    $('#second_total').val('" . $second_total . "');
-                    $('#total_amount').val('" . $total_amount . "');
-                    $('#cash_advance').val('" . $cash_advance . "');
-                    $('#amount_paid').val('" . $amount_paid . "');
-                    $('#amount-paid-words').val('" . $amount_words . "');
-                    $('#drc').val('" . $drc . "');
-
-                });
-            </script>
-        ";
-    }
-
-
-
-    $_SESSION['transaction'] = 'ONGOING';
-    //seller list
-
-    $contract = "SELECT * FROM rubber_contract where type='BALES' AND loc='$loc' AND status='PENDING' OR status='UPDATED' ";
-    $c_result = mysqli_query($con, $contract);
-    $contractList = "";
-    while ($arr = mysqli_fetch_array($c_result)) {
-        $contractList .=
-            '
-        <option value="' .
-            $arr["contract_no"] .
-            '">[ ' .
-            $arr["contract_no"] .
-            " ]  " .
-            $arr["seller"] .
-            "</option>";
-    }
-
-
-    $seller = "SELECT * FROM rubber_seller WHERE loc='$loc' ";
-    $result = mysqli_query($con, $seller);
-    $sellerList = "";
-    while ($arr = mysqli_fetch_array($result)) {
-        $sellerList .=
-            '<option value="' . $arr["name"] . '">' . $arr["name"] . "</option>";
-    }
-
-    $invoice = mysqli_query($con, "SELECT * FROM bales_transaction WHERE loc='$loc' ORDER BY id DESC LIMIT 1");
-    $getinvoice = mysqli_fetch_array($invoice);
-
-    if ($getinvoice) {
-        $invoiceCount = $getinvoice[0] + 1;
-    } else {
-        $invoiceCount = 1; // Default value when table is empty
-    }
-
-
-    $month = date("m");
-    $day = date("d");
-    $year = date("Y");
-
-    $today = $year . "-" . $month . "-" . $day;
+if (!isset($_GET['id'])) {
+    header('Location: bales_purchase_record.php');
+    exit;
 }
+
+$trans_id = (int) preg_replace('~\D~', '', (string) $_GET['id']);
+if ($trans_id <= 0) {
+    header('Location: bales_purchase_record.php');
+    exit;
+}
+
+$locEsc = mysqli_real_escape_string($con, $loc);
+$record = null;
+$transactionStatus = 'ONGOING';
+
+$sql = "SELECT * FROM bales_transaction WHERE id = $trans_id AND loc = '$locEsc' LIMIT 1";
+$result = $con->query($sql);
+
+if (!$result || $result->num_rows === 0) {
+    header('Location: bales_purchase_record.php');
+    exit;
+}
+
+$record = $result->fetch_assoc();
+$sellerName = trim((string) ($record['seller'] ?? ''));
+$totalAmount = (float) ($record['total_amount'] ?? 0);
+$amountPaid = (float) ($record['amount_paid'] ?? 0);
+
+if ($sellerName !== '' && $totalAmount > 0) {
+    $transactionStatus = 'COMPLETED';
+}
+
+$_SESSION['transaction'] = $transactionStatus;
+
+$balesFormInit = [
+    'invoice' => (string) $trans_id,
+    'date' => (string) ($record['date'] ?? date('Y-m-d')),
+    'contract' => (string) ($record['contract'] ?? 'SPOT'),
+    'seller' => $sellerName,
+    'lot_code' => (string) ($record['lot_code'] ?? ''),
+    'production_id' => (string) ($record['production_id'] ?? ''),
+    'address' => (string) ($record['address'] ?? ''),
+    'entry' => (string) ($record['entry'] ?? ''),
+    'total_net_weight' => (string) ($record['total_net_weight'] ?? ''),
+    'price_1' => (string) ($record['price_1'] ?? ''),
+    'first_total' => (string) ($record['first_total'] ?? ''),
+    'price_2' => (string) ($record['price_2'] ?? ''),
+    'second_total' => (string) ($record['second_total'] ?? ''),
+    'total_amount' => (string) ($record['total_amount'] ?? ''),
+    'cash_advance' => (string) ($record['less'] ?? ''),
+    'amount_paid' => (string) ($record['amount_paid'] ?? ''),
+    'amount_words' => (string) ($record['words_amount'] ?? ''),
+    'drc' => (string) ($record['drc'] ?? ''),
+    'status' => $transactionStatus,
+];
+
+$contractQuery = "SELECT * FROM rubber_contract
+    WHERE type='BALES' AND loc='$locEsc' AND (status='PENDING' OR status='UPDATED')
+    ORDER BY contract_no ASC";
+$c_result = mysqli_query($con, $contractQuery);
+$contractList = "";
+while ($arr = mysqli_fetch_array($c_result)) {
+    $contractList .= '<option value="' . htmlspecialchars($arr['contract_no'], ENT_QUOTES, 'UTF-8') . '">[ '
+        . htmlspecialchars($arr['contract_no'], ENT_QUOTES, 'UTF-8') . ' ]  '
+        . htmlspecialchars($arr['seller'], ENT_QUOTES, 'UTF-8') . '</option>';
+}
+
+$sellerQuery = "SELECT name FROM rubber_seller WHERE loc='$locEsc' ORDER BY name ASC";
+$sellerResult = mysqli_query($con, $sellerQuery);
+$sellerList = "";
+while ($arr = mysqli_fetch_array($sellerResult)) {
+    $sellerList .= '<option value="' . htmlspecialchars($arr['name'], ENT_QUOTES, 'UTF-8') . '">'
+        . htmlspecialchars($arr['name'], ENT_QUOTES, 'UTF-8') . '</option>';
+}
+
+$today = date('Y-m-d');
 ?>
+<script>
+window.BALES_FORM_INIT = <?php echo json_encode($balesFormInit, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP); ?>;
+window.BALES_PURCHASE_ID = <?php echo (int) $trans_id; ?>;
+</script>
 
 <?php rubber_page_begin('Bale Purchase', 'Enter bale purchase transaction', 'Purchase Entry'); ?>
 <input type="hidden" id="selected-cart" value="">
@@ -154,7 +104,7 @@ if (isset($_GET['id'])) {
                                         <div class="card-body">
                                             <div class="card">
                                                 <div class="card-body">
-                                                    <h4 class="card-text">Transaction Status: <span id='trans_status' class="badge bg-danger">ONGOING</span></h4>
+                                                    <h4 class="card-text">Transaction Status: <span id='trans_status' class="badge <?php echo $transactionStatus === 'COMPLETED' ? 'bg-success' : 'bg-danger'; ?>"><?php echo htmlspecialchars($transactionStatus, ENT_QUOTES, 'UTF-8'); ?></span></h4>
                                                 </div>
                                             </div>
 
@@ -167,7 +117,8 @@ if (isset($_GET['id'])) {
                                                                 <span class="input-group-text" id="inputGroup-sizing-default" style='color:black'>ID
                                                                 </span>
                                                             </div>
-                                                            <input type="text" class="form-control" id='invoice' name='invoice' readonly />
+                                                            <input type="text" class="form-control" id="invoice" name="invoice" readonly />
+                                                            <input type="hidden" id="bales_purchase_id" name="purchase_id" value="<?php echo (int) $trans_id; ?>" />
                                                         </div>
                                                     </div>
                                                     <div class="col">
@@ -273,14 +224,15 @@ if (isset($_GET['id'])) {
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="container">
-                                                <button type="button" class="btn btn-dark text-white btnSelectTrans" id='receiptBtn'>
+                                                <button type="button" class="btn btn-dark text-white btnSelectTrans" id="btnSelectInventory">
                                                     <span class="fa fa-book"></span> Select Inventory</button>
                                                 <button type="button" class="btn btn-secondary text-white btnClear" id='btnClear'>
                                                     <span class="fa fa-eraser"></span> Clear Inventory</button>
                                                 <hr>
                                                 <!-- -->
-                                                <input type="text" class="form-control" id='lot_code' name='lot_code' hidden />
-                                                <input type="text" style='text-align:right' name='prod_id' id='prod_id'hidden >
+                                                <input type="hidden" id="lot_code" name="lot_code">
+                                                <input type="hidden" id="recording_id" name="recording_id">
+                                                <input type="hidden" id="prod_id" name="prod_id">
                                                 <br>
                                                 <div id='selected_inventory_bales'></div> <br>
                                                 <div class="form-group">
@@ -482,23 +434,46 @@ if (isset($_GET['id'])) {
 
 
 <script>
-    function fetch_record() {
+    window.fetch_bales_inventory = function () {
         var purchase_id = <?php echo (int) $trans_id; ?>;
         $.ajax({
             url: "table/bales_purchase_selection.php",
             method: "POST",
-            data: {
-                purchase_id: purchase_id,
-
-            },
-            success: function(data) {
+            data: { purchase_id: purchase_id },
+            success: function (data) {
                 $('#selected_inventory_bales').html(data);
-
-
             }
         });
-    }
-    fetch_record();
+    };
+
+    $(function () {
+        var init = window.BALES_FORM_INIT || {};
+        $('#invoice').val(init.invoice || '');
+        $('#date').val(init.date || '');
+        $('#contract').val(init.contract || 'SPOT').trigger('change');
+        if (init.seller) {
+            $('#name').val(init.seller).trigger('chosen:updated');
+        }
+        $('#lot_code').val(init.lot_code || '');
+        $('#prod_id').val(init.production_id || '');
+        $('#recording_id').val(init.production_id || '');
+        $('#address').val(init.address || '');
+        $('#entry').val(init.entry || '');
+        $('#total_net_weight').val(init.total_net_weight || '');
+        $('#price_1').val(init.price_1 || '');
+        $('#first_total').val(init.first_total || '');
+        $('#price_2').val(init.price_2 || '');
+        $('#second_total').val(init.second_total || '');
+        $('#total_amount').val(init.total_amount || '');
+        $('#cash_advance').val(init.cash_advance || '');
+        $('#amount_paid').val(init.amount_paid || '');
+        $('#amount-paid-words').val(init.amount_words || '');
+        $('#drc').val(init.drc || '');
+        if (init.seller) {
+            nameChange(init.seller);
+        }
+        window.fetch_bales_inventory();
+    });
 
     $('.btnClear').on('click', function() {
         // Open the modal
@@ -516,20 +491,19 @@ if (isset($_GET['id'])) {
                 'purchase_id': purchase_id
             },
             success: function(response) {
-                fetch_record();
-                console.log('Inventory cleared successfully!');
-                console.log('Response:', response);
+                window.fetch_bales_inventory();
                 $('#entry').val('');
                 $('#drc').val('');
                 $('#total_net_weight').val('');
                 $('#price_1').val('');
                 $('#weight_1').val('');
-
+                $('#lot_code').val('');
+                $('#prod_id').val('');
                 $('#recording_id').val('');
                 $('#m_lot_number').val('');
                 $('#m_delivery_date').val('');
                 $('#m_prod_id').val('');
-                computeBalesRubber()
+                computeBalesRubber();
             },
             error: function(error) {
                 console.log('Error:', error);
@@ -542,7 +516,6 @@ if (isset($_GET['id'])) {
 </script>
 
 <script type="text/javascript" src="js/bales_rubber.js"></script>
-<script type="text/javascript" src="js/getWords.js"></script>
 <?php
 
 include "modal/balesModal.php";
@@ -553,6 +526,7 @@ include "modal/cashadvanceModal.php";
 include "modal/addseller_modal.php";
 include "include/bales_script.php";
 ?>
+<script type="text/javascript" src="js/rubber-bales-purchase-entry.js"></script>
 
 
 <script>

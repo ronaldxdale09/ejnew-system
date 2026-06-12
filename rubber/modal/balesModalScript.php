@@ -43,76 +43,67 @@ $('#confirm').click(function() {
             text: 'This transaction is already completed',
         });
     } else {
+        var purchaseId = ($('#invoice').val() || window.BALES_PURCHASE_ID || '').toString().replace(/\D/g, '');
+        if (!purchaseId) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Missing purchase ID',
+                text: 'Reload this page from Bales Purchase Record and try again.'
+            });
+            return;
+        }
+
+        if (typeof window.copyBalesField === 'function') {
+            window.copyBalesField('invoice', 'm_invoice');
+            window.copyBalesField('name', 'm_name');
+            window.copyBalesField('date', 'm_date');
+            window.copyBalesField('address', 'm_address');
+            window.copyBalesField('contract', 'm_contract');
+            window.copyBalesField('quantity', 'm_quantity');
+            window.copyBalesField('balance', 'm_balance');
+            window.copyBalesField('entry', 'm_entry');
+            window.copyBalesField('total_net_weight', 'm_total_net_weight');
+            window.copyBalesField('drc', 'm_drc');
+            window.copyBalesField('excess', 'm_excess');
+            window.copyBalesField('price_1', 'm_price_1');
+            window.copyBalesField('price_2', 'm_price_2');
+            window.copyBalesField('bales_count', 'm_bales_count');
+            window.copyBalesField('lot_code', 'm_lot_number');
+            window.copyBalesField('prod_id', 'm_prod_id');
+            window.copyBalesField('first_total', 'm_first_total');
+            window.copyBalesField('second_total', 'm_second_total');
+            window.copyBalesField('total_amount', 'm_total_amount');
+            window.copyBalesField('cash_advance', 'm_less');
+            window.copyBalesField('amount_paid', 'm_total-paid');
+            window.copyBalesField('amount-paid-words', 'm_total-words');
+        } else {
+            $('#m_invoice').val(purchaseId);
+            $('#m_name').val($("#name").val());
+            $('#m_date').val($("#date").val());
+            $('#m_address').val($("#address").val());
+            $('#m_contract').val($("#contract").val());
+            $('#m_entry').val($("#entry").val());
+            $('#m_total_net_weight').val($("#total_net_weight").val());
+            $('#m_drc').val($("#drc").val());
+            $('#m_excess').val($("#excess").val());
+            $('#m_price_1').val($("#price_1").val());
+            $('#m_price_2').val($("#price_2").val());
+            $('#m_bales_count').val($("#bales_count").val());
+            $('#m_lot_number').val($("#lot_code").val());
+            $('#m_prod_id').val($("#prod_id").val());
+            $('#m_first_total').val($("#first_total").val());
+            $('#m_second_total').val($("#second_total").val());
+            $('#m_total_amount').val($("#total_amount").val());
+            $('#m_less').val($("#cash_advance").val());
+            $('#m_total-paid').val($("#amount_paid").val());
+            $('#m_total-words').val($("#amount-paid-words").val());
+        }
+
+        $('#m_purchase_id').val(purchaseId);
+        $('#received_by').val($('#received_by').val() || $("#name").val());
+        $('#m_delivery_date').val($('#m_delivery_date').val());
+
         $('#confirmModal').modal('show');
-
-        $('#m_invoice').val($("#invoice").val());
-        $('#m_name').val($("#name").val());
-        $('#received_by').val($("#name").val());
-        $('#m_date').val($("#date").val());
-        $('#m_address').val($("#address").val());
-        $('#m_contract').val($("#contract").val());
-
-        $('#m_quantity').val($("#quantity").val());
-        $('#m_balance').val($("#balance").val());
-
-        // purchase info
-
-        $('#m_entry').val($("#entry").val());
-
-
-        $('#m_total_net_weight').val($("#total_net_weight").val());
-        $('#m_drc').val($("#drc").val());
-        $('#m_excess').val($("#excess").val());
-
-        $('#m_price_1').val($("#price_1").val());
-        $('#m_price_2').val($("#price_2").val());
-        $('#m_bales_count').val($("#bales_count").val());
-
-        $('#m_lot_number').val($("#lot_code").val());
-        $('#m_prod_id').val($("#prod_id").val());
-
-        $('#m_first_total').val($("#first_total").val());
-        $('#m_second_total').val($("#second_total").val());
-
-        // 
-        $('#m_total_amount').val($("#total_amount").val());
-        $('#m_less').val($("#cash_advance").val());
-        $('#m_total-paid').val($("#amount_paid").val());
-        $('#m_total-words').val($("#amount-paid-words").val());
-
-
-        console.log("m_invoice: " + $('#recording_id').val());
-        console.log("m_name: " + $('#m_name').val());
-        console.log("received_by: " + $('#received_by').val());
-        console.log("m_date: " + $('#m_date').val());
-        console.log("m_address: " + $('#m_address').val());
-        console.log("m_contract: " + $('#m_contract').val());
-
-        console.log("m_quantity: " + $('#m_quantity').val());
-        console.log("m_balance: " + $('#m_balance').val());
-
-        // purchase info
-   console.log("m_bales_count: " + $('#m_bales_count').val());
-
-        console.log("m_entry: " + $('#m_entry').val());
-
-        console.log("m_total_net_weight: " + $('#m_total_net_weight').val());
-        console.log("m_drc: " + $('#m_drc').val());
-
-        console.log("m_price_1: " + $('#m_price_1').val());
-        console.log("m_price_2: " + $('#m_price_2').val());
-
-        console.log("m_first_total: " + $('#m_first_total').val());
-        console.log("m_second_total: " + $('#m_second_total').val());
-
-        // 
-        console.log("m_total_amount: " + $('#m_total_amount').val());
-        console.log("m_less: " + $('#m_less').val());
-        console.log("m_total-paid: " + $('#m_total-paid').val());
-        console.log("m_total-words: " + $('#m_total-words').val());
-
-
-
     }
 });
 
@@ -138,7 +129,7 @@ $(function() {
 
 $('#vouchBtn').click(function() {
 
-    if (!document.getElementById('tota_amount').value ||
+    if (!document.getElementById('total_amount').value ||
         !document.getElementById('date').value ||
         !$("#name").val()
     ) {

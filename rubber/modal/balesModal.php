@@ -186,7 +186,7 @@
                                         <input type="text" class="form-control" id='received_by' name='received_by'
                                             required />
                                     </div>
-                                    <input type="text" style='text-align:right' name='m_prod_id' id='m_prod_id' hidden >
+                                    <input type="hidden" name="m_prod_id" id="m_prod_id">
                                 </div>
                             </div>
                         </div>
@@ -194,27 +194,24 @@
                     <hr>
                     <!-- hidden -->
 
-                    <input name="m_entry" id="m_entry" hidden>
-
-                    <input name="m_total_net_weight" id="m_total_net_weight" hidden>
-
-                    <input name="m_drc" id="m_drc" hidden>
-                    <input name="m_excess" id="m_excess" hidden>
-                    <input name="m_price_1" id="m_price_1" hidden>
-                    <input name="m_price_2" id="m_price_2" hidden>
-
-                    <input name="m_first_total" id="m_first_total" hidden>
-                    <input name="m_second_total" id="m_second_total" hidden>
-
-                    <input name="m_bales_count" id="m_bales_count" hidden>
-                    <input name="m_address" id="m_address" hidden>
-                    <input name="m_quantity" id="m_quantity" hidden>
-                    <input name="m_balance" id="m_balance" hidden>
+                    <input type="hidden" name="m_entry" id="m_entry">
+                    <input type="hidden" name="m_total_net_weight" id="m_total_net_weight">
+                    <input type="hidden" name="m_drc" id="m_drc">
+                    <input type="hidden" name="m_excess" id="m_excess">
+                    <input type="hidden" name="m_price_1" id="m_price_1">
+                    <input type="hidden" name="m_price_2" id="m_price_2">
+                    <input type="hidden" name="m_first_total" id="m_first_total">
+                    <input type="hidden" name="m_second_total" id="m_second_total">
+                    <input type="hidden" name="m_bales_count" id="m_bales_count">
+                    <input type="hidden" name="m_address" id="m_address">
+                    <input type="hidden" name="m_quantity" id="m_quantity">
+                    <input type="hidden" name="m_balance" id="m_balance">
+                    <input type="hidden" name="purchase_id" id="m_purchase_id" value="">
 
 
                 </div>
                 <div class="modal-footer">
-                    <button type='submit' id='confirmPurchase' name='confirmPurchase'
+                    <button type="button" id="confirmPurchase" name="confirmPurchase"
                         class="btn btn-success text-white">Submit</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
@@ -224,43 +221,10 @@
 </form>
 <!--END Confirm Transaction -->
 <script>
-$('#newPurchase').submit(function() {
-    return false;
+$('#newPurchase').on('submit', function (e) {
+    e.preventDefault();
 });
-$('#confirmPurchase').click(function() {
-    $("#confirmModal").modal("hide");
-    $.post($('#newPurchase').attr('action'), $('#newPurchase :input').serializeArray(), function(result) {
-        var text = (result || '').toString().trim();
-        if (text.indexOf('ERROR:') === 0) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Transaction failed',
-                text: text.replace(/^ERROR:\s*/, '')
-            });
-            return;
-        }
-
-        $('#result').html(result);
-        Swal.fire({
-            title: "Good job!",
-            text: "Transaction Was Successful!",
-            icon: "success"
-        }).then(function() {
-            const span = document.getElementById('trans_status');
-            if (span) {
-                span.innerHTML = '<span class="badge alert-success">COMPLETED</span>';
-            }
-            document.getElementById("receiptBtn").click();
-        });
-    }).fail(function() {
-        Swal.fire({
-            icon: 'error',
-            title: 'Transaction failed',
-            text: 'Could not reach the server. Please try again.'
-        });
-    });
-});
-// INPUT BOX VALIDATION
+// Confirm submit handled by js/rubber-bales-purchase-entry.js
 </script>
 
 
@@ -545,8 +509,7 @@ $(document).ready(function() {
 
             </div>
             <div class="modal-footer">
-                <button onclick="location.href = 'bales_rubber.php';"
-                    class="btn btn-success text-white">Confirm</button>
+                <button type="button" class="btn btn-success text-white" onclick="location.href='bales_purchase_record.php';">Create New Purchase</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
             </div>

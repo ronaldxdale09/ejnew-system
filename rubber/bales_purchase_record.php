@@ -62,7 +62,7 @@ rubber_page_begin('Bales Purchase', 'Bale rubber purchase records', 'Purchase Re
                     <input type="text" class="form-control" id="d_id" name='dry_id' hidden>
                     <p class="text-center text-success"><i class="fa fa-plus-circle" style="font-size:3em;"></i>
                     </p>
-                    <p class="text-center">Proceed to Cuplump Purchasing</p>
+                    <p class="text-center">Proceed to Bales Purchasing</p>
                     <div class="form-group">
                         <label for="date">Date</label>
                         <input type="date" class="form-control" id="date" name="date"
