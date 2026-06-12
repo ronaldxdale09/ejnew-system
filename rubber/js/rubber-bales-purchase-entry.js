@@ -94,7 +94,8 @@
             m_delivery_date: fieldVal('m_delivery_date'),
             prepared_by: fieldVal('prepared_by'),
             approved_by: fieldVal('approved_by'),
-            received_by: fieldVal('received_by')
+            received_by: fieldVal('received_by'),
+            is_update: window.BALES_IS_EDIT ? '1' : '0'
         };
     }
 
@@ -148,10 +149,11 @@
                     $('#confirmModal').modal('hide');
                 }
 
+                var wasUpdate = text === 'updated' || window.BALES_IS_EDIT;
                 Swal.fire({
                     icon: 'success',
-                    title: 'Success',
-                    text: 'Transaction was successful!'
+                    title: wasUpdate ? 'Updated' : 'Success',
+                    text: wasUpdate ? 'Purchase record was updated successfully.' : 'Transaction was successful!'
                 }).then(function () {
                     var span = document.getElementById('trans_status');
                     if (span) {

@@ -28,13 +28,34 @@ if (!$result || $result->num_rows === 0) {
 $record = $result->fetch_assoc();
 $sellerName = trim((string) ($record['seller'] ?? ''));
 $totalAmount = (float) ($record['total_amount'] ?? 0);
-$amountPaid = (float) ($record['amount_paid'] ?? 0);
-
-if ($sellerName !== '' && $totalAmount > 0) {
-    $transactionStatus = 'COMPLETED';
-}
+$isCompleted = $sellerName !== '' && $totalAmount > 0;
+$transactionStatus = $isCompleted ? 'COMPLETED' : 'ONGOING';
 
 $_SESSION['transaction'] = $transactionStatus;
+
+$currentContract = trim((string) ($record['contract'] ?? 'SPOT'));
+$contractQuery = "SELECT * FROM rubber_contract
+    WHERE type='BALES' AND loc='$locEsc' AND (status='PENDING' OR status='UPDATED')
+    ORDER BY contract_no ASC";
+$c_result = mysqli_query($con, $contractQuery);
+$contractList = "";
+$contractNos = [];
+while ($arr = mysqli_fetch_array($c_result)) {
+    $contractNos[] = $arr['contract_no'];
+    $contractList .= '<option value="' . htmlspecialchars($arr['contract_no'], ENT_QUOTES, 'UTF-8') . '">[ '
+        . htmlspecialchars($arr['contract_no'], ENT_QUOTES, 'UTF-8') . ' ]  '
+        . htmlspecialchars($arr['seller'], ENT_QUOTES, 'UTF-8') . '</option>';
+}
+
+if ($isCompleted && $currentContract !== '' && strcasecmp($currentContract, 'SPOT') !== 0 && !in_array($currentContract, $contractNos, true)) {
+    $curEsc = mysqli_real_escape_string($con, $currentContract);
+    $curResult = mysqli_query($con, "SELECT contract_no, seller FROM rubber_contract WHERE contract_no='$curEsc' AND type='BALES' AND loc='$locEsc' LIMIT 1");
+    if ($curResult && ($cur = mysqli_fetch_assoc($curResult))) {
+        $contractList .= '<option value="' . htmlspecialchars($cur['contract_no'], ENT_QUOTES, 'UTF-8') . '">[ '
+            . htmlspecialchars($cur['contract_no'], ENT_QUOTES, 'UTF-8') . ' ]  '
+            . htmlspecialchars($cur['seller'], ENT_QUOTES, 'UTF-8') . ' (current)</option>';
+    }
+}
 
 $balesFormInit = [
     'invoice' => (string) $trans_id,
@@ -56,18 +77,15 @@ $balesFormInit = [
     'amount_words' => (string) ($record['words_amount'] ?? ''),
     'drc' => (string) ($record['drc'] ?? ''),
     'status' => $transactionStatus,
+    'is_edit' => $isCompleted,
+    'original' => [
+        'seller' => $sellerName,
+        'contract' => $currentContract,
+        'less' => (string) ($record['less'] ?? ''),
+        'total_net_weight' => (string) ($record['total_net_weight'] ?? ''),
+        'production_id' => (string) ($record['production_id'] ?? ''),
+    ],
 ];
-
-$contractQuery = "SELECT * FROM rubber_contract
-    WHERE type='BALES' AND loc='$locEsc' AND (status='PENDING' OR status='UPDATED')
-    ORDER BY contract_no ASC";
-$c_result = mysqli_query($con, $contractQuery);
-$contractList = "";
-while ($arr = mysqli_fetch_array($c_result)) {
-    $contractList .= '<option value="' . htmlspecialchars($arr['contract_no'], ENT_QUOTES, 'UTF-8') . '">[ '
-        . htmlspecialchars($arr['contract_no'], ENT_QUOTES, 'UTF-8') . ' ]  '
-        . htmlspecialchars($arr['seller'], ENT_QUOTES, 'UTF-8') . '</option>';
-}
 
 $sellerQuery = "SELECT name FROM rubber_seller WHERE loc='$locEsc' ORDER BY name ASC";
 $sellerResult = mysqli_query($con, $sellerQuery);
@@ -78,13 +96,20 @@ while ($arr = mysqli_fetch_array($sellerResult)) {
 }
 
 $today = date('Y-m-d');
+$confirmButtonLabel = $isCompleted ? 'Update Transaction' : 'Confirm Transaction';
+$confirmModalTitle = $isCompleted ? 'Update Purchase' : 'Confirm Transaction';
 ?>
 <script>
 window.BALES_FORM_INIT = <?php echo json_encode($balesFormInit, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP); ?>;
 window.BALES_PURCHASE_ID = <?php echo (int) $trans_id; ?>;
 </script>
 
-<?php rubber_page_begin('Bale Purchase', 'Enter bale purchase transaction', 'Purchase Entry'); ?>
+<?php rubber_page_begin('Bale Purchase', $isCompleted ? 'Edit completed bale purchase' : 'Enter bale purchase transaction', 'Purchase Entry'); ?>
+<?php if ($isCompleted): ?>
+<div class="alert alert-info py-2 mb-3">
+    <i class="fas fa-pen me-1"></i> Editing a completed purchase. Changes will adjust contract balance, cash advance, and production costs automatically.
+</div>
+<?php endif; ?>
 <input type="hidden" id="selected-cart" value="">
 <div class="rubber-toolbar text-end mb-3">
     <button type="button" class="btn btn-primary btn-sm text-white" data-bs-toggle="modal" data-bs-target="#modal_new_transact">New Transaction</button>
@@ -208,7 +233,7 @@ window.BALES_PURCHASE_ID = <?php echo (int) $trans_id; ?>;
                                     </div> <br>
                                     <div class="row">
                                         <div class="col-12">
-                                            <button type="button" class="btn btn-success text-white confirm" id='confirm'>Confirm Transaction</button>
+                                            <button type="button" class="btn btn-success text-white confirm" id="confirm"><?php echo htmlspecialchars($confirmButtonLabel, ENT_QUOTES, 'UTF-8'); ?></button>
                                             <button type="button" class="btn btn-dark text-white receiptBtn" id='receiptBtn'>
                                                 <span class="fa fa-print"></span> Print Receipt </button>
                                             <button type="button" class="btn btn-secondary text-white vouchBtn" id='vouchBtn'>
@@ -448,6 +473,9 @@ window.BALES_PURCHASE_ID = <?php echo (int) $trans_id; ?>;
 
     $(function () {
         var init = window.BALES_FORM_INIT || {};
+        window.BALES_IS_EDIT = !!init.is_edit;
+        window.BALES_ORIGINAL = init.original || {};
+        window.BALES_CONFIRM_TITLE = init.is_edit ? 'Update Purchase' : 'Confirm Transaction';
         $('#invoice').val(init.invoice || '');
         $('#date').val(init.date || '');
         $('#contract').val(init.contract || 'SPOT').trigger('change');
@@ -470,7 +498,8 @@ window.BALES_PURCHASE_ID = <?php echo (int) $trans_id; ?>;
         $('#amount-paid-words').val(init.amount_words || '');
         $('#drc').val(init.drc || '');
         if (init.seller) {
-            nameChange(init.seller);
+            fetchAddress(init.seller);
+            fetchCashAdvance(init.seller);
         }
         window.fetch_bales_inventory();
     });

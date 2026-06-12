@@ -21,19 +21,123 @@ function bales_esc(string $value): string
     return mysqli_real_escape_string($con, $value);
 }
 
-try {
-    function bales_resolve_purchase_id(): int
-    {
-        foreach (['m_invoice', 'purchase_id', 'invoice'] as $key) {
-            $id = (int) preg_replace('/\D/', '', bales_post($key, '0'));
-            if ($id > 0) {
-                return $id;
-            }
+function bales_resolve_purchase_id(): int
+{
+    foreach (['m_invoice', 'purchase_id', 'invoice'] as $key) {
+        $id = (int) preg_replace('/\D/', '', bales_post($key, '0'));
+        if ($id > 0) {
+            return $id;
         }
-
-        return 0;
     }
 
+    return 0;
+}
+
+function bales_is_completed_record(array $row): bool
+{
+    return trim((string) ($row['seller'] ?? '')) !== ''
+        && (float) ($row['total_amount'] ?? 0) > 0;
+}
+
+function bales_delivery_weight(float $totalNetWeight, float $entry): float
+{
+    return $totalNetWeight > 0 ? $totalNetWeight : $entry;
+}
+
+function bales_contract_apply(mysqli $con, string $contractNo, string $locEsc, float $weightDelta): void
+{
+    if ($contractNo === '' || strcasecmp($contractNo, 'SPOT') === 0 || abs($weightDelta) < 0.0001) {
+        return;
+    }
+
+    $contractEsc = bales_esc($contractNo);
+    $result = mysqli_query(
+        $con,
+        "SELECT delivered, balance FROM rubber_contract
+         WHERE contract_no='$contractEsc' AND type='BALES' AND loc='$locEsc' LIMIT 1"
+    );
+    $info = $result ? mysqli_fetch_assoc($result) : null;
+
+    if (!$info) {
+        throw new Exception('Contract not found: ' . $contractNo);
+    }
+
+    $delivered = (float) ($info['delivered'] ?? 0) + $weightDelta;
+    $balance = (float) ($info['balance'] ?? 0) - $weightDelta;
+    $status = abs($balance) < 0.0001 ? 'COMPLETED' : 'UPDATED';
+
+    if (!mysqli_query(
+        $con,
+        "UPDATE rubber_contract
+         SET delivered='$delivered', balance='$balance', status='$status'
+         WHERE contract_no='$contractEsc' AND type='BALES' AND loc='$locEsc'"
+    )) {
+        throw new Exception('Failed to update contract: ' . mysqli_error($con));
+    }
+}
+
+function bales_adjust_seller_ca(mysqli $con, string $seller, float $deltaRestore): void
+{
+    if ($seller === '' || abs($deltaRestore) < 0.0001) {
+        return;
+    }
+
+    $sellerEsc = bales_esc($seller);
+    $row = mysqli_query($con, "SELECT bales_cash_advance FROM rubber_seller WHERE name='$sellerEsc' LIMIT 1");
+    $data = $row ? mysqli_fetch_assoc($row) : null;
+
+    if (!$data) {
+        throw new Exception('Seller not found: ' . $seller);
+    }
+
+    $newCa = max(0, (float) ($data['bales_cash_advance'] ?? 0) + $deltaRestore);
+
+    if (!mysqli_query($con, "UPDATE rubber_seller SET bales_cash_advance='$newCa' WHERE name='$sellerEsc'")) {
+        throw new Exception('Failed to update seller cash advance: ' . mysqli_error($con));
+    }
+}
+
+function bales_apply_planta_cost(mysqli $con, int $prodId, float $totalAmount, bool $markForSale): void
+{
+    if ($prodId <= 0) {
+        return;
+    }
+
+    $result = mysqli_query(
+        $con,
+        "SELECT production_expense, produce_total_weight FROM planta_recording WHERE recording_id='$prodId' LIMIT 1"
+    );
+    $prow = $result ? mysqli_fetch_assoc($result) : null;
+
+    if (!$prow) {
+        return;
+    }
+
+    $expenses = (float) ($prow['production_expense'] ?? 0);
+    $produceTotalWeight = (float) ($prow['produce_total_weight'] ?? 0);
+
+    if ($markForSale && $produceTotalWeight > 0) {
+        $totalProdCost = $totalAmount + $expenses;
+        $unitCost = $totalProdCost / $produceTotalWeight;
+        $status = 'For Sale';
+    } else {
+        $totalProdCost = $expenses;
+        $unitCost = $produceTotalWeight > 0 ? $expenses / $produceTotalWeight : 0;
+        $status = 'Purchase';
+    }
+
+    mysqli_query(
+        $con,
+        "UPDATE planta_recording SET
+            purchase_cost = '$totalAmount',
+            total_production_cost = '$totalProdCost',
+            bales_average_cost = '$unitCost',
+            status = '$status'
+         WHERE recording_id = '$prodId'"
+    );
+}
+
+try {
     $id = bales_resolve_purchase_id();
     if ($id <= 0) {
         throw new Exception('Invalid purchase ID. Reload the page from Bales Purchase Record and try again.');
@@ -47,10 +151,7 @@ try {
     $locEsc = bales_esc($loc);
     $idEsc = bales_esc((string) $id);
 
-    $existingResult = mysqli_query(
-        $con,
-        "SELECT seller, total_amount, loc FROM bales_transaction WHERE id='$idEsc' LIMIT 1"
-    );
+    $existingResult = mysqli_query($con, "SELECT * FROM bales_transaction WHERE id='$idEsc' LIMIT 1");
     $existing = $existingResult ? mysqli_fetch_assoc($existingResult) : null;
 
     if (!$existing) {
@@ -61,9 +162,7 @@ try {
         throw new Exception('You do not have access to this purchase record.');
     }
 
-    if (trim((string) ($existing['seller'] ?? '')) !== '' && (float) ($existing['total_amount'] ?? 0) > 0) {
-        throw new Exception('This transaction is already completed. Create a new purchase to continue.');
-    }
+    $isUpdate = bales_is_completed_record($existing);
 
     $seller = bales_post('m_name');
     $date = bales_post('m_date');
@@ -85,7 +184,7 @@ try {
     $total_net_weight = bales_num('m_total_net_weight');
 
     if ($total_net_weight <= 0 && $entry <= 0) {
-        throw new Exception('Select a production record with weight before confirming.');
+        throw new Exception('Select a production record with weight before saving.');
     }
 
     $drc = bales_num('m_drc');
@@ -107,62 +206,59 @@ try {
         throw new Exception('Amount paid cannot be negative.');
     }
 
-    $sellerEsc = bales_esc($seller);
-    $contractEsc = bales_esc($contract);
+    $oldSeller = trim((string) ($existing['seller'] ?? ''));
+    $oldContract = trim((string) ($existing['contract'] ?? 'SPOT'));
+    $oldLess = (float) ($existing['less'] ?? 0);
+    $oldWeight = bales_delivery_weight(
+        (float) ($existing['total_net_weight'] ?? 0),
+        (float) ($existing['entry'] ?? 0)
+    );
+    $oldProdId = (int) ($existing['production_id'] ?? 0);
+    $newWeight = bales_delivery_weight($total_net_weight, $entry);
 
-    if ($contract !== '' && $contract !== 'SPOT') {
-        $contractResult = mysqli_query(
-            $con,
-            "SELECT delivered, balance FROM rubber_contract
-             WHERE contract_no='$contractEsc' AND type='BALES' AND loc='$locEsc' LIMIT 1"
-        );
-        $contractInfo = $contractResult ? mysqli_fetch_assoc($contractResult) : null;
+    mysqli_begin_transaction($con);
 
-        if (!$contractInfo) {
-            throw new Exception('Contract not found or already completed.');
+    if ($isUpdate) {
+        if ($oldContract !== '' && strcasecmp($oldContract, 'SPOT') !== 0) {
+            bales_contract_apply($con, $oldContract, $locEsc, -$oldWeight);
         }
-
-        $previous_delivered = (float) ($contractInfo['delivered'] ?? 0);
-        $balanceBefore = (float) ($contractInfo['balance'] ?? 0);
-        $deliveredWeight = $total_net_weight > 0 ? $total_net_weight : $entry;
-        $newDelivered = $previous_delivered + $deliveredWeight;
-        $newBalance = $balanceBefore - $deliveredWeight;
-        $status = abs($newBalance) < 0.0001 ? 'COMPLETED' : 'UPDATED';
-
-        if (!mysqli_query(
-            $con,
-            "UPDATE rubber_contract
-             SET delivered='$newDelivered', balance='$newBalance', status='$status'
-             WHERE contract_no='$contractEsc' AND type='BALES' AND loc='$locEsc'"
-        )) {
-            throw new Exception('Failed to update contract: ' . mysqli_error($con));
+        if ($oldSeller !== '') {
+            bales_adjust_seller_ca($con, $oldSeller, $oldLess);
+        }
+        if ($oldProdId > 0 && $oldProdId !== $prod_id) {
+            bales_apply_planta_cost($con, $oldProdId, 0, false);
         }
     }
 
+    if ($contract !== '' && strcasecmp($contract, 'SPOT') !== 0) {
+        bales_contract_apply($con, $contract, $locEsc, $newWeight);
+    }
+
+    $sellerEsc = bales_esc($seller);
     $sellerRow = mysqli_query($con, "SELECT bales_cash_advance FROM rubber_seller WHERE name='$sellerEsc' LIMIT 1");
     $row = $sellerRow ? mysqli_fetch_assoc($sellerRow) : null;
-    $seller_ca = (float) ($row['bales_cash_advance'] ?? 0);
 
-    if ($less > $seller_ca + 0.0001) {
+    if (!$row) {
+        throw new Exception('Seller not found.');
+    }
+
+    $sellerCa = (float) ($row['bales_cash_advance'] ?? 0);
+    if ($less > $sellerCa + 0.0001) {
         throw new Exception('Cash advance deduction exceeds available bales cash advance.');
     }
 
-    $total_ca = max(0, $seller_ca - $less);
-
-    if (!mysqli_query($con, "UPDATE rubber_seller SET bales_cash_advance='$total_ca' WHERE name='$sellerEsc'")) {
-        throw new Exception('Failed to update seller cash advance: ' . mysqli_error($con));
-    }
+    bales_adjust_seller_ca($con, $seller, -$less);
 
     $dateEsc = bales_esc($date);
     $addressEsc = bales_esc($address);
+    $contractEsc = bales_esc($contract);
     $lotEsc = bales_esc($lot_number);
     $wordsEsc = bales_esc($words_amount);
     $deliveryEsc = bales_esc($delivery_date);
-    $invoiceEsc = $idEsc;
 
     $query = "UPDATE bales_transaction SET
         production_id = '$prod_id',
-        invoice = '$invoiceEsc',
+        invoice = '$idEsc',
         contract = '$contractEsc',
         date = '$dateEsc',
         address = '$addressEsc',
@@ -189,30 +285,10 @@ try {
     }
 
     if ($prod_id > 0) {
-        $plantaResult = mysqli_query(
-            $con,
-            "SELECT production_expense, produce_total_weight FROM planta_recording WHERE recording_id='$prod_id' LIMIT 1"
-        );
-        $prow = $plantaResult ? mysqli_fetch_assoc($plantaResult) : null;
-
-        if ($prow) {
-            $expenses = (float) ($prow['production_expense'] ?? 0);
-            $produce_total_weight = (float) ($prow['produce_total_weight'] ?? 0);
-            if ($produce_total_weight > 0) {
-                $total_prod_cost = $total_amount + $expenses;
-                $unit_cost = $total_prod_cost / $produce_total_weight;
-                mysqli_query(
-                    $con,
-                    "UPDATE planta_recording SET
-                        purchase_cost = '$total_amount',
-                        total_production_cost = '$total_prod_cost',
-                        bales_average_cost = '$unit_cost',
-                        status = 'For Sale'
-                     WHERE recording_id = '$prod_id'"
-                );
-            }
-        }
+        bales_apply_planta_cost($con, $prod_id, $total_amount, true);
     }
+
+    mysqli_commit($con);
 
     $_SESSION['invoice'] = $id;
     $_SESSION['lot_code'] = $lot_number;
@@ -231,7 +307,8 @@ try {
     $_SESSION['received_by'] = $received_by;
     $_SESSION['transaction'] = 'COMPLETED';
 
-    echo 'success';
+    echo $isUpdate ? 'updated' : 'success';
 } catch (Exception $e) {
+    mysqli_rollback($con);
     echo 'ERROR: ' . $e->getMessage();
 }

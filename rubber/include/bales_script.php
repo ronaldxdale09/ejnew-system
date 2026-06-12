@@ -111,15 +111,24 @@ function fetchCashAdvance(name) {
     var nf = new Intl.NumberFormat('en-US');
     $.post("include/fetch/fetchRubberCashAdvance.php", {
         name: name
-    }, function(less) {
-        if (less == '' || less == '0') {
+    }, function(available) {
+        var pool = parseFloat(String(available || '').replace(/,/g, '')) || 0;
+        if (window.BALES_IS_EDIT && window.BALES_ORIGINAL && name === window.BALES_ORIGINAL.seller) {
+            pool += parseFloat(String(window.BALES_ORIGINAL.less || '').replace(/,/g, '')) || 0;
+        }
+
+        if (pool <= 0) {
             $("#cash_advance-form").hide();
-            $("#cash_advance").val(nf.format(less));
-            $("#total_ca").val(less);
+            $("#total_ca").val('0');
+            if (!window.BALES_IS_EDIT) {
+                $("#cash_advance").val('0');
+            }
         } else {
             $("#cash_advance-form").show();
-            $("#cash_advance").val(nf.format(less));
-            $("#total_ca").val(nf.format(less));
+            $("#total_ca").val(nf.format(pool));
+            if (!window.BALES_IS_EDIT) {
+                $("#cash_advance").val(nf.format(pool));
+            }
             $('#cash_advance').prop('readOnly', false);
         }
         computeBalesRubber();

@@ -45,7 +45,8 @@ while ($row = mysqli_fetch_assoc($result)) {
         'price_2' => '₱ ' . number_format(floatval($row['price_2'] ?? 0), 2),
         'less' => '₱ ' . number_format(floatval($row['less'] ?? 0), 0),
         'amount_paid' => '₱ ' . number_format(floatval($row['amount_paid'] ?? 0), 0),
-        'action' => '<button type="button" class="btn btn-sm btn-primary btnView"'
+        'action' => '<a href="bales_rubber.php?id=' . $id . '" class="btn btn-sm btn-primary" title="Edit purchase"><i class="fa fa-edit"></i></a>'
+            . ' <button type="button" class="btn btn-sm btn-outline-secondary btnView" title="Quick view"'
             . ' data-id="' . $id . '"'
             . ' data-invoice="' . $h($row['invoice'] ?? '') . '"'
             . ' data-date="' . $h($row['date'] ?? '') . '"'
@@ -75,7 +76,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             . ' data-loc="' . $h($row['loc'] ?? '') . '"'
             . ' data-production_id="' . $h($row['production_id'] ?? '') . '"'
             . ' data-recorded_by="' . $h($row['recorded_by'] ?? '') . '"'
-            . '><i class="fa fa-edit"></i></button>',
+            . '><i class="fa fa-eye"></i></button>',
     ];
 }
 

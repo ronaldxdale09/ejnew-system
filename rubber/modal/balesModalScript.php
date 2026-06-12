@@ -36,12 +36,6 @@ $('#confirm').click(function() {
             text: 'Fill all the necessary fields ',
         });
 
-    } else if (status == 'COMPLETED') {
-        Swal.fire({
-            icon: 'info',
-            title: 'PLEASE CREATE NEW TRANSACTION',
-            text: 'This transaction is already completed',
-        });
     } else {
         var purchaseId = ($('#invoice').val() || window.BALES_PURCHASE_ID || '').toString().replace(/\D/g, '');
         if (!purchaseId) {
@@ -51,6 +45,15 @@ $('#confirm').click(function() {
                 text: 'Reload this page from Bales Purchase Record and try again.'
             });
             return;
+        }
+
+        var isEdit = window.BALES_IS_EDIT === true;
+        if (isEdit) {
+            $('#confirmModalLabel').text(window.BALES_CONFIRM_TITLE || 'Update Purchase');
+            $('#confirmPurchase').text('Save Changes');
+        } else {
+            $('#confirmModalLabel').text('Confirm Transaction');
+            $('#confirmPurchase').text('Submit');
         }
 
         if (typeof window.copyBalesField === 'function') {
