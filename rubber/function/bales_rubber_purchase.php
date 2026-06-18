@@ -325,6 +325,7 @@ try {
     }
 
     $dateEsc = bales_esc($date);
+    $sellerEsc = bales_esc($seller);
     $addressEsc = bales_esc($address);
     $contractEsc = bales_esc($contract);
     $lotEsc = bales_esc($lot_number);
