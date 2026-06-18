@@ -404,7 +404,7 @@ window.BALES_PURCHASE_ID = <?php echo (int) $trans_id; ?>;
                                                                             Cash Advance
                                                                             ₱</span>
                                                                     </div>
-                                                                    <input type="text" style='text-align:left' id='cash_advance' name='cash_advance' onkeypress="return CheckNumeric()" onkeyup="FormatCurrency(this)" class="form-control" tabindex="9" autocomplete='off' />
+                                                                    <input type="text" style='text-align:left' id='cash_advance' name='cash_advance' class="form-control" tabindex="9" autocomplete='off' inputmode="decimal" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -495,6 +495,10 @@ window.BALES_PURCHASE_ID = <?php echo (int) $trans_id; ?>;
         $('#second_total').val(init.second_total || '');
         $('#total_amount').val(init.total_amount || '');
         $('#cash_advance').val(init.cash_advance || '');
+        if (init.cash_advance && parseFloat(String(init.cash_advance).replace(/,/g, '')) > 0) {
+            window.BALES_CA_TOUCHED = true;
+            window.BALES_CA_PREFILLED_FOR = init.seller || '';
+        }
         $('#amount_paid').val(init.amount_paid || '');
         $('#amount-paid-words').val(init.amount_words || '');
         $('#drc').val(init.drc || '');

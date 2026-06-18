@@ -1,10 +1,13 @@
 <script type="text/javascript">
-$(document).ready(function() {
-    var nf = new Intl.NumberFormat('en-US');
+window.BALES_CA_TOUCHED = false;
+window.BALES_CA_PREFILLED_FOR = '';
 
+$(document).ready(function() {
     // Hide contract details
     $("#contract-form").hide();
-    $("#cash_advance-form").hide();
+    ensureCashAdvanceEditable();
+    $("#cash_advance-form").show();
+    $("#total_ca").val('0');
 
     // Keyboard events
     $('input,select').on('keypress', function(e) {
@@ -28,14 +31,25 @@ $(document).ready(function() {
         nameChange($(this).val());
     });
 
-    // Textbox keyup events
-    $("#price_1, #price_2, #cash_advance")
-        .keyup(function() {
+    // Price changes recompute totals
+    $("#price_1, #price_2").keyup(function() {
+        computeBalesRubber();
+    });
+
+    // Cash advance: user typing must never be overwritten mid-input
+    $("#cash_advance")
+        .on('focus', function() {
+            ensureCashAdvanceEditable();
+        })
+        .on('input', function() {
+            window.BALES_CA_TOUCHED = true;
+            formatCashAdvanceField(this);
+            computeBalesRubber();
+        })
+        .on('blur', function() {
+            formatCashAdvanceField(this);
             capCashAdvanceToAvailable();
             computeBalesRubber();
-            var amount_paid = $("#amount_paid").val().replace(/,/g, '');
-            var words = numToWords(amount_paid);
-            $("#amount-paid-words").val(words);
         });
 
     // Dropdown change events
@@ -43,6 +57,53 @@ $(document).ready(function() {
         computeBalesRubber();
     });
 });
+
+function canAutoSetCashAdvance() {
+    return !window.BALES_CA_TOUCHED && !$('#cash_advance').is(':focus');
+}
+
+function resetCashAdvanceAutoState() {
+    window.BALES_CA_TOUCHED = false;
+    window.BALES_CA_PREFILLED_FOR = '';
+}
+
+function formatCashAdvanceField(input) {
+    if (!input) {
+        return;
+    }
+
+    var raw = String(input.value || '').replace(/,/g, '');
+    if (raw === '') {
+        input.value = '';
+        return;
+    }
+
+    var parts = raw.split('.');
+    var whole = (parts[0] || '').replace(/\D/g, '');
+    var decimal = parts.length > 1 ? '.' + (parts[1] || '').replace(/\D/g, '').slice(0, 2) : '';
+    var rgx = /(\d+)(\d{3})/;
+
+    while (rgx.test(whole)) {
+        whole = whole.replace(rgx, '$1' + ',' + '$2');
+    }
+
+    input.value = whole + decimal;
+}
+
+function setCashAdvanceValue(value) {
+    if (!canAutoSetCashAdvance()) {
+        return false;
+    }
+
+    var nf = new Intl.NumberFormat('en-US');
+    if (value === '' || value === null || typeof value === 'undefined') {
+        $('#cash_advance').val('');
+    } else {
+        $('#cash_advance').val(nf.format(parseBalesNum(value)));
+    }
+
+    return true;
+}
 
 function computeBalesRubber() {
     var entry = $("#entry").val().replace(/,/g, '');
@@ -60,7 +121,7 @@ function computeBalesRubber() {
 }
 
 function preserveEditCashFields() {
-    if (!window.BALES_IS_EDIT || !window.BALES_ORIGINAL) {
+    if (!window.BALES_IS_EDIT || !window.BALES_ORIGINAL || !canAutoSetCashAdvance()) {
         return;
     }
 
@@ -77,19 +138,39 @@ function parseBalesNum(val) {
     return parseFloat(String(val || '').replace(/,/g, '')) || 0;
 }
 
+function ensureCashAdvanceEditable() {
+    $('#cash_advance')
+        .prop('readonly', false)
+        .prop('readOnly', false)
+        .prop('disabled', false);
+}
+
 function capCashAdvanceToAvailable() {
-    if (window.BALES_IS_EDIT) {
-        return;
-    }
+    ensureCashAdvanceEditable();
 
     var nf = new Intl.NumberFormat('en-US');
     var pool = parseBalesNum($("#total_ca").val());
     var total = parseBalesNum($("#total_amount").val());
     var less = parseBalesNum($("#cash_advance").val());
-    var maxLess = Math.min(pool, total);
 
+    if (window.BALES_IS_EDIT && window.BALES_ORIGINAL && $("#name").val() === window.BALES_ORIGINAL.seller) {
+        pool += parseBalesNum(window.BALES_ORIGINAL.less);
+    }
+
+    if (total > 0 && less > total) {
+        $("#cash_advance").val(nf.format(total));
+        window.BALES_CA_TOUCHED = true;
+        return;
+    }
+
+    if (pool <= 0) {
+        return;
+    }
+
+    var maxLess = Math.min(pool, total > 0 ? total : pool);
     if (less > maxLess) {
         $("#cash_advance").val(nf.format(maxLess));
+        window.BALES_CA_TOUCHED = true;
     }
 }
 
@@ -123,23 +204,17 @@ window.syncBalesCashAdvanceBeforeSubmit = function () {
         pool += parseBalesNum(window.BALES_ORIGINAL.less);
     }
 
+    $("#cash_advance-form").show();
     $("#total_ca").val(nf.format(pool));
+    ensureCashAdvanceEditable();
 
     if (window.BALES_IS_EDIT) {
-        preserveEditCashFields();
+        capCashAdvanceToAvailable();
+        computeBalesRubber();
         return pool;
     }
 
-    if (pool <= 0) {
-        $("#cash_advance-form").hide();
-        $("#cash_advance").val('0');
-    } else {
-        $("#cash_advance-form").show();
-        var total = parseBalesNum($("#total_amount").val());
-        var maxLess = Math.min(pool, total);
-        $("#cash_advance").val(nf.format(maxLess));
-    }
-
+    capCashAdvanceToAvailable();
     computeBalesRubber();
     return pool;
 };
@@ -183,6 +258,7 @@ function contractSet(contract) {
 }
 
 function nameChange(name) {
+    resetCashAdvanceAutoState();
     fetchAddress(name);
     fetchCashAdvance(name);
 }
@@ -210,24 +286,25 @@ function fetchCashAdvance(name) {
         }
 
         if (pool <= 0) {
-            $("#cash_advance-form").hide();
+            $("#cash_advance-form").show();
             $("#total_ca").val('0');
-            if (!window.BALES_IS_EDIT) {
-                $("#cash_advance").val('0');
-            }
         } else {
             $("#cash_advance-form").show();
             $("#total_ca").val(nf.format(pool));
-            if (!window.BALES_IS_EDIT) {
-                $("#cash_advance").val(nf.format(pool));
+            if (!window.BALES_IS_EDIT && window.BALES_CA_PREFILLED_FOR !== name) {
+                var total = parseBalesNum($("#total_amount").val());
+                var suggestedLess = total > 0 ? Math.min(pool, total) : pool;
+                if (setCashAdvanceValue(suggestedLess)) {
+                    window.BALES_CA_PREFILLED_FOR = name;
+                }
             }
-            $('#cash_advance').prop('readOnly', false);
         }
+
+        ensureCashAdvanceEditable();
 
         if (editingSameSeller) {
             preserveEditCashFields();
         } else {
-            capCashAdvanceToAvailable();
             computeBalesRubber();
         }
     });
