@@ -56,6 +56,22 @@ $('#confirm').click(function() {
             $('#confirmPurchase').text('Submit');
         }
 
+        if (typeof window.syncBalesCashAdvanceBeforeSubmit === 'function') {
+            var availablePool = window.syncBalesCashAdvanceBeforeSubmit();
+            var requestedCa = parseFloat(String($("#cash_advance").val() || '').replace(/,/g, '')) || 0;
+            if (requestedCa > availablePool + 0.0001) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Cash advance too high',
+                    text: 'Available cash advance is PHP ' + Number(availablePool).toLocaleString('en-US', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    }) + '. Reduce the deduction or add cash advance for this seller.'
+                });
+                return;
+            }
+        }
+
         if (typeof window.copyBalesField === 'function') {
             window.copyBalesField('invoice', 'm_invoice');
             window.copyBalesField('name', 'm_name');

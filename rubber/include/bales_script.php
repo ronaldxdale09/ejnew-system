@@ -31,6 +31,7 @@ $(document).ready(function() {
     // Textbox keyup events
     $("#price_1, #price_2, #cash_advance")
         .keyup(function() {
+            capCashAdvanceToAvailable();
             computeBalesRubber();
             var amount_paid = $("#amount_paid").val().replace(/,/g, '');
             var words = numToWords(amount_paid);
@@ -71,6 +72,77 @@ function preserveEditCashFields() {
     $("#amount_paid").val(nf.format(amountPaid));
     $("#amount-paid-words").val(numToWords(amountPaid));
 }
+
+function parseBalesNum(val) {
+    return parseFloat(String(val || '').replace(/,/g, '')) || 0;
+}
+
+function capCashAdvanceToAvailable() {
+    if (window.BALES_IS_EDIT) {
+        return;
+    }
+
+    var nf = new Intl.NumberFormat('en-US');
+    var pool = parseBalesNum($("#total_ca").val());
+    var total = parseBalesNum($("#total_amount").val());
+    var less = parseBalesNum($("#cash_advance").val());
+    var maxLess = Math.min(pool, total);
+
+    if (less > maxLess) {
+        $("#cash_advance").val(nf.format(maxLess));
+    }
+}
+
+window.refreshBalesCashAdvanceSync = function (sellerName) {
+    var available = 0;
+
+    if (!sellerName) {
+        return available;
+    }
+
+    $.ajax({
+        async: false,
+        url: 'include/fetch/fetchRubberCashAdvance.php',
+        type: 'POST',
+        data: { name: sellerName },
+        cache: false,
+        success: function (response) {
+            available = parseBalesNum(response);
+        }
+    });
+
+    return available;
+};
+
+window.syncBalesCashAdvanceBeforeSubmit = function () {
+    var nf = new Intl.NumberFormat('en-US');
+    var sellerName = $("#name").val();
+    var pool = window.refreshBalesCashAdvanceSync(sellerName);
+
+    if (window.BALES_IS_EDIT && window.BALES_ORIGINAL && sellerName === window.BALES_ORIGINAL.seller) {
+        pool += parseBalesNum(window.BALES_ORIGINAL.less);
+    }
+
+    $("#total_ca").val(nf.format(pool));
+
+    if (window.BALES_IS_EDIT) {
+        preserveEditCashFields();
+        return pool;
+    }
+
+    if (pool <= 0) {
+        $("#cash_advance-form").hide();
+        $("#cash_advance").val('0');
+    } else {
+        $("#cash_advance-form").show();
+        var total = parseBalesNum($("#total_amount").val());
+        var maxLess = Math.min(pool, total);
+        $("#cash_advance").val(nf.format(maxLess));
+    }
+
+    computeBalesRubber();
+    return pool;
+};
 
 function contractSet(contract) {
     $.get("include/fetch/fetchContract.php", {
@@ -155,6 +227,7 @@ function fetchCashAdvance(name) {
         if (editingSameSeller) {
             preserveEditCashFields();
         } else {
+            capCashAdvanceToAvailable();
             computeBalesRubber();
         }
     });

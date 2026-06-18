@@ -76,23 +76,86 @@ function bales_contract_apply(mysqli $con, string $contractNo, string $locEsc, f
     }
 }
 
-function bales_adjust_seller_ca(mysqli $con, string $seller, float $deltaRestore): void
+function bales_get_seller_balances(mysqli $con, string $seller, string $locEsc): array
 {
-    if ($seller === '' || abs($deltaRestore) < 0.0001) {
-        return;
-    }
-
     $sellerEsc = bales_esc($seller);
-    $row = mysqli_query($con, "SELECT bales_cash_advance FROM rubber_seller WHERE name='$sellerEsc' LIMIT 1");
+    $row = mysqli_query(
+        $con,
+        "SELECT bales_cash_advance, cash_advance
+         FROM rubber_seller
+         WHERE name='$sellerEsc' AND loc='$locEsc'
+         LIMIT 1"
+    );
     $data = $row ? mysqli_fetch_assoc($row) : null;
 
     if (!$data) {
         throw new Exception('Seller not found: ' . $seller);
     }
 
-    $newCa = max(0, (float) ($data['bales_cash_advance'] ?? 0) + $deltaRestore);
+    $bales = (float) ($data['bales_cash_advance'] ?? 0);
+    $wet = (float) ($data['cash_advance'] ?? 0);
 
-    if (!mysqli_query($con, "UPDATE rubber_seller SET bales_cash_advance='$newCa' WHERE name='$sellerEsc'")) {
+    return [
+        'bales' => $bales,
+        'wet' => $wet,
+        'total' => $bales + $wet,
+    ];
+}
+
+function bales_ca_error_message(array $bal, float $extraCredit, float $requested): string
+{
+    $available = $bal['total'] + $extraCredit;
+
+    return sprintf(
+        'Cash advance deduction (PHP %s) exceeds available balance (PHP %s bales + PHP %s cuplump = PHP %s total). Add cash advance or reduce the deduction.',
+        number_format($requested, 2),
+        number_format($bal['bales'], 2),
+        number_format($bal['wet'], 2),
+        number_format($available, 2)
+    );
+}
+
+function bales_credit_seller_ca(mysqli $con, string $seller, string $locEsc, float $amount): void
+{
+    if ($seller === '' || abs($amount) < 0.0001) {
+        return;
+    }
+
+    $bal = bales_get_seller_balances($con, $seller, $locEsc);
+    $newBales = $bal['bales'] + $amount;
+    $sellerEsc = bales_esc($seller);
+
+    if (!mysqli_query(
+        $con,
+        "UPDATE rubber_seller SET bales_cash_advance='$newBales' WHERE name='$sellerEsc' AND loc='$locEsc'"
+    )) {
+        throw new Exception('Failed to restore seller cash advance: ' . mysqli_error($con));
+    }
+}
+
+function bales_debit_seller_ca(mysqli $con, string $seller, string $locEsc, float $amount): void
+{
+    if ($seller === '' || abs($amount) < 0.0001) {
+        return;
+    }
+
+    $bal = bales_get_seller_balances($con, $seller, $locEsc);
+    if ($amount > $bal['total'] + 0.0001) {
+        throw new Exception(bales_ca_error_message($bal, 0, $amount));
+    }
+
+    $fromBales = min($amount, $bal['bales']);
+    $fromWet = $amount - $fromBales;
+    $newBales = $bal['bales'] - $fromBales;
+    $newWet = $bal['wet'] - $fromWet;
+    $sellerEsc = bales_esc($seller);
+
+    if (!mysqli_query(
+        $con,
+        "UPDATE rubber_seller
+         SET bales_cash_advance='$newBales', cash_advance='$newWet'
+         WHERE name='$sellerEsc' AND loc='$locEsc'"
+    )) {
         throw new Exception('Failed to update seller cash advance: ' . mysqli_error($con));
     }
 }
@@ -206,6 +269,11 @@ try {
         throw new Exception('Amount paid cannot be negative.');
     }
 
+    if ($less > $total_amount + 0.0001) {
+        $less = $total_amount;
+        $amount_paid = 0;
+    }
+
     $oldSeller = trim((string) ($existing['seller'] ?? ''));
     $oldContract = trim((string) ($existing['contract'] ?? 'SPOT'));
     $oldLess = (float) ($existing['less'] ?? 0);
@@ -233,43 +301,27 @@ try {
         bales_contract_apply($con, $contract, $locEsc, $newWeight);
     }
 
-    $sellerEsc = bales_esc($seller);
-    $sellerRow = mysqli_query($con, "SELECT bales_cash_advance FROM rubber_seller WHERE name='$sellerEsc' LIMIT 1");
-    $row = $sellerRow ? mysqli_fetch_assoc($sellerRow) : null;
-
-    if (!$row) {
-        throw new Exception('Seller not found.');
-    }
-
-    $sellerCa = (float) ($row['bales_cash_advance'] ?? 0);
-
     if ($isUpdate && $sameSeller && abs($less - $oldLess) < 0.0001) {
         // Cash advance unchanged for this seller; skip seller balance adjustment.
     } elseif ($sameSeller) {
-        $availableCa = $sellerCa + $oldLess;
+        $bal = bales_get_seller_balances($con, $seller, $locEsc);
+        $availableCa = $bal['total'] + $oldLess;
         if ($less > $availableCa + 0.0001) {
-            throw new Exception('Cash advance deduction exceeds available bales cash advance.');
+            throw new Exception(bales_ca_error_message($bal, $oldLess, $less));
         }
-        bales_adjust_seller_ca($con, $seller, $oldLess - $less);
+        bales_credit_seller_ca($con, $seller, $locEsc, $oldLess);
+        bales_debit_seller_ca($con, $seller, $locEsc, $less);
     } else {
         if ($isUpdate && $oldSeller !== '') {
-            bales_adjust_seller_ca($con, $oldSeller, $oldLess);
+            bales_credit_seller_ca($con, $oldSeller, $locEsc, $oldLess);
         }
 
-        if (strcasecmp($oldSeller, $seller) !== 0) {
-            $sellerRow = mysqli_query($con, "SELECT bales_cash_advance FROM rubber_seller WHERE name='$sellerEsc' LIMIT 1");
-            $row = $sellerRow ? mysqli_fetch_assoc($sellerRow) : null;
-            if (!$row) {
-                throw new Exception('Seller not found.');
-            }
-            $sellerCa = (float) ($row['bales_cash_advance'] ?? 0);
+        $bal = bales_get_seller_balances($con, $seller, $locEsc);
+        if ($less > $bal['total'] + 0.0001) {
+            throw new Exception(bales_ca_error_message($bal, 0, $less));
         }
 
-        if ($less > $sellerCa + 0.0001) {
-            throw new Exception('Cash advance deduction exceeds available bales cash advance.');
-        }
-
-        bales_adjust_seller_ca($con, $seller, -$less);
+        bales_debit_seller_ca($con, $seller, $locEsc, $less);
     }
 
     $dateEsc = bales_esc($date);

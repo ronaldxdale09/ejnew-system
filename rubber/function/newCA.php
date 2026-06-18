@@ -8,10 +8,17 @@
     $amount = str_replace(',', '', $_POST['ca_amount']);
     $loc = str_replace(' ', '', $_SESSION['loc']);
     // Select seller ca
-    $sql = mysqli_query($con, "SELECT * FROM rubber_seller WHERE name='$seller'");
+    $sql = mysqli_query($con, "SELECT * FROM rubber_seller WHERE name='$seller' AND loc='$loc'");
     $row = mysqli_fetch_array($sql);
 
-    $seller_ca = $row['cash_advance'];
+    if (!$row) {
+        echo 'ERROR: Seller not found for this location.';
+        exit;
+    }
+
+    $seller_ca = $type === 'BALES'
+        ? (float) ($row['bales_cash_advance'] ?? 0)
+        : (float) ($row['cash_advance'] ?? 0);
     $new_total_ca = $seller_ca + $amount;
 
     // Insert into rubber_cashadvance

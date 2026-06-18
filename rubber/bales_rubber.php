@@ -217,7 +217,7 @@ window.BALES_PURCHASE_ID = <?php echo (int) $trans_id; ?>;
                                             </div>
                                             <div id='cash_advance-form'>
                                                 <div class="form-group" id='quantity_textbox'>
-                                                    <label class="col-md-12">Cash Advance </label>
+                                                    <label class="col-md-12">Available Cash Advance (Bales + Cuplump)</label>
                                                     <div class="row no-gutters">
                                                         <div class="col-12 col-sm-9 col-md-9">
                                                             <div class="input-group mb-1">

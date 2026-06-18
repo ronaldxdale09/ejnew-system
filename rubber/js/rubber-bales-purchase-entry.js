@@ -125,6 +125,11 @@
             }
 
             var $btn = $(this).prop('disabled', true);
+
+            if (typeof window.syncBalesCashAdvanceBeforeSubmit === 'function') {
+                window.syncBalesCashAdvanceBeforeSubmit();
+            }
+
             var payload = collectPurchasePayload();
 
             $.ajax({
