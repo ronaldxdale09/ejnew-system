@@ -55,6 +55,14 @@ $pageDate = $record['date'] ?? $today;
 $statusBadge = rubber_transaction_status_badge($sessionStatus);
 ?>
 <?php rubber_page_begin('Cuplump Purchase', 'Record wet rubber / cuplump purchase transaction', 'Purchase Entry'); ?>
+<script>
+window.RUBBER_CA_AJAX = true;
+window.RUBBER_CA_DEFAULTS = {
+    category: 'Rubber',
+    type: 'WET',
+    sellerSelector: '#name'
+};
+</script>
 
 <?php if ($transId <= 0 || !$record): ?>
 <div class="alert alert-warning py-2 px-3 mb-3 small">
@@ -174,7 +182,7 @@ rubber_kpi_row([
                 <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#add_seller1">
                     <i class="fas fa-user-plus me-1"></i> New Seller
                 </button>
-                <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#copraCashAdvance1">
+                <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#copraCashAdvance">
                     <i class="fas fa-hand-holding-usd me-1"></i> New CA
                 </button>
                 <button type="button" class="btn btn-outline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#newContract1">
@@ -318,5 +326,8 @@ include 'modal/transactionModal.php';
 include 'modal/contractModal.php';
 include 'modal/cashadvanceModal.php';
 include 'modal/addseller_modal.php';
+?>
+<script src="<?php echo rubber_asset('js/rubber-cash-advance-modal.js'); ?>"></script>
+<?php
 rubber_page_end();
 ?>

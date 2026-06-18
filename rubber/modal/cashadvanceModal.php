@@ -19,6 +19,7 @@ while ($arr = mysqli_fetch_array($result)) {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="function/newCA.php" method="POST">
+                <input type="hidden" name="return_to" id="ca_return_to" value="">
                 <div class="modal-body">
                     <div class="row g-2 rubber-modal-grid">
                         <div class="col-6 rubber-field">
@@ -79,6 +80,7 @@ while ($arr = mysqli_fetch_array($result)) {
             </div>
             <form action="function/newCA.php" method="POST">
                 <input type="hidden" id="e_id" name="id">
+                <input type="hidden" name="return_to" id="ca_edit_return_to" value="">
                 <div class="modal-body">
                     <div class="row g-2 rubber-modal-grid">
                         <div class="col-6 rubber-field">
@@ -122,7 +124,8 @@ while ($arr = mysqli_fetch_array($result)) {
                 <h5 class="modal-title">New Cash Advance</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="function/transaction_new.php" method="POST">
+            <form action="function/newCA.php" method="POST">
+                <input type="hidden" name="return_to" id="ca_return_to_legacy" value="">
                 <div class="modal-body">
                     <div class="row g-2 rubber-modal-grid">
                         <div class="col-6 rubber-field">
@@ -131,10 +134,13 @@ while ($arr = mysqli_fetch_array($result)) {
                         </div>
                         <div class="col-6 rubber-field">
                             <label>Category</label>
-                            <select class="form-select form-select-sm ca_category" name="ca_category" required>
+                            <select class="form-select form-select-sm ca_category" name="ca_category" id="ca_category_legacy" required>
                                 <option value="" disabled selected>Select…</option>
+                                <option value="copra">Copra</option>
+                                <option value="ntc">NTC</option>
+                                <option value="trucking">Trucking</option>
+                                <option value="others">Others</option>
                                 <option value="Rubber">Rubber</option>
-                                <option value="Others">Others</option>
                             </select>
                         </div>
                         <div class="col-6 rubber-field">
@@ -146,10 +152,10 @@ while ($arr = mysqli_fetch_array($result)) {
                         </div>
                         <div class="col-6 rubber-field">
                             <label>Type</label>
-                            <select class="form-select form-select-sm" name="type" required>
+                            <select class="form-select form-select-sm" name="type" id="ca_type_legacy" required>
                                 <option value="" disabled selected>Select…</option>
-                                <option value="WET">WET</option>
-                                <option value="BALES">BALES</option>
+                                <option value="WET">Cuplump (WET)</option>
+                                <option value="BALES">Bales</option>
                             </select>
                         </div>
                         <div class="col-12 rubber-field">
@@ -163,7 +169,7 @@ while ($arr = mysqli_fetch_array($result)) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" name="new_ca" class="btn btn-sm btn-success">Submit</button>
+                    <button type="submit" name="submit" class="btn btn-sm btn-success">Submit</button>
                 </div>
             </form>
         </div>
@@ -171,10 +177,54 @@ while ($arr = mysqli_fetch_array($result)) {
 </div>
 
 <script>
+function rubberCashAdvanceReturnUrl() {
+    var path = window.location.pathname || '';
+    var file = path.split('/').pop() || 'cash-advance.php';
+    return '../' + file + (window.location.search || '');
+}
+
+function rubberPrefillCashAdvanceModal($modal, options) {
+    options = options || {};
+    var seller = $(options.sellerSelector || '#name').val();
+    var returnInput = options.returnInput || '#ca_return_to';
+
+    $modal.find(returnInput).val(rubberCashAdvanceReturnUrl());
+
+    if (options.defaultCategory) {
+        $modal.find(options.categorySelector || '#ca_category').val(options.defaultCategory);
+    }
+    if (options.defaultType) {
+        $modal.find(options.typeSelector || '#ca_type').val(options.defaultType);
+    }
+    if (seller && String(seller).toLowerCase().indexOf('select') === -1) {
+        $modal.find(options.sellerSelectorField || '#ca_name').val(seller).trigger('chosen:updated');
+    }
+}
+
 $('#copraCashAdvance').on('shown.bs.modal', function () {
     $('.ca_seller', this).chosen({ width: '100%', search_threshold: 10 });
+    rubberPrefillCashAdvanceModal($(this), {
+        defaultCategory: window.RUBBER_CA_DEFAULTS ? window.RUBBER_CA_DEFAULTS.category : 'Rubber',
+        defaultType: window.RUBBER_CA_DEFAULTS ? window.RUBBER_CA_DEFAULTS.type : 'BALES',
+        sellerSelector: window.RUBBER_CA_DEFAULTS ? window.RUBBER_CA_DEFAULTS.sellerSelector : '#name',
+        returnInput: '#ca_return_to'
+    });
 });
+
 $('#copraCashAdvance1').on('shown.bs.modal', function () {
     $('.ca_seller1, .ca_category', this).chosen({ width: '100%', search_threshold: 10 });
+    rubberPrefillCashAdvanceModal($(this), {
+        defaultCategory: window.RUBBER_CA_DEFAULTS ? window.RUBBER_CA_DEFAULTS.category : 'Rubber',
+        defaultType: window.RUBBER_CA_DEFAULTS ? window.RUBBER_CA_DEFAULTS.type : 'BALES',
+        sellerSelector: window.RUBBER_CA_DEFAULTS ? window.RUBBER_CA_DEFAULTS.sellerSelector : '#name',
+        categorySelector: '#ca_category_legacy',
+        typeSelector: '#ca_type_legacy',
+        sellerSelectorField: '.ca_seller1',
+        returnInput: '#ca_return_to_legacy'
+    });
+});
+
+$('#editCA').on('shown.bs.modal', function () {
+    $('#ca_edit_return_to').val(rubberCashAdvanceReturnUrl());
 });
 </script>

@@ -50,36 +50,11 @@
                                         }    
 
                                         if (isset($_POST['new_ca'])) {
-                                            $date = $_POST['date'];
-                                            $seller = $_POST['name'];
-                                            $category = $_POST['ca_category'];
-                                            $type = $_POST['ca_category'];
-                                            $loc = str_replace(' ', '', $_SESSION['loc']);                                            $amount = str_replace(',', '', $_POST['ca_amount']);
-                
-                                            //select seller ca
-                                            $sql=mysqli_query($con,"SELECT * FROM rubber_seller WHERE name='$seller' and loc='$loc' ");
-                                            $row = mysqli_fetch_array($sql);
-                
-                                            $seller_ca = $row['cash_advance'];
-                
-                                            $new_total_ca = $seller_ca + $amount;
-                
-                
-                                                $query = "INSERT INTO rubber_cashadvance (date,seller,category,amount,status,type,loc) 
-                                                        VALUES ('$date','$seller','$category','$amount','PENDING','$type','$loc')";
-                                                $results = mysqli_query($con, $query);
-                
-                                                $query = "UPDATE  rubber_seller SET cash_advance = '$new_total_ca' where name='$seller'  ";
-                                                $results = mysqli_query($con, $query);
-                                                   
-                                                    if ($results) {
-                
-                                                        header("Location: ../cash-advance.php");
-                                                        $_SESSION['copra_ca']= "successful";
-                
-                                                    } else {
-                                                        echo "ERROR: Could not be able to execute $query. ".mysqli_error($con);
-                                                    }
-                                                //exit();
-                                                }
+                                            $_POST['submit'] = '1';
+                                            if (empty($_POST['return_to'])) {
+                                                $_POST['return_to'] = '../wet_rubber.php';
+                                            }
+                                            require __DIR__ . '/newCA.php';
+                                            exit;
+                                        }
  ?>

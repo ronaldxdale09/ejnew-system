@@ -309,6 +309,14 @@ function fetchCashAdvance(name) {
         }
     });
 }
+
+window.rubberRefreshPurchaseCashAdvance = function (seller) {
+    if (!seller) {
+        return;
+    }
+    resetCashAdvanceAutoState();
+    fetchCashAdvance(seller);
+};
 </script>
 <script>
 function numToWords(s) {

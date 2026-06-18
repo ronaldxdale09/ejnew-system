@@ -106,6 +106,14 @@ window.BALES_PURCHASE_ID = <?php echo (int) $trans_id; ?>;
 </script>
 
 <?php rubber_page_begin('Bale Purchase', $isCompleted ? 'Edit completed bale purchase' : 'Enter bale purchase transaction', 'Purchase Entry'); ?>
+<script>
+window.RUBBER_CA_AJAX = true;
+window.RUBBER_CA_DEFAULTS = {
+    category: 'Rubber',
+    type: 'BALES',
+    sellerSelector: '#name'
+};
+</script>
 <?php if ($isCompleted): ?>
 <div class="alert alert-info py-2 mb-3">
     <i class="fas fa-pen me-1"></i> Editing a completed purchase. Changes will adjust contract balance, cash advance, and production costs automatically.
@@ -117,7 +125,7 @@ window.BALES_PURCHASE_ID = <?php echo (int) $trans_id; ?>;
     <button type="button" class="btn btn-success btn-sm text-white" data-bs-toggle="modal" data-bs-target="#add_seller1">
         <span class="fa fa-plus text-white"></span> Add Seller
     </button>
-    <button type="button" class="btn btn-info btn-sm text-white" data-bs-toggle="modal" data-bs-target="#copraCashAdvance1">
+    <button type="button" class="btn btn-info btn-sm text-white" data-bs-toggle="modal" data-bs-target="#copraCashAdvance">
         <span class="fa fa-plus text-white"></span> New Cash Advance
     </button>
     <button type="button" class="btn btn-dark btn-sm text-white" data-bs-toggle="modal" data-bs-target="#newContract1">
@@ -560,6 +568,7 @@ include "modal/cashadvanceModal.php";
 include "modal/addseller_modal.php";
 include "include/bales_script.php";
 ?>
+<script type="text/javascript" src="js/rubber-cash-advance-modal.js"></script>
 <script type="text/javascript" src="js/rubber-bales-purchase-entry.js"></script>
 
 

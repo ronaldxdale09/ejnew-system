@@ -316,4 +316,11 @@
             $('#trans_status').removeClass('bg-danger').addClass('bg-success').text('COMPLETED');
         }
     });
+
+    window.rubberRefreshPurchaseCashAdvance = function (seller) {
+        if (!seller) {
+            return;
+        }
+        fetchCaWET(seller);
+    };
 }(jQuery));
