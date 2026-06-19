@@ -88,6 +88,7 @@
             <th>Description</th>
             <th>Mill Cost</th>
             <th>Unit Cost</th>
+            <th>Total Unit Cost</th>
             <th>Status</th>
 
         </tr>
@@ -139,14 +140,24 @@
                 <td>
                     <?php echo $row['description'] ?>
                 </td>
+                <?php
+                $produceWeight = (float) ($row['produce_total_weight'] ?? 0);
+                $unitCost = $produceWeight > 0 ? (float) ($row['total_production_cost'] ?? 0) / $produceWeight : 0;
+                $millCost = (float) ($row['milling_cost'] ?? 0);
+                $totalUnitCost = $unitCost + $millCost;
+                ?>
                 <?php if ($row['status'] == 'For Sale'): ?>
                     <td>₱
-                        <?php echo number_format($row['milling_cost']) ?>
+                        <?php echo number_format($millCost, 2) ?>
                     </td>
                     <td>₱
-                        <?php echo number_format($row['total_production_cost'] / $row['produce_total_weight'], 2) ?>
+                        <?php echo number_format($unitCost, 2) ?>
                     </td>
+                    <td><strong>₱
+                        <?php echo number_format($totalUnitCost, 2) ?>
+                    </strong></td>
                 <?php else: ?>
+                    <td>-</td>
                     <td>-</td>
                     <td>-</td>
                 <?php endif; ?>
