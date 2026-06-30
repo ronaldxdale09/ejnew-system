@@ -22,8 +22,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     $rowsHtml .= '<td><div class="input-group input-group-sm"><input type="text" class="form-control weight sales-num-input" name="buying_weight[]" value="' . number_format($row['buying_weight'], 0, '.', ',') . '"><span class="input-group-text">kg</span></div></td>';
     $rowsHtml .= '<td><div class="input-group input-group-sm"><input type="text" class="form-control drcInput sales-num-input" name="drc[]" value="' . number_format($row['drc'], 2) . '"><span class="input-group-text">%</span></div></td>';
     $rowsHtml .= '<td><div class="input-group input-group-sm"><input type="text" class="form-control dry_weight" name="dry_weight[]" readonly value="' . number_format($row['dry_weight'], 2) . '"><span class="input-group-text">kg</span></div></td>';
-    $rowsHtml .= '<td><div class="input-group input-group-sm"><span class="input-group-text">₱</span><input type="text" class="form-control cost_per_kilo sales-num-input" name="cost_per_kilo[]" value="' . number_format($row['cost_per_kilo'], 2) . '"></div></td>';
-    $rowsHtml .= '<td><div class="input-group input-group-sm"><span class="input-group-text">₱</span><input type="text" class="form-control total_cost" name="total_cost[]" readonly value="' . number_format($row['total_cost'], 2) . '"></div></td>';
+    $rowsHtml .= '<td><div class="input-group input-group-sm"><span class="input-group-text">₱</span><input type="text" class="form-control cost_per_kilo" name="cost_per_kilo[]" readonly value="' . number_format($row['cost_per_kilo'], 2) . '"></div></td>';
+    $rowsHtml .= '<td><div class="input-group input-group-sm"><span class="input-group-text">₱</span><input type="text" class="form-control total_cost sales-num-input" name="total_cost[]" value="' . number_format($row['total_cost'], 2) . '"></div></td>';
     $rowsHtml .= '<td><input type="text" class="form-control form-control-sm amount_paid sales-num-input" name="amount_paid[]" value="' . number_format($row['amount_paid'], 2) . '"></td>';
     $rowsHtml .= '<td><input type="text" class="form-control form-control-sm" name="inv_remarks[]" value="' . $invRemarks . '"></td>';
     $rowsHtml .= '<td class="text-center"><button type="button" class="btn btn-outline-danger btn-sm removeRow"><i class="fas fa-trash"></i></button></td>';
@@ -45,7 +45,7 @@ echo $emptyState;
             <th>Buying Wt</th>
             <th>DRC</th>
             <th>Dry Wt</th>
-            <th>₱/kg</th>
+            <th>₱/kg (Auto)</th>
             <th>Total ₱</th>
             <th>Paid ₱</th>
             <th>Remarks</th>

@@ -24,18 +24,13 @@
         return buyingWeight * (drc / 100);
     }
 
-    function calculateTotalCost(costPerKilo, buyingWeight) {
-        return costPerKilo * buyingWeight;
-    }
-
     function calculateCostPerKilo(totalCost, buyingWeight) {
         return buyingWeight > 0 ? totalCost / buyingWeight : 0;
     }
 
-    function recalculateRow($row, sourceField) {
+    function recalculateRow($row) {
         var buyingWeight = parseNum($row.find('.weight').val());
         var drc = parseNum($row.find('.drcInput').val());
-        var costPerKilo = parseNum($row.find('.cost_per_kilo').val());
         var totalCost = parseNum($row.find('.total_cost').val());
 
         if (buyingWeight > 0 && drc > 0) {
@@ -45,17 +40,13 @@
         }
 
         if (buyingWeight > 0) {
-            if (sourceField === 'total_cost' && totalCost > 0) {
-                $row.find('.cost_per_kilo').val(formatMoney(calculateCostPerKilo(totalCost, buyingWeight)));
-            } else if (costPerKilo > 0) {
-                $row.find('.total_cost').val(formatMoney(calculateTotalCost(costPerKilo, buyingWeight)));
-            } else if (totalCost > 0) {
+            if (totalCost > 0) {
                 $row.find('.cost_per_kilo').val(formatMoney(calculateCostPerKilo(totalCost, buyingWeight)));
             } else {
-                $row.find('.total_cost').val('');
+                $row.find('.cost_per_kilo').val('');
             }
         } else {
-            $row.find('.total_cost').val('');
+            $row.find('.cost_per_kilo').val('');
         }
     }
 
@@ -108,11 +99,11 @@
             '<span class="input-group-text">kg</span></div></td>',
             '<td><div class="input-group input-group-sm">',
             '<span class="input-group-text">₱</span>',
-            '<input type="text" class="form-control cost_per_kilo sales-num-input" name="cost_per_kilo[]" placeholder="0">',
+            '<input type="text" class="form-control cost_per_kilo" name="cost_per_kilo[]" placeholder="Auto" readonly>',
             '</div></td>',
             '<td><div class="input-group input-group-sm">',
             '<span class="input-group-text">₱</span>',
-            '<input type="text" class="form-control total_cost" name="total_cost[]" readonly>',
+            '<input type="text" class="form-control total_cost sales-num-input" name="total_cost[]" placeholder="0">',
             '</div></td>',
             '<td><input type="text" class="form-control form-control-sm amount_paid sales-num-input" name="amount_paid[]" placeholder="0"></td>',
             '<td><input type="text" class="form-control form-control-sm" name="inv_remarks[]" placeholder="Optional"></td>',
@@ -123,16 +114,9 @@
 
     function bindInventoryTable() {
         $(document).off('input.cuplumpInv change.cuplumpInv', '#cuplump_container .weight, #cuplump_container .drcInput, #cuplump_container .cost_per_kilo, #cuplump_container .total_cost');
-        $(document).on('input.cuplumpInv change.cuplumpInv', '#cuplump_container .weight, #cuplump_container .drcInput, #cuplump_container .cost_per_kilo', function () {
+        $(document).on('input.cuplumpInv change.cuplumpInv', '#cuplump_container .weight, #cuplump_container .drcInput, #cuplump_container .total_cost', function () {
             var $row = $(this).closest('tr');
-            recalculateRow($row, 'cost_per_kilo');
-            calculateTotalsAndAverages();
-        });
-
-        $(document).off('input.cuplumpInv change.cuplumpInv', '#cuplump_container .total_cost');
-        $(document).on('input.cuplumpInv change.cuplumpInv', '#cuplump_container .total_cost', function () {
-            var $row = $(this).closest('tr');
-            recalculateRow($row, 'total_cost');
+            recalculateRow($row);
             calculateTotalsAndAverages();
         });
 

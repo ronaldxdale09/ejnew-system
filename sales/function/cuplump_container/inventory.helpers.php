@@ -87,8 +87,10 @@ function cuplump_save_inventory_rows($con, $container_id): void
         $buyingWeight = floatval(str_replace(',', '', $buyingWeights[$index] ?? 0));
         $drc = floatval(str_replace(',', '', $drcInputs[$index] ?? 0));
         $dryWeight = floatval(str_replace(',', '', $dryWeights[$index] ?? 0));
-        $costPerKilo = floatval(str_replace(',', '', $costPerKilos[$index] ?? 0));
         $totalCostRow = floatval(str_replace(',', '', $totalCosts[$index] ?? 0));
+        $costPerKilo = $buyingWeight > 0 && $totalCostRow > 0
+            ? $totalCostRow / $buyingWeight
+            : floatval(str_replace(',', '', $costPerKilos[$index] ?? 0));
         $paidAmount = floatval(str_replace(',', '', $amountPaid[$index] ?? 0));
         $remark = $inv_remarks[$index] ?? '';
 
